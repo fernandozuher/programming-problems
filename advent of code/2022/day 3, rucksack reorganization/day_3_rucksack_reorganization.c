@@ -20,8 +20,8 @@ int compare (const void * a, const void * b) {
 }
 
 char** read_input_from_file(int input_lines, int *n, int expected_max_input_size) {
-
 	FILE *fp = fopen("input.txt", "r");
+
 	if (!fp) {
 		printf("\nError in opening file.\n");
 		exit(EXIT_FAILURE);
@@ -40,8 +40,8 @@ char** read_input_from_file(int input_lines, int *n, int expected_max_input_size
 }
 
 void find_common_item_types(char **input, int n) {
-
 	int sum = 0, sum2 = 0;
+	
 	for (int i = 0, index_item_in_group = 2; i < n; i++, index_item_in_group += 3) {
 
 		sum += common_item_in_ruckstack(input[i]);
@@ -179,6 +179,5 @@ int main() {
 
 	char **input = read_input_from_file(input_lines, &input_data_n, expected_max_input_size);
 	find_common_item_types(input, input_data_n);
-
 	return 0;
 }
