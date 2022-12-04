@@ -82,6 +82,5 @@ void calculate_total_score(vector<string> input) {
 int main() {
 	vector<string> input {read_input_from_file()};
 	calculate_total_score(input);
-
 	return 0;
 }
