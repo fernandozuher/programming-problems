@@ -43,8 +43,8 @@ class campCleanup:
 
 def main():
     with open("input.txt") as f:
-        lines = f.readlines()
-    obj = campCleanup(lines)
+        input = f.readlines()
+    obj = campCleanup(input)
 
 
 if __name__ == "__main__":
