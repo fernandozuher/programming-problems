@@ -12,7 +12,7 @@ private:
     int characters_before_end_of_message_maker;
 
     int count_characters_before_end_of_some_maker(const vector<string> input, const int size_packet) {
-        int initial_index {size_packet - 1};
+        const int initial_index {size_packet - 1};
         int last_index_of_some_maker {-1};
 
         for (int i {initial_index}, n {static_cast<int>(input.at(0).size())}; i < n; i++) {
