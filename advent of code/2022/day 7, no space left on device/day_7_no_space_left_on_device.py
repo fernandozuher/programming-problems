@@ -38,7 +38,7 @@ class NoSpaceLeftOnDevice:
             if command:
                 currentNode = self.__handleCommand(lineItems, currentNode)
             else:
-                currentNode = self.__handleOutputLsCommand(lineItems, currentNode)
+                currentNode = self.__handleLsCommandOutput(lineItems, currentNode)
 
 
     def __handleCommand(self, lineItems, currentNode):
@@ -66,7 +66,7 @@ class NoSpaceLeftOnDevice:
         return currentNode
 
 
-    def __handleOutputLsCommand(self, lineItems, currentNode):
+    def __handleLsCommandOutput(self, lineItems, currentNode):
 
         field1, field2 = lineItems
 
