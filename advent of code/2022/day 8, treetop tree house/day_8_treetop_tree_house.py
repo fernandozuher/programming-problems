@@ -11,11 +11,11 @@ class TreetopTreeHouse:
         minIntegerPython = -sys.maxsize - 1
         self.highestScenicScore = minIntegerPython
 
-        self.runSolution(input)
+        self.__runSolution(input)
         self.printOutput()
 
 
-    def runSolution(self, input):
+    def __runSolution(self, input):
 
         for i in range(1, self.nLines - 1):
             for j in range(1, self.nColumns - 1):
