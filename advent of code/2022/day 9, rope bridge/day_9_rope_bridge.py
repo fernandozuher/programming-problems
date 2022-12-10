@@ -120,10 +120,10 @@ class RopeBridge:
         print(f"Direction: {direction} {timesToMove}")
 
         matrixLines = 15
-        ColumnMatrix = 16
-        for i in range(matrixLines, -ColumnMatrix, -1):
+        columnMatrix = 16
+        for i in range(matrixLines, -columnMatrix, -1):
             print(str(i).ljust(4), end="")
-            for j in range(-matrixLines, ColumnMatrix):
+            for j in range(-matrixLines, columnMatrix):
 
                 n = "."
                 for k, timesToMove in enumerate(knots):
