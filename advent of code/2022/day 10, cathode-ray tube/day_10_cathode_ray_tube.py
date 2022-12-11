@@ -37,7 +37,7 @@ class CathodeRayTube:
 
     def __drawPixel(self, currentCycle, registerX):
       
-        lastPixelOfRow = currentCycle % 40 == 0 # => 40, 80, 120, 160, 200
+        lastPixelOfRow = currentCycle % 40 == 0 # => 40, 80, 120, 160, ...
         if lastPixelOfRow:
             print()
 
