@@ -14,14 +14,14 @@ class CathodeRayTube:
 
         for line in input:
 
-            self.__drawSprite(currentCycle, registerX)
+            self.__drawPixel(currentCycle, registerX)
             currentCycle += 1
             self.__sumSignalStrengthIfCurrentCycleIsInRange(currentCycle, registerX)
 
             splittedLine = line.split()
             if splittedLine[0] == "addx":
 
-                self.__drawSprite(currentCycle, registerX)
+                self.__drawPixel(currentCycle, registerX)
                 currentCycle += 1
                 self.__sumSignalStrengthIfCurrentCycleIsInRange(currentCycle, registerX)
 
@@ -35,14 +35,14 @@ class CathodeRayTube:
             self.__sumSixSignalStrengths += currentCycle * registerX
 
 
-    def __drawSprite(self, currentCycle, registerX):
+    def __drawPixel(self, currentCycle, registerX):
       
         lastPixelOfRow = currentCycle % 40 == 0 # => 40, 80, 120, 160, 200
-
         if lastPixelOfRow:
             print()
+
         newX = self.__calculateNewX(currentCycle, registerX)
-        self.__drawPixel(currentCycle, newX)
+        self.__drawCharacter(currentCycle, newX)
 
 
     def __calculateNewX(self, currentCycle, registerX):
@@ -52,7 +52,7 @@ class CathodeRayTube:
         return newX
 
 
-    def __drawPixel(self, currentCycle, newX):
+    def __drawCharacter(self, currentCycle, newX):
 
         if currentCycle in (newX-1, newX, newX+1):
             print("# ", end="")
@@ -61,11 +61,12 @@ class CathodeRayTube:
 
     
     def printOutput(self):
-        
+
         print(f"\n\n{self.__sumSixSignalStrengths}")
 
 
 def main():
+
     with open("input.txt") as f:
         input = f.readlines()
     cathodeRayTube = CathodeRayTube(input)
