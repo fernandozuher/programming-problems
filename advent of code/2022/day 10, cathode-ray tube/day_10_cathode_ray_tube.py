@@ -22,9 +22,7 @@ class CathodeRayTube:
             if splittedLine[0] == "addx":
 
                 self.__drawSprite(currentCycle, registerX)
-
                 currentCycle += 1
-
                 self.__sumSignalStrengthIfCurrentCycleIsInRange(currentCycle, registerX)
 
                 registerX += int(splittedLine[1])
@@ -63,6 +61,7 @@ class CathodeRayTube:
 
     
     def printOutput(self):
+        
         print(f"\n\n{self.__sumSixSignalStrengths}")
 
 
