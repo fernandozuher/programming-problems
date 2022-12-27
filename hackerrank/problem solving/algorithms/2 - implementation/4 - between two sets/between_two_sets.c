@@ -15,8 +15,8 @@
  *  2. INTEGER_ARRAY b
  */
 
-void initialize_arrays(int *array1, int n1, int *array2, int n2);
-    int compare (const void * a, const void * b);
+int* read_line_as_int_array(int n);
+int compare (const void * a, const void * b);
 
 int get_total_x(int *array1, int n1, int *array2, int n2);
     void find_numbers_divisible_by_set_a(int *potential_factors, int *n_potential_factors, int *array1, int n1, int first_element_of_set_b);
@@ -25,11 +25,15 @@ int get_total_x(int *array1, int n1, int *array2, int n2);
 
 
 int main() {
-    int n1, n2;
-    scanf("%d %d", &n1, &n2);
+    int *arraySizes = read_line_as_int_array(2);
+    int n1 = arraySizes[0];
+    int n2 = arraySizes[1];
 
-    int array1[n1], array2[n2];
-    initialize_arrays(array1, n1, array2, n2);
+    int *array1 = read_line_as_int_array(n1);
+    int *array2 = read_line_as_int_array(n2);
+
+    qsort(array1, n1, sizeof(int), compare);
+    qsort(array2, n2, sizeof(int), compare);
 
     int total = get_total_x(array1, n1, array2, n2);
     printf("%d\n", total);
@@ -37,19 +41,16 @@ int main() {
     return 0;
 }
 
-    void initialize_arrays(int *array1, int n1, int *array2, int n2) {
-        for (int i = 0; i < n1; i++)
-            scanf("%d", &array1[i]);
-        qsort(array1, n1, sizeof(int), compare);
-
-        for (int i = 0; i < n2; i++)
-            scanf("%d", &array2[i]);
-        qsort(array2, n2, sizeof(int), compare);
+    int* read_line_as_int_array(int n) {
+        int *array = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; i++)
+            scanf("%d", &array[i]);
+        return array;
     }
 
-        int compare (const void * a, const void * b) {
-            return ( *(int*)a - * (int*)b );
-        }
+    int compare (const void * a, const void * b) {
+        return ( *(int*)a - * (int*)b );
+    }
 
     int get_total_x(int *array1, int n1, int *array2, int n2) {
         int potential_factors[MAXIMUM_FACTORS_SIZE], n_potential_factors = 0;

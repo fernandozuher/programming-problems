@@ -54,40 +54,41 @@ class Result
             _totalFactors = _potentialFactors.Aggregate(0, (previousResult, item) => item != 0 ? ++previousResult : previousResult);
         }
 
-    public Result(List<int> a, List<int> b)
+    public Result(List<int> setA, List<int> setB)
     {
-        _setA = a;
-        _setB = b;
+        _setA = setA;
+        _setB = setB;
         _potentialFactors = new List<int>();
         _totalFactors = 0;
+
         FindFactors();
+
+        PrintResult();
     }
 
-    public int GetTotalX()
-    {
-        return _totalFactors;
-    }
+        public void PrintResult()
+        {
+            Console.WriteLine(_totalFactors);
+        }
 }
 
 class Solution
 {
-    private static void readInput(ref List<int> a, ref List<int> b)
+    private static List<int> readAsIntList()
     {
-        int[] arraySizes = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-        int n1 = arraySizes[0];
-        int n2 = arraySizes[1];
-
-        a = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-        b = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
+        List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
+        return numbers;
     }
 
     public static void Main()
     {
-        List<int> a = new List<int>(), b = new List<int>();
-        readInput(ref a, ref b);
+        readAsIntList();
+        List<int> setA = readAsIntList();
+        List<int> setB = readAsIntList();
 
-        Result result = new Result(a, b);
-        int total = result.GetTotalX();
-        Console.WriteLine(total);
+        setA.Sort();
+        setB.Sort();
+
+        Result result = new Result(setA, setB);
     }
 }

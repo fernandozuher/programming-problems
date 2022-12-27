@@ -5,7 +5,6 @@ package main
 import (
     "bufio"
     "fmt"
-    "io"
     "os"
     "sort"
     "strconv"
@@ -22,47 +21,38 @@ import (
  */
 
 func main() {
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
-    defer stdout.Close()
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
+    scanner := bufio.NewScanner(os.Stdin)
 
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
-    readLineAsIntArray(reader)
-    setA := readLineAsIntArray(reader)
-    setB := readLineAsIntArray(reader)
+    readLineAsIntArray(scanner)
+    setA := readLineAsIntArray(scanner)
+    setB := readLineAsIntArray(scanner)
 
     sort.Ints(setA)
     sort.Ints(setB)
 
     total := getTotalX(setA, setB)
-    fmt.Fprintf(writer, "%d\n", total)
-    writer.Flush()
+    fmt.Print(total)
 }
 
-    func readLineAsIntArray(reader *bufio.Reader) []int {
+    func readLineAsIntArray(scanner *bufio.Scanner) []int {
+        var inputLine string
         
-        inputStringArray := strings.Split(readLine(reader), " ")
+        if scanner.Scan() {
+            inputLine = scanner.Text()
+        } else {
+            checkError(scanner.Err())
+        }
+
+        inputStringArray := strings.Split(inputLine, " ")
         numbers := make([]int, len(inputStringArray))
 
         for i, stringNumber := range inputStringArray {
             number, err := strconv.Atoi(stringNumber)
-            if err != nil {
-                panic(err)
-            }
+            checkError(err)
             numbers[i] = number
         }
         return numbers
     }
-
-        func readLine(reader *bufio.Reader) string {
-            str, _, err := reader.ReadLine()
-            if err == io.EOF {
-                return ""
-            }
-
-            return strings.TrimRight(string(str), "\r\n")
-        }
 
         func checkError(err error) {
             if err != nil {

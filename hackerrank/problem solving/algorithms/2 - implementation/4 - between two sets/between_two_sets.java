@@ -14,7 +14,7 @@ class Result {
      *  2. INTEGER_ARRAY b
      */
 
-    private List<Integer> _potentialFactors, _setA, _setB;
+    private List<Integer> _setA, _setB, _potentialFactors;
     private int _totalFactors;
 
     private void findFactors() {
@@ -51,40 +51,47 @@ class Result {
             _totalFactors = _potentialFactors.stream().reduce(0, (previousResult, item) -> item != 0 ? ++previousResult : previousResult);
         }
 
-    public Result() {
-        readInput();
+    public Result(List<Integer> setA, List<Integer> setB) {
+        _setA = new ArrayList<Integer>(setA);
+        _setB = new ArrayList<Integer>(setB);
         _potentialFactors = new ArrayList<Integer>();
         _totalFactors = 0;
+
         findFactors();
+
+        printResult();
     }
 
-        private void readInput() {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-            try {
-                Stream.of(bufferedReader.readLine());
-
-                _setA = Stream.of(bufferedReader.readLine().split(" "))
-                        .map(Integer::parseInt)
-                        .collect(toList());
-
-                _setB = Stream.of(bufferedReader.readLine().split(" "))
-                        .map(Integer::parseInt)
-                        .collect(toList());
-            } catch (Exception e) {
-                System.out.println("Exception caught during reading");
-            }
+        public void printResult() {
+            System.out.println(_totalFactors);
         }
-
-    public int getTotalX() {
-        return _totalFactors;
-    }
 }
 
 public class Solution {
+
+    private static List<Integer> readLineAsIntegerList(BufferedReader bufferedReader)  {
+        try {
+            var numbers = Stream.of(bufferedReader.readLine().split(" "))
+                          .map(Integer::parseInt)
+                          .collect(toList());
+
+            return numbers;
+        } catch (Exception e) {
+            System.out.println("Exception caught during reading");
+        }
+        return null;
+    }
+
     public static void main(String[] args) throws IOException {
-        Result result = new Result();
-        int total = result.getTotalX();
-        System.out.println(total);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        readLineAsIntegerList(bufferedReader);
+        List<Integer> setA = readLineAsIntegerList(bufferedReader);
+        List<Integer> setB = readLineAsIntegerList(bufferedReader);
+
+        Collections.sort(setA);
+        Collections.sort(setB);
+
+        Result result = new Result(setA, setB);
     }
 }
