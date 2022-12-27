@@ -20,6 +20,7 @@ class Result {
     private void findFactors() {
         findNumbersDivisibleBySetA();
         findFactorsOfSetB();
+        countFactors();
     }
 
         private void findNumbersDivisibleBySetA() {
@@ -44,7 +45,9 @@ class Result {
                 for (int i = 0; i < _potentialFactors.size(); i++)
                     if (_potentialFactors.get(i) != 0 && elementB % _potentialFactors.get(i) != 0)
                         _potentialFactors.set(i, 0);
+        }
 
+        private void countFactors() {
             _totalFactors = _potentialFactors.stream().reduce(0, (previousResult, item) -> item != 0 ? ++previousResult : previousResult);
         }
 

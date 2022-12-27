@@ -20,6 +20,7 @@ class Result
     {
         FindNumbersDivisibleBySetA();
         FindFactorsOfSetB();
+        CountFactors();
     }
 
         private void FindNumbersDivisibleBySetA()
@@ -46,7 +47,10 @@ class Result
                 foreach (int i in Enumerable.Range(0, _potentialFactors.Count))
                     if (_potentialFactors[i] != 0 && elementB % _potentialFactors[i] != 0)
                         _potentialFactors[i] = 0;
+        }
 
+        private void CountFactors()
+        {
             _totalFactors = _potentialFactors.Aggregate(0, (previousResult, item) => item != 0 ? ++previousResult : previousResult);
         }
 

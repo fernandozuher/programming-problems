@@ -16,11 +16,13 @@
  */
 
 void initialize_arrays(int *array1, int n1, int *array2, int n2);
-int compare (const void * a, const void * b);
+    int compare (const void * a, const void * b);
+
 int get_total_x(int *array1, int n1, int *array2, int n2);
-void find_numbers_divisible_by_set_a(int *potential_factors, int *n_potential_factors, int *array1, int n1, int first_element_of_set_b);
-void find_factors_of_set_b(int *potential_factors, int n_potential_factors, int *array2, int n2);
-int count_factors(int *potential_factors, int n_potential_factors);
+    void find_numbers_divisible_by_set_a(int *potential_factors, int *n_potential_factors, int *array1, int n1, int first_element_of_set_b);
+    void find_factors_of_set_b(int *potential_factors, int n_potential_factors, int *array2, int n2);
+    int count_factors(int *potential_factors, int n_potential_factors);
+
 
 int main() {
     int n1, n2;
