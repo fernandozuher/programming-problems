@@ -11,13 +11,13 @@ class Result
         printResult
     end
 
-        def findFactors
+        private def findFactors
             findNumbersDivisibleBySetA
             findFactorsOfSetB
             countFactors
         end
         
-            def findNumbersDivisibleBySetA
+            private def findNumbersDivisibleBySetA
                 for potentialFactor in (@setA.last..@setB.first).step(@setA.last)
                     @isARealPotentialFactor = true
 
