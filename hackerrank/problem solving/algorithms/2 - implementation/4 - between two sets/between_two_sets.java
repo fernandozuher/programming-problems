@@ -1,19 +1,11 @@
+// Source: https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 import static java.util.stream.Collectors.toList;
 
 class Result {
-
-    /*
-     * Complete the 'getTotalX' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts following parameters:
-     *  1. INTEGER_ARRAY a
-     *  2. INTEGER_ARRAY b
-     */
-
     private List<Integer> _setA, _setB, _potentialFactors;
     private int _totalFactors;
 
@@ -58,7 +50,6 @@ class Result {
         _totalFactors = 0;
 
         findFactors();
-
         printResult();
     }
 

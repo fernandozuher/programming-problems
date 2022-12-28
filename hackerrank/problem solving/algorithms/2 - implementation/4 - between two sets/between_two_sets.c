@@ -6,14 +6,6 @@
 
 #define MAXIMUM_FACTORS_SIZE 101
 
-/*
- * Complete the 'get_total_x' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
- */
 
 int* read_line_as_int_array(int n);
 int compare (const void * a, const void * b);

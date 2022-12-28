@@ -6,15 +6,6 @@
 
 using namespace std;
 
-/*
- * Complete the 'get_total_x' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
- */
-
 class Result {
 
 private:
@@ -63,9 +54,9 @@ public:
         print_result();
     }
 
-    void print_result() const {
-        cout << _total_factors;
-    }
+        void print_result() const {
+            cout << _total_factors;
+        }
 };
 
 vector<int> read_line_as_vector_int() {

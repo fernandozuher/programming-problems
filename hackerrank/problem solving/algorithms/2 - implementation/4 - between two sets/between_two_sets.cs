@@ -4,15 +4,6 @@ using System;
 
 class Result
 {
-    /*
-     * Complete the 'GetTotalX' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts following parameters:
-     *  1. INTEGERARRAY a
-     *  2. INTEGERARRAY b
-     */
-
     private List<int> _potentialFactors, _setA, _setB;
     private int _totalFactors;
 

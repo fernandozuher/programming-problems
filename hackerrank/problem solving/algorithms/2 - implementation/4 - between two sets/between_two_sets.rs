@@ -2,15 +2,6 @@
 
 use std::io::{self, BufRead};
 
-/*
- * Complete the 'get_total_x' fntion below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
- */
-
 fn main() {    
     read_line_as_vec_i32();
     let set_a = read_line_as_vec_i32();
