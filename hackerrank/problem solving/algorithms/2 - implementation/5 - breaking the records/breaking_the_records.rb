@@ -8,7 +8,6 @@ class Result
         @scores = setA
         @breakingMostPointsRecords = 0
     	@breakingLeastPointsRecords = 0
-
         breakingRecords
         printResult
     end
