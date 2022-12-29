@@ -1,6 +1,6 @@
-# Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
-
 #!/bin/python3
+
+# Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
 class Result:
     
