@@ -40,7 +40,7 @@ def main
     readLineAsIntArray
     setA = readLineAsIntArray
 
-    result = Result.new(setA)
+    result = Result.new setA
 end
 
 main
