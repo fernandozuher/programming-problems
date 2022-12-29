@@ -3,10 +3,6 @@
 # Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
 class Result:
-    
-    __scores = []
-    __breakingMostPointsRecords = 0
-    __breakingLeastPointsRecords = 0
 
     def __init__(self, setA):
 
