@@ -7,24 +7,6 @@ class Result
 	private List<int> _scores;
 	private int _breakingMostPointsRecords, _breakingLeastPointsRecords;
 
-	private void BreakingRecords()
-	{
-		int mostPoints = _scores.First();
-		int leastPoints = _scores.First();
-
-		foreach (int score in _scores)
-			if (score > mostPoints)
-			{
-				mostPoints = score;
-				_breakingMostPointsRecords++;
-			}
-			else if (score < leastPoints)
-			{
-				leastPoints = score;
-				_breakingLeastPointsRecords++;
-			}
-	}
-
 	public Result(List<int> setA)
 	{
 		_scores = setA;
@@ -33,10 +15,28 @@ class Result
 		PrintResult();
 	}
 
-	public void PrintResult()
-	{
-		Console.WriteLine("{0} {1}", _breakingMostPointsRecords, _breakingLeastPointsRecords);
-	}
+		private void BreakingRecords()
+		{
+			int mostPoints = _scores.First();
+			int leastPoints = _scores.First();
+
+			foreach (int score in _scores)
+				if (score > mostPoints)
+				{
+					mostPoints = score;
+					_breakingMostPointsRecords++;
+				}
+				else if (score < leastPoints)
+				{
+					leastPoints = score;
+					_breakingLeastPointsRecords++;
+				}
+		}
+
+		public void PrintResult()
+		{
+			Console.WriteLine("{0} {1}", _breakingMostPointsRecords, _breakingLeastPointsRecords);
+		}
 }
 
 class Solution

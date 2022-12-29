@@ -9,26 +9,26 @@ class Result {
 	private List<Integer> _scores;
 	private int _breakingMostPointsRecords, _breakingLeastPointsRecords;
 
-	private void breakingRecords() {
-		int mostPoints = _scores.get(0);
-		int leastPoints = _scores.get(0);
-
-		for (int score : _scores)
-			if (score > mostPoints) {
-				mostPoints = score;
-				_breakingMostPointsRecords++;
-			} else if (score < leastPoints) {
-				leastPoints = score;
-				_breakingLeastPointsRecords++;
-			}
-	}
-
 	public Result(List<Integer> setA) {
 		_scores = new ArrayList<Integer>(setA);
 		_breakingMostPointsRecords = _breakingLeastPointsRecords = 0;
 		breakingRecords();
 		printResult();
 	}
+
+		private void breakingRecords() {
+			int mostPoints = _scores.get(0);
+			int leastPoints = _scores.get(0);
+
+			for (int score : _scores)
+				if (score > mostPoints) {
+					mostPoints = score;
+					_breakingMostPointsRecords++;
+				} else if (score < leastPoints) {
+					leastPoints = score;
+					_breakingLeastPointsRecords++;
+				}
+		}
 
 		public void printResult() {
 			System.out.println(_breakingMostPointsRecords + " " + _breakingLeastPointsRecords);

@@ -9,7 +9,6 @@ using namespace std;
 class Result {
 
 private:
-
 	vector<int> _scores;
 	int _breaking_most_points_records, _breaking_least_points_records;
 
@@ -29,7 +28,6 @@ private:
 	}
 
 public:
-
 	Result(const vector<int> set_a): _scores {set_a} {
 		_breaking_most_points_records = _breaking_least_points_records = 0;
 		breaking_records();
