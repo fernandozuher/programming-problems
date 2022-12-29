@@ -58,5 +58,6 @@ function readLineAsNumericArray() {
 function main() {
     readLineAsNumericArray();
     const setA = readLineAsNumericArray();
+
     const result = new Result(setA);
 }
