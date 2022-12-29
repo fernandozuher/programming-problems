@@ -47,19 +47,19 @@ func main() {
         }
 
     func breakingRecords(scores []int) [2]int {
-    	least_points, least_points_count := scores[0], 0
-    	most_points, most_points_count := scores[0], 0
+    	most_points, breaking_most_points_records := scores[0], 0
+        least_points, breaking_least_points_records := scores[0], 0
 
     	for _, score := range scores {
     		if score > most_points {
     			most_points = score
-    			most_points_count++
+    			breaking_most_points_records++
     		} else if score < least_points {
     			least_points = score
-    			least_points_count++
+    			breaking_least_points_records++
     		}
     	}
 
-    	records := [2]int{most_points_count, least_points_count}
+    	records := [2]int{breaking_most_points_records, breaking_least_points_records}
     	return records
     }

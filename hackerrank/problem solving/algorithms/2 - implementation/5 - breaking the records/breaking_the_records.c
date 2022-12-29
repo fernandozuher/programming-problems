@@ -25,22 +25,21 @@ int main() {
     }
 
     int* breaking_records(int* scores, int scores_size) {
-        int least_points = scores[0], least_points_count = 0;
-        int most_points = scores[0], most_points_count = 0;
+        int most_points = scores[0], _breaking_most_points_records = 0;
+        int least_points = scores[0], _breaking_least_points_records = 0;
 
-        for (int i = 1; i < scores_size; i++) {
+        for (int i = 1; i < scores_size; i++)
             if (scores[i] > most_points) {
                 most_points = scores[i];
-                most_points_count++;
+                _breaking_most_points_records++;
             }
             else if (scores[i] < least_points) {
                 least_points = scores[i];
-                least_points_count++;
+                _breaking_least_points_records++;
             }
-        }
 
         int *records = (int*) calloc(2, sizeof(int));
-        records[0] = most_points_count;
-        records[1] = least_points_count;
+        records[0] = _breaking_most_points_records;
+        records[1] = _breaking_least_points_records;
         return records;
     }
