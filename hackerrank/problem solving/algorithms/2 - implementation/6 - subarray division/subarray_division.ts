@@ -55,7 +55,7 @@ function main() {
             this.printResult();
         }
 
-            _birthday() {
+            private _birthday() {
                 for (let i = 0, n1 = this._chocolateSquares.length - this._month + 1; i < n1; i++) {
                     let sum = 0;
                     for (let j = i, n2 = i + this._month; j < n2; sum += this._chocolateSquares[j++]);

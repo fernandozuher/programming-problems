@@ -7,8 +7,8 @@ int* read_line_as_int_array(int n);
 int* breaking_records(int* scores, int scores_size);
 
 int main() {
-    int *arraySize = read_line_as_int_array(1);
-    int n1 = arraySize[0];
+    int *array_size = read_line_as_int_array(1);
+    int n1 = array_size[0];
     int *set_a = read_line_as_int_array(n1);
 
     int *result = breaking_records(set_a, n1);
