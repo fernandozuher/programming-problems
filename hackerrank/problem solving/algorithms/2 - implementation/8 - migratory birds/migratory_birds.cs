@@ -36,12 +36,11 @@ class Solution
 
 			private void MigratoryBirds()
 			{
-				_mostSpottedBird = _birdSightings[0];
+				_mostSpottedBird = _birdSightings.First();
 		        int count_mostSpottedBird = 1;
 		        int tempCountMostSpottedBird = 1;
 
-		        int n = _birdSightings.Count;
-		        for (int i = 1; i < n; i++)
+		        for (int i = 1; i < _birdSightings.Count; i++)
 
 		            if (_birdSightings[i] == _birdSightings[i - 1])
 		                tempCountMostSpottedBird++;
@@ -53,7 +52,7 @@ class Solution
 		            }
 
 		        if (tempCountMostSpottedBird > count_mostSpottedBird)
-		            _mostSpottedBird = _birdSightings[n - 1];
+		            _mostSpottedBird = _birdSightings.Last();
 			}
 
 			public void PrintResult()
