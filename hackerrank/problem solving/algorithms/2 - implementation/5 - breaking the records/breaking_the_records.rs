@@ -23,8 +23,8 @@ fn main() {
     }
 
     fn breaking_records(scores: &Vec<i32>) -> Vec<i32> {
-    	let (mut most_points, mut breaking_most_points_records) = (scores[0], 0);
-    	let (mut least_points, mut breaking_least_points_records) = (scores[0], 0);
+        let (mut most_points, mut breaking_most_points_records) = (scores[0], 0);
+        let (mut least_points, mut breaking_least_points_records) = (scores[0], 0);
 
         for score in scores {
             if *score > most_points {

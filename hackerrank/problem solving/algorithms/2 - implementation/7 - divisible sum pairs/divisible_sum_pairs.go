@@ -3,55 +3,55 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"sort"
-	"strconv"
-	"strings"
+    "bufio"
+    "fmt"
+    "os"
+    "sort"
+    "strconv"
+    "strings"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
+    scanner := bufio.NewScanner(os.Stdin)
 
-	input1 := readLineAsIntArray(scanner)
-	k := input1[1]
-	numbers := readLineAsIntArray(scanner)
-	
-	sort.Ints(numbers)
+    input1 := readLineAsIntArray(scanner)
+    k := input1[1]
+    numbers := readLineAsIntArray(scanner)
+    
+    sort.Ints(numbers)
 
-	result := divisibleSumPairs(numbers, k)
-	fmt.Print(result)
+    result := divisibleSumPairs(numbers, k)
+    fmt.Print(result)
 }
 
     func readLineAsIntArray(scanner *bufio.Scanner) []int {
-    	var inputLine string
+        var inputLine string
 
-    	if scanner.Scan() {
-    		inputLine = scanner.Text()
-    	} else {
-    		checkError(scanner.Err())
-    	}
+        if scanner.Scan() {
+            inputLine = scanner.Text()
+        } else {
+            checkError(scanner.Err())
+        }
 
-    	inputStringArray := strings.Split(inputLine, " ")
-    	numbers := make([]int, len(inputStringArray))
+        inputStringArray := strings.Split(inputLine, " ")
+        numbers := make([]int, len(inputStringArray))
 
-    	for i, stringNumber := range inputStringArray {
-    		number, err := strconv.Atoi(stringNumber)
-    		checkError(err)
-    		numbers[i] = number
-    	}
-    	return numbers
+        for i, stringNumber := range inputStringArray {
+            number, err := strconv.Atoi(stringNumber)
+            checkError(err)
+            numbers[i] = number
+        }
+        return numbers
     }
 
         func checkError(err error) {
-        	if err != nil {
-        		panic(err)
-        	}
+            if err != nil {
+                panic(err)
+            }
         }
 
     func divisibleSumPairs(numbers []int, k int) int {
-		nDivisibleSumPairs := 0
+        nDivisibleSumPairs := 0
         
         for i, n1 := 0, len(numbers) - 1; i < n1; i++ {
             for j := i + 1; j < len(numbers); j++ {

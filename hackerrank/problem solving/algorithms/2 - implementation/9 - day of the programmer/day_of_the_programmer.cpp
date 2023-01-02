@@ -9,10 +9,10 @@ using namespace std;
 class Result {
 
 private:
-	int _year;
-	string _date;
+    int _year;
+    string _date;
 
-	void day_of_programmer() {
+    void day_of_programmer() {
         if (_year != 1918) {
             bool is_leap {_year > 1918 ? is_leap_gregorian_year() : is_leap_julian_year()};
             _date = is_leap ? "12.09." : "13.09.";
@@ -32,32 +32,32 @@ private:
         }
 
 public:
-	Result(const int year): _year{year} {
-		_date = "";
-		
-		day_of_programmer();
-		print_result();
-	}
+    Result(const int year): _year{year} {
+        _date = "";
+        
+        day_of_programmer();
+        print_result();
+    }
 
-		void print_result() const {
-			cout << _date;
-		}
+        void print_result() const {
+            cout << _date;
+        }
 };
 
 vector<int> read_line_as_vector_int() {
-	vector<int> numbers;
-	string line;
-	getline(cin, line);
-	stringstream ss(line);
+    vector<int> numbers;
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
 
-	for (int number; ss >> number; numbers.push_back(number));
-	return numbers;
+    for (int number; ss >> number; numbers.push_back(number));
+    return numbers;
 }
 
 int main() {
-	vector<int> year {read_line_as_vector_int()};
+    vector<int> year {read_line_as_vector_int()};
 
-	Result result(year.front());
+    Result result(year.front());
 
-	return 0;
+    return 0;
 }

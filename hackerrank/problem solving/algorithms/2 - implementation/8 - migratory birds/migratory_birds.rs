@@ -25,7 +25,7 @@ fn main() {
     }
 
     fn migratory_birds(bird_sightings: &Vec<i32>) -> i32 {
-    	let mut most_spotted_bird = *bird_sightings.first().unwrap();
+        let mut most_spotted_bird = *bird_sightings.first().unwrap();
         let mut count_most_spotted_bird = 1;
         let mut temp_count_most_spotted_bird = 1;
 

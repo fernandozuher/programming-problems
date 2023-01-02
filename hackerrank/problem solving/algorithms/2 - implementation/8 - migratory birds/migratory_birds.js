@@ -45,8 +45,8 @@ function main() {
             this.printResult();
         }
 
-    	    #migratoryBirds() {
-    			this.#mostSpottedBird = this.#birdSightings[0];
+            #migratoryBirds() {
+                this.#mostSpottedBird = this.#birdSightings[0];
                 let countMostSpottedBird = 1;
                 let tempCountMostSpottedBird = 1;
 
@@ -66,7 +66,7 @@ function main() {
                 if (tempCountMostSpottedBird > countMostSpottedBird) {
                     this.#mostSpottedBird = this.#birdSightings[n - 1];
                 }
-    		}
+            }
         
             printResult() {
                 console.log(this.#mostSpottedBird);

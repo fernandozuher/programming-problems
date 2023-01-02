@@ -48,14 +48,14 @@ function main() {
             this.printResult();
         }
 
-    	    #birthday() {
-    			for (let i = 0, n1 = this.#chocolateSquares.length - this.#month + 1; i < n1; i++) {
+            #birthday() {
+                for (let i = 0, n1 = this.#chocolateSquares.length - this.#month + 1; i < n1; i++) {
                     let sum = 0;
                     for (let j = i, n2 = i + this.#month; j < n2; sum += this.#chocolateSquares[j++]);
                     if (sum === this.#day)
                         this.#waysBarCanBeDivided++;
                 }
-    		}
+            }
         
             printResult() {
                 console.log(this.#waysBarCanBeDivided);

@@ -24,7 +24,7 @@ fn main() {
     }
 
     fn birthday(chocolate_squares: &Vec<i32>, day_month: &Vec<i32>) -> i32 {
-    	let mut ways_bar_can_be_divided = 0;
+        let mut ways_bar_can_be_divided = 0;
         let day = day_month[0];
         let month = day_month[1] as usize;
 

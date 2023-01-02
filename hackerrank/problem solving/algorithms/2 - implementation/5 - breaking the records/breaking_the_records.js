@@ -31,19 +31,19 @@ class Result {
         this.printResult();
     }
 
-	    #breakingRecords() {
-			let mostPoints = this.#scores[0];
-			let leastPoints = this.#scores[0];
+        #breakingRecords() {
+            let mostPoints = this.#scores[0];
+            let leastPoints = this.#scores[0];
 
-			for (let score of this.#scores)
-				if (score > mostPoints) {
-					mostPoints = score;
-					this.#breakingMostPointsRecords++;
-				} else if (score < leastPoints) {
-					leastPoints = score;
-					this.#breakingLeastPointsRecords++;
-				}
-		}
+            for (let score of this.#scores)
+                if (score > mostPoints) {
+                    mostPoints = score;
+                    this.#breakingMostPointsRecords++;
+                } else if (score < leastPoints) {
+                    leastPoints = score;
+                    this.#breakingLeastPointsRecords++;
+                }
+        }
     
         printResult() {
             console.log(`${this.#breakingMostPointsRecords} ${this.#breakingLeastPointsRecords}`);

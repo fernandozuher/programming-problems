@@ -8,41 +8,41 @@ import static java.util.stream.Collectors.toList;
 
 public class Solution {
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-		List<Integer> year = readLineAsListInteger(bufferedReader);
+        List<Integer> year = readLineAsListInteger(bufferedReader);
 
-		Result result = new Result(year.get(0));
-	}
+        Result result = new Result(year.get(0));
+    }
 
-		private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader)  {
-			try {
-				var numbers = Stream.of(bufferedReader.readLine().split(" "))
-				              .map(Integer::parseInt)
-				              .collect(toList());
+        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader)  {
+            try {
+                var numbers = Stream.of(bufferedReader.readLine().split(" "))
+                              .map(Integer::parseInt)
+                              .collect(toList());
 
-				return numbers;
-			} catch (Exception e) {
-				System.out.println("Exception caught during reading");
-			}
-			return null;
-		}
+                return numbers;
+            } catch (Exception e) {
+                System.out.println("Exception caught during reading");
+            }
+            return null;
+        }
 }
 
-	class Result {
-		private int _year;
-		private string _date;
+    class Result {
+        private int _year;
+        private string _date;
 
-		public Result(int year) {
-			_year = year;
-			_date = "";
+        public Result(int year) {
+            _year = year;
+            _date = "";
 
-			dayOfProgrammer();
-			printResult();
-		}
+            dayOfProgrammer();
+            printResult();
+        }
 
-			private void dayOfProgrammer() {
+            private void dayOfProgrammer() {
                 if (_year != 1918) {
                     bool isLeap = _year > 1918 ? isLeapGregorianYear() : isLeapJulianYear();
                     _date = isLeap ? "12.09." : "13.09.";
@@ -62,7 +62,7 @@ public class Solution {
                 return _year % 4 == 0;
             }
 
-			public void printResult() {
-				System.out.println(_date);
-			}
-	}
+            public void printResult() {
+                System.out.println(_date);
+            }
+    }

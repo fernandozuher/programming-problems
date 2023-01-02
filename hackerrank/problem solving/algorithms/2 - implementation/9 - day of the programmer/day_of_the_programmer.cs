@@ -4,38 +4,38 @@ using System;
 
 class Solution
 {
-	public static void Main()
-	{
-		List<int> year = ReadLineAsListInt();
-		
-		Result result = new Result(year.First());
-	}
+    public static void Main()
+    {
+        List<int> year = ReadLineAsListInt();
+        
+        Result result = new Result(year.First());
+    }
 
-		private static List<int> ReadLineAsListInt()
-		{
-			List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-			return numbers;
-		}
+        private static List<int> ReadLineAsListInt()
+        {
+            List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
+            return numbers;
+        }
 }
 
-	class Result
-	{
-		private int _year;
-		private string _date;
+    class Result
+    {
+        private int _year;
+        private string _date;
 
-		public Result(int year)
-		{
-			_year = year;
-			_date = "";
+        public Result(int year)
+        {
+            _year = year;
+            _date = "";
 
-			DayOfProgrammer();
-			PrintResult();
-		}
+            DayOfProgrammer();
+            PrintResult();
+        }
 
-			private void DayOfProgrammer()
-			{
-				if (_year != 1918)
-				{
+            private void DayOfProgrammer()
+            {
+                if (_year != 1918)
+                {
                     bool isLeap = _year > 1918 ? _IsLeapGregorianYear() : _IsLeapJulianYear();
                     _date = isLeap ? "12.09." : "13.09.";
                 }
@@ -44,7 +44,6 @@ class Solution
                 
                 _date += _year.ToString();
             }
-            
 
             private bool _IsLeapGregorianYear()
             {
@@ -56,8 +55,8 @@ class Solution
                 return _year % 4 == 0;
             }
 
-			public void PrintResult()
-			{
-				Console.WriteLine(_date);
-			}
-	}
+            public void PrintResult()
+            {
+                Console.WriteLine(_date);
+            }
+    }

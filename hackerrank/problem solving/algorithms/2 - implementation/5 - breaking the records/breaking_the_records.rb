@@ -7,24 +7,24 @@ class Result
     def initialize setA
         @scores = setA
         @breakingMostPointsRecords = 0
-    	@breakingLeastPointsRecords = 0
+        @breakingLeastPointsRecords = 0
         breakingRecords
         printResult
     end
 
         private def breakingRecords
             mostPoints = @scores.first
-	        leastPoints = @scores.first
+            leastPoints = @scores.first
 
-	        for score in @scores
-	            if score > mostPoints 
-	                mostPoints = score
-	                @breakingMostPointsRecords += 1
-	            elsif score < leastPoints
-	                leastPoints = score
-	                @breakingLeastPointsRecords += 1
-	            end
-	        end
+            for score in @scores
+                if score > mostPoints 
+                    mostPoints = score
+                    @breakingMostPointsRecords += 1
+                elsif score < leastPoints
+                    leastPoints = score
+                    @breakingLeastPointsRecords += 1
+                end
+            end
         end
 
         def printResult

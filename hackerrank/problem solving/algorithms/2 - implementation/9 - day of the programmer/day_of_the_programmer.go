@@ -3,46 +3,46 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
+    "bufio"
+    "fmt"
+    "os"
+    "strconv"
+    "strings"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
+    scanner := bufio.NewScanner(os.Stdin)
 
-	year := readLineAsIntArray(scanner)
+    year := readLineAsIntArray(scanner)
 
-	result := dayOfProgrammer(year[0])
-	fmt.Print(result)
+    result := dayOfProgrammer(year[0])
+    fmt.Print(result)
 }
 
     func readLineAsIntArray(scanner *bufio.Scanner) []int {
-    	var inputLine string
+        var inputLine string
 
-    	if scanner.Scan() {
-    		inputLine = scanner.Text()
-    	} else {
-    		checkError(scanner.Err())
-    	}
+        if scanner.Scan() {
+            inputLine = scanner.Text()
+        } else {
+            checkError(scanner.Err())
+        }
 
-    	inputStringArray := strings.Split(inputLine, " ")
-    	numbers := make([]int, len(inputStringArray))
+        inputStringArray := strings.Split(inputLine, " ")
+        numbers := make([]int, len(inputStringArray))
 
-    	for i, stringNumber := range inputStringArray {
-    		number, err := strconv.Atoi(stringNumber)
-    		checkError(err)
-    		numbers[i] = number
-    	}
-    	return numbers
+        for i, stringNumber := range inputStringArray {
+            number, err := strconv.Atoi(stringNumber)
+            checkError(err)
+            numbers[i] = number
+        }
+        return numbers
     }
 
         func checkError(err error) {
-        	if err != nil {
-        		panic(err)
-        	}
+            if err != nil {
+                panic(err)
+            }
         }
 
     func dayOfProgrammer(year int) string {
@@ -52,17 +52,17 @@ func main() {
             var isLeap bool
             
             if year > 1918 {
-            	isLeap = isLeapGregorianYear(year)
-        	} else {
-				isLeap = isLeapJulianYear(year)
-        	}
+                isLeap = isLeapGregorianYear(year)
+            } else {
+                isLeap = isLeapJulianYear(year)
+            }
         
-        	if isLeap {
-        		date = "12.09."
-        	} else {
-        		date = "13.09."
-        	}
-        	
+            if isLeap {
+                date = "12.09."
+            } else {
+                date = "13.09."
+            }
+            
         } else {
             date = "26.09."
         }

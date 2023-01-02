@@ -42,7 +42,7 @@ function main() {
             this.printResult();
         }
 
-    	    #dayOfProgrammer() {
+            #dayOfProgrammer() {
                 if (this.#year != 1918) {
                     const isLeap = this.#year > 1918 ? this.#isLeapGregorianYear() : this.#isLeapJulianYear();
                     this.#date = isLeap ? "12.09." : "13.09.";

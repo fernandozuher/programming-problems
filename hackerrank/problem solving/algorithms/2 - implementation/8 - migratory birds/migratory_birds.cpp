@@ -10,11 +10,11 @@ using namespace std;
 class Result {
 
 private:
-	vector<int> _bird_sightings;
-	int _most_spotted_bird;
+    vector<int> _bird_sightings;
+    int _most_spotted_bird;
 
-	void migratory_birds() {
-		_most_spotted_bird = _bird_sightings.front();
+    void migratory_birds() {
+        _most_spotted_bird = _bird_sightings.front();
         int count_most_spotted_bird {1};
         int temp_count_most_spotted_bird {1};
 
@@ -31,36 +31,36 @@ private:
 
         if (temp_count_most_spotted_bird > count_most_spotted_bird)
             _most_spotted_bird = _bird_sightings.back();
-	}
+    }
 
 public:
-	Result(const vector<int> _bird_sightings): _bird_sightings{_bird_sightings} {
-		migratory_birds();
-		print_result();
-	}
+    Result(const vector<int> _bird_sightings): _bird_sightings{_bird_sightings} {
+        migratory_birds();
+        print_result();
+    }
 
-		void print_result() const {
-			cout << _most_spotted_bird;
-		}
+        void print_result() const {
+            cout << _most_spotted_bird;
+        }
 };
 
 vector<int> read_line_as_vector_int() {
-	vector<int> numbers;
-	string line;
-	getline(cin, line);
-	stringstream ss(line);
+    vector<int> numbers;
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
 
-	for (int number; ss >> number; numbers.push_back(number));
-	return numbers;
+    for (int number; ss >> number; numbers.push_back(number));
+    return numbers;
 }
 
 int main() {
-	read_line_as_vector_int();
-	vector<int> bird_sightings {read_line_as_vector_int()};
+    read_line_as_vector_int();
+    vector<int> bird_sightings {read_line_as_vector_int()};
 
-	ranges::sort(bird_sightings);
+    ranges::sort(bird_sightings);
 
-	Result result(bird_sightings);
+    Result result(bird_sightings);
 
-	return 0;
+    return 0;
 }

@@ -3,45 +3,45 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"sort"
+    "bufio"
+    "fmt"
+    "os"
+    "sort"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	birdSightings := readNumberStepByStepAndPutIntoIntArray(scanner)
+    scanner := bufio.NewScanner(os.Stdin)
+    birdSightings := readNumberStepByStepAndPutIntoIntArray(scanner)
 
-	sort.Ints(birdSightings)
+    sort.Ints(birdSightings)
 
-	result := migratoryBirds(birdSightings)
-	fmt.Println(result)
+    result := migratoryBirds(birdSightings)
+    fmt.Println(result)
 }
 
-	func readNumberStepByStepAndPutIntoIntArray(scanner *bufio.Scanner) []int {
-    	var n int
-    	_, err := fmt.Scan(&n)
-    	checkError(err)
+    func readNumberStepByStepAndPutIntoIntArray(scanner *bufio.Scanner) []int {
+        var n int
+        _, err := fmt.Scan(&n)
+        checkError(err)
 
-    	numbers := make([]int, n)
-    	
-    	for i, _ := range numbers {
-    		_, err := fmt.Scan(&numbers[i])
-    		checkError(err)
-    	}
-    	
-    	return numbers
+        numbers := make([]int, n)
+        
+        for i, _ := range numbers {
+            _, err := fmt.Scan(&numbers[i])
+            checkError(err)
+        }
+        
+        return numbers
     }
 
         func checkError(err error) {
-        	if err != nil {
-        		panic(err)
-        	}
+            if err != nil {
+                panic(err)
+            }
         }
 
     func migratoryBirds(birdSightings []int) int {
-    	mostSpottedBird := birdSightings[0]
+        mostSpottedBird := birdSightings[0]
         countMostSpottedBird := 1
         tempCountMostSpottedBird := 1
 

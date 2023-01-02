@@ -26,7 +26,7 @@ fn main() {
     }
 
     fn divisible_sum_pairs(numbers: &Vec<i32>, k: i32) -> i32 {
-    	let mut n_divisible_sum_pairs = 0;
+        let mut n_divisible_sum_pairs = 0;
         
         for i in 0..(numbers.len() - 1) {
             for j in (i + 1)..numbers.len() {

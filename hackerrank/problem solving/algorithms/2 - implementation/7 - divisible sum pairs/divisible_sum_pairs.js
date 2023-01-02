@@ -48,12 +48,12 @@ function main() {
             this.printResult();
         }
 
-    	    #divisibleSumPairs() {
-    			for (let i = 0, n1 = this.#numbers.length - 1; i < n1; i++)
+            #divisibleSumPairs() {
+                for (let i = 0, n1 = this.#numbers.length - 1; i < n1; i++)
                     for (let j = i + 1; j < this.#numbers.length; j++)
                         if (this.#numbers[i] <= this.#numbers[j] && !((this.#numbers[i] + this.#numbers[j]) % this.#k))
                             this.#nDivisibleSumPairs++;
-    		}
+            }
         
             printResult() {
                 console.log(this.#nDivisibleSumPairs);
