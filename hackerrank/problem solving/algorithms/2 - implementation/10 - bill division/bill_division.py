@@ -35,7 +35,7 @@ class Result:
     def __bonAppetit(self):
 
         annaCost = self.__calculateAnnaCost()
-        self.__brianOverchargedAnna = self.__checkIfBrianOverchargedAnna(annaCost)
+        self.__checkIfBrianOverchargedAnna(annaCost)
 
 
     def __calculateAnnaCost(self):
@@ -48,10 +48,10 @@ class Result:
     def __checkIfBrianOverchargedAnna(self, annaCost):
         
         if annaCost == self.__brianChargedAnna:
-            return "Bon Appetit"
+            self.__brianOverchargedAnna = "Bon Appetit"
         else:
             brianOverchargedAnna = self.__brianChargedAnna - annaCost
-            return str(brianOverchargedAnna)
+            self.__brianOverchargedAnna = str(brianOverchargedAnna)
 
 
     def printResult(self):

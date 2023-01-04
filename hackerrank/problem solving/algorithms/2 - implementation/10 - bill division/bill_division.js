@@ -52,7 +52,7 @@ function main() {
 
             #bonAppetit() {
                 const annaCost = this.#calculateAnnaCost();
-                this.#brianOverchargedAnna = this.#checkIfBrianOverchargedAnna(annaCost);
+                this.#checkIfBrianOverchargedAnna(annaCost);
             }
 
                 #calculateAnnaCost() {
@@ -63,10 +63,10 @@ function main() {
 
                 #checkIfBrianOverchargedAnna(annaCost) {
                     if (annaCost === this.#brianChargedAnna)
-                        return "Bon Appetit";
+                        this.#brianOverchargedAnna = "Bon Appetit";
                     else {
                         const brianOverchargedAnna = this.#brianChargedAnna - annaCost;
-                        return brianOverchargedAnna.toString();
+                        this.#brianOverchargedAnna = brianOverchargedAnna.toString();
                     }
                 }
         

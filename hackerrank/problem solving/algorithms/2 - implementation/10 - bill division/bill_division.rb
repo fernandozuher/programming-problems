@@ -30,7 +30,7 @@ end
 
             private def _bonAppetit
                 annaCost = _calculateAnnaCost
-                @brianOverchargedAnna = _checkIfBrianOverchargedAnna annaCost
+                _checkIfBrianOverchargedAnna annaCost
             end
 
                 private def _calculateAnnaCost
@@ -41,10 +41,10 @@ end
 
                 private def _checkIfBrianOverchargedAnna annaCost
                     if annaCost == @brianChargedAnna
-                        return "Bon Appetit"
+                        @brianOverchargedAnna = "Bon Appetit"
                     else
                         brianOverchargedAnna = @brianChargedAnna - annaCost
-                        return brianOverchargedAnna.to_s
+                        @brianOverchargedAnna = brianOverchargedAnna.to_s
                     end
                 end
 

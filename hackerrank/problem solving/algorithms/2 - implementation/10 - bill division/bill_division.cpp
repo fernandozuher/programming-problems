@@ -17,7 +17,7 @@ private:
 
     void _bon_appetit() {
         const int anna_cost {_calculate_anna_cost()};
-        _brian_overcharged_anna = _check_if_brian_overcharged_anna(anna_cost);
+        _check_if_brian_overcharged_anna(anna_cost);
     }
 
         int _calculate_anna_cost() {
@@ -26,12 +26,12 @@ private:
             return anna_cost;
         }
 
-        string _check_if_brian_overcharged_anna(const int anna_cost) {
+        void _check_if_brian_overcharged_anna(const int anna_cost) {
             if (anna_cost == _brian_charged_anna)
-                return "Bon Appetit";
+                _brian_overcharged_anna = "Bon Appetit";
             else {
                 const int brian_overcharged_ana {_brian_charged_anna - anna_cost};
-                return to_string(brian_overcharged_ana);
+                _brian_overcharged_anna = to_string(brian_overcharged_ana);
             }
         }
 
