@@ -25,7 +25,7 @@ private:
                 if (is_next_cost_equal_to_current_one(_usb_drive_costs, j))
                     continue;
 
-                int sum {_keyboard_costs.at(i) + _usb_drive_costs.at(j)};
+                const int sum {_keyboard_costs.at(i) + _usb_drive_costs.at(j)};
 
                 if (is_sum_inside_budget(sum))
                     _can_be_spent = update_cost(sum);
