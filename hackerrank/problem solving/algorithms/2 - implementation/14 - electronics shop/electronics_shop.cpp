@@ -82,8 +82,8 @@ int main() {
     vector<int> keyboard_costs {read_line_as_vector_int()};
     vector<int> usb_drive_costs {read_line_as_vector_int()};
 
-    sort(keyboard_costs.begin(), keyboard_costs.end());
-    sort(usb_drive_costs.begin(), usb_drive_costs.end());
+    ranges::sort(keyboard_costs);
+    ranges::sort(usb_drive_costs);
 
     Result result(keyboard_costs, usb_drive_costs, budget);
 
