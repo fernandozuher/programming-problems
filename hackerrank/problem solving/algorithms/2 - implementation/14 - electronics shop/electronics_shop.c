@@ -11,9 +11,10 @@ int get_money_spent(const int budget, const int *keyboard_costs, const int *usb_
     bool is_sum_inside_budget(const int sum, const int budget);
     int update_cost(const int sum, const int can_be_spent);
 
+
 int main() {
     const int *array_size = read_line_as_int_array(3);
-    
+
     const int budget = array_size[0];
     const int n_keyboard_costs = array_size[1];
     const int n_usb_drive_costs = array_size[2];
