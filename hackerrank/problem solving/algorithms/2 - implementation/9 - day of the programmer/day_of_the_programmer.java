@@ -16,7 +16,7 @@ public class Solution {
         Result result = new Result(year.get(0));
     }
 
-        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader)  {
+        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader) {
             try {
                 var numbers = Stream.of(bufferedReader.readLine().split(" "))
                               .map(Integer::parseInt)

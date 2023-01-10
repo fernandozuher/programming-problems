@@ -60,7 +60,7 @@ class Result {
 
 public class Solution {
 
-    private static List<Integer> readLineAsIntegerList(BufferedReader bufferedReader)  {
+    private static List<Integer> readLineAsIntegerList(BufferedReader bufferedReader) {
         try {
             var numbers = Stream.of(bufferedReader.readLine().split(" "))
                           .map(Integer::parseInt)

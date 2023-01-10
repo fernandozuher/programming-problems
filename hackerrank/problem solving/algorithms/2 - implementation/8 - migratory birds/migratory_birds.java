@@ -19,7 +19,7 @@ public class Solution {
         Result result = new Result(birdSightings);
     }
 
-        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader)  {
+        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader) {
             try {
                 var numbers = Stream.of(bufferedReader.readLine().split(" "))
                               .map(Integer::parseInt)

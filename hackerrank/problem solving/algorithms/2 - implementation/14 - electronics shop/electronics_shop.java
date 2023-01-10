@@ -23,7 +23,7 @@ public class Solution {
         Result result = new Result(keyboardCosts, usbDriveCosts, budget);
     }
 
-        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader)  {
+        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader) {
             try {
                 var inputLine = Stream.of(bufferedReader.readLine().split(" "))
                               .map(Integer::parseInt)

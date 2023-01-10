@@ -17,7 +17,7 @@ public class Solution {
         Result result = new Result(steps);
     }
 
-        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader)  {
+        private static List<Integer> readLineAsListInteger(BufferedReader bufferedReader) {
             try {
                 var inputLine = Stream.of(bufferedReader.readLine().split(" "))
                               .map(Integer::parseInt)
@@ -30,7 +30,7 @@ public class Solution {
             return null;
         }
 
-        private static String readLineAsString(BufferedReader bufferedReader)  {
+        private static String readLineAsString(BufferedReader bufferedReader) {
             try {
                 var inputLine = bufferedReader.readLine();
                 
