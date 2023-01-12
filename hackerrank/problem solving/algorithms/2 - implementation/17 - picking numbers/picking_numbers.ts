@@ -1,4 +1,4 @@
-// Source:
+// Source: https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 'use strict';
 
