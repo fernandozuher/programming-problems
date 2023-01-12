@@ -6,8 +6,8 @@
 int* read_line_as_int_array(const int n);
 int compare (const void *a, const void *b);
 int picking_numbers(const int *numbers, const int n);
-int* update_first_reference_number_index_and_subarray_current_size(const int *numbers, const int i, const int second_reference_number_index);
-int update_subarray_biggest_size(const int subarray_biggest_size, const int subarray_current_size);
+    int* update_first_reference_number_index_and_subarray_current_size(const int *numbers, const int i, const int second_reference_number_index);
+    int update_subarray_biggest_size(const int subarray_biggest_size, const int subarray_current_size);
 
 
 int main() {

@@ -56,9 +56,9 @@ class Solution
                             break;
 
                         default:
-                            _subarrayBiggestSize = _updateSubarrayBiggestSize(subarrayCurrentSize);
+                            _subarrayBiggestSize = _UpdateSubarrayBiggestSize(subarrayCurrentSize);
 
-                            List<int> update = _updateFirstReferenceNumberIndexAndSubarrayCurrentSize(i, secondReferenceNumberIndex);
+                            List<int> update = _UpdateFirstReferenceNumberIndexAndSubarrayCurrentSize(i, secondReferenceNumberIndex);
 
                             firstReferenceNumberIndex = update.First();
                             secondReferenceNumberIndex = i;
@@ -67,15 +67,15 @@ class Solution
                     }
                 }
 
-                _subarrayBiggestSize = _updateSubarrayBiggestSize(subarrayCurrentSize);
+                _subarrayBiggestSize = _UpdateSubarrayBiggestSize(subarrayCurrentSize);
             }
 
-                int _updateSubarrayBiggestSize(int subarrayCurrentSize)
+                int _UpdateSubarrayBiggestSize(int subarrayCurrentSize)
                 {
                     return Math.Max(subarrayCurrentSize, _subarrayBiggestSize);
                 }
 
-                List<int> _updateFirstReferenceNumberIndexAndSubarrayCurrentSize(int i, int secondReferenceNumberIndex)
+                List<int> _UpdateFirstReferenceNumberIndexAndSubarrayCurrentSize(int i, int secondReferenceNumberIndex)
                 {
                     int firstReferenceNumberIndex, subarrayCurrentSize;
 
