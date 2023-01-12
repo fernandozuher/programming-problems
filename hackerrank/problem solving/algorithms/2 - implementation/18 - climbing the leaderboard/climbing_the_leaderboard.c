@@ -34,63 +34,63 @@ int main() {
     return 0;
 }
 
-int* read_line_as_int_array(const int n) {
-    int *input_line = (int*) calloc(n, sizeof(int));
-    for (int i = 0; i < n; i++)
-        scanf("%u", &input_line[i]);
-    return input_line;
-}
-
-int* free_pointer_and_return_null(int *pointer) {
-    free(pointer);
-    return NULL;
-}
-
-int* climbing_leaderboard(int *ranked, int n1, const int *player, const int n2) {
-    int *player_rank = (int*) calloc(n2, sizeof(int));
-    n1 = remove_duplicates(ranked, n1);
-
-    for (int i = 0; i < n2; i++) {
-        int index = binary_search_descending_order(ranked, 0, n1, player[i]);
-        index = index <= n1 - 1 ? index + 1 : index;
-        player_rank[i] = index;
+    int* read_line_as_int_array(const int n) {
+        int *input_line = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; i++)
+            scanf("%u", &input_line[i]);
+        return input_line;
     }
 
-    return player_rank;
-}
-
-    int remove_duplicates(int *ranked, int n) {
-        int temp_ranked[n];
-        int n_temp = 0;
-        int i;
-
-        for (i = 0; i < n - 1; i++)
-            if (ranked[i] != ranked[i + 1])
-                temp_ranked[n_temp++] = ranked[i];
-
-        temp_ranked[n_temp++] = ranked[n - 1];
-
-        for (i = 0; i < n_temp; i++)
-            ranked[i] = temp_ranked[i];
-
-        return n_temp;
+    int* free_pointer_and_return_null(int *pointer) {
+        free(pointer);
+        return NULL;
     }
 
-    int binary_search_descending_order(const int *array, const int low, const int high, const int key) {
-        if (high >= low) {
-            int middle = (low + high) / 2;
+    int* climbing_leaderboard(int *ranked, int n1, const int *player, const int n2) {
+        int *player_rank = (int*) calloc(n2, sizeof(int));
+        n1 = remove_duplicates(ranked, n1);
 
-            if (key == array[middle])
-                return middle;
-            else if (key > array[middle])
-                return binary_search_descending_order(array, low, (middle - 1), key);
-            else if (key < array[middle])
-                return binary_search_descending_order(array, (middle + 1), high, key);
+        for (int i = 0; i < n2; i++) {
+            int index = binary_search_descending_order(ranked, 0, n1, player[i]);
+            index = index <= n1 - 1 ? index + 1 : index;
+            player_rank[i] = index;
         }
-        return low;
+
+        return player_rank;
     }
 
-void print_result(const int* result, const int n) {
-    for (int i = 0; i < n; i++)
-        printf("%d\n", result[i]);
-}
+        int remove_duplicates(int *ranked, int n) {
+            int temp_ranked[n];
+            int n_temp = 0;
+            int i;
+
+            for (i = 0; i < n - 1; i++)
+                if (ranked[i] != ranked[i + 1])
+                    temp_ranked[n_temp++] = ranked[i];
+
+            temp_ranked[n_temp++] = ranked[n - 1];
+
+            for (i = 0; i < n_temp; i++)
+                ranked[i] = temp_ranked[i];
+
+            return n_temp;
+        }
+
+        int binary_search_descending_order(const int *array, const int low, const int high, const int key) {
+            if (high >= low) {
+                int middle = (low + high) / 2;
+
+                if (key == array[middle])
+                    return middle;
+                else if (key > array[middle])
+                    return binary_search_descending_order(array, low, (middle - 1), key);
+                else if (key < array[middle])
+                    return binary_search_descending_order(array, (middle + 1), high, key);
+            }
+            return low;
+        }
+
+    void print_result(const int* result, const int n) {
+        for (int i = 0; i < n; i++)
+            printf("%d\n", result[i]);
+    }
