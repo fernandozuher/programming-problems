@@ -16,7 +16,7 @@ private:
     int _n_ranked;
     shared_ptr<int[]> _player;
     int _n_player;
-    shared_ptr<int[]> _player_rank;
+    unique_ptr<int[]> _player_rank;
 
     void _remove_duplicates_from_ranked_array() {
         int n_temp {0};
