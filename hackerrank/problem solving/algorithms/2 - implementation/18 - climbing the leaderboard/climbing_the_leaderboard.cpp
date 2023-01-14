@@ -31,22 +31,21 @@ private:
     }
 
     void _climbing_leaderboard() {
-        for (int i {0}; i < _n_player; i++) {
-            int index {_binary_search_descending_order(0, _n_ranked, _player[i])};
-            index = index <= _n_ranked - 1 ? index + 1 : index;
-            _player_rank[i] = index;
+        for (int i {0}, last_index {_n_ranked - 1}; i < _n_player; i++) {
+            int index {_binary_search_descending_order(0, last_index, _player[i])};
+            _player_rank[i] = ++index;
         }
     }
 
         int _binary_search_descending_order(const int low, const int high, const int key) const {
             if (high >= low) {
-                int middle {(low + high) / 2};
+                int middle {low + (high - low) / 2};
 
                 if (key == _ranked[middle])
                     return middle;
                 else if (key > _ranked[middle])
                     return _binary_search_descending_order(low, (middle - 1), key);
-                else if (key < _ranked[middle])
+                else
                     return _binary_search_descending_order((middle + 1), high, key);
             }
             return low;
@@ -67,13 +66,13 @@ public:
         print_result();
     }
 
-    void print_result() const {
-        for (int i {0}; i < _n_player; i++)
-            cout << _player_rank[i] << "\n";
-    }
+        void print_result() const {
+            for (int i {0}; i < _n_player; i++)
+                cout << _player_rank[i] << "\n";
+        }
 };
 
-shared_ptr<int[]> read_line_as_array_int(const int n) {
+shared_ptr<int[]> read_line_as_int_array(const int n) {
     auto input_line = std::make_unique<int[]>(n);
     string line;
     getline(cin, line);
@@ -84,13 +83,13 @@ shared_ptr<int[]> read_line_as_array_int(const int n) {
 }
 
 int main() {
-    shared_ptr<int[]> input_line {read_line_as_array_int(1)};
+    shared_ptr<int[]> input_line {read_line_as_int_array(1)};
     int n1 {input_line[0]};
-    shared_ptr<int[]> ranked {read_line_as_array_int(n1)};
+    shared_ptr<int[]> ranked {read_line_as_int_array(n1)};
 
-    input_line = read_line_as_array_int(1);
+    input_line = read_line_as_int_array(1);
     int n2 {input_line[0]};
-    shared_ptr<int[]> player {read_line_as_array_int(n2)};
+    shared_ptr<int[]> player {read_line_as_int_array(n2)};
 
     Result result(ranked, n1, player, n2);
 
