@@ -43,8 +43,6 @@ class Solution
             private void _RemoveDuplicatesFromRankedList()
             {
                 _ranked = _ranked.Distinct().ToList();
-                _ranked.Sort();
-                _ranked.Reverse();
             }
 
             private void _ClimbingLeaderboard()

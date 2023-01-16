@@ -22,6 +22,8 @@ func main() {
 
     ranked = removeDuplicatesFromRankedArray(ranked)
 
+    sort.Sort(sort.Reverse(sort.IntSlice(ranked)))
+
     var result []int = climbingLeaderboard(ranked, player)
     printResult(result)
 }
@@ -66,8 +68,6 @@ func main() {
             deduplicated_ranked[i] = key
             i++
         }
-
-        sort.Sort(sort.Reverse(sort.IntSlice(deduplicated_ranked)))
 
         return deduplicated_ranked
     }

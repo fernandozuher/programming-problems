@@ -45,6 +45,7 @@ public class Solution {
             _playerRank = Arrays.asList(new Integer[_player.size()]);
 
             _removeDuplicatesFromRankedList();
+            _ranked.sort(Collections.reverseOrder());
             _climbingLeaderboard();
             printResult();
         }
@@ -53,7 +54,6 @@ public class Solution {
                 Set<Integer> set = new HashSet<Integer>(_ranked);
                 _ranked.clear();
                 _ranked.addAll(set);
-                _ranked.sort(Collections.reverseOrder());
             }
 
             private void _climbingLeaderboard() {
