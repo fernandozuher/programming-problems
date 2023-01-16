@@ -12,8 +12,7 @@ int remove_duplicates(int *ranked, int n);
 void find_result_and_print(const int *ranked, const int n1, const int *player, const int n2);
     int* climbing_leaderboard(int *ranked, int n1, const int *player, const int n2);
         int binary_search_descending_order(const int *array, const int low, const int high, const int key);
-
-void print_result(const int* result, const int n);
+    void print_result(const int* result, const int n);
 
 
 int main() {

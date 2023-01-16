@@ -2,6 +2,7 @@
 
 use std::io::{self, BufRead};
 
+
 fn main() {
     read_line_as_vec_i32();
     let mut ranked = read_line_as_vec_i32();
@@ -31,8 +32,8 @@ fn main() {
         let mut player_rank: Vec<i32> = Vec::with_capacity(player.len());
         unsafe { player_rank.set_len(player.len()); }
 
+        let last_index: i32 = (ranked.len() as i32) - 1;
         for i in 0..player.len() {
-            let last_index: i32 = (ranked.len() as i32) - 1;
             let mut index: i32 = binary_search_descending_order(ranked, 0, last_index, player[i]);
             player_rank[i] = index + 1;
         }

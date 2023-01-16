@@ -19,15 +19,14 @@ private:
     unique_ptr<int[]> _player_rank;
 
     void _remove_duplicates_from_ranked_array() {
-        int n_temp {0};
+        set<int> temporary_set(begin(_ranked), end(_ranked));
+        unique_ptr<int> deduplicated_array {make_unique<int[]>(temporary_set.size())};
 
-        for (int i {0}; i < _n_ranked - 1; i++)
-            if (_ranked[i] != _ranked[i + 1])
-                _ranked[n_temp++] = _ranked[i];
+        int i = 0;
+        for (int &number : temporary_set)
+            deduplicated_array[i++] = number;
 
-        _ranked[n_temp++] = _ranked[_n_ranked - 1];
-
-        _n_ranked = n_temp;
+        _ranked = move(deduplicated_array);
     }
 
     void _climbing_leaderboard() {
@@ -44,9 +43,9 @@ private:
                 if (key == _ranked[middle])
                     return middle;
                 else if (key > _ranked[middle])
-                    return _binary_search_descending_order(low, (middle - 1), key);
+                    return _binary_search_descending_order(low, middle - 1, key);
                 else
-                    return _binary_search_descending_order((middle + 1), high, key);
+                    return _binary_search_descending_order(middle + 1, high, key);
             }
             return low;
         }
@@ -58,10 +57,9 @@ public:
         _player = player;
         _n_player = n_player;
 
-        _player_rank = std::make_unique<int[]>(n_player);
+        _player_rank = make_unique<int[]>(n_player);
 
         _remove_duplicates_from_ranked_array();
-
         _climbing_leaderboard();
         print_result();
     }
@@ -73,7 +71,7 @@ public:
 };
 
 shared_ptr<int[]> read_line_as_int_array(const int n) {
-    auto input_line = std::make_unique<int[]>(n);
+    auto input_line = make_unique<int[]>(n);
     string line;
     getline(cin, line);
     stringstream ss(line);
