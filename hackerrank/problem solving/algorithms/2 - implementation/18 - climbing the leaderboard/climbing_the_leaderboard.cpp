@@ -19,14 +19,15 @@ private:
     unique_ptr<int[]> _player_rank;
 
     void _remove_duplicates_from_ranked_array() {
-        set<int> temporary_set(begin(_ranked), end(_ranked));
-        unique_ptr<int> deduplicated_array {make_unique<int[]>(temporary_set.size())};
+        int n_temp {0};
 
-        int i = 0;
-        for (int &number : temporary_set)
-            deduplicated_array[i++] = number;
+        for (int i {0}; i < _n_ranked - 1; i++)
+            if (_ranked[i] != _ranked[i + 1])
+                _ranked[n_temp++] = _ranked[i];
 
-        _ranked = move(deduplicated_array);
+        _ranked[n_temp++] = _ranked[_n_ranked - 1];
+
+        _n_ranked = n_temp;
     }
 
     void _climbing_leaderboard() {
@@ -57,7 +58,7 @@ public:
         _player = player;
         _n_player = n_player;
 
-        _player_rank = make_unique<int[]>(n_player);
+        _player_rank = std::make_unique<int[]>(n_player);
 
         _remove_duplicates_from_ranked_array();
         _climbing_leaderboard();
@@ -71,7 +72,7 @@ public:
 };
 
 shared_ptr<int[]> read_line_as_int_array(const int n) {
-    auto input_line = make_unique<int[]>(n);
+    auto input_line = std::make_unique<int[]>(n);
     string line;
     getline(cin, line);
     stringstream ss(line);
