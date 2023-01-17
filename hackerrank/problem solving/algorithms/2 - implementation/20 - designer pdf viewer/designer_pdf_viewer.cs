@@ -46,7 +46,8 @@ class Solution
             {
                 int maxHeight = 0;
 
-                foreach (char letter in _word) {
+                foreach (char letter in _word)
+                {
                     int letterIndex = letter - 'a';
                     int letterHeight = _lettersHeights[letterIndex];
 
