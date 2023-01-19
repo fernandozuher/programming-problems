@@ -6,12 +6,13 @@
 
 #define SIZE_OF_INPUT_LINE_ARRAY 1024
 
-int* read_n_test_cases_cycles(const int n_test_cases);
 int read_line_as_int();
+int* read_n_test_cases_cycles(const int n_test_cases);
 void* free_pointer_and_return_null(void* pointer);
+
 int* utopian_tree(const int *n_test_cases_cycles, const int n_test_cases);
-int calculate_height(const int cycles);
-bool is_cycle_happening_during_spring(const int cycle);
+    int calculate_height(const int cycles);
+        bool is_cycle_happening_during_spring(const int cycle);
 void print_trees_heights(const int *result, const int n);
 
 
@@ -28,50 +29,50 @@ int main() {
     return 0;
 }
 
-int* read_n_test_cases_cycles(const int n_test_cases) {
-    int *n_test_cases_cycles = (int*) calloc(n_test_cases, sizeof(int));
+    int read_line_as_int() {
+        int n;
+        char white_space_or_eof;
+        scanf("%d%c", &n, &white_space_or_eof);
+        return n;
+    }
 
-    for (int i = 0; i < n_test_cases; i++)
-        n_test_cases_cycles[i] = read_line_as_int();
+    int* read_n_test_cases_cycles(const int n_test_cases) {
+        int *n_test_cases_cycles = (int*) calloc(n_test_cases, sizeof(int));
 
-    return n_test_cases_cycles;
-}
+        for (int i = 0; i < n_test_cases; i++)
+            n_test_cases_cycles[i] = read_line_as_int();
 
-int read_line_as_int() {
-    int n;
-    char white_space_or_eof;
-    scanf("%d%c", &n, &white_space_or_eof);
-    return n;
-}
+        return n_test_cases_cycles;
+    }
 
-void* free_pointer_and_return_null(void* pointer) {
-    free(pointer);
-    return NULL;
-}
+    void* free_pointer_and_return_null(void* pointer) {
+        free(pointer);
+        return NULL;
+    }
 
-int* utopian_tree(const int *n_test_cases_cycles, const int n_test_cases) {
-    int *trees_heights = (int*) calloc(n_test_cases, sizeof(int));
+    int* utopian_tree(const int *n_test_cases_cycles, const int n_test_cases) {
+        int *trees_heights = (int*) calloc(n_test_cases, sizeof(int));
 
-    for (int i = 0; i < n_test_cases; i++)
-        trees_heights[i] = calculate_height(n_test_cases_cycles[i]);
+        for (int i = 0; i < n_test_cases; i++)
+            trees_heights[i] = calculate_height(n_test_cases_cycles[i]);
 
-    return trees_heights;
-}
+        return trees_heights;
+    }
 
-int calculate_height(const int cycles) {
-    int height = 1;
+        int calculate_height(const int cycles) {
+            int height = 1;
 
-    for (int cicle = 1; i <= cycles; cicle++)
-        height = is_cycle_happening_during_spring(cicle) ? height * 2 : height + 1;
+            for (int cycle = 1; cycle <= cycles; cycle++)
+                height = is_cycle_happening_during_spring(cycle) ? height * 2 : height + 1;
 
-    return height;
-}
+            return height;
+        }
 
-bool is_cycle_happening_during_spring(const int cycle) {
-    return cycle & 1;
-}
+            bool is_cycle_happening_during_spring(const int cycle) {
+                return cycle & 1;
+            }
 
-void print_trees_heights(const int *trees_heights, const int n) {
-    for (int i = 0; i < n; i++)
-        printf("%d\n", trees_heights[i]);
-}
+    void print_trees_heights(const int *trees_heights, const int n) {
+        for (int i = 0; i < n; i++)
+            printf("%d\n", trees_heights[i]);
+    }

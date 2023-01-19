@@ -2,6 +2,7 @@
 
 use std::io::{self, BufRead};
 
+
 fn main() {
     let n_test_cases: i32 = read_line_as_i32();
     let n_test_cases_cycles: Vec<i32> = read_n_test_cases_cycles(n_test_cases);
@@ -43,8 +44,8 @@ fn main() {
 
         fn calculate_height(cycles: i32) -> i32 {
             let mut height = 1;
-            for cicle in 1..=cycles {
-                height = if is_cycle_happening_during_spring(cicle) {height * 2} else {height + 1};
+            for cycle in 1..=cycles {
+                height = if is_cycle_happening_during_spring(cycle) {height * 2} else {height + 1};
             }
             return height;
         }

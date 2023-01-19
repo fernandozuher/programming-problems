@@ -23,8 +23,8 @@ private:
         int _calculate_height(const int cycles) const {
             int height {1};
 
-            for (int cicle {1}; i <= cycles; cicle++)
-                height = _is_cycle_happening_during_spring(cicle) ? height * 2 : height + 1;
+            for (int cycle {1}; cycle <= cycles; cycle++)
+                height = _is_cycle_happening_during_spring(cycle) ? height * 2 : height + 1;
 
             return height;
         }
