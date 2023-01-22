@@ -27,16 +27,16 @@ int main() {
     }
 
     bool angry_professor() {
-        const int _n_students_arrival_time = read_one_int();
+        const int n_students_arrival_time = read_one_int();
         const int cancellation_threshold = read_one_int();
-        const bool is_class_cancelled = count_early_arrival_time(_n_students_arrival_time) < cancellation_threshold;
-        return is_class_cancelled;
+        const bool cancelled_class = count_early_arrival_time(n_students_arrival_time) < cancellation_threshold;
+        return cancelled_class;
     }
 
-        int count_early_arrival_time(const int n_students) {
+        int count_early_arrival_time(const int n_students_arrival_time) {
             int early_arrival_time_count = 0;
 
-            for (int i = 0, student_arrival_time; i < n_students; i++) {
+            for (int i = 0, student_arrival_time; i < n_students_arrival_time; i++) {
                 student_arrival_time = read_one_int();
 
                 if (student_arrival_time <= 0)
