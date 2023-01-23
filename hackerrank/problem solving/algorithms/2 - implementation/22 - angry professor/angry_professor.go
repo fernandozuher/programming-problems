@@ -9,14 +9,14 @@ import (
 
 func main() {
     var nTestCases int = readOneInt()
-    var nResults []bool = make([]bool, nTestCases)
+    var results []bool = make([]bool, nTestCases)
 
-    for i := range nResults {
-        nResults[i] = angryProfessor()
+    for i := range results {
+        results[i] = angryProfessor()
     }
 
-    for i := range nResults {
-        if nResults[i] {
+    for i := range results {
+        if results[i] {
             fmt.Println("YES")
         } else {
             fmt.Println("NO")

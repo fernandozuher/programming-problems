@@ -51,16 +51,16 @@ int read_one_int() {
 }
 
 int main() {
-    const int nTestCases {read_one_int()};
+    const int n_test_cases {read_one_int()};
 
-    vector<bool> nResults(nTestCases);
+    vector<bool> results(n_test_cases);
 
-    for (int i {0}, n {static_cast<int>(nResults.size())}; i < n; i++) {
+    for (int i {0}, n {static_cast<int>(results.size())}; i < n; i++) {
         Angry_Professor angry_professor;
-        nResults.at(i) = angry_professor.get_cancelled_class();
+        results.at(i) = angry_professor.get_cancelled_class();
     }
 
-    for (bool result : nResults)
+    for (bool result : results)
         cout << (result ? "YES" : "NO") << "\n";
 
     return 0;

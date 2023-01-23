@@ -10,11 +10,11 @@ bool angry_professor();
 
 
 int main() {
-    const int nTestCases = read_one_int();
-    bool nResults[nTestCases];
+    const int n_test_cases = read_one_int();
+    bool results[n_test_cases];
 
-    for (int i = 0; i < nTestCases; nResults[i++] = angry_professor());
-    for (int i = 0; i < nTestCases; puts(nResults[i++] ? "YES" : "NO"));
+    for (int i = 0; i < n_test_cases; results[i++] = angry_professor());
+    for (int i = 0; i < n_test_cases; puts(results[i++] ? "YES" : "NO"));
 
     return 0;
 }
