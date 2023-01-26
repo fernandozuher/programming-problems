@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 int read_one_int();
 int beautiful_days(const int starting_day_number, const int ending_day_number, const int divisor);
     int generate_reverse_number(int number);
@@ -33,7 +32,7 @@ int main() {
         int n_beautiful_days = 0;
 
         for (int number = starting_day_number; number <= ending_day_number; number++) {
-            int reverse_number = generate_reverse_number(number);
+            const int reverse_number = generate_reverse_number(number);
 
             if (is_day_beautiful(number, reverse_number, divisor))
                 n_beautiful_days++;
