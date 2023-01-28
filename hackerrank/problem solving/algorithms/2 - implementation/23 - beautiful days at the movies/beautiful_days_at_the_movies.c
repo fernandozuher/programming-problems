@@ -49,6 +49,6 @@ int main() {
         }
 
         bool is_day_beautiful(const int number, const int reverse_number, const int divisor) {
-            bool beautiful_day = abs(number - reverse_number) % divisor == 0;
+            const bool beautiful_day = abs(number - reverse_number) % divisor == 0;
             return beautiful_day;
         }

@@ -1,7 +1,6 @@
 // Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -31,15 +30,15 @@ private:
         }
 
         bool _is_day_beautiful(const int number, const int reverse_number) const {
-            bool beautiful_day = abs(number - reverse_number) % _divisor == 0;
+            const bool beautiful_day = abs(number - reverse_number) % _divisor == 0;
             return beautiful_day;
         }
 
 public:
-    Beautiful_Days() {
-        cin >> _starting_day_number;
-        cin >> _ending_day_number;
-        cin >> _divisor;
+    Beautiful_Days(const int starting_day_number, const int ending_day_number, const int divisor) {
+        _starting_day_number = starting_day_number;
+        _ending_day_number = ending_day_number;
+        _divisor = divisor;
         _n_beautiful_days = 0;
 
         _beautiful_days();
@@ -58,6 +57,10 @@ int read_one_int() {
 }
 
 int main() {
-    Beautiful_Days _beautiful_days;
+    int starting_day_number, ending_day_number, divisor;
+    cin >> starting_day_number >> ending_day_number >> divisor;
+    
+    const Beautiful_Days beautiful_days(starting_day_number, ending_day_number, divisor);
+    
     return 0;
 }

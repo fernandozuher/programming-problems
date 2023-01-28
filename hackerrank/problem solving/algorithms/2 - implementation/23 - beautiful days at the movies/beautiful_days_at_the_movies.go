@@ -7,6 +7,7 @@ import (
     "math"
 )
 
+
 func main() {
     var startingDayNumber int = readOneInt()
     var endingDayNumber int = readOneInt()
