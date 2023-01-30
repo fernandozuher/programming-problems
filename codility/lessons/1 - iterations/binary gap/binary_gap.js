@@ -1,0 +1,36 @@
+// Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
+
+function solution(N) {
+    const BINARY = convertNumberToBinaryString(N);
+    const LONGEST_BINARY_GAP = findLongestBinaryGap(BINARY);
+    return LONGEST_BINARY_GAP;
+}
+
+    function convertNumberToBinaryString(N) {
+        const BINARY = (N >>> 0).toString(2);
+        return BINARY;
+    }
+
+    function findLongestBinaryGap(BINARY) {
+        let longestBinaryGap = 0;
+
+        for (let index = {'i': 0, 'j': 0, 'k': 0}; Object.values(index).includes(-1) === false;) {
+            const GAP_LENGTH = findGapLength(BINARY, index);
+            longestBinaryGap = Math.max(GAP_LENGTH, longestBinaryGap);
+        }
+
+        return longestBinaryGap;
+    }
+
+        function findGapLength(BINARY, index) {
+            index['i'] = BINARY.indexOf('1', index['j']);
+            index['j'] = BINARY.indexOf('0', index['i'] + 1);
+            index['k'] = BINARY.indexOf('1', index['j'] + 1);
+
+            if (Object.values(index).includes(-1) === false) {
+                const GAP_LENGTH = index['k'] - index['j'];
+                return GAP_LENGTH;
+            }
+
+            return 0;
+        }

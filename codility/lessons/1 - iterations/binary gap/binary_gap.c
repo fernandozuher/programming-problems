@@ -2,28 +2,30 @@
 
 #include <stdbool.h>
 
-int reduce_number_until_first_010(int number);
-int calculate_temp_max_gap_in_parameter_and_return_reduced_number(int *temp_max_gap, int number);
+int reduce_number_until_first_10(int number);
+int count_binary_gap_in_parameter_and_return_reduced_number(int *temp_longest_binary_gap, int number);
     bool is_number_divisible_by_2(int number);
-int max(const int number1, const int number2);
+
+bool is_not_reduced_number_0(const int NUMBER);
+int max(const int NUMBER1, const int NUMBER2);
 
 
 int solution(const int N) {
-    int max_gap = 0;
+    int longest_binary_gap = 0;
 
-    for (int number = reduce_number_until_first_010(N); number; number = reduce_number_until_first_010(number)) {
-        int temp_max_gap = 0;
+    for (int number = reduce_number_until_first_10(N); number; number = reduce_number_until_first_10(number)) {
+        int temp_longest_binary_gap = 0;
 
-        number = calculate_temp_max_gap_in_parameter_and_return_reduced_number(&temp_max_gap, number);
+        number = count_binary_gap_in_parameter_and_return_reduced_number(&temp_longest_binary_gap, number);
 
-        if (number)
-            max_gap = max(temp_max_gap, max_gap);
+        if (is_not_reduced_number_0(number))
+            longest_binary_gap = max(temp_longest_binary_gap, longest_binary_gap);
     }
 
-    return max_gap;
+    return longest_binary_gap;
 }
 
-    int reduce_number_until_first_010(int number) {
+    int reduce_number_until_first_10(int number) {
         while (number && is_number_divisible_by_2(number))
             number /= 2;
 
@@ -33,18 +35,22 @@ int solution(const int N) {
         return number;
     }
 
-    int calculate_temp_max_gap_in_parameter_and_return_reduced_number(int *temp_max_gap, int number) {
+    int count_binary_gap_in_parameter_and_return_reduced_number(int *temp_longest_binary_gap, int number) {
         while (number && is_number_divisible_by_2(number)) {
-            (*temp_max_gap)++;
+            (*temp_longest_binary_gap)++;
             number /= 2;
         }
         return number;
     }
 
-        bool is_number_divisible_by_2(const int number) {
-            return number % 2 == 0;
+        bool is_number_divisible_by_2(const int NUMBER) {
+            return NUMBER % 2 == 0;
         }
 
-    int max(const int number1, const int number2) {
-        return number1 > number2 ? number1 : number2;
+    bool is_not_reduced_number_0(const int NUMBER) {
+        return NUMBER;
+    }
+
+    int max(const int NUMBER1, const int NUMBER2) {
+        return NUMBER1 > NUMBER2 ? NUMBER1 : NUMBER2;
     }
