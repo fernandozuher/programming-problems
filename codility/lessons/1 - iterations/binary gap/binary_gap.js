@@ -23,14 +23,24 @@ function solution(N) {
     }
 
         function findGapLength(BINARY, index) {
-            index['i'] = BINARY.indexOf('1', index['j']);
-            index['j'] = BINARY.indexOf('0', index['i'] + 1);
-            index['k'] = BINARY.indexOf('1', index['j'] + 1);
+            index.i = BINARY.indexOf('1', index.j);
+            if (index.i != -1) {
 
-            if (Object.values(index).includes(-1) === false) {
-                const GAP_LENGTH = index['k'] - index['j'];
-                return GAP_LENGTH;
+                index.j = BINARY.indexOf('0', index.i + 1);
+                if (index.j != -1) {
+
+                    index.k = BINARY.indexOf('1', index.j + 1);
+                    if (index.k != -1) {
+
+                        const GAP_LENGTH = index.k - index.j;
+                        return GAP_LENGTH;
+                    }
+                    else
+                        return 0;
+                }
+                else
+                    return 0;
             }
-
-            return 0;
+            else
+                return 0;
         }
