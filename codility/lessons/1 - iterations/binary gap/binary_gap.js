@@ -24,14 +24,14 @@ function solution(N) {
 
         function findGapLength(BINARY, index) {
             index.i = BINARY.indexOf('1', index.j);
+
             if (index.i != -1) {
-
                 index.j = BINARY.indexOf('0', index.i + 1);
+
                 if (index.j != -1) {
-
                     index.k = BINARY.indexOf('1', index.j + 1);
-                    if (index.k != -1) {
 
+                    if (index.k != -1) {
                         const GAP_LENGTH = index.k - index.j;
                         return GAP_LENGTH;
                     }

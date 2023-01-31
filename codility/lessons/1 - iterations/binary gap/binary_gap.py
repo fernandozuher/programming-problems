@@ -28,14 +28,14 @@ def findLongestBinaryGap(BINARY):
 def findGapLength(BINARY, index):
     
     index['i'] = BINARY.find('1', index['j'])
-    if index['i'] != -1:
-        
-        index['j'] = BINARY.find('0', index['i'] + 1)
-        if index['j'] != -1:
 
+    if index['i'] != -1:
+        index['j'] = BINARY.find('0', index['i'] + 1)
+
+        if index['j'] != -1:
             index['k'] = BINARY.find('1', index['j'] + 1)
+
             if index['k'] != -1:
-                
                 GAP_LENGTH = index['k'] - index['j']
                 return GAP_LENGTH
             else:

@@ -35,16 +35,15 @@ int solution(const int N) {
 
         int find_gap_length(const string BINARY, vector<int> &index) {
             const auto not_found = static_cast<int>(string::npos);
-
             index.front() = {static_cast<int>(BINARY.find('1', index.at(1)))};
+
             if (index.front() != not_found) {
-
                 index.at(1) = {static_cast<int>(BINARY.find('0', index.front() + 1))};
+
                 if (index.at(1) != not_found) {
-
                     index.back() = {static_cast<int>(BINARY.find('1', index.at(1) + 1))};
-                    if (index.back() != not_found) {
 
+                    if (index.back() != not_found) {
                         const int GAP_LENGTH {index.back() - index.at(1)};
                         return GAP_LENGTH;
                     }

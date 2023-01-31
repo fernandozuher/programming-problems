@@ -23,14 +23,14 @@ end
 
         def findGapLength binary, index
             index['i'] = binary.index('1', index['j'])
-            if index['i'] != nil
-                
-                index['j'] = binary.index('0', index['i'] + 1)
-                if index['j'] != nil
 
+            if index['i'] != nil
+                index['j'] = binary.index('0', index['i'] + 1)
+
+                if index['j'] != nil
                     index['k'] = binary.index('1', index['j'] + 1)
+
                     if index['k'] != nil
-                        
                         gap_length = index['k'] - index['j']
                     else
                         0
