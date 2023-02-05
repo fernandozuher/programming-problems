@@ -5,36 +5,36 @@ using System;
 
 public class Solution {
 
-	public static void Main() {
-		int days = Convert.ToInt32(Console.ReadLine());
-		ViralAdvertising cumulativeLikes = new ViralAdvertising(days);
-	}
+    public static void Main() {
+        int days = Convert.ToInt32(Console.ReadLine());
+        ViralAdvertising cumulativeLikes = new ViralAdvertising(days);
+    }
 }
 
-	class ViralAdvertising {
+    class ViralAdvertising {
 
-		private int _days;
-		private int _cumulativeLikes;
+        private int _days;
+        private int _cumulativeLikes;
 
-		public ViralAdvertising(int days) {
-			_days = days;
-			_cumulativeLikes = 0;
+        public ViralAdvertising(int days) {
+            _days = days;
+            _cumulativeLikes = 0;
 
-			_ViralAdvertising();
-			PrintCumulativeLikes();
-		}
+            _ViralAdvertising();
+            PrintCumulativeLikes();
+        }
 
-			private void _ViralAdvertising() {
-				int shared = 5, liked = 0;
+            private void _ViralAdvertising() {
+                int shared = 5, liked = 0;
 
-				for (int i = 0; i < _days; i++) {
-					liked = shared / 2;
-					_cumulativeLikes += liked;
-					shared = liked * 3;
-				}
-			}
+                for (int i = 0; i < _days; i++) {
+                    liked = shared / 2;
+                    _cumulativeLikes += liked;
+                    shared = liked * 3;
+                }
+            }
 
-			public void PrintCumulativeLikes() {
-				Console.WriteLine(_cumulativeLikes);
-			}
-	}
+            public void PrintCumulativeLikes() {
+                Console.WriteLine(_cumulativeLikes);
+            }
+    }

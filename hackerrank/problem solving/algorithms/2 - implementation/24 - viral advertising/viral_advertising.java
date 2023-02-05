@@ -5,37 +5,37 @@ import java.util.Scanner;
 
 public class Solution {
 
-	public static void main(String[] args) {
-		final Scanner scanner = new Scanner(System.in);
-		final int days = scanner.nextInt();
-		final ViralAdvertising cumulativeLikes = new ViralAdvertising(days);
-	}
+    public static void main(String[] args) {
+        final Scanner scanner = new Scanner(System.in);
+        final int days = scanner.nextInt();
+        final ViralAdvertising cumulativeLikes = new ViralAdvertising(days);
+    }
 }
 
-	class ViralAdvertising {
+    class ViralAdvertising {
 
-		private int _days;
-		private int _cumulativeLikes;
+        private int _days;
+        private int _cumulativeLikes;
 
-		public ViralAdvertising(int days) {
-			_days = days;
-			_cumulativeLikes = 0;
+        public ViralAdvertising(int days) {
+            _days = days;
+            _cumulativeLikes = 0;
 
-			_viralAdvertising();
-			printCumulativeLikes();
-		}
+            _viralAdvertising();
+            printCumulativeLikes();
+        }
 
-			private void _viralAdvertising() {
-				int shared = 5, liked = 0;
+            private void _viralAdvertising() {
+                int shared = 5, liked = 0;
 
-				for (int i = 0; i < _days; i++) {
-					liked = shared / 2;
-					_cumulativeLikes += liked;
-					shared = liked * 3;
-				}
-			}
+                for (int i = 0; i < _days; i++) {
+                    liked = shared / 2;
+                    _cumulativeLikes += liked;
+                    shared = liked * 3;
+                }
+            }
 
-			public void printCumulativeLikes() {
-				System.out.println(_cumulativeLikes);
-			}
-	}
+            public void printCumulativeLikes() {
+                System.out.println(_cumulativeLikes);
+            }
+    }
