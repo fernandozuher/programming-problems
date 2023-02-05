@@ -1,9 +1,11 @@
+// Source: https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+
 #include <stdio.h>
 
 int viral_advertising(const int days);
 
-int main() {
 
+int main() {
 	int days;
 	scanf("%d", &days);
 
@@ -13,16 +15,14 @@ int main() {
 	return 0;
 }
 
-int viral_advertising(const int days) {
-	int shared = 5, liked = 0, cumulative = 0;
+	int viral_advertising(const int days) {
+		int shared = 5, liked = 0, cumulative = 0;
 
-	for (int i = 0; i < days; i++) {
-		liked = shared / 2;
-		cumulative += liked;
-		shared = liked * 3;
+		for (int _ = 0; _ < days; _++) {
+			liked = shared / 2;
+			cumulative += liked;
+			shared = liked * 3;
+		}
 
-		printf("%d\n", liked);
+		return cumulative;
 	}
-
-	return liked;
-}
