@@ -3,21 +3,22 @@
 using System;
 using System.Collections.Generic;
 
+
 class Solution
 {
     private string _binary;
     private int _longestBinaryGap;
 
-    public int solution(int N)
+    public int solution(int NUMBER)
     {
-        _binary = _ConvertIntToBinaryString(N);
+        _binary = _ConvertIntToBinaryString(NUMBER);
         _longestBinaryGap = _FindLongestBinaryGap();
         return _longestBinaryGap;
     }
 
-        private string _ConvertIntToBinaryString(int N)
+        private string _ConvertIntToBinaryString(int NUMBER)
         {
-            string binary = Convert.ToString(N, 2);
+            string binary = Convert.ToString(NUMBER, 2);
             return binary;
         }
 

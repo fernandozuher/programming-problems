@@ -1,12 +1,12 @@
 # Source: https://app.codility.com/programmers/lessons/1-iterations/binaryGap/
 
-def solution n
-    binary = convertNumberToBinaryString n
+def solution number
+    binary = convertNumberToBinaryString number
     longestBinaryGap = findLongestBinaryGap binary
 end
 
-    def convertNumberToBinaryString n
-        binary = n.to_s(2)
+    def convertNumberToBinaryString number
+        binary = number.to_s(2)
     end
 
     def findLongestBinaryGap binary

@@ -2,18 +2,20 @@
 
 import java.util.*;
 
+
 public class Solution {
+
     private String _binary;
     private int _longestBinaryGap;
 
-    public int solution(int N) {
-        _binary = _convertIntToBinaryString(N);
+    public int solution(int NUMBER) {
+        _binary = _convertIntToBinaryString(NUMBER);
         _longestBinaryGap = _findLongestBinaryGap();
         return _longestBinaryGap;
     }
 
-        private String _convertIntToBinaryString(int N) {
-            return Integer.toBinaryString(N);
+        private String _convertIntToBinaryString(int NUMBER) {
+            return Integer.toBinaryString(NUMBER);
         }
 
         private int _findLongestBinaryGap() {

@@ -6,19 +6,19 @@
 
 using namespace std;
 
-string convert_int_to_binary_string(const int N);
+string convert_int_to_binary_string(const int NUMBER);
 int find_longest_binary_gap(const string BINARY);
     int find_gap_length(const string BINARY, vector<int> &index);
 
 
-int solution(const int N) {
-    const string BINARY {convert_int_to_binary_string(N)};
+int solution(const int NUMBER) {
+    const string BINARY {convert_int_to_binary_string(NUMBER)};
     const int LONGEST_BINARY_GAP {find_longest_binary_gap(BINARY)};
     return LONGEST_BINARY_GAP;
 }
 
-    string convert_int_to_binary_string(const int N) {
-        const string BINARY {bitset<sizeof(int) * 8>(N).to_string()};
+    string convert_int_to_binary_string(const int NUMBER) {
+        const string BINARY {bitset<sizeof(int) * 8>(NUMBER).to_string()};
         return BINARY;
     }
 

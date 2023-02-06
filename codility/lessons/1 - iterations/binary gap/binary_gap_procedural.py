@@ -1,15 +1,15 @@
 # Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
 
-def solution(N):
+def solution(NUMBER):
 
-    BINARY = convertNumberToBinaryString(N)
+    BINARY = convertNumberToBinaryString(NUMBER)
     LONGEST_BINARY_GAP = findLongestBinaryGap(BINARY)
     return LONGEST_BINARY_GAP
 
 
-def convertNumberToBinaryString(N):
+def convertNumberToBinaryString(NUMBER):
 
-    BINARY = '{0:b}'.format(N);
+    BINARY = '{0:b}'.format(NUMBER);
     return BINARY
 
 

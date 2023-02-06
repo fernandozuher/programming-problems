@@ -1,13 +1,13 @@
 // Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
 
-function solution(N) {
-    const BINARY = convertNumberToBinaryString(N);
+function solution(NUMBER) {
+    const BINARY = convertNumberToBinaryString(NUMBER);
     const LONGEST_BINARY_GAP = findLongestBinaryGap(BINARY);
     return LONGEST_BINARY_GAP;
 }
 
-    function convertNumberToBinaryString(N) {
-        const BINARY = (N >>> 0).toString(2);
+    function convertNumberToBinaryString(NUMBER) {
+        const BINARY = (NUMBER >>> 0).toString(2);
         return BINARY;
     }
 
