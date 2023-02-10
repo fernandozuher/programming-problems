@@ -6,7 +6,6 @@ int compare (const void *a, const void *b);
 
 int solution(int A[], int N) {
     qsort(A, N, sizeof(int), compare);
-
     int unpaired_element = A[0];
     bool is_element_paired = false;
 
