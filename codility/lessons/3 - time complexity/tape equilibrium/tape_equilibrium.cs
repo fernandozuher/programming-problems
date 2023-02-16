@@ -3,8 +3,9 @@
 using System;
 using System.Linq;
 
-class Solution {
 
+class Solution
+{
     public int solution(int[] array)
     {
         int minimumDifferenceBetweenParts = FindMinimumDifferenceBetweenTwoPartsArray(array);
