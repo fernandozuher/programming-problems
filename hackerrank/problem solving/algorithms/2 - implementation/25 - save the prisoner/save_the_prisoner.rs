@@ -36,21 +36,17 @@ fn main() {
             let prisoners: i32 = *test_case.first().unwrap();
             let sweets: i32 = *test_case.get(1).unwrap();
             let chair_number_to_begin: i32 = *test_case.last().unwrap();
-
             let mut prisoner_chair_number_to_warn: i32 = chair_number_to_begin + (sweets - 1);
 
-            if prisoner_chair_number_to_warn < prisoners {
-                return prisoner_chair_number_to_warn;
-            }
-            else {
+            if (prisoner_chair_number_to_warn > prisoners) {
                 prisoner_chair_number_to_warn %= prisoners;
-                if prisoner_chair_number_to_warn == 0 {
-                    return prisoners;
-                }
-                else {
-                    return prisoner_chair_number_to_warn;
+
+                if (prisoner_chair_number_to_warn == 0) {
+                    prisoner_chair_number_to_warn = prisoners;
                 }
             }
+
+            return prisoner_chair_number_to_warn;
         }
 
     fn print_results(array: Vec<i32>) {

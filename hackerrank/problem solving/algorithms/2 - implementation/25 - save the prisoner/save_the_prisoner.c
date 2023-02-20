@@ -50,18 +50,16 @@ int main() {
             const int PRISONERS = test_case[0];
             const int SWEETS = test_case[1];
             const int CHAIR_NUMBER_TO_BEGIN = test_case[2];
-
             int prisoner_chair_number_to_warn = CHAIR_NUMBER_TO_BEGIN + (SWEETS - 1);
 
-            if (prisoner_chair_number_to_warn < PRISONERS)
-                return prisoner_chair_number_to_warn;
-            else {
+            if (prisoner_chair_number_to_warn > PRISONERS) {
                 prisoner_chair_number_to_warn %= PRISONERS;
+
                 if (prisoner_chair_number_to_warn == 0)
-                    return PRISONERS;
-                else
-                    return prisoner_chair_number_to_warn;
+                    prisoner_chair_number_to_warn = PRISONERS;
             }
+
+            return prisoner_chair_number_to_warn;
         }
 
     void print_results(const int *ARRAY, const int SIZE) {

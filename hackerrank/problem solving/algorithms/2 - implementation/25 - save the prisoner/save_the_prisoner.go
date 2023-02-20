@@ -40,19 +40,17 @@ func main() {
             var prisoners int = testCase[0]
             var sweets int = testCase[1]
             var chairNumberToBegin int = testCase[2]
-
             var prisonerChairNumberToWarn int = chairNumberToBegin + (sweets - 1)
 
-            if prisonerChairNumberToWarn < prisoners {
-                return prisonerChairNumberToWarn
-            } else {
+            if (prisonerChairNumberToWarn > prisoners) {
                 prisonerChairNumberToWarn %= prisoners
-                if prisonerChairNumberToWarn == 0 {
-                    return prisoners
-                } else {
-                    return prisonerChairNumberToWarn
+
+                if (prisonerChairNumberToWarn == 0) {
+                    prisonerChairNumberToWarn = prisoners
                 }
             }
+
+            return prisonerChairNumberToWarn
         }
 
     func PrintResults(array []int) {
