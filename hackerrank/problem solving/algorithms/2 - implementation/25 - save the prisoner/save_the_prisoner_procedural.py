@@ -48,8 +48,7 @@ def saveThePrisoner(testCase):
 
 def printResults(ARRAY):
 
-    for element in ARRAY:
-        print(element)
+    [print(element) for element in ARRAY]
 
 
 if __name__ == "__main__":

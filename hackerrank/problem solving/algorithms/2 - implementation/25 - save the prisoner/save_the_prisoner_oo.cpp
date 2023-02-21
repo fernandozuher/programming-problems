@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -78,6 +79,5 @@ int main() {
     }
 
     void print_results(const vector<int> ARRAY) {
-        for (auto element : ARRAY)
-            cout << element << "\n";
+        ranges::for_each(ARRAY, [](auto element){cout << element << "\n";});
     }

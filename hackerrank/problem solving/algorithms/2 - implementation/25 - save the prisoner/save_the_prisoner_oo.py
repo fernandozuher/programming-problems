@@ -56,8 +56,7 @@ class SaveThePrisoner:
 
 def printResults(ARRAY):
 
-    for number in ARRAY:
-        print(number)
+    [print(element) for element in ARRAY]
 
 
 if __name__ == "__main__":
