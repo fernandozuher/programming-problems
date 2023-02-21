@@ -42,10 +42,10 @@ func main() {
             var chairNumberToBegin int = testCase[2]
             var prisonerChairNumberToWarn int = chairNumberToBegin + (sweets - 1)
 
-            if (prisonerChairNumberToWarn > prisoners) {
+            if prisonerChairNumberToWarn > prisoners {
                 prisonerChairNumberToWarn %= prisoners
 
-                if (prisonerChairNumberToWarn == 0) {
+                if prisonerChairNumberToWarn == 0 {
                     prisonerChairNumberToWarn = prisoners
                 }
             }
