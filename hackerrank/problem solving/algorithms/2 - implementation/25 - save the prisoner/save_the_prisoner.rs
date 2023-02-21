@@ -38,10 +38,10 @@ fn main() {
             let chair_number_to_begin: i32 = *test_case.last().unwrap();
             let mut prisoner_chair_number_to_warn: i32 = chair_number_to_begin + (sweets - 1);
 
-            if (prisoner_chair_number_to_warn > prisoners) {
+            if prisoner_chair_number_to_warn > prisoners {
                 prisoner_chair_number_to_warn %= prisoners;
 
-                if (prisoner_chair_number_to_warn == 0) {
+                if prisoner_chair_number_to_warn == 0 {
                     prisoner_chair_number_to_warn = prisoners;
                 }
             }
@@ -50,7 +50,5 @@ fn main() {
         }
 
     fn print_results(array: Vec<i32>) {
-        for number in array.iter() {
-            println!("{}", number);
-        }
+        array.iter().for_each(|element| println!("{}", element));
     }
