@@ -2,9 +2,12 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
+using namespace std;
 
 vector<vector<int>> read_input();
-    vector<int> read_a_number();
+    vector<int> read_a_number_and_return_it_into_vector();
     vector<int> read_array(const int SIZE);
 
 vector<vector<int>> reduce_input_rotations(vector<vector<int>> input);
@@ -13,19 +16,19 @@ void print_rotated_array_elements_according_to_queries(vector<vector<int>> input
 
 
 int main() {
-    vector<vector<int>> input = read_input();
+    vector<vector<int>> input = {read_input()};
 
-    input = reduce_input_rotations(input);
-    input = rotate_input_array(input);
+    input = {reduce_input_rotations(input)};
+    input = {rotate_input_array(input)};
     print_rotated_array_elements_according_to_queries(input);
 
     return 0;
 }
 
     vector<vector<int>> read_input() {
-        vector<int> array_size {read_a_number()};
-        vector<int> rotation_count {read_a_number()};
-        vector<int> queries_size {read_a_number()};
+        vector<int> array_size {read_a_number_and_return_it_into_vector()};
+        vector<int> rotation_count {read_a_number_and_return_it_into_vector()};
+        vector<int> queries_size {read_a_number_and_return_it_into_vector()};
 
         vector<int> array {read_array(array_size.front())};
         vector<int> queries {read_array(queries_size.front())};
@@ -40,7 +43,7 @@ int main() {
         return input;
     }
 
-        vector<int> read_a_number() {
+        vector<int> read_a_number_and_return_it_into_vector() {
             vector<int> number(1);
             cin >> number.at(0);
             return number;
@@ -48,8 +51,7 @@ int main() {
 
         vector<int> read_array(const int SIZE) {
             vector<int> array(SIZE);
-            for (int &element : array)
-                *element = {read_a_number().front()};
+            for_each(array.begin(), array.end(), [](auto& element){ cin >> element; });
             return array;
         }
 
@@ -58,21 +60,21 @@ int main() {
         int ROTATION_COUNT {input.at(2).front()};
 
         if (ARRAY_SIZE > 1)
-            input.at(2).front() = ROTATION_COUNT = ROTATION_COUNT >= ARRAY_SIZE ? ROTATION_COUNT % ARRAY_SIZE : ROTATION_COUNT;
+            input.at(2).front() = {ROTATION_COUNT = ROTATION_COUNT >= ARRAY_SIZE ? ROTATION_COUNT % ARRAY_SIZE : ROTATION_COUNT};
         else
-            input.at(2).front() = ROTATION_COUNT = 0;
+            input.at(2).front() = {ROTATION_COUNT = 0};
 
         return input;
     }
 
     vector<vector<int>> rotate_input_array(vector<vector<int>> input) {
-        const vector<vector<int>> ARRAY = input.front().front();
-        const int ARRAY_SIZE = input.at(1).front();
-        const int ROTATION_COUNT = input.at(2).front();
-        vector<int> new_array(ARRAY_SIZE);
+        const vector<int> ARRAY {input.front()};
+        const int ARRAY_SIZE {input.at(1).front()};
+        const int ROTATION_COUNT {input.at(2).front()};
 
-        //memcpy(new_array, &ARRAY[ARRAY_SIZE - ROTATION_COUNT], ROTATION_COUNT * sizeof(*ARRAY));
-        //memcpy(new_array + ROTATION_COUNT, ARRAY, (ARRAY_SIZE - ROTATION_COUNT) * sizeof(*ARRAY));
+        vector<int> new_array {ARRAY.begin() + ARRAY_SIZE - ROTATION_COUNT, ARRAY.end()};
+        const vector<int> SECOND_PART_NEW_ARRAY {ARRAY.begin(), ARRAY.begin() + ARRAY_SIZE - ROTATION_COUNT};
+        new_array.insert(new_array.end(), SECOND_PART_NEW_ARRAY.begin(), SECOND_PART_NEW_ARRAY.end());
 
         input.front() = {new_array};
         return input;
@@ -81,7 +83,6 @@ int main() {
     void print_rotated_array_elements_according_to_queries(vector<vector<int>> input) {
         const vector<int> ARRAY {input.front()};
         const vector<int> QUERIES {input.at(3)};
-        const int QUERIES_SIZE {input.at(4).front()};
 
-        ranges::for_each(QUERIES, [ARRAY](auto query){ cout << ARRAY.at(query); });
+        for_each(QUERIES.begin(), QUERIES.end(), [ARRAY](int query) { cout << ARRAY.at(query) << "\n"; });
     }

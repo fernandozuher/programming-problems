@@ -5,7 +5,7 @@
 #include <string.h>
 
 int** read_input();
-    int* read_a_number();
+    int* read_a_number_and_return_it_into_array();
     int* read_array(const int SIZE);
 
 int** reduce_input_rotations(int **input);
@@ -28,9 +28,9 @@ int main() {
 }
 
     int** read_input() {
-        int *array_size = read_a_number();
-        int *rotation_count = read_a_number();
-        int *queries_size = read_a_number();
+        int *array_size = read_a_number_and_return_it_into_array();
+        int *rotation_count = read_a_number_and_return_it_into_array();
+        int *queries_size = read_a_number_and_return_it_into_array();
 
         int *array = read_array(*array_size);
         int *queries = read_array(*queries_size);
@@ -45,7 +45,7 @@ int main() {
         return input;
     }
 
-        int* read_a_number() {
+        int* read_a_number_and_return_it_into_array() {
             int *number = (int*) calloc(1, sizeof(int));
             scanf("%d", number);
             return number;
@@ -54,7 +54,7 @@ int main() {
         int* read_array(const int SIZE) {
             int *array = (int*) calloc(SIZE, sizeof(int));
             for (int i = 0; i < SIZE; i++)
-                array[i] = *read_a_number();
+                scanf("%d", array[i]);
             return array;
         }
 
