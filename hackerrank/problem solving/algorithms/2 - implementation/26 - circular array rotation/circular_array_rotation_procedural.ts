@@ -46,10 +46,7 @@ function main() {
         }
 
         function readQueries(size: number): number[] {
-            const ARRAY: number[] = new Array(size).fill(0);
-            ARRAY.forEach((_, i) => {
-                ARRAY[i] = +readLine();
-            });
+            const ARRAY: number[] = new Array(size).fill(0).map(element => +readLine());
             return ARRAY;
         }
 

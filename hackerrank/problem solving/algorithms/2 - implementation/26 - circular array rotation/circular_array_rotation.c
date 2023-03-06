@@ -54,7 +54,7 @@ int main() {
         int* read_array(const int SIZE) {
             int *array = (int*) calloc(SIZE, sizeof(int));
             for (int i = 0; i < SIZE; i++)
-                scanf("%d", array[i]);
+                scanf("%d", &array[i]);
             return array;
         }
 
@@ -76,8 +76,17 @@ int main() {
         const int ROTATION_COUNT = *input[2];
         int *new_array = (int*) calloc(ARRAY_SIZE, sizeof(int));
 
-        memcpy(new_array, &ARRAY[ARRAY_SIZE - ROTATION_COUNT], ROTATION_COUNT * sizeof(*ARRAY));
-        memcpy(new_array + ROTATION_COUNT, ARRAY, (ARRAY_SIZE - ROTATION_COUNT) * sizeof(*ARRAY));
+        const int *FIRST_PART_NEW_ARRAY_ADDRESS = new_array;
+        const int *SECOND_PART_NEW_ARRAY_ADDRESS = new_array + ROTATION_COUNT;
+
+        const int *FIRST_PART_ARRAY_BEGIN_ADDRESS = ARRAY;
+        const int FIRST_PART_ARRAY_SIZE = (ARRAY_SIZE - ROTATION_COUNT) * sizeof(*ARRAY);
+
+        const int *SECOND_PART_ARRAY_BEGIN_ADDRESS = &ARRAY[ARRAY_SIZE - ROTATION_COUNT];
+        const int SECOND_PART_ARRAY_SIZE = ROTATION_COUNT * sizeof(*ARRAY);
+
+        memcpy(FIRST_PART_NEW_ARRAY_ADDRESS, SECOND_PART_ARRAY_BEGIN_ADDRESS, SECOND_PART_ARRAY_SIZE);
+        memcpy(SECOND_PART_NEW_ARRAY_ADDRESS, FIRST_PART_ARRAY_BEGIN_ADDRESS, FIRST_PART_ARRAY_SIZE);
 
         input[0] = new_array;
         return input;

@@ -42,10 +42,7 @@ function main() {
         }
 
         function readQueries(size) {
-            const ARRAY = new Array(size).fill(0);
-            ARRAY.forEach((_, i) => {
-                ARRAY[i] = +readLine();
-            });
+            const ARRAY = new Array(size).fill().map(element => +readLine());
             return ARRAY;
         }
 

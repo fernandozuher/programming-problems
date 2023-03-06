@@ -16,7 +16,7 @@ void print_rotated_array_elements_according_to_queries(vector<vector<int>> input
 
 
 int main() {
-    vector<vector<int>> input = {read_input()};
+    vector<vector<int>> input {read_input()};
 
     input = {reduce_input_rotations(input)};
     input = {rotate_input_array(input)};
@@ -51,7 +51,8 @@ int main() {
 
         vector<int> read_array(const int SIZE) {
             vector<int> array(SIZE);
-            for_each(array.begin(), array.end(), [](auto& element){ cin >> element; });
+            auto read = [](auto& element){cin >> element;};
+            ranges::for_each(array, read);
             return array;
         }
 
@@ -72,8 +73,14 @@ int main() {
         const int ARRAY_SIZE {input.at(1).front()};
         const int ROTATION_COUNT {input.at(2).front()};
 
-        vector<int> new_array {ARRAY.begin() + ARRAY_SIZE - ROTATION_COUNT, ARRAY.end()};
-        const vector<int> SECOND_PART_NEW_ARRAY {ARRAY.begin(), ARRAY.begin() + ARRAY_SIZE - ROTATION_COUNT};
+        const auto FIRST_PART_ARRAY_BEGIN_ITERATOR = ARRAY.begin();
+        const auto FIRST_PART_ARRAY_END_ITERATOR = ARRAY.begin() + ARRAY_SIZE - ROTATION_COUNT;
+
+        const auto SECOND_PART_ARRAY_BEGIN_ITERATOR = ARRAY.begin() + ARRAY_SIZE - ROTATION_COUNT;
+        const auto SECOND_PART_ARRAY_END_ITERATOR = ARRAY.end();
+
+        vector<int> new_array {SECOND_PART_ARRAY_BEGIN_ITERATOR, SECOND_PART_ARRAY_END_ITERATOR};
+        const vector<int> SECOND_PART_NEW_ARRAY {FIRST_PART_ARRAY_BEGIN_ITERATOR, FIRST_PART_ARRAY_END_ITERATOR};
         new_array.insert(new_array.end(), SECOND_PART_NEW_ARRAY.begin(), SECOND_PART_NEW_ARRAY.end());
 
         input.front() = {new_array};
@@ -84,5 +91,6 @@ int main() {
         const vector<int> ARRAY {input.front()};
         const vector<int> QUERIES {input.at(3)};
 
-        for_each(QUERIES.begin(), QUERIES.end(), [ARRAY](int query) { cout << ARRAY.at(query) << "\n"; });
+        auto print = [ARRAY](const auto& query){cout << ARRAY.at(query) << "\n";};
+        ranges::for_each(QUERIES, print);
     }

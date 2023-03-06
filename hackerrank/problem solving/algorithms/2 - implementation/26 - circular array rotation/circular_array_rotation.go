@@ -65,11 +65,11 @@ func main() {
         var arraySize int = input[1][0]
         var rotationCount int = input[2][0]
 
-        var first_part_new_array []int = array[arraySize-rotationCount:]
-        var second_part_new_array []int = array[:arraySize-rotationCount]
-        var new_array []int = append(first_part_new_array, second_part_new_array...)
+        var firstPartNewArray []int = array[arraySize-rotationCount:]
+        var secondPartNewArray []int = array[:arraySize-rotationCount]
+        var newArray []int = append(firstPartNewArray, secondPartNewArray...)
 
-        input[0] = new_array
+        input[0] = newArray
         return input
     }
 
