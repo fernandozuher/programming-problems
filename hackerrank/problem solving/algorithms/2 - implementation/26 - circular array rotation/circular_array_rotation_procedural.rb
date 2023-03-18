@@ -2,9 +2,8 @@
 
 def main
     input = readInput
-    input = reduceInputRotations input
-    input = rotateInputArray input
-    printRotatedArrayElementsAccordingToQueries input
+    obj = CircularArrayRotation.new input
+    obj.printRotatedArrayElementsAccordingToQueries
 end
 
     def readInput
@@ -22,36 +21,43 @@ end
             array = Array.new(size) { |element| gets.to_i }
         end
 
-    def reduceInputRotations input
-        arraySize = input[1]
-        rotationCount = input[2]
+    class CircularArrayRotation
+        @array
+        @arraySize
+        @rotationCount
+        @queries
+        @querySize
 
-        if (arraySize > 1)
-            input[2] = rotationCount = rotationCount >= arraySize ? rotationCount % arraySize : rotationCount
-        else
-            input[2] = rotationCount = 0
+        def initialize input
+            @array = input.first
+            @arraySize = input[1]
+            @rotationCount = input[2]
+            @queries = input[3]
+            @querySize = input.last
+
+            _reduceInputRotations
+            _rotateInputArray
         end
 
-        input
-    end
+            private def _reduceInputRotations
+                if (@arraySize > 1)
+                    @rotationCount = @rotationCount >= @arraySize ? @rotationCount % @arraySize : @rotationCount
+                else
+                    @rotationCount = 0
+                end
+            end
 
-    def rotateInputArray input
-        array = input[0]
-        arraySize = input[1]
-        rotationCount = input[2]
+            private def _rotateInputArray
+                firstPartNewArray = @array[@arraySize - @rotationCount...@arraySize]
+                secondPartNewArray = @array[0...@arraySize - @rotationCount]
+                newArray = firstPartNewArray + secondPartNewArray
 
-        firstPartNewArray = array[arraySize - rotationCount...]
-        secondPartNewArray = array[...arraySize - rotationCount]
-        newArray = firstPartNewArray + secondPartNewArray
+                @array = newArray
+            end
 
-        input[0] = newArray
-        input
-    end
-
-    def printRotatedArrayElementsAccordingToQueries input
-        array = input[0]
-        queries = input[3]
-        queries.each { |query| puts array[query] }
+        def printRotatedArrayElementsAccordingToQueries
+            @queries.each { |query| puts @array[query] }
+        end
     end
 
 main
