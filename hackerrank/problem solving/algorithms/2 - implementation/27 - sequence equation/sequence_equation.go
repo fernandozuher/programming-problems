@@ -28,7 +28,7 @@ func main() {
 
     func PermutationEquation(array []int) []int {
         var arrayElementsPositions []int = GenerateArrayOfElementsPositions(array)
-        var permutatedArray []int = GeneratepermutatedArray(arrayElementsPositions)
+        var permutatedArray []int = GeneratePermutatedArray(arrayElementsPositions)
         return permutatedArray
     }
 
@@ -40,7 +40,7 @@ func main() {
             return arrayElementsPositions
         }
 
-        func GeneratepermutatedArray(array []int) []int {
+        func GeneratePermutatedArray(array []int) []int {
             var permutatedArray []int = make([]int, len(array))
             for i, element := range array {
                 permutatedArray[i] = array[element] + 1
