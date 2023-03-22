@@ -13,7 +13,7 @@ void print_array(const int *ARRAY, const int SIZE);
 
 int main() {
     const int SIZE = read_a_number();
-    const int* ARRAY = read_an_array(SIZE);
+    const int *ARRAY = read_an_array(SIZE);
 
     const int *PERMUTATED_ARRAY = permutation_equation(ARRAY, SIZE);
     print_array(PERMUTATED_ARRAY, SIZE);
@@ -34,7 +34,7 @@ int main() {
         return array;
     }
 
-    int* permutation_equation(const int *ARRAY, int SIZE) {
+    int* permutation_equation(const int *ARRAY, const int SIZE) {
         const int *ARRAY_ELEMENTS_POSITIONS = generate_array_of_elements_positions(ARRAY, SIZE);
         const int *PERMUTATED_ARRAY = generate_permutated_array(ARRAY_ELEMENTS_POSITIONS, SIZE);
         return PERMUTATED_ARRAY;
