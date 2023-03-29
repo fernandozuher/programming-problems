@@ -6,7 +6,7 @@
 int read_a_number();
 int* read_an_array(const int SIZE);
 int* permutation_equation(const int *ARRAY, const int SIZE);
-    int* generate_array_of_elements_positions(const int *ARRAY, const int SIZE);
+    int* generate_elements_positions_array(const int *ARRAY, const int SIZE);
     int* generate_permutated_array(const int *ARRAY, const int SIZE);
 void print_array(const int *ARRAY, const int SIZE);
 
@@ -35,16 +35,16 @@ int main() {
     }
 
     int* permutation_equation(const int *ARRAY, const int SIZE) {
-        const int *ARRAY_ELEMENTS_POSITIONS = generate_array_of_elements_positions(ARRAY, SIZE);
-        const int *PERMUTATED_ARRAY = generate_permutated_array(ARRAY_ELEMENTS_POSITIONS, SIZE);
+        const int *ELEMENTS_POSITIONS_ARRAY = generate_elements_positions_array(ARRAY, SIZE);
+        const int *PERMUTATED_ARRAY = generate_permutated_array(ELEMENTS_POSITIONS_ARRAY, SIZE);
         return PERMUTATED_ARRAY;
     }
 
-        int* generate_array_of_elements_positions(const int *ARRAY, const int SIZE) {
-            int *array_elements_positions = (int*) calloc(SIZE, sizeof(int));
+        int* generate_elements_positions_array(const int *ARRAY, const int SIZE) {
+            int *elements_positions_array = (int*) calloc(SIZE, sizeof(int));
             for (int i = 0; i < SIZE; i++)
-                array_elements_positions[ARRAY[i] - 1] = i;
-            return array_elements_positions;
+                elements_positions_array[ARRAY[i] - 1] = i;
+            return elements_positions_array;
         }
 
         int* generate_permutated_array(const int *ARRAY, const int SIZE) {

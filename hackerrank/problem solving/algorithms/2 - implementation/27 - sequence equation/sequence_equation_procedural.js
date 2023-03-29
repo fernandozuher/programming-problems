@@ -39,17 +39,17 @@ function main() {
     }
 
     function permutationEquation(array) {
-        const ARRAY_ELEMENTS_POSITIONS = generateArrayOfElementsPositions(array);
-        const PERMUTATED_ARRAY = generatePermutatedArray(ARRAY_ELEMENTS_POSITIONS);
+        const ELEMENTS_POSITIONS_ARRAY = generateElementsPositionsArray(array);
+        const PERMUTATED_ARRAY = generatePermutatedArray(ELEMENTS_POSITIONS_ARRAY);
         return PERMUTATED_ARRAY;
     }
 
-        function generateArrayOfElementsPositions(array) {
-            const arrayElementsPositions = new Array(array.length).fill(0);
+        function generateElementsPositionsArray(array) {
+            const elementsPositionsArray = new Array(array.length).fill(0);
             array.forEach((element, i) => {
-                arrayElementsPositions[element-1] = i;
+                elementsPositionsArray[element-1] = i;
             });
-            return arrayElementsPositions;
+            return elementsPositionsArray;
         }
 
         function generatePermutatedArray(array) {

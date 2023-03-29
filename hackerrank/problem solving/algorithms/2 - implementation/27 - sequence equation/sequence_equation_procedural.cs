@@ -27,17 +27,17 @@ public class Solution {
 
         private static List<int> _PermutationEquation(List<int> array)
         {
-            List<int> arrayElementsPositions = _GenerateArrayOfElementsPositions(array);
-            List<int> permutatedArray = _GeneratePermutatedArray(arrayElementsPositions);
+            List<int> elementsPositionsArray = _GenerateElementsPositionsArray(array);
+            List<int> permutatedArray = _GeneratePermutatedArray(elementsPositionsArray);
             return permutatedArray;
         }
 
-            private static List<int> _GenerateArrayOfElementsPositions(List<int> array)
+            private static List<int> _GenerateElementsPositionsArray(List<int> array)
             {
-                List<int> arrayElementsPositions = new List<int>(new int[array.Count]);
+                List<int> elementsPositionsArray = new List<int>(new int[array.Count]);
                 for (int i = 0, size = array.Count; i < size; i++)
-                    arrayElementsPositions[array[i] - 1] = i;
-                return arrayElementsPositions;
+                    elementsPositionsArray[array[i] - 1] = i;
+                return elementsPositionsArray;
             }
 
             private static List<int> _GeneratePermutatedArray(List<int> array)

@@ -27,17 +27,17 @@ func main() {
     }
 
     func PermutationEquation(array []int) []int {
-        var arrayElementsPositions []int = GenerateArrayOfElementsPositions(array)
-        var permutatedArray []int = GeneratePermutatedArray(arrayElementsPositions)
+        var elementsPositionsArray []int = GenerateElementsPositionsArray(array)
+        var permutatedArray []int = GeneratePermutatedArray(elementsPositionsArray)
         return permutatedArray
     }
 
-        func GenerateArrayOfElementsPositions(array []int) []int {
-            var arrayElementsPositions []int = make([]int, len(array))
+        func GenerateElementsPositionsArray(array []int) []int {
+            var elementsPositionsArray []int = make([]int, len(array))
             for i, element := range array {
-                arrayElementsPositions[element-1] = i
+                elementsPositionsArray[element-1] = i
             }
-            return arrayElementsPositions
+            return elementsPositionsArray
         }
 
         func GeneratePermutatedArray(array []int) []int {

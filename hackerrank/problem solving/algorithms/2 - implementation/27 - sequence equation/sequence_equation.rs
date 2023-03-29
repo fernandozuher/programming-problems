@@ -24,20 +24,20 @@ fn main() {
     }
 
     fn permutation_equation(array: Vec<i32>) -> Vec<i32> {
-        let array_elements_positions: Vec<i32> = generate_array_of_elements_positions(array);
-        let permutated_array: Vec<i32> = generate_permutated_array(array_elements_positions);
+        let elements_positions_array: Vec<i32> = generate_elements_positions_array(array);
+        let permutated_array: Vec<i32> = generate_permutated_array(elements_positions_array);
         return permutated_array;
     }
 
-        fn generate_array_of_elements_positions(array: Vec<i32>) -> Vec<i32> {
-            let mut array_elements_positions: Vec<i32> = Vec::with_capacity(array.len());
-            unsafe { array_elements_positions.set_len(array.len()); }
+        fn generate_elements_positions_array(array: Vec<i32>) -> Vec<i32> {
+            let mut elements_positions_array: Vec<i32> = Vec::with_capacity(array.len());
+            unsafe { elements_positions_array.set_len(array.len()); }
 
             for (i, element) in array.iter().enumerate() {
-                array_elements_positions[*element as usize - 1] = i as i32;
+                elements_positions_array[*element as usize - 1] = i as i32;
             }
 
-            return array_elements_positions;
+            return elements_positions_array;
         }
 
         fn generate_permutated_array(array: Vec<i32>) -> Vec<i32> {

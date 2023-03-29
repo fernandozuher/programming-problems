@@ -17,16 +17,16 @@ end
     end
 
     def permutationEquation array
-        arrayElementsPositions = generateArrayOfElementsPositions array
-        permutatedArray = generatePermutatedArray arrayElementsPositions
+        elementsPositionsArray = generateElementsPositionsArray array
+        permutatedArray = generatePermutatedArray elementsPositionsArray
     end
 
-        def generateArrayOfElementsPositions array
-            arrayElementsPositions = Array.new(array.size)
+        def generateElementsPositionsArray array
+            elementsPositionsArray = Array.new(array.size)
             array.each_with_index { |element, i|
-                arrayElementsPositions[element-1] = i
+                elementsPositionsArray[element-1] = i
             }
-            arrayElementsPositions
+            elementsPositionsArray
         end
 
         def generatePermutatedArray array

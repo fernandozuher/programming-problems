@@ -30,18 +30,18 @@ public class Solution {
         }
 
         private static List<Integer> _permutationEquation(List<Integer> array) {
-            final List<Integer> ARRAY_ELEMENTS_POSITIONS = _generateArrayOfElementsPositions(array);
-            final List<Integer> PERMUTATED_ARRAY = _generatePermutatedArray(ARRAY_ELEMENTS_POSITIONS);
+            final List<Integer> ELEMENTS_POSITIONS_ARRAY = _generateElementsPositionsArray(array);
+            final List<Integer> PERMUTATED_ARRAY = _generatePermutatedArray(ELEMENTS_POSITIONS_ARRAY);
             return PERMUTATED_ARRAY;
         }
 
-            private static List<Integer> _generateArrayOfElementsPositions(List<Integer> array) {
-                List<Integer> arrayElementsPositions = Arrays.asList(new Integer[array.size()]);
+            private static List<Integer> _generateElementsPositionsArray(List<Integer> array) {
+                List<Integer> elementsPositionsArray = Arrays.asList(new Integer[array.size()]);
                 for (int i = 0, size = array.size(); i < size; i++) {
                     final int NEW_POSITION = array.get(i) - 1;
-                    arrayElementsPositions.set(NEW_POSITION, i);
+                    elementsPositionsArray.set(NEW_POSITION, i);
                 }
-                return arrayElementsPositions;
+                return elementsPositionsArray;
             }
 
             private static List<Integer> _generatePermutatedArray(List<Integer> array) {

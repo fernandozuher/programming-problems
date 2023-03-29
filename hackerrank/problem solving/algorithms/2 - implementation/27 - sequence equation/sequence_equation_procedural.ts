@@ -30,7 +30,7 @@ function main() {
     const ARRAY: Array<number> = readAnArray();
 
     const PERMUTATED_ARRAY: Array<number> = permutationEquation(ARRAY);
-    printArray(PERMUTATED_ARRAY);
+    printPermutatedArray(PERMUTATED_ARRAY);
 }
 
     function readANumber(): number {
@@ -43,17 +43,17 @@ function main() {
     }
 
     function permutationEquation(array: Array<number>): Array<number> {
-        const ARRAY_ELEMENTS_POSITIONS: Array<number> = generateArrayOfElementsPositions(array);
-        const PERMUTATED_ARRAY: Array<number> = generatePermutatedArray(ARRAY_ELEMENTS_POSITIONS);
+        const ELEMENTS_POSITIONS_ARRAY: Array<number> = generateElementsPositionsArray(array);
+        const PERMUTATED_ARRAY: Array<number> = generatePermutatedArray(ELEMENTS_POSITIONS_ARRAY);
         return PERMUTATED_ARRAY;
     }
 
-        function generateArrayOfElementsPositions(array: Array<number>): Array<number> {
-            const arrayElementsPositions: Array<number> = new Array(array.length).fill(0);
+        function generateElementsPositionsArray(array: Array<number>): Array<number> {
+            const elementsPositionsArray: Array<number> = new Array(array.length).fill(0);
             array.forEach((element, i) => {
-                arrayElementsPositions[element-1] = i;
+                elementsPositionsArray[element-1] = i;
             });
-            return arrayElementsPositions;
+            return elementsPositionsArray;
         }
 
         function generatePermutatedArray(array: Array<number>): Array<number> {
@@ -64,6 +64,6 @@ function main() {
             return permutatedArray;
         }
 
-    function printArray(array: Array<number>) {
+    function printPermutatedArray(array: Array<number>) {
         array.forEach(element => console.log(element));
     }

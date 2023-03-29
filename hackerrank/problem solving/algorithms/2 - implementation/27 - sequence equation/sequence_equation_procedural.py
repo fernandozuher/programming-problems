@@ -22,17 +22,17 @@ def readAnArray():
 
 def permutationEquation(array):
 
-    ARRAY_ELEMENTS_POSITIONS = generateArrayOfElementsPositions(array)
-    PERMUTATED_ARRAY = generatePermutatedArray(ARRAY_ELEMENTS_POSITIONS)
+    ELEMENTS_POSITIONS_ARRAY = generateElementsPositionsArray(array)
+    PERMUTATED_ARRAY = generatePermutatedArray(ELEMENTS_POSITIONS_ARRAY)
     return PERMUTATED_ARRAY
 
 
-def generateArrayOfElementsPositions(array):
+def generateElementsPositionsArray(array):
 
-    arrayElementsPositions = [None] * len(array)
+    elementsPositionsArray = [None] * len(array)
     for i, element in enumerate(array):
-        arrayElementsPositions[element-1] = i
-    return arrayElementsPositions
+        elementsPositionsArray[element-1] = i
+    return elementsPositionsArray
 
 
 def generatePermutatedArray(array):
