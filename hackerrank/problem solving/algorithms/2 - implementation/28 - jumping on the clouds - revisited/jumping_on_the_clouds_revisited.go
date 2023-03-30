@@ -13,48 +13,46 @@ func main() {
     fmt.Println(energy)
 }
 
-func ReadANumber() int {
-    var number int
-    fmt.Scan(&number)
-    return number
-}
-
-func ReadAnArray(sizeArray int) []int {
-    var array []int = make([]int, sizeArray)
-    for i := 0; i < sizeArray; i++ {
-        fmt.Scan(&array[i])
+    func ReadANumber() int {
+        var number int
+        fmt.Scan(&number)
+        return number
     }
-    return array
-}
 
-func JumpingOnClouds(array []int, jumpLength int) int {
-    var energy int = 100
-
-    for cloudIndex := 0; true; {
-        var isCloudCumulus bool = array[cloudIndex] == 0
-        energy -= SpentEnergyAccordingToTypeOfCloud(isCloudCumulus)
-
-        cloudIndex = GenerateNewCloudIndex(cloudIndex, len(array), jumpLength)
-        if IsCloudIndexBackToFirstCloud(cloudIndex) {
-            break
+    func ReadAnArray(sizeArray int) []int {
+        var array []int = make([]int, sizeArray)
+        for i := 0; i < sizeArray; i++ {
+            fmt.Scan(&array[i])
         }
+        return array
     }
 
-    return energy
-}
+    func JumpingOnClouds(array []int, jumpLength int) int {
+        var energy int = 100
 
-func SpentEnergyAccordingToTypeOfCloud(isCloudCumulus bool) int {
-    if isCloudCumulus {
-        return 1
-    } else {
-        return 3
+        for cloudIndex := 0; true; {
+            energy -= SpentEnergyAccordingToTypeOfCloud(array[cloudIndex])
+            cloudIndex = GenerateNewCloudIndex(cloudIndex, len(array), jumpLength)
+            if IsCloudIndexBackToFirstCloud(cloudIndex) {
+                break
+            }
+        }
+
+        return energy
     }
-}
 
-func GenerateNewCloudIndex(cloudIndex int, sizeArray int, jumpLength int) int {
-    return (cloudIndex + jumpLength) % sizeArray
-}
+        func SpentEnergyAccordingToTypeOfCloud(cloudType int) int {
+            if cloudType == 0 {
+                return 1
+            } else {
+                return 3
+            }
+        }
 
-func IsCloudIndexBackToFirstCloud(cloudIndex int) bool {
-    return cloudIndex == 0
-}
+        func GenerateNewCloudIndex(cloudIndex int, sizeArray int, jumpLength int) int {
+            return (cloudIndex + jumpLength) % sizeArray
+        }
+
+        func IsCloudIndexBackToFirstCloud(cloudIndex int) bool {
+            return cloudIndex == 0
+        }

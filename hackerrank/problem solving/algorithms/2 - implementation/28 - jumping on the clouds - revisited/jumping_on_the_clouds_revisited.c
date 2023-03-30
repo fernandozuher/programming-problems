@@ -7,7 +7,7 @@
 int read_a_number();
 int* read_an_array(const int SIZE);
 int jumping_on_clouds(const int *ARRAY, const int SIZE_ARRAY, const int JUMP_LENGTH);
-    bool is_cloud_cumulus(const int CLOUD);
+    int spent_energy_according_to_type_of_cloud(const int cloud_type);
     int generate_new_cloud_index(const int CLOUD_INDEX, const int SIZE_ARRAY, const int JUMP_LENGTH);
     bool is_cloud_index_back_to_first_cloud(const int CLOUD_INDEX);
 
@@ -43,7 +43,7 @@ int main() {
         int energy = 100;
 
         for (int cloud_index = 0; true; ) {
-            energy -= is_cloud_cumulus(ARRAY[cloud_index]) ? 1 : 3;
+            energy -= spent_energy_according_to_type_of_cloud(ARRAY[cloud_index]);
             cloud_index = generate_new_cloud_index(cloud_index, SIZE_ARRAY, JUMP_LENGTH);
             if (is_cloud_index_back_to_first_cloud(cloud_index))
                 break;
@@ -52,8 +52,8 @@ int main() {
         return energy;
     }
 
-        bool is_cloud_cumulus(const int CLOUD) {
-            return CLOUD == 0;
+        int spent_energy_according_to_type_of_cloud(const int cloud_type) {
+            return cloud_type == 0 ? 1 : 3;
         }
 
         int generate_new_cloud_index(const int CLOUD_INDEX, const int SIZE_ARRAY, const int JUMP_LENGTH) {
