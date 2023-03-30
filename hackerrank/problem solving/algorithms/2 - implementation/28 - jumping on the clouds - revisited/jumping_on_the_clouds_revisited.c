@@ -5,9 +5,9 @@
 #include <stdbool.h>
 
 int read_a_number();
-int* read_an_array(const int SIZE);
+int* read_an_array(const int SIZE_ARRAY);
 int jumping_on_clouds(const int *ARRAY, const int SIZE_ARRAY, const int JUMP_LENGTH);
-    int spent_energy_according_to_type_of_cloud(const int cloud_type);
+    int spent_energy_according_to_type_of_cloud(const int CLOUD_TYPE);
     int generate_new_cloud_index(const int CLOUD_INDEX, const int SIZE_ARRAY, const int JUMP_LENGTH);
     bool is_cloud_index_back_to_first_cloud(const int CLOUD_INDEX);
 
@@ -52,8 +52,8 @@ int main() {
         return energy;
     }
 
-        int spent_energy_according_to_type_of_cloud(const int cloud_type) {
-            return cloud_type == 0 ? 1 : 3;
+        int spent_energy_according_to_type_of_cloud(const int CLOUD_TYPE) {
+            return CLOUD_TYPE == 0 ? 1 : 3;
         }
 
         int generate_new_cloud_index(const int CLOUD_INDEX, const int SIZE_ARRAY, const int JUMP_LENGTH) {
