@@ -1,6 +1,8 @@
 // Source: https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 use std::io::{stdin, BufRead};
+
+#[macro_use]
 extern crate text_io;
 
 
