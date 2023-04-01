@@ -30,15 +30,15 @@ end
     end
 
         def spentEnergyAccordingToTypeOfCloud cloudType
-            return cloudType == 0 ? 1 : 3
+            cloudType == 0 ? 1 : 3
         end
 
         def generateNewCloudIndex cloudIndex, sizeArray, jumpLength
-            return (cloudIndex + jumpLength) % sizeArray
+            (cloudIndex + jumpLength) % sizeArray
         end
 
         def isCloudIndexBackToFirstCloud cloudIndex
-            return cloudIndex == 0
+            cloudIndex == 0
         end
 
 main
