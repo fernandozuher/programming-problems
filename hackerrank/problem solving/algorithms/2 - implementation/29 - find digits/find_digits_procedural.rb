@@ -21,18 +21,26 @@ end
         divisors = 0
 
         while currentNumber != 0
-            potentialDivisor = (currentNumber % 10).to_i
-            if isNumberEvenlyDividedByDivisor number, potentialDivisor
+            divisor = getLastDigitOfNumber currentNumber
+            if isNumberEvenlyDividedByDivisor number, divisor
                 divisors += 1
             end
-            currentNumber = (currentNumber / 10).to_i
+            currentNumber = removeLastDigitOfNumber currentNumber
         end
 
         divisors
     end
 
+        def getLastDigitOfNumber number
+            (number % 10).to_i
+        end
+
         def isNumberEvenlyDividedByDivisor number, divisor
             divisor != 0 and number % divisor == 0
+        end
+
+        def removeLastDigitOfNumber number
+            (number / 10).to_i
         end
 
     def printOutput array

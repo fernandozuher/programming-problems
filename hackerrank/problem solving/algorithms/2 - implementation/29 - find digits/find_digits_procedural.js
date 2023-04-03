@@ -34,27 +34,35 @@ function main() {
     printOutput(output);
 }
 
-function readANumber() {
-    const NUMBER = +readLine();
-    return NUMBER;
-}
-
-function findNumberDivisorsQuantity(number) {
-    let divisors = 0;
-
-    for (let currentNumber = number; currentNumber != 0; currentNumber = Math.trunc(currentNumber / 10)) {
-        const POTENTIAL_DIVISOR = currentNumber % 10;
-        if (isNumberEvenlyDividedByDivisor(number, POTENTIAL_DIVISOR))
-            divisors++;
+    function readANumber() {
+        const NUMBER = +readLine();
+        return NUMBER;
     }
 
-    return divisors;
-}
+    function findNumberDivisorsQuantity(number) {
+        let divisors = 0;
 
-function isNumberEvenlyDividedByDivisor(number, divisor) {
-    return divisor != 0 && number % divisor == 0;
-}
+        for (let currentNumber = number; currentNumber != 0; currentNumber = removeLastDigitOfNumber(currentNumber)) {
+            const DIVISOR = getLastDigitOfNumber(currentNumber);
+            if (isNumberEvenlyDividedByDivisor(number, DIVISOR))
+                divisors++;
+        }
 
-function printOutput(array) {
-    array.forEach(number => console.log(number));
-}
+        return divisors;
+    }
+
+        function getLastDigitOfNumber(number) {
+            return number % 10;
+        }
+
+        function isNumberEvenlyDividedByDivisor(number, divisor) {
+            return divisor != 0 && number % divisor == 0;
+        }
+
+        function removeLastDigitOfNumber(number) {
+            return Math.trunc(number / 10);
+        }
+
+    function printOutput(array) {
+        array.forEach(number => console.log(number));
+    }

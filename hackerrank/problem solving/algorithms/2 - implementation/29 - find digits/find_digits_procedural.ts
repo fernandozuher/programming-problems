@@ -37,27 +37,35 @@ function main() {
     printOutput(output);
 }
 
-function readANumber(): number {
-    const NUMBER: number = +readLine();
-    return NUMBER;
-}
-
-function findNumberDivisorsQuantity(inputNumber: number): number {
-    let divisors: number = 0;
-
-    for (let currentNumber: number = inputNumber; currentNumber != 0; currentNumber = Math.trunc(currentNumber / 10)) {
-        const POTENTIAL_DIVISOR: number = currentNumber % 10;
-        if (isNumberEvenlyDividedByDivisor(inputNumber, POTENTIAL_DIVISOR))
-            divisors++;
+    function readANumber(): number {
+        const NUMBER: number = +readLine();
+        return NUMBER;
     }
 
-    return divisors;
-}
+    function findNumberDivisorsQuantity(inputNumber: number): number {
+        let divisors: number = 0;
 
-function isNumberEvenlyDividedByDivisor(number: number, divisor: number): boolean {
-    return divisor != 0 && number % divisor == 0;
-}
+        for (let currentNumber: number = inputNumber; currentNumber != 0; currentNumber = removeLastDigitOfNumber(currentNumber)) {
+            const DIVISOR: number = getLastDigitOfNumber(currentNumber);
+            if (isNumberEvenlyDividedByDivisor(inputNumber, DIVISOR))
+                divisors++;
+        }
 
-function printOutput(array: Array<number>) {
-    array.forEach(number => console.log(number));
-}
+        return divisors;
+    }
+
+        function getLastDigitOfNumber(inputNumber: number): number {
+            return inputNumber % 10;
+        }
+
+        function isNumberEvenlyDividedByDivisor(inputNumber: number, divisor: number): boolean {
+            return divisor != 0 && inputNumber % divisor == 0;
+        }
+
+        function removeLastDigitOfNumber(inputNumber: number): number {
+            return Math.trunc(inputNumber / 10);
+        }
+
+    function printOutput(array: Array<number>) {
+        array.forEach(number => console.log(number));
+    }

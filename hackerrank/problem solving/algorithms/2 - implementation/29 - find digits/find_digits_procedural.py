@@ -24,17 +24,27 @@ def findNumberDivisorsQuantity(NUMBER):
     divisors = 0
 
     while number != 0:
-        POTENTIAL_DIVISOR = int(number % 10)
-        if isNumberEvenlyDividedByDivisor(NUMBER, POTENTIAL_DIVISOR):
+        DIVISOR = getLastDigitOfNumber(number)
+        if isNumberEvenlyDividedByDivisor(NUMBER, DIVISOR):
             divisors += 1
-        number = int(number / 10)
+        number = removeLastDigitOfNumber(number)
 
     return divisors
+
+
+def getLastDigitOfNumber(NUMBER):
+
+    return int(NUMBER % 10)
 
 
 def isNumberEvenlyDividedByDivisor(NUMBER, DIVISOR):
 
     return DIVISOR != 0 and NUMBER % DIVISOR == 0
+
+
+def removeLastDigitOfNumber(NUMBER):
+
+    return int(NUMBER / 10)
 
 
 def printOutput(array):

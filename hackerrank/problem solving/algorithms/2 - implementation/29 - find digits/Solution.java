@@ -26,20 +26,28 @@ public class Solution {
             return NUMBER;
         }
 
-        private static int _findNumberDivisorsQuantity(int NUMBER) {
+        private static int _findNumberDivisorsQuantity(int number) {
             int divisors = 0;
 
-            for (int number = NUMBER; number != 0; number /= 10) {
-                final int POTENTIAL_DIVISOR = number % 10;
-                if (_isNumberEvenlyDividedByDivisor(NUMBER, POTENTIAL_DIVISOR))
+            for (int currentNumber = number; currentNumber != 0; currentNumber = _removeLastDigitOfNumber(currentNumber)) {
+                final int DIVISOR = _getLastDigitOfNumber(currentNumber);
+                if (_isNumberEvenlyDividedByDivisor(number, DIVISOR))
                     divisors++;
             }
 
             return divisors;
         }
 
-            private static boolean _isNumberEvenlyDividedByDivisor(int NUMBER, int DIVISOR) {
-                return DIVISOR != 0 && NUMBER % DIVISOR == 0;
+            private static int _getLastDigitOfNumber(int number) {
+                return number % 10;
+            }
+
+            private static boolean _isNumberEvenlyDividedByDivisor(int number, int divisor) {
+                return divisor != 0 && number % divisor == 0;
+            }
+
+            private static int _removeLastDigitOfNumber(int number) {
+                return number / 10;
             }
 
         public static void printOutput(List<Integer> array) {

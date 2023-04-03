@@ -32,17 +32,25 @@ int main() {
     int find_number_divisors_quantity(const int NUMBER) {
         int divisors = 0;
 
-        for (int number = NUMBER; number != 0; number /= 10) {
-            const int POTENTIAL_DIVISOR = number % 10;
-            if (is_number_evenly_divided_by_divisor(NUMBER, POTENTIAL_DIVISOR))
+        for (int number = NUMBER; number != 0; number = remove_last_digit_of_number(number)) {
+            const int DIVISOR = get_last_digit_of_number(number);
+            if (is_number_evenly_divided_by_divisor(NUMBER, DIVISOR))
                 divisors++;
         }
 
         return divisors;
     }
 
+        int get_last_digit_of_number(const int NUMBER) {
+            return NUMBER % 10;
+        }
+
         bool is_number_evenly_divided_by_divisor(const int NUMBER, const int DIVISOR) {
             return DIVISOR != 0 && NUMBER % DIVISOR == 0;
+        }
+
+        int remove_last_digit_of_number(const int NUMBER) {
+            return NUMBER / 10;
         }
 
     void print_output(const int *ARRAY, const int SIZE) {
