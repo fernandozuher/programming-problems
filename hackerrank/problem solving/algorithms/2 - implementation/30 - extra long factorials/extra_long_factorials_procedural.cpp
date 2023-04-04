@@ -39,34 +39,34 @@ int main() {
         return factorial;
     }
 
-    vector<int> multiply_result_with_number(vector<int> result, const int NUMBER) {
-        int carry {0};
+        vector<int> multiply_result_with_number(vector<int> result, const int NUMBER) {
+            int carry {0};
 
-        for (auto &digit : result) {
-            const int PRODUCT = digit * NUMBER + carry;
-            digit = get_last_digit_of_number(PRODUCT);
-            carry = remove_last_digit_of_number(PRODUCT);
-        }
-
-        result = add_remaining_carry_to_result(carry, result);
-        return result;
-    }
-
-        int get_last_digit_of_number(const int NUMBER) {
-            return NUMBER % 10;
-        }
-
-        int remove_last_digit_of_number(const int NUMBER) {
-            return NUMBER / 10;
-        }
-
-        vector<int> add_remaining_carry_to_result(int carry, vector<int> result) {
-            while (carry != 0) {
-                result.push_back(get_last_digit_of_number(carry));
-                carry = remove_last_digit_of_number(carry);
+            for (auto &digit : result) {
+                const int PRODUCT = digit * NUMBER + carry;
+                digit = get_last_digit_of_number(PRODUCT);
+                carry = remove_last_digit_of_number(PRODUCT);
             }
+
+            result = add_remaining_carry_to_result(carry, result);
             return result;
         }
+
+            int get_last_digit_of_number(const int NUMBER) {
+                return NUMBER % 10;
+            }
+
+            int remove_last_digit_of_number(const int NUMBER) {
+                return NUMBER / 10;
+            }
+
+            vector<int> add_remaining_carry_to_result(int carry, vector<int> result) {
+                while (carry != 0) {
+                    result.push_back(get_last_digit_of_number(carry));
+                    carry = remove_last_digit_of_number(carry);
+                }
+                return result;
+            }
 
     void print_factorial(const vector<int> ARRAY) {
         for (auto &digit : views::reverse(ARRAY))
