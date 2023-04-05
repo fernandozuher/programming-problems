@@ -69,7 +69,7 @@ int main() {
             }
 
     void print_factorial(const vector<int> ARRAY) {
-        for (auto &digit : views::reverse(ARRAY))
+        for (auto digit : views::reverse(ARRAY))
             cout << digit;
         cout << "\n";
     }
