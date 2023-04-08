@@ -4,7 +4,6 @@ package main
 
 import "fmt"
 
-
 func main() {
     var initialString string = ReadAWord()
     var finalString string = ReadAWord()
