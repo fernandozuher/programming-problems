@@ -14,7 +14,7 @@ def main():
     RETURN_DATE = readADate()
     DUE_DATE = readADate()
 
-    FINE = calculate_fine(RETURN_DATE, DUE_DATE)
+    FINE = calculateFine(RETURN_DATE, DUE_DATE)
     print(FINE)
 
 
@@ -25,7 +25,7 @@ def readADate():
     return DATE
 
 
-def calculate_fine(returnDate, dueDate):
+def calculateFine(returnDate, dueDate):
 
     fine = 0
 

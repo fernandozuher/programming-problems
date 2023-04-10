@@ -56,7 +56,7 @@ function main() {
     const RETURN_DATE = readADate();
     const DUE_DATE = readADate();
 
-    const FINE = calculate_fine(RETURN_DATE, DUE_DATE);
+    const FINE = calculateFine(RETURN_DATE, DUE_DATE);
     console.log(FINE);
 }
 
@@ -66,7 +66,7 @@ function main() {
         return DATE;
     }
 
-    function calculate_fine(returnDate, dueDate) {
+    function calculateFine(returnDate, dueDate) {
         let fine;
 
         if (wereBooksReturnedInTime(returnDate, dueDate))
