@@ -10,6 +10,7 @@ import (
 func main() {
     var size int = ReadANumber()
     var array []int = ReadAnArray(size)
+    sort.Ints(array)
 
     var result []int = CutTheSticks(array)
     PrintArray(result)
@@ -30,28 +31,32 @@ func main() {
     }
 
     func CutTheSticks(array []int) []int {
-        sort.Ints(array)
         var size int = len(array)
-        var remainingSticksInEachIteration []int = make([]int, 1)
-        remainingSticksInEachIteration[0] = size
-
+        var remainingSticksOfEachIteration []int = InitializeResult(size)
+        
         for i := 0; i < size; {
             var shortestStickLength int = array[i]
 
-            i = FindFirstElementIndexDifferentOfFirstCurrentshortestStickLengthIndex(i, array)
+            i = FindFirstElementIndexDifferentOfFirstCurrentShortestStickLengthIndex(i, array)
             var currentIterationSize int = size - i
             if i == size {
                 break
             }
 
-            remainingSticksInEachIteration = append(remainingSticksInEachIteration, currentIterationSize)
-            DecreaseSticksLengthsHigherThanCurrentshortestStickLength(i, array, shortestStickLength)
+            remainingSticksOfEachIteration = append(remainingSticksOfEachIteration, currentIterationSize)
+            DecreaseSticksLengthsHigherThanCurrentShortestStickLength(i, array, shortestStickLength)
         }
 
-        return remainingSticksInEachIteration
+        return remainingSticksOfEachIteration
     }
 
-        func FindFirstElementIndexDifferentOfFirstCurrentshortestStickLengthIndex(index int, array []int) int {
+        func InitializeResult(size int) []int {
+            var remainingSticksOfEachIteration []int = make([]int, 1)
+            remainingSticksOfEachIteration[0] = size
+            return remainingSticksOfEachIteration
+        }
+
+        func FindFirstElementIndexDifferentOfFirstCurrentShortestStickLengthIndex(index int, array []int) int {
             var size int = len(array)
             var shortestStickLength int = array[index]
             for index < size && array[index] == shortestStickLength {
@@ -60,7 +65,7 @@ func main() {
             return index
         }
 
-        func DecreaseSticksLengthsHigherThanCurrentshortestStickLength(index int, array []int, shortestStickLength int) {
+        func DecreaseSticksLengthsHigherThanCurrentShortestStickLength(index int, array []int, shortestStickLength int) {
             for i := index; i < len(array); i++ {
                 array[i] -= shortestStickLength
             }
