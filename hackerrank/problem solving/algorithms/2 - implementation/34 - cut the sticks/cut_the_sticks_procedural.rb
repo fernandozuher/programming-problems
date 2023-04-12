@@ -13,7 +13,7 @@ end
         gets.to_i
     end
 
-    def readAnArray()
+    def readAnArray
         gets.split.map(&:to_i)
     end
 

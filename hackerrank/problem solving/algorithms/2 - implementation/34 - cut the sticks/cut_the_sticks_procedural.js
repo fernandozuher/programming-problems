@@ -73,5 +73,5 @@ function main() {
         }
 
     function printArray(array) {
-        array.forEach((element, i) => console.log(element));
+        array.forEach((element, _) => console.log(element));
     }
