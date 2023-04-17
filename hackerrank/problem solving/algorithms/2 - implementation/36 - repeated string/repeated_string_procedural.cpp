@@ -8,7 +8,7 @@ using namespace std;
 string read_a_string();
 unsigned long read_a_number();
 unsigned long find_quantity_of_a_in_repeated_string(const string INPUT_STRING, const unsigned long N_CHARACTERS);
-    unsigned long find_quantity_of_a_in_original_string(const string INPUT_STRING);
+    unsigned long find_quantity_of_a_in_string(const string INPUT_STRING);
     unsigned long find_quantity_of_repeated_entire_string(const unsigned long N_CHARACTERS, const int SIZE_STRING);
     unsigned long find_quantity_of_remaining_a(const unsigned long N_CHARACTERS, const string INPUT_STRING);
 
@@ -36,14 +36,14 @@ int main() {
     }
 
     unsigned long find_quantity_of_a_in_repeated_string(const string INPUT_STRING, const unsigned long N_CHARACTERS) {
-        unsigned long quantity_of_a {find_quantity_of_a_in_original_string(INPUT_STRING)};
+        unsigned long quantity_of_a {find_quantity_of_a_in_string(INPUT_STRING)};
         quantity_of_a *= find_quantity_of_repeated_entire_string(N_CHARACTERS, INPUT_STRING.length());
         quantity_of_a += find_quantity_of_remaining_a(N_CHARACTERS, INPUT_STRING);
 
         return quantity_of_a;
     }
 
-        unsigned long find_quantity_of_a_in_original_string(const string INPUT_STRING) {
+        unsigned long find_quantity_of_a_in_string(const string INPUT_STRING) {
             unsigned long quantity_of_a {0};
 
             for (auto character : INPUT_STRING)
@@ -60,12 +60,10 @@ int main() {
 
         unsigned long find_quantity_of_remaining_a(const unsigned long N_CHARACTERS, const string INPUT_STRING) {
             const unsigned long N_REMAINING_CHARACTERS_OF_STRING {N_CHARACTERS % INPUT_STRING.length()};
+
+            if (N_REMAINING_CHARACTERS_OF_STRING == 0)
+                return 0;
+
             string sub_string {INPUT_STRING.substr(0, N_REMAINING_CHARACTERS_OF_STRING)};
-            unsigned long quantity_of_a {0};
-
-            for (auto character : sub_string)
-                if (character == 'a')
-                    quantity_of_a++;
-
-            return quantity_of_a;
+            return find_quantity_of_a_in_string(sub_string);
         }

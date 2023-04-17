@@ -6,7 +6,7 @@
 char* read_a_string();
 unsigned long read_a_number();
 unsigned long find_quantity_of_a_in_repeated_string(char* string, const unsigned long N_CHARACTERS);
-    unsigned long find_quantity_of_a_in_original_string(char* string);
+    unsigned long find_quantity_of_a_in_string(char* string);
     unsigned long find_quantity_of_repeated_entire_string(char* string, const unsigned long N_CHARACTERS);
     unsigned long get_size_string(char* string);
     unsigned long find_quantity_of_remaining_a(char* string, const unsigned long N_CHARACTERS);
@@ -39,14 +39,14 @@ int main() {
     }
 
     unsigned long find_quantity_of_a_in_repeated_string(char* string, const unsigned long N_CHARACTERS) {
-        unsigned long quantity_of_a = find_quantity_of_a_in_original_string(string);
+        unsigned long quantity_of_a = find_quantity_of_a_in_string(string);
         quantity_of_a *= find_quantity_of_repeated_entire_string(string, N_CHARACTERS);
         quantity_of_a += find_quantity_of_remaining_a(string, N_CHARACTERS);
 
         return quantity_of_a;
     }
 
-        unsigned long find_quantity_of_a_in_original_string(char* string) {
+        unsigned long find_quantity_of_a_in_string(char* string) {
             unsigned long quantity_of_a = 0;
 
             for (; *string != '\0'; string++)
@@ -72,13 +72,16 @@ int main() {
         unsigned long find_quantity_of_remaining_a(char* string, const unsigned long N_CHARACTERS) {
             const unsigned long SIZE_STRING = get_size_string(string);
             const unsigned long N_REMAINING_CHARACTERS_OF_STRING = N_CHARACTERS % SIZE_STRING;
-            unsigned long quantity_of_a = 0;
 
-            for (unsigned long i = 0; i < N_REMAINING_CHARACTERS_OF_STRING; i++)
-                if (*(string++) == 'a')
-                    quantity_of_a++;
+            if (N_REMAINING_CHARACTERS_OF_STRING == 0)
+                return 0;
 
-            return quantity_of_a;
+            char sub_string[N_REMAINING_CHARACTERS_OF_STRING + 1];
+            
+            strncpy(sub_string, string, N_REMAINING_CHARACTERS_OF_STRING);
+            sub_string[N_REMAINING_CHARACTERS_OF_STRING] = '\0';
+            
+            return find_quantity_of_a_in_string(sub_string);
         }
 
     char* free_string(char* string) {
