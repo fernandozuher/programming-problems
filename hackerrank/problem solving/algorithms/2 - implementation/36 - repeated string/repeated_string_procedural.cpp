@@ -64,6 +64,6 @@ int main() {
             if (N_REMAINING_CHARACTERS_OF_STRING == 0)
                 return 0;
 
-            string sub_string {INPUT_STRING.substr(0, N_REMAINING_CHARACTERS_OF_STRING)};
-            return find_quantity_of_a_in_string(sub_string);
+            const string SUB_STRING {INPUT_STRING.substr(0, N_REMAINING_CHARACTERS_OF_STRING)};
+            return find_quantity_of_a_in_string(SUB_STRING);
         }
