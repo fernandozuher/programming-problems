@@ -39,7 +39,7 @@ int main() {
         int jumps {0};
 
         for (int i {0}, size {static_cast<int>(ARRAY.size() - 1)}; i < size; ) {
-            i = get_index_of_next_jump(i, ARRAY);
+            i = {get_index_of_next_jump(i, ARRAY)};
             jumps++;
         }
 
