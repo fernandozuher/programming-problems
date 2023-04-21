@@ -23,7 +23,7 @@ end
             _calculateMinimumNumberOfJumps
         end
 
-            def _calculateMinimumNumberOfJumps
+            private def _calculateMinimumNumberOfJumps
                 i = 0
                 size = @cloudArray.size - 1
 
@@ -33,7 +33,7 @@ end
                 end
             end
 
-                def _getIndexOfNextJump index
+                private def _getIndexOfNextJump index
                     if _isNextSecondIndexInsideRange(index + 2)
                         index += _isNextSecondCloudCumulus(@cloudArray[index + 2]) ? 2 : 1
                     else
@@ -42,11 +42,11 @@ end
                     return index
                 end
 
-                    def _isNextSecondIndexInsideRange index
+                    private def _isNextSecondIndexInsideRange index
                         index < @cloudArray.size
                     end
 
-                    def _isNextSecondCloudCumulus typeOfCloud
+                    private def _isNextSecondCloudCumulus typeOfCloud
                         typeOfCloud == 0
                     end
 
