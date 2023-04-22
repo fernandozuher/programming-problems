@@ -15,9 +15,9 @@ int equalize_array(vector<int> array);
 
 int main() {
     const int SIZE_ARRAY {read_a_number()};
-    vector<int> array {read_an_array(SIZE_ARRAY)};
+    const vector<int> ARRAY {read_an_array(SIZE_ARRAY)};
 
-    const int MINIMUM_NUMBER_OF_DELETIONS_REQUIRED {equalize_array(array)};
+    const int MINIMUM_NUMBER_OF_DELETIONS_REQUIRED {equalize_array(ARRAY)};
     cout << MINIMUM_NUMBER_OF_DELETIONS_REQUIRED << "\n";
 
     return 0;
