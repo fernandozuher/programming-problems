@@ -57,13 +57,13 @@ int main() {
         for (int i = 0; i < SIZE_ARRAY - 1; i++) {
             for (int j = i + 1; j < SIZE_ARRAY; j++) {
 
-                int temporary_maximum_subjects_known_by_teams = calculate_maximum_subjects_known_by_team(binary_strings[i], binary_strings[j]);
+                const int TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS = calculate_maximum_subjects_known_by_team(binary_strings[i], binary_strings[j]);
 
-                if (temporary_maximum_subjects_known_by_teams > maximum_subjects_known_by_teams) {
-                    maximum_subjects_known_by_teams = temporary_maximum_subjects_known_by_teams;
+                if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS > maximum_subjects_known_by_teams) {
+                    maximum_subjects_known_by_teams = TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS;
                     teams_that_know_maximum_subjects = 1;
                 }
-                else if (temporary_maximum_subjects_known_by_teams == maximum_subjects_known_by_teams)
+                else if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS == maximum_subjects_known_by_teams)
                     teams_that_know_maximum_subjects++;
             }
         }

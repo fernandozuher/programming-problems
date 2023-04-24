@@ -38,10 +38,10 @@ def findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS):
         RANGE_OF_BINARY_STRINGS_2 = BINARY_STRINGS[i + 1:]
         
         for BINARY_STRING_2 in RANGE_OF_BINARY_STRINGS_2:
-            temporaryMaximumSubjectsKnownBy2Teams = calculateMaximumSubjectsKnownByTeam(BINARY_STRING_1, BINARY_STRING_2)
+            TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS = calculateMaximumSubjectsKnownByTeam(BINARY_STRING_1, BINARY_STRING_2)
 
             maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects = \
-                updateMaximumSubjectsKnownByTeamsAndTeamsThatKnowMaximumSubjects(temporaryMaximumSubjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects)
+                updateMaximumSubjectsKnownByTeamsAndTeamsThatKnowMaximumSubjects(TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects)
 
     return [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects]
 
