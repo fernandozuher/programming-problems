@@ -29,7 +29,7 @@ function main() {
     const [ATTENDEES, _TOPICS]: Array<number> = readANumericArray();
     const BINARY_STRINGS: Array<string> = readBinaryStrings(ATTENDEES);
 
-    const OUTPUT: Array<number> = acmTeam(BINARY_STRINGS);
+    const OUTPUT: Array<number> = findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS);
     printArray(OUTPUT);
 }
 
@@ -43,21 +43,14 @@ function main() {
         return BINARY_STRINGS;
     }
 
-    function acmTeam(binaryStrings: Array<string>): Array<number> {
-        let teamsThatKnowMaximumSubjects: number = 0;
+    function findMaximumSubjectsAndTeamsThatKnowThem(binaryStrings: Array<string>): Array<number> {
         let maximumSubjectsKnownByTeams: number = 0;
+        let teamsThatKnowMaximumSubjects: number = 0;
 
         for (let i = 0, size1 = binaryStrings.length - 1; i < size1; i++) {
             for (let j = i + 1, size2 = binaryStrings.length; j < size2; j++) {
-
-                const TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS: number = calculateMaximumSubjectsKnownByTeam(binaryStrings[i], binaryStrings[j]);
-
-                if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS > maximumSubjectsKnownByTeams) {
-                    maximumSubjectsKnownByTeams = TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS;
-                    teamsThatKnowMaximumSubjects = 1;
-                }
-                else if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS == maximumSubjectsKnownByTeams)
-                    teamsThatKnowMaximumSubjects++;
+                const SUBJECTS_KNOWN_BY_2_TEAMS: number = countSubjectsKnownBy2Teams(binaryStrings[i], binaryStrings[j]);
+                [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects] = updateMaximumSubjectsAndTeamsThatKnowThem(SUBJECTS_KNOWN_BY_2_TEAMS, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects);
             }
         }
 
@@ -65,16 +58,27 @@ function main() {
         return OUTPUT;
     }
 
-        function calculateMaximumSubjectsKnownByTeam(binaryString1: string, binaryString2: string): number {
-            let temporaryMaximumSubjectsKnownByTeams: number = 0;
+        function countSubjectsKnownBy2Teams(binaryString1: string, binaryString2: string): number {
+            let subjectsKnownBy2Teams: number = 0;
 
             [...binaryString1].forEach((character_string_1, i) => {
                 let character_string_2: string = binaryString2[i];
                 if (character_string_1 == "1" || character_string_2 == "1")
-                    temporaryMaximumSubjectsKnownByTeams++;
+                    subjectsKnownBy2Teams++;
             });
 
-            return temporaryMaximumSubjectsKnownByTeams;
+            return subjectsKnownBy2Teams;
+        }
+
+        function updateMaximumSubjectsAndTeamsThatKnowThem(subjectsKnownBy2Teams: number, maximumSubjectsKnownByTeams: number, teamsThatKnowMaximumSubjects: number): Array<number> {
+            if (subjectsKnownBy2Teams > maximumSubjectsKnownByTeams) {
+                maximumSubjectsKnownByTeams = subjectsKnownBy2Teams;
+                teamsThatKnowMaximumSubjects = 1;
+            }
+            else if (subjectsKnownBy2Teams == maximumSubjectsKnownByTeams)
+                teamsThatKnowMaximumSubjects++;
+
+            return [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects];
         }
 
     function printArray(array: Array<number>) {

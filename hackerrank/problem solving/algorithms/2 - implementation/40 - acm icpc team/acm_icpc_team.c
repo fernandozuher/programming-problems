@@ -7,8 +7,9 @@ int read_a_number();
 char** read_binary_strings(const int N_STRINGS, const int SIZE_STRING);
     char* read_a_string(const int SIZE);
 
-int* acm_team(char** binary_strings, const int SIZE_ARRAY);
-    int calculate_maximum_subjects_known_by_team(char* binary_string_1, char* binary_string_2);
+int* find_maximum_subjects_and_teams_that_know_them(char** binary_strings, const int SIZE_ARRAY);
+    int count_subjects_known_by_2_teams(char* binary_string_1, char* binary_string_2);
+    void update_maximum_subjects_and_teams_that_know_them(const int SUBJECTS_KNOWN_BY_2_TEAMS, int* maximum_subjects_known_by_teams, int* teams_that_know_maximum_subjects);
 
 void print_array(const int* array, const int SIZE);
 char** free_strings_array(char** array, const int SIZE);
@@ -20,7 +21,7 @@ int main() {
     const int TOPICS = read_a_number();
     char** binary_strings = read_binary_strings(ATTENDEES, TOPICS);
 
-    int* output = acm_team(binary_strings, ATTENDEES);
+    int* output = find_maximum_subjects_and_teams_that_know_them(binary_strings, ATTENDEES);
     print_array(output, 2);
 
     binary_strings = free_strings_array(binary_strings, ATTENDEES);
@@ -50,21 +51,14 @@ int main() {
             return string;
         }
 
-    int* acm_team(char** binary_strings, const int SIZE_ARRAY) {
-        int teams_that_know_maximum_subjects = 0;
+    int* find_maximum_subjects_and_teams_that_know_them(char** binary_strings, const int SIZE_ARRAY) {
         int maximum_subjects_known_by_teams = 0;
+        int teams_that_know_maximum_subjects = 0;
 
         for (int i = 0; i < SIZE_ARRAY - 1; i++) {
             for (int j = i + 1; j < SIZE_ARRAY; j++) {
-
-                const int TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS = calculate_maximum_subjects_known_by_team(binary_strings[i], binary_strings[j]);
-
-                if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS > maximum_subjects_known_by_teams) {
-                    maximum_subjects_known_by_teams = TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS;
-                    teams_that_know_maximum_subjects = 1;
-                }
-                else if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS == maximum_subjects_known_by_teams)
-                    teams_that_know_maximum_subjects++;
+                const int SUBJECTS_KNOWN_BY_2_TEAMS = count_subjects_known_by_2_teams(binary_strings[i], binary_strings[j]);
+                update_maximum_subjects_and_teams_that_know_them(SUBJECTS_KNOWN_BY_2_TEAMS, &maximum_subjects_known_by_teams, &teams_that_know_maximum_subjects);
             }
         }
 
@@ -75,14 +69,23 @@ int main() {
         return output;
     }
 
-        int calculate_maximum_subjects_known_by_team(char* binary_string_1, char* binary_string_2) {
-            int temporary_maximum_subjects_known_by_teams = 0;
+        int count_subjects_known_by_2_teams(char* binary_string_1, char* binary_string_2) {
+            int subjects_known_by_2_teams = 0;
 
             for (int i = 0; binary_string_1[i] != '\0'; i++)
                 if (binary_string_1[i] == '1' || binary_string_2[i] == '1')
-                    temporary_maximum_subjects_known_by_teams++;
+                    subjects_known_by_2_teams++;
 
-            return temporary_maximum_subjects_known_by_teams;
+            return subjects_known_by_2_teams;
+        }
+
+        void update_maximum_subjects_and_teams_that_know_them(const int SUBJECTS_KNOWN_BY_2_TEAMS, int* maximum_subjects_known_by_teams, int* teams_that_know_maximum_subjects) {
+            if (SUBJECTS_KNOWN_BY_2_TEAMS > *maximum_subjects_known_by_teams) {
+                *maximum_subjects_known_by_teams = SUBJECTS_KNOWN_BY_2_TEAMS;
+                *teams_that_know_maximum_subjects = 1;
+            }
+            else if (SUBJECTS_KNOWN_BY_2_TEAMS == *maximum_subjects_known_by_teams)
+                (*teams_that_know_maximum_subjects)++;
         }
 
     void print_array(const int* array, const int SIZE) {

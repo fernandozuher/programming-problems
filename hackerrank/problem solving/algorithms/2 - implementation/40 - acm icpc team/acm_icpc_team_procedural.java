@@ -16,53 +16,59 @@ public class ACM_ICPC_TEAM {
         final int _TOPICS = _readANumber();
         final List<String> BINARY_STRINGS = _readBinaryStrings(ATTENDEES);
 
-        final List<Integer> OUTPUT = _acmTeam(BINARY_STRINGS);
+        final List<Integer> OUTPUT = _findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS);
         _printArray(OUTPUT);
     }
 
-    private static int _readANumber() {
-        final int NUMBER = _scanner.nextInt();
-        return NUMBER;
-    }
-
-    private static List<String> _readBinaryStrings(int nStrings) {
-        List<String> binaryStrings = Arrays.asList(new String[nStrings]);
-        binaryStrings = binaryStrings.stream().map(element -> _scanner.next()).collect(Collectors.toList());
-        return binaryStrings;
-    }
-
-    private static List<Integer> _acmTeam(List<String> binaryStrings) {
-        int teamsThatKnowMaximumSubjects = 0;
-        int maximumSubjectsKnownByTeams = 0;
-
-        for (int i = 0, size1 = binaryStrings.size() - 1; i < size1; i++) {
-            for (int j = i + 1, size2 = size1 + 1; j < size2; j++) {
-
-                final int TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS = _calculateMaximumSubjectsKnownByTeam(binaryStrings.get(i), binaryStrings.get(j));
-
-                if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS > maximumSubjectsKnownByTeams) {
-                    maximumSubjectsKnownByTeams = TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS;
-                    teamsThatKnowMaximumSubjects = 1;
-                } else if (TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS == maximumSubjectsKnownByTeams)
-                    teamsThatKnowMaximumSubjects++;
-            }
+        private static int _readANumber() {
+            final int NUMBER = _scanner.nextInt();
+            return NUMBER;
         }
 
-        final List<Integer> OUTPUT = Arrays.asList(maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects);
-        return OUTPUT;
-    }
+        private static List<String> _readBinaryStrings(int nStrings) {
+            List<String> binaryStrings = Arrays.asList(new String[nStrings]);
+            binaryStrings = binaryStrings.stream().map(element -> _scanner.next()).collect(Collectors.toList());
+            return binaryStrings;
+        }
 
-    private static int _calculateMaximumSubjectsKnownByTeam(String binaryString1, String binaryString2) {
-        int temporaryMaximumSubjectsKnownByTeams = 0;
+        private static List<Integer> _findMaximumSubjectsAndTeamsThatKnowThem(List<String> binaryStrings) {
+            int maximumSubjectsKnownByTeams = 0;
+            int teamsThatKnowMaximumSubjects = 0;
 
-        for (int i = 0, size = binaryString1.length(); i < size; i++)
-            if (binaryString1.charAt(i) == '1' || binaryString2.charAt(i) == '1')
-                temporaryMaximumSubjectsKnownByTeams++;
+            for (int i = 0, size1 = binaryStrings.size() - 1; i < size1; i++) {
+                for (int j = i + 1, size2 = size1 + 1; j < size2; j++) {
+                    final int SUBJECTS_KNOWN_BY_2_TEAMS = _countSubjectsKnownBy2Teams(binaryStrings.get(i), binaryStrings.get(j));
+                    final List<Integer> UPDATED_VARIABLES = _updateMaximumSubjectsAndTeamsThatKnowThem(SUBJECTS_KNOWN_BY_2_TEAMS, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects);
+                    maximumSubjectsKnownByTeams = UPDATED_VARIABLES.get(0);
+                    teamsThatKnowMaximumSubjects = UPDATED_VARIABLES.get(1);
+                }
+            }
 
-        return temporaryMaximumSubjectsKnownByTeams;
-    }
+            final List<Integer> OUTPUT = Arrays.asList(maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects);
+            return OUTPUT;
+        }
 
-    private static void _printArray(List<Integer> array) {
-        array.forEach(System.out::println);
-    }
+            private static int _countSubjectsKnownBy2Teams(String binaryString1, String binaryString2) {
+                int subjectsKnownBy2Teams = 0;
+
+                for (int i = 0, size = binaryString1.length(); i < size; i++)
+                    if (binaryString1.charAt(i) == '1' || binaryString2.charAt(i) == '1')
+                        subjectsKnownBy2Teams++;
+
+                return subjectsKnownBy2Teams;
+            }
+
+            private static List<Integer> _updateMaximumSubjectsAndTeamsThatKnowThem(int subjectsKnownBy2Teams, int maximumSubjectsKnownByTeams, int teamsThatKnowMaximumSubjects) {
+                if (subjectsKnownBy2Teams > maximumSubjectsKnownByTeams) {
+                    maximumSubjectsKnownByTeams = subjectsKnownBy2Teams;
+                    teamsThatKnowMaximumSubjects = 1;
+                } else if (subjectsKnownBy2Teams == maximumSubjectsKnownByTeams)
+                    teamsThatKnowMaximumSubjects++;
+
+                return Arrays.asList(maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects);
+            }
+
+        private static void _printArray(List<Integer> array) {
+            array.forEach(System.out::println);
+        }
 }

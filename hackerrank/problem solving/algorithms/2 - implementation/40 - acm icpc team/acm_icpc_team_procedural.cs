@@ -11,7 +11,7 @@ public class ACM_ICPC_TEAM
         int _topics = array.Last();
         List<string> binaryStrings = _ReadBinaryStrings(attendees);
 
-        List<int> output = _AcmTeam(binaryStrings);
+        List<int> output = _FindMaximumSubjectsAndTeamsThatKnowThem(binaryStrings);
         _PrintArray(output);
     }
 
@@ -28,25 +28,17 @@ public class ACM_ICPC_TEAM
             return binaryStrings;
         }
 
-        private static List<int> _AcmTeam(List<string> binaryStrings)
+        private static List<int> _FindMaximumSubjectsAndTeamsThatKnowThem(List<string> binaryStrings)
         {
-            int teamsThatKnowMaximumSubjects = 0;
             int maximumSubjectsKnownByTeams = 0;
+            int teamsThatKnowMaximumSubjects = 0;
 
             for (int i = 0, size1 = binaryStrings.Count - 1; i < size1; i++)
             {
                 for (int j = i + 1, size2 = size1 + 1; j < size2; j++)
                 {
-
-                    int temporaryMaximumSubjectsKnownByTeams = _CalculateMaximumSubjectsKnownByTeam(binaryStrings[i], binaryStrings[j]);
-
-                    if (temporaryMaximumSubjectsKnownByTeams > maximumSubjectsKnownByTeams)
-                    {
-                        maximumSubjectsKnownByTeams = temporaryMaximumSubjectsKnownByTeams;
-                        teamsThatKnowMaximumSubjects = 1;
-                    }
-                    else if (temporaryMaximumSubjectsKnownByTeams == maximumSubjectsKnownByTeams)
-                        teamsThatKnowMaximumSubjects++;
+                    int subjectsKnownBy2Teams = _CountSubjectsKnownBy2Teams(binaryStrings[i], binaryStrings[j]);
+                    _UpdateMaximumSubjectsAndTeamsThatKnowThem(subjectsKnownBy2Teams, ref maximumSubjectsKnownByTeams, ref teamsThatKnowMaximumSubjects);
                 }
             }
 
@@ -54,15 +46,26 @@ public class ACM_ICPC_TEAM
             return output;
         }
 
-            private static int _CalculateMaximumSubjectsKnownByTeam(string binaryString1, string binaryString2)
+            private static int _CountSubjectsKnownBy2Teams(string binaryString1, string binaryString2)
             {
-                int temporaryMaximumSubjectsKnownByTeams = 0;
+                int subjectsKnownBy2Teams = 0;
 
                 for (int i = 0, size = binaryString1.Length; i < size; i++)
                     if (binaryString1[i] == '1' || binaryString2[i] == '1')
-                        temporaryMaximumSubjectsKnownByTeams++;
+                        subjectsKnownBy2Teams++;
 
-                return temporaryMaximumSubjectsKnownByTeams;
+                return subjectsKnownBy2Teams;
+            }
+
+            private static void _UpdateMaximumSubjectsAndTeamsThatKnowThem(int subjectsKnownBy2Teams, ref int maximumSubjectsKnownByTeams, ref int teamsThatKnowMaximumSubjects)
+            {
+                if (subjectsKnownBy2Teams > maximumSubjectsKnownByTeams)
+                {
+                    maximumSubjectsKnownByTeams = subjectsKnownBy2Teams;
+                    teamsThatKnowMaximumSubjects = 1;
+                }
+                else if (subjectsKnownBy2Teams == maximumSubjectsKnownByTeams)
+                    teamsThatKnowMaximumSubjects += 1;
             }
 
         private static void _PrintArray(List<int> array)

@@ -9,7 +9,7 @@ func main() {
     var _ uint32 = ReadANumber()
     var binaryStrings []string = ReadBinaryStrings(attendees)
 
-    var output [2]uint32 = AcmTeam(binaryStrings)
+    var output [2]uint32 = FindMaximumSubjectsAndTeamsThatKnowThem(binaryStrings)
     PrintArray(output)
 }
 
@@ -29,20 +29,14 @@ func main() {
         return binaryStrings
     }
 
-    func AcmTeam(binaryStrings []string) [2]uint32 {
-        var teamsThatKnowMaximumSubjects uint32 = 0
+    func FindMaximumSubjectsAndTeamsThatKnowThem(binaryStrings []string) [2]uint32 {
         var maximumSubjectsKnownByTeams uint32 = 0
+        var teamsThatKnowMaximumSubjects uint32 = 0
 
         for i := 0; i < len(binaryStrings)-1; i++ {
             for j := (i + 1); j < len(binaryStrings); j++ {
-                var temporaryMaximumSubjectsKnownByTeams uint32 = CalculateMaximumSubjectsKnownByTeam(binaryStrings[i], binaryStrings[j])
-
-                if temporaryMaximumSubjectsKnownByTeams > maximumSubjectsKnownByTeams {
-                    maximumSubjectsKnownByTeams = temporaryMaximumSubjectsKnownByTeams
-                    teamsThatKnowMaximumSubjects = 1
-                } else if temporaryMaximumSubjectsKnownByTeams == maximumSubjectsKnownByTeams {
-                    teamsThatKnowMaximumSubjects += 1
-                }
+                var subjectsKnownBy2Teams uint32 = CountSubjectsKnownBy2Teams(binaryStrings[i], binaryStrings[j])
+                UpdateMaximumSubjectsAndTeamsThatKnowThem(subjectsKnownBy2Teams, &maximumSubjectsKnownByTeams, &teamsThatKnowMaximumSubjects)
             }
         }
 
@@ -50,16 +44,25 @@ func main() {
         return output
     }
 
-        func CalculateMaximumSubjectsKnownByTeam(binaryString1 string, binaryString2 string) uint32 {
-            var temporaryMaximumSubjectsKnownByTeams uint32 = 0
+        func CountSubjectsKnownBy2Teams(binaryString1 string, binaryString2 string) uint32 {
+            var subjectsKnownBy2Teams uint32 = 0
 
             for i := 0; i < len(binaryString1); i++ {
                 if binaryString1[i] == '1' || binaryString2[i] == '1' {
-                    temporaryMaximumSubjectsKnownByTeams += 1
+                    subjectsKnownBy2Teams += 1
                 }
             }
 
-            return temporaryMaximumSubjectsKnownByTeams
+            return subjectsKnownBy2Teams
+        }
+
+        func UpdateMaximumSubjectsAndTeamsThatKnowThem(subjectsKnownBy2Teams uint32, maximumSubjectsKnownByTeams *uint32, teamsThatKnowMaximumSubjects *uint32) {
+            if subjectsKnownBy2Teams > *maximumSubjectsKnownByTeams {
+                *maximumSubjectsKnownByTeams = subjectsKnownBy2Teams
+                *teamsThatKnowMaximumSubjects = 1
+            } else if subjectsKnownBy2Teams == *maximumSubjectsKnownByTeams {
+                (*teamsThatKnowMaximumSubjects)++
+            }
         }
 
     func PrintArray(array [2]uint32) {

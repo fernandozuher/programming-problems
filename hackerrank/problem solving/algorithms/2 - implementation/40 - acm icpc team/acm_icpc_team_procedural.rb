@@ -1,10 +1,10 @@
-# Source https//www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
+# Source: https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
 def main
     attendees, topics = readAnIntArray
     binaryStrings = readStrings attendees
 
-    output = acmTeam binaryStrings
+    output = findMaximumSubjectsAndTeamsThatKnowThem binaryStrings
     puts output
 end
 
@@ -16,7 +16,7 @@ end
         binaryStrings = Array.new(nStrings).map{|_| gets.strip}
     end
 
-    def acmTeam binaryStrings
+    def findMaximumSubjectsAndTeamsThatKnowThem binaryStrings
         maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects = findMaximumSubjectsAndTeamsThatKnowThem binaryStrings
         output = [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects]
     end
@@ -30,34 +30,34 @@ end
             rangeOfBinaryStrings2 = binaryStrings[i + 1...binaryStrings.size]
             
             for binaryString2 in rangeOfBinaryStrings2
-                temporaryMaximumSubjectsKnownBy2Teams = calculateMaximumSubjectsKnownByTeam binaryString1, binaryString2
+                subjectsKnownBy2Teams = countSubjectsKnownBy2Teams binaryString1, binaryString2
 
                 maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects =
-                    updateMaximumSubjectsKnownByTeamsAndTeamsThatKnowMaximumSubjects temporaryMaximumSubjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects
+                    updateMaximumSubjectsAndTeamsThatKnowThem subjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects
             end
         end
 
         [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects]
     end
 
-        def calculateMaximumSubjectsKnownByTeam binaryString1, binaryString2
-            temporaryMaximumSubjectsKnownBy2Teams = 0
+        def countSubjectsKnownBy2Teams binaryString1, binaryString2
+            subjectsKnownBy2Teams = 0
 
             for characterString1, characterString2 in binaryString1.chars.zip(binaryString2.chars)
                 if characterString1 == '1' || characterString2 == '1'
-                    temporaryMaximumSubjectsKnownBy2Teams += 1
+                    subjectsKnownBy2Teams += 1
                 end
             end
 
-            temporaryMaximumSubjectsKnownBy2Teams
+            subjectsKnownBy2Teams
         end
 
-        def updateMaximumSubjectsKnownByTeamsAndTeamsThatKnowMaximumSubjects temporaryMaximumSubjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects
-            if temporaryMaximumSubjectsKnownBy2Teams > maximumSubjectsKnownByTeams
-                maximumSubjectsKnownByTeams = temporaryMaximumSubjectsKnownBy2Teams
+        def updateMaximumSubjectsAndTeamsThatKnowThem subjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects
+            if subjectsKnownBy2Teams > maximumSubjectsKnownByTeams
+                maximumSubjectsKnownByTeams = subjectsKnownBy2Teams
                 teamsThatKnowMaximumSubjects = 1
 
-            elsif temporaryMaximumSubjectsKnownBy2Teams == maximumSubjectsKnownByTeams
+            elsif subjectsKnownBy2Teams == maximumSubjectsKnownByTeams
                 teamsThatKnowMaximumSubjects += 1
             end
 

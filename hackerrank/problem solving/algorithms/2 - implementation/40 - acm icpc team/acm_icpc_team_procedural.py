@@ -5,7 +5,7 @@ def main():
     ATTENDEES, TOPICS = readAnIntArray()
     BINARY_STRINGS = readStrings(ATTENDEES)
 
-    output = acmTeam(BINARY_STRINGS)
+    output = findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS)
     print(*output, sep="\n")
 
 
@@ -21,7 +21,7 @@ def readStrings(N_STRINGS):
     return BINARY_STRINGS
 
 
-def acmTeam(BINARY_STRINGS):
+def findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS):
 
     maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects = findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS)
     output = [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects]
@@ -38,32 +38,32 @@ def findMaximumSubjectsAndTeamsThatKnowThem(BINARY_STRINGS):
         RANGE_OF_BINARY_STRINGS_2 = BINARY_STRINGS[i + 1:]
         
         for BINARY_STRING_2 in RANGE_OF_BINARY_STRINGS_2:
-            TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS = calculateMaximumSubjectsKnownByTeam(BINARY_STRING_1, BINARY_STRING_2)
+            SUBJECTS_KNOWN_BY_2_TEAMS = countSubjectsKnownBy2Teams(BINARY_STRING_1, BINARY_STRING_2)
 
             maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects = \
-                updateMaximumSubjectsKnownByTeamsAndTeamsThatKnowMaximumSubjects(TEMPORARY_MAXIMUM_SUBJECTS_KNOWN_BY_TEAMS, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects)
+                updateMaximumSubjectsAndTeamsThatKnowThem(SUBJECTS_KNOWN_BY_2_TEAMS, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects)
 
     return [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects]
 
 
-def calculateMaximumSubjectsKnownByTeam(BINARY_STRING_1, BINARY_STRING_2):
+def countSubjectsKnownBy2Teams(BINARY_STRING_1, BINARY_STRING_2):
 
-    temporaryMaximumSubjectsKnownBy2Teams = 0
+    subjectsKnownBy2Teams = 0
 
     for characterString1, characterString2 in zip(BINARY_STRING_1, BINARY_STRING_2):
         if characterString1 == '1' or characterString2 == '1':
-            temporaryMaximumSubjectsKnownBy2Teams += 1
+            subjectsKnownBy2Teams += 1
 
-    return temporaryMaximumSubjectsKnownBy2Teams
+    return subjectsKnownBy2Teams
 
 
-def updateMaximumSubjectsKnownByTeamsAndTeamsThatKnowMaximumSubjects(temporaryMaximumSubjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects):
+def updateMaximumSubjectsAndTeamsThatKnowThem(subjectsKnownBy2Teams, maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects):
 
-    if temporaryMaximumSubjectsKnownBy2Teams > maximumSubjectsKnownByTeams:
-        maximumSubjectsKnownByTeams = temporaryMaximumSubjectsKnownBy2Teams
+    if subjectsKnownBy2Teams > maximumSubjectsKnownByTeams:
+        maximumSubjectsKnownByTeams = subjectsKnownBy2Teams
         teamsThatKnowMaximumSubjects = 1
 
-    elif temporaryMaximumSubjectsKnownBy2Teams == maximumSubjectsKnownByTeams:
+    elif subjectsKnownBy2Teams == maximumSubjectsKnownByTeams:
         teamsThatKnowMaximumSubjects += 1
 
     return [maximumSubjectsKnownByTeams, teamsThatKnowMaximumSubjects]
