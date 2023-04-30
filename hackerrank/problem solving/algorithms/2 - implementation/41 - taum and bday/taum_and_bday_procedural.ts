@@ -43,9 +43,9 @@ function main() {
         return [N_BLACK_GIFTS, N_WHITE_GIFTS, BLACK_GIFT_COST, WHITE_GIFT_COST, COST_TO_CONVERT_BETWEEN_GIFTS];
     }
 
-    function readAnIntArray(): Array<bigint> {
-        return readLine().split(" ").map(BigInt);
-    }
+        function readAnIntArray(): Array<bigint> {
+            return readLine().split(" ").map(BigInt);
+        }
 
     function calculateMinimumCostOfBuyingGifts(input: Array<bigint>): bigint {
         if (areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(input))

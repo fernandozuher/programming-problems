@@ -28,6 +28,7 @@ def calculateMinimumCostOfBuyingGifts(INPUT):
 
     if areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(INPUT):
         return calculateMinimumStandardCost(INPUT)
+
     return calculateMinimumCostInConvertingGifts(INPUT)
 
 
