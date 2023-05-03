@@ -25,36 +25,51 @@ fn find_kaprekar_numbers_in_range(lower_limit: u64, upper_limit: u64) -> Vec<u64
 }
 
 fn calculate_potential_kaprekar_number(number: u64) -> u64 {
-    let mut string_number: String = number.to_string();
-    let quantity_of_digits: usize = string_number.len();
+    let square_number_in_string: String = number.pow(2).to_string();
+    let size_of_string: usize = number.to_string().len();
 
-    let square_number = number.pow(2);
-    string_number = square_number.to_string();
+    let left_number_in_string: String =
+        get_left_number_in_string(&square_number_in_string, size_of_string);
 
-    let left_digits = string_number.len() - quantity_of_digits;
-    let left_string_number: String = string_number.chars().skip(0).take(left_digits).collect();
-
-    let right_digits = string_number.len() - left_digits;
-    let right_string_number: String = string_number
-        .chars()
-        .skip(left_digits)
-        .take(right_digits)
-        .collect();
+    let right_number_in_string: String =
+        get_right_number_in_string(&square_number_in_string, size_of_string);
 
     let potential_kaprekar_number: u64 =
-        sum_string_numbers(left_string_number, right_string_number);
+        sum_numbers_in_strings(left_number_in_string, right_number_in_string);
 
     return potential_kaprekar_number;
 }
 
-fn sum_string_numbers(left_string_number: String, right_string_number: String) -> u64 {
-    if left_string_number.len() > 0 && right_string_number.len() > 0 {
-        return left_string_number.parse::<u64>().unwrap()
-            + right_string_number.parse::<u64>().unwrap();
-    } else if left_string_number.len() == 0 {
-        return right_string_number.parse::<u64>().unwrap();
-    } else if right_string_number.len() == 0 {
-        return left_string_number.parse::<u64>().unwrap();
+fn get_left_number_in_string(square_number_in_string: &String, size_of_string: usize) -> String {
+    let digits_to_skip: usize = 0;
+    let digits_to_take: usize = square_number_in_string.len() - size_of_string;
+    let number_in_string: String = square_number_in_string
+        .chars()
+        .skip(digits_to_skip)
+        .take(digits_to_take)
+        .collect();
+    return number_in_string;
+}
+
+fn get_right_number_in_string(square_number_in_string: &String, size_of_string: usize) -> String {
+    let digits_to_skip: usize = square_number_in_string.len() - size_of_string;
+    let digits_to_take: usize = square_number_in_string.len() - digits_to_skip;
+    let number_in_string: String = square_number_in_string
+        .chars()
+        .skip(digits_to_skip)
+        .take(digits_to_take)
+        .collect();
+    return number_in_string;
+}
+
+fn sum_numbers_in_strings(left_number_in_string: String, right_number_in_string: String) -> u64 {
+    if left_number_in_string.len() > 0 && right_number_in_string.len() > 0 {
+        return left_number_in_string.parse::<u64>().unwrap()
+            + right_number_in_string.parse::<u64>().unwrap();
+    } else if left_number_in_string.len() == 0 {
+        return right_number_in_string.parse::<u64>().unwrap();
+    } else if right_number_in_string.len() == 0 {
+        return left_number_in_string.parse::<u64>().unwrap();
     }
     return 0;
 }
