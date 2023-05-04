@@ -23,22 +23,22 @@ end
 
         def calculatePotentialKaprekarNumber number
             squareNumberInString = number.pow(2).to_s
-            sizeOfString = number.to_s.size
+            lengthOfNumberInString = number.to_s.size
 
-            leftNumberInString = getLeftNumberInString squareNumberInString, sizeOfString
-            rightNumberInString = getRightNumberInString squareNumberInString, sizeOfString
+            leftNumberInString = getLeftNumberInString squareNumberInString, lengthOfNumberInString
+            rightNumberInString = getRightNumberInString squareNumberInString, lengthOfNumberInString
 
             potentialKaprekarNumber = sumNumbersInStrings leftNumberInString, rightNumberInString
         end
 
-            def getLeftNumberInString squareNumberInString, sizeOfString
+            def getLeftNumberInString squareNumberInString, lengthOfNumberInString
                 digitsToSkip = 0
-                digitsToTake = squareNumberInString.size - sizeOfString
+                digitsToTake = squareNumberInString.size - lengthOfNumberInString
                 numberInString = squareNumberInString[digitsToSkip...digitsToTake]
             end
 
-            def getRightNumberInString squareNumberInString, sizeOfString
-                digitsToSkip = squareNumberInString.size - sizeOfString
+            def getRightNumberInString squareNumberInString, lengthOfNumberInString
+                digitsToSkip = squareNumberInString.size - lengthOfNumberInString
                 numberInString = squareNumberInString[digitsToSkip...]
             end
 

@@ -44,25 +44,25 @@ function main() {
 
         function calculatePotentialKaprekarNumber(number) {
             const SQUARE_NUMBER_IN_STRING = Math.pow(number, 2).toString();
-            const SIZE_OF_STRING = number.toString().length;
+            const LENGTH_OF_NUMBER_IN_STRING = number.toString().length;
 
-            const LEFT_NUMBER_IN_STRING = getLeftNumberInString(SQUARE_NUMBER_IN_STRING, SIZE_OF_STRING);
-            const RIGHT_NUMBER_IN_STRING = getRightNumberInString(SQUARE_NUMBER_IN_STRING, SIZE_OF_STRING);
+            const LEFT_NUMBER_IN_STRING = getLeftNumberInString(SQUARE_NUMBER_IN_STRING, LENGTH_OF_NUMBER_IN_STRING);
+            const RIGHT_NUMBER_IN_STRING = getRightNumberInString(SQUARE_NUMBER_IN_STRING, LENGTH_OF_NUMBER_IN_STRING);
 
             const POTENTIAL_KAPREKAR_NUMBER = sumNumbersInStrings(LEFT_NUMBER_IN_STRING, RIGHT_NUMBER_IN_STRING);
 
             return POTENTIAL_KAPREKAR_NUMBER;
         }
 
-            function getLeftNumberInString(squareNumberInString, sizeOfString) {
+            function getLeftNumberInString(squareNumberInString, lengthOfNumberInString) {
                 const DIGITS_TO_SKIP = 0;
-                const DIGITS_TO_TAKE = squareNumberInString.length - sizeOfString;
+                const DIGITS_TO_TAKE = squareNumberInString.length - lengthOfNumberInString;
                 const NUMBER_IN_STRING = squareNumberInString.substring(DIGITS_TO_SKIP, DIGITS_TO_TAKE);
                 return NUMBER_IN_STRING;
             }
 
-            function getRightNumberInString(squareNumberInString, sizeOfString) {
-                const DIGITS_TO_SKIP = squareNumberInString.length - sizeOfString;
+            function getRightNumberInString(squareNumberInString, lengthOfNumberInString) {
+                const DIGITS_TO_SKIP = squareNumberInString.length - lengthOfNumberInString;
                 const NUMBER_IN_STRING = squareNumberInString.substring(DIGITS_TO_SKIP);
                 return NUMBER_IN_STRING;
             }
