@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ModifiedKrapekarNumbers {
+public class ModifiedKaprekarNumbers {
     private static Scanner _scanner;
 
     public static void main(String[] args) {

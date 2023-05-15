@@ -2,7 +2,7 @@
 
 using System;
 
-public class ModifiedKrapekarNumbers
+public class ModifiedKaprekarNumbers
 {
     public static void Main()
     {
@@ -10,7 +10,7 @@ public class ModifiedKrapekarNumbers
         int upperLimit = int.Parse(Console.ReadLine());
 
         List<int> output = _findKaprekarNumbersInRange(lowerLimit, upperLimit);
-        printOutput(output);
+        PrintOutput(output);
     }
 
     private static List<int> _findKaprekarNumbersInRange(int lowerLimit, int upperLimit)
@@ -66,7 +66,7 @@ public class ModifiedKrapekarNumbers
                 return 0;
             }
 
-    public static void printOutput(List<int> array)
+    public static void PrintOutput(List<int> array)
     {
         if (array.Any())
             array.ForEach(element => Console.Write(element + " "));
