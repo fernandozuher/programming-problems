@@ -22,7 +22,8 @@ int main()
     return 0;
 }
 
-    int read_a_number() {
+    int read_a_number()
+    {
         int number;
         scanf("%d", &number);
         return number;
@@ -44,7 +45,7 @@ int main()
             for (int i = 0; i < size_array - 2; i++)
                 for (int j = i + 1; j < size_array - 1; j++)
                 {
-                    int first_difference = array[j] - array[i];
+                    const int first_difference = array[j] - array[i];
 
                     if (first_difference < beautiful_difference)
                         continue;
@@ -53,7 +54,7 @@ int main()
 
                     for (int k = j + 1; k < size_array; k++)
                     {
-                        int second_difference = array[k] - array[j];
+                        const int second_difference = array[k] - array[j];
 
                         if (second_difference == beautiful_difference)
                             n_beautiful_triplets++;
