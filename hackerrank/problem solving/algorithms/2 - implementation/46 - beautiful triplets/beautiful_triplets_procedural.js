@@ -38,29 +38,25 @@ function main() {
     function findBeautifulTriplets(array, beautifulDifference) {
         let nBeautifulTriplets = 0;
 
-        if (array.length > 2) {
-            for (let i = 0; i < array.length-2; i++) {
+        if (array.length > 2)
+            for (let i = 0; i < array.length-2; i++)
                 for (let j = i + 1; j < array.length-1; j++) {
                     const FIRST_DIFFERENCE = array[j] - array[i];
 
-                    if (FIRST_DIFFERENCE < beautifulDifference) {
+                    if (FIRST_DIFFERENCE < beautifulDifference)
                         continue;
-                    } else if (FIRST_DIFFERENCE > beautifulDifference) {
+                    else if (FIRST_DIFFERENCE > beautifulDifference)
                         break;
-                    }
 
                     for (let k = j + 1; k < array.length; k++) {
                         const SECOND_DIFFERENCE = array[k] - array[j];
 
-                        if (SECOND_DIFFERENCE == beautifulDifference) {
+                        if (SECOND_DIFFERENCE == beautifulDifference)
                             nBeautifulTriplets++;
-                        } else if (SECOND_DIFFERENCE > beautifulDifference) {
+                        else if (SECOND_DIFFERENCE > beautifulDifference)
                             break;
-                        }
                     }
                 }
-            }
-        }
 
         return nBeautifulTriplets;
     }
