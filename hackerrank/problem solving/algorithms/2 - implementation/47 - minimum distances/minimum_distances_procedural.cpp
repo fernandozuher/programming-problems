@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <map>
-#include <vector>
 #include <climits>
+#include <utility>
 #include <algorithm>
 
 using namespace std;
@@ -23,18 +23,20 @@ int main()
     int find_minimum_distance_while_read_elements(const int size)
     {
         int minimum_distance {INT_MAX};
-        map<int, vector<int>> elements;
+        map<int, pair<int, int>> elements;
 
-        // two_elements_size {2} = Only the first 2 indexes of a repeated element matter
-        // because they have the minimum distance of it
-        for (int i {0}, element, two_elements_size {2}; i < size && cin >> element; ++i)
-            if (elements[element].size() < two_elements_size) {
-                elements[element].push_back(i);
+        for (int i {0}, element; i < size && cin >> element; ++i)
+            if (elements.contains(element)) {
+                if (elements[element].second == -1) {
+                    elements[element].second = {i};
 
-                if (elements[element].size() == two_elements_size) {
-                    const int minimum_distance_of_current_element {elements[element].back() - elements[element].front()};
+                    const int minimum_distance_of_current_element {elements[element].second - elements[element].first};
                     minimum_distance = {min(minimum_distance, minimum_distance_of_current_element)};
                 }
+            }
+            else {
+                elements[element].first = {i};
+                elements[element].second = {-1};
             }
 
         return minimum_distance != INT_MAX ? minimum_distance : -1;
