@@ -25,6 +25,8 @@ function readLine(): string {
 }
 
 
+const NO_INDEX = -1;
+
 function main() {
     const _: number = +readLine();
     const ARRAY: Array<number> = readANumericArray();
@@ -37,22 +39,26 @@ function main() {
 
     function findMinimumDistance(array: Array<number>): number {
         let minimumDistance: number = Number.MAX_SAFE_INTEGER;
-        const ELEMENTS: {[key: number]: Array<number>} = {};
+        const FIRST_INDEXES_OF_ELEMENTS: {[key: number]: Array<number>} = {};
 
         for (let i = 0, element; i < array.length; i++) {
             element = array[i];
         
-            if (ELEMENTS.hasOwnProperty(element)) {
-                let [firstIndex, secondIndex]: Array<number> = ELEMENTS[element];
+            if (FIRST_INDEXES_OF_ELEMENTS.hasOwnProperty(element)) {
+                let [firstIndex, secondIndex]: Array<number> = FIRST_INDEXES_OF_ELEMENTS[element];
 
-                if (secondIndex == -1) {
-                    ELEMENTS[element][1] = secondIndex = i;
+                if (secondIndex == NO_INDEX) {
+                    FIRST_INDEXES_OF_ELEMENTS[element][1] = secondIndex = i;
                     const MINIMUM_DISTANCE_OF_CURRENT_ELEMENT: number = secondIndex - firstIndex;
                     minimumDistance = Math.min(minimumDistance, MINIMUM_DISTANCE_OF_CURRENT_ELEMENT);
                 }
             } else
-                ELEMENTS[element] = [i, -1];
+                FIRST_INDEXES_OF_ELEMENTS[element] = [i, NO_INDEX];
         }
 
-        return minimumDistance != Number.MAX_SAFE_INTEGER ? minimumDistance : -1;
+        return minimumDistanceOrNoIndex(minimumDistance);
     }
+
+        function minimumDistanceOrNoIndex(minimumDistance: number): number {
+            return minimumDistance != Number.MAX_SAFE_INTEGER ? minimumDistance : NO_INDEX;
+        }

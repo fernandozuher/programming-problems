@@ -9,6 +9,7 @@ import java.lang.Math;
 
 public class MinimumDistances {
     private static Scanner scanner;
+    private static int NO_INDEX = -1;
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -16,26 +17,30 @@ public class MinimumDistances {
         System.out.println(findMinimumDistanceWhileReadElements(arraySize));
     }
 
-    private static int findMinimumDistanceWhileReadElements(int size) {
-        int minimumDistance = Integer.MAX_VALUE;
-        Map<Integer, ArrayList<Integer>> elements = new HashMap<Integer, ArrayList<Integer>>();
+        private static int findMinimumDistanceWhileReadElements(int size) {
+            int minimumDistance = Integer.MAX_VALUE;
+            Map<Integer, ArrayList<Integer>> firstIndexesOfElements = new HashMap<Integer, ArrayList<Integer>>();
 
-        for (int i = 0, element; i < size && scanner.hasNext(); i++) {
-            element = scanner.nextInt();
+            for (int i = 0, element; i < size && scanner.hasNext(); i++) {
+                element = scanner.nextInt();
 
-            if (elements.containsKey(element)) {
-                int firstIndex = elements.get(element).get(0), secondIndex = elements.get(element).get(1);
+                if (firstIndexesOfElements.containsKey(element)) {
+                    int firstIndex = firstIndexesOfElements.get(element).get(0), secondIndex = firstIndexesOfElements.get(element).get(1);
 
-                if (secondIndex == -1) {
-                    secondIndex = i;
-                    elements.get(element).set(1, secondIndex);
-                    final int minimumDistanceOfCurrentElement = secondIndex - firstIndex;
-                    minimumDistance = Math.min(minimumDistance, minimumDistanceOfCurrentElement);
-                }
-            } else
-                elements.put(element, new ArrayList<Integer>(List.of(i, -1)));
+                    if (secondIndex == NO_INDEX) {
+                        secondIndex = i;
+                        firstIndexesOfElements.get(element).set(1, secondIndex);
+                        final int minimumDistanceOfCurrentElement = secondIndex - firstIndex;
+                        minimumDistance = Math.min(minimumDistance, minimumDistanceOfCurrentElement);
+                    }
+                } else
+                    firstIndexesOfElements.put(element, new ArrayList<Integer>(List.of(i, NO_INDEX)));
+            }
+
+            return minimumDistanceOrNoIndex(minimumDistance);
         }
 
-        return minimumDistance != Integer.MAX_VALUE ? minimumDistance : -1;
-    }
+            private static int minimumDistanceOrNoIndex(int minimumDistance) {
+                return minimumDistance != Integer.MAX_VALUE ? minimumDistance : NO_INDEX;
+            }
 }

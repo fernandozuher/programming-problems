@@ -8,7 +8,10 @@
 
 using namespace std;
 
+#define NO_INDEX -1
+
 int find_minimum_distance_while_read_elements(const int size);
+    int minimum_distance_or_no_index(const int minimum_distance);
 
 int main()
 {
@@ -23,21 +26,25 @@ int main()
     int find_minimum_distance_while_read_elements(const int size)
     {
         int minimum_distance {INT_MAX};
-        map<int, pair<int, int>> elements;
+        map<int, pair<int, int>> first_indexes_of_elements;
 
         for (int i {0}, element; i < size && cin >> element; ++i)
-            if (elements.contains(element)) {
-                if (elements[element].second == -1) {
-                    elements[element].second = {i};
+            if (first_indexes_of_elements.contains(element)) {
+                int first_index {first_indexes_of_elements[element].first}, second_index {first_indexes_of_elements[element].second};
 
-                    const int minimum_distance_of_current_element {elements[element].second - elements[element].first};
+                if (second_index == NO_INDEX) {
+                    first_indexes_of_elements[element].second = second_index = {i};
+                    const int minimum_distance_of_current_element {second_index - first_index};
                     minimum_distance = {min(minimum_distance, minimum_distance_of_current_element)};
                 }
             }
-            else {
-                elements[element].first = {i};
-                elements[element].second = {-1};
-            }
+            else
+                first_indexes_of_elements[element] = {i, NO_INDEX};
 
-        return minimum_distance != INT_MAX ? minimum_distance : -1;
+        return minimum_distance_or_no_index(minimum_distance);
     }
+
+        int minimum_distance_or_no_index(const int minimum_distance)
+        {
+            return minimum_distance != INT_MAX ? minimum_distance : NO_INDEX;
+        }

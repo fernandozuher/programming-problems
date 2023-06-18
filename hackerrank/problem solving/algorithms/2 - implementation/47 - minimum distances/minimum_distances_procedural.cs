@@ -4,6 +4,7 @@ using System;
 
 public class MinimumDistances
 {
+    private static int NO_INDEX = -1;
     public static void Main()
     {
         int _ = int.Parse(Console.ReadLine());
@@ -19,25 +20,31 @@ public class MinimumDistances
         private static int _findMinimumDistance(List<int> array)
         {
             int minimumDistance = Int32.MaxValue;
-            Dictionary<int, (int firstIndex, int secondIndex)> elements = new Dictionary<int, (int firstIndex, int secondIndex)>();
+            Dictionary<int, (int firstIndex, int secondIndex)> firstIndexesOfElements = new Dictionary<int, (int firstIndex, int secondIndex)>();
 
-            for (int i = 0, element; i < array.Count; i++)
+            for (int i = 0; i < array.Count; i++)
             {
-                element = array[i];
-                if (elements.ContainsKey(element))
+                int element = array[i];
+                if (firstIndexesOfElements.ContainsKey(element))
                 {
-                    if (elements[element].secondIndex == -1)
+                    var (firstIndex, secondIndex) = firstIndexesOfElements[element];
+                    if (secondIndex == NO_INDEX)
                     {
-                        int secondIndex = i;
-                        elements[element] = (elements[element].firstIndex, secondIndex);
-                        int minimumDistanceOfCurrentElement = elements[element].secondIndex - elements[element].firstIndex;
+                        secondIndex = i;
+                        firstIndexesOfElements[element] = (firstIndex, secondIndex);
+                        int minimumDistanceOfCurrentElement = secondIndex - firstIndex;
                         minimumDistance = Math.Min(minimumDistance, minimumDistanceOfCurrentElement);
                     }
                 }
                 else
-                    elements.Add(element, (i, -1));
+                    firstIndexesOfElements.Add(element, (i, NO_INDEX));
             }
 
-            return minimumDistance != Int32.MaxValue ? minimumDistance : -1;
+            return _minimumDistanceOrNoIndex(minimumDistance);
         }
+
+            private static int _minimumDistanceOrNoIndex(int minimumDistance)
+            {
+                return minimumDistance != Int32.MaxValue ? minimumDistance : NO_INDEX;
+            }
 }

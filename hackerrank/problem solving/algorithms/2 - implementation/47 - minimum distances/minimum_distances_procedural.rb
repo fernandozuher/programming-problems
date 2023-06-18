@@ -1,5 +1,7 @@
 # Source: https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
+NO_INDEX = -1
+
 def main
     _ = gets
     array = read_an_int_array
@@ -12,23 +14,27 @@ end
 
     def find_minimum_distance(array)
         minimum_distance = 1 << 64
-        elements = {}
+        first_indexes_of_elements = {}
 
         array.each_with_index do |element, i|
-            if elements.has_key?(element)
-                first_index, second_index = elements[element]
+            if first_indexes_of_elements.has_key?(element)
+                first_index, second_index = first_indexes_of_elements[element]
 
-                if second_index == -1
-                    elements[element][1] = second_index = i
+                if second_index == NO_INDEX
+                    first_indexes_of_elements[element][1] = second_index = i
                     minimum_distance_of_current_element = second_index - first_index
                     minimum_distance = [minimum_distance, minimum_distance_of_current_element].min
                 end
             else
-                elements[element] = [i, -1]
+                first_indexes_of_elements[element] = [i, NO_INDEX]
             end
         end
         
-        minimum_distance != 1 << 64 ? minimum_distance : -1;
+        return minimum_distance_or_no_index(minimum_distance)
     end
+
+def minimum_distance_or_no_index(minimum_distance)
+    minimum_distance != (1 << 64) ? minimum_distance : NO_INDEX;
+end
 
 main
