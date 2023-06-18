@@ -33,8 +33,8 @@ end
         return minimum_distance_or_no_index(minimum_distance)
     end
 
-def minimum_distance_or_no_index(minimum_distance)
-    minimum_distance != (1 << 64) ? minimum_distance : NO_INDEX;
-end
+        def minimum_distance_or_no_index(minimum_distance)
+            minimum_distance != (1 << 64) ? minimum_distance : NO_INDEX;
+        end
 
 main
