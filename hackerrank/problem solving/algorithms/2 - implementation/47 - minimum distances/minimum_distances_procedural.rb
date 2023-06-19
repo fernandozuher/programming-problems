@@ -1,6 +1,7 @@
 # Source: https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
 NO_INDEX = -1
+MAX_SIZE = (1 << 64)
 
 def main
     _ = gets
@@ -34,7 +35,7 @@ end
     end
 
         def minimum_distance_or_no_index(minimum_distance)
-            minimum_distance != (1 << 64) ? minimum_distance : NO_INDEX;
+            minimum_distance != MAX_SIZE ? minimum_distance : NO_INDEX;
         end
 
 main
