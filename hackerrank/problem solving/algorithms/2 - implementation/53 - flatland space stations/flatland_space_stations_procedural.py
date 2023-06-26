@@ -7,7 +7,7 @@ def main():
 
     N_CITIES, _ = read_an_int_array()
     CITIES_WITH_SPACE_STATION = read_an_int_array()
-    print(find_maximum_distance_from_space_station(N_CITIES, CITIES_WITH_SPACE_STATION))
+    print(find_max_distance_from_space_station(N_CITIES, CITIES_WITH_SPACE_STATION))
 
 
 def read_an_int_array():
@@ -15,7 +15,7 @@ def read_an_int_array():
     return list(map(int, input().split()))
 
 
-def find_maximum_distance_from_space_station(n_cities, cities_with_space_station):
+def find_max_distance_from_space_station(n_cities, cities_with_space_station):
 
     max_distance = 0
 

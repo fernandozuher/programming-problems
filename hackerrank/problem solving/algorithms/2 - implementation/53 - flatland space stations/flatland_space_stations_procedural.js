@@ -25,14 +25,14 @@ function readLine() {
 function main() {
     const [N_CITIES, _] = readAnIntArray()
     const CITIES_WITH_SPACE_STATION = readAnIntArray();
-    console.log(findMaximumDistanceFromSpaceStation(N_CITIES, CITIES_WITH_SPACE_STATION));
+    console.log(findMaxDistanceFromSpaceStation(N_CITIES, CITIES_WITH_SPACE_STATION));
 }
 
     function readAnIntArray() {
         return readLine().split(" ").map(Number);
     }
 
-    function findMaximumDistanceFromSpaceStation(nCities, citiesWithSpaceStation) {
+    function findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation) {
         let maxDistance = 0;
 
         citiesWithSpaceStation.sort((a, b) => a - b);

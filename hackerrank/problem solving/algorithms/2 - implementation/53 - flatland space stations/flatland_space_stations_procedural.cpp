@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int find_maximum_distance_from_space_station(const int n_cities, vector<int>& cities_with_space_station);
+int find_max_distance_from_space_station(const int n_cities, vector<int>& cities_with_space_station);
     int find_min_distance_between_city_and_nearest_space_station(const int city_i, const vector<int>& cities_with_space_station);
         int find_element_or_nearest(const int n, const vector<int>& array);
 
@@ -20,12 +20,12 @@ int main()
     vector<int> cities_with_space_station(n_cities_with_space_station);
     ranges::generate(cities_with_space_station, [] {int element; cin >> element; return element;});
 
-    cout << find_maximum_distance_from_space_station(n_cities, cities_with_space_station) << "\n";
+    cout << find_max_distance_from_space_station(n_cities, cities_with_space_station) << "\n";
 
     return 0;
 }
 
-    int find_maximum_distance_from_space_station(const int n_cities, vector<int>& cities_with_space_station)
+    int find_max_distance_from_space_station(const int n_cities, vector<int>& cities_with_space_station)
     {
         int max_distance {0};
 

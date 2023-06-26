@@ -5,7 +5,7 @@
 #include <limits.h>
 
 int* read_an_int_array(const int size);
-int find_maximum_distance_from_space_station(const int n_cities, const int* cities_with_space_station, const int size);
+int find_max_distance_from_space_station(const int n_cities, const int* cities_with_space_station, const int size);
     int find_min_distance_between_current_city_and_nearest_space_station(const int city_i, const int* cities_with_space_station, const int size);
 
 int main()
@@ -14,7 +14,7 @@ int main()
     scanf("%d %d", &n_cities, &n_cities_with_space_station);
 
     int* cities_with_space_station = read_an_int_array(n_cities);
-    printf("%d\n", find_maximum_distance_from_space_station(n_cities, cities_with_space_station, n_cities_with_space_station));
+    printf("%d\n", find_max_distance_from_space_station(n_cities, cities_with_space_station, n_cities_with_space_station));
 
     free(cities_with_space_station);
     cities_with_space_station = NULL;
@@ -30,7 +30,7 @@ int main()
         return array;
     }
 
-    int find_maximum_distance_from_space_station(const int n_cities, const int* cities_with_space_station, const int size)
+    int find_max_distance_from_space_station(const int n_cities, const int* cities_with_space_station, const int size)
     {
         int max_distance = 0;
 

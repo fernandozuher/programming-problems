@@ -14,7 +14,7 @@ func main() {
     fmt.Scan(&nCitiesWithSpaceStation)
 
     var citiesWithSpaceStation []int = readAnIntArray(nCitiesWithSpaceStation)
-    fmt.Println(findMaximumDistanceFromSpaceStation(nCities, citiesWithSpaceStation))
+    fmt.Println(findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation))
 }
 
     func readAnIntArray(size int) []int {
@@ -25,7 +25,7 @@ func main() {
         return array
     }
 
-    func findMaximumDistanceFromSpaceStation(nCities int, citiesWithSpaceStation []int) int {
+    func findMaxDistanceFromSpaceStation(nCities int, citiesWithSpaceStation []int) int {
         var maxDistance int = 0
 
         sort.Ints(citiesWithSpaceStation)

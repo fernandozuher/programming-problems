@@ -14,14 +14,14 @@ public class FlatlandSpaceStations {
 
         final int nCities = _scanner.nextInt(), nCitiesWithSpaceStation = _scanner.nextInt();
         final List<Integer> citiesWithSpaceStation = _readAnIntArray(nCitiesWithSpaceStation);
-        System.out.println(_findMaximumDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
+        System.out.println(_findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
     }
 
         private static List<Integer> _readAnIntArray(int size) {
             return Arrays.asList(new Integer[size]).stream().map(element -> _scanner.nextInt()).collect(Collectors.toList());
         }
 
-        private static int _findMaximumDistanceFromSpaceStation(int nCities, List<Integer> citiesWithSpaceStation) {
+        private static int _findMaxDistanceFromSpaceStation(int nCities, List<Integer> citiesWithSpaceStation) {
             int maxDistance = 0;
 
             Collections.sort(citiesWithSpaceStation);
@@ -45,7 +45,7 @@ public class FlatlandSpaceStations {
                     int min = 0;
 
                     int minDistance = Integer.MAX_VALUE;
-                    int nearestElement = ;
+                    int nearestElement = n;
 
                     while (min <= max) {
                         final int mid = (int) Math.floor((min + max) / 2);

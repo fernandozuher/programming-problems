@@ -5,14 +5,14 @@ $max_integer = 2 << 32
 def main
     n_cities, _ = read_an_int_array
     cities_with_space_station = read_an_int_array
-    puts find_maximum_distance_from_space_station(n_cities, cities_with_space_station)
+    puts find_max_distance_from_space_station(n_cities, cities_with_space_station)
 end
 
     def read_an_int_array
         gets.split.map(&:to_i)
     end
 
-    def find_maximum_distance_from_space_station(n_cities, cities_with_space_station)
+    def find_max_distance_from_space_station(n_cities, cities_with_space_station)
         max_distance = 0
         cities_with_space_station.sort!
 

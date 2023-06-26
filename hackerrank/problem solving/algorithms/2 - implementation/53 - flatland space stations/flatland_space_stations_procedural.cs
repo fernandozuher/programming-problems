@@ -10,7 +10,7 @@ public class FlatlandSpaceStations
         int nCities = inputLine.First(), _ = inputLine.Last();
 
         List<int> citiesWithSpaceStation = _readAnIntArray();
-        Console.WriteLine(_findMaximumDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
+        Console.WriteLine(_findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
     }
 
         private static List<int> _readAnIntArray()
@@ -18,7 +18,7 @@ public class FlatlandSpaceStations
             return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 
-        private static int _findMaximumDistanceFromSpaceStation(int nCities, List<int> citiesWithSpaceStation)
+        private static int _findMaxDistanceFromSpaceStation(int nCities, List<int> citiesWithSpaceStation)
         {
             int maxDistance = 0;
 
