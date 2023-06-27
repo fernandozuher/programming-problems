@@ -30,42 +30,33 @@ class FlatlandSpaceStations:
 
     def _find_max_distance_from_space_station(self):
 
-        for city_i in range(self._n_cities):
-            DISTANCE = self._find_min_distance_between_current_city_and_nearest_space_station(city_i)
+        FIRST_CITY = 0
+        self._max_distance_from_space_station = self._cities_with_space_station[0] - FIRST_CITY
+        previous_city = self._cities_with_space_station[0]
+
+        for city_with_space_station in self._cities_with_space_station[1:]:
+            DISTANCE = self._calculate_distance_between_cities(city_with_space_station, previous_city)
+            self._max_distance_from_space_station = max(self._max_distance_from_space_station, DISTANCE)
+            previous_city = city_with_space_station
+
+        if not self._has_last_city_space_station():
+            DISTANCE = self._calculate_distance_of_last_city()
             self._max_distance_from_space_station = max(self._max_distance_from_space_station, DISTANCE)
 
 
-    def _find_min_distance_between_current_city_and_nearest_space_station(self, city_i):
+    def _calculate_distance_between_cities(self, city_with_space_station, previous_city):
 
-        ELEMENT = self._find_element_or_nearest(city_i, self._cities_with_space_station)
-        MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION = abs(city_i - ELEMENT)
-        return MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION
+        return math.trunc((city_with_space_station - previous_city) / 2)
 
 
-    def _find_element_or_nearest(self, n, array):
+    def _has_last_city_space_station(self):
 
-        max = len(array) - 1
-        min = 0
+        return self._n_cities-1 == self._cities_with_space_station[-1]
 
-        min_distance = sys.maxsize
-        nearest_element = n
 
-        while min <= max:
-            MID = math.trunc((min + max) / 2)
+    def _calculate_distance_of_last_city(self):
 
-            DISTANCE = abs(array[MID] - n)
-            if DISTANCE < min_distance:
-                nearest_element = array[MID]
-                min_distance = DISTANCE
-
-            if array[MID] == n:
-                return n
-            elif array[MID] > n:
-                max = MID - 1
-            else:
-                min = MID + 1
-
-        return nearest_element
+        return self._n_cities-1 - self._cities_with_space_station[-1]
 
 
     def get_max_distance_from_space_station(self):

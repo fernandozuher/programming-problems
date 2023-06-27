@@ -48,44 +48,34 @@ function main() {
         }
 
             #findMaxDistanceFromSpaceStation() {
-                for (let cityI = 0; cityI < this.#nCities; cityI++) {
-                    const DISTANCE = this.#findMinDistanceBetweenCurrentCityAndNearestSpaceStation(cityI);
+                const FIRST_CITY = 0;
+                this.#maxDistanceFromSpaceStation = this.#citiesWithSpaceStation[0] - FIRST_CITY;
+                const SIZE = this.#citiesWithSpaceStation.length;
+
+                for (let i = 1, previousCity = this.#citiesWithSpaceStation[0]; i < SIZE; i++) {
+                    const DISTANCE = this.#calculateDistanceBetweenCities(this.#citiesWithSpaceStation[i], previousCity);
+                    this.#maxDistanceFromSpaceStation = Math.max(this.#maxDistanceFromSpaceStation, DISTANCE);
+                    previousCity = this.#citiesWithSpaceStation[i];
+                }
+
+                if (!this.#hasLastCitySpaceStation()) {
+                    const DISTANCE = this.#calculateDistanceOfLastCity();
                     this.#maxDistanceFromSpaceStation = Math.max(this.#maxDistanceFromSpaceStation, DISTANCE);
                 }
             }
 
-                #findMinDistanceBetweenCurrentCityAndNearestSpaceStation(cityI) {
-                    const ELEMENT = this.#findElementOrNearest(cityI, this.#citiesWithSpaceStation);
-                    const MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION = Math.abs(cityI - ELEMENT);
-                    return MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION;
+                #calculateDistanceBetweenCities(cityWithSpaceStation, previousCity) {
+                    return Math.trunc((cityWithSpaceStation - previousCity) / 2);
                 }
 
-                    #findElementOrNearest(n, array) {
-                        let max = array.length - 1;
-                        let min = 0;
+                #hasLastCitySpaceStation() {
+                    return this.#nCities-1 == this.#citiesWithSpaceStation[this.#citiesWithSpaceStation.length - 1]
+                }
 
-                        let minDistance = Number.MAX_SAFE_INTEGER;
-                        let nearestElement = n;
+                #calculateDistanceOfLastCity() {
+                    return this.#nCities-1 - this.#citiesWithSpaceStation[this.#citiesWithSpaceStation.length - 1]
+                }
 
-                        while (min <= max) {
-                            const MID = Math.trunc((min + max) / 2);
-
-                            const DISTANCE = Math.abs(array[MID] - n);
-                            if (DISTANCE < minDistance) {
-                                nearestElement = array[MID];
-                                minDistance = DISTANCE;
-                            }
-
-                            if (array[MID] == n)
-                                return n;
-                            else if (array[MID] > n)
-                                max = MID - 1;
-                            else
-                                min = MID + 1;
-                        }
-
-                        return nearestElement;
-                    }
 
         getMaxDistanceFromSpaceStation() {
             return this.#maxDistanceFromSpaceStation;

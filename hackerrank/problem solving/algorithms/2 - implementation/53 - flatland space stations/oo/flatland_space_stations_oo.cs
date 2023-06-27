@@ -20,67 +20,58 @@ public class Solution
         }
 }
 
-public class FlatlandSpaceStations
-{
-    int _nCities;
-    List<int> _citiesWithSpaceStation;
-    int _maxDistanceFromSpaceStation;
-
-    public FlatlandSpaceStations(int nCities, List<int> citiesWithSpaceStation)
+    public class FlatlandSpaceStations
     {
-        _nCities = nCities;
-        _citiesWithSpaceStation = citiesWithSpaceStation;
-        _maxDistanceFromSpaceStation = 0;
+        int _nCities;
+        List<int> _citiesWithSpaceStation;
+        int _maxDistanceFromSpaceStation;
 
-        _citiesWithSpaceStation.Sort();
-        _findMaxDistanceFromSpaceStation();
-    }
-
-        private void _findMaxDistanceFromSpaceStation()
+        public FlatlandSpaceStations(int nCities, List<int> citiesWithSpaceStation)
         {
-            for (int cityI = 0; cityI < _nCities; cityI++)
-            {
-                int distance = _findMinDistanceBetweenCityAndNearestSpaceStation(cityI);
-                _maxDistanceFromSpaceStation = Math.Max(_maxDistanceFromSpaceStation, distance);
-            }
+            _nCities = nCities;
+            _citiesWithSpaceStation = citiesWithSpaceStation;
+            _maxDistanceFromSpaceStation = 0;
+
+            _citiesWithSpaceStation.Sort();
+            _findMaxDistanceFromSpaceStation();
         }
 
-            private int _findMinDistanceBetweenCityAndNearestSpaceStation(int cityI)
+            private void _findMaxDistanceFromSpaceStation()
             {
-                int element = _findElementOrNearest(cityI, _citiesWithSpaceStation);
-                int minDistanceBetweenCityAndNearestSpaceStation = Math.Abs(cityI - element);
-                return minDistanceBetweenCityAndNearestSpaceStation;
-            }
+                const int firstCity = 0;
+                _maxDistanceFromSpaceStation = _citiesWithSpaceStation.First() - firstCity;
 
-                private int _findElementOrNearest(int n, List<int> array) {
-                    int max = array.Count - 1;
-                    int min = 0;
-
-                    int minDistance = Int32.MaxValue;
-                    int nearestElement = n;
-
-                    while (min <= max) {
-                        int mid = (min + max) / 2;
-
-                        int distance = Math.Abs(array[mid] - n);
-                        if (distance < minDistance) {
-                            nearestElement = array[mid];
-                            minDistance = distance;
-                        }
-
-                        if (array[mid] == n)
-                            return n;
-                        else if (array[mid] > n)
-                            max = mid - 1;
-                        else
-                            min = mid + 1;
-                    }
-
-                    return nearestElement;
+                for (int i = 1, previousCity = _citiesWithSpaceStation.First(); i < _citiesWithSpaceStation.Count; i++)
+                {
+                    int distance = _calculateDistanceBetweenCities(_citiesWithSpaceStation[i], previousCity);
+                    _maxDistanceFromSpaceStation = Math.Max(_maxDistanceFromSpaceStation, distance);
+                    previousCity = _citiesWithSpaceStation[i];
                 }
 
-    public int GetMaxDistanceFromSpaceStation()
-    {
-        return _maxDistanceFromSpaceStation;
+                if (!_hasLastCitySpaceStation())
+                {
+                    int distance = _calculateDistanceOfLastCity();
+                    _maxDistanceFromSpaceStation = Math.Max(_maxDistanceFromSpaceStation, distance);
+                }
+            }
+
+                private int _calculateDistanceBetweenCities(int cityWithSpaceStation, int previousCity)
+                {
+                    return (cityWithSpaceStation - previousCity) / 2;
+                }
+
+                private bool _hasLastCitySpaceStation()
+                {
+                    return _nCities-1 == _citiesWithSpaceStation.Last();
+                }
+
+                private int _calculateDistanceOfLastCity()
+                {
+                    return _nCities-1 - _citiesWithSpaceStation.Last();
+                }
+
+        public int GetMaxDistanceFromSpaceStation()
+        {
+            return _maxDistanceFromSpaceStation;
+        }
     }
-}

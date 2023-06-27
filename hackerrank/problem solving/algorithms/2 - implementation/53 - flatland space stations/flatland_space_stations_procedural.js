@@ -33,47 +33,35 @@ function main() {
     }
 
     function findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation) {
-        let maxDistance = 0;
-
         citiesWithSpaceStation.sort((a, b) => a - b);
+        const FIRST_CITY = 0;
+        let maxDistance = citiesWithSpaceStation[0] - FIRST_CITY;
+        const SIZE = citiesWithSpaceStation.length;
 
-        for (let cityI = 0; cityI < nCities; cityI++) {
-            const DISTANCE = findMinDistanceBetweenCurrentCityAndNearestSpaceStation(cityI, citiesWithSpaceStation);
+        for (let i = 1, previousCity = citiesWithSpaceStation[0]; i < SIZE; i++) {
+            const DISTANCE = calculateDistanceBetweenCities(citiesWithSpaceStation[i], previousCity);
+            maxDistance = Math.max(maxDistance, DISTANCE);
+            previousCity = citiesWithSpaceStation[i];
+        }
+
+        const LAST_CITY = nCities - 1
+        const LAST_CITY_WITH_SPACE_STATION = citiesWithSpaceStation[SIZE - 1]
+        if (!hasLastCitySpaceStation(LAST_CITY, LAST_CITY_WITH_SPACE_STATION)) {
+            const DISTANCE = calculateDistanceOfLastCity(LAST_CITY, LAST_CITY_WITH_SPACE_STATION);
             maxDistance = Math.max(maxDistance, DISTANCE);
         }
 
         return maxDistance;
     }
 
-        function findMinDistanceBetweenCurrentCityAndNearestSpaceStation(cityI, citiesWithSpaceStation) {
-            const ELEMENT = findElementOrNearest(cityI, citiesWithSpaceStation);
-            const MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION = Math.abs(cityI - ELEMENT);
-            return MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION;
+        function calculateDistanceBetweenCities(cityWithSpaceStation, previousCity) {
+            return Math.trunc((cityWithSpaceStation - previousCity) / 2);
         }
 
-            function findElementOrNearest(n, array) {
-                let max = array.length - 1;
-                let min = 0;
+        function hasLastCitySpaceStation(lastCity, lastCityWithSpaceStation) {
+            return lastCity == lastCityWithSpaceStation;
+        }
 
-                let minDistance = Number.MAX_SAFE_INTEGER;
-                let nearestElement = n;
-
-                while (min <= max) {
-                    const MID = Math.trunc((min + max) / 2);
-
-                    const DISTANCE = Math.abs(array[MID] - n);
-                    if (DISTANCE < minDistance) {
-                        nearestElement = array[MID];
-                        minDistance = DISTANCE;
-                    }
-
-                    if (array[MID] == n)
-                        return n;
-                    else if (array[MID] > n)
-                        max = MID - 1;
-                    else
-                        min = MID + 1;
-                }
-
-                return nearestElement;
-            }
+        function calculateDistanceOfLastCity(lastCity, lastCityWithSpaceStation) {
+            return lastCity - lastCityWithSpaceStation;
+        }

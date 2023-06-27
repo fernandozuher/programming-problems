@@ -39,44 +39,33 @@ public class Solution {
         }
 
             private void _findMaxDistanceFromSpaceStation() {
-                for (int cityI = 0; cityI < _nCities; cityI++) {
-                    final int distance = _findMinDistanceBetweenCityAndNearestSpaceStation(cityI);
+                final int firstCity = 0;
+                _maxDistanceFromSpaceStation = _citiesWithSpaceStation.get(0) - firstCity;
+                final int size = _citiesWithSpaceStation.size();
+
+                for (int i = 1, previousCity = _citiesWithSpaceStation.get(0); i < size; i++) {
+                    final int distance = _calculateDistanceBetweenCities(_citiesWithSpaceStation.get(i), previousCity);
+                    _maxDistanceFromSpaceStation = Math.max(_maxDistanceFromSpaceStation, distance);
+                    previousCity = _citiesWithSpaceStation.get(i);
+                }
+
+                if (!_hasLastCitySpaceStation()) {
+                    final int distance = _calculateDistanceOfLastCity();
                     _maxDistanceFromSpaceStation = Math.max(_maxDistanceFromSpaceStation, distance);
                 }
             }
 
-                private int _findMinDistanceBetweenCityAndNearestSpaceStation(int cityI) {
-                    final int element = _findElementOrNearest(cityI, _citiesWithSpaceStation);
-                    final int minDistanceBetweenCityAndNearestSpaceStation = Math.abs(cityI - element);
-                    return minDistanceBetweenCityAndNearestSpaceStation;
+                private int _calculateDistanceBetweenCities(int cityWithSpaceStation, int previousCity) {
+                    return (cityWithSpaceStation - previousCity) / 2;
                 }
 
-                    private int _findElementOrNearest(int n, List<Integer> array) {
-                        int max = array.size() - 1;
-                        int min = 0;
+                private boolean _hasLastCitySpaceStation() {
+                    return _nCities-1 == _citiesWithSpaceStation.get(_citiesWithSpaceStation.size() - 1);
+                }
 
-                        int minDistance = Integer.MAX_VALUE;
-                        int nearestElement = n;
-
-                        while (min <= max) {
-                            final int mid = (int) Math.floor((min + max) / 2);
-
-                            final int distance = Math.abs(array.get(mid) - n);
-                            if (distance < minDistance) {
-                                nearestElement = array.get(mid);
-                                minDistance = distance;
-                            }
-
-                            if (array.get(mid) == n)
-                                return n;
-                            else if (array.get(mid) > n)
-                                max = mid - 1;
-                            else
-                                min = mid + 1;
-                        }
-
-                        return nearestElement;
-                    }
+                private int _calculateDistanceOfLastCity() {
+                    return _nCities-1 - _citiesWithSpaceStation.get(_citiesWithSpaceStation.size() - 1);
+                }
 
         public int getMaxDistanceFromSpaceStation() {
             return _maxDistanceFromSpaceStation;

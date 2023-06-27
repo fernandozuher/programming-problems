@@ -4,7 +4,6 @@ package main
 
 import (
     "fmt"
-    "math"
     "sort"
 )
 
@@ -26,12 +25,23 @@ func main() {
     }
 
     func findMaxDistanceFromSpaceStation(nCities int, citiesWithSpaceStation []int) int {
-        var maxDistance int = 0
-
         sort.Ints(citiesWithSpaceStation)
+        const firstCity int = 0
+        var maxDistance int = citiesWithSpaceStation[0] - firstCity
+        var size int = len(citiesWithSpaceStation)
 
-        for cityI := 0; cityI < nCities; cityI++ {
-            var distance int = findMinDistanceBetweenCityAndNearestSpaceStation(cityI, citiesWithSpaceStation)
+        for i, previousCity := 1, citiesWithSpaceStation[0]; i < size; i++ {
+            var distance int = calculateDistanceBetweenCities(citiesWithSpaceStation[i], previousCity)
+            if maxDistance < distance {
+                maxDistance = distance
+            }
+            previousCity = citiesWithSpaceStation[i]
+        }
+
+        var lastCity int = nCities - 1
+        var lastCityWithSpaceStation int = citiesWithSpaceStation[size-1]
+        if !hasLastCitySpaceStation(lastCity, lastCityWithSpaceStation) {
+            var distance int = calculateDistanceOfLastCity(lastCity, lastCityWithSpaceStation)
             if maxDistance < distance {
                 maxDistance = distance
             }
@@ -40,36 +50,14 @@ func main() {
         return maxDistance
     }
 
-        func findMinDistanceBetweenCityAndNearestSpaceStation(cityI int, citiesWithSpaceStation []int) int {
-            var element int = findElementOrNearest(cityI, citiesWithSpaceStation)
-            var minDistanceBetweenCityAndNearestSpaceStation int = int(math.Abs(float64(cityI - element)))
-            return minDistanceBetweenCityAndNearestSpaceStation
+        func calculateDistanceBetweenCities(cityWithSpaceStation int, previousCity int) int {
+            return (cityWithSpaceStation - previousCity) / 2
         }
 
-            func findElementOrNearest(n int, array []int) int {
-                var max int = len(array) - 1
-                var min int = 0
+        func hasLastCitySpaceStation(lastCity int, lastCityWithSpaceStation int) bool {
+            return lastCity == lastCityWithSpaceStation
+        }
 
-                var minDistance int = math.MaxInt32
-                var nearestElement int = n
-
-                for min <= max {
-                    var mid int = int(math.Trunc(float64((min + max) / 2)))
-
-                    var distance int = int(math.Abs(float64(array[mid] - n)))
-                    if distance < minDistance {
-                        nearestElement = array[mid]
-                        minDistance = distance
-                    }
-
-                    if array[mid] == n {
-                        return n
-                    } else if array[mid] > n {
-                        max = mid - 1
-                    } else {
-                        min = mid + 1
-                    }
-                }
-
-                return nearestElement
-            }
+        func calculateDistanceOfLastCity(lastCity int, lastCityWithSpaceStation int) int {
+            return lastCity - lastCityWithSpaceStation
+        }

@@ -17,58 +17,48 @@ private:
 
     void find_max_distance_from_space_station()
     {
-        for (int city_i {0}; city_i < this->n_cities; ++city_i) {
-            const int distance {find_min_distance_between_city_and_nearest_space_station(city_i)};
+        const int first_city {0};
+        this->max_distance_from_space_station = {this->cities_with_space_station.front() - first_city};
+
+        for (int i {1}, previous_city {this->cities_with_space_station.front()}, size {static_cast<int>(this->cities_with_space_station.size())}; i < size; ++i) {
+            const int distance {this->calculate_distance_between_cities(this->cities_with_space_station.at(i), previous_city)};
+            this->max_distance_from_space_station = {max(this->max_distance_from_space_station, distance)};
+            previous_city = {this->cities_with_space_station.at(i)};
+        }
+
+        if (!this->has_last_city_space_station()) {
+            const int distance {this->calculate_distance_of_last_city()};
             this->max_distance_from_space_station = {max(this->max_distance_from_space_station, distance)};
         }
     }
 
-        int find_min_distance_between_city_and_nearest_space_station(const int city_i) const
+        int calculate_distance_between_cities(const int city_with_space_station, const int previous_city) const
         {
-            const int element {find_element_or_nearest(city_i, this->cities_with_space_station)};
-            const int min_distance_between_city_and_nearest_space_station {abs(city_i - element)};
-            return min_distance_between_city_and_nearest_space_station;
+            return (city_with_space_station - previous_city) / 2;
         }
 
-            int find_element_or_nearest(const int n, const vector<int>& array) const
-            {
-                int max {static_cast<int>(array.size() - 1)};
-                int min {0};
+        bool has_last_city_space_station() const
+        {
+            return this->n_cities-1 == this->cities_with_space_station.back();
+        }
 
-                int min_distance {INT_MAX};
-                int nearest_element {n};
+        int calculate_distance_of_last_city() const
+        {
+            return this->n_cities-1 - this->cities_with_space_station.back();
+        }
 
-                while (min <= max) {
-                    const int mid {static_cast<int>((min + max) / 2)};
-
-                    const int distance {abs(array.at(mid) - n)};
-                    if (distance < min_distance) {
-                        nearest_element = {array.at(mid)};
-                        min_distance = {distance};
-                    }
-
-                    if (array.at(mid) == n)
-                        return n;
-                    else if (array.at(mid) > n)
-                        max = {mid - 1};
-                    else
-                        min = {mid + 1};
-                }
-
-                return nearest_element;
-            }
 public:
     Flatland_Space_Stations(const int n_cities, const vector<int>& cities_with_space_station)
         : n_cities{n_cities}, cities_with_space_station{cities_with_space_station},
           max_distance_from_space_station{0}
     {
         ranges::sort(this->cities_with_space_station);
-        find_max_distance_from_space_station();
+        this->find_max_distance_from_space_station();
     }
 
     int get_max_distance_from_space_station() const
     {
-        return max_distance_from_space_station;
+        return this->max_distance_from_space_station;
     }
 };
 

@@ -3,14 +3,14 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <climits>
 #include <cmath>
 
 using namespace std;
 
 int find_max_distance_from_space_station(const int n_cities, vector<int>& cities_with_space_station);
-    int find_min_distance_between_city_and_nearest_space_station(const int city_i, const vector<int>& cities_with_space_station);
-        int find_element_or_nearest(const int n, const vector<int>& array);
+    int calculate_distance_between_cities(const int city_with_space_station, const int previous_city);
+    bool has_last_city_space_station(const int last_city_with_space_station, const int last_city);
+    int calculate_distance_of_last_city(const int last_city_with_space_station, const int last_city);
 
 int main()
 {
@@ -27,49 +27,35 @@ int main()
 
     int find_max_distance_from_space_station(const int n_cities, vector<int>& cities_with_space_station)
     {
-        int max_distance {0};
-
         ranges::sort(cities_with_space_station);
+        const int first_city {0};
+        int max_distance {cities_with_space_station.front() - first_city};
 
-        for (int city_i {0}; city_i < n_cities; ++city_i) {
-            const int distance {find_min_distance_between_city_and_nearest_space_station(city_i, cities_with_space_station)};
+        for (int i {1}, previous_city {cities_with_space_station.front()}, size {static_cast<int>(cities_with_space_station.size())}; i < size; ++i) {
+            const int distance {calculate_distance_between_cities(cities_with_space_station.at(i), previous_city)};
+            max_distance = {max(max_distance, distance)};
+            previous_city = {cities_with_space_station.at(i)};
+        }
+
+        if (int last_city {n_cities - 1}, last_city_with_space_station {cities_with_space_station.back()}; !has_last_city_space_station(last_city, last_city_with_space_station)) {
+            const int distance {calculate_distance_of_last_city(last_city, last_city_with_space_station)};
             max_distance = {max(max_distance, distance)};
         }
 
         return max_distance;
     }
 
-        int find_min_distance_between_city_and_nearest_space_station(const int city_i, const vector<int>& cities_with_space_station)
+        int calculate_distance_between_cities(const int city_with_space_station, const int previous_city)
         {
-            const int element {find_element_or_nearest(city_i, cities_with_space_station)};
-            const int min_distance_between_city_and_nearest_space_station {abs(city_i - element)};
-            return min_distance_between_city_and_nearest_space_station;
+            return (city_with_space_station - previous_city) / 2;
         }
 
-            int find_element_or_nearest(const int n, const vector<int>& array)
-            {
-                int max {static_cast<int>(array.size() - 1)};
-                int min {0};
+        bool has_last_city_space_station(const int last_city, const int last_city_with_space_station)
+        {
+            return last_city_with_space_station == last_city;
+        }
 
-                int min_distance {INT_MAX};
-                int nearest_element {n};
-
-                while (min <= max) {
-                    const int mid {static_cast<int>((min + max) / 2)};
-
-                    const int distance {abs(array.at(mid) - n)};
-                    if (distance < min_distance) {
-                        nearest_element = {array.at(mid)};
-                        min_distance = {distance};
-                    }
-
-                    if (array.at(mid) == n)
-                        return n;
-                    else if (array.at(mid) > n)
-                        max = {mid - 1};
-                    else
-                        min = {mid + 1};
-                }
-
-                return nearest_element;
-            }
+        int calculate_distance_of_last_city(const int last_city, const int last_city_with_space_station)
+        {
+            return last_city - last_city_with_space_station;
+        }

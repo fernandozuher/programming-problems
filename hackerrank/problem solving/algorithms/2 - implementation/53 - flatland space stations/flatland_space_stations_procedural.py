@@ -17,49 +17,38 @@ def read_an_int_array():
 
 def find_max_distance_from_space_station(n_cities, cities_with_space_station):
 
-    max_distance = 0
-
     cities_with_space_station.sort()
+    FIRST_CITY = 0
+    max_distance = cities_with_space_station[0] - FIRST_CITY
+    previous_city = cities_with_space_station[0]
 
-    for city_i in range(n_cities):
-        DISTANCE = find_min_distance_between_current_city_and_nearest_space_station(city_i, cities_with_space_station)
-        if max_distance < DISTANCE:
-            max_distance = DISTANCE
+    for city_with_space_station in cities_with_space_station[1:]:
+        DISTANCE = calculate_distance_between_cities(city_with_space_station, previous_city)
+        max_distance = max(max_distance, DISTANCE)
+        previous_city = city_with_space_station
+
+    LAST_CITY = n_cities-1
+    LAST_CITY_WITH_SPACE_STATION = cities_with_space_station[-1]
+    if not has_last_city_space_station(LAST_CITY, LAST_CITY_WITH_SPACE_STATION):
+        DISTANCE = calculate_distance_of_last_city(LAST_CITY, LAST_CITY_WITH_SPACE_STATION)
+        max_distance = max(max_distance, DISTANCE)
 
     return max_distance
 
 
-def find_min_distance_between_current_city_and_nearest_space_station(city_i, cities_with_space_station):
+def calculate_distance_between_cities(city_with_space_station, previous_city):
 
-    ELEMENT = find_element_or_nearest(city_i, cities_with_space_station)
-    MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION = abs(city_i - ELEMENT)
-    return MIN_DISTANCE_BETWEEN_CITY_AND_NEAREST_SPACE_STATION
+    return math.trunc((city_with_space_station - previous_city) / 2)
 
 
-def find_element_or_nearest(n, array):
+def has_last_city_space_station(last_city, last_city_with_space_station):
 
-    max = len(array) - 1
-    min = 0
+    return last_city == last_city_with_space_station
 
-    min_distance = sys.maxsize
-    nearest_element = n
 
-    while min <= max:
-        MID = math.trunc((min + max) / 2)
+def calculate_distance_of_last_city(last_city, last_city_with_space_station):
 
-        DISTANCE = abs(array[MID] - n)
-        if DISTANCE < min_distance:
-            nearest_element = array[MID]
-            min_distance = DISTANCE
-
-        if array[MID] == n:
-            return n
-        elif array[MID] > n:
-            max = MID - 1
-        else:
-            min = MID + 1
-
-    return nearest_element
+    return last_city - last_city_with_space_station
 
 
 if __name__ == "__main__":

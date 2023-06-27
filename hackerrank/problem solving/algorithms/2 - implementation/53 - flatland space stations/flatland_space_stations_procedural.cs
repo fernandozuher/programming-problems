@@ -20,50 +20,40 @@ public class FlatlandSpaceStations
 
         private static int _findMaxDistanceFromSpaceStation(int nCities, List<int> citiesWithSpaceStation)
         {
-            int maxDistance = 0;
-
             citiesWithSpaceStation.Sort();
+            const int firstCity = 0;
+            int maxDistance = citiesWithSpaceStation.First() - firstCity;
 
-            for (int cityI = 0; cityI < nCities; cityI++)
+            for (int i = 1, previousCity = citiesWithSpaceStation.First(); i < citiesWithSpaceStation.Count; i++)
             {
-                int distance = _findMinDistanceBetweenCityAndNearestSpaceStation(cityI, citiesWithSpaceStation);
+                int distance = calculateDistanceBetweenCities(citiesWithSpaceStation[i], previousCity);
+                maxDistance = Math.Max(maxDistance, distance);
+                previousCity = citiesWithSpaceStation[i];
+            }
+
+            int lastCity = nCities - 1;
+            int lastCityWithSpaceStation = citiesWithSpaceStation.Last();
+            if (!hasLastCitySpaceStation(lastCity, lastCityWithSpaceStation))
+            {
+                int distance = calculateDistanceOfLastCity(lastCity, lastCityWithSpaceStation);
                 maxDistance = Math.Max(maxDistance, distance);
             }
 
             return maxDistance;
         }
 
-            private static int _findMinDistanceBetweenCityAndNearestSpaceStation(int cityI, List<int> citiesWithSpaceStation)
+            private static int calculateDistanceBetweenCities(int cityWithSpaceStation, int previousCity)
             {
-                int element = _findElementOrNearest(cityI, citiesWithSpaceStation);
-                int minDistanceBetweenCityAndNearestSpaceStation = Math.Abs(cityI - element);
-                return minDistanceBetweenCityAndNearestSpaceStation;
+                return (cityWithSpaceStation - previousCity) / 2;
             }
 
-                private static int _findElementOrNearest(int n, List<int> array) {
-                    int max = array.Count - 1;
-                    int min = 0;
+            private static bool hasLastCitySpaceStation(int lastCity, int lastCityWithSpaceStation)
+            {
+                return lastCity == lastCityWithSpaceStation;
+            }
 
-                    int minDistance = Int32.MaxValue;
-                    int nearestElement = n;
-
-                    while (min <= max) {
-                        int mid = (min + max) / 2;
-
-                        int distance = Math.Abs(array[mid] - n);
-                        if (distance < minDistance) {
-                            nearestElement = array[mid];
-                            minDistance = distance;
-                        }
-
-                        if (array[mid] == n)
-                            return n;
-                        else if (array[mid] > n)
-                            max = mid - 1;
-                        else
-                            min = mid + 1;
-                    }
-
-                    return nearestElement;
-                }
+            private static int calculateDistanceOfLastCity(int lastCity, int lastCityWithSpaceStation)
+            {
+                return lastCity - lastCityWithSpaceStation;
+            }
 }

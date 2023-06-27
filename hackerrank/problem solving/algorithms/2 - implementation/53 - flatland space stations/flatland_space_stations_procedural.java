@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.Collections;
+import java.lang.Math;
 
 public class FlatlandSpaceStations {
     private static Scanner _scanner;
@@ -22,48 +23,36 @@ public class FlatlandSpaceStations {
         }
 
         private static int _findMaxDistanceFromSpaceStation(int nCities, List<Integer> citiesWithSpaceStation) {
-            int maxDistance = 0;
-
             Collections.sort(citiesWithSpaceStation);
+            final int firstCity = 0;
+            int maxDistance = citiesWithSpaceStation.get(0) - firstCity;
+            final int size = citiesWithSpaceStation.size();
 
-            for (int cityI = 0; cityI < nCities; cityI++) {
-                final int distance = _findMinDistanceBetweenCityAndNearestSpaceStation(cityI, citiesWithSpaceStation);
+            for (int i = 1, previousCity = citiesWithSpaceStation.get(0); i < size; i++) {
+                final int distance = _calculateDistanceBetweenCities(citiesWithSpaceStation.get(i), previousCity);
+                maxDistance = Math.max(maxDistance, distance);
+                previousCity = citiesWithSpaceStation.get(i);
+            }
+
+            final int lastCity = nCities - 1;
+            final int lastCityWithSpaceStation = citiesWithSpaceStation.get(size - 1);
+            if (!_hasLastCitySpaceStation(lastCity, lastCityWithSpaceStation)) {
+                final int distance = _calculateDistanceOfLastCity(lastCity, lastCityWithSpaceStation);
                 maxDistance = Math.max(maxDistance, distance);
             }
 
             return maxDistance;
         }
 
-            private static int _findMinDistanceBetweenCityAndNearestSpaceStation(int cityI, List<Integer> citiesWithSpaceStation) {
-                final int element = _findElementOrNearest(cityI, citiesWithSpaceStation);
-                final int minDistanceBetweenCityAndNearestSpaceStation = Math.abs(cityI - element);
-                return minDistanceBetweenCityAndNearestSpaceStation;
+            private static int _calculateDistanceBetweenCities(int cityWithSpaceStation, int previousCity) {
+                return (cityWithSpaceStation - previousCity) / 2;
             }
 
-                private static int _findElementOrNearest(int n, List<Integer> array) {
-                    int max = array.size() - 1;
-                    int min = 0;
+            private static boolean _hasLastCitySpaceStation(int lastCity, int lastCityWithSpaceStation) {
+                return lastCity == lastCityWithSpaceStation;
+            }
 
-                    int minDistance = Integer.MAX_VALUE;
-                    int nearestElement = n;
-
-                    while (min <= max) {
-                        final int mid = (int) Math.floor((min + max) / 2);
-
-                        final int distance = Math.abs(array.get(mid) - n);
-                        if (distance < minDistance) {
-                            nearestElement = array.get(mid);
-                            minDistance = distance;
-                        }
-
-                        if (array.get(mid) == n)
-                            return n;
-                        else if (array.get(mid) > n)
-                            max = mid - 1;
-                        else
-                            min = mid + 1;
-                    }
-
-                    return nearestElement;
-                }
+            private static int _calculateDistanceOfLastCity(int lastCity, int lastCityWithSpaceStation) {
+                return lastCity - lastCityWithSpaceStation;
+            }
 }
