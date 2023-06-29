@@ -40,9 +40,8 @@ fn find_min_loaves_to_satisfy_rules(n_loaves_of_each_person: &mut Vec<i32>) -> S
         }
     }
 
-    return if (*n_loaves_of_each_person.last().unwrap()) % 2 == 1 {
-        "NO".to_string()
-    } else {
-        min_loaves_to_satisfy_rules.to_string()
-    };
+    if *n_loaves_of_each_person.last().unwrap() % 2 == 1 {
+        return "NO".to_string();
+    }
+    return min_loaves_to_satisfy_rules.to_string();
 }
