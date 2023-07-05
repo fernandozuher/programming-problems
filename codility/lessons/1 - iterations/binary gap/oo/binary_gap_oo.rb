@@ -1,37 +1,38 @@
-# Source: https://app.codility.com/programmers/lessons/1-iterations/binaryGap/
+# Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
 
 def solution(number)
-    iterations = Iterations.new number
-    longestBinaryGap = iterations.getLongestBinaryGap
+    obj = BinaryGap.new(number)
+    obj.get_longest_binary_gap 
 end
 
-    class Iterations
-
+    class BinaryGap
+        @number
         @binary
-        @longestBinaryGap
+        @longest_binary_gap
 
-        def initialize number
-            @binary = _convertNumberToBinaryString number
-            @longestBinaryGap = _findLongestBinaryGap
+        def initialize(number)
+            @number = number
+            @binary = ""
+            @longest_binary_gap = 0
+
+            @binary = convert_number_to_binary_string(@number)
+            find_longest_binary_gap
         end
 
-            def _convertNumberToBinaryString n
-                binary = n.to_s(2)
+            private def convert_number_to_binary_string(n)
+                n.to_s(2)
             end
 
-            def _findLongestBinaryGap
-                longestBinaryGap = 0
+            private def find_longest_binary_gap
                 index = {"i" => 0, "j" => 0, "k" => 0}
 
                 while index.has_value?(nil) == false do
-                    gapLength = _findGapLength index
-                    longestBinaryGap = [gapLength, longestBinaryGap].max
+                    gap_length = find_gap_length(index)
+                    @longest_binary_gap = [gap_length, @longest_binary_gap].max
                 end
-
-                longestBinaryGap
             end
 
-                def _findGapLength index
+                private def find_gap_length(index)
                     index['i'] = @binary.index('1', index['j'])
 
                     if index['i'] != nil
@@ -53,7 +54,7 @@ end
                     end
                 end
 
-        def getLongestBinaryGap
-            @longestBinaryGap
+        def get_longest_binary_gap
+            @longest_binary_gap
         end
     end

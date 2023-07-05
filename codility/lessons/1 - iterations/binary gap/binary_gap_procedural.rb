@@ -1,27 +1,27 @@
-# Source: https://app.codility.com/programmers/lessons/1-iterations/binaryGap/
+# Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
 
-def solution number
-    binary = convertNumberToBinaryString number
-    longestBinaryGap = findLongestBinaryGap binary
+def solution(number)
+    binary = convert_number_to_binary_string(number)
+    longest_binary_gap = find_longest_binary_gap(binary)
 end
 
-    def convertNumberToBinaryString number
-        binary = number.to_s(2)
+    def convert_number_to_binary_string(number)
+        number.to_s(2)
     end
 
-    def findLongestBinaryGap binary
-        longestBinaryGap = 0
+    def find_longest_binary_gap(binary)
+        longest_binary_gap = 0
         index = {"i" => 0, "j" => 0, "k" => 0}
 
         while index.has_value?(nil) == false do
-            gapLength = findGapLength binary, index
-            longestBinaryGap = [gapLength, longestBinaryGap].max
+            gap_length = find_gap_length(binary, index)
+            longest_binary_gap = [gap_length, longest_binary_gap].max
         end
         
-        longestBinaryGap
+        longest_binary_gap
     end
 
-        def findGapLength binary, index
+        def find_gap_length(binary, index)
             index['i'] = binary.index('1', index['j'])
 
             if index['i'] != nil

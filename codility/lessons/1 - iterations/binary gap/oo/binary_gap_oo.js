@@ -1,35 +1,33 @@
-// Source: https://app.codility.com/programmers/lessons/1-iterations/binaryGap/
+// Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
 
-function solution(NUMBER) {
-    const ITERATIONS = new Iterations(NUMBER);
-    const LONGEST_BINARY_GAP = ITERATIONS.getLongestBinaryGap();
-    return LONGEST_BINARY_GAP;
+function solution(number) {
+    const OBJ = new BinaryGap(number);
+    return OBJ.getLongestBinaryGap();
 }
 
-    class Iterations {
-
+    class BinaryGap {
+        #number;
         #binary;
         #longestBinaryGap;
 
-        constructor(NUMBER) {
-            this.#binary = this.#convertNumberToBinaryString(NUMBER);
-            this.#longestBinaryGap = this.#findLongestBinaryGap();
+        constructor(number) {
+            this.#number = number;
+            this.#binary = "";
+            this.#longestBinaryGap = 0;
+
+            this.#binary = this.#convertNumberToBinaryString(this.#number);
+            this.#findLongestBinaryGap();
         }
 
-            #convertNumberToBinaryString(NUMBER) {
-                const BINARY = (NUMBER >>> 0).toString(2);
-                return BINARY;
+            #convertNumberToBinaryString(number) {
+                return (number >>> 0).toString(2);
             }
 
             #findLongestBinaryGap() {
-                let longestBinaryGap = 0;
-
                 for (let index = {'i': 0, 'j': 0, 'k': 0}; Object.values(index).includes(-1) === false;) {
-                    const GAPLENGTH = this.#findGapLength(index);
-                    longestBinaryGap = Math.max(GAPLENGTH, longestBinaryGap);
+                    const GAP_LENGTH = this.#findGapLength(index);
+                    this.#longestBinaryGap = Math.max(GAP_LENGTH, this.#longestBinaryGap);
                 }
-
-                return longestBinaryGap;
             }
 
                 #findGapLength(index) {
@@ -41,8 +39,8 @@ function solution(NUMBER) {
 
                             index.k = this.#binary.indexOf('1', index.j + 1);
                             if (index.k != -1) {
-                                const GAPLENGTH = index.k - index.j;
-                                return GAPLENGTH;
+                                const GAP_LENGTH = index.k - index.j;
+                                return GAP_LENGTH;
                             }
                             else
                                 return 0;

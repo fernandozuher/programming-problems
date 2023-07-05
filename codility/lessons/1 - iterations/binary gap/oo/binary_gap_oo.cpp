@@ -1,47 +1,58 @@
-// Source: https://app.codility.com/programmers/lessons/1-iterations/binaryGap/
+// Source: https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
 
-#include <bitset> // bitset
-#include <string> // string
-#include <algorithm> // max
+#include <bitset>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
-
-class Iterations {
-
-private:
-    string _binary;
-    int _longest_binary_gap;
-
-    string convert_int_to_binary_string(const int NUMBER) const {
-        const string BINARY {bitset<sizeof(int) * 8>(NUMBER).to_string()};
-        return BINARY;
+class Binary_Gap
+{
+public:
+    explicit Binary_Gap(const int number)
+        : number{number}, binary{}, longest_binary_gap{0}
+    {
+        binary = {convert_int_to_binary_string(number)};
+        find_longest_binary_gap();
     }
 
-    int find_longest_binary_gap() const {
-        int longest_binary_gap {0};
-
-        for (vector<int> index {0, 0, 0}; ranges::find(index, -1) == index.end();) {
-            const int GAP_LENGTH {find_gap_length(index)};
-            longest_binary_gap = {max(GAP_LENGTH, longest_binary_gap)};
-        }
-
+    int get_longest_binary_gap() const
+    {
         return longest_binary_gap;
     }
 
-        int find_gap_length(vector<int> &index) const {
+private:
+    int number;
+    string binary;
+    int longest_binary_gap;
+
+    string convert_int_to_binary_string(const int number)
+    {
+        return bitset<sizeof(int) * 8>(number).to_string();
+    }
+
+    void find_longest_binary_gap()
+    {
+        for (vector<int> index {0, 0, 0}; ranges::find(index, -1) == index.end();) {
+            const int gap_length {find_gap_length(index)};
+            longest_binary_gap = {max(gap_length, longest_binary_gap)};
+        }
+    }
+
+        int find_gap_length(vector<int>& index) const
+        {
             const auto not_found = static_cast<int>(string::npos);
-            index.front() = {static_cast<int>(_binary.find('1', index.at(1)))};
+            index.front() = {static_cast<int>(binary.find('1', index.at(1)))};
 
             if (index.front() != not_found) {
-                index.at(1) = {static_cast<int>(_binary.find('0', index.front() + 1))};
+                index.at(1) = {static_cast<int>(binary.find('0', index.front() + 1))};
 
                 if (index.at(1) != not_found) {
-                    index.back() = {static_cast<int>(_binary.find('1', index.at(1) + 1))};
+                    index.back() = {static_cast<int>(binary.find('1', index.at(1) + 1))};
 
                     if (index.back() != not_found) {
-                        const int GAP_LENGTH {index.back() - index.at(1)};
-                        return GAP_LENGTH;
+                        const int gap_length {index.back() - index.at(1)};
+                        return gap_length;
                     }
                     else
                         return 0;
@@ -52,21 +63,10 @@ private:
             else
                 return 0;
         }
-
-public:
-    Iterations(const int NUMBER) {
-        _binary = convert_int_to_binary_string(NUMBER);
-        _longest_binary_gap = find_longest_binary_gap();
-    }
-
-    int get_longest_binary_gap() const {
-        return _longest_binary_gap;
-    }
-
 };
 
-int solution(const int NUMBER) {
-    const Iterations ITERATIONS(NUMBER);
-    const int LONGEST_BINARY_GAP {ITERATIONS.get_longest_binary_gap()};
-    return LONGEST_BINARY_GAP;
+int solution(const int number)
+{
+    const Binary_Gap obj(number);
+    return obj.get_longest_binary_gap();
 }
