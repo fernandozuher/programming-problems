@@ -19,14 +19,13 @@ function solution(A, K) {
             return null;
     }
 
-        function reduceRotations(array_size, rotation) {
-            if (array_size > 1)
-                return rotation >= array_size ? rotation % array_size : rotation;
+        function reduceRotations(arraySize, rotation) {
+            if (arraySize > 1)
+                return rotation >= arraySize ? rotation % arraySize : rotation;
             else
                 return 0
         }
 
         function rotateElements(array, rotation) {
-            const NEW_ARRAY = [...array.slice(array.length-rotation, array.length), ...array.slice(0, array.length-rotation)];
-            return NEW_ARRAY;
+            return [...array.slice(array.length-rotation, array.length), ...array.slice(0, array.length-rotation)];
         }

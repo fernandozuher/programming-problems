@@ -2,41 +2,39 @@
 
 package solution
 
-
 func Solution(A []int, K int) []int {
-    var rotated_array []int = isThereRotation(A, K)
+    var rotatedSlice []int = isThereRotation(A, K)
 
-    if rotated_array != nil {
-        return rotated_array
+    if rotatedSlice != nil {
+        return rotatedSlice
     } else {
         return A
     }
 }
 
-    func isThereRotation(array []int, rotation int) []int {
-        var new_rotation int = reduceRotations(len(array), rotation)
+    func isThereRotation(slice []int, rotation int) []int {
+        var newRotation int = reduceRotations(len(slice), rotation)
 
-        if new_rotation > 0 {
-            var rotated_array []int = rotateElements(array, new_rotation)
-            return rotated_array
+        if newRotation > 0 {
+            var rotatedSlice []int = rotateElements(slice, newRotation)
+            return rotatedSlice
         } else {
             return nil
         }
     }
 
-        func reduceRotations(array_size int, rotation int) int {
-            if array_size > 1 {
-                if rotation >= array_size {
-                    return rotation % array_size
-                } else {
-                    return rotation
-                }
+    func reduceRotations(sliceSize int, rotation int) int {
+        if sliceSize > 1 {
+            if rotation >= sliceSize {
+                return rotation % sliceSize
             } else {
-                return 0
+                return rotation
             }
+        } else {
+            return 0
         }
+    }
 
-        func rotateElements(array []int, rotation int) []int {
-            var new_array []int = append(array[len(array)-rotation:], array[:len(array)-rotation]...)
-            return new_array
-        }
+    func rotateElements(slice []int, rotation int) []int {
+        return append(slice[len(slice)-rotation:], slice[:len(slice)-rotation]...)
+    }

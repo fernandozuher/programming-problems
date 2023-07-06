@@ -2,42 +2,44 @@
 
 using namespace std;
 
+vector<int> is_there_rotation(const vector<int>& vec, const int rotation);
+    int reduce_rotations(const int vec_size, const int rotation);
+    vector<int> rotate_elements(const vector<int>& vec, const int rotation);
 
-vector<int> is_there_rotation(const vector<int> VEC, const int ROTATION);
-    int reduce_rotations(const int VEC_SIZE, const int ROTATION);
-    vector<int> rotate_elements(const vector<int> VEC, const int ROTATION);
+vector<int> solution(vector<int> &a, int k)
+{
+    const vector<int> rotated_vec {is_there_rotation(a, k)};
 
-
-vector<int> solution(vector<int> &A, int K) {
-    const vector<int> ROTATED_VEC {is_there_rotation(A, K)};
-
-    if (ROTATED_VEC.size() > 0)
-        return ROTATED_VEC;
+    if (rotated_vec.size() > 0)
+        return rotated_vec;
     else
-        return A;
+        return a;
 }
 
-    vector<int> is_there_rotation(const vector<int> VEC, const int ROTATION) {
-        const int NEW_ROTATION {reduce_rotations(VEC.size(), ROTATION)};
+    vector<int> is_there_rotation(const vector<int>& vec, const int rotation)
+    {
+        const int new_rotation {reduce_rotations(vec.size(), rotation)};
         vector<int> rotated_array;
 
-        if (NEW_ROTATION > 0)
-            rotated_array = {rotate_elements(VEC, NEW_ROTATION)};
+        if (new_rotation > 0)
+            rotated_array = {rotate_elements(vec, new_rotation)};
 
         return rotated_array;
     }
 
-        int reduce_rotations(const int VEC_SIZE, const int ROTATION) {
-            if (VEC_SIZE > 1)
-                return ROTATION >= VEC_SIZE ? ROTATION % VEC_SIZE : ROTATION;
+        int reduce_rotations(const int vec_size, const int rotation)
+        {
+            if (vec_size > 1)
+                return rotation >= vec_size ? rotation % vec_size : rotation;
             else
                 return 0;
         }
 
-        vector<int> rotate_elements(const vector<int> VEC, const int ROTATION) {
-            vector<int> new_vector {VEC.begin() + VEC.size() - ROTATION, VEC.end()};
-            const vector<int> TEMP_VEC {VEC.begin(), VEC.begin() + VEC.size() - ROTATION};
+        vector<int> rotate_elements(const vector<int>& vec, const int rotation)
+        {
+            vector<int> new_vector {vec.begin() + vec.size() - rotation, vec.end()};
+            const vector<int> temp_vec {vec.begin(), vec.begin() + vec.size() - rotation};
 
-            new_vector.insert(new_vector.end(), TEMP_VEC.begin(), TEMP_VEC.end());
+            new_vector.insert(new_vector.end(), temp_vec.begin(), temp_vec.end());
             return new_vector;
         }

@@ -2,7 +2,7 @@
 
 def solution(A, K):
 
-    ROTATED_ARRAY = isThereRotation(A, K)
+    ROTATED_ARRAY = is_there_rotation(A, K)
 
     if ROTATED_ARRAY != None:
         return ROTATED_ARRAY
@@ -10,18 +10,18 @@ def solution(A, K):
         return A
 
 
-def isThereRotation(array, rotation):
+def is_there_rotation(array, rotation):
 
-    NEW_ROTATION = reduceRotations(len(array), rotation)
+    NEW_ROTATION = reduce_rotations(len(array), rotation)
 
     if NEW_ROTATION > 0:
-        ROTATED_ARRAY = rotateElements(array, NEW_ROTATION)
+        ROTATED_ARRAY = rotate_elements(array, NEW_ROTATION)
         return ROTATED_ARRAY
     else:
         return None
 
 
-def reduceRotations(array_size, rotation):
+def reduce_rotations(array_size, rotation):
 
     if array_size > 1:
         return rotation % array_size if rotation >= array_size else rotation
@@ -29,7 +29,6 @@ def reduceRotations(array_size, rotation):
         return 0
 
 
-def rotateElements(array, rotation):
+def rotate_elements(array, rotation):
 
-    NEW_ARRAY = array[len(array) - rotation:] + array[:len(array) - rotation]
-    return NEW_ARRAY
+    return array[len(array) - rotation:] + array[:len(array) - rotation]

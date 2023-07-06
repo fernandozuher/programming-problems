@@ -19,14 +19,13 @@ function solution(A: number[], K: number): number[] {
             return null;
     }
 
-        function reduceRotations(array_size: number, rotation: number): number {
-            if (array_size > 1)
-                return rotation >= array_size ? rotation % array_size : rotation;
+        function reduceRotations(arraySize: number, rotation: number): number {
+            if (arraySize > 1)
+                return rotation >= arraySize ? rotation % arraySize : rotation;
             else
                 return 0
         }
 
         function rotateElements(array: number[], rotation: number): number[] {
-            const NEW_ARRAY: number[] = [...array.slice(array.length-rotation, array.length), ...array.slice(0, array.length-rotation)];
-            return NEW_ARRAY;
+            return [...array.slice(array.length-rotation, array.length), ...array.slice(0, array.length-rotation)];
         }

@@ -11,42 +11,42 @@ public class Solution {
 }
 
     class BinaryGap {
-        private int _number;
-        private String _binary;
-        private int _longestBinaryGap;
+        private int number;
+        private String binary;
+        private int longestBinaryGap;
 
         public BinaryGap(int number) {
-            _number = number;
-            _binary = "";
-            _longestBinaryGap = 0;
+            number = number;
+            binary = "";
+            longestBinaryGap = 0;
 
-            _binary = _convertIntToBinaryString(_number);
-            _findLongestBinaryGap();
+            binary = convertIntToBinaryString(number);
+            findLongestBinaryGap();
         }
 
-            private String _convertIntToBinaryString(int number) {
+            private String convertIntToBinaryString(int number) {
                 return Integer.toBinaryString(number);
             }
 
-            private void _findLongestBinaryGap() {
+            private void findLongestBinaryGap() {
                 for (List<Integer> index = Arrays.asList(new Integer[] {0, 0, 0}); !index.contains(-1);) {
-                    final int gap_length = _findGapLength(index);
-                    _longestBinaryGap = Math.max(gap_length, _longestBinaryGap);
+                    final int gapLength = findGapLength(index);
+                    longestBinaryGap = Math.max(gapLength, longestBinaryGap);
                 }
             }
 
-                private int _findGapLength(List<Integer> index) {
-                    index.set(0, _binary.indexOf("1", index.get(1)));
+                private int findGapLength(List<Integer> index) {
+                    index.set(0, binary.indexOf("1", index.get(1)));
 
                     if (index.get(0) != -1) {
-                        index.set(1, _binary.indexOf("0", index.get(0) + 1));
+                        index.set(1, binary.indexOf("0", index.get(0) + 1));
 
                         if (index.get(1) != -1) {
-                            index.set(2, _binary.indexOf("1", index.get(1) + 1));
+                            index.set(2, binary.indexOf("1", index.get(1) + 1));
 
                             if (index.get(2) != -1) {
-                                final int gap_length = index.get(2) - index.get(1);
-                                return gap_length;
+                                final int gapLength = index.get(2) - index.get(1);
+                                return gapLength;
                             } else
                                 return 0;
                         } else
@@ -56,6 +56,6 @@ public class Solution {
                 }
 
         public int getLongestBinaryGap() {
-            return _longestBinaryGap;
+            return longestBinaryGap;
         }
     }
