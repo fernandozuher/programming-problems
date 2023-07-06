@@ -3,43 +3,46 @@
 #include <string.h>
 #include <stdbool.h>
 
-int* is_there_rotation(const int* ARRAY, const int ARRAY_SIZE, const int ROTATION);
-    int reduce_rotations(const int ARRAY_SIZE, const int ROTATION);
-    int* rotate_elements(const int A[], const int ARRAY_SIZE, const int ROTATION);
+int* is_there_rotation(const int* array, const int array_size, const int rotation);
+    int reduce_rotations(const int array_size, const int rotation);
+    int* rotate_elements(const int* a, const int array_size, const int rotation);
 
+struct Results solution(int a[], const int n, const int k)
+{
+    int *rotated_array = is_there_rotation(a, n, k);
 
-struct Results solution(int A[], const int N, const int K) {
-    const int *ROTATED_ARRAY = is_there_rotation(A, N, K);
-
-    if (ROTATED_ARRAY != NULL)
-        return (struct Results) {ROTATED_ARRAY, N};
+    if (rotated_array != NULL)
+        return (struct Results) {rotated_array, n};
     else
-        return (struct Results) {A, N};
+        return (struct Results) {a, n};
 }
 
-    int* is_there_rotation(const int* ARRAY, const int ARRAY_SIZE, const int ROTATION) {
-        const int NEW_ROTATION = reduce_rotations(ARRAY_SIZE, ROTATION);
+    int* is_there_rotation(const int* array, const int array_size, const int rotation)
+    {
+        const int new_rotation = reduce_rotations(array_size, rotation);
 
-        if (NEW_ROTATION > 0) {
-            int *rotated_array = rotate_elements(ARRAY, ARRAY_SIZE, NEW_ROTATION);
+        if (new_rotation > 0) {
+            int *rotated_array = rotate_elements(array, array_size, new_rotation);
             return rotated_array;
         }
         else
             return NULL;
     }
 
-        int reduce_rotations(const int ARRAY_SIZE, const int ROTATION) {
-            if (ARRAY_SIZE > 1)
-                return ROTATION >= ARRAY_SIZE ? ROTATION % ARRAY_SIZE : ROTATION;
+        int reduce_rotations(const int array_size, const int rotation)
+        {
+            if (array_size > 1)
+                return rotation >= array_size ? rotation % array_size : rotation;
             else
                 return 0;
         }
 
-        int* rotate_elements(const int ARRAY[], const int ARRAY_SIZE, const int ROTATION) {
-            int *new_array = (int*) calloc(ARRAY_SIZE, sizeof(int));
+        int* rotate_elements(const int* array, const int array_size, const int rotation)
+        {
+            int *new_array = (int*) calloc(array_size, sizeof(int));
 
-            memcpy(new_array, &ARRAY[ARRAY_SIZE - ROTATION], ROTATION * sizeof(*ARRAY));
-            memcpy(new_array + ROTATION, ARRAY, (ARRAY_SIZE - ROTATION) * sizeof(*ARRAY));
+            memcpy(new_array, &array[array_size - rotation], rotation * sizeof(*array));
+            memcpy(new_array + rotation, array, (array_size - rotation) * sizeof(*array));
 
             return new_array;
         }
