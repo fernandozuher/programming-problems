@@ -3,16 +3,16 @@
 def solution(A):
 
     A.sort()
-    unpairedElement = A[0]
-    isElementPaired = False
+    unpaired_element = A[0]
+    is_element_paired = False
 
     for i in range(1, len(A)):
-        if A[i] == unpairedElement:
-            isElementPaired = not isElementPaired
-        elif isElementPaired:
-            isElementPaired = False
-            unpairedElement = A[i]
+        if A[i] == unpaired_element:
+            is_element_paired = not is_element_paired
+        elif is_element_paired:
+            is_element_paired = False
+            unpaired_element = A[i]
         else:
             break
 
-    return unpairedElement
+    return unpaired_element
