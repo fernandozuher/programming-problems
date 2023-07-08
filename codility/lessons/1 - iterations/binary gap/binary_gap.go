@@ -5,10 +5,10 @@ package solution
 import "math"
 
 func Solution(n int) int {
-    var longestBinaryGap int = 0
+    longestBinaryGap := 0
 
     for number := reduceNumberUntilFirst10(n); number > 0; number = reduceNumberUntilFirst10(number) {
-        var tempLongestBinaryGap int = 0
+        tempLongestBinaryGap := 0
 
         var number int = countBinaryGapInParameterAndReturnReducedNumber(&tempLongestBinaryGap, number)
 

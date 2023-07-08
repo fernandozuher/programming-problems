@@ -23,18 +23,18 @@ func Solution(A []int, K int) []int {
         }
     }
 
-    func reduceRotations(sliceSize int, rotation int) int {
-        if sliceSize > 1 {
-            if rotation >= sliceSize {
-                return rotation % sliceSize
+        func reduceRotations(sliceSize int, rotation int) int {
+            if sliceSize > 1 {
+                if rotation >= sliceSize {
+                    return rotation % sliceSize
+                } else {
+                    return rotation
+                }
             } else {
-                return rotation
+                return 0
             }
-        } else {
-            return 0
         }
-    }
 
-    func rotateElements(slice []int, rotation int) []int {
-        return append(slice[len(slice)-rotation:], slice[:len(slice)-rotation]...)
-    }
+        func rotateElements(slice []int, rotation int) []int {
+            return append(slice[len(slice)-rotation:], slice[:len(slice)-rotation]...)
+        }

@@ -4,12 +4,13 @@
 
 int compare (const void *a, const void *b);
 
-int solution(int A[], int N) {
+int solution(int A[], int N)
+{
     qsort(A, N, sizeof(int), compare);
     int unpaired_element = A[0];
     bool is_element_paired = false;
 
-    for (int i = 1; i < N; i++)
+    for (int i = 1; i < N; ++i)
         if (A[i] == unpaired_element)
             is_element_paired = !is_element_paired;
         else if (is_element_paired) {
@@ -22,6 +23,7 @@ int solution(int A[], int N) {
     return unpaired_element;
 }
 
-    int compare (const void *a, const void *b) {
+    int compare (const void *a, const void *b)
+    {
         return ( *(int*)a - * (int*)b );
     }

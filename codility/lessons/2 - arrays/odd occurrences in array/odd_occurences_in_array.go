@@ -6,7 +6,7 @@ import "sort"
 
 func Solution(A []int) int {
     sort.Ints(A)
-    var unpairedElement int = A[0]
+    unpairedElement := A[0]
     isElementPaired := false
 
     for i, N := 1, len(A); i < N; i++ {

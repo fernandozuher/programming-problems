@@ -10,7 +10,7 @@ vector<int> solution(vector<int> &a, int k)
 {
     const vector<int> rotated_vec {is_there_rotation(a, k)};
 
-    if (rotated_vec.size() > 0)
+    if (!rotated_vec.empty())
         return rotated_vec;
     else
         return a;

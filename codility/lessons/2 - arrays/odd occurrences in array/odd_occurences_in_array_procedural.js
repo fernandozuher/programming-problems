@@ -5,7 +5,7 @@ function solution(A) {
     let unpairedElement = A[0];
     let isElementPaired = false;
 
-    for (let i = 1, N = A.length; i < N; i++)
+    for (let i = 1; i < A.length; i++)
         if (A[i] === unpairedElement)
             isElementPaired = !isElementPaired;
         else if (isElementPaired) {
