@@ -1,6 +1,5 @@
 # Source: https://app.codility.com/programmers/lessons/3-time_complexity/frog_jmp/
 
-def solution(currentPosition, destination, jumpDistance)
-    numberOfJumps = (destination - currentPosition).to_f / jumpDistance
-    minimumNumberOfJumps = numberOfJumps.ceil
+def solution(current_position, destination, jump_distance)
+    ((destination - current_position).to_f / jump_distance).ceil
 end

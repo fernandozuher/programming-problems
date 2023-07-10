@@ -4,8 +4,6 @@ import java.lang.Math;
 
 class Solution {
     public int solution(int currentPosition, int destination, int jumpDistance) {
-        final float numberOfJumps = (float)(destination - currentPosition) / jumpDistance;
-        final int minimumNumberOfJumps = (int) Math.ceil(numberOfJumps);
-        return minimumNumberOfJumps;
+        return (int) Math.ceil((double)(destination - currentPosition) / jumpDistance);
     }
 }

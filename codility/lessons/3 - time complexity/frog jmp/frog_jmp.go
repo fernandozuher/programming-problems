@@ -5,7 +5,5 @@ package solution
 import "math"
 
 func Solution(currentPosition int, destination int, jumpDistance int) int {
-    numberOfJumps := float64((destination - currentPosition)) / float64(jumpDistance)
-    minimumNumberOfJumps := int(math.Ceil(numberOfJumps))
-    return minimumNumberOfJumps
+    return int(math.Ceil(float64(destination - currentPosition) / float64(jumpDistance)))
 }

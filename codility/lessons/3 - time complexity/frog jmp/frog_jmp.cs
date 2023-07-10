@@ -2,10 +2,10 @@
 
 using System;
 
-class Solution {
-    public int solution(int currentPosition, int destination, int jumpDistance) {
-        float numberOfJumps = (float)(destination - currentPosition) / jumpDistance;
-        int minimumNumberOfJumps = (int) Math.Ceiling(numberOfJumps);
-        return minimumNumberOfJumps;
+class Solution
+{
+    public int solution(int currentPosition, int destination, int jumpDistance)
+    {
+        return (int) Math.Ceiling((double)(destination - currentPosition) / jumpDistance);
     }
 }

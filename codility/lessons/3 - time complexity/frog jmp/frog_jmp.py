@@ -2,7 +2,6 @@
 
 import math
 
-def solution(currentPosition, destination, jumpDistance):
-    numberOfJumps = (destination - currentPosition) / jumpDistance
-    minimumNumberOfJumps = int(math.ceil(numberOfJumps))
-    return minimumNumberOfJumps
+def solution(current_position, destination, jump_distance):
+
+    return math.ceil((destination - current_position) / jump_distance)
