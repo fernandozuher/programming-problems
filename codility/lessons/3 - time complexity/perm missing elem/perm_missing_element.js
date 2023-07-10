@@ -2,16 +2,13 @@
 
 function solution(array) {
     array.sort((a, b) => a - b);
-    const MISSING_ELEMENT = findMissingElement(array);
-    return MISSING_ELEMENT;
+    return findMissingElement(array);
 }
 
     function findMissingElement(array) {
         let i;
-
         for (i = 0; i < array.length; i++)
             if (array[i] !== i + 1)
                 break;
-
         return i + 1;
     }

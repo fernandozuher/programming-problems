@@ -5,17 +5,14 @@ import java.util.Arrays;
 class Solution {
     public int solution(int[] array) {
         Arrays.sort(array);
-        final int MISSING_ELEMENT = findMissingElement(array);
-        return MISSING_ELEMENT;
+        return findMissingElement(array);
     }
 
-        private int findMissingElement(int[] array) {
+        private static int findMissingElement(int[] array) {
             int i;
-
             for (i = 0; i < array.length; i++)
                 if (array[i] != i + 1)
                     break;
-
             return i + 1;
         }
 }

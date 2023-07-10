@@ -3,16 +3,15 @@
 def solution(array):
 
     array.sort()
-    MISSING_ELEMENT = findMissingElement(array)
-    return MISSING_ELEMENT
+    return find_missing_element(array)
 
 
-def findMissingElement(array):
+def find_missing_element(array):
 
-    i = 0
-
+    index = -1
     for i, element in enumerate(array):
         if element != i + 1:
+            index = i + 1
             break
-
-    return i + 1
+    
+    return len(array) + 1 if index == -1 else index

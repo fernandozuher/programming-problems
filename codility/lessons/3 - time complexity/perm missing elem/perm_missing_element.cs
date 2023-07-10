@@ -7,18 +7,15 @@ class Solution
     public int solution(int[] array)
     {
         Array.Sort(array);
-        int missingElement = FindMissingElement(array);
-        return missingElement;
+        return _findMissingElement(ref array);
     }
 
-        private int FindMissingElement(int[] array)
+        private static int _findMissingElement(ref int[] array)
         {
             int i;
-
             for (i = 0; i < array.Length; i++)
                 if (array[i] != i + 1)
                     break;
-
             return i + 1;
         }
 }
