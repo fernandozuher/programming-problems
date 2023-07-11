@@ -2,22 +2,14 @@
 
 def solution(array):
 
-    MINIMUM_DIFFERENCE_BETWEEN_PARTS = findMinimumDifferenceBetweenTwoPartsArray(array)
-    return MINIMUM_DIFFERENCE_BETWEEN_PARTS
+    first_part = array[0]
+    second_part = sum(array) - first_part
+    minimum_difference_between_parts = abs(first_part - second_part)
 
+    for element in array[1:-1]:
+        first_part += element
+        second_part -= element
+        CURRENT_MINIMUM = abs(first_part - second_part)
+        minimum_difference_between_parts = min(minimum_difference_between_parts, CURRENT_MINIMUM)
 
-def findMinimumDifferenceBetweenTwoPartsArray(array):
-
-    firstPart = array[0]
-    secondPart = sum(array) - firstPart
-    minimumDifferenceBetweenParts = abs(firstPart - secondPart)
-
-    for i in range(1, len(array) - 1):
-        firstPart += array[i]
-        secondPart -= array[i]
-        CURRENT_MINIMUM = abs(firstPart - secondPart)
-
-        if minimumDifferenceBetweenParts > CURRENT_MINIMUM:
-            minimumDifferenceBetweenParts = CURRENT_MINIMUM
-
-    return minimumDifferenceBetweenParts
+    return minimum_difference_between_parts

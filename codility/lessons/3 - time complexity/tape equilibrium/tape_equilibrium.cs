@@ -3,31 +3,22 @@
 using System;
 using System.Linq;
 
-
 class Solution
 {
     public int solution(int[] array)
     {
-        int minimumDifferenceBetweenParts = FindMinimumDifferenceBetweenTwoPartsArray(array);
+        int firstPart = array.First();
+        int secondPart = array.Sum() - firstPart;
+        int minimumDifferenceBetweenParts = Math.Abs(firstPart - secondPart);
+
+        foreach (int element in new ArraySegment<int>(array, 1, array.Length - 2))
+        {
+            firstPart += element;
+            secondPart -= element;
+            int currentMinimum = Math.Abs(firstPart - secondPart);
+            minimumDifferenceBetweenParts = Math.Min(minimumDifferenceBetweenParts, currentMinimum);
+        }
+
         return minimumDifferenceBetweenParts;
     }
-
-        private static int FindMinimumDifferenceBetweenTwoPartsArray(int[] array)
-        {
-            int firstPart = array[0];
-            int secondPart = array.Sum() - firstPart;
-            int minimumDifferenceBetweenParts = Math.Abs(firstPart - secondPart);
-
-            for (int i = 1, size = array.Length - 1; i < size; i++)
-            {
-                firstPart += array[i];
-                secondPart -= array[i];
-                int currentMinimum = Math.Abs(firstPart - secondPart);
-
-                if (minimumDifferenceBetweenParts > currentMinimum)
-                    minimumDifferenceBetweenParts = currentMinimum;
-            }
-
-            return minimumDifferenceBetweenParts;
-        }
 }
