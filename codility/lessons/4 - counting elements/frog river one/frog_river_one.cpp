@@ -1,26 +1,21 @@
 // Source: https://app.codility.com/programmers/lessons/4-counting_elements/frog_river_one/
 
-int solution(const int END_POSITION, vector<int>& array) {
-    const int ARRAY_SIZE {static_cast<int>(array.size())};
-
-    if (END_POSITION > ARRAY_SIZE)
-        return -1;
-
-    vector<bool> visited_positions(END_POSITION + 1);
+int solution(const int end_position, vector<int>& array)
+{
+    vector<bool> visited_positions(end_position + 1);
     int visited_positions_counter {0};
-    int i;
+    size_t i;
 
-    for (i = {0}; i < ARRAY_SIZE && visited_positions_counter < END_POSITION; i++) {
-        const int POSITION {array.at(i)};
-        const bool HAS_THAT_POSITION_BEEN_VISITED {visited_positions.at(POSITION)};
+    for (i = {0}; i < array.size() && visited_positions_counter < end_position; ++i) {
+        const int position {array.at(i)};
+        const bool has_that_position_been_visited {visited_positions.at(position)};
 
-        if (!HAS_THAT_POSITION_BEEN_VISITED) {
-            visited_positions.at(POSITION) = {true};
+        if (!has_that_position_been_visited) {
+            visited_positions.at(position) = {true};
             visited_positions_counter++;
         }
     }
 
-    const int TIME_SPENT_JUMPING_ON_LEAFS {i - 1};
-
-    return visited_positions_counter == END_POSITION ? TIME_SPENT_JUMPING_ON_LEAFS : -1;
+    const size_t time_spent_jumping_on_leafs {i - 1};
+    return visited_positions_counter == end_position ? time_spent_jumping_on_leafs : -1;
 }

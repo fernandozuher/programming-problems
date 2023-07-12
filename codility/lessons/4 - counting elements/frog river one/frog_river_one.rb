@@ -1,27 +1,22 @@
 # Source: https://app.codility.com/programmers/lessons/4-counting_elements/frog_river_one/
 
-def solution endPosition, array
-    if endPosition > array.size
-        return -1
-    end
-
-    visitedPositions = Array.new(endPosition + 1)
-    visitedPositionsCounter = 0
+def solution(end_position, array)
+    visited_positions = Array.new(end_position + 1)
+    visited_positions_counter = 0
     i = 0
 
-    while i < array.size && visitedPositionsCounter < endPosition
+    while i < array.size && visited_positions_counter < end_position
         position = array[i]
-        hasThatPositionBeenVisited = visitedPositions[position]
+        has_that_position_been_visited = visited_positions[position]
 
-        if not hasThatPositionBeenVisited
-            visitedPositions[position] = true
-            visitedPositionsCounter += 1
+        if not has_that_position_been_visited
+            visited_positions[position] = true
+            visited_positions_counter += 1
         end
 
         i += 1
     end
 
-    timeSpentJumpingOnLeafs = i - 1
-
-    visitedPositionsCounter == endPosition ? timeSpentJumpingOnLeafs : -1
+    time_spent_jumping_on_leafs = i - 1
+    visited_positions_counter == end_position ? time_spent_jumping_on_leafs : -1
 end

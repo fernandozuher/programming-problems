@@ -6,27 +6,21 @@ import java.util.Collections;
 
 class Solution {
     public int solution(int endPosition, int[] array) {
-        final int ARRAY_SIZE = array.length;
-
-        if (endPosition > ARRAY_SIZE)
-            return -1;
-
         List<Boolean> visitedPositions = new ArrayList<Boolean>(Collections.nCopies(endPosition + 1, false));
         int visitedPositionsCounter = 0;
         int i;
 
-        for (i = 0; i < ARRAY_SIZE && visitedPositionsCounter < endPosition; i++) {
-            final int POSITION = array[i];
-            final boolean HAS_THAT_POSITION_BEEN_VISITED = visitedPositions.get(POSITION);
+        for (i = 0; i < array.length && visitedPositionsCounter < endPosition; i++) {
+            final int position = array[i];
+            final boolean hasThatPositionBeenVisited = visitedPositions.get(position);
 
-            if (!HAS_THAT_POSITION_BEEN_VISITED) {
-                visitedPositions.set(POSITION, true);
+            if (!hasThatPositionBeenVisited) {
+                visitedPositions.set(position, true);
                 visitedPositionsCounter++;
             }
         }
 
-        final int TIME_SPENT_JUMPING_ON_LEAFS = i - 1;
-
-        return visitedPositionsCounter == endPosition ? TIME_SPENT_JUMPING_ON_LEAFS : -1;
+        final int timeSpentJumpingOnLeafs = i - 1;
+        return visitedPositionsCounter == endPosition ? timeSpentJumpingOnLeafs : -1;
     }
 }

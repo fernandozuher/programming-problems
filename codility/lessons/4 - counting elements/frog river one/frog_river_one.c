@@ -2,28 +2,25 @@
 
 #include <stdbool.h>
 
-int solution(const int END_POSITION, const int* ARRAY, const int ARRAY_SIZE) {
-    if (END_POSITION > ARRAY_SIZE)
-        return -1;
-
-    bool* visited_positions = (bool*) calloc(END_POSITION + 1, sizeof(bool));
+int solution(const int end_position, const int* array, const int size)
+{
+    bool* visited_positions = (bool*) calloc(end_position + 1, sizeof(bool));
     int visited_positions_counter = 0;
     int i;
 
-    for (i = 0; i < ARRAY_SIZE && visited_positions_counter < END_POSITION; i++) {
-        const int POSITION = ARRAY[i];
-        const bool HAS_THAT_POSITION_BEEN_VISITED = visited_positions[POSITION];
+    for (i = 0; i < size && visited_positions_counter < end_position; ++i) {
+        const int position = array[i];
+        const bool has_that_position_been_visited = visited_positions[position];
 
-        if (!HAS_THAT_POSITION_BEEN_VISITED) {
-            visited_positions[ARRAY[i]] = true;
+        if (!has_that_position_been_visited) {
+            visited_positions[position] = true;
             visited_positions_counter++;
         }
     }
 
-    const int TIME_SPENT_JUMPING_ON_LEAFS = i - 1;
-
     free(visited_positions);
     visited_positions = NULL;
 
-    return visited_positions_counter == END_POSITION ? TIME_SPENT_JUMPING_ON_LEAFS : -1;
+    const int time_spent_jumping_on_leafs = i - 1;
+    return visited_positions_counter == end_position ? time_spent_jumping_on_leafs : -1;
 }
