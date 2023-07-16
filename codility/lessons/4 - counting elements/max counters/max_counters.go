@@ -4,20 +4,16 @@ package solution
 
 func Solution(nCounters int, array []int) []int {
     foundMaxCounter := false
-    max := 0
-    counters := make([]int, nCounters+1)
+    max, currentMax := 0, 0
+    counters := map[int]int{}
 
-    for i, currentMax := 0, 0; i < len(array); i++ {
-        if array[i] <= nCounters {
+    for _, element := range array {
+        if element <= nCounters {
             if foundMaxCounter == true {
-                // This is faster than just create another default slice
-                set_default_value_to_slice(counters, 0)
-                foundMaxCounter = false
-                currentMax = 0
+                setDefaultZeroValues(&counters, &foundMaxCounter, &currentMax)
             }
 
-            counters[array[i]]++
-            if counters[array[i]] > currentMax {
+            if counters[element]++; counters[element] > currentMax {
                 currentMax++
             }
         } else if foundMaxCounter == false {
@@ -26,23 +22,35 @@ func Solution(nCounters int, array []int) []int {
         }
     }
 
-    if foundMaxCounter == true {
-        set_default_value_to_slice(counters, max)
-    } else if max > 0 {
-        add_value_to_slice(counters, max)
-    }
-
-    return counters[1:]
+    return compouseResult(foundMaxCounter, max, nCounters, counters)
 }
 
-    func set_default_value_to_slice(slice []int, value int) {
-        for i := 0; i < len(slice); i++ {
-            slice[i] = value
-        }
+    func setDefaultZeroValues(counters *map[int]int, foundMaxCounter *bool, currentMax *int) {
+        *counters = map[int]int{}
+        *foundMaxCounter = false
+        *currentMax = 0
     }
 
-    func add_value_to_slice(slice []int, value int) {
-        for i := 0; i < len(slice); i++ {
-            slice[i] += value
+    func compouseResult(foundMaxCounter bool, max int, nCounters int, counters map[int]int) []int {
+        initialValue := 0
+        if foundMaxCounter == true || max > 0 {
+            initialValue = max
         }
+
+        result := make([]int, nCounters+1)
+        setValueToSlice(result, initialValue)
+
+        if !foundMaxCounter {
+            for counter, value := range counters {
+                result[counter] += value
+            }
+        }
+
+        return result[1:]
     }
+
+        func setValueToSlice(slice []int, value int) {
+            for i := 0; i < len(slice); i++ {
+                slice[i] = value
+            }
+        }

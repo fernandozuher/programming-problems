@@ -33,10 +33,10 @@ function solution(nCounters: number, array: number[]): number[] {
         return [COUNTERS, FOUND_MAX_COUNTER, CURRENT_MAX];
     }
 
-    function incrementCounter(element: number, counters: INumberIndex) {
-        if (!(element in counters))
-            counters[element] = 0;
-        counters[element]++;
+    function incrementCounter(counter: number, counters: INumberIndex) {
+        if (!(counter in counters))
+            counters[counter] = 0;
+        counters[counter]++;
     }
 
     function compouseResult(foundMaxCounter: boolean, max: number, nCounters: number, counters: INumberIndex): number[] {

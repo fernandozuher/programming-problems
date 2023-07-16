@@ -32,11 +32,11 @@ end
         [counters, found_max_counter, current_max]
     end
 
-    def increment_counter(element, counters)
-        if !counters.include?(element)
-            counters[element] = 0
+    def increment_counter(counter, counters)
+        if !counters.include?(counter)
+            counters[counter] = 0
         end
-        counters[element] += 1
+        counters[counter] += 1
     end
 
     def compouse_result(found_max_counter, max, n_counters, counters)

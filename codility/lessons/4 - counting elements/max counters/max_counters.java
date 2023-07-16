@@ -1,36 +1,49 @@
 // Source: https://app.codility.com/programmers/lessons/4-counting_elements/max_counters/
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
 
 class Solution {
     public int[] solution(int nCounters, int[] array) {
         boolean foundMaxCounter = false;
-        int max = 0;
-        int[] counters = new int[nCounters + 1];
+        int max = 0, currentMax = 0;
+        var counters = new HashMap<Integer, Integer>();
 
-        for (int i = 0, currentMax = 0; i < array.length; i++)
-            if (array[i] <= nCounters) {
+        for (int element : array)
+            if (element <= nCounters) {
                 if (foundMaxCounter) {
-                    // Arrays.fill(counters, 0), or changing the value to 0
-                    // in a simple for-loop exceeds the time limit for a
-                    // test case. Creating a new zero-default array succeeds in that.
-                    counters = new int[nCounters + 1];
+                    counters.clear();
                     foundMaxCounter = false;
                     currentMax = 0;
                 }
-                if (++counters[array[i]] > currentMax)
+
+                incrementCounter(element, counters);
+                if (counters.get(element) > currentMax)
                     currentMax++;
-            }
-            else if (!foundMaxCounter) {
+
+            } else if (!foundMaxCounter) {
                 max += currentMax;
                 foundMaxCounter = true;
             }
 
-        if (foundMaxCounter)
-            Arrays.fill(counters, max);
-        else if (max > 0)
-            for (int i = 1; i < counters.length; counters[i++] += max);
-
-        return Arrays.copyOfRange(counters, 1, counters.length);
+        return compouseResult(foundMaxCounter, max, nCounters, counters);
     }
+
+        private static void incrementCounter(int counter, Map<Integer, Integer> counters) {
+            int value = counters.getOrDefault(counter, 0);
+            counters.put(counter, ++value);
+        }
+
+        private static int[] compouseResult(boolean foundMaxCounter, int max, int nCounters, Map<Integer, Integer> counters) {
+            final int initialValue = foundMaxCounter || max > 0 ? max : 0;
+            int[] result = new int[nCounters + 1];
+            Arrays.fill(result, initialValue);
+
+            if (!foundMaxCounter)
+                for (var element : counters.entrySet())
+                    result[element.getKey()] += element.getValue();
+
+            return Arrays.copyOfRange(result, 1, result.length);
+        }
 }

@@ -29,10 +29,10 @@ function solution(nCounters, array) {
         return [COUNTERS, FOUND_MAX_COUNTER, CURRENT_MAX];
     }
 
-    function incrementCounter(element, counters) {
-        if (!(element in counters))
-            counters[element] = 0;
-        counters[element]++;
+    function incrementCounter(counter, counters) {
+        if (!(counter in counters))
+            counters[counter] = 0;
+        counters[counter]++;
     }
 
     function compouseResult(foundMaxCounter, max, nCounters, counters) {

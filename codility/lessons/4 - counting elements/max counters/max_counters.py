@@ -31,11 +31,11 @@ def default_zero_values():
     return [COUNTERS, FOUND_MAX_COUNTER, CURRENT_MAX]
 
 
-def increment_counter(element, counters):
+def increment_counter(counter, counters):
 
-    if element not in counters:
-        counters[element] = 0
-    counters[element] += 1
+    if counter not in counters:
+        counters[counter] = 0
+    counters[counter] += 1
 
 
 def compouse_result(found_max_counter, max, n_counters, counters):

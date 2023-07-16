@@ -1,39 +1,55 @@
 // Source: https://app.codility.com/programmers/lessons/4-counting_elements/max_counters/
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 class Solution {
-    public int[] solution(int nCounters, int[] array) {
+    public int[] solution(int nCounters, int[] array)
+    {
         bool foundMaxCounter = false;
-        int max = 0;
-        int[] counters = new int[nCounters + 1];
-        int[] defaultArray = new int[nCounters + 1];
+        int max = 0, currentMax = 0;
+        var counters = new Dictionary<int, int>();
 
-        for (int i = 0, currentMax = 0; i < array.Length; i++)
-            if (array[i] <= nCounters) {
-                if (foundMaxCounter) {
-                    // Array.Fill(counters, 0), or creating another 0-default array,
-                    // or changing the value to 0 in a simple for-loop
-                    // exceeds the time limit for a test case. Array.Copy()
-                    // from a zero-value array succeeds in that.
-                    Array.Copy(defaultArray, counters, nCounters + 1);
-                    foundMaxCounter = false;
-                    currentMax = 0;
-                }
-                if (++counters[array[i]] > currentMax)
+        foreach (int element in array)
+            if (element <= nCounters) {
+                if (foundMaxCounter)
+                    _setDefaultZeroValues(ref counters, ref foundMaxCounter, ref currentMax);
+
+                _incrementCounter(element, counters);
+                if (counters[element] > currentMax)
                     currentMax++;
-            }
-            else if (!foundMaxCounter) {
+
+            } else if (!foundMaxCounter) {
                 max += currentMax;
                 foundMaxCounter = true;
             }
 
-        if (foundMaxCounter)
-            Array.Fill(counters, max);
-        else if (max > 0)
-            counters = counters.Select(element => element += max).ToArray();
-
-        return new ArraySegment<int>(counters, 1, counters.Length - 1).ToArray();
+        return _compouseResult(foundMaxCounter, max, nCounters, counters);
     }
+
+        private static void _setDefaultZeroValues(ref Dictionary<int, int> counters, ref bool foundMaxCounter, ref int currentMax)
+        {
+            counters.Clear();
+            foundMaxCounter = false;
+            currentMax = 0;
+        }
+
+        private static void _incrementCounter(int counter, Dictionary<int, int> counters)
+        {
+            counters.TryGetValue(counter, out int value);
+            counters[counter] = ++value;
+        }
+
+        private static int[] _compouseResult(bool foundMaxCounter, int max, int nCounters, Dictionary<int, int> counters)
+        {
+            int initialValue = foundMaxCounter || max > 0 ? max : 0;
+            int[] result = Enumerable.Repeat(initialValue, nCounters + 1).ToArray();
+
+            if (!foundMaxCounter)
+                foreach (var element in counters)
+                    result[element.Key] += element.Value;
+
+            return new ArraySegment<int>(result, 1, result.Length - 1).ToArray();
+        }
 }
