@@ -33,7 +33,7 @@ vector<int> solution(string& dna_sequence, vector<int>& begin_query, vector<int>
     vector<vector<int>> convert_biggest_dna_sequence(const pair<int, int>& min_and_max, const string& dna_sequence)
     {
         const auto& [min, max] = min_and_max;
-        const int nucleotides {4};
+        constexpr int nucleotides {4};
         vector<vector<int>> matrix(nucleotides);
 
         // Convert only the range of array dna_sequence that will be looked from min to max (inclusive).
@@ -49,7 +49,7 @@ vector<int> solution(string& dna_sequence, vector<int>& begin_query, vector<int>
     {
         const auto& [begin_query, end_query] = query_range;
         vector<int> answers_to_queries(begin_query.size());
-        const int nucleotides {4};
+        constexpr int nucleotides {4};
 
         for (size_t i {0}; i < begin_query.size(); ++i)
             for (int j {0}; j < nucleotides; ++j)
