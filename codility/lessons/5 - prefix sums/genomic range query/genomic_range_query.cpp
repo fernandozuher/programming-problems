@@ -5,21 +5,8 @@
 using namespace std;
 
 vector<vector<int>> convert_biggest_dna_sequence(const pair<int, int>& min_and_max, const string& dna_sequence);
+inline int convert(const char nucl);
 vector<int> find_answers_to_queries(const pair<vector<int>, vector<int>>& query_range, const vector<vector<int>>& matrix);
-
-inline int convert(const char nucl)
-{
-    switch (nucl) {
-    case 'A':
-        return 0;
-    case 'C':
-        return 1;
-    case 'G':
-        return 2;
-    default:
-        return 3;
-    }
-}
 
 vector<int> solution(string& dna_sequence, vector<int>& begin_query, vector<int>& end_query)
 {
@@ -45,6 +32,20 @@ vector<int> solution(string& dna_sequence, vector<int>& begin_query, vector<int>
         return matrix;
     }
 
+        inline int convert(const char nucl)
+        {
+            switch (nucl) {
+            case 'A':
+                return 0;
+            case 'C':
+                return 1;
+            case 'G':
+                return 2;
+            default:
+                return 3;
+            }
+        }
+
     vector<int> find_answers_to_queries(const pair<vector<int>, vector<int>>& query_range, const vector<vector<int>>& matrix)
     {
         const auto& [begin_query, end_query] = query_range;
@@ -53,7 +54,7 @@ vector<int> solution(string& dna_sequence, vector<int>& begin_query, vector<int>
 
         for (size_t i {0}; i < begin_query.size(); ++i)
             for (int j {0}; j < nucleotides; ++j)
-                for (size_t k {0}; k < matrix.at(j).size(); ++k)
+                for (size_t k {0}; k < matrix.at(j).size(); ++k) {
 
                     if (matrix.at(j).at(k) >= begin_query.at(i)) {
                         if (matrix.at(j).at(k) <= end_query.at(i)) {
@@ -62,6 +63,7 @@ vector<int> solution(string& dna_sequence, vector<int>& begin_query, vector<int>
                         }
                         break;
                     }
+                }
 
         return answers_to_queries;
     }
