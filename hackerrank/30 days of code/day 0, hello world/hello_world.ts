@@ -1,10 +1,14 @@
+// https://www.hackerrank.com/challenges/30-hello-world/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
+
 process.stdin.on('data', function(inputStdin: string): void {
     inputString += inputStdin;
 });
@@ -20,7 +24,6 @@ function readLine(): string {
 }
 
 function main() {
-    // Enter your code here
     console.log("Hello, World.");
     console.log(readLine());
 }
