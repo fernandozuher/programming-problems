@@ -4,9 +4,9 @@
 
 int main()
 {
-    int i = 4;
-    double d = 4.0;
-    char s[] = "HackerRank ";
+    const int i = 4;
+    const double d = 4.0;
+    const char s[] = "HackerRank ";
 
     int i2;
     double d2;
