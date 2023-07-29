@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-operators/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
@@ -14,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,14 +24,10 @@ function readLine(): string {
 }
 
 function main() {
-    const N: number = parseInt(readLine().trim(), 10);
+    const N: number = +readLine();
 
-    if (N % 2)
+    if (N & 1 || N >= 6 && N <= 20)
         console.log("Weird");
-    else if (N >= 2 && N <= 5)
-        console.log("Not Weird");
-    else if (N >= 6 && N <= 20)
-        console.log("Weird");
-    else if (N > 20)
+    else
         console.log("Not Weird");
 }

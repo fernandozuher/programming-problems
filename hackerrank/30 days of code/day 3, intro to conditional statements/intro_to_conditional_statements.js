@@ -1,9 +1,12 @@
+// https://www.hackerrank.com/challenges/30-conditional-statements/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -11,24 +14,20 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
-
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
 function main() {
-    const N = parseInt(readLine().trim(), 10);
+    const N = +readLine();
 
-    if (N % 2)
+    if (N & 1 || N >= 6 && N <= 20)
         console.log("Weird");
-    else if (N >= 2 && N <= 5)
-        console.log("Not Weird");
-    else if (N >= 6 && N <= 20)
-        console.log("Weird");
-    else if (N > 20)
+    else
         console.log("Not Weird");
 }
