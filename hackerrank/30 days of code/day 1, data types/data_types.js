@@ -1,17 +1,27 @@
 // https://www.hackerrank.com/challenges/30-data-types/problem?isFullScreen=true
 
+'use strict';
+
 process.stdin.resume();
-process.stdin.setEncoding("ascii");
+process.stdin.setEncoding('utf-8');
 
-_input = "";
+let inputString = '';
+let inputLines = [];
+let currentLine = 0;
 
-process.stdin.on("data", function(input) {
-    _input += input;
+process.stdin.on('data', function(inputStdin) {
+    inputString += inputStdin;
 });
 
-process.stdin.on("end", function() {
-    processData(_input);
+process.stdin.on('end', function() {
+    inputLines = inputString.split('\n');
+    inputString = '';
+    main();
 });
+
+function readLine() {
+    return inputLines[currentLine++];
+}
 
 function main() {
     const I = 4;

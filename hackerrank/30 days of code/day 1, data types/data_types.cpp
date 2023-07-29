@@ -8,8 +8,8 @@ using namespace std;
 
 int main()
 {
-    const int i {4};
-    const double d {4.0};
+    constexpr int i {4};
+    constexpr double d {4.0};
     const string s {"HackerRank "};
 
     int i2;
