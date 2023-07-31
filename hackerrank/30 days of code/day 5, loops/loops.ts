@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-loops/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
@@ -14,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,7 +24,6 @@ function readLine(): string {
 }
 
 function main() {
-    const n: number = parseInt(readLine().trim(), 10);
-    for (let i = 1; i <= 10 ; ++i)
+    for (let i = 1, n = +readLine(); i <= 10 ; i++)
         console.log(`${n} x ${i} = ${n*i}`)
 }
