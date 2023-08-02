@@ -1,13 +1,20 @@
-n = gets.chomp.to_i
-for i in 1..n do
+# https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
 
-    word, word1, word2 = gets.chomp, "", ""
-    flag = true
-    
-    word.each_char.with_index do |ch, i|
-        flag ? (word1 << ch) : (word2 << ch)
-        flag = !flag
-    end
+def main
+    n = gets.to_i
 
-    puts "#{word1} #{word2}"
+    n.times {
+        word = gets.chomp
+        word1, word2 = "", ""
+        is_word1_turn = true
+        
+        word.each_char { |ch|
+            is_word1_turn ? (word1 += ch) : (word2 += ch)
+            is_word1_turn = !is_word1_turn
+        }
+
+        puts "#{word1} #{word2}"
+    }
 end
+
+main

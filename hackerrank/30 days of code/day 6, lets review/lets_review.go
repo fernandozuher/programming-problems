@@ -1,31 +1,28 @@
+// https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
+
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "strings"
-)
+import "fmt"
 
 func main() {
+    var n int
+    fmt.Scan(&n)
 
-    scanner := bufio.NewScanner(os.Stdin)
-    scanner.Scan()
-    scanner.Text()
+    for i := 0; i < n; i++ {
+        var word string
+        fmt.Scan(&word)
+        var word1, word2 string
+        isWord1Turn := true
 
-    for scanner.Scan() {
-        
-        var word1, word2 strings.Builder
-        flag := true
-
-        for _, ch := range scanner.Text() {
-            if flag {
-                word1.WriteString(string(ch))
+        for _, ch := range word {
+            if isWord1Turn {
+                word1 += string(ch)
             } else {
-                word2.WriteString(string(ch))
+                word2 += string(ch)
             }
-            flag = !flag
+            isWord1Turn = !isWord1Turn
         }
-        fmt.Println(word1.String(), word2.String())
+
+        fmt.Println(word1, word2)
     }
 }

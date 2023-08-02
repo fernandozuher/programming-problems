@@ -1,28 +1,41 @@
-function processData(input) {
-    
-    const words = input.split("\n")
-    words.shift()
+// https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
 
-    for (let word of words) {
-        
-        let word1, word2 = word1 = "";
-        let flag = true;
+'use strict';
 
-        [...word].forEach((ch, i) => {
-            flag ? (word1 += ch) : (word2 += ch)
-            flag = !flag
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString = '';
+let inputLines = [];
+let currentLine = 0;
+
+process.stdin.on('data', function(inputStdin) {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function() {
+    inputLines = inputString.split('\n');
+    inputString = '';
+    main();
+});
+
+function readLine() {
+    return inputLines[currentLine++];
+}
+
+function main() {
+    const N = +readLine();
+
+    for (let i = 0; i < N; i++) {
+        const WORD = readLine();
+        let word1 = '', word2 = '';
+        let isWord1Turn = true;
+
+        [...WORD].forEach((ch, i) => {
+            isWord1Turn ? (word1 += ch) : (word2 += ch);
+            isWord1Turn = !isWord1Turn;
         })
+
         console.log(`${word1} ${word2}`);
     }
 }
-
-process.stdin.resume();
-process.stdin.setEncoding("ascii");
-_input = "";
-process.stdin.on("data", function (input) {
-    _input += input;
-});
-
-process.stdin.on("end", function () {
-   processData(_input);
-});

@@ -1,26 +1,25 @@
-import java.io.*;
-import java.util.*;
+// https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
+
+import java.util.Scanner;
 
 public class Solution {
     public static void main(String[] args) {
-        
-        var scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-        for (var word = scanner.nextLine(); scanner.hasNextLine(); ) {
+        for (int i = 0, n = scan.nextInt(); i < n && scan.hasNext(); i++) {
+            final String word = scan.next();
+            String word1 = "", word2 = "";
+            boolean isWord1Turn = true;
 
-            word = scanner.nextLine();
-            var word1 = new StringBuffer();
-            var word2 = new StringBuffer();
-
-            boolean flag = true;
-            for (var ch : word.toCharArray()) {
-                if (flag)
-                    word1.append(ch);
+            for (char ch : word.toCharArray()) {
+                if (isWord1Turn)
+                    word1 += ch;
                 else
-                    word2.append(ch);
-                flag = !flag;
+                    word2 += ch;
+                isWord1Turn = !isWord1Turn;
             }
-            System.out.println(word1.toString() + " " + word2.toString());
+
+            System.out.println(word1 + " " + word2);
         }
     }
 }

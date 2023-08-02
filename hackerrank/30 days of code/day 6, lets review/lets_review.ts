@@ -1,10 +1,14 @@
+// https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
+
 process.stdin.on('data', function(inputStdin: string): void {
     inputString += inputStdin;
 });
@@ -20,15 +24,18 @@ function readLine(): string {
 }
 
 function main() {
-    
-    const n = +readLine()
+    const N: number = +readLine();
 
-    for (let flag = true, [word1, word2] = ["", ""]; currentLine <= n; flag = true, [word1, word2] = ["", ""]) {
+    for (let i = 0; i < N; i++) {
+        const WORD: string = readLine();
+        let word1: string = '', word2: string = '';
+        let isWord1Turn: boolean = true;
 
-        [...readLine()].forEach((ch, i) => {
-            flag ? (word1 += ch) : (word2 += ch)
-            flag = !flag
+        [...WORD].forEach((ch, i) => {
+            isWord1Turn ? (word1 += ch) : (word2 += ch);
+            isWord1Turn = !isWord1Turn;
         })
+
         console.log(`${word1} ${word2}`);
     }
 }

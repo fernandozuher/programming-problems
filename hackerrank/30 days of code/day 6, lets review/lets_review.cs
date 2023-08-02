@@ -1,21 +1,26 @@
+// https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
+
 using System;
 
-class Solution {
-    static void Main(String[] args) {
+class Solution
+{
+    public static void Main()
+    {
+        for (int i = 0, n = int.Parse(Console.ReadLine()); i < n; ++i)
+        {
+            string word = Console.ReadLine();
+            string word1 = "", word2 = "";
+            bool isWord1Turn = true;
 
-        for (string word = Console.ReadLine(); (word = Console.ReadLine()) != null; ) {
-            
-            var word1 = new System.Text.StringBuilder("");
-            var word2 = new System.Text.StringBuilder("");
-            var flag = true;
-
-            foreach (var ch in word) {
-                if (flag)
-                    word1.Append(ch);
+            foreach (char ch in word)
+            {
+                if (isWord1Turn)
+                    word1 += ch;
                 else
-                    word2.Append(ch);
-                flag = !flag;
+                    word2 += ch;
+                isWord1Turn = !isWord1Turn;
             }
+
             Console.WriteLine($"{word1} {word2}");
         }
     }
