@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-arrays/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
@@ -14,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,10 +24,10 @@ function readLine(): string {
 }
 
 function main() {
-    const n: number = parseInt(readLine().trim(), 10);
-
-    const arr: number[] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
-
-    for (let i = n-1; i >= 0; --i)
-        process.stdout.write(`${arr[i]} `);
+    const _N: number = +readLine();
+    const ARRAY: number[] = readLine().split(' ').map(Number);
+    // Not available in the current version of TS used in HackerRank
+    // ARRAY.findLast(element => {process.stdout.write(`${element} `)});
+    for (let i = ARRAY.length - 1; i >= 0; i--)
+        process.stdout.write(`${ARRAY[i]} `);
 }
