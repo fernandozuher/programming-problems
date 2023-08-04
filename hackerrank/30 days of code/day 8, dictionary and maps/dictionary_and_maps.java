@@ -1,19 +1,20 @@
-import java.io.*;
-import java.util.*;
+// https://www.hackerrank.com/challenges/30-dictionaries-and-maps/problem?isFullScreen=true
+
+import java.util.Scanner;
+import java.util.HashMap;
 
 public class Solution {
     public static void main(String[] args) {
-        
-        var scanner = new Scanner(System.in);
-        var n = Integer.parseInt(scanner.nextLine());
+        Scanner scanner = new Scanner(System.in);
+        int n = Integer.parseInt(scanner.nextLine());
         var phoneBook = new HashMap<String, String>();
-    
+
         while (n-- > 0) {
             String[] entry = scanner.nextLine().split(" ");
             phoneBook.put(entry[0], entry[1]);
         }
 
-        for (String name, phone; scanner.hasNextLine(); ) {
+        for (String name, phone; scanner.hasNextLine();) {
             name = scanner.nextLine();
             if ((phone = phoneBook.get(name)) != null)
                 System.out.println(name + '=' + phone);

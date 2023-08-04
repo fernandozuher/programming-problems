@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-dictionaries-and-maps/problem?isFullScreen=true
+
 package main
 
 import (
@@ -10,22 +12,22 @@ import (
 
 func main() {
     scanner := bufio.NewScanner(os.Stdin)
-    
     scanner.Scan()
-    n, _ := strconv.ParseInt(scanner.Text(), 10, 64)
+    n, _ := strconv.Atoi(scanner.Text())
 
     phoneBook := make(map[string]string)
 
-    for i := int64(0); i < n && scanner.Scan(); i++ {
+    for i := 0; i < n && scanner.Scan(); i++ {
         line := strings.Split(scanner.Text(), " ")
         phoneBook[line[0]] = line[1]
     }
 
     for scanner.Scan() {
-        query := scanner.Text()
-        value, hasKey := phoneBook[query]
-        if hasKey {
-            fmt.Printf("%s=%s\n", query, value)
+        name := scanner.Text()
+        value, hashKey := phoneBook[name]
+
+        if hashKey {
+            fmt.Printf("%s=%s\n", name, value)
         } else {
             fmt.Println("Not found")
         }

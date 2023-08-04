@@ -1,10 +1,14 @@
+// https://www.hackerrank.com/challenges/30-dictionaries-and-maps/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
+
 process.stdin.on('data', function(inputStdin: string): void {
     inputString += inputStdin;
 });
@@ -20,17 +24,18 @@ function readLine(): string {
 }
 
 function main() {
-    const n = +readLine()
-    let phoneBook: any = []
+    let n: number = +readLine();
+    let phoneBook: {[key: string]: string} = {};
 
-    for (let i = 1; i <= n; i++) {
-        const [name, phone] = readLine().split(" ")
-        phoneBook[name] = phone
+    while (n-- > 0) {
+        const [NAME, PHONE]: string[] = readLine().split(' ');
+        phoneBook[NAME] = PHONE;
     }
 
-    for (let query; query = readLine(); )
-        if (phoneBook.hasOwnProperty(query))
-            console.log(`${query}=${phoneBook[query]}`)
+    for (let name: string; name = readLine();) {
+        if (phoneBook[name])
+            console.log(`${name}=${phoneBook[name]}`)
         else
-            console.log("Not found")
+            console.log("Not found");
+    }
 }
