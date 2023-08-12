@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-binary-numbers/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
@@ -14,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,19 +24,18 @@ function readLine(): string {
 }
 
 function main() {
-    let n: number = parseInt(readLine().trim(), 10);
+    let n: number = +readLine();
+    let maxOnes, ones: number = 0, 0;
 
-    let max_ones = 0, ones
-        
-    for (ones = 0; n > 0; n = Math.floor(n/2)) {
-        if (n % 2)
-            ++ones
+    for (; n > 0; n = Math.trunc(n / 2)) {
+        if (n % 2 == 1)
+            ++ones;
         else {
-            if (ones > max_ones)
-                max_ones = ones
-            ones = 0
+            maxOnes = Math.max(maxOnes, ones);
+            ones = 0;
         }
     }
 
-    console.log(ones > max_ones ? ones : max_ones)
+    maxOnes = Math.max(maxOnes, ones);
+    console.log(maxOnes);
 }
