@@ -24,7 +24,7 @@ class Person:
 
     def print_person(self):
 
-        print('Name:', self.last_name + ',', self.first_name, '\nID:', self.id)
+        print(f"Name: {self.last_name}, {self.first_name} \nID: {self.id}")
 
 
 class Student(Person):

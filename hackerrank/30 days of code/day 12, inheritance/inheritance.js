@@ -40,7 +40,7 @@ function main() {
         }
 
         printPerson() {
-            console.log('Name: ' + this.lastName + ', ' + this.firstName + '\nID: ' + this.idNumber)
+            console.log('Name: ' + this.lastName + ', ' + this.firstName + '\nID: ' + this.id)
         }
     }
 
