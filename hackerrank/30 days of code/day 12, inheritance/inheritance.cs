@@ -40,7 +40,7 @@ class Solution
         }
     }
 
-        class Student: Person
+        class Student : Person
         {
             private int[] _scores;
 
