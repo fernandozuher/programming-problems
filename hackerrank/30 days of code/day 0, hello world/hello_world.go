@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-    reader := bufio.NewReader(os.Stdin)
-    line, _ := reader.ReadString('\n')
     fmt.Println("Hello, World.")
-    fmt.Println(line)
+    reader := bufio.NewReader(os.Stdin)
+    input, _ := reader.ReadString('\n')
+    fmt.Println(input)
 }

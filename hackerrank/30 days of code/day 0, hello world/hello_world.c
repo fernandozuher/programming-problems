@@ -4,10 +4,10 @@
 
 int main()
 {
-    char input_string[105];
-    scanf("%104[^\n]", input_string);
+    char input[105];
+    scanf("%104[^\n]", input);
     puts("Hello, World.");
-    puts(input_string);
+    puts(input);
 
     return 0;
 }

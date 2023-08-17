@@ -24,6 +24,6 @@ function readLine() {
 }
 
 function processData(inputString) {
-    console.log("Hello, World.");
-    console.log(inputString);
+    console.log('Hello, World.');
+    console.log(readLine());
 }

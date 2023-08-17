@@ -6,8 +6,7 @@ public class Solution
 {
     public static void Main()
     {
-        String inputString = Console.ReadLine();
         Console.WriteLine("Hello, World.");
-        Console.WriteLine(inputString);
+        Console.WriteLine(Console.ReadLine());
     }
 }

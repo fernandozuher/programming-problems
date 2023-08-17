@@ -6,10 +6,11 @@ using namespace std;
 
 int main()
 {
-    string input_string;
-    getline(cin, input_string);
     cout << "Hello, World." << '\n';
-    cout << input_string << '\n';
+
+    string input;
+    getline(cin, input);
+    cout << input << '\n';
 
     return 0;
 }
