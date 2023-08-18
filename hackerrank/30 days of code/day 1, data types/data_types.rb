@@ -4,10 +4,10 @@ I = 4
 D = 4.0
 S = 'HackerRank '
 
-I2 = gets.to_i
-D2 = gets.to_f
-S2 = gets
+i2 = gets.to_i
+d2 = gets.to_f
+s2 = gets
 
-puts I + I2
-puts D + D2
-puts S + S2
+puts I + i2
+puts D + d2
+puts S + s2

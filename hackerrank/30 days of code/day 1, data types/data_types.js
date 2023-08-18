@@ -26,13 +26,13 @@ function readLine() {
 function main() {
     const I = 4;
     const D = 4.0;
-    const S = "HackerRank ";
+    const S = 'HackerRank ';
 
-    const I2 = parseInt(readLine());
-    const D2 = parseFloat(readLine());
-    const S2 = readLine();
+    let i2 = parseInt(readLine());
+    let d2 = parseFloat(readLine());
+    let s2 = readLine();
 
-    console.log(I + I2);
-    console.log((D + D2).toFixed(1));
-    console.log(S + S2);
+    console.log(I + i2);
+    console.log((D + d2).toFixed(1));
+    console.log(S + s2);
 }
