@@ -2,11 +2,11 @@
 
 def main():
 
-    MEAL_COST = float(input())
-    TIP_PERCENT = int(input())
-    TAX_PERCENT = int(input())
+    meal_cost = float(input())
+    tip_percent = int(input())
+    tax_percent = int(input())
 
-    solve(MEAL_COST, TIP_PERCENT, TAX_PERCENT)
+    solve(meal_cost, tip_percent, tax_percent)
 
 
 def solve(meal_cost, tip_percent, tax_percent):

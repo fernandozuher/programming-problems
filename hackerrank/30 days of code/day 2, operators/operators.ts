@@ -24,11 +24,11 @@ function readLine(): string {
 }
 
 function main() {
-    const MEAL_COST: number = parseFloat(readLine());
-    const TIP_PERCENT: number = parseInt(readLine());
-    const TAX_PERCENT: number = parseInt(readLine());
+    let mealCost: number = parseFloat(readLine());
+    let tipPercent: number = parseInt(readLine());
+    let taxPercent: number = parseInt(readLine());
 
-    solve(MEAL_COST, TIP_PERCENT, TAX_PERCENT);
+    solve(mealCost, tipPercent, taxPercent);
 }
 
     function solve(mealCost: number, tipPercent: number, taxPercent: number) {
