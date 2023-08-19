@@ -24,10 +24,10 @@ function readLine() {
 }
 
 function main() {
-    const N = +readLine();
+    let n = +readLine();
 
-    if (N & 1 || N >= 6 && N <= 20)
-        console.log("Weird");
+    if (n & 1 || n >= 6 && n <= 20)
+        console.log('Weird');
     else
-        console.log("Not Weird");
+        console.log('Not Weird');
 }

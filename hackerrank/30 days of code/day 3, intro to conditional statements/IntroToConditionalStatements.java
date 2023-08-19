@@ -2,10 +2,10 @@
 
 import java.util.Scanner;
 
-class Solution {
+public class IntroToConditionalStatements {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        final int n = scanner.nextInt();
+        int n = scanner.nextInt();
 
         if (n % 2 == 1 || n >= 6 && n <= 20)
             System.out.println("Weird");
