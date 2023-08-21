@@ -2,13 +2,13 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class ClassVsInstance {
     public static void main(String[] args) {
-        final Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
         for (int nTests = scan.nextInt(); nTests-- > 0;) {
-            final int age = scan.nextInt();
-            final Person p = new Person(age);
+            int age = scan.nextInt();
+            Person p = new Person(age);
             p.amIOld();
 
             for (int j = 3; j-- > 0; p.yearPasses());
@@ -22,7 +22,7 @@ public class Solution {
     class Person {
         private int age;
 
-        public Person(int initialAge) {
+        public Person(final int initialAge) {
             if (initialAge < 0) {
                 age = 0;
                 System.out.println("Age is not valid, setting age to 0.");

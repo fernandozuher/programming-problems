@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/30-class-vs-instance/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
+use text_io::read;
 
 struct Person {
     age: i32,

@@ -5,23 +5,23 @@
 using namespace std;
 
 class Person {
+private:
+    int age;
+
 public:
     explicit Person(const int initial_age);
     void am_i_old() const;
     void year_passes();
-
-private:
-    int age;
 };
 
 Person::Person(const int initial_age)
 {
     if (initial_age < 0) {
-        age = {0};
+        age = 0;
         cout << "Age is not valid, setting age to 0.\n";
     }
     else
-        age = {initial_age};
+        age = initial_age;
 }
 
 void Person::am_i_old() const
@@ -45,7 +45,7 @@ int main()
     cin >> n_tests;
 
     for (int age; cin >> age && n_tests-- > 0;) {
-        Person p(age);
+        Person p {age};
         p.am_i_old();
 
         for (int i {3}; i--; p.year_passes());

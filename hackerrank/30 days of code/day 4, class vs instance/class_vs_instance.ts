@@ -25,14 +25,14 @@ function readLine(): string {
 
 function main() {
     for (let nTests = parseInt(readLine()); nTests-- > 0;) {
-        const AGE: number = parseInt(readLine());
-        const P: Person = new Person(AGE);
-        P.amIOld();
+        let age: number = parseInt(readLine());
+        let p: Person = new Person(age);
+        p.amIOld();
 
-        for (let i = 3; i--; P.yearPasses());
-        P.amIOld();
+        for (let i = 3; i--; p.yearPasses());
+        p.amIOld();
 
-        console.log("");
+        console.log('');
     }
 }
 
@@ -42,18 +42,18 @@ function main() {
         public constructor(initialAge: number) {
             if (initialAge < 0) {
                 this.age = 0;
-                console.log("Age is not valid, setting age to 0.");
+                console.log('Age is not valid, setting age to 0.');
             } else
                 this.age = initialAge;
         }
 
         public amIOld() {
             if (this.age < 13)
-                console.log("You are young.");
+                console.log('You are young.');
             else if (this.age >= 13 && this.age < 18)
-                console.log("You are a teenager.");
+                console.log('You are a teenager.');
             else
-                console.log("You are old.");
+                console.log('You are old.');
         }
 
         public yearPasses() {
