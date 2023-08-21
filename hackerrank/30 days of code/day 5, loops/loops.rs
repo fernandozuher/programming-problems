@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/30-loops/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
+use text_io::read;
 
 fn main() {
     let n: i32 = read!();

@@ -2,9 +2,9 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class Loops {
     public static void main(String[] args) {
-        final Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         for (int i = 1, n = scan.nextInt(); i <= 10; i++)
             System.out.format("%d x %d = %d\n", n, i, n * i);
     }
