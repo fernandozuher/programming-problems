@@ -2,12 +2,12 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class LetsReview {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
         for (int i = 0, n = scan.nextInt(); i < n && scan.hasNext(); i++) {
-            final String word = scan.next();
+            String word = scan.next();
             String word1 = "", word2 = "";
             boolean isWord1Turn = true;
 

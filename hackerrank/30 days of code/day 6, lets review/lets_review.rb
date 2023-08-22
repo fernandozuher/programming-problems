@@ -5,7 +5,7 @@ def main
 
     n.times {
         word = gets.chomp
-        word1, word2 = "", ""
+        word1, word2 = '', ''
         is_word1_turn = true
         
         word.each_char { |ch|

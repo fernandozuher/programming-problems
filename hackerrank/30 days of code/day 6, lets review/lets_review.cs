@@ -6,7 +6,7 @@ class Solution
 {
     public static void Main()
     {
-        for (int i = 0, n = int.Parse(Console.ReadLine()); i < n; ++i)
+        for (int i = 0, n = int.Parse(Console.ReadLine()); i < n; i++)
         {
             string word = Console.ReadLine();
             string word1 = "", word2 = "";

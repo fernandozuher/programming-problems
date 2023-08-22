@@ -24,14 +24,14 @@ function readLine() {
 }
 
 function main() {
-    const N = +readLine();
+    let n = +readLine();
 
-    for (let i = 0; i < N; i++) {
-        const WORD = readLine();
+    for (let i = 0; i < n; i++) {
+        let word = readLine();
         let word1 = '', word2 = '';
         let isWord1Turn = true;
 
-        [...WORD].forEach((ch, i) => {
+        [...word].forEach(ch => {
             isWord1Turn ? (word1 += ch) : (word2 += ch);
             isWord1Turn = !isWord1Turn;
         })

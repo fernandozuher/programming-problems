@@ -2,14 +2,14 @@
 
 def main():
 
-    N = int(input())
+    n = int(input())
     
-    for _ in range(N):
-        WORD = input()
-        word1, word2 = "", ""
+    for _ in range(n):
+        word = input()
+        word1, word2 = '', ''
         is_word1_turn = True
 
-        for ch in WORD.strip():
+        for ch in word.strip():
             if is_word1_turn:
                 word1 += ch
             else:
@@ -19,5 +19,5 @@ def main():
         print(f"{word1} {word2}")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
