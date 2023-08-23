@@ -2,11 +2,11 @@
 
 def main():
 
-    _N = int(input())
-    ARRAY = list(map(int, input().split()))
-    for element in reversed(ARRAY):
-        print(f"{element} ", end="")
+    _n = int(input())
+    array = list(map(int, input().split()))
+    for x in reversed(array):
+        print(x, end=' ')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

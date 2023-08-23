@@ -24,10 +24,10 @@ function readLine(): string {
 }
 
 function main() {
-    const _N: number = +readLine();
-    const ARRAY: number[] = readLine().split(' ').map(Number);
+    let _n: number = +readLine();
+    let array: number[] = readLine().split(' ').map(Number);
     // Not available in the current version of TS used in HackerRank
-    // ARRAY.findLast(element => {process.stdout.write(`${element} `)});
-    for (let i = ARRAY.length - 1; i >= 0; i--)
-        process.stdout.write(`${ARRAY[i]} `);
+    // array.findLast(x => {process.stdout.write(`${x} `)});
+    for (let i = array.length; i--;)
+        process.stdout.write(`${array[i]} `);
 }

@@ -6,17 +6,15 @@ import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Solution {
+public class Arrays30 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        final int n = scan.nextInt();
+        int n = scan.nextInt();
         scan.nextLine();
         List<Integer> array = Arrays.stream(scan.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
 
-        ListIterator iterator = array.listIterator(array.size());
-
-        while (iterator.hasPrevious())
-            System.out.print(iterator.previous() + " ");
+        for (var it = array.listIterator(array.size()); it.hasPrevious();)
+            System.out.print(it.previous() + " ");
     }
 }

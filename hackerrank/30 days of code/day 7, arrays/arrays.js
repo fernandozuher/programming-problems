@@ -24,7 +24,7 @@ function readLine() {
 }
 
 function main() {
-    const _N = +readLine();
-    const ARRAY = readLine().split(' ').map(Number);
-    ARRAY.findLast(element => {process.stdout.write(`${element} `)});
+    let _n = +readLine();
+    let array = readLine().split(' ').map(Number);
+    array.findLast(x => {process.stdout.write(`${x} `)});
 }

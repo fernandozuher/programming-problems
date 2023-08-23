@@ -12,9 +12,8 @@ int main()
     cin >> n;
 
     vector<int> array(n);
-    ranges::generate(array, []{int element; cin >> element; return element;});
-
-    for_each(array.crbegin(), array.crend(), [](const auto& element){cout << element << ' ';});
+    ranges::generate(array, []{int n; cin >> n; return n;});
+    for_each(array.crbegin(), array.crend(), [](const auto x) {cout << x << ' ';});
 
     return 0;
 }
