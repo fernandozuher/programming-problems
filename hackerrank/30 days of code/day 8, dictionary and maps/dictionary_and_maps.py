@@ -5,9 +5,9 @@ from sys import stdin
 def main():
     
     phone_book = {}
-    N = int(input())
+    n = int(input())
 
-    for i in range(N):
+    for i in range(n):
         name, phone = input().split()
         phone_book[name] = phone
 
@@ -17,8 +17,8 @@ def main():
         if value := phone_book.get(name):
             print(f"{name}={value}")
         else:
-            print("Not found")
+            print('Not found')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -36,6 +36,6 @@ function main() {
         if (phoneBook[name])
             console.log(`${name}=${phoneBook[name]}`)
         else
-            console.log("Not found");
+            console.log('Not found');
     }
 }

@@ -13,7 +13,7 @@ def main
         if value = phone_book[name]
             puts "#{name}=#{value}"
         else    
-            puts "Not found"
+            puts 'Not found'
         end
     end
 end

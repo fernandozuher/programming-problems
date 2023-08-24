@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/30-dictionaries-and-maps/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
 
 class Solution
 {

@@ -53,7 +53,7 @@ int main()
     void check_name(const contact *contacts, const int n)
     {
         for (char query[MAX_NAME_LENGTH]; scanf("%s", query) != EOF;) {
-            const contact *result = bsearch(query, contacts, n, sizeof(contact), compare_contacts_to_binary_search);
+            contact *result = bsearch(query, contacts, n, sizeof(contact), compare_contacts_to_binary_search);
 
             if (result)
                 printf("%s=%s\n", result->name, result->phone);
