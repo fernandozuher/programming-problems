@@ -2,10 +2,10 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class Recursion {
     public static void main(String[] args) {
         var scan = new Scanner(System.in);
-        final int n = scan.nextInt();
+        int n = scan.nextInt();
         System.out.println(factorial(n));
     }
 

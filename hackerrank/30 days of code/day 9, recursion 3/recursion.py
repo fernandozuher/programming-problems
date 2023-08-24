@@ -2,8 +2,8 @@
 
 def main():
 
-    N = int(input())
-    print(factorial(N))
+    n = int(input())
+    print(factorial(n))
 
 
 def factorial(n):
@@ -11,5 +11,5 @@ def factorial(n):
     return 1 if n == 1 else n * factorial(n - 1)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

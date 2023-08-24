@@ -24,8 +24,8 @@ function readLine(): string {
 }
 
 function main() {
-    const N: number = +readLine();
-    console.log(factorial(N));
+    let n: number = +readLine();
+    console.log(factorial(n));
 }
 
     function factorial(n: number): number {
