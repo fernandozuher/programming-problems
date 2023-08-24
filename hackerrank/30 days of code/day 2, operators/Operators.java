@@ -14,7 +14,7 @@ public class Operators {
     }
 
         private static void solve(final double mealCost, final int tipPercent, final int taxPercent) {
-            final double totalCost = mealCost + mealCost * tipPercent / 100 + mealCost * taxPercent / 100;
+            double totalCost = mealCost + mealCost * tipPercent / 100 + mealCost * taxPercent / 100;
             System.out.format("%.0f", totalCost);
         }
 }

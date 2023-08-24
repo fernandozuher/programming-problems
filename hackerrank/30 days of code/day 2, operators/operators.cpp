@@ -20,6 +20,6 @@ int main()
 
     void solve(const double meal_cost, const int tip_percent, const int tax_percent)
     {
-        const double total_cost {meal_cost + meal_cost * tip_percent / 100 + meal_cost * tax_percent / 100};
+        double total_cost {meal_cost + meal_cost * tip_percent / 100 + meal_cost * tax_percent / 100};
         cout << fixed << setprecision(0) << total_cost;
     }
