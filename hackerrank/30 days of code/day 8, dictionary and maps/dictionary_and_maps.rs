@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/30-dictionaries-and-maps/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
-
 use std::collections::HashMap;
+use text_io::{read, scan};
 
 fn main() {
     let n: i32 = read!();
