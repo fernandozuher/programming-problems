@@ -26,6 +26,9 @@ int main()
     qsort(contacts, n, sizeof(contact), compare_contacts);
     check_name(contacts, n);
 
+    free(contacts);
+    contacts = NULL;
+
     return 0;
 }
 
