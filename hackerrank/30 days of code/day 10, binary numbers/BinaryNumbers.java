@@ -2,20 +2,19 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class BinaryNumbers {
     public static void main(String[] args) {
         var scan = new Scanner(System.in);
         int n = scan.nextInt();
         int maxOnes = 0, ones = 0;
 
-        for (; n > 0; n /= 2) {
+        for (; n > 0; n /= 2)
             if (n % 2 == 1)
                 ++ones;
             else {
                 maxOnes = Math.max(maxOnes, ones);
                 ones = 0;
             }
-        }
 
         maxOnes = Math.max(maxOnes, ones);
         System.out.println(maxOnes);

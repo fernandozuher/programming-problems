@@ -8,15 +8,14 @@ int main()
     scanf("%d", &n);
 
     int max_ones = 0, ones = 0;
-    for (; n > 0; n /= 2) {
-        if (n % 2)
+    for (; n > 0; n /= 2)
+        if (n & 1)
             ++ones;
         else {
             if (ones > max_ones)
                 max_ones = ones;
             ones = 0;
         }
-    }
 
     max_ones = max_ones > ones ? max_ones : ones;
     printf("%d\n", max_ones);

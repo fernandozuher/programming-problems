@@ -27,14 +27,13 @@ function main() {
     let n = +readLine();
     let maxOnes = 0, ones = 0;
 
-    for (; n > 0; n = Math.trunc(n / 2)) {
-        if (n % 2 == 1)
+    for (; n > 0; n = Math.trunc(n / 2))
+        if (n & 1)
             ++ones;
         else {
             maxOnes = Math.max(maxOnes, ones);
             ones = 0;
         }
-    }
 
     maxOnes = Math.max(maxOnes, ones);
     console.log(maxOnes);

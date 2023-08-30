@@ -25,16 +25,16 @@ function readLine(): string {
 
 function main() {
     let n: number = +readLine();
-    let maxOnes, ones: number = 0, 0;
+    let maxOnes: number = 0;
+    let ones: number = 0;
 
-    for (; n > 0; n = Math.trunc(n / 2)) {
-        if (n % 2 == 1)
+    for (; n > 0; n = Math.trunc(n / 2))
+        if (n & 1)
             ++ones;
         else {
             maxOnes = Math.max(maxOnes, ones);
             ones = 0;
         }
-    }
 
     maxOnes = Math.max(maxOnes, ones);
     console.log(maxOnes);
