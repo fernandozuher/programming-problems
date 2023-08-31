@@ -13,8 +13,8 @@ int calculate_max_sum(const vector<vector<int>>& matrix);
 
 int main()
 {
-    const vector<vector<int>> matrix {read_matrix()};
-    const int max_sum {calculate_max_sum(matrix)};
+    vector<vector<int>> matrix {read_matrix()};
+    int max_sum {calculate_max_sum(matrix)};
     cout << max_sum;
 
     return 0;
@@ -37,7 +37,7 @@ int main()
 
         for (int i {1}, before_rows_columns_limit {5}; i < before_rows_columns_limit; ++i)
             for (int j {1}; j < before_rows_columns_limit; ++j)
-                max_sum = {max(max_sum, sum_around(matrix, i, j))};
+                max_sum = max(max_sum, sum_around(matrix, i, j));
 
         return max_sum;
     }

@@ -14,7 +14,7 @@ int** free_matrix(int **matrix);
 int main()
 {
     int **matrix = read_matrix();
-    const int max_sum = calculate_max_sum(matrix);
+    int max_sum = calculate_max_sum(matrix);
 
     printf("%d\n", max_sum);
     matrix = free_matrix(matrix);
@@ -42,7 +42,7 @@ int main()
 
         for (int i = 1, before_rows_columns_limit = 5; i < before_rows_columns_limit; ++i)
             for (int j = 1; j < before_rows_columns_limit; ++j) {
-                const int current_sum = sum_around(matrix, i, j);
+                int current_sum = sum_around(matrix, i, j);
 
                 if (current_sum > max_sum)
                     max_sum = current_sum;

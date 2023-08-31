@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/30-2d-arrays/problem?isFullScreen=true
 
 using System;
+using System.Linq;
 
 class Solution
 {

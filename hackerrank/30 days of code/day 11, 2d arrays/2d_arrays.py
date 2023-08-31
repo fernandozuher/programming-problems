@@ -4,16 +4,16 @@ import sys
 
 def main():
 
-    MATRIX = read_matrix()
-    MAX_SUM = calculate_max_sum(MATRIX)
-    print(MAX_SUM)
+    matrix = read_matrix()
+    max_sum = calculate_max_sum(matrix)
+    print(max_sum)
 
 
 def read_matrix():
 
     N_ROWS_COLUMNS = 6
-    MATRIX = [list(map(int, input().split())) for _ in range(N_ROWS_COLUMNS)]
-    return MATRIX
+    matrix = [list(map(int, input().split())) for _ in range(N_ROWS_COLUMNS)]
+    return matrix
 
 
 def calculate_max_sum(matrix):

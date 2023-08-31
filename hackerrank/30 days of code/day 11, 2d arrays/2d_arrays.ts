@@ -24,17 +24,15 @@ function readLine(): string {
 }
 
 function main() {
-    const MATRIX: number[][] = readMatrix();
-    const MAX_SUM: number = calculateMaxSum(MATRIX);
-    console.log(MAX_SUM);
+    let matrix: number[][] = readMatrix();
+    let max_sum: number = calculateMaxSum(matrix);
+    console.log(max_sum);
 }
 
     function readMatrix(): number[][] {
         const N_ROWS_COLUMNS: number = 6;
-        const MATRIX: number[][] = Array(N_ROWS_COLUMNS).fill(0)
-                                            .map(_ => readLine().split(' ')
-                                                                .map(Number));
-        return MATRIX;
+        let matrix: number[][] = Array(N_ROWS_COLUMNS).fill(0).map(_ => readLine().split(' ').map(Number));
+        return matrix;
     }
 
     function calculateMaxSum(matrix: number[][]): number {

@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class TwoDArrays {
     private static Scanner scan;
 
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Solution {
             return matrix;
         }
 
-        private static int calculateMaxSum(int[][] matrix) {
+        private static int calculateMaxSum(final int[][] matrix) {
             int maxSum = Integer.MIN_VALUE;
 
             for (int i = 1, beforeRowsColumnsLimit = 5; i < beforeRowsColumnsLimit; i++)
@@ -33,7 +33,7 @@ public class Solution {
             return maxSum;
         }
 
-            private static int sumAround(int[][] matrix, int i, int j) {
+            private static int sumAround(final int[][] matrix, final int i, final int j) {
                 return matrix[i - 1][j - 1] + matrix[i - 1][j] + matrix[i - 1][j + 1] +
                        matrix[i][j] +
                        matrix[i + 1][j - 1] + matrix[i + 1][j] + matrix[i + 1][j + 1];

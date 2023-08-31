@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/30-2d-arrays/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
+use text_io::scan;
 
 const n_rows_columns: usize = 6;
 
