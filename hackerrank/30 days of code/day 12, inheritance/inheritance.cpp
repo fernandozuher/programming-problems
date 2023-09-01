@@ -59,7 +59,7 @@ int main()
     cin >> first_name >> last_name >> id >> n_scores;
 
     vector<int> scores(n_scores);
-    generate(scores.begin(), scores.end(), [] {int n; cin >> n; return n;});
+    ranges::generate(scores, [] {int n; cin >> n; return n;});
 
     Student student {first_name, last_name, id, scores};
     student.print_person();
