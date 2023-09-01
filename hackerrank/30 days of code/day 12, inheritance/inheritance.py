@@ -4,13 +4,13 @@ from statistics import mean
 
 def main():
 
-    FIRST_NAME, LAST_NAME, ID = input().split()
-    _ = int(input()) # N_SCORES not used
-    SCORES = list(map(int, input().split()))
+    first_name, last_name, id = input().split()
+    _ = int(input()) # n_scores not used
+    scores = list(map(int, input().split()))
 
-    STUDENT = Student(FIRST_NAME, LAST_NAME, ID, SCORES)
-    STUDENT.print_person()
-    print('Grade:', STUDENT.calculate())
+    student = Student(first_name, last_name, id, scores)
+    student.print_person()
+    print('Grade:', student.calculate())
 
 
 class Person:
@@ -24,7 +24,7 @@ class Person:
 
     def print_person(self):
 
-        print(f"Name: {self.last_name}, {self.first_name} \nID: {self.id}")
+        print(f"Name: {self.last_name}, {self.first_name} \nid: {self.id}")
 
 
 class Student(Person):
@@ -37,21 +37,21 @@ class Student(Person):
 
     def calculate(self):
 
-        AVG = mean(self._scores)
+        avg = mean(self._scores)
 
-        if AVG >= 90 and AVG <= 100:
+        if avg >= 90 and avg <= 100:
             return 'O'
-        elif AVG >= 80 and AVG < 90:
+        elif avg >= 80 and avg < 90:
             return 'E'
-        elif AVG >= 70 and AVG < 80:
+        elif avg >= 70 and avg < 80:
             return 'A'
-        elif AVG >= 55 and AVG < 70:
+        elif avg >= 55 and avg < 70:
             return 'P'
-        elif AVG >= 40 and AVG < 55:
+        elif avg >= 40 and avg < 55:
             return 'D'
         else:
             return 'T'
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

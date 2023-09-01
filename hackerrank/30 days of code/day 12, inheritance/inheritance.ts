@@ -24,13 +24,13 @@ function readLine(): string {
 }
 
 function main() {
-    const [FIRST_NAME, LAST_NAME, ID]: any[] = readLine().split(' ');
-    const N_SCORES: number = +readLine();
-    const SCORES: number[] = readLine().split(' ').map(Number);
+    let [firstName, lastName, id]: any[] = readLine().split(' ');
+    let nScores: number = +readLine();
+    let scores: number[] = readLine().split(' ').map(Number);
 
-    const STUDENT = new Student(FIRST_NAME, LAST_NAME, ID, SCORES);
-    STUDENT.printPerson();
-    console.log('Grade: ' + STUDENT.calculate());
+    let student = new Student(firstName, lastName, id, scores);
+    student.printPerson();
+    console.log('Grade: ' + student.calculate());
 }
 
     class Person {
@@ -58,19 +58,19 @@ function main() {
             }
 
             public calculate() {
-                const SUM_SCORES: number = this.scores.reduce((a, b) => a + b, 0);
-                const N: number = this.scores.length;
-                const AVG: number = SUM_SCORES / N;
+                let sumScores: number = this.scores.reduce((a, b) => a + b, 0);
+                let n: number = this.scores.length;
+                let avg: number = sumScores / n;
             
-                if (AVG >= 90 && AVG <= 100)
+                if (avg >= 90 && avg <= 100)
                     return 'O';
-                else if (AVG >= 80 && AVG < 90)
+                else if (avg >= 80 && avg < 90)
                     return 'E';
-                else if (AVG >= 70 && AVG < 80)
+                else if (avg >= 70 && avg < 80)
                     return 'A';
-                else if (AVG >= 55 && AVG < 70)
+                else if (avg >= 55 && avg < 70)
                     return 'P';
-                else if (AVG >= 40 && AVG < 55)
+                else if (avg >= 40 && avg < 55)
                     return 'D';
                 else
                     return 'T';

@@ -5,21 +5,21 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Solution {
+public class Inheritance {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        var scan = new Scanner(System.in);
 
-        final String firstName = scan.next();
-        final String lastName = scan.next();
-        final int id = scan.nextInt();
-        final int nScores = scan.nextInt();
+        String firstName = scan.next();
+        String lastName = scan.next();
+        int id = scan.nextInt();
+        int nScores = scan.nextInt();
 
-        final List<Integer> scores = Arrays.asList(new Integer[nScores])
+        List<Integer> scores = Arrays.asList(new Integer[nScores])
                                      .stream()
                                      .map(x -> scan.nextInt())
                                      .collect(Collectors.toList());
 
-        final Student student = new Student(firstName, lastName, id, scores);
+        Student student = new Student(firstName, lastName, id, scores);
         student.printPerson();
         System.out.println("Grade: " + student.calculate());
     }
@@ -29,7 +29,7 @@ public class Solution {
         protected String firstName, lastName;
         protected int id;
 
-        Person(String firstName, String lastName, int id) {
+        Person(final String firstName, final String lastName, final int id) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.id = id;
@@ -43,13 +43,13 @@ public class Solution {
         class Student extends Person {
             private List<Integer> scores;
 
-            public Student(String firstName, String lastName, int id, List<Integer> scores) {
+            public Student(final String firstName, final String lastName, final int id, final List<Integer> scores) {
                 super(firstName, lastName, id);
                 this.scores = scores;
             }
 
             public char calculate() {
-                final int avg = (int)scores.stream().mapToDouble(i -> i).average().orElse(0.0);
+                int avg = (int)scores.stream().mapToDouble(i -> i).average().orElse(0.0);
 
                 if (avg >= 90 && avg <= 100)
                     return 'O';

@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/30-inheritance/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <numeric>
 #include <vector>
@@ -7,6 +8,10 @@
 using namespace std;
 
 class Person {
+protected:
+    string first_name, last_name;
+    int id;
+
 public:
     Person(const string& first_name, const string& last_name, const int id)
         : first_name{first_name}, last_name{last_name}, id{id}
@@ -16,13 +21,11 @@ public:
     {
         cout << "Name: " << last_name << ", " << first_name << "\nID: " << id << '\n';
     }
-
-protected:
-    string first_name, last_name;
-    int id;
 };
 
 class Student: public Person {
+    vector<int> scores;
+
 public:
     Student(const string& first_name, const string& last_name, const int id, const vector<int>& scores)
         : Person{first_name, last_name, id}, scores{scores}
@@ -30,9 +33,9 @@ public:
 
     char calculate_grade() const
     {
-        const int sum_scores {accumulate(scores.begin(), scores.end(), 0)};
-        const int n {static_cast<int>(scores.size())};
-        const int avg {sum_scores / n};
+        int sum_scores {accumulate(scores.begin(), scores.end(), 0)};
+        size_t n {scores.size()};
+        auto avg {sum_scores / n};
 
         if (avg >= 90 && avg <= 100)
             return 'O';
@@ -47,9 +50,6 @@ public:
         else
             return 'T';
     }
-
-private:
-    vector<int> scores;
 };
 
 int main()
@@ -58,10 +58,10 @@ int main()
     int id, n_scores;
     cin >> first_name >> last_name >> id >> n_scores;
 
-    vector<int> scores;
-    for (int score; n_scores-- && cin >> score; scores.push_back(score));
+    vector<int> scores(n_scores);
+    generate(scores.begin(), scores.end(), [] {int n; cin >> n; return n;});
 
-    const Student student {first_name, last_name, id, scores};
+    Student student {first_name, last_name, id, scores};
     student.print_person();
     cout << "Grade: " << student.calculate_grade() << '\n';
 
