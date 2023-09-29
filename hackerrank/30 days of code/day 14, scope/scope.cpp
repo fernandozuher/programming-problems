@@ -18,7 +18,7 @@ public:
     void compute_difference()
     {
         ranges::sort(elements);
-        maximum_difference = {elements.back() - elements.front()};
+        maximum_difference = elements.back() - elements.front();
     }
 };
 

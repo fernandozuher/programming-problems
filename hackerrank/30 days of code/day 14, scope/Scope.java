@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Solution {
+public class Scope {
     public static void main(String[] args) {
-        final Scanner scan = new Scanner(System.in);
-        final int n = scan.nextInt(); // Not used
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt(); // Not used
         scan.nextLine(); // Just to drop new line
 
-        final List<Integer> array = Arrays.stream(scan.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> array = Arrays.stream(scan.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
 
-        final Difference difference = new Difference(array);
+        Difference difference = new Difference(array);
         difference.computeDifference();
         System.out.println(difference.maximumDifference);
     }

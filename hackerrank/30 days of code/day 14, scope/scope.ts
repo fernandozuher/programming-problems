@@ -24,12 +24,12 @@ function readLine(): string {
 }
 
 function main() {
-    const N: number = +readLine(); // Not used
-    const ARRAY: number[] = readLine().split(" ").map(Number);
+    let n: number = +readLine(); // Not used
+    let array: number[] = readLine().split(' ').map(Number);
     
-    const DIFFERENCE = new Difference(ARRAY);
-    DIFFERENCE.computeDifference();
-    console.log(DIFFERENCE.maximumDifference);
+    let difference = new Difference(array);
+    difference.computeDifference();
+    console.log(difference.maximumDifference);
 }
 
     class Difference {

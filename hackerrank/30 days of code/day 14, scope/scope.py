@@ -17,11 +17,11 @@ class Difference:
 def main():
 
     _ = int(input()) # _ (n) not used
-    ARRAY = list(map(int, input().split()))
+    array = list(map(int, input().split()))
 
-    DIFFERENCE = Difference(ARRAY)
-    DIFFERENCE.compute_difference()
-    print(DIFFERENCE.maximum_difference)
+    difference = Difference(array)
+    difference.compute_difference()
+    print(difference.maximum_difference)
 
 
 if __name__ == '__main__':
