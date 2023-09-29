@@ -4,12 +4,12 @@ from abc import ABCMeta, abstractmethod
 
 def main():
 
-    TITLE = input()
-    AUTHOR = input()
-    PRICE = int(input())
+    title = input()
+    author = input()
+    price = int(input())
     
-    NOVEL = MyBook(title, author, price)
-    NOVEL.display()
+    novel = MyBook(title, author, price)
+    novel.display()
 
 
 class Book(object, metaclass=ABCMeta):
@@ -31,12 +31,12 @@ class MyBook(Book):
     def __init__(self, title, author, price):
 
         super().__init__(title, author)
-        self.price = price
+        self._price = price
 
 
     def display(self):
 
-        print(f"Title: {self.title} \nAuthor: {self.author} \nPrice: {self.price}")
+        print(f"Title: {self.title} \nAuthor: {self.author} \nPrice: {self._price}")
 
 
 if __name__ == '__main__':

@@ -13,7 +13,7 @@ public:
     virtual void display() = 0;
 };
 
-class My_Book: Book {
+class My_Book: public Book {
 private:
     double price;
 
@@ -29,7 +29,7 @@ public:
 int main()
 {
     string title, author;
-    int price;
+    double price;
 
     getline(cin, title);
     getline(cin, author);

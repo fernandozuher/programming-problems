@@ -2,9 +2,9 @@
 
 import java.util.Scanner;
 
-public class Solution {
+public class AbstractClasses {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        var scan = new Scanner(System.in);
 
         String title = scan.nextLine();
         String author = scan.nextLine();
@@ -18,7 +18,7 @@ public class Solution {
     abstract class Book {
         protected String title, author;
 
-        Book(String title, String author) {
+        Book(final String title, final String author) {
             this.title = title;
             this.author = author;
         }
@@ -29,7 +29,7 @@ public class Solution {
         class MyBook extends Book {
             private double price;
 
-            MyBook(String title, String author, double price) {
+            MyBook(final String title, final String author, final double price) {
                 super(title, author);
                 this.price = price;
             }

@@ -24,12 +24,12 @@ function readLine(): string {
 }
 
 function main() {
-    const TITLE: string = readLine();
-    const AUTHOR: string = readLine();
-    const PRICE: number = +readLine();
+    let title: string = readLine();
+    let author: string = readLine();
+    let price: number = +readLine();
 
-    const NOVEL = new MyBook(TITLE, AUTHOR, PRICE);
-    NOVEL.display();
+    let novel = new MyBook(title, author, price);
+    novel.display();
 }
 
     class Book {
