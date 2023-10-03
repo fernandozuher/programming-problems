@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-more-exceptions/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
@@ -21,27 +23,22 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-class Calculator {
-    
-    power(n: number, p: number) : number {
-        if (n < 0 || p < 0)
-            throw "n and p should be non-negative"
-        return Math.pow(n, p)
-    }
-}
-
 function main() {
-
-    for (let n = +readLine(), myCalculator = new Calculator(); n--; ) {
-
-        let [n, p] = readLine().split(" ").map(Number);
-
+    for (let calc = new Calculator(), nTests = +readLine(); nTests--;) {
+        let [n, p] = readLine().split(' ').map(Number);
         try {
-            let ans = myCalculator.power(n, p);
-            console.log(ans);
+            console.log(calc.power(n, p));
         }
         catch (e) {
             console.log(e);
         }
     }
 }
+
+    class Calculator {   
+        public power(n: number, p: number): number {
+            if (n < 0 || p < 0)
+                throw 'n and p should be non-negative';
+            return Math.pow(n, p);
+        };
+    }
