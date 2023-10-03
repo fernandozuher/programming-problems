@@ -1,3 +1,5 @@
+// https://www.hackerrank.com/challenges/30-exceptions-string-to-integer/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
@@ -14,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,14 +24,14 @@ function readLine(): string {
 }
 
 function main() {
-    const S: string = readLine()
+    let s: string = readLine();
 
     try {
-        let error = () => {throw "Bad String"}
-        let num = parseInt(S) ? parseInt(S) : error()
-        console.log(num)
+        let error = () => {throw "Bad String"};
+        let num = parseInt(s) ? parseInt(s) : error();
+        console.log(num);
     } 
     catch (e) {
-        console.log(e)
+        console.log(e);
     }
 }
