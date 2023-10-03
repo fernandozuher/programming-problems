@@ -1,28 +1,21 @@
+// https://www.hackerrank.com/challenges/30-linked-list/problem?isFullScreen=true
+
 using System;
 
-class Node
+public class Solution
 {
-    public int data;
-    public Node next;
-    public Node(int d) {
-        data = d;
-        next = null;
-    }
-        
-}
-
-class Solution
-{
-    public static  Node insert(Node head, int data) {
-        
+    public static Node insert(Node head, int data)
+    {
         Node start;
 
-        if (head != null) {
+        if (head != null)
+        {
             start = head;
             for ( ; start.next != null; start = start.next);
             start.next = new Node(data);
         }
-        else {
+        else
+        {
             start = new Node(data);
             head = start;
         }
@@ -30,18 +23,19 @@ class Solution
         return head;
     }
 
-    public static void display(Node head) {
-        
+    public static void display(Node head)
+    {
         Node start = head;
 
-        while (start != null) {
+        while (start != null)
+        {
             Console.Write(start.data + " ");
             start = start.next;
         }
     }
 
-    static void Main(String[] args) {
-    
+    public static void Main()
+    {
         Node head = null;
         int T = Int32.Parse(Console.ReadLine());
 
@@ -51,3 +45,15 @@ class Solution
         display(head);
     }
 }
+
+    public class Node
+    {
+        public int data;
+        public Node next;
+
+        public Node(int d)
+        {
+            data = d;
+            next = null;
+        }
+    }
