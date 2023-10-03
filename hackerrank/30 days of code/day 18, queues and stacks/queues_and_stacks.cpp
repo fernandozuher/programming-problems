@@ -6,28 +6,31 @@
 
 using namespace std;
 
-class Queues_And_Stacks
-{
+class Queues_And_Stacks {
 private:
     stack<char> my_stack;
     queue<char> my_queue;
 
 public:
-    void push_character(const char ch) {
+    void push_character(const char ch)
+    {
         my_stack.push(ch);
     }
 
-    void enqueue_character(const char ch) {
+    void enqueue_character(const char ch)
+    {
         my_queue.push(ch);
     }
 
-    char pop_character() {
+    char pop_character()
+    {
         char ch {my_stack.top()};
         my_stack.pop();
         return ch;
     }
 
-    char dequeue_character() {
+    char dequeue_character()
+    {
         char ch {my_queue.front()};
         my_queue.pop();
         return ch;
