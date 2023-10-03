@@ -9,14 +9,14 @@ typedef struct Node
     struct Node* next;
 } Node;
 
-Node* insert(Node *head, int data);
-void display(Node *head);
+Node* insert(Node* head, int data);
+void display(Node* head);
 
 int main()
 {
     int T, data;
     scanf("%d", &T);
-    Node *head = NULL;
+    Node* head = NULL;
 
     while (T--) {
         scanf("%d", &data);
@@ -27,9 +27,9 @@ int main()
   return 0;
 }
 
-    Node* insert(Node *head, int data)
+    Node* insert(Node* head, int data)
     {   
-        Node *start;
+        Node* start;
         if (head) {
             start = head;
             for ( ; start->next; start = start->next);
@@ -46,9 +46,9 @@ int main()
         return head;
     }
 
-    void display(Node *head)
+    void display(Node* head)
     {
-        Node *start = head;
+        Node* start = head;
         while (start) {
             printf("%d ", start->data);
             start = start->next;
