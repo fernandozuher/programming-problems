@@ -17,7 +17,7 @@ public class Interfaces {
 
         class Calculator implements AdvancedArithmetic {
             @Override
-            public int divisorSum(int n) {
+            public int divisorSum(final int n) {
                 int sum = 0;
                 for (int i = 1; i <= n / 2; ++i)
                     if (n % i == 0)
