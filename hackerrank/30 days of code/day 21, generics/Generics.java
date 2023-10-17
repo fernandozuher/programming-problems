@@ -13,11 +13,11 @@ public class Generics {
 
         int n = scan.nextInt();
         scan.nextLine(); // new line character
-        List<Integer> intList = (Arrays.asList(new Integer[n])).stream().map(x -> x = scan.nextInt()).collect(toList());;
+        List<Integer> intList = Arrays.asList(new Integer[n]).stream().map(x -> x = scan.nextInt()).collect(toList());
 
         n = scan.nextInt();
         scan.nextLine(); // new line character
-        List<String> stringList = (Arrays.asList(new String[n])).stream().map(x -> x = scan.nextLine()).collect(toList());;
+        List<String> stringList = Arrays.asList(new String[n]).stream().map(x -> x = scan.nextLine()).collect(toList());
 
         var intPrinter = new Printer<Integer>();
         var stringPrinter = new Printer<String>();
