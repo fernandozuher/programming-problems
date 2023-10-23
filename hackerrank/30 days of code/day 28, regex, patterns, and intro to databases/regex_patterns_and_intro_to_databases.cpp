@@ -6,33 +6,46 @@
 
 using namespace std;
 
-string extract_email_domain(const string& email_id);
+vector<string> find_names_with_gmail_domains_emails_from_stdin(int n);
+    bool is_gmail_domain(const string& email_id);
+void sort_and_print_names(vector<string>& names);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<string> first_names;
 
-    while (n--) {
-        string name, email_id;
-        cin >> name >> email_id;
-
-        string email_domain {extract_email_domain(email_id)};
-        if (email_domain == "@gmail.com")
-            first_names.push_back(name);
-    }
-
-    ranges::sort(first_names);
-    for (const auto& name : first_names)
-        cout << name << '\n';
+    vector<string> names = find_names_with_gmail_domains_emails_from_stdin(n);
+    sort_and_print_names(names);
 
     return 0;
 }
 
-    string extract_email_domain(const string& email_id)
+    vector<string> find_names_with_gmail_domains_emails_from_stdin(int n)
     {
-        auto index_arroba{email_id.find("@")};
-        string email_domain{email_id.substr(index_arroba)};
-        return email_domain;
+        vector<string> names;
+
+        while (n--) {
+            string name, email_id;
+            cin >> name >> email_id;
+
+            if (is_gmail_domain(email_id))
+                names.push_back(name);
+        }
+
+        return names;
+    }
+
+        bool is_gmail_domain(const string& email_id)
+        {
+            auto index_arroba{email_id.find("@")};
+            string email_domain{email_id.substr(index_arroba)};
+            return email_domain == "@gmail.com";
+        }
+
+    void sort_and_print_names(vector<string>& names)
+    {
+        ranges::sort(names);
+        for (const auto& name : names)
+            cout << name << '\n';
     }
