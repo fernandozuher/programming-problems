@@ -1,35 +1,28 @@
-#!/bin/python3
-
-def extractEmailDomain(emailID):
-    indexArroba = emailID.index('@')
-    emailDomain = emailID[indexArroba:]
-    return emailDomain
-
-def checkAndInsertNameIfEmailDomainGmail(firstName, emailDomain, firstNames):
-    if emailDomain == "@gmail.com":
-        firstNames.append(firstName)
-
-def sortNamesOfGmailEmails(firstNames):
-    firstNames.sort()
-
-def printFirstGmailNames(firstNames):
-    for firstName in firstNames:
-        print(firstName)
+# https://www.hackerrank.com/challenges/30-regex-patterns/problem?isFullScreen=true
 
 def main():
-    N = int(input().strip())
-    firstNames = []
 
-    for N_itr in range(N):
-        first_multiple_input = input().rstrip().split()
-        firstName = first_multiple_input[0]
-        emailID = first_multiple_input[1]
+    n = int(input())
+    names = find_names_with_gmail_domains_emails_from_stdin(n)
+    sort_in_place_and_print_names(names)
 
-        emailDomain = extractEmailDomain(emailID)
-        checkAndInsertNameIfEmailDomainGmail(firstName, emailDomain, firstNames)
 
-    sortNamesOfGmailEmails(firstNames)
-    printFirstGmailNames(firstNames)
+def find_names_with_gmail_domains_emails_from_stdin(n):
+
+    names = []
+    for _ in range(n):
+        name, email_id = input().split()
+        if '@gmail.com' in email_id:
+            names.append(name)
+    return names
+
+
+def sort_in_place_and_print_names(names):
+
+    names.sort()
+    for name in names:
+        print(name)
+
 
 if __name__ == '__main__':
     main()

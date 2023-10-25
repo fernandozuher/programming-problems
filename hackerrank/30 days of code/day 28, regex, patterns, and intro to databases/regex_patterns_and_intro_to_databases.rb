@@ -1,36 +1,23 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/30-regex-patterns/problem?isFullScreen=true
 
-def extractEmailDomain(emailID)
-    indexArroba = emailID.index('@')
-    emailDomain = emailID[indexArroba..-1]
-    emailDomain
+def main
+    n = gets.to_i
+    names = find_names_with_gmail_domains_emails_from_stdin(n)
+    names.sort!
+    puts names
 end
 
-def checkAndInsertNameIfEmailDomainGmail(firstName, emailDomain, firstNames)
-    if emailDomain == "@gmail.com"
-        firstNames.push(firstName)
+    def find_names_with_gmail_domains_emails_from_stdin(n)
+        names = Array.new
+
+        n.times do
+            name, email_id = gets.split
+            if email_id.include? '@gmail.com'
+                names.push(name)
+            end
+        end
+
+        names
     end
-end
 
-def sortNamesOfGmailEmails(firstNames)
-    firstNames.sort
-end
-
-def printFirstGmailNames(firstNames)
-    puts firstNames
-end
-
-N = gets.strip.to_i
-firstNames = Array.new
-
-N.times do
-    first_multiple_input = gets.rstrip.split
-    firstName = first_multiple_input[0]
-    emailID = first_multiple_input[1]
-
-    emailDomain = extractEmailDomain(emailID)
-    checkAndInsertNameIfEmailDomainGmail(firstName, emailDomain, firstNames)
-end
-
-firstNames = sortNamesOfGmailEmails(firstNames)
-printFirstGmailNames(firstNames)
+main

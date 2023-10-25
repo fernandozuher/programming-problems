@@ -41,7 +41,7 @@ int main()
 
     int compare_func(const void *str1, const void *str2)
     {
-        char *const *pp1 = str1;
-        char *const *pp2 = str2;
+        const char *const *pp1 = str1;
+        const char *const *pp2 = str2;
         return strcmp(*pp1, *pp2);
     }

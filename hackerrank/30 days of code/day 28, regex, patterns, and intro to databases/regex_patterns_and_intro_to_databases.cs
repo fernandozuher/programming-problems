@@ -1,47 +1,38 @@
+// https://www.hackerrank.com/challenges/30-regex-patterns/problem?isFullScreen=true
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class Solution
 {
-    static string extractEmailDomain(string emailID)
+    public static void Main()
     {
-        int indexArroba = emailID.IndexOf('@');
-        string emailDomain = emailID.Substring(indexArroba);
-        return emailDomain;
+        int n = int.Parse(Console.ReadLine());
+        List<string> names = _findNamesWithGmailDomainsEmailsFromStdin(n);
+        _sortInPlaceAndPrintNames(names);
     }
 
-    static void checkAndInsertNameIfEmailDomainGmail(string firstName, string emailDomain, List<string> firstNames)
-    {
-        if (String.Compare(emailDomain, "@gmail.com") == 0)
-            firstNames.Add(firstName);
-    }
-
-    static void sortNamesOfGmailEmails(List<string> firstNames)
-    {
-        firstNames.Sort();    
-    }
-    
-    static void printFirstGmailNames(List<string> firstNames)
-    {
-        foreach (string firstName in firstNames)
-            Console.WriteLine(firstName);
-    }
-
-    public static void Main(string[] args)
-    {
-        int N = Convert.ToInt32(Console.ReadLine().Trim());
-        List<string> firstNames = new List<string>();
-
-        for (int NItr = 0; NItr < N; NItr++)
+        private static List<string> _findNamesWithGmailDomainsEmailsFromStdin(int n)
         {
-            string[] firstMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
-            string firstName = firstMultipleInput[0];
-            string emailID = firstMultipleInput[1];
+            List<string> names = new List<string>();
 
-            string emailDomain = extractEmailDomain(emailID);
-            checkAndInsertNameIfEmailDomainGmail(firstName, emailDomain, firstNames);
+            while (n-- > 0)
+            {
+                List<string> line = Console.ReadLine().Split().ToList();
+                string name = line.First(), emailId = line.Last();
+
+                if (emailId.Contains("@gmail.com"))
+                    names.Add(name);
+            }
+
+            return names;
         }
 
-        sortNamesOfGmailEmails(firstNames);
-        printFirstGmailNames(firstNames);
-    }
+        private static void _sortInPlaceAndPrintNames(List<string> names)
+        {
+            names.Sort();
+            foreach (string name in names)
+                Console.WriteLine(name);
+        }
 }
