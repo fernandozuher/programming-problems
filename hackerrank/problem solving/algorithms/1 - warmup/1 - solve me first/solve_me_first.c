@@ -1,13 +1,18 @@
+// https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
+
 #include <stdio.h>
 
-int solve_me_first(int a, int b) {
-    return a + b;
-}
+int solve_me_first(const int a, const int b);
 
-int main() {
+int main()
+{
     int num1, num2;
     scanf("%d %d", &num1, &num2);
-    int sum = solve_me_first(num1, num2);
-    printf("%d", sum);
+    printf("%d", solve_me_first(num1, num2));
     return 0;
 }
+
+    int solve_me_first(const int a, const int b)
+    {
+        return a + b;
+    }

@@ -1,13 +1,15 @@
+// https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
+
 package main
+
 import "fmt"
 
-func solveMeFirst(a uint32, b uint32) uint32 {
-    return a + b
+func main() {
+    var a, b int
+    fmt.Scan(&a, &b)
+    fmt.Println(solveMeFirst(a, b))
 }
 
-func main() {
-    var a, b, res uint32
-    fmt.Scanf("%v\n%v", &a, &b)
-    res = solveMeFirst(a, b)
-    fmt.Println(res)
-}
+    func solveMeFirst(a int, b int) int {
+        return a + b
+    }

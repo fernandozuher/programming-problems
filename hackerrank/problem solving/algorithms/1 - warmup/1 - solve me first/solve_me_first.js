@@ -1,27 +1,34 @@
+// https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
+
+'use strict';
+
 process.stdin.resume();
-process.stdin.setEncoding('ascii');
-var input_stdin = "";
-var input_stdin_array = "";
-var input_currentline = 0;
-process.stdin.on('data', function(data) {
-    input_stdin += data;
+process.stdin.setEncoding('utf-8');
+
+let inputString = '';
+let inputLines = [];
+let currentLine = 0;
+
+process.stdin.on('data', function(inputStdin) {
+    inputString += inputStdin;
 });
+
 process.stdin.on('end', function() {
-    input_stdin_array = input_stdin.split("\n");
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return input_stdin_array[input_currentline++];
-}
-
-function solveMeFirst(a, b) {
-    return a + b;
+    return inputLines[currentLine++];
 }
 
 function main() {
-    let a = parseInt(readLine());
-    let b = parseInt(readLine());
-    let res = solveMeFirst(a, b);
-    console.log(res);
+    let num1 = +readLine();
+    let num2 = +readLine();
+    console.log(solveMeFirst(num1, num2));
 }
+
+    function solveMeFirst(a, b) {
+        return a + b;
+    }

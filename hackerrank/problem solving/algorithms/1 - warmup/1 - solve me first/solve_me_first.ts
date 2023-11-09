@@ -1,10 +1,14 @@
+// https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
+
 'use strict';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
+
 process.stdin.on('data', function(inputStdin: string): void {
     inputString += inputStdin;
 });
@@ -19,13 +23,12 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-function solveMeFirst(a: number, b: number): number {
-    return a + b;
+function main() {
+    let num1: number = +readLine();
+    let num2: number = +readLine();
+    console.log(solveMeFirst(num1, num2));
 }
 
-function main() {
-    let a: number = parseInt(readLine());
-    let b: number = parseInt(readLine());
-    let res: number = solveMeFirst(a, b);
-    console.log(res);
-}
+    function solveMeFirst(a: number, b: number): number {
+        return a + b;
+    }

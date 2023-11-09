@@ -1,8 +1,13 @@
-def solveMeFirst a, b
-    a + b
+# https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
+
+def main
+    num1 = gets.to_i
+    num2 = gets.to_i
+    puts solve_me_first(num1, num2)
 end
 
-val1 = gets.to_i
-val2 = gets.to_i
-sum = solveMeFirst val1, val2
-print sum
+    def solve_me_first(a, b)
+        return a + b
+    end
+
+main
