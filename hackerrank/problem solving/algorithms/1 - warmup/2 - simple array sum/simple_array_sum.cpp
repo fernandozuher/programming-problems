@@ -1,89 +1,27 @@
-#include <bits/stdc++.h>
+// https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
+
+#include <algorithm>
+#include <iostream>
+#include <numeric>
+#include <vector>
 
 using namespace std;
 
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &);
-
-/*
- * Complete the 'simple_array_sum' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY ar as parameter.
- */
-
-int simple_array_sum(vector<int> arr) {
-    int sum = accumulate(arr.begin(), arr.end(), 0);
-    return sum;
-}
+int simple_array_sum(const vector<int> array);
 
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
+    int n;
+    cin >> n;
+    vector<int> array(n);
 
-    string ar_count_temp;
-    getline(cin, ar_count_temp);
-
-    int ar_count = stoi(ltrim(rtrim(ar_count_temp)));
-
-    string ar_temp_temp;
-    getline(cin, ar_temp_temp);
-
-    vector<string> ar_temp = split(rtrim(ar_temp_temp));
-
-    vector<int> ar(ar_count);
-
-    for (int i = 0; i < ar_count; i++) {
-        int ar_item = stoi(ar_temp[i]);
-
-        ar[i] = ar_item;
-    }
-
-    int result = simple_array_sum(ar);
-
-    fout << result << "\n";
-
-    fout.close();
+    ranges::generate(array, [] {int n; cin >> n; return n;});
+    cout << simple_array_sum(array);
 
     return 0;
 }
 
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
-}
-
-vector<string> split(const string &str) {
-    vector<string> tokens;
-
-    string::size_type start = 0;
-    string::size_type end = 0;
-
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-
-        start = end + 1;
+    int simple_array_sum(const vector<int> array)
+    {
+        return accumulate(array.begin(), array.end(), 0);
     }
-
-    tokens.push_back(str.substr(start));
-
-    return tokens;
-}

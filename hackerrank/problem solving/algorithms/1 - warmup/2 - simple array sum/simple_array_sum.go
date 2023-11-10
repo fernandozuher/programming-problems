@@ -1,71 +1,28 @@
+// https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
+
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
-)
-
-/*
- * Complete the 'simple_array_sum' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY ar as parameter.
- */
-
-func simple_array_sum(arr []int32) int32 {
-    var result int32 = 0
-    for _, number := range arr {
-        result += number
-    }
-    return result
-}
+import "fmt"
 
 func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
-
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
-
-    defer stdout.Close()
-
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
-
-    arCount, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-    checkError(err)
-
-    arTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    var ar []int32
-
-    for i := 0; i < int(arCount); i++ {
-        arItemTemp, err := strconv.ParseInt(arTemp[i], 10, 64)
-        checkError(err)
-        arItem := int32(arItemTemp)
-        ar = append(ar, arItem)
-    }
-
-    result := simple_array_sum(ar)
-
-    fmt.Fprintf(writer, "%d\n", result)
-
-    writer.Flush()
+    var n int
+    fmt.Scan(&n)
+    var array []int = read_int_array(n)
+    fmt.Println(simple_array_sum(array))
 }
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
+    func read_int_array(n int) []int {
+        array := make([]int, n)
+        for i := 0; i < n; i++ {
+            fmt.Scan(&array[i])
+        }
+        return array
     }
 
-    return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-    if err != nil {
-        panic(err)
+    func simple_array_sum(array []int) int {
+        var sum int = 0
+        for _, num := range array {
+            sum += num
+        }
+        return sum
     }
-}

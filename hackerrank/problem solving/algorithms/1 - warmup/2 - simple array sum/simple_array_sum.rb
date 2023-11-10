@@ -1,25 +1,13 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
-#
-# Complete the 'simpleArraySum' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts INTEGER_ARRAY ar as parameter.
-#
-
-def simpleArraySum arr
-    arr.sum
+def main
+    n = gets.to_i
+    array = gets.split.map(&:to_i)
+    puts simple_array_sum(array)
 end
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+    def simple_array_sum(array)
+        array.sum
+    end
 
-ar_count = gets.strip.to_i
-
-ar = gets.rstrip.split.map(&:to_i)
-
-result = simpleArraySum ar
-
-fptr.write result
-fptr.write "\n"
-
-fptr.close()
+main

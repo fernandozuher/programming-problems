@@ -1,34 +1,28 @@
-use std::env;
-use std::fs::File;
-use std::io::{self, BufRead, Write};
+// https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
-/*
- * Complete the 'simpleArraySum' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY ar as parameter.
- */
-
-fn simpleArraySum(arr: &[i32]) -> i32 {
-    let result = arr.iter().sum();
-    return result;
-}
+use std::io::{stdin, BufRead};
+use text_io::read;
 
 fn main() {
-    let stdin = io::stdin();
-    let mut stdin_iterator = stdin.lock().lines();
+    let _n: i32 = read!();
+    let array: Vec<i32> = read_an_int_array();
+    println!("{}", simple_array_sum(&array));
+}
 
-    let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
-
-    let _ar_count = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
-
-    let ar: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
-        .trim_end()
+fn read_an_int_array() -> Vec<i32> {
+    let array: Vec<i32> = stdin()
+        .lock()
+        .lines()
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
         .split(' ')
-        .map(|s| s.to_string().parse::<i32>().unwrap())
+        .map(|s| s.parse().unwrap())
         .collect();
+    return array;
+}
 
-    let result = simpleArraySum(&ar);
-
-    writeln!(&mut fptr, "{}", result).ok();
+fn simple_array_sum(array: &Vec<i32>) -> i32 {
+    return array.iter().sum();
 }

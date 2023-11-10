@@ -1,37 +1,21 @@
+// https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
+
 using System;
-
-class Result
-{
-
-    /*
-     * Complete the 'simpleArraySum' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts INTEGER_ARRAY ar as parameter.
-     */
-
-    public static int simpleArraySum(List<int> arr)
-    {
-        int sum = arr.Aggregate(0, (sum, num) => sum + num);
-        return sum;
-    }
-}
+using System.Collections.Generic;
+using System.Linq;
 
 class Solution
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
-        
-        int arCount = Convert.ToInt32(Console.ReadLine().Trim());
+        int n = int.Parse(Console.ReadLine());
+        List<int> array = Console.ReadLine().Split().Select(int.Parse).ToList();
+        Console.WriteLine(_simpleArraySum(array));
 
-        List<int> ar = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arTemp => Convert.ToInt32(arTemp)).ToList();
-
-        int result = Result.simpleArraySum(ar);
-
-        textWriter.WriteLine(result);
-
-        textWriter.Flush();
-        textWriter.Close();
     }
+
+        private static int _simpleArraySum(List<int> array)
+        {
+            return array.Aggregate(0, (sum, num) => sum + num);
+        }
 }
