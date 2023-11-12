@@ -1,95 +1,36 @@
+// https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
+
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
-)
-
-/*
- * Complete the 'compareTriplets' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
- */
-
-func compareTriplets(a []int32, b []int32) []int32 {
-    
-    var player1, player2 int32 = 0, 0
-
-    for i := range (a) {
-        if a[i] > b[i] {
-            player1++
-        } else if a[i] < b[i] {
-            player2++
-        }
-    }    
-    return []int32 {player1, player2}
-}
+import "fmt"
 
 func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
+    var size int = 3
+    var array1 []int = readAnIntArray(size)
+    var array2 []int = readAnIntArray(size)
+    var result []int = compareTriplets(array1, array2)
+    fmt.Printf("%d %d\n", result[0], result[1])
+}
 
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
-
-    defer stdout.Close()
-
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
-
-    aTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    var a []int32
-
-    for i := 0; i < 3; i++ {
-        aItemTemp, err := strconv.ParseInt(aTemp[i], 10, 64)
-        checkError(err)
-        aItem := int32(aItemTemp)
-        a = append(a, aItem)
-    }
-
-    bTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    var b []int32
-
-    for i := 0; i < 3; i++ {
-        bItemTemp, err := strconv.ParseInt(bTemp[i], 10, 64)
-        checkError(err)
-        bItem := int32(bItemTemp)
-        b = append(b, bItem)
-    }
-
-    result := compareTriplets(a, b)
-
-    for i, resultItem := range result {
-        fmt.Fprintf(writer, "%d", resultItem)
-
-        if i != len(result) - 1 {
-            fmt.Fprintf(writer, " ")
+    func readAnIntArray(size int) []int {
+        array := make([]int, size)
+        for i, _ := range array {
+            fmt.Scan(&array[i])
         }
+        return array
     }
 
-    fmt.Fprintf(writer, "\n")
+    func compareTriplets(a []int, b []int) []int {
 
-    writer.Flush()
-}
+        var player1, player2 int = 0, 0
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
+        for i := range a {
+            if a[i] > b[i] {
+                player1++
+            } else if a[i] < b[i] {
+                player2++
+            }
+        }
+
+        return []int{player1, player2}
     }
-
-    return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-    if err != nil {
-        panic(err)
-    }
-}

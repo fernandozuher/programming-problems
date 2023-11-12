@@ -1,46 +1,33 @@
+// https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
+
 using System;
-
-class Result
-{
-
-    /*
-     * Complete the 'compareTriplets' function below.
-     *
-     * The function is expected to return an INTEGER_ARRAY.
-     * The function accepts following parameters:
-     *  1. INTEGER_ARRAY a
-     *  2. INTEGER_ARRAY b
-     */
-
-    public static List<int> compareTriplets(List<int> a, List<int> b)
-    {
-        int player1 = 0, player2 = 0;
-        foreach (var (number1, number2) in a.Zip(b))
-            if (number1 > number2)
-                player1++;
-            else if (number2 > number1)
-                player2++;
-
-        return new List<int>() {player1, player2};
-    }
-
-}
+using System.Collections.Generic;
 
 class Solution
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
-
-        List<int> a = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(aTemp => Convert.ToInt32(aTemp)).ToList();
-
-        List<int> b = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(bTemp => Convert.ToInt32(bTemp)).ToList();
-
-        List<int> result = Result.compareTriplets(a, b);
-
-        textWriter.WriteLine(String.Join(" ", result));
-
-        textWriter.Flush();
-        textWriter.Close();
+        List<int> array1 = _readAndIntArray();
+        List<int> array2 = _readAndIntArray();
+        (int, int) result = _compareTriplets(array1, array2);
+        Console.WriteLine("{0} {1}", result.Item1, result.Item2);
     }
+
+        private static List<int> _readAndIntArray()
+        {
+            return Console.ReadLine().Split(" ").Select(int.Parse).ToList();
+        }
+
+        private static (int, int) _compareTriplets(List<int> array1, List<int> array2)
+        {
+            int player1 = 0, player2 = 0;
+
+            foreach (var (val1, val2) in array1.Zip(array2))
+                if (val1 > val2)
+                    player1++;
+                else if (val2 > val1)
+                    player2++;
+
+            return (player1, player2);
+        }
 }

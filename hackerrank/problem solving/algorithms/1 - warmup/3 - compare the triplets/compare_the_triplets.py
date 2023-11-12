@@ -1,38 +1,30 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-import os
+def main():
 
-#
-# Complete the 'compareTriplets' function below.
-#
-# The function is expected to return an INTEGER_ARRAY.
-# The function accepts following parameters:
-#  1. INTEGER_ARRAY a
-#  2. INTEGER_ARRAY b
-#
+    array1 = read_an_int_array()
+    array2 = read_an_int_array()
+    result = compare_triplets(array1, array2)
+    print(f"{result[0]} {result[1]}")
 
-def compareTriplets(a, b):
+
+def read_an_int_array():
+
+    return list(map(int, input().split()))
+
+
+def compare_triplets(array1, array2):
+
     player1, player2 = 0, 0
 
-    for number1, number2 in zip(a, b):
-        if number1 > number2:
+    for val1, val2 in zip(array1, array2):
+        if val1 > val2:
             player1 += 1
-        elif number2 > number1:
+        elif val2 > val1:
             player2 += 1
-    
+
     return [player1, player2]
 
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    a = list(map(int, input().rstrip().split()))
-
-    b = list(map(int, input().rstrip().split()))
-
-    result = compareTriplets(a, b)
-
-    fptr.write(' '.join(map(str, result)))
-    fptr.write('\n')
-
-    fptr.close()
+    main()

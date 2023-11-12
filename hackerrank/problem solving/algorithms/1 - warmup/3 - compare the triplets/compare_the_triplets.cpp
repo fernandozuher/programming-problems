@@ -1,114 +1,41 @@
-#include <bits/stdc++.h>
+// https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &);
-
-/*
- * Complete the 'compare_triplets' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
- */
-
-vector<int> compare_triplets(vector<int> a, vector<int> b) {
-    int player1 {}, player2 {};
-
-    for (unsigned i {}, n {a.size()}; i < n; i++)
-        if (a[i] > b[i])
-            player1++;
-        else if (a[i] < b[i])
-            player2++;
-
-    return vector {player1, player2};
-}
+vector<int> read_int_array(const int size);
+pair<int, int> compare_triplets(const vector<int>& array1, const vector<int>& array2);
 
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
-
-    string a_temp_temp;
-    getline(cin, a_temp_temp);
-
-    vector<string> a_temp = split(rtrim(a_temp_temp));
-
-    vector<int> a(3);
-
-    for (int i = 0; i < 3; i++) {
-        int a_item = stoi(a_temp[i]);
-
-        a[i] = a_item;
-    }
-
-    string b_temp_temp;
-    getline(cin, b_temp_temp);
-
-    vector<string> b_temp = split(rtrim(b_temp_temp));
-
-    vector<int> b(3);
-
-    for (int i = 0; i < 3; i++) {
-        int b_item = stoi(b_temp[i]);
-
-        b[i] = b_item;
-    }
-
-    vector<int> result = compare_triplets(a, b);
-
-    for (size_t i = 0; i < result.size(); i++) {
-        fout << result[i];
-
-        if (i != result.size() - 1) {
-            fout << " ";
-        }
-    }
-
-    fout << "\n";
-
-    fout.close();
+    const int size {3};
+    vector<int> array1 {read_int_array(size)};
+    vector<int> array2 {read_int_array(size)};
+    pair<int, int> result {compare_triplets(array1, array2)};
+    cout << result.first << ' ' << result.second;
 
     return 0;
 }
 
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
-}
-
-vector<string> split(const string &str) {
-    vector<string> tokens;
-
-    string::size_type start = 0;
-    string::size_type end = 0;
-
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-
-        start = end + 1;
+    vector<int> read_int_array(const int size)
+    {
+        vector<int> array(size);
+        generate(array.begin(), array.end(), [] {int n; cin >> n; return n;});
+        return array;
     }
 
-    tokens.push_back(str.substr(start));
+    pair<int, int> compare_triplets(const vector<int>& array1, const vector<int>& array2)
+    {
+        int player1 {}, player2 {};
 
-    return tokens;
-}
+        for (int n = array1.size(); n--;)
+            if (array1.at(n) > array2.at(n))
+                player1++;
+            else if (array2.at(n) > array1.at(n))
+                player2++;
+
+        return pair{player1, player2};
+    }

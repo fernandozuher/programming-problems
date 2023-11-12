@@ -1,36 +1,28 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-#
-# Complete the 'compareTriplets' function below.
-#
-# The function is expected to return an INTEGER_ARRAY.
-# The function accepts following parameters:
-#  1. INTEGER_ARRAY a
-#  2. INTEGER_ARRAY b
-#
-
-def compareTriplets a, b
-    player1, player2 = 0, 0
-
-    a.zip(b).each do |number1, number2|
-        if number1 > number2
-            player1 += 1
-        elsif number2 > number1
-            player2 += 1
-        end
-    end
-    [player1, player2]
+def main
+    array1 = read_an_int_array
+    array2 = read_an_int_array
+    result = compare_triplets(array1, array2)
+    puts "#{result[0]} #{result[1]}"
 end
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+    def read_an_int_array
+        gets.split.map(&:to_i)
+    end
 
-a = gets.rstrip.split.map(&:to_i)
+    def compare_triplets(array1, array2)
+        player1, player2 = 0, 0
 
-b = gets.rstrip.split.map(&:to_i)
+        array1.zip(array2).each do |val1, val2|
+            if val1 > val2
+                player1 += 1
+            elsif val2 > val1
+                player2 += 1
+            end
+        end
 
-result = compareTriplets a, b
+        [player1, player2]
+    end
 
-fptr.write result.join " "
-fptr.write "\n"
-
-fptr.close()
+main
