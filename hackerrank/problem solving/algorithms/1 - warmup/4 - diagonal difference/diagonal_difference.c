@@ -1,177 +1,43 @@
-#include <math.h>
-#include <stdbool.h>
+// https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+
 #include <stdio.h>
 #include <stdlib.h>
 
-char* readline();
-char* ltrim(char*);
-char* rtrim(char*);
-char** split_string(char*);
-
-int parse_int(char*);
-
-/*
- * Complete the 'diagonal_difference' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
-
-int diagonal_difference(int arr_rows, int arr_columns, int** arr) {
-    int primary_diagonal = 0, secondary_diagonal = 0;
-
-    for (int i = 0, j = arr_rows - 1; i < arr_rows; i++, j--) {
-        primary_diagonal += arr[j][j];
-        secondary_diagonal += arr[j][i];
-    }
-    return abs(primary_diagonal - secondary_diagonal);
-}
+int** read_matrix(const int n);
+int diagonal_difference(int **matrix, const int n_lines_columns);
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    int n;
+    scanf("%d", &n);
 
-    int n = parse_int(ltrim(rtrim(readline())));
-
-    int** arr = malloc(n * sizeof(int*));
-
-    for (int i = 0; i < n; i++) {
-        *(arr + i) = malloc(n * (sizeof(int)));
-
-        char** arr_item_temp = split_string(rtrim(readline()));
-
-        for (int j = 0; j < n; j++) {
-            int arr_item = parse_int(*(arr_item_temp + j));
-
-            *(*(arr + i) + j) = arr_item;
-        }
-    }
-
-    int result = diagonal_difference(n, n, arr);
-
-    fprintf(fptr, "%d\n", result);
-
-    fclose(fptr);
+    int **matrix = read_matrix(n);
+    printf("%d\n", diagonal_difference(matrix, n));
 
     return 0;
 }
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
+    int** read_matrix(const int n)
+    {
+        int **matrix = (int**) calloc(n, sizeof(int*));
+        for (int i = 0; i < n; ++i)
+            matrix[i] = (int*) calloc(n, sizeof(int));
 
-    char* data = malloc(alloc_length);
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < n; ++j)
+                scanf("%d", &matrix[i][j]);
 
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
+        return matrix;
+    }
 
-        if (!line) {
-            break;
+    int diagonal_difference(int **matrix, const int n_lines_columns)
+    {
+        int primary_diagonal = 0, secondary_diagonal = 0;
+
+        for (int i = 0, j = n_lines_columns - 1; i < n_lines_columns; ++i, --j) {
+            primary_diagonal += matrix[j][j];
+            secondary_diagonal += matrix[j][i];
         }
 
-        data_length += strlen(cursor);
-
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') {
-            break;
-        }
-
-        alloc_length <<= 1;
-
-        data = realloc(data, alloc_length);
-
-        if (!data) {
-            data = '\0';
-
-            break;
-        }
+        return abs(primary_diagonal - secondary_diagonal);
     }
-
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
-
-        data = realloc(data, data_length);
-
-        if (!data) {
-            data = '\0';
-        }
-    } else {
-        data = realloc(data, data_length + 1);
-
-        if (!data) {
-            data = '\0';
-        } else {
-            data[data_length] = '\0';
-        }
-    }
-
-    return data;
-}
-
-char* ltrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    while (*str != '\0' && isspace(*str)) {
-        str++;
-    }
-
-    return str;
-}
-
-char* rtrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    char* end = str + strlen(str) - 1;
-
-    while (end >= str && isspace(*end)) {
-        end--;
-    }
-
-    *(end + 1) = '\0';
-
-    return str;
-}
-
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-
-        if (!splits) {
-            return splits;
-        }
-
-        splits[spaces - 1] = token;
-
-        token = strtok(NULL, " ");
-    }
-
-    return splits;
-}
-
-int parse_int(char* str) {
-    char* endptr;
-    int value = strtol(str, &endptr, 10);
-
-    if (endptr == str || *endptr != '\0') {
-        exit(EXIT_FAILURE);
-    }
-
-    return value;
-}

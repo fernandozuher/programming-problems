@@ -1,48 +1,36 @@
+// https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+
 using System;
-
-class Result
-{
-
-    /*
-     * Complete the 'diagonalDifference' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts 2D_INTEGER_ARRAY arr as parameter.
-     */
-
-    public static int diagonalDifference(List<List<int>> arr)
-    {
-        int primaryDiagonal = 0, secondaryDiagonal = 0;
-
-        for (int i = 0, j = arr.Count - 1, n = arr.Count; i < n; i++, j--)
-        {
-            primaryDiagonal += arr[j][j];
-            secondaryDiagonal += arr[j][i];
-        }
-        return Math.Abs(primaryDiagonal - secondaryDiagonal);
-    }
-}
+using System.Collections.Generic;
+using System.Linq;
 
 class Solution
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+        int n = int.Parse(Console.ReadLine());
+        List<List<int>> matrix = _readMatrix(n);
+        Console.WriteLine("{0}", _diagonalDifference(matrix));
+    }
 
-        int n = Convert.ToInt32(Console.ReadLine().Trim());
-
-        List<List<int>> arr = new List<List<int>>();
-
-        for (int i = 0; i < n; i++)
+        private static List<List<int>> _readMatrix(int n)
         {
-            arr.Add(Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList());
+            var matrix = new List<List<int>>();
+            while (n-- > 0)
+                matrix.Add(Console.ReadLine().Split(" ").Select(int.Parse).ToList());
+            return matrix;
         }
 
-        int result = Result.diagonalDifference(arr);
+        private static int _diagonalDifference(List<List<int>> matrix)
+        {
+            int primaryDiagonal = 0, secondaryDiagonal = 0;
 
-        textWriter.WriteLine(result);
+            for (int i = 0, j = matrix.Count - 1, n = matrix.Count; i < n; ++i, --j)
+            {
+                primaryDiagonal += matrix[j][j];
+                secondaryDiagonal += matrix[j][i];
+            }
 
-        textWriter.Flush();
-        textWriter.Close();
-    }
+            return Math.Abs(primaryDiagonal - secondaryDiagonal);
+        }
 }

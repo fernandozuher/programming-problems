@@ -1,84 +1,39 @@
+// https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+
 package main
 
 import (
-    "bufio"
     "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
     "math"
 )
 
-/*
- * Complete the 'diagonalDifference' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
-
-func diagonalDifference(arr [][]int32) int32 {
-    var primaryDiagonal, secondaryDiagonal int32 = 0, 0
-
-    for i, j, n := 0, len(arr)-1, len(arr); i < n; i, j = i+1, j-1 {
-        primaryDiagonal += arr[j][j]
-        secondaryDiagonal += arr[j][i]
-    }
-    var result int32 = int32(math.Abs(float64(primaryDiagonal) - float64(secondaryDiagonal)))
-    return result
-}
-
 func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
+    var n int
+    fmt.Scan(&n)
+    var matrix [][]int = readMatrix(n)
+    fmt.Println(diagonalDifference(matrix))
+}
 
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
+    func readMatrix(n int) [][]int {
+        matrix := make([][]int, n)
 
-    defer stdout.Close()
-
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
-
-    nTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-    checkError(err)
-    n := int32(nTemp)
-
-    var arr [][]int32
-    for i := 0; i < int(n); i++ {
-        arrRowTemp := strings.Split(strings.TrimRight(readLine(reader)," \t\r\n"), " ")
-
-        var arrRow []int32
-        for _, arrRowItem := range arrRowTemp {
-            arrItemTemp, err := strconv.ParseInt(arrRowItem, 10, 64)
-            checkError(err)
-            arrItem := int32(arrItemTemp)
-            arrRow = append(arrRow, arrItem)
+        for i := range matrix {
+            matrix[i] = make([]int, n)
+            for j := 0; j < n; j++ {
+                fmt.Scan(&matrix[i][j])
+            }
         }
 
-        if len(arrRow) != int(n) {
-            panic("Bad input")
+        return matrix
+    }
+
+    func diagonalDifference(matrix [][]int) int {
+        var primaryDiagonal, secondaryDiagonal int = 0, 0
+
+        for i, j, n := 0, len(matrix)-1, len(matrix); i < n; i, j = i+1, j-1 {
+            primaryDiagonal += matrix[j][j]
+            secondaryDiagonal += matrix[j][i]
         }
 
-        arr = append(arr, arrRow)
+        return int(math.Abs(float64(primaryDiagonal) - float64(secondaryDiagonal)))
     }
-
-    result := diagonalDifference(arr)
-
-    fmt.Fprintf(writer, "%d\n", result)
-
-    writer.Flush()
-}
-
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
-    }
-
-    return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-    if err != nil {
-        panic(err)
-    }
-}

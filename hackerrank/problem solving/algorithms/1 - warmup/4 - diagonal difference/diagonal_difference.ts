@@ -1,6 +1,7 @@
+// https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -15,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,37 +23,26 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-/*
- * Complete the 'diagonalDifference' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
-
-function diagonalDifference(arr: number[][]): number {
-    let [primaryDiagonal, secondaryDiagonal]: number[] = [0, 0];
-
-    for (let i = 0, j = arr.length - 1, n = arr.length; i < n; i++, j--) {
-        primaryDiagonal += arr[j][j];
-        secondaryDiagonal += arr[j][i];
-    }
-    return Math.abs(primaryDiagonal - secondaryDiagonal);
-}
-
 function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+    let n: number = +readLine();
+    let matrix: number[][] = readMatrix(n);
+    console.log(diagonalDifference(matrix));
+}
 
-    const n: number = parseInt(readLine().trim(), 10);
-
-    let arr: number[][] = Array(n);
-
-    for (let i: number = 0; i < n; i++) {
-        arr[i] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    function readMatrix(n: number): number[][] {
+        let matrix: number[][] = [];
+        for (let i = 0; i < n; ++i)
+            matrix.push(readLine().split(' ').map(Number));
+        return matrix;
     }
 
-    const result: number = diagonalDifference(arr);
+    function diagonalDifference(matrix: number[][]): number {
+        let [primaryDiagonal, secondaryDiagonal]: number[] = [0, 0];
 
-    ws.write(result + '\n');
+        for (let i = 0, j = matrix.length - 1, n = matrix.length; i < n; ++i, --j) {
+            primaryDiagonal += matrix[j][j];
+            secondaryDiagonal += matrix[j][i];
+        }
 
-    ws.end();
-}
+        return Math.abs(primaryDiagonal - secondaryDiagonal);
+    }
