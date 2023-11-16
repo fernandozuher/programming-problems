@@ -1,25 +1,13 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
-#
-# Complete the 'aVeryBigSum' function below.
-#
-# The function is expected to return a LONG_INTEGER.
-# The function accepts LONG_INTEGER_ARRAY ar as parameter.
-#
-
-def aVeryBigSum arr
-    arr.sum
+def main
+    n = gets.to_i
+    array = gets.split.map(&:to_i)
+    puts a_very_big_sum(array)
 end
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+def a_very_big_sum(array)
+    array.sum
+end
 
-ar_count = gets.strip.to_i
-
-ar = gets.rstrip.split.map(&:to_i)
-
-result = aVeryBigSum ar
-
-fptr.write result
-fptr.write "\n"
-
-fptr.close()
+main
