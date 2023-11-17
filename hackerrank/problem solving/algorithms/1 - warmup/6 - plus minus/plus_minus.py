@@ -1,34 +1,33 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-#
-# Complete the 'plusMinus' function below.
-#
-# The function accepts INTEGER_ARRAY arr as parameter.
-#
+def main():
 
-def plusMinus(arr):
-    positiveQuantity, negativeQuantity, zeroQuantity = 0, 0, 0
+    n = int(input())
+    array = list(map(int, input().split()))
+    plus_minus(array)
 
-    for number in arr:
+
+def plus_minus(array):
+
+    positive_quantity, negative_quantity, zero_quantity = 0, 0, 0
+
+    for number in array:
         if number > 0:
-            positiveQuantity += 1
+            positive_quantity += 1
         elif number < 0:
-            negativeQuantity += 1
+            negative_quantity += 1
         else:
-            zeroQuantity += 1
+            zero_quantity += 1
 
-    n = len(arr)
-    positiveValuesProportion = float(positiveQuantity / n)
-    negativeValuesProportion = float(negativeQuantity / n)
-    zeroValuesProportion = float(zeroQuantity / n)
+    n = len(array)
+    positive_values_proportion = float(positive_quantity / n)
+    negative_values_proportion = float(negative_quantity / n)
+    zero_values_proportion = float(zero_quantity / n)
     
-    print("%.6f" % positiveValuesProportion)
-    print("%.6f" % negativeValuesProportion)
-    print("%.6f" % zeroValuesProportion)
+    print("%.6f" % positive_values_proportion)
+    print("%.6f" % negative_values_proportion)
+    print("%.6f" % zero_values_proportion)
+
 
 if __name__ == '__main__':
-    n = int(input().strip())
-
-    arr = list(map(int, input().rstrip().split()))
-
-    plusMinus(arr)
+    main()

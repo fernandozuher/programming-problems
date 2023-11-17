@@ -1,34 +1,32 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-#
-# Complete the 'plusMinus' function below.
-#
-# The function accepts INTEGER_ARRAY arr as parameter.
-#
-
-def plusMinus arr
-    positiveQuantity, negativeQuantity, zeroQuantity = 0, 0, 0
-
-    for number in arr
-        if number > 0
-            positiveQuantity += 1
-        elsif number < 0
-            negativeQuantity += 1
-        else
-            zeroQuantity += 1
-        end
-    end
-
-    n = arr.length.to_f
-    positiveValuesProportion = positiveQuantity / n
-    negativeValuesProportion = negativeQuantity / n
-    zeroValuesProportion = zeroQuantity / n
-    
-    printf "%.6f\n", positiveValuesProportion
-    printf "%.6f\n", negativeValuesProportion
-    printf "%.6f\n", zeroValuesProportion
+def main
+    n = gets.to_i
+    array = gets.split.map(&:to_i)
+    plus_minus(array)
 end
 
-n = gets.strip.to_i
-arr = gets.rstrip.split.map(&:to_i)
-plusMinus arr
+    def plus_minus(array)
+        positive_quantity, negative_quantity, zero_quantity = 0, 0, 0
+
+        for number in array
+            if number > 0
+                positive_quantity += 1
+            elsif number < 0
+                negative_quantity += 1
+            else
+                zero_quantity += 1
+            end
+        end
+
+        n = array.length.to_f
+        positive_values_proportion = positive_quantity / n
+        negative_values_proportion = negative_quantity / n
+        zero_values_proportion = zero_quantity / n
+        
+        printf "%.6f\n", positive_values_proportion
+        printf "%.6f\n", negative_values_proportion
+        printf "%.6f\n", zero_values_proportion
+    end
+
+main

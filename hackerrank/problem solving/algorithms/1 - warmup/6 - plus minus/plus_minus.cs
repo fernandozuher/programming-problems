@@ -1,45 +1,44 @@
+// https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Result
+public class Solution
 {
+    public static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        List<int> array = _readAnIntArray();
+        _plusMinus(array);
+    }
 
-    /*
-     * Complete the 'plusMinus' function below.
-     *
-     * The function accepts INTEGER_ARRAY arr as parameter.
-     */
+    private static List<int> _readAnIntArray()
+    {
+        return Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+    }
 
-    public static void plusMinus(List<int> arr)
+    private static void _plusMinus(List<int> array)
     {
         int positiveQuantity = 0;
         int negativeQuantity = 0;
         int zeroQuantity = 0;
 
-        foreach (var number in arr)
+        foreach (int number in array)
             if (number > 0)
-                positiveQuantity++;
+                ++positiveQuantity;
             else if (number < 0)
-                negativeQuantity++;
+                ++negativeQuantity;
             else
-                zeroQuantity++;
+                ++zeroQuantity;
 
-        int n = arr.Count;
-        float positiveValuesProportion = (float) positiveQuantity / n;
-        float negativeValuesProportion = (float) negativeQuantity / n;
-        float zeroValuesProportion = (float) zeroQuantity / n;
+        int n = array.Count;
+        double positiveValuesProportion = (double) positiveQuantity / n;
+        double negativeValuesProportion = (double) negativeQuantity / n;
+        double zeroValuesProportion = (double) zeroQuantity / n;
 
         Console.WriteLine("{0:0.000000}", positiveValuesProportion);
         Console.WriteLine("{0:0.000000}", negativeValuesProportion);
         Console.WriteLine("{0:0.000000}", zeroValuesProportion);
-    }
-}
-
-class Solution
-{
-    public static void Main(string[] args)
-    {
-        int n = Convert.ToInt32(Console.ReadLine().Trim());
-        List<int> arr = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList();
-        Result.plusMinus(arr);
     }
 }

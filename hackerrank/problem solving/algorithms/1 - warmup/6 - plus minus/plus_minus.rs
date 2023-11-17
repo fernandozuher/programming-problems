@@ -1,49 +1,48 @@
-use std::io::{self, BufRead};
+// https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-/*
- * Complete the 'plusMinus' function below.
- *
- * The function accepts INTEGER_ARRAY arr as parameter.
- */
+use std::io::{stdin, BufRead};
+use text_io::read;
 
-fn plusMinus(arr: &[i32]) {
-    let mut positiveQuantity: i32 = 0;
-    let mut negativeQuantity: i32 = 0;
-    let mut zeroQuantity: i32 = 0;
+fn main() {
+    let n: i32 = read!();
+    let array: Vec<i32> = read_int_array();
+    plus_minus(&array);
+}
 
-    for number in arr {
+fn read_int_array() -> Vec<i32> {
+    return stdin()
+        .lock()
+        .lines()
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .split(' ')
+        .map(|s| s.parse().unwrap())
+        .collect();
+}
+
+fn plus_minus(array: &Vec<i32>) {
+    let mut positive_quantity: i32 = 0;
+    let mut negative_quantity: i32 = 0;
+    let mut zero_quantity: i32 = 0;
+
+    for number in array {
         if number > &0 {
-            positiveQuantity += 1;
-        }
-        else if number < &0 {
-            negativeQuantity += 1;
-        }
-        else {
-            zeroQuantity += 1;
+            positive_quantity += 1;
+        } else if number < &0 {
+            negative_quantity += 1;
+        } else {
+            zero_quantity += 1;
         }
     }
 
-    let n = arr.len() as f32;
-    let positiveValuesProportion = (positiveQuantity as f32) / n;
-    let negativeValuesProportion = (negativeQuantity as f32) / n;
-    let zeroValuesProportion = (zeroQuantity as f32) / n;
-    
-    println!("{:.6}", positiveValuesProportion);
-    println!("{:.6}", negativeValuesProportion);
-    println!("{:.6}", zeroValuesProportion);
-}
+    let n = array.len() as f32;
+    let positive_values_proportion = (positive_quantity as f32) / n;
+    let negative_values_proportion = (negative_quantity as f32) / n;
+    let zero_values_proportion = (zero_quantity as f32) / n;
 
-fn main() {
-    let stdin = io::stdin();
-    let mut stdin_iterator = stdin.lock().lines();
-
-    let n = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
-
-    let arr: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
-        .trim_end()
-        .split(' ')
-        .map(|s| s.to_string().parse::<i32>().unwrap())
-        .collect();
-
-    plusMinus(&arr);
+    println!("{:.6}", positive_values_proportion);
+    println!("{:.6}", negative_values_proportion);
+    println!("{:.6}", zero_values_proportion);
 }
