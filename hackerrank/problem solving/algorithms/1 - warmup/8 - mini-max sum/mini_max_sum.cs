@@ -1,28 +1,23 @@
+// https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Result
+public class Solution
 {
-    /*
-     * Complete the 'miniMaxSum' function below.
-     *
-     * The function accepts INTEGER_ARRAY arr as parameter.
-     */
-
-    public static void miniMaxSum(List<int> arr)
+    public static void Main()
     {
-        arr.Sort();
-        long totalSum = arr.Aggregate(0L, (sum, num) => sum + num);
-        long minSum = totalSum - arr.Last();
-        long maxSum = totalSum - arr.First();
-        Console.WriteLine("{0} {1}", minSum, maxSum);
+        List<int> array = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+        array.Sort();
+        _miniMaxSum(array);
     }
-}
 
-class Solution
-{
-    public static void Main(string[] args)
-    {
-        List<int> arr = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList();
-        Result.miniMaxSum(arr);
-    }
+        private static void _miniMaxSum(List<int> array)
+        {
+            long totalSum = array.Aggregate(0L, (sum, num) => sum + num);
+            long minSum = totalSum - array.Last();
+            long maxSum = totalSum - array.First();
+            Console.WriteLine("{0} {1}", minSum, maxSum);
+        }
 }

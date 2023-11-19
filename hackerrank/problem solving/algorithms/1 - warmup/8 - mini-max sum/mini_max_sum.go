@@ -1,68 +1,34 @@
+// https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
+
 package main
 
 import (
-    "bufio"
     "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
     "sort"
 )
 
-/*
- * Complete the 'miniMaxSum' function below.
- *
- * The function accepts INTEGER_ARRAY arr as parameter.
- */
-
-func miniMaxSum(arr []int32) {
-    
-    arr2 := make([]int, len(arr))
-    for i, value := range arr {
-        arr2[i] = int(value)
-    }
-
-    sort.Ints(arr2[:])
-
-    var totalSum int = 0
-    for _, number := range arr {
-        totalSum += int(number)
-    }
-
-    minSum := totalSum - arr2[len(arr) - 1]
-    maxSum := totalSum - arr2[0]
-    fmt.Printf("%d %d", minSum, maxSum)
-}
-
 func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
-
-    arrTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    var arr []int32
-
-    for i := 0; i < 5; i++ {
-        arrItemTemp, err := strconv.ParseInt(arrTemp[i], 10, 64)
-        checkError(err)
-        arrItem := int32(arrItemTemp)
-        arr = append(arr, arrItem)
-    }
-
-    miniMaxSum(arr)
+    const n int = 5
+    var array []int = readIntArray(n)
+    sort.Ints(array)
+    miniMaxSum(array)
 }
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scan(&array[i])
+        }
+        return array
     }
 
-    return strings.TrimRight(string(str), "\r\n")
-}
+    func miniMaxSum(array []int) {
+        var totalSum int = 0
+        for _, value := range array {
+            totalSum += value
+        }
 
-func checkError(err error) {
-    if err != nil {
-        panic(err)
+        var minSum int = totalSum - array[len(array)-1]
+        var maxSum int = totalSum - array[0]
+        fmt.Printf("%d %d", minSum, maxSum)
     }
-}

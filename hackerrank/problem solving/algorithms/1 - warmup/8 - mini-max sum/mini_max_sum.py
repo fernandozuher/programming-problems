@@ -1,18 +1,19 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-#
-# Complete the 'miniMaxSum' function below.
-#
-# The function accepts INTEGER_ARRAY arr as parameter.
-#
+def main():
 
-def miniMaxSum(arr):
-    arr = sorted(arr)
-    totalSum = sum(arr)
-    minSum = totalSum - arr[-1]
-    maxSum = totalSum - arr[0]
-    print(f"{minSum} {maxSum}")
+    array = list(map(int, input().split()))
+    array.sort()
+    mini_max_sum(array)
+
+
+def mini_max_sum(array):
+
+    total_sum = sum(array)
+    min_sum = total_sum - array[-1]
+    max_sum = total_sum - array[0]
+    print(f"{min_sum} {max_sum}")
+
 
 if __name__ == '__main__':
-    arr = list(map(int, input().rstrip().split()))
-    miniMaxSum(arr)
+    main()

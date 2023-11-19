@@ -1,34 +1,33 @@
-use std::io::{self, BufRead};
+// https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-/*
- * Complete the 'mini_max_sum' function below.
- *
- * The function accepts INTEGER_ARRAY arr as parameter.
- */
-
-fn mini_max_sum(arr: &[i32]) {
-    let arr2: &mut[i32] = &mut arr.to_owned();
-    arr2.sort();
-
-    let mut total_sum: i64 = 0;
-    for number in arr2.iter() {
-        total_sum += *number as i64;
-    }
-
-    let min_sum: i64 = total_sum - arr2[arr2.len() - 1] as i64;
-    let max_sum: i64 = total_sum - arr2[0] as i64;
-    println!("{} {}", min_sum, max_sum);
-}
+use std::io::{stdin, BufRead};
 
 fn main() {
-    let stdin = io::stdin();
-    let mut stdin_iterator = stdin.lock().lines();
+    let mut array: Vec<i64> = read_int_array();
+    array.sort();
+    mini_max_sum(&array);
+}
 
-    let arr: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
-        .trim_end()
+fn read_int_array() -> Vec<i64> {
+    return stdin()
+        .lock()
+        .lines()
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
         .split(' ')
-        .map(|s| s.to_string().parse::<i32>().unwrap())
+        .map(|s| s.parse().unwrap())
         .collect();
+}
 
-    mini_max_sum(&arr);
+fn mini_max_sum(array: &Vec<i64>) {
+    let mut total_sum: i64 = 0;
+    for n in array.iter() {
+        total_sum += *n;
+    }
+
+    let min_sum: i64 = total_sum - array[array.len() - 1];
+    let max_sum: i64 = total_sum - array[0];
+    println!("{} {}", min_sum, max_sum);
 }

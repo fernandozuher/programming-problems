@@ -1,18 +1,16 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-#
-# Complete the 'miniMaxSum' function below.
-#
-# The function accepts INTEGER_ARRAY arr as parameter.
-#
-
-def miniMaxSum(arr)
-    arr = arr.sort
-    totalSum = arr.sum
-    minSum = totalSum - arr[-1]
-    maxSum = totalSum - arr[0]
-    puts "#{minSum} #{maxSum}"
+def main
+    array = gets.split.map(&:to_i)
+    array.sort!
+    mini_max_sum(array)
 end
 
-arr = gets.rstrip.split.map(&:to_i)
-miniMaxSum arr
+    def mini_max_sum(array)
+        total_sum = array.sum
+        min_sum = total_sum - array[-1]
+        max_sum = total_sum - array[0]
+        puts "#{min_sum} #{max_sum}"
+    end
+
+main
