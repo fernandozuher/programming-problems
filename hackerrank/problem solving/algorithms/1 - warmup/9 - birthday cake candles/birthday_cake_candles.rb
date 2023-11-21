@@ -1,26 +1,17 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
-#
-# Complete the 'birthdayCakeCandles' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts INTEGER_ARRAY candles as parameter.
-#
-
-def birthdayCakeCandles candles
-    maxElement = candles.max
-    candles.count maxElement
+def main
+    n = gets.to_i
+    array = read_int_array
+    puts birthday_cake_candles(array)
 end
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+    def read_int_array
+        gets.split.map(&:to_i)
+    end
 
-candles_count = gets.strip.to_i
+    def birthday_cake_candles(candles)
+        candles.count(candles.max)
+    end
 
-candles = gets.rstrip.split.map(&:to_i)
-
-result = birthdayCakeCandles candles
-
-fptr.write result
-fptr.write "\n"
-
-fptr.close()
+main

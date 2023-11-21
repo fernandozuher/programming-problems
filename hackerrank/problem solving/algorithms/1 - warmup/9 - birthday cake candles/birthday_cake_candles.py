@@ -1,32 +1,21 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
-import math
-import os
-import random
-import re
-import sys
+def main():
 
-#
-# Complete the 'birthdayCakeCandles' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts INTEGER_ARRAY candles as parameter.
-#
+    n = int(input())
+    array = read_int_array()
+    print(birthday_cake_candles(array))
 
-def birthdayCakeCandles(candles):
-    maxElement = max(candles)
-    count = candles.count(maxElement)
-    return count
+
+def read_int_array():
+
+    return list(map(int, input().split()))
+
+
+def birthday_cake_candles(candles):
+
+    return candles.count(max(candles))
+
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    candles_count = int(input().strip())
-
-    candles = list(map(int, input().rstrip().split()))
-
-    result = birthdayCakeCandles(candles)
-
-    fptr.write(str(result) + '\n')
-
-    fptr.close()
+    main()

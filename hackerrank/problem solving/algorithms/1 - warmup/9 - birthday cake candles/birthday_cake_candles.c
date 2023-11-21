@@ -1,180 +1,45 @@
-#include <ctype.h>
-#include <stdbool.h>
+// https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-char* readline();
-char* ltrim(char*);
-char* rtrim(char*);
-char** split_string(char*);
-
-int parse_int(char*);
-
-/*
- * Complete the 'birthday_cake_candles' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY candles as parameter.
- */
-
-int compare (const void * a, const void * b) {
-    return ( *(int*)a - * (int*)b );
-}
-
-int birthday_cake_candles(int candles_count, int* candles) {
-    qsort(candles, candles_count, sizeof(int), compare);
-
-    int last_index = candles_count - 1;
-    int max_element = candles[last_index];
-    int i;
-    for (i = last_index; i >= 0 && candles[i] == max_element; i--);
-
-    int minimum_index_max_element = i == -1 ? candles_count : candles_count - i - 1;
-    return minimum_index_max_element;
-}
+int* read_int_array(const int n);
+int compare (const void *a, const void *b);
+int birthday_cake_candles(int* candles, const int n);
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    int n;
+    scanf("%d", &n);
 
-    int candles_count = parse_int(ltrim(rtrim(readline())));
+    int *array = read_int_array(n);
 
-    char** candles_temp = split_string(rtrim(readline()));
-
-    int* candles = malloc(candles_count * sizeof(int));
-
-    for (int i = 0; i < candles_count; i++) {
-        int candles_item = parse_int(*(candles_temp + i));
-
-        *(candles + i) = candles_item;
-    }
-
-    int result = birthday_cake_candles(candles_count, candles);
-
-    fprintf(fptr, "%d\n", result);
-
-    fclose(fptr);
+    qsort(array, n, sizeof(int), compare);
+    printf("%d", birthday_cake_candles(array, n));
 
     return 0;
 }
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
-
-    char* data = malloc(alloc_length);
-
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
-
-        if (!line) {
-            break;
-        }
-
-        data_length += strlen(cursor);
-
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') {
-            break;
-        }
-
-        alloc_length <<= 1;
-
-        data = realloc(data, alloc_length);
-
-        if (!data) {
-            data = '\0';
-
-            break;
-        }
-    }
-
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
-
-        data = realloc(data, data_length);
-
-        if (!data) {
-            data = '\0';
-        }
-    } else {
-        data = realloc(data, data_length + 1);
-
-        if (!data) {
-            data = '\0';
-        } else {
-            data[data_length] = '\0';
-        }
-    }
-
-    return data;
+int* read_int_array(const int n)
+{
+    int *array = (int*) calloc(n, sizeof(int));
+    for (int i = 0; i < n; scanf("%d", &array[i++]));
+    return array;
 }
 
-char* ltrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    while (*str != '\0' && isspace(*str)) {
-        str++;
-    }
-
-    return str;
+int compare (const void *a, const void *b)
+{
+    return (*(int*) a - * (int*) b);
 }
 
-char* rtrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
+int birthday_cake_candles(int* candles, const int n)
+{
+    int last_index = n - 1;
+    int max_element = candles[last_index];
+    int i;
 
-    if (!*str) {
-        return str;
-    }
+    for (i = last_index; i >= 0 && candles[i] == max_element; --i);
 
-    char* end = str + strlen(str) - 1;
-
-    while (end >= str && isspace(*end)) {
-        end--;
-    }
-
-    *(end + 1) = '\0';
-
-    return str;
-}
-
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-
-        if (!splits) {
-            return splits;
-        }
-
-        splits[spaces - 1] = token;
-
-        token = strtok(NULL, " ");
-    }
-
-    return splits;
-}
-
-int parse_int(char* str) {
-    char* endptr;
-    int value = strtol(str, &endptr, 10);
-
-    if (endptr == str || *endptr != '\0') {
-        exit(EXIT_FAILURE);
-    }
-
-    return value;
+    int minimum_index_max_element = i == -1 ? n : n - i - 1;
+    return minimum_index_max_element;
 }

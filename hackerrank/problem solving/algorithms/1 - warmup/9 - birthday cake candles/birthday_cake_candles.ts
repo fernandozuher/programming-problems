@@ -1,6 +1,7 @@
+// https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
+
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -15,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,29 +23,18 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-/*
- * Complete the 'birthdayCakeCandles' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY candles as parameter.
- */
-
-function birthdayCakeCandles(candles: number[]): number {
-    const maxElement = Math.max(...candles);
-    const count = candles.filter(number => number === maxElement).length;
-    return count;
+function main() {
+    let n: number = +readLine();
+    let array: number[] = readIntArray();
+    console.log(birthdayCakeCandles(array));
 }
 
-function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+function readIntArray(): number[] {
+    return readLine().split(' ').map(Number);
+}
 
-    const candlesCount: number = parseInt(readLine().trim(), 10);
-
-    const candles: number[] = readLine().replace(/\s+$/g, '').split(' ').map(candlesTemp => parseInt(candlesTemp, 10));
-
-    const result: number = birthdayCakeCandles(candles);
-
-    ws.write(result + '\n');
-
-    ws.end();
+function birthdayCakeCandles(candles: number[]): number {
+    let maxElement: number = Math.max(...candles);
+    let count: number = candles.filter(number => number === maxElement).length;
+    return count;
 }
