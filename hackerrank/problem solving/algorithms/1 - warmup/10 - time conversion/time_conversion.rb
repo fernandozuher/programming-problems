@@ -1,36 +1,27 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 
-#
-# Complete the 'timeConversion' function below.
-#
-# The function is expected to return a STRING.
-# The function accepts STRING s as parameter.
-#
-
-def timeConversion time
-    convertedTime = time[0, 8]
-    hourString = time[0, 2]
-    periodOfDay = time[8, 1]
-
-    if hourString == "12"
-        if periodOfDay == "A"
-            convertedTime[0, 2] = "00"
-        end
-    elsif periodOfDay == "P"
-        hour = hourString.to_i
-        hour += 12
-        convertedTime[0, 2] = hour.to_s
-    end
-    convertedTime
+def main
+    time = gets
+    puts time_conversion(time)
 end
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+    def time_conversion(time)
+        converted_time = time[0, 8]
+        hour = time[0, 2]
+        dayPeriod = time[8, 1]
 
-s = gets.chomp
+        if hour == "12"
+            if dayPeriod == "A"
+                midnight = "00"
+                converted_time[0, 2] = midnight
+            end
+        elsif dayPeriod == "P"
+            new_hour = hour.to_i
+            new_hour += 12
+            converted_time[0, 2] = new_hour.to_s
+        end
 
-result = timeConversion s
+        converted_time
+    end
 
-fptr.write result
-fptr.write "\n"
-
-fptr.close()
+main

@@ -1,47 +1,36 @@
+// https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
+
 using System;
 
-class Result
+public class Solution
 {
-
-    /*
-     * Complete the 'timeConversion' function below.
-     *
-     * The function is expected to return a STRING.
-     * The function accepts STRING s as parameter.
-     */
-
-    public static string timeConversion(string time)
+    public static void Main()
     {
-        string convertedTime = time.Substring(0, 8);
-        string hourString = time.Substring(0, 2);
-        string periodOfDay = time.Substring(8, 1);
-
-        if (hourString == "12") {
-            if (periodOfDay == "A")
-                convertedTime = convertedTime.Replace(hourString, "00");
-        }
-        else if (periodOfDay == "P") {
-            int hour = int.Parse(hourString);
-            hour += 12;
-            convertedTime = convertedTime.Replace(hourString, hour.ToString());
-        }
-        return convertedTime;
+        string time = Console.ReadLine();
+        Console.WriteLine(_timeConversion(time));
     }
-}
 
-class Solution
-{
-    public static void Main(string[] args)
-    {
-        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+        private static string _timeConversion(string time)
+        {
+            string convertedTime = time.Substring(0, 8);
+            string hour = time.Substring(0, 2);
+            string dayPeriod = time.Substring(8, 1);
 
-        string s = Console.ReadLine();
+            if (hour == "12")
+            {
+                if (dayPeriod == "A")
+                {
+                    string midnight = "00";
+                    convertedTime = convertedTime.Replace(hour, midnight);
+                }
+            }
+            else if (dayPeriod == "P")
+            {
+                int newHour = int.Parse(hour);
+                newHour += 12;
+                convertedTime = convertedTime.Replace(hour, newHour.ToString());
+            }
 
-        string result = Result.timeConversion(s);
-
-        textWriter.WriteLine(result);
-
-        textWriter.Flush();
-        textWriter.Close();
-    }
+            return convertedTime;
+        }
 }

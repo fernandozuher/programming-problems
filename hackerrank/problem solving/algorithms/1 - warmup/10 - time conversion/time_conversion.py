@@ -1,36 +1,28 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 
-import os
+def main():
 
-#
-# Complete the 'timeConversion' function below.
-#
-# The function is expected to return a STRING.
-# The function accepts STRING s as parameter.
-#
+    time = input()
+    print(time_conversion(time))
 
-def timeConversion(time):
-    convertedTime = time[:8]
-    hourString = time[:2]
-    periodOfDay = time[8:9]
 
-    if hourString == "12":
-        if periodOfDay == "A":
-            convertedTime = convertedTime.replace(hourString, "00", 1)
-    elif periodOfDay == "P":
-        hour = int(hourString)
-        hour += 12
-        convertedTime = convertedTime.replace(hourString, str(hour), 1)
-    
-    return convertedTime
+def time_conversion(time):
+    converted_time = time[:8]
+    hour = time[:2]
+    period_of_day = time[8:9]
+
+    if hour == "12":
+        if period_of_day == "A":
+            midnight = "00"
+            converted_time = converted_time.replace(hour, midnight, 1)
+
+    elif period_of_day == "P":
+        new_hour = int(hour)
+        new_hour += 12
+        converted_time = converted_time.replace(hour, str(new_hour), 1)
+
+    return converted_time
+
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    s = input()
-
-    result = timeConversion(s)
-
-    fptr.write(result + '\n')
-
-    fptr.close()
+    main()

@@ -1,68 +1,34 @@
+// https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
+
 package main
 
 import (
-    "bufio"
     "fmt"
-    "io"
-    "os"
-    "strings"
     "strconv"
+    "strings"
 )
 
-/*
- * Complete the 'timeConversion' function below.
- *
- * The function is expected to return a STRING.
- * The function accepts STRING s as parameter.
- */
-
-func timeConversion(time string) string {
-    convertedTime := time[0:8]
-    hourString := time[0:2]
-    periodOfDay := time[8:9]
-
-    if hourString == "12" {
-        if periodOfDay == "A" {
-            convertedTime = strings.Replace(convertedTime, hourString, "00", 1)
-        }
-    } else if periodOfDay == "P" {
-        hour, _ := strconv.Atoi(hourString)
-        hour += 12
-        convertedTime = strings.Replace(convertedTime, hourString, strconv.Itoa(hour), 1)
-    }
-    return convertedTime
-}
-
 func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
-
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
-
-    defer stdout.Close()
-
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
-
-    s := readLine(reader)
-
-    result := timeConversion(s)
-
-    fmt.Fprintf(writer, "%s\n", result)
-
-    writer.Flush()
+    var time string
+    fmt.Scan(&time)
+    fmt.Println(timeConversion(time))
 }
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
+    func timeConversion(time string) string {
+        convertedTime := time[0:8]
+        hour := time[0:2]
+        dayPeriod := time[8:9]
+
+        if hour == "12" {
+            if dayPeriod == "A" {
+                midnight := "00"
+                convertedTime = strings.Replace(convertedTime, hour, midnight, 1)
+            }
+        } else if dayPeriod == "P" {
+            newHour, _ := strconv.Atoi(hour)
+            newHour += 12
+            convertedTime = strings.Replace(convertedTime, hour, strconv.Itoa(newHour), 1)
+        }
+
+        return convertedTime
     }
-
-    return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-    if err != nil {
-        panic(err)
-    }
-}
