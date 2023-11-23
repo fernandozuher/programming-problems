@@ -1,50 +1,37 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-#
-# Complete the 'gradingStudents' function below.
-#
-# The function is expected to return an INTEGER_ARRAY.
-# The function accepts INTEGER_ARRAY grades as parameter.
-#
-
-def isZeroRemainder grade
-    grade % 5 == 0
+def main
+    n = gets.to_i
+    array = read_int_array(n)
+    puts grading_students(array)
 end
 
-def gradingStudents grades
-    n = grades.length
-    newGrades = Array.new n
-    minGrade = 38
-
-    for i in 0..n-1
-        if grades[i] < minGrade or isZeroRemainder grades[i]
-            newGrades[i] = grades[i]
-        else
-            quocient = (grades[i] / 5).to_i
-            nextMultiple5 = (quocient + 1) * 5
-            difference = nextMultiple5 - grades[i]
-
-            result = difference < 3 ? nextMultiple5 : grades[i]
-            newGrades[i] = result
-        end
+    def read_int_array(n)
+        Array.new(n){gets.to_i}
     end
-    newGrades
-end
 
-fptr = File.open(ENV['OUTPUT_PATH'], 'w')
+    def grading_students(grades)
+        new_grades = Array.new(grades.length)
+        min_grade = 38
 
-grades_count = gets.strip.to_i
+        grades.size.times do |i|
+            if grades[i] < min_grade or is_zero_remainder(grades[i])
+                new_grades[i] = grades[i]
+            else
+                quocient = (grades[i] / 5).to_i
+                next_multiple5 = (quocient + 1) * 5
+                difference = next_multiple5 - grades[i]
 
-grades = Array.new(grades_count)
+                result = difference < 3 ? next_multiple5 : grades[i]
+                new_grades[i] = result
+            end
+        end
 
-grades_count.times do |i|
-    grades_item = gets.strip.to_i
-    grades[i] = grades_item
-end
+        new_grades
+    end
 
-result = gradingStudents grades
+        def is_zero_remainder(grade)
+            grade % 5 == 0
+        end
 
-fptr.write result.join "\n"
-fptr.write "\n"
-
-fptr.close()
+main

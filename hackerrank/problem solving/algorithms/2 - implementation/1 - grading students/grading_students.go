@@ -1,39 +1,38 @@
+// https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
+
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
-)
+import "fmt"
 
-/*
- * Complete the 'gradingStudents' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY grades as parameter.
- */
-
-func isZeroRemainder(grade int32) bool {
-    return grade % 5 == 0
+func main() {
+    var n int
+    fmt.Scan(&n)
+    var array []int = readIntArray(n)
+    printArray(gradingStudents(array))
 }
 
-func gradingStudents(grades []int32) []int32 {
-    n := len(grades)
-    newGrades := make([]int32, n)
+func readIntArray(n int) []int {
+    array := make([]int, n)
+    for i := range array {
+        fmt.Scan(&array[i])
+    }
+    return array
+}
 
-    for i, minGrade := 0, int32(38); i < n; i++ {
+func gradingStudents(grades []int) []int {
+    n := len(grades)
+    newGrades := make([]int, n)
+
+    for i, minGrade := 0, 38; i < n; i++ {
 
         if grades[i] < minGrade || isZeroRemainder(grades[i]) {
             newGrades[i] = grades[i]
         } else {
-            var quocient int32 = grades[i] / 5
-            nextMultiple5 := (quocient + 1) * 5
-            difference := nextMultiple5 - grades[i]
-            
-            var result int32
+            var quocient int = grades[i] / 5
+            var nextMultiple5 int = (quocient + 1) * 5
+            var difference int = nextMultiple5 - grades[i]
+
+            var result int
             if difference < 3 {
                 result = nextMultiple5
             } else {
@@ -43,57 +42,16 @@ func gradingStudents(grades []int32) []int32 {
             newGrades[i] = result
         }
     }
+
     return newGrades
 }
 
-func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
-
-    stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-    checkError(err)
-
-    defer stdout.Close()
-
-    writer := bufio.NewWriterSize(stdout, 16 * 1024 * 1024)
-
-    gradesCount, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-    checkError(err)
-
-    var grades []int32
-
-    for i := 0; i < int(gradesCount); i++ {
-        gradesItemTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-        checkError(err)
-        gradesItem := int32(gradesItemTemp)
-        grades = append(grades, gradesItem)
-    }
-
-    result := gradingStudents(grades)
-
-    for i, resultItem := range result {
-        fmt.Fprintf(writer, "%d", resultItem)
-
-        if i != len(result) - 1 {
-            fmt.Fprintf(writer, "\n")
-        }
-    }
-
-    fmt.Fprintf(writer, "\n")
-
-    writer.Flush()
+func isZeroRemainder(grade int) bool {
+    return grade%5 == 0
 }
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
-    }
-
-    return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-    if err != nil {
-        panic(err)
+func printArray(array []int) {
+    for i := range array {
+        fmt.Println(array[i])
     }
 }

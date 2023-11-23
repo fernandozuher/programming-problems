@@ -1,49 +1,42 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-import os
+def main():
+    
+    n = int(input())
+    array = read_int_array(n)
+    print(*grading_students(array), sep='\n')
 
-#
-# Complete the 'gradingStudents' function below.
-#
-# The function is expected to return an INTEGER_ARRAY.
-# The function accepts INTEGER_ARRAY grades as parameter.
-#
 
-def isZeroRemainder(grade):
-    return grade % 5 == 0
+def read_int_array(n):
 
-def gradingStudents(grades):
-    N = len(grades)
-    newGrades = [None] * N
+    return [int(input()) for _ in range(n)]
+
+
+def grading_students(grades):
+
+    n = len(grades)
+    new_grades = [None] * n
     MIN_GRADE = 38
 
-    for i in range(N):
-        if grades[i] < MIN_GRADE or isZeroRemainder(grades[i]):
-            newGrades[i] = grades[i]
+    for i in range(n):
+
+        if grades[i] < MIN_GRADE or is_zero_remainder(grades[i]):
+            new_grades[i] = grades[i]
         else:
             quocient = int(grades[i] / 5)
-            nextMultiple5 = (quocient + 1) * 5
-            difference = nextMultiple5 - grades[i]
+            next_multiple5 = (quocient + 1) * 5
+            difference = next_multiple5 - grades[i]
 
-            result = nextMultiple5 if difference < 3 else grades[i]
-            newGrades[i] = result
+            result = next_multiple5 if difference < 3 else grades[i]
+            new_grades[i] = result
 
-    return newGrades
+    return new_grades
+
+
+def is_zero_remainder(grade):
+
+    return grade % 5 == 0
+
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    grades_count = int(input().strip())
-
-    grades = []
-
-    for _ in range(grades_count):
-        grades_item = int(input().strip())
-        grades.append(grades_item)
-
-    result = gradingStudents(grades)
-
-    fptr.write('\n'.join(map(str, result)))
-    fptr.write('\n')
-
-    fptr.close()
+    main()

@@ -1,200 +1,57 @@
+// https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-char* readline();
-char* ltrim(char*);
-char* rtrim(char*);
-
-int parse_int(char*);
-
-/*
- * Complete the 'grading_students' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY grades as parameter.
- */
-
-/*
- * To return the integer array from the function, you should:
- *     - Store the size of the array to be returned in the result_count variable
- *     - Allocate the array statically or dynamically
- *
- * For example,
- * int* return_integer_array_using_static_allocation(int* result_count) {
- *     *result_count = 5;
- *
- *     static int a[5] = {1, 2, 3, 4, 5};
- *
- *     return a;
- * }
- *
- * int* return_integer_array_using_dynamic_allocation(int* result_count) {
- *     *result_count = 5;
- *
- *     int *a = malloc(5 * sizeof(int));
- *
- *     for (int i = 0; i < 5; i++) {
- *         *(a + i) = i + 1;
- *     }
- *
- *     return a;
- * }
- *
- */
-
-bool is_zero_remainder(int grade) {
-    return grade % 5 == 0;
-}
-
-int* grading_students(int grades_count, int* grades, int* result_count) {
-    int *new_grades = (int*) calloc(grades_count, sizeof(int));
-
-    for (int i = 0, min_grade = 38; i < grades_count; i++) {
-
-        if (grades[i] < min_grade || is_zero_remainder(grades[i]))
-            new_grades[i] = grades[i];
-        else {
-            int quocient = grades[i] / 5;
-            int next_multiple_5 = (quocient + 1) * 5;
-            int difference = next_multiple_5 - grades[i];
-
-            int result = difference < 3 ? next_multiple_5 : grades[i];
-            new_grades[i] = result;
-        }
-    }
-    *result_count = grades_count;
-    return new_grades;
-}
+int* read_int_array(const int n);
+int* grading_students(const int *grades, const int n);
+bool is_zero_remainder(const int grade);
+void print_array(const int *array, const int n);
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    int n;
+    scanf("%d", &n);
 
-    int grades_count = parse_int(ltrim(rtrim(readline())));
-
-    int* grades = malloc(grades_count * sizeof(int));
-
-    for (int i = 0; i < grades_count; i++) {
-        int grades_item = parse_int(ltrim(rtrim(readline())));
-
-        *(grades + i) = grades_item;
-    }
-
-    int result_count;
-    int* result = grading_students(grades_count, grades, &result_count);
-
-    for (int i = 0; i < result_count; i++) {
-        fprintf(fptr, "%d", *(result + i));
-
-        if (i != result_count - 1) {
-            fprintf(fptr, "\n");
-        }
-    }
-
-    fprintf(fptr, "\n");
-
-    fclose(fptr);
+    int *array = read_int_array(n);
+    int *result = grading_students(array, n);
+    print_array(result, n);
 
     return 0;
 }
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
+    int* read_int_array(const int n)
+    {
+        int *array = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; scanf("%d", &array[i++]));
+        return array;
+    }
 
-    char* data = malloc(alloc_length);
+    int* grading_students(const int *grades, const int n)
+    {
+        int *new_grades = (int*) calloc(n, sizeof(int));
 
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
+        for (int i = 0, min_grade = 38; i < n; ++i)
 
-        if (!line) {
-            break;
+            if (grades[i] < min_grade || is_zero_remainder(grades[i]))
+                new_grades[i] = grades[i];
+            else {
+                int quocient = grades[i] / 5;
+                int next_multiple_5 = (quocient + 1) * 5;
+                int difference = next_multiple_5 - grades[i];
+                new_grades[i] = difference < 3 ? next_multiple_5 : grades[i];
+            }
+
+        return new_grades;
+    }
+
+        bool is_zero_remainder(const int grade)
+        {
+            return grade % 5 == 0;
         }
 
-        data_length += strlen(cursor);
-
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') {
-            break;
-        }
-
-        alloc_length <<= 1;
-
-        data = realloc(data, alloc_length);
-
-        if (!data) {
-            data = '\0';
-
-            break;
-        }
+    void print_array(const int *array, const int n)
+    {
+        for (int i = 0; i < n; printf("%d\n", array[i++]));
     }
-
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
-
-        data = realloc(data, data_length);
-
-        if (!data) {
-            data = '\0';
-        }
-    } else {
-        data = realloc(data, data_length + 1);
-
-        if (!data) {
-            data = '\0';
-        } else {
-            data[data_length] = '\0';
-        }
-    }
-
-    return data;
-}
-
-char* ltrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    while (*str != '\0' && isspace(*str)) {
-        str++;
-    }
-
-    return str;
-}
-
-char* rtrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    char* end = str + strlen(str) - 1;
-
-    while (end >= str && isspace(*end)) {
-        end--;
-    }
-
-    *(end + 1) = '\0';
-
-    return str;
-}
-
-int parse_int(char* str) {
-    char* endptr;
-    int value = strtol(str, &endptr, 10);
-
-    if (endptr == str || *endptr != '\0') {
-        exit(EXIT_FAILURE);
-    }
-
-    return value;
-}

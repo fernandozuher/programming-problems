@@ -1,6 +1,7 @@
+// https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
+
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -15,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -23,53 +23,38 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-/*
- * Complete the 'gradingStudents' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY grades as parameter.
- */
-
-function isZeroRemainder(grade: number): boolean {
-    return grade % 5 === 0;
-}
-
-function gradingStudents(grades: number[]): number[] {
-    const N = grades.length;
-    const newGrades: number[] = new Array(N);
-    
-    for (let i = 0, minGrade = 38; i < N; i++) {
-        
-        if (grades[i] < minGrade || isZeroRemainder(grades[i]))
-            newGrades[i] = grades[i];
-        else {
-            const quocient = Math.floor(grades[i] / 5);
-            const nextMultiple5 = (quocient + 1) * 5;
-            const difference = nextMultiple5 - grades[i];
-            
-            const result = difference < 3 ? nextMultiple5 : grades[i];
-            newGrades[i] = result;
-        }
-    }
-    return newGrades;
-}
-
 function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+    let n: number = +readLine();
+    let array: number[] = readIntArray(n);
+    printArray(gradingStudents(array));
+}
 
-    const gradesCount: number = parseInt(readLine().trim(), 10);
-
-    let grades: number[] = [];
-
-    for (let i: number = 0; i < gradesCount; i++) {
-        const gradesItem: number = parseInt(readLine().trim(), 10);
-
-        grades.push(gradesItem);
+    function readIntArray(n: number): number[] {
+        return Array(n).fill(0).map(_ => +readLine());
     }
 
-    const result: number[] = gradingStudents(grades);
+    function gradingStudents(grades: number[]): number[] {
+        let newGrades: number[] = Array(grades.length).fill(0);
 
-    ws.write(result.join('\n') + '\n');
+        for (let i = 0, minGrade = 38; i < grades.length; ++i) {
 
-    ws.end();
-}
+            if (grades[i] < minGrade || isZeroRemainder(grades[i])) newGrades[i] = grades[i];
+            else {
+                let quocient: number = Math.floor((grades[i] / 5));
+                let nextMultiple5: number = (quocient + 1) * 5;
+                let difference: number = nextMultiple5 - grades[i];
+                let result: number = difference < 3 ? nextMultiple5 : grades[i];
+                newGrades[i] = result;
+            }
+        }
+
+        return newGrades;
+    }
+
+        function isZeroRemainder(grade: number): boolean {
+            return grade % 5 === 0;
+        }
+
+    function printArray(array: number[]) {
+        array.forEach(x => console.log(x));
+    }
