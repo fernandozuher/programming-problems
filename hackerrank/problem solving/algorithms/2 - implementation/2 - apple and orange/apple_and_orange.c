@@ -1,204 +1,92 @@
-#include <stdbool.h>
+// https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-char* readline();
-char* ltrim(char*);
-char* rtrim(char*);
-char** split_string(char*);
+typedef struct {
+    int starting_sam, ending_sam;
+    int apple_tree_location, orange_tree_location;
+    int n_apples, n_oranges;
+    int *apples_distance_from_tree;
+    int *oranges_distance_from_tree;
+} apple_and_orange;
 
-int parse_int(char*);
-
-/*
- * Complete the 'count_apples_and_oranges' function below.
- *
- * The function accepts following parameters:
- *  1. INTEGER s
- *  2. INTEGER t
- *  3. INTEGER a
- *  4. INTEGER b
- *  5. INTEGER_ARRAY apples
- *  6. INTEGER_ARRAY oranges
- */
-
-int count_fruits_on_house(int s, int t, int tree_location, int fruit_count, int* fruits) {
-    int fruits_on_house = 0;
-    for (int i = 0, location; i < fruit_count; i++) {
-        location = tree_location + fruits[i];
-        if (location >= s && location <= t)
-            fruits_on_house++;
-    }
-    return fruits_on_house;
-}
-
-void count_apples_and_oranges(int s, int t, int a, int b, int apples_count, int* apples, int oranges_count, int* oranges) {
-    int apples_on_house = count_fruits_on_house(s, t, a, apples_count, apples);
-    int oranges_on_house = count_fruits_on_house(s, t, b, oranges_count, oranges);
-    printf("%d\n%d", apples_on_house, oranges_on_house);
-}
+apple_and_orange read_input();
+    int* read_int_array(const int n);
+void count_apples_and_oranges(const apple_and_orange const *input);
+    int count_fruits_on_house(const apple_and_orange const *input, const char const *fruit);
+        int** filter_input(const apple_and_orange const *input, const char const *fruit);
 
 int main()
 {
-    char** first_multiple_input = split_string(rtrim(readline()));
-
-    int s = parse_int(*(first_multiple_input + 0));
-
-    int t = parse_int(*(first_multiple_input + 1));
-
-    char** second_multiple_input = split_string(rtrim(readline()));
-
-    int a = parse_int(*(second_multiple_input + 0));
-
-    int b = parse_int(*(second_multiple_input + 1));
-
-    char** third_multiple_input = split_string(rtrim(readline()));
-
-    int m = parse_int(*(third_multiple_input + 0));
-
-    int n = parse_int(*(third_multiple_input + 1));
-
-    char** apples_temp = split_string(rtrim(readline()));
-
-    int* apples = malloc(m * sizeof(int));
-
-    for (int i = 0; i < m; i++) {
-        int apples_item = parse_int(*(apples_temp + i));
-
-        *(apples + i) = apples_item;
-    }
-
-    char** oranges_temp = split_string(rtrim(readline()));
-
-    int* oranges = malloc(n * sizeof(int));
-
-    for (int i = 0; i < n; i++) {
-        int oranges_item = parse_int(*(oranges_temp + i));
-
-        *(oranges + i) = oranges_item;
-    }
-
-    count_apples_and_oranges(s, t, a, b, m, apples, n, oranges);
-
+    apple_and_orange input = read_input();
+    count_apples_and_oranges(&input);
     return 0;
 }
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
+    apple_and_orange read_input()
+    {
+        apple_and_orange input;
 
-    char* data = malloc(alloc_length);
+        scanf("%d %d", &input.starting_sam, &input.ending_sam);
+        scanf("%d %d", &input.apple_tree_location, &input.orange_tree_location);
+        scanf("%d %d", &input.n_apples, &input.n_oranges);
+        input.apples_distance_from_tree = read_int_array(input.n_apples);
+        input.oranges_distance_from_tree = read_int_array(input.n_oranges);
 
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
+        return input;
+    }
 
-        if (!line) {
-            break;
+        int* read_int_array(const int n)
+        {
+            int *array = (int*) calloc(n, sizeof(int));
+            for (int i = 0; i < n; scanf("%d", &array[i++]));
+            return array;
         }
 
-        data_length += strlen(cursor);
+    void count_apples_and_oranges(const apple_and_orange const *input)
+    {
+        int apples_on_house = count_fruits_on_house(input, "apple");
+        int oranges_on_house = count_fruits_on_house(input, "orange");
+        printf("%d\n%d", apples_on_house, oranges_on_house);
+    }
 
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') {
-            break;
+        int count_fruits_on_house(const apple_and_orange const *input, const char const *fruit)
+        {
+            int fruits_on_house = 0;
+
+            int **filtered_input = filter_input(input, fruit);
+            int tree_location = *filtered_input[0];
+            int fruit_count = *filtered_input[1];
+            int *fruits = filtered_input[2];
+
+            for (int i = 0; i < fruit_count; ++i) {
+                int location = tree_location + fruits[i];
+                if (location >= input->starting_sam && location <= input->ending_sam)
+                    ++fruits_on_house;
+            }
+
+            return fruits_on_house;
         }
 
-        alloc_length <<= 1;
+            int** filter_input(const apple_and_orange const *input, const char const *fruit)
+            {
+                const int data = 3;
+                int **filtered_input = (int**) calloc(data, sizeof(int*));
+                for (int i = 0; i < data - 1; ++i)
+                    filtered_input[i] = (int*) malloc(sizeof(int));
 
-        data = realloc(data, alloc_length);
+                if (!strcmp(fruit, "apple")) {
+                    *filtered_input[0] = input->apple_tree_location;
+                    *filtered_input[1] = input->n_apples;
+                    filtered_input[2] = input->apples_distance_from_tree;
+                }
+                else {
+                    *filtered_input[0] = input->orange_tree_location;
+                    *filtered_input[1] = input->n_oranges;
+                    filtered_input[2] = input->oranges_distance_from_tree;
+                }
 
-        if (!data) {
-            data = '\0';
-
-            break;
-        }
-    }
-
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
-
-        data = realloc(data, data_length);
-
-        if (!data) {
-            data = '\0';
-        }
-    } else {
-        data = realloc(data, data_length + 1);
-
-        if (!data) {
-            data = '\0';
-        } else {
-            data[data_length] = '\0';
-        }
-    }
-
-    return data;
-}
-
-char* ltrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    while (*str != '\0' && isspace(*str)) {
-        str++;
-    }
-
-    return str;
-}
-
-char* rtrim(char* str) {
-    if (!str) {
-        return '\0';
-    }
-
-    if (!*str) {
-        return str;
-    }
-
-    char* end = str + strlen(str) - 1;
-
-    while (end >= str && isspace(*end)) {
-        end--;
-    }
-
-    *(end + 1) = '\0';
-
-    return str;
-}
-
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-
-        if (!splits) {
-            return splits;
-        }
-
-        splits[spaces - 1] = token;
-
-        token = strtok(NULL, " ");
-    }
-
-    return splits;
-}
-
-int parse_int(char* str) {
-    char* endptr;
-    int value = strtol(str, &endptr, 10);
-
-    if (endptr == str || *endptr != '\0') {
-        exit(EXIT_FAILURE);
-    }
-
-    return value;
-}
+                return filtered_input;
+            }
