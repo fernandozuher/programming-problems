@@ -43,7 +43,7 @@ int main()
         vector<int> read_int_array(const int n)
         {
             vector<int> array(n);
-            generate(array.begin(), array.end(), [] {int n; cin >> n; return n;});
+            ranges::generate(array, [] {int n; cin >> n; return n;});
             return array;
         }
 
@@ -65,7 +65,7 @@ int main()
                 return location >= input.starting_sam && location <= input.ending_sam;
             };
 
-            return count_if(fruits.begin(), fruits.end(), verify_fruit_location);
+            return ranges::count_if(fruits, verify_fruit_location);
         }
 
             vector<vector<int>> filter_input(const apple_and_orange& input, const string& fruit)

@@ -1,62 +1,98 @@
+// https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Result
+public class Solution
 {
-
-    /*
-     * Complete the 'countApplesAndOranges' function below.
-     *
-     * The function accepts following parameters:
-     *  1. INTEGER s
-     *  2. INTEGER t
-     *  3. INTEGER a
-     *  4. INTEGER b
-     *  5. INTEGER_ARRAY apples
-     *  6. INTEGER_ARRAY oranges
-     */
-
-    private static int countFruitsOnHouse(int s, int t, int treeLocation, List<int> fruits)
+    public static void Main()
     {
-        return fruits.Count(partialLocation => {
-            int location = treeLocation + partialLocation;
-            return location >= s && location <= t;
-        });
+        AppleAndOrange input = _readInput();
+        _countApplesAndOranges(input);
     }
 
-    public static void countApplesAndOranges(int s, int t, int a, int b, List<int> apples, List<int> oranges)
-    {
-        int applesOnHouse = countFruitsOnHouse(s, t, a, apples);
-        int orangesOnHouse = countFruitsOnHouse(s, t, b, oranges);
-        Console.WriteLine("{0}\n{1}", applesOnHouse, orangesOnHouse);
-    }
+        private static AppleAndOrange _readInput()
+        {
+            List<int> temp = Console.ReadLine().Split().Select(int.Parse).ToList();
+            int startingSam = temp.First();
+            int endingSam = temp.Last();
+
+            temp = Console.ReadLine().Split().Select(int.Parse).ToList();
+            int appleTreeLocation = temp.First();
+            int orangeTreeLocation = temp.Last();
+
+            // Discard sizes of arrays
+            Console.ReadLine();
+
+            List<int> applesDistanceFromTree = _readIntArray();
+            List<int> orangesDistanceFromTree = _readIntArray();
+
+            return new AppleAndOrange(startingSam, endingSam,
+                                      appleTreeLocation, orangeTreeLocation,
+                                      applesDistanceFromTree, orangesDistanceFromTree);
+        }
+
+            private static List<int> _readIntArray()
+            {
+                return Console.ReadLine().Split().Select(int.Parse).ToList();
+            }
+
+        private static void _countApplesAndOranges(AppleAndOrange input)
+        {
+            int applesOnHouse = _countFruitsOnHouse(input, "apple");
+            int orangesOnHouse = _countFruitsOnHouse(input, "orange");
+            Console.WriteLine("{0}\n{1}", applesOnHouse, orangesOnHouse);
+        }
+
+            private static int _countFruitsOnHouse(AppleAndOrange input, string fruit)
+            {
+                List<List<int>> filteredInput = _filterInput(input, fruit);
+                int treeLocation = filteredInput.First().First();
+                List<int> fruits = filteredInput.Last();
+
+                return fruits.Count(partialLocation => {
+                    int location = treeLocation + partialLocation;
+                    return location >= input.startingSam && location <= input.endingSam;
+                });
+            }
+
+                private static List<List<int>> _filterInput(AppleAndOrange input, string fruit)
+                {
+                    const int data = 2;
+                    var filteredInput = new List<List<int>>(data);
+                    filteredInput.Add(new List<int>());
+                    filteredInput.Add(new List<int>());
+
+                    if (fruit == "apple") {
+                        filteredInput.First().Add(input.appleTreeLocation);
+                        filteredInput[1] = input.applesDistanceFromTree;
+                    }
+                    else {
+                        filteredInput.First().Add(input.orangeTreeLocation);
+                        filteredInput[1] = input.orangesDistanceFromTree;
+                    }
+
+                    return filteredInput;
+                }
 }
 
-class Teste
-{
-    public static void Main(string[] args)
+    public class AppleAndOrange
     {
-        string[] firstMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
+        public int startingSam, endingSam;
+        public int appleTreeLocation, orangeTreeLocation;
+        public List<int> applesDistanceFromTree, orangesDistanceFromTree;
 
-        int s = Convert.ToInt32(firstMultipleInput[0]);
-
-        int t = Convert.ToInt32(firstMultipleInput[1]);
-
-        string[] secondMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
-
-        int a = Convert.ToInt32(secondMultipleInput[0]);
-
-        int b = Convert.ToInt32(secondMultipleInput[1]);
-
-        string[] thirdMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
-
-        int m = Convert.ToInt32(thirdMultipleInput[0]);
-
-        int n = Convert.ToInt32(thirdMultipleInput[1]);
-
-        List<int> apples = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(applesTemp => Convert.ToInt32(applesTemp)).ToList();
-
-        List<int> oranges = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(orangesTemp => Convert.ToInt32(orangesTemp)).ToList();
-
-        Result.countApplesAndOranges(s, t, a, b, apples, oranges);
+        public AppleAndOrange(int startingSam, int endingSam,
+                              int appleTreeLocation, int orangeTreeLocation,
+                              List<int> applesDistanceFromTree,
+                              List<int> orangesDistanceFromTree)
+        {
+            this.startingSam = startingSam;
+            this.endingSam = endingSam;
+            this.appleTreeLocation = appleTreeLocation;
+            this.orangeTreeLocation = orangeTreeLocation;
+            this.applesDistanceFromTree = applesDistanceFromTree;
+            this.orangesDistanceFromTree = orangesDistanceFromTree;
+        }
     }
-}
