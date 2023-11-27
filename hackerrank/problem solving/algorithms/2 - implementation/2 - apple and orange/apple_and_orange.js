@@ -1,54 +1,91 @@
+
+
 'use strict';
+
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
+
 process.stdin.on('data', function(inputStdin) {
     inputString += inputStdin;
 });
+
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
-}
-/*
- * Complete the 'countApplesAndOranges' function below.
- *
- * The function accepts following parameters:
- *  1. INTEGER s
- *  2. INTEGER t
- *  3. INTEGER a
- *  4. INTEGER b
- *  5. INTEGER_ARRAY apples
- *  6. INTEGER_ARRAY oranges
- */
-function countFruitsOnHouse(s, t, treeLocation, fruits) {
-    return fruits.filter(partialLocation => {
-        const location = treeLocation + partialLocation;
-        return location >= s && location <= t;
-    }).length;
-}
-
-function countApplesAndOranges(s, t, a, b, apples, oranges) {
-    const applesOnHouse = countFruitsOnHouse(s, t, a, apples);
-    const orangesOnHouse = countFruitsOnHouse(s, t, b, oranges);
-    console.log(`${applesOnHouse}\n${orangesOnHouse}`);
+    return inputLines[currentLine++];
 }
 
 function main() {
-    const firstMultipleInput = readLine().replace(/\s+$/g, '').split(' ');
-    const s = parseInt(firstMultipleInput[0], 10);
-    const t = parseInt(firstMultipleInput[1], 10);
-    const secondMultipleInput = readLine().replace(/\s+$/g, '').split(' ');
-    const a = parseInt(secondMultipleInput[0], 10);
-    const b = parseInt(secondMultipleInput[1], 10);
-    const thirdMultipleInput = readLine().replace(/\s+$/g, '').split(' ');
-    const m = parseInt(thirdMultipleInput[0], 10);
-    const n = parseInt(thirdMultipleInput[1], 10);
-    const apples = readLine().replace(/\s+$/g, '').split(' ').map(applesTemp => parseInt(applesTemp, 10));
-    const oranges = readLine().replace(/\s+$/g, '').split(' ').map(orangesTemp => parseInt(orangesTemp, 10));
-    countApplesAndOranges(s, t, a, b, apples, oranges);
+    let input = readInput();
+    countApplesAndOranges(input);
 }
+    
+    function readInput() {
+        let [startingSam, endingSam] = readLine().split(' ').map(Number);
+        let [appleTreeLocation, orangeTreeLocation] = readLine().split(' ').map(Number);
+
+        // Discard sizes of arrays
+        readLine();
+
+        let applesDistanceFromTree = readIntArray();
+        let orangesDistanceFromTree = readIntArray();
+
+        return new AppleAndOrange(startingSam, endingSam,
+                                  appleTreeLocation, orangeTreeLocation,
+                                  applesDistanceFromTree, orangesDistanceFromTree);
+    }
+
+        function readIntArray() {
+            return readLine().split(' ').map(Number);
+        }
+
+    function countApplesAndOranges(input) {
+        const applesOnHouse = countFruitsOnHouse(input, 'apple');
+        const orangesOnHouse = countFruitsOnHouse(input, 'orange');
+        console.log(`${applesOnHouse}\n${orangesOnHouse}`);
+    }
+
+        function countFruitsOnHouse(input, fruit) {
+            let filteredInput = filterInput(input, fruit);
+            let treeLocation = filteredInput[0];
+            let fruits = filteredInput[1];
+
+            return fruits.filter(partialLocation => {
+                const location = treeLocation + partialLocation;
+                return location >= s && location <= t;
+            }).length;
+        }
+
+            function filterInput(input, fruit) {
+                let data = 2;
+                let filteredInput = Array(data).fill(0);
+
+                if (fruit === 'apple') {
+                    filteredInput[0] = input.appleTreeLocation;
+                    filteredInput[1] = input.applesDistanceFromTree;
+                } else {
+                    filteredInput[0] = input.orangeTreeLocation;
+                    filteredInput[1] = input.orangesDistanceFromTree;
+                }
+
+                return filteredInput;
+            }
+
+    class AppleAndOrange {
+        constructor(startingSam, endingSam, appleTreeLocation, orangeTreeLocation, applesDistanceFromTree, orangesDistanceFromTree) {
+            this.startingSam = startingSam;
+            this.endingSam = endingSam;
+            this.appleTreeLocation = appleTreeLocation;
+            this.orangeTreeLocation = orangeTreeLocation;
+            this.applesDistanceFromTree = applesDistanceFromTree;
+            this.orangesDistanceFromTree = orangesDistanceFromTree;
+        }
+    }
