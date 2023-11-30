@@ -14,11 +14,11 @@ public class Solution
 
         private static AppleAndOrange _readInput()
         {
-            List<int> temp = Console.ReadLine().Split().Select(int.Parse).ToList();
+            List<int> temp = _readIntArray();
             int startingSam = temp.First();
             int endingSam = temp.Last();
 
-            temp = Console.ReadLine().Split().Select(int.Parse).ToList();
+            temp = _readIntArray();
             int appleTreeLocation = temp.First();
             int orangeTreeLocation = temp.Last();
 

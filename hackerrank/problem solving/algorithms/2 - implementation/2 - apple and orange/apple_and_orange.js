@@ -1,4 +1,4 @@
-
+// https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
 'use strict';
 
@@ -29,8 +29,8 @@ function main() {
 }
     
     function readInput() {
-        let [startingSam, endingSam] = readLine().split(' ').map(Number);
-        let [appleTreeLocation, orangeTreeLocation] = readLine().split(' ').map(Number);
+        let [startingSam, endingSam] = readIntArray();
+        let [appleTreeLocation, orangeTreeLocation] = readIntArray();
 
         // Discard sizes of arrays
         readLine();
@@ -48,8 +48,8 @@ function main() {
         }
 
     function countApplesAndOranges(input) {
-        const applesOnHouse = countFruitsOnHouse(input, 'apple');
-        const orangesOnHouse = countFruitsOnHouse(input, 'orange');
+        let applesOnHouse = countFruitsOnHouse(input, 'apple');
+        let orangesOnHouse = countFruitsOnHouse(input, 'orange');
         console.log(`${applesOnHouse}\n${orangesOnHouse}`);
     }
 
@@ -59,14 +59,14 @@ function main() {
             let fruits = filteredInput[1];
 
             return fruits.filter(partialLocation => {
-                const location = treeLocation + partialLocation;
-                return location >= s && location <= t;
+                let location = treeLocation + partialLocation;
+                return location >= input.startingSam && location <= input.endingSam;
             }).length;
         }
 
             function filterInput(input, fruit) {
-                let data = 2;
-                let filteredInput = Array(data).fill(0);
+                const DATA = 2;
+                let filteredInput = Array(DATA).fill(0);
 
                 if (fruit === 'apple') {
                     filteredInput[0] = input.appleTreeLocation;

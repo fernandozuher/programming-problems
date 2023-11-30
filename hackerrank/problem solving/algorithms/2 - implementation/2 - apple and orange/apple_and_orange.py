@@ -1,50 +1,81 @@
-#!/bin/python3
+# https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-#
-# Complete the 'countApplesAndOranges' function below.
-#
-# The function accepts following parameters:
-#  1. INTEGER s
-#  2. INTEGER t
-#  3. INTEGER a
-#  4. INTEGER b
-#  5. INTEGER_ARRAY apples
-#  6. INTEGER_ARRAY oranges
-#
+def main():
 
-def verifyFruitLocation(s, t, treeLocation, partialLocation):
-    location = treeLocation + partialLocation
-    return location >= s and location <= t
+    input = read_input()
+    count_apples_and_oranges(input)
 
-def countFruitsOnHouse(s, t, treeLocation, fruits):
-    return sum(verifyFruitLocation(s, t, treeLocation, partialLocation) for partialLocation in fruits)
 
-def countApplesAndOranges(s, t, a, b, apples, oranges):
-    applesOnHouse = countFruitsOnHouse(s, t, a, apples)
-    orangesOnHouse = countFruitsOnHouse(s, t, b, oranges)
-    print(f"{applesOnHouse}\n{orangesOnHouse}")
+def read_input():
+
+    starting_sam, ending_sam = read_int_array()
+    apple_tree_location, orange_tree_location = read_int_array()
+
+    # Discard sizes of arrays
+    read_int_array()
+
+    apples_distance_from_tree = read_int_array()
+    oranges_distance_from_tree = read_int_array()
+
+    return AppleAndOrange(starting_sam, ending_sam,
+                            apple_tree_location, orange_tree_location,
+                            apples_distance_from_tree, oranges_distance_from_tree)
+
+
+def read_int_array():
+
+    return list(map(int, input().split()))
+
+
+def count_apples_and_oranges(input):
+
+    apples_on_house = count_fruits_on_house(input, 'apple')
+    oranges_on_house = count_fruits_on_house(input, 'orange')
+    print(f"{apples_on_house}\n{oranges_on_house}")
+
+
+def count_fruits_on_house(input, fruit):
+
+    filtered_input = filter_input(input, fruit)
+    tree_location = filtered_input[0]
+    fruits = filtered_input[1]
+
+    sum = 0
+    for partial_location in fruits:
+        location = tree_location + partial_location
+        if location >= input.starting_sam and location <= input.ending_sam:
+            sum += 1
+
+    return sum
+
+
+def filter_input(input, fruit):
+
+    DATA = 2
+    filtered_input = [None] * DATA
+
+    if fruit == 'apple':
+        filtered_input[0] = input.apple_tree_location
+        filtered_input[1] = input.apples_distance_from_tree
+    else:
+        filtered_input[0] = input.orange_tree_location
+        filtered_input[1] = input.oranges_distance_from_tree
+
+    return filtered_input
+
+
+class AppleAndOrange:
+    
+    def __init__(self, starting_sam, ending_sam, apple_tree_location, orange_tree_location,
+        apples_distance_from_tree, oranges_distance_from_tree):
+
+        self.starting_sam = starting_sam
+        self.ending_sam = ending_sam
+        self.apple_tree_location = apple_tree_location
+        self.orange_tree_location = orange_tree_location
+        self.apples_distance_from_tree = apples_distance_from_tree
+        self.oranges_distance_from_tree = oranges_distance_from_tree
+
 
 if __name__ == '__main__':
-    first_multiple_input = input().rstrip().split()
-
-    s = int(first_multiple_input[0])
-
-    t = int(first_multiple_input[1])
-
-    second_multiple_input = input().rstrip().split()
-
-    a = int(second_multiple_input[0])
-
-    b = int(second_multiple_input[1])
-
-    third_multiple_input = input().rstrip().split()
-
-    m = int(third_multiple_input[0])
-
-    n = int(third_multiple_input[1])
-
-    apples = list(map(int, input().rstrip().split()))
-
-    oranges = list(map(int, input().rstrip().split()))
-
-    countApplesAndOranges(s, t, a, b, apples, oranges)
+    main()
