@@ -1,61 +1,37 @@
 // Source: https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-use std::env;
-use std::fs::File;
-use std::io::{self, BufRead, Write};
+use text_io::read;
 
-/*
- * Complete the 'kangaroo' function below.
- *
- * The function is expected to return a STRING.
- * The function accepts following parameters:
- *  1. INTEGER x1
- *  2. INTEGER v1
- *  3. INTEGER x2
- *  4. INTEGER v2
- */
+fn main() {
+    const SIZE: usize = 4;
+    let array: Vec<i32> = read_int_array(SIZE);
+    println!("{}", kangaroo(array));
+}
 
-fn kangaroo(x1: i32, v1: i32, x2: i32, v2: i32) -> String {
+fn read_int_array(n: usize) -> Vec<i32> {
+    let mut array: Vec<i32> = Vec::new();
+    array.resize_with(n, || read!());
+    return array;
+}
+
+fn kangaroo(array: Vec<i32>) -> String {
+    let mut x1: i32 = array[0];
+    let v1: i32 = array[1];
+    let mut x2: i32 = array[2];
+    let v2: i32 = array[3];
+
     if v2 >= v1 {
         return "NO".to_string();
     }
 
-    let mut x1_mut = x1;
-    let mut x2_mut = x2;
-
-    while x1_mut < x2_mut {
-        x1_mut += v1;
-        x2_mut += v2;
+    while x1 < x2 {
+        x1 += v1;
+        x2 += v2;
     }
 
-    if x1_mut == x2_mut {
+    if x1 == x2 {
         return "YES".to_string();
     } else {
         return "NO".to_string();
     }
-}
-
-fn read_input_as_i32_vec() -> Vec<i32> {
-    let stdin = io::stdin();
-
-    let numbers: Vec<i32> = stdin.lock()
-          .lines().next().unwrap().unwrap()
-          .trim().split(' ')
-          .map(|s| s.parse().unwrap())
-          .collect();
-
-    return numbers;
-}
-
-fn main() {
-    let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
-
-    let numbers = read_input_as_i32_vec();
-    let x1 = numbers[0];
-    let v1 = numbers[1];
-    let x2 = numbers[2];
-    let v2 = numbers[3];
-
-    let result = kangaroo(x1, v1, x2, v2);
-    writeln!(&mut fptr, "{}", result).ok();
 }
