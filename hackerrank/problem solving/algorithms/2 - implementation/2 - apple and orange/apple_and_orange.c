@@ -54,13 +54,12 @@ int main()
 
         int count_fruits_on_house(const apple_and_orange const *input, const char const *fruit)
         {
-            int fruits_on_house = 0;
-
             int **filtered_input = filter_input(input, fruit);
             int tree_location = *filtered_input[0];
             int fruit_count = *filtered_input[1];
             int *fruits = filtered_input[2];
 
+            int fruits_on_house = 0;
             for (int i = 0; i < fruit_count; ++i) {
                 int location = tree_location + fruits[i];
                 if (location >= input->starting_sam && location <= input->ending_sam)

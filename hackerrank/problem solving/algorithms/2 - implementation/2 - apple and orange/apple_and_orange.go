@@ -1,112 +1,83 @@
+// https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
+
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "io"
-    "os"
-    "strconv"
-    "strings"
-)
+import "fmt"
 
-/*
- * Complete the 'countApplesAndOranges' function below.
- *
- * The function accepts following parameters:
- *  1. INTEGER s
- *  2. INTEGER t
- *  3. INTEGER a
- *  4. INTEGER b
- *  5. INTEGER_ARRAY apples
- *  6. INTEGER_ARRAY oranges
- */
-
-func countFruitsOnHouse(s int32, t int32, treeLocation int32, fruits []int32) int32 {
-    var fruitsOnHouse int32 = 0
-    for _, fruit := range fruits {
-        location := treeLocation + fruit
-        if (location >= s && location <= t) {
-            fruitsOnHouse += 1
-        }
-    }
-    return fruitsOnHouse
+func main() {
+    var input AppleAndOrange = readInput()
+    countApplesAndOranges(input)
 }
 
-func countApplesAndOranges(s int32, t int32, a int32, b int32, apples []int32, oranges []int32) {
-    applesOnHouse := countFruitsOnHouse(s, t, a, apples)
-    orangesOnHouse := countFruitsOnHouse(s, t, b, oranges)
+type AppleAndOrange struct {
+    startingSam, endingSam                int
+    appleTreeLocation, orangeTreeLocation int
+    nApples, nOranges                     int
+    applesDistanceFromTree                []int
+    orangesDistanceFromTree               []int
+}
+
+func readInput() AppleAndOrange {
+    var startingSam, endingSam int
+    fmt.Scan(&startingSam, &endingSam)
+
+    var appleTreeLocation, orangeTreeLocation int
+    fmt.Scan(&appleTreeLocation, &orangeTreeLocation)
+
+    var nApples, nOranges int
+    fmt.Scan(&nApples, &nOranges)
+
+    var applesDistanceFromTree []int = readIntArray(nApples)
+    var orangesDistanceFromTree []int = readIntArray(nOranges)
+
+    return AppleAndOrange{startingSam, endingSam,
+        appleTreeLocation, orangeTreeLocation,
+        nApples, nOranges,
+        applesDistanceFromTree, orangesDistanceFromTree}
+}
+
+func readIntArray(n int) []int {
+    array := make([]int, n)
+    for i := range array {
+        fmt.Scanf("%d", &array[i])
+    }
+    return array
+}
+
+func countApplesAndOranges(input AppleAndOrange) {
+    var applesOnHouse int = countFruitsOnHouse(input, "apple")
+    var orangesOnHouse int = countFruitsOnHouse(input, "orange")
     fmt.Printf("%d\n%d", applesOnHouse, orangesOnHouse)
 }
 
-func main() {
-    reader := bufio.NewReaderSize(os.Stdin, 16 * 1024 * 1024)
+func countFruitsOnHouse(input AppleAndOrange, fruit string) int {
+    var filteredInput [][]int = filterInput(input, fruit)
+    var treeLocation int = filteredInput[0][0]
+    var fruits []int = filteredInput[1]
 
-    firstMultipleInput := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    sTemp, err := strconv.ParseInt(firstMultipleInput[0], 10, 64)
-    checkError(err)
-    s := int32(sTemp)
-
-    tTemp, err := strconv.ParseInt(firstMultipleInput[1], 10, 64)
-    checkError(err)
-    t := int32(tTemp)
-
-    secondMultipleInput := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    aTemp, err := strconv.ParseInt(secondMultipleInput[0], 10, 64)
-    checkError(err)
-    a := int32(aTemp)
-
-    bTemp, err := strconv.ParseInt(secondMultipleInput[1], 10, 64)
-    checkError(err)
-    b := int32(bTemp)
-
-    thirdMultipleInput := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    mTemp, err := strconv.ParseInt(thirdMultipleInput[0], 10, 64)
-    checkError(err)
-    m := int32(mTemp)
-
-    nTemp, err := strconv.ParseInt(thirdMultipleInput[1], 10, 64)
-    checkError(err)
-    n := int32(nTemp)
-
-    applesTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    var apples []int32
-
-    for i := 0; i < int(m); i++ {
-        applesItemTemp, err := strconv.ParseInt(applesTemp[i], 10, 64)
-        checkError(err)
-        applesItem := int32(applesItemTemp)
-        apples = append(apples, applesItem)
+    var fruitsOnHouse int = 0
+    for _, partialLocation := range fruits {
+        location := treeLocation + partialLocation
+        if location >= input.startingSam && location <= input.endingSam {
+            fruitsOnHouse += 1
+        }
     }
 
-    orangesTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
-
-    var oranges []int32
-
-    for i := 0; i < int(n); i++ {
-        orangesItemTemp, err := strconv.ParseInt(orangesTemp[i], 10, 64)
-        checkError(err)
-        orangesItem := int32(orangesItemTemp)
-        oranges = append(oranges, orangesItem)
-    }
-
-    countApplesAndOranges(s, t, a, b, apples, oranges)
+    return fruitsOnHouse
 }
 
-func readLine(reader *bufio.Reader) string {
-    str, _, err := reader.ReadLine()
-    if err == io.EOF {
-        return ""
+func filterInput(input AppleAndOrange, fruit string) [][]int {
+    const data int = 2
+    var filteredInput [][]int = make([][]int, data)
+    filteredInput[0] = make([]int, 1)
+
+    if fruit == "apple" {
+        filteredInput[0][0] = input.appleTreeLocation
+        filteredInput[1] = input.applesDistanceFromTree
+    } else {
+        filteredInput[0][0] = input.orangeTreeLocation
+        filteredInput[1] = input.orangesDistanceFromTree
     }
 
-    return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-    if err != nil {
-        panic(err)
-    }
+    return filteredInput
 }

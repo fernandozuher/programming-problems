@@ -22,6 +22,19 @@ def read_input():
                             apples_distance_from_tree, oranges_distance_from_tree)
 
 
+class AppleAndOrange:
+
+    def __init__(self, starting_sam, ending_sam, apple_tree_location, orange_tree_location,
+        apples_distance_from_tree, oranges_distance_from_tree):
+
+        self.starting_sam = starting_sam
+        self.ending_sam = ending_sam
+        self.apple_tree_location = apple_tree_location
+        self.orange_tree_location = orange_tree_location
+        self.apples_distance_from_tree = apples_distance_from_tree
+        self.oranges_distance_from_tree = oranges_distance_from_tree
+
+
 def read_int_array():
 
     return list(map(int, input().split()))
@@ -40,13 +53,13 @@ def count_fruits_on_house(input, fruit):
     tree_location = filtered_input[0]
     fruits = filtered_input[1]
 
-    sum = 0
+    fruits_on_house = 0
     for partial_location in fruits:
         location = tree_location + partial_location
         if location >= input.starting_sam and location <= input.ending_sam:
-            sum += 1
+            fruits_on_house += 1
 
-    return sum
+    return fruits_on_house
 
 
 def filter_input(input, fruit):
@@ -62,19 +75,6 @@ def filter_input(input, fruit):
         filtered_input[1] = input.oranges_distance_from_tree
 
     return filtered_input
-
-
-class AppleAndOrange:
-    
-    def __init__(self, starting_sam, ending_sam, apple_tree_location, orange_tree_location,
-        apples_distance_from_tree, oranges_distance_from_tree):
-
-        self.starting_sam = starting_sam
-        self.ending_sam = ending_sam
-        self.apple_tree_location = apple_tree_location
-        self.orange_tree_location = orange_tree_location
-        self.apples_distance_from_tree = apples_distance_from_tree
-        self.oranges_distance_from_tree = oranges_distance_from_tree
 
 
 if __name__ == '__main__':

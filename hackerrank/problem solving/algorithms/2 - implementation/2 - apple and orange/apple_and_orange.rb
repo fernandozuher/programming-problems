@@ -1,51 +1,65 @@
-#!/bin/ruby
+# https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-#
-# Complete the 'countApplesAndOranges' function below.
-#
-# The function accepts following parameters:
-#  1. INTEGER s
-#  2. INTEGER t
-#  3. INTEGER a
-#  4. INTEGER b
-#  5. INTEGER_ARRAY apples
-#  6. INTEGER_ARRAY oranges
-#
-
-def countFruitsOnHouse s, t, treeLocation, fruits
-    verifyFruitLocation = -> (s, t, treeLocation, partialLocation) {
-        location = treeLocation + partialLocation
-        location >= s && location <= t
-    }
-    fruits.count {|partialLocation| verifyFruitLocation.call(s, t, treeLocation, partialLocation)}
+def main()
+    input = read_input
+    count_apples_and_oranges(input)
 end
 
-def countApplesAndOranges s, t, a, b, apples, oranges
-    applesOnHouse = countFruitsOnHouse s, t, a, apples
-    orangesOnHouse = countFruitsOnHouse s, t, b, oranges
-    puts "#{applesOnHouse}\n#{orangesOnHouse}"
-end
+    def read_input
+        starting_sam, ending_sam = read_int_array
+        apple_tree_location, orange_tree_location = read_int_array
 
-first_multiple_input = gets.rstrip.split
+        # Discard sizes of arrays
+        read_int_array
 
-s = first_multiple_input[0].to_i
+        apples_distance_from_tree = read_int_array
+        oranges_distance_from_tree = read_int_array
 
-t = first_multiple_input[1].to_i
+        Struct.new("AppleAndOrange", :starting_sam, :ending_sam,
+            :apple_tree_location, :orange_tree_location,
+            :apples_distance_from_tree, :oranges_distance_from_tree)
 
-second_multiple_input = gets.rstrip.split
+        Struct::AppleAndOrange.new(starting_sam, ending_sam,
+                            apple_tree_location, orange_tree_location,
+                            apples_distance_from_tree, oranges_distance_from_tree)
+    end
 
-a = second_multiple_input[0].to_i
+        def read_int_array
+            gets.split.map(&:to_i)
+        end
 
-b = second_multiple_input[1].to_i
+    def count_apples_and_oranges(input)
+        apples_on_house = count_fruits_on_house(input, 'apple')
+        oranges_on_house = count_fruits_on_house(input, 'orange')
+        puts "#{apples_on_house}\n#{oranges_on_house}"
+    end
 
-third_multiple_input = gets.rstrip.split
+        def count_fruits_on_house(input, fruit)
+            filtered_input = filter_input(input, fruit)
+            tree_location = filtered_input.first
+            fruits = filtered_input.last
 
-m = third_multiple_input[0].to_i
+            verify_fruit_location = -> (input, partial_location) {
+                location = tree_location + partial_location
+                location >= input.starting_sam && location <= input.ending_sam
+            }
 
-n = third_multiple_input[1].to_i
+            fruits.count {|partial_location| verify_fruit_location.call(input, partial_location)}
+        end
 
-apples = gets.rstrip.split.map(&:to_i)
+            def filter_input(input, fruit)
+                data = 2
+                filtered_input = * data
 
-oranges = gets.rstrip.split.map(&:to_i)
+                if fruit == 'apple'
+                    filtered_input[0] = input.apple_tree_location
+                    filtered_input[1] = input.apples_distance_from_tree
+                else
+                    filtered_input[0] = input.orange_tree_location
+                    filtered_input[1] = input.oranges_distance_from_tree
+                end
 
-countApplesAndOranges s, t, a, b, apples, oranges
+                filtered_input
+            end
+
+main
