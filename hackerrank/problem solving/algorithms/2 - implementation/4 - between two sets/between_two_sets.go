@@ -3,55 +3,31 @@
 package main
 
 import (
-    "bufio"
     "fmt"
-    "os"
     "sort"
-    "strconv"
-    "strings"
 )
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
-
-    readLineAsIntArray(scanner)
-    setA := readLineAsIntArray(scanner)
-    setB := readLineAsIntArray(scanner)
+    var n1, n2 int
+    fmt.Scan(&n1, &n2);
+    setA := readIntArray(n1)
+    setB := readIntArray(n2)
 
     sort.Ints(setA)
     sort.Ints(setB)
 
-    total := getTotalX(setA, setB)
-    fmt.Print(total)
+    fmt.Print(findTotalFactors(setA, setB))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var inputLine string
-        
-        if scanner.Scan() {
-            inputLine = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scan(&array[i])
         }
-
-        inputStringArray := strings.Split(inputLine, " ")
-        numbers := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            numbers[i] = number
-        }
-        return numbers
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
-
-    func getTotalX(setA []int, setB []int) int {
+    func findTotalFactors(setA []int, setB []int) int {
         var potentialFactors []int
 
         findNumbersDivisibleBySetA(&potentialFactors, setA, setB[0])
