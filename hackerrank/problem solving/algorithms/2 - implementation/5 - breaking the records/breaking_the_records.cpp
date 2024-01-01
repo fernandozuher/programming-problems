@@ -1,59 +1,68 @@
-// Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <sstream>
 
 using namespace std;
 
-class Result {
+vector<int> read_int_array(const int n);
+
+class Breaking_Best_And_Worst_Records {
+
+public:
+    Breaking_Best_And_Worst_Records(const vector<int>& array): scores{array},
+        breaking_most_points_records{}, breaking_least_points_records{}
+    {
+        breaking_records();
+    }
+
+    int most_points_records() const
+    {
+        return breaking_most_points_records;
+    }
+
+    int least_points_records() const
+    {
+        return breaking_least_points_records;
+    }
 
 private:
-    vector<int> _scores;
-    int _breaking_most_points_records, _breaking_least_points_records;
+    vector<int> scores;
+    int breaking_most_points_records, breaking_least_points_records;
 
-    void breaking_records() {
-        int most_points {_scores.front()};
-        int least_points {_scores.front()};        
+    void breaking_records()
+    {
+        int most_points {scores.front()};
+        int least_points {scores.front()};
 
-        for (int score : _scores)
+        for (const int score : scores)
             if (score > most_points) {
                 most_points = score;
-                _breaking_most_points_records++;
+                ++breaking_most_points_records;
             }
             else if (score < least_points) {
                 least_points = score;
-                _breaking_least_points_records++;
+                ++breaking_least_points_records;
             }
     }
-
-public:
-    Result(const vector<int> set_a): _scores {set_a} {
-        _breaking_most_points_records = _breaking_least_points_records = 0;
-        breaking_records();
-        print_result();
-    }
-
-        void print_result() const {
-            cout << _breaking_most_points_records << " " << _breaking_least_points_records;
-        }
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> numbers;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> array {read_int_array(n)};
 
-    for (int number; ss >> number; numbers.push_back(number));
-    return numbers;
-}
-
-int main() {
-    read_line_as_vector_int();
-    vector<int> set_a {read_line_as_vector_int()};
-
-    Result result(set_a);
+    Breaking_Best_And_Worst_Records records{array};
+    cout << records.most_points_records() << ' ' << records.least_points_records();
 
     return 0;
 }
+
+    vector<int> read_int_array(const int n)
+    {
+        vector<int> array(n);
+        generate(array.begin(), array.end(), []{int x; cin >> x; return x;});
+        return array;
+    }

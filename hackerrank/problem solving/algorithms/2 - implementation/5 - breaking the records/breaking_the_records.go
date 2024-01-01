@@ -1,65 +1,39 @@
-// Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
-    "strings"
-)
+import "fmt"
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
+    var n int
+    fmt.Scan(&n)
+    var array []int = readIntArray(n)
 
-    readLineAsIntArray(scanner)
-    setA := readLineAsIntArray(scanner)
-
-    result := breakingRecords(setA)
-    fmt.Print(result[0], result[1])
+    var records [2]int = breakingRecords(array)
+    fmt.Print(records[0], records[1])
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var inputLine string
-
-        if scanner.Scan() {
-            inputLine = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(inputLine, " ")
-        numbers := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            numbers[i] = number
-        }
-        return numbers
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
-
     func breakingRecords(scores []int) [2]int {
-        most_points, breaking_most_points_records := scores[0], 0
-        least_points, breaking_least_points_records := scores[0], 0
+        mostPoints, breakingMostPointsRecords := scores[0], 0
+        leastPoints, breakingLeastPointsRecords := scores[0], 0
 
         for _, score := range scores {
-            if score > most_points {
-                most_points = score
-                breaking_most_points_records++
-            } else if score < least_points {
-                least_points = score
-                breaking_least_points_records++
+            if score > mostPoints {
+                mostPoints = score
+                breakingMostPointsRecords++
+            } else if score < leastPoints {
+                leastPoints = score
+                breakingLeastPointsRecords++
             }
         }
 
-        records := [2]int{breaking_most_points_records, breaking_least_points_records}
-        return records
+        return [2]int{breakingMostPointsRecords, breakingLeastPointsRecords}
     }

@@ -1,8 +1,7 @@
-// Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -17,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -25,46 +23,48 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-class Result {
-    private _scores: number[];
-    private _breakingMostPointsRecords: number;
-    private _breakingLeastPointsRecords: number;
+function main() {
+    +readLine();
+    let array: number[] = readIntArray();
+    let records = new BreakingBestAndWorstRecords(array);
+    console.log(`${records.mostPointsRecords()} ${records.leastPointsRecords()}`);
+}
 
-    constructor(setA: number[]) {
-        this._scores = [...setA];
-        this._breakingMostPointsRecords = 0;
-        this._breakingLeastPointsRecords = 0;
-        this._breakingRecords();
-        this.printResult();
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
-        private _breakingRecords() {
-            let mostPoints = this._scores[0];
-            let leastPoints = this._scores[0];
+    class BreakingBestAndWorstRecords {
+        private scores: number[];
+        private breakingMostPointsRecords: number;
+        private breakingLeastPointsRecords: number;
 
-            for (let score of this._scores)
-                if (score > mostPoints) {
-                    mostPoints = score;
-                    this._breakingMostPointsRecords++;
-                } else if (score < leastPoints) {
-                    leastPoints = score;
-                    this._breakingLeastPointsRecords++;
-                }
+        public constructor(array: number[]) {
+            this.scores = [...array];
+            this.breakingMostPointsRecords = 0;
+            this.breakingLeastPointsRecords = 0;
+            this.breakingRecords();
         }
-    
-        printResult() {
-            console.log(`${this._breakingMostPointsRecords} ${this._breakingLeastPointsRecords}`);
+
+            private breakingRecords() {
+                let mostPoints = this.scores[0];
+                let leastPoints = this.scores[0];
+
+                for (const score of this.scores)
+                    if (score > mostPoints) {
+                        mostPoints = score;
+                        ++this.breakingMostPointsRecords;
+                    } else if (score < leastPoints) {
+                        leastPoints = score;
+                        ++this.breakingLeastPointsRecords;
+                    }
+            }
+        
+        public mostPointsRecords(): number {
+            return this.breakingMostPointsRecords;
         }
-}
 
-function readLineAsNumericArray() {
-    const numbers: number[] = readLine().split(" ").map(Number);
-    return numbers;
-}
-
-function main() {
-    readLineAsNumericArray();
-    const setA: number[] = readLineAsNumericArray();
-
-    const result = new Result(setA);
-}
+        public leastPointsRecords(): number {
+            return this.breakingLeastPointsRecords;
+        }
+    }

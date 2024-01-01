@@ -1,46 +1,48 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
-
-class Result
-
-    def initialize setA
-        @scores = setA
-        @breakingMostPointsRecords = 0
-        @breakingLeastPointsRecords = 0
-        breakingRecords
-        printResult
-    end
-
-        private def breakingRecords
-            mostPoints = @scores.first
-            leastPoints = @scores.first
-
-            for score in @scores
-                if score > mostPoints 
-                    mostPoints = score
-                    @breakingMostPointsRecords += 1
-                elsif score < leastPoints
-                    leastPoints = score
-                    @breakingLeastPointsRecords += 1
-                end
-            end
-        end
-
-        def printResult
-            puts "#{@breakingMostPointsRecords} #{@breakingLeastPointsRecords}"
-        end
-end
-
-def readLineAsIntArray
-    numbers = gets.split.map(&:to_i)
-end
+# https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
 def main
-    readLineAsIntArray
-    setA = readLineAsIntArray
+    gets
+    array = read_int_array
 
-    result = Result.new setA
+    records = BreakingBestAndWorstRecords.new(array)
+    puts "#{records.most_points_records} #{records.least_points_records}"
 end
+
+    def read_int_array
+        gets.split.map(&:to_i)
+    end
+
+    class BreakingBestAndWorstRecords
+
+        def initialize(array)
+            @scores = array
+            @breaking_most_points_records = 0
+            @breaking_least_points_records = 0
+            breaking_records
+        end
+
+            private def breaking_records
+                most_points = @scores.first
+                least_points = @scores.first
+
+                for score in @scores
+                    if score > most_points 
+                        most_points = score
+                        @breaking_most_points_records += 1
+                    elsif score < least_points
+                        least_points = score
+                        @breaking_least_points_records += 1
+                    end
+                end
+            end
+
+        def most_points_records
+            @breaking_most_points_records
+        end
+
+        def least_points_records
+            @breaking_least_points_records
+        end 
+    end
 
 main
