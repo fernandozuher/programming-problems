@@ -1,49 +1,47 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
 def main():
 
-    readLineAsIntList()
-    chocolateSquares = readLineAsIntList()
-    dayMonth = readLineAsIntList()
+    n = int(input())
+    chocolate_squares = read_int_array()
+    day_month = read_int_array()
 
-    result = Result(chocolateSquares, dayMonth)
-
-
-def readLineAsIntList():
-
-    numbers = list(map(int, input().split()))
-    return numbers
+    obj = TheBirthdayBar(chocolate_squares, day_month)
+    print(obj.ways_bar_can_be_divided())
 
 
-class Result:
+def read_int_array():
 
-    def __init__(self, chocolateSquares, dayMonth):
+    return list(map(int, input().split()))
+
+
+class TheBirthdayBar:
+
+    def __init__(self, chocolate_squares, day_month):
         
-        self.__chocolateSquares = chocolateSquares.copy()
-        self.__day = dayMonth[0]
-        self.__month = dayMonth[1]
-        self.__waysBarCanBeDivided = 0
+        self._chocolate_squares = chocolate_squares
+        self._day = day_month[0]
+        self._month = day_month[1]
+        self.n_divisions = 0
 
-        self.__birthday()
-        self.printResult()
+        self._birthday()
 
 
-    def __birthday(self):
+    def _birthday(self):
 
-        for i in range (0, len(self.__chocolateSquares) - self.__month + 1):
+        for i in range (0, len(self._chocolate_squares) - self._month + 1):
             sum = 0
-            for j in range(i, i + self.__month):
-                sum += self.__chocolateSquares[j]
-            if sum == self.__day:
-                self.__waysBarCanBeDivided += 1
+
+            for j in range(i, i + self._month):
+                sum += self._chocolate_squares[j]
+            if sum == self._day:
+                self.n_divisions += 1
 
 
-    def printResult(self):
+    def ways_bar_can_be_divided(self):
         
-        print(self.__waysBarCanBeDivided)
+        return self.n_divisions
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

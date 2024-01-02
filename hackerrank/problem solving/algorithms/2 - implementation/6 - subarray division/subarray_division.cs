@@ -1,55 +1,56 @@
-// Source: https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        readLineAsListInt();
-        List<int> chocolateSquares = readLineAsListInt();
-        List<int> dayMonth = readLineAsListInt();
+        Console.ReadLine();
+        List<int> chocolateSquares = readIntArray();
+        List<int> dayMonth = readIntArray();
 
-        Result result = new Result(chocolateSquares, dayMonth);
+        var obj = new TheBirthdayBar(chocolateSquares, dayMonth);
+        Console.WriteLine(obj.waysBarCanBeDivided());
     }
 
-        private static List<int> readLineAsListInt()
+        private static List<int> readIntArray()
         {
-            List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return numbers;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    public class TheBirthdayBar
     {
         private List<int> _chocolateSquares;
         private int _day, _month;
         private int _waysBarCanBeDivided;
 
-        public Result(List<int> chocolateSquares, List<int> dayMonth)
+        public TheBirthdayBar(List<int> chocolateSquares, List<int> dayMonth)
         {
             _chocolateSquares = chocolateSquares;
             _day = dayMonth.First();
             _month = dayMonth.Last();
             _waysBarCanBeDivided = 0;
 
-            Birthday();
-            PrintResult();
+            _birthday();
         }
 
-            private void Birthday()
+            private void _birthday()
             {
-                for (int i = 0, n1 = _chocolateSquares.Count - _month + 1; i < n1; i++)
+                for (int i = 0, n1 = _chocolateSquares.Count - _month + 1; i < n1; ++i)
                 {
                     int sum = 0;
                     for (int j = i, n2 = i + _month; j < n2; sum += _chocolateSquares[j++]);
                     if (sum == _day)
-                        _waysBarCanBeDivided++;
+                        ++_waysBarCanBeDivided;
                 }
             }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_waysBarCanBeDivided);
-            }
+        public int waysBarCanBeDivided()
+        {
+            return _waysBarCanBeDivided;
+        }
     }

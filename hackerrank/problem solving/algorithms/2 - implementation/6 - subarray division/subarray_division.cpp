@@ -1,59 +1,64 @@
-// Source: https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <sstream>
 
 using namespace std;
 
-class Result {
+vector<int> read_int_array(const int n);
 
-private:
-    vector<int> _chocolate_squares;
-    int _day, _month;
-    int _ways_bar_can_be_divided;
-
-    void birthday() {
-        for (int i {0}, n1 {static_cast<int>(_chocolate_squares.size()) - _month + 1}; i < n1; i++) {
-            int sum {0};
-            for (int j {i}, n2 {i + _month}; j < n2; sum += _chocolate_squares[j++]);
-            if (sum == _day)
-                _ways_bar_can_be_divided++;
-        }
-    }
+class The_Birthday_Bar {
 
 public:
-    Result(const vector<int> chocolate_squares, const vector<int> day_month) {
-        _chocolate_squares = chocolate_squares;
-        _day = day_month.at(0);
-        _month = day_month.at(1);
-        _ways_bar_can_be_divided = 0;
-
+    The_Birthday_Bar(const vector<int>& chocolate_squares, const vector<int>& day_month):
+        chocolate_squares{chocolate_squares}, day{day_month.front()},
+        month{day_month.back()}, n_divisions{}
+    {
         birthday();
-        print_result();
     }
 
-        void print_result() const {
-            cout << _ways_bar_can_be_divided;
+    int ways_bar_can_be_divided() const
+    {
+        return n_divisions;
+    }
+
+
+private:
+    vector<int> chocolate_squares;
+    int day, month;
+    int n_divisions;
+
+    void birthday()
+    {
+        for (int i {}, n1 = chocolate_squares.size() - month + 1; i < n1; ++i) {
+            int sum {};
+
+            for (int j {i}, n2 {i + month}; j < n2; sum += chocolate_squares[j++]);
+            if (sum == day)
+                ++n_divisions;
         }
+    }
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> numbers;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> chocolate_squares {read_int_array(n)};
 
-    for (int number; ss >> number; numbers.push_back(number));
-    return numbers;
-}
+    const int n_day_month {2};
+    vector<int> day_month {read_int_array(n_day_month)};
 
-int main() {
-    read_line_as_vector_int();
-    vector<int> chocolate_squares {read_line_as_vector_int()};
-    vector<int> day_month {read_line_as_vector_int()};
-
-    Result result(chocolate_squares, day_month);
+    The_Birthday_Bar obj{chocolate_squares, day_month};
+    cout << obj.ways_bar_can_be_divided();
 
     return 0;
 }
+
+    vector<int> read_int_array(const int n)
+    {
+        vector<int> array(n);
+        generate(array.begin(), array.end(), [] {int x; cin >> x; return x;});
+        return array;
+    }

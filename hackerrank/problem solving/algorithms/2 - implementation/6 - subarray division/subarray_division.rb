@@ -1,46 +1,45 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
 def main
-    readLineAsIntArray
-    chocolateSquares = readLineAsIntArray
-    dayMonth = readLineAsIntArray
+    n = gets.to_i
+    chocolate_squares = read_int_array
+    day_month = read_int_array
 
-    result = Result.new chocolateSquares, dayMonth
+    obj = TheBirthdayBar.new(chocolate_squares, day_month)
+    puts obj.ways_bar_can_be_divided
 end
 
-    def readLineAsIntArray
-        numbers = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    class Result
+    class TheBirthdayBar
 
-        def initialize chocolateSquares, dayMonth
-            @chocolateSquares = chocolateSquares
-            @day = dayMonth[0]
-            @month = dayMonth[1]
-            @waysBarCanBeDivided = 0
+        def initialize(chocolate_squares, day_month)
+            @chocolate_squares = chocolate_squares
+            @day = day_month[0]
+            @month = day_month[1]
+            @n_divisions = 0
 
             birthday
-            printResult
         end
 
             private def birthday
-                for i in 0..(@chocolateSquares.size - @month)
+                for i in 0..(@chocolate_squares.size - @month)
                     sum = 0
+
                     for j in i..(i + @month - 1)
-                        sum += @chocolateSquares[j]
+                        sum += @chocolate_squares[j]
                     end
 
                     if sum == @day
-                        @waysBarCanBeDivided += 1
+                        @n_divisions += 1
                     end
                 end
             end
 
-            def printResult
-                puts @waysBarCanBeDivided
+            def ways_bar_can_be_divided
+                @n_divisions
             end
     end
 

@@ -1,63 +1,67 @@
 // Source: https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
 'use strict';
-const fs = require('fs');
+
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
+
 process.stdin.on('data', function(inputStdin) {
     inputString += inputStdin;
 });
+
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
-
 
 function main() {
-    readLineAsNumberArray();
-    const chocolateSquares = readLineAsNumberArray();
-    const dayMonth = readLineAsNumberArray();
+    let n = +readLine();
+    let chocolateSquares = readIntArray();
+    let dayMonth = readIntArray();
 
-    const result = new Result(chocolateSquares, dayMonth);
+    let obj = new TheBirthdayBar(chocolateSquares, dayMonth);
+    console.log(obj.waysBarCanBeDivided());
 }
 
-    function readLineAsNumberArray() {
-        const numbers = readLine().split(" ").map(Number);
-        return numbers;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
+    class TheBirthdayBar {
         #chocolateSquares;
         #day;
         #month;
-        #waysBarCanBeDivided;
+        #nDivisions;
 
         constructor(chocolateSquares, dayMonth) {
             this.#chocolateSquares = [...chocolateSquares];
             this.#day = dayMonth[0];
             this.#month = dayMonth[1];
-            this.#waysBarCanBeDivided = 0;
+            this.#nDivisions = 0;
 
             this.#birthday();
-            this.printResult();
         }
 
             #birthday() {
-                for (let i = 0, n1 = this.#chocolateSquares.length - this.#month + 1; i < n1; i++) {
+                for (let i = 0, n1 = this.#chocolateSquares.length - this.#month + 1; i < n1; ++i) {
                     let sum = 0;
+
                     for (let j = i, n2 = i + this.#month; j < n2; sum += this.#chocolateSquares[j++]);
                     if (sum === this.#day)
-                        this.#waysBarCanBeDivided++;
+                        ++this.#nDivisions;
                 }
             }
         
-            printResult() {
-                console.log(this.#waysBarCanBeDivided);
-            }
+        waysBarCanBeDivided() {
+            return this.#nDivisions;
+        }
     }
