@@ -1,45 +1,42 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 def main
-    input1 = readLineAsIntArray
-    k = input1[1]
-    numbers = readLineAsIntArray
+    n, k = read_int_array
+    array = read_int_array
 
-    numbers = numbers.sort
+    array.sort!
 
-    result = Result.new numbers, k
+    obj = SubarrayDivision.new(array, k)
+    puts obj.n_divisible_sum_pairs
 end
 
-    def readLineAsIntArray
-        numbers = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    class Result
+    class SubarrayDivision
 
-        def initialize numbers, k
-            @numbers = numbers
+        def initialize(array, k)
+            @array = array
             @k = k
-            @nDivisibleSumPairs = 0
+            @n_divisible_sum_pairs = 0
 
-            divisibleSumPairs
-            printResult
+            divisible_sum_pairs
         end
 
-            private def divisibleSumPairs
-                for i in 0..(@numbers.size - 2)
-                    for j in (i + 1)..(@numbers.size - 1)
-                        if @numbers[i] <= @numbers[j] and (@numbers[i] + @numbers[j]) % @k == 0
-                            @nDivisibleSumPairs += 1;
+            private def divisible_sum_pairs
+                for i in 0..(@array.size - 2)
+                    for j in (i + 1)..(@array.size - 1)
+                        if @array[i] <= @array[j] and (@array[i] + @array[j]) % @k == 0
+                            @n_divisible_sum_pairs += 1;
                         end
                     end
                 end
             end
 
-            def printResult
-                puts @nDivisibleSumPairs
-            end
+        def n_divisible_sum_pairs
+            @n_divisible_sum_pairs
+        end
     end
 
 main

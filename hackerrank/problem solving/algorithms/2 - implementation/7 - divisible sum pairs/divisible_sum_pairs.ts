@@ -1,8 +1,7 @@
-// Source: https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -17,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -25,44 +23,41 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-
 function main() {
-    const input1 = readLineAsNumberArray();
-    const k = input1[1];
-    let numbers = readLineAsNumberArray();
+    let [n, k] = [...readIntArray()];
+    let array = readIntArray();
 
-    numbers.sort((a, b) => a - b);
+    array.sort((a, b) => a - b);
 
-    const result = new Result(numbers, k);
+    let obj = new SubarrayDivision(array, k);
+    console.log(obj.nDivisibleSumPairs());
 }
 
-    function readLineAsNumberArray() {
-        const numbers = readLine().split(" ").map(Number);
-        return numbers;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
-        private _numbers: number[];
-        private _k: number;
-        private _nDivisibleSumPairs: number;
+    class SubarrayDivision {
+        private array: number[];
+        private k: number;
+        private nDivisible: number;
 
-        constructor(numbers: number[], k: number) {
-            this._numbers = [...numbers];
-            this._k = k;
-            this._nDivisibleSumPairs = 0;
+        constructor(array: number[], k: number) {
+            this.array = array;
+            this.k = k;
+            this.nDivisible = 0;
 
-            this._divisibleSumPairs();
-            this.printResult();
+            this.divisibleSumPairs();
         }
 
-            private _divisibleSumPairs() {
-                for (let i = 0, n1 = this._numbers.length - 1; i < n1; i++)
-                    for (let j = i + 1; j < this._numbers.length; j++)
-                        if (this._numbers[i] <= this._numbers[j] && !((this._numbers[i] + this._numbers[j]) % this._k))
-                            this._nDivisibleSumPairs++;
+            private divisibleSumPairs() {
+                for (let i = 0, n = this.array.length - 1; i < n; ++i)
+                    for (let j = i + 1; j < this.array.length; ++j)
+                        if (this.array[i] <= this.array[j] && !((this.array[i] + this.array[j]) % this.k))
+                            ++this.nDivisible;
             }
         
-            printResult() {
-                console.log(this._nDivisibleSumPairs);
-            }
+        public nDivisibleSumPairs(): number {
+            return this.nDivisible;
+        }
     }

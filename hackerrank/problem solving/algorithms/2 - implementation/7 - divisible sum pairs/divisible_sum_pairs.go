@@ -1,61 +1,36 @@
-// Source: https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=truehttps://www.hackerrank.com/challenges/the-divisibleSumPairs-bar/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=truehttps://www.hackerrank.com/challenges/the-divisibleSumPairs-bar/problem?isFullScreen=true
 
 package main
 
 import (
-    "bufio"
     "fmt"
-    "os"
     "sort"
-    "strconv"
-    "strings"
 )
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
+    var n, k int
+    fmt.Scan(&n, &k)
+    var array []int = readIntArray(n)
 
-    input1 := readLineAsIntArray(scanner)
-    k := input1[1]
-    numbers := readLineAsIntArray(scanner)
-    
-    sort.Ints(numbers)
+    sort.Ints(array)
 
-    result := divisibleSumPairs(numbers, k)
-    fmt.Print(result)
+    fmt.Print(divisibleSumPairs(array, k))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var inputLine string
-
-        if scanner.Scan() {
-            inputLine = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(inputLine, " ")
-        numbers := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            numbers[i] = number
-        }
-        return numbers
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
+    func divisibleSumPairs(array []int, k int) int {
+        var nDivisibleSumPairs int = 0
 
-    func divisibleSumPairs(numbers []int, k int) int {
-        nDivisibleSumPairs := 0
-        
-        for i, n1 := 0, len(numbers) - 1; i < n1; i++ {
-            for j := i + 1; j < len(numbers); j++ {
-                if numbers[i] <= numbers[j] && ((numbers[i] + numbers[j]) % k == 0) {
+        for i, n2 := 0, len(array)-1; i < n2; i++ {
+            for j, n := i+1, len(array); j < n; j++ {
+                if array[i] <= array[j] && ((array[i]+array[j])%k == 0) {
                     nDivisibleSumPairs++
                 }
             }

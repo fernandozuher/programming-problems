@@ -1,53 +1,54 @@
-// Source: https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class Solution
 {
     public static void Main()
     {
-        List<int> input1 = ReadLineAsListInt();
-        int k = input1[1];
-        List<int> numbers = ReadLineAsListInt();
+        List<int> array = _readIntArray();
+        int k = array[1];
+        array = _readIntArray();
 
-        numbers.Sort();
-        
-        Result result = new Result(numbers, k);
+        array.Sort();
+
+        var obj = new SubarrayDivision(array, k);
+        Console.WriteLine(obj.NDivisibleSumPairs());
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return numbers;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    public class SubarrayDivision
     {
-        private List<int> _numbers;
+        private List<int> _array;
         private int _k;
-        private int _nDivisibleSumPairs;
+        private int _nDivisible;
 
-        public Result(List<int> numbers, int k)
+        public SubarrayDivision(List<int> array, int k)
         {
-            _numbers = numbers;
+            _array = array;
             _k = k;
-            _nDivisibleSumPairs = 0;
+            _nDivisible = 0;
 
-            DivisibleSumPairs();
-            PrintResult();
+            _divisibleSumPairs();
         }
 
-            private void DivisibleSumPairs()
+            private void _divisibleSumPairs()
             {
-                for (int i = 0, n1 = _numbers.Count - 1; i < n1; i++)
-                    for (int j = i + 1; j < _numbers.Count; j++)
-                        if (_numbers[i] <= _numbers[j] && (_numbers[i] + _numbers[j]) % _k == 0)
-                            _nDivisibleSumPairs++;
+                for (int i = 0, n2 = _array.Count - 1; i < n2; ++i)
+                    for (int j = i + 1; j < _array.Count; ++j)
+                        if (_array[i] <= _array[j] && (_array[i] + _array[j]) % _k == 0)
+                            ++_nDivisible;
             }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_nDivisibleSumPairs);
-            }
+        public int NDivisibleSumPairs()
+        {
+            return _nDivisible;
+        }
     }

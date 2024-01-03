@@ -1,57 +1,58 @@
-// Source: https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=truehttps://www.hackerrank.com/challenges/the-divisibleSumPairs-bar/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=truehttps://www.hackerrank.com/challenges/the-divisibleSumPairs-bar/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <sstream>
-#include <algorithm>
 
 using namespace std;
 
-class Result {
+vector<int> read_int_array(const int n);
+
+class Subarray_Division {
+public:
+    Subarray_Division(const vector<int>& array, const int k):
+        array{array}, k{k}, n_divisible{}
+    {
+        divisible_sum_pairs();
+    }
+
+    int n_divisible_sum_pairs() const
+    {
+        return n_divisible;
+    }
 
 private:
-    vector<int> _numbers;
-    int _k;
-    int _n_divisible_sum_pairs;
+    vector<int> array;
+    int k;
+    int n_divisible;
 
-    void _divisible_sum_pairs() {
-        int n {static_cast<int>(_numbers.size())};
-        for (int i {0}, n1 {n - 1}; i < n1; i++)
-            for (int j {i + 1}; j < n; j++)
-                if (_numbers[i] <= _numbers[j] && !((_numbers[i] + _numbers[j]) % _k))
-                    _n_divisible_sum_pairs++;
+    void divisible_sum_pairs()
+    {
+        int n = array.size();
+        for (int i {}, n2 {n - 1}; i < n2; ++i)
+            for (int j {i + 1}; j < n; ++j)
+                if (array[i] <= array[j] && !((array[i] + array[j]) % k))
+                    ++n_divisible;
     }
-
-public:
-    Result(const vector<int> numbers, const int k): _numbers{numbers}, _k(k) {
-        _n_divisible_sum_pairs = 0;
-        _divisible_sum_pairs();
-        print_result();
-    }
-
-        void print_result() const {
-            cout << _n_divisible_sum_pairs;
-        }
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> numbers;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+int main()
+{
+    int n, k;
+    cin >> n >> k;
+    vector<int> array {read_int_array(n)};
 
-    for (int number; ss >> number; numbers.push_back(number));
-    return numbers;
-}
+    sort(array);
 
-int main() {
-    vector<int> input1 {read_line_as_vector_int()};
-    int k {input1.at(1)};
-    vector<int> numbers {read_line_as_vector_int()};
-
-    ranges::sort(numbers);
-
-    Result result(numbers, k);
+    Subarray_Division obj{array, k};
+    cout << obj.n_divisible_sum_pairs();
 
     return 0;
 }
+
+    vector<int> read_int_array(const int n)
+    {
+        vector<int> array(n);
+        generate(array.begin(), array.end(), [] {int n; cin >> n; return n;});
+        return array;
+    }

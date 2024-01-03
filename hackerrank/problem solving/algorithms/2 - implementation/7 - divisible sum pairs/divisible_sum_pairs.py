@@ -1,47 +1,43 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 def main():
 
-    input1 = readLineAsIntList()
-    k = input1[1]
-    numbers = readLineAsIntList()
+    n, k = read_int_array()
+    array = read_int_array()
 
-    numbers.sort()    
+    array.sort()
 
-    result = Result(numbers, k)
-
-
-def readLineAsIntList():
-
-    numbers = list(map(int, input().split()))
-    return numbers
+    obj = SubarrayDivision(array, k)
+    print(obj.n_divisible_sum_pairs())
 
 
-class Result:
+def read_int_array():
 
-    def __init__(self, numbers, k):
+    return list(map(int, input().split()))
+
+
+class SubarrayDivision:
+
+    def __init__(self, array, k):
         
-        self.__numbers = numbers.copy()
-        self.__k = k
-        self.__nDivisibleSumPairs = 0
+        self._array = array
+        self._k = k
+        self._n_divisible = 0
 
-        self.__divisibleSumPairs()
-        self.printResult()
-
-
-    def __divisibleSumPairs(self):
-
-        for i in range(0, len(self.__numbers) - 1):
-            for j in range(i + 1, len(self.__numbers)):
-                if self.__numbers[i] <= self.__numbers[j] and (self.__numbers[i] + self.__numbers[j]) % self.__k == 0:
-                    self.__nDivisibleSumPairs += 1
+        self._divisible_sum_pairs()
 
 
-    def printResult(self):
+    def _divisible_sum_pairs(self):
+
+        for i in range(0, len(self._array) - 1):
+            for j in range(i + 1, len(self._array)):
+                if self._array[i] <= self._array[j] and (self._array[i] + self._array[j]) % self._k == 0:
+                    self._n_divisible += 1
+
+
+    def n_divisible_sum_pairs(self):
         
-        print(self.__nDivisibleSumPairs)
+        return self._n_divisible
 
 
 if __name__ == "__main__":
