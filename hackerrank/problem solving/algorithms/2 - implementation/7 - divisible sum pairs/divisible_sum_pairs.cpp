@@ -42,7 +42,7 @@ int main()
     cin >> n >> k;
     vector<int> array {read_int_array(n)};
 
-    sort(array);
+    ranges::sort(array);
 
     Subarray_Division obj{array, k};
     cout << obj.n_divisible_sum_pairs();
@@ -53,6 +53,6 @@ int main()
     vector<int> read_int_array(const int n)
     {
         vector<int> array(n);
-        generate(array.begin(), array.end(), [] {int n; cin >> n; return n;});
+        ranges::generate(array, [] {int n; cin >> n; return n;});
         return array;
     }
