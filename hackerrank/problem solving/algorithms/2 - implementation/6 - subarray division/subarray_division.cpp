@@ -47,7 +47,7 @@ int main()
     cin >> n;
     vector<int> chocolate_squares {read_int_array(n)};
 
-    const int n_day_month {2};
+    constexpr int n_day_month {2};
     vector<int> day_month {read_int_array(n_day_month)};
 
     The_Birthday_Bar obj{chocolate_squares, day_month};
