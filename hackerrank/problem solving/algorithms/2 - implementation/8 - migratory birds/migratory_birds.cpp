@@ -1,66 +1,71 @@
-// Source: https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=truehttps://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <sstream>
-#include <algorithm>
 
 using namespace std;
 
-class Result {
+vector<int> read_int_array(const int n);
+
+class Migratory_Birds {
+public:
+    Migratory_Birds(const vector<int>& bird_sightings): bird_sightings{bird_sightings}
+    {
+        find_most_spotted_bird();
+    }
+
+    int most_spotted_bird() const;
 
 private:
-    vector<int> _bird_sightings;
-    int _most_spotted_bird;
+    vector<int> bird_sightings;
+    int n_most_spotted_bird;
 
-    void migratory_birds() {
-        _most_spotted_bird = _bird_sightings.front();
-        int count_most_spotted_bird {1};
-        int temp_count_most_spotted_bird {1};
-
-        for (int i {1}, n {static_cast<int>(_bird_sightings.size())}; i < n; i++)
-
-            if (_bird_sightings.at(i) == _bird_sightings.at(i - 1))
-                temp_count_most_spotted_bird++;
-
-            else if (temp_count_most_spotted_bird > count_most_spotted_bird) {
-                _most_spotted_bird = _bird_sightings.at(i - 1);
-                count_most_spotted_bird = temp_count_most_spotted_bird;
-                temp_count_most_spotted_bird = 1;
-            }
-
-        if (temp_count_most_spotted_bird > count_most_spotted_bird)
-            _most_spotted_bird = _bird_sightings.back();
-    }
-
-public:
-    Result(const vector<int> _bird_sightings): _bird_sightings{_bird_sightings} {
-        migratory_birds();
-        print_result();
-    }
-
-        void print_result() const {
-            cout << _most_spotted_bird;
-        }
+    void find_most_spotted_bird();
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> numbers;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+    int Migratory_Birds::most_spotted_bird() const
+    {
+        return n_most_spotted_bird;
+    }
 
-    for (int number; ss >> number; numbers.push_back(number));
-    return numbers;
-}
+    void Migratory_Birds::find_most_spotted_bird()
+    {
+        n_most_spotted_bird = bird_sightings.front();
+        int count_n_most_spotted_bird {1};
+        int temp_count_n_most_spotted_bird {1};
 
-int main() {
-    read_line_as_vector_int();
-    vector<int> bird_sightings {read_line_as_vector_int()};
+        for (int i {1}, n = bird_sightings.size(); i < n; ++i)
 
-    ranges::sort(bird_sightings);
+            if (bird_sightings[i] == bird_sightings[i - 1])
+                ++temp_count_n_most_spotted_bird;
 
-    Result result(bird_sightings);
+            else if (temp_count_n_most_spotted_bird > count_n_most_spotted_bird) {
+                n_most_spotted_bird = bird_sightings[i - 1];
+                count_n_most_spotted_bird = temp_count_n_most_spotted_bird;
+                temp_count_n_most_spotted_bird = 1;
+            }
+
+        if (temp_count_n_most_spotted_bird > count_n_most_spotted_bird)
+            n_most_spotted_bird = bird_sightings.back();
+    }
+
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> array {read_int_array(n)};
+    ranges::sort(array);
+
+    Migratory_Birds obj(array);
+    cout << obj.most_spotted_bird();
 
     return 0;
 }
+
+    vector<int> read_int_array(const int n)
+    {
+        vector<int> array(n);
+        ranges::generate(array, []{int x; cin >> x; return x;});
+        return array;
+    }

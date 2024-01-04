@@ -1,58 +1,53 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
 def main():
 
-    readLineAsIntList()
-    birdSightings = readLineAsIntList()
+    n = int(input())
+    array = readIntArray()
+    array.sort()
 
-    birdSightings.sort()
-
-    result = Result(birdSightings)
-
-
-def readLineAsIntList():
-
-    numbers = list(map(int, input().split()))
-    return numbers
+    obj = MigratoryBirds(array)
+    print(obj.mostSpottedBird())
 
 
-class Result:
+def readIntArray():
+
+    return list(map(int, input().split()))
+
+
+class MigratoryBirds:
 
     def __init__(self, birdSightings):
     
-        self.__birdSightings = birdSightings.copy()
-        self.__mostSpottedBird = None
-
-        self.__migratoryBirds()
-        self.printResult()
+        self._birdSightings = birdSightings
+        self._mostSpottedBird = None
+        self._findMostSpottedBird()
 
 
-    def __migratoryBirds(self):
+    def _findMostSpottedBird(self):
     
-            self.__mostSpottedBird = self.__birdSightings[0]
+            self._mostSpottedBird = self._birdSightings[0]
             countMostSpottedBird = 1
             tempCountMostSpottedBird = 1
 
-            n = len(self.__birdSightings)
+            n = len(self._birdSightings)
             for i in range(1, n):
 
-                if self.__birdSightings[i] == self.__birdSightings[i - 1]:
+                if self._birdSightings[i] == self._birdSightings[i - 1]:
                     tempCountMostSpottedBird += 1
                 
                 elif tempCountMostSpottedBird > countMostSpottedBird:
-                    self.__mostSpottedBird = self.__birdSightings[i - 1]
+                    self._mostSpottedBird = self._birdSightings[i - 1]
                     countMostSpottedBird = tempCountMostSpottedBird
                     tempCountMostSpottedBird = 1
                 
             if tempCountMostSpottedBird > countMostSpottedBird:
-                self.__mostSpottedBird = self.__birdSightings[n - 1]
+                self._mostSpottedBird = self._birdSightings[n - 1]
         
 
-    def printResult(self):
+    def mostSpottedBird(self):
         
-        print(self.__mostSpottedBird)
+        return self._mostSpottedBird
 
 
 if __name__ == "__main__":

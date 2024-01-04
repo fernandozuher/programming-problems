@@ -1,61 +1,61 @@
-// Source: https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
 'use strict';
-const fs = require('fs');
+
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
+
 process.stdin.on('data', function(inputStdin) {
     inputString += inputStdin;
 });
+
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
-
 
 function main() {
-    readLineAsNumberArray();
-    const birdSightings = readLineAsNumberArray();
+    let n = +readLine();
+    let array = readIntArray();
+    array.sort((a, b) => a - b);
 
-    birdSightings.sort((a, b) => a - b);
-
-    const result = new Result(birdSightings);
+    let obj = new MigratoryBirds(array);
+    console.log(obj.mostSpottedBird());
 }
 
-    function readLineAsNumberArray() {
-        const numbers = readLine().split(" ").map(Number);
-        return numbers;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
+    class MigratoryBirds {
         #birdSightings;
         #mostSpottedBird;
 
         constructor(birdSightings) {
             this.#birdSightings = [...birdSightings];
             this.#mostSpottedBird = null;
-
-            this.#migratoryBirds();
-            this.printResult();
+            this.#findMostSpottedBird();
         }
 
-            #migratoryBirds() {
+            #findMostSpottedBird() {
                 this.#mostSpottedBird = this.#birdSightings[0];
                 let countMostSpottedBird = 1;
                 let tempCountMostSpottedBird = 1;
+                let n = this.#birdSightings.length;
 
-                const n = this.#birdSightings.length;
-                for (let i = 1; i < n; i++) {
+                for (let i = 1; i < n; ++i) {
 
                     if (this.#birdSightings[i] === this.#birdSightings[i - 1])
-                        tempCountMostSpottedBird++;
-                    
+                        ++tempCountMostSpottedBird;
                     else if (tempCountMostSpottedBird > countMostSpottedBird) {
                         this.#mostSpottedBird = this.#birdSightings[i - 1];
                         countMostSpottedBird = tempCountMostSpottedBird;
@@ -67,8 +67,8 @@ function main() {
                     this.#mostSpottedBird = this.#birdSightings[n - 1];
                 }
             }
-        
-            printResult() {
-                console.log(this.#mostSpottedBird);
-            }
+
+        mostSpottedBird() {
+            return this.#mostSpottedBird;
+        }
     }
