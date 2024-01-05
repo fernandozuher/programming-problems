@@ -1,67 +1,70 @@
-// Source: https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
 'use strict';
-const fs = require('fs');
+
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
+
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
+
 process.stdin.on('data', function(inputStdin) {
     inputString += inputStdin;
 });
+
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
-
 
 function main() {
-    const year = readLineAsNumberArray();
-
-    const result = new Result(year[0]);
+    let year = +readLine();
+    let obj = new DayOfTheProgrammer(year);
+    console.log(obj.date());
 }
 
-    function readLineAsNumberArray() {
-        const numbers = readLine().split(" ").map(Number);
-        return numbers;
-    }
-
-    class Result {
+    class DayOfTheProgrammer {
+        #TRANSITION_YEAR = 1918;
         #year;
         #date;
 
         constructor(year) {
             this.#year = year;
-            this.#date = "";
-
-            this.#dayOfProgrammer();
-            this.printResult();
+            this.#date = '';
+            this.#findDateOf256thDay();
         }
 
-            #dayOfProgrammer() {
-                if (this.#year != 1918) {
-                    const isLeap = this.#year > 1918 ? this.#isLeapGregorianYear() : this.#isLeapJulianYear();
-                    this.#date = isLeap ? "12.09." : "13.09.";
-                }
-                else
-                    this.#date = "26.09.";
-
+            #findDateOf256thDay() {
+                this.#findDayMonthOf256thDay();
                 this.#date += this.#year.toString();
             }
 
-                #isLeapGregorianYear() {
-                    return !(this.#year % 400) || (!(this.#year % 4) && this.#year % 100);
+                #findDayMonthOf256thDay() {
+                    if (this.#year != this.#TRANSITION_YEAR)
+                        this.#date = this.#isLeapYear() ? "12.09." : "13.09.";
+                    else
+                        this.#date = "26.09.";
                 }
 
-                #isLeapJulianYear() {
-                    return !(this.#year % 4);
-                }
-        
-            printResult() {
-                console.log(this.#date);
-            }
+                    #isLeapYear() {
+                        return this.#year > this.#TRANSITION_YEAR ? this.#isLeapGregorianYear() : this.#isLeapJulianYear();
+                    }
+
+                        #isLeapGregorianYear() {
+                            return !(this.#year % 400) || (!(this.#year % 4) && this.#year % 100);
+                        }
+
+                        #isLeapJulianYear() {
+                            return !(this.#year % 4);
+                        }
+                
+        date() {
+            return this.#date;
+        }
     }
