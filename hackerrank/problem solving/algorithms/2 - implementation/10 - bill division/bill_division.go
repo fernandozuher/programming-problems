@@ -1,66 +1,54 @@
-// Source: https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
-)
+import "fmt"
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
+    var n, itemAnnaDidntConsume int
+    fmt.Scan(&n, &itemAnnaDidntConsume)
 
-    input1 := readNNumbersAndPutIntoIntArray(scanner, 2)
-    n := input1[0]
-    itemAnnaDidntConsume := input1[1]
+    var costOfEachMeal []int = readIntArray(n)
+    var brianChargedAnna int
+    fmt.Scan(&brianChargedAnna)
 
-    costOfEachMeal := readNNumbersAndPutIntoIntArray(scanner, n)
-    brianChargedAnna := readNNumbersAndPutIntoIntArray(scanner, 1)
-
-    result := bonAppetit(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna[0])
-    fmt.Print(result)
+    var brianOverchargedAna int = bonAppetit(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna)
+    printOutput(brianOverchargedAna)
 }
 
-    func readNNumbersAndPutIntoIntArray(scanner *bufio.Scanner, n int) []int {
-        numbers := make([]int, n)
-        
-        for i, _ := range numbers {
-            _, err := fmt.Scan(&numbers[i])
-            checkError(err)
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-        
-        return numbers
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
-
-    func bonAppetit(costOfEachMeal []int, itemAnnaDidntConsume int, brianChargedAnna int) string {
-        annaCost := calculateAnnaCost(costOfEachMeal, itemAnnaDidntConsume)
-        result := checkIfBrianOverchargedAnna(brianChargedAnna, annaCost)
-        return result
+    func bonAppetit(costOfEachMeal []int, itemAnnaDidntConsume int, brianChargedAnna int) int {
+        var annaCost int = calculateAnnaCost(costOfEachMeal, itemAnnaDidntConsume)
+        return calculateHowMuchBrianOverchargedAnna(brianChargedAnna, annaCost)
     }
 
         func calculateAnnaCost(costOfEachMeal []int, itemAnnaDidntConsume int) int {
-            sum := 0
+            var sum int = 0
             for _, number := range costOfEachMeal {
                 sum += number
             }
-            annaCost := (sum - costOfEachMeal[itemAnnaDidntConsume]) / 2
+            var annaCost int = (sum - costOfEachMeal[itemAnnaDidntConsume]) / 2
             return annaCost
         }
 
-        func checkIfBrianOverchargedAnna(brianChargedAnna int, annaCost int) string {
-            if annaCost == brianChargedAnna {
-                return "Bon Appetit"
-            } else {
-                brianOverchargedAna := brianChargedAnna - annaCost
-                str := strconv.Itoa(brianOverchargedAna)
-                return str 
+        func calculateHowMuchBrianOverchargedAnna(brianChargedAnna int, annaCost int) int {
+            if annaCost != brianChargedAnna {
+                return brianChargedAnna - annaCost
             }
+            return 0
         }
+
+    func printOutput(charged int) {
+        if (charged > 0) {
+            fmt.Println(charged);
+        } else {
+            fmt.Println("Bon Appetit");
+        }
+    }

@@ -1,56 +1,49 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
 def main
-    input1 = readLineAsIntArray
-    itemAnnaDidntConsume = input1.last
-    
-    costOfEachMeal = readLineAsIntArray
-    brianChargedAnna = readLineAsIntArray
+    n, item_anna_didnt_consume = read_int_array
+    cost_of_each_meal = read_int_array
+    brian_charged_anna = gets.to_i
 
-    result = Result.new costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna.first
+    obj = BillDivision.new(cost_of_each_meal, item_anna_didnt_consume, brian_charged_anna)
+    print_output(obj.brian_overcharged_anna)
 end
 
-    def readLineAsIntArray
-        numbers = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    class Result
+    class BillDivision
+        attr_reader :brian_overcharged_anna
 
-        def initialize costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna
-            @costOfEachMeal = costOfEachMeal
-            @itemAnnaDidntConsume = itemAnnaDidntConsume
-            @brianChargedAnna = brianChargedAnna
-            @brianOverchargedAnna = ""
+        def initialize(cost_of_each_meal, item_anna_didnt_consume, brian_charged_anna)
+            @cost_of_each_meal = cost_of_each_meal
+            @item_anna_didnt_consume = item_anna_didnt_consume
+            @brian_charged_anna = brian_charged_anna
+            @brian_overcharged_anna = 0
 
-            _bonAppetit
-            printResult
+            bon_appetit
         end
 
-            private def _bonAppetit
-                annaCost = _calculateAnnaCost
-                _checkIfBrianOverchargedAnna annaCost
+            private def bon_appetit
+                anna_cost = calculate_anna_cost
+                calculate_how_much_brian_overcharged_anna(anna_cost)
             end
 
-                private def _calculateAnnaCost
-                    sum = @costOfEachMeal.sum
-                    annaCost = (sum - @costOfEachMeal[@itemAnnaDidntConsume]) / 2
-                    return annaCost
+                private def calculate_anna_cost
+                    sum = @cost_of_each_meal.sum
+                    anna_cost = (sum - @cost_of_each_meal[@item_anna_didnt_consume]) / 2
                 end
 
-                private def _checkIfBrianOverchargedAnna annaCost
-                    if annaCost == @brianChargedAnna
-                        @brianOverchargedAnna = "Bon Appetit"
-                    else
-                        brianOverchargedAnna = @brianChargedAnna - annaCost
-                        @brianOverchargedAnna = brianOverchargedAnna.to_s
+                private def calculate_how_much_brian_overcharged_anna(anna_cost)
+                    if anna_cost != @brian_charged_anna
+                        @brian_overcharged_anna = @brian_charged_anna - anna_cost
                     end
                 end
+    end
 
-            def printResult
-                puts @brianOverchargedAnna
-            end
+    def print_output(charged)
+        puts charged > 0 ? charged : "Bon Appetit"
     end
 
 main

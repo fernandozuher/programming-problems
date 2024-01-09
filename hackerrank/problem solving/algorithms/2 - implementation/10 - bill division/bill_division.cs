@@ -1,71 +1,73 @@
-// Source: https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        List<int> input1 = ReadLineAsListInt();
-        int itemAnnaDidntConsume = input1.Last();
-        
-        List<int> costOfEachMeal = ReadLineAsListInt();
-        List<int> brianChargedAnna = ReadLineAsListInt();
+        List<int> input = _readIntArray();
+        int n = input.First();
+        int itemAnnaDidntConsume = input.Last();
 
-        Result result = new Result(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna.First());
+        List<int> costOfEachMeal = _readIntArray();
+        int brianChargedAnna = int.Parse(Console.ReadLine());
+
+        var obj = new BillDivision(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna);
+        _printOutput(obj.BrianOverchargedAnna);
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return numbers;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
+        }
+
+        private static void _printOutput(int charged)
+        {
+            Console.WriteLine(charged > 0 ? charged : "Bon Appetit");
         }
 }
 
-    class Result
+    public class BillDivision
     {
         private List<int> _costOfEachMeal;
         private int _itemAnnaDidntConsume;
         private int _brianChargedAnna;
-        private string _brianOverchargedAnna;
+        private int _brianOverchargedAnna;
 
-        public Result(List<int> costOfEachMeal, int itemAnnaDidntConsume, int brianChargedAnna)
+        public BillDivision(List<int> costOfEachMeal, int itemAnnaDidntConsume, int brianChargedAnna)
         {
             _costOfEachMeal = costOfEachMeal;
             _itemAnnaDidntConsume = itemAnnaDidntConsume;
             _brianChargedAnna = brianChargedAnna;
-            _brianOverchargedAnna = "";
+            _brianOverchargedAnna = 0;
 
-            _BonAppetit();
-            PrintResult();
+            _bonAppetit();
         }
 
-            private void _BonAppetit()
+            private void _bonAppetit()
             {
-                int annaCost = _CalculateAnnaCost();
-                _CheckIfBrianOverchargedAnna(annaCost);
+                int annaCost = _calculateAnnaCost();
+                _calculateHowMuchBrianOverchargedAnna(annaCost);
             }
 
-                private int _CalculateAnnaCost()
+                private int _calculateAnnaCost()
                 {
                     int sum = _costOfEachMeal.Sum();
                     int annaCost = (sum - _costOfEachMeal[_itemAnnaDidntConsume]) / 2;
                     return annaCost;
                 }
 
-                private void _CheckIfBrianOverchargedAnna(int annaCost)
+                private void _calculateHowMuchBrianOverchargedAnna(int annaCost)
                 {
-                    if (annaCost == _brianChargedAnna)
-                        _brianOverchargedAnna = "Bon Appetit";
-                    else
-                    {
-                        int brianOverchargedAnna = _brianChargedAnna - annaCost;
-                        _brianOverchargedAnna = brianOverchargedAnna.ToString();
-                    }
+                    if (annaCost != _brianChargedAnna)
+                        _brianOverchargedAnna = _brianChargedAnna - annaCost;
                 }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_brianOverchargedAnna);
-            }
+        public int BrianOverchargedAnna
+        {
+            get { return _brianOverchargedAnna; }
+        }
     }

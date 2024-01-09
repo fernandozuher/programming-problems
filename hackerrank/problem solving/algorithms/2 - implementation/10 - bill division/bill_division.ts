@@ -1,8 +1,7 @@
-// Source: https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -17,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -25,59 +23,55 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-
 function main() {
-    const input1: number[] = readLineAsNumberArray();
-    const itemAnnaDidntConsume: number = input1[1];
-    
-    const costOfEachMeal: number[] = readLineAsNumberArray();
-    const brianChargedAnna: number[] = readLineAsNumberArray();
+    let [n, itemAnnaDidntConsume]: number[] = [...readIntArray()];
+    let costOfEachMeal: number[] = readIntArray();
+    let brianChargedAnna: number = +readLine();
 
-    const result = new Result(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna[0]);
+    let obj = new BillDIvision(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna);
+    printOutput(obj.brianOvercharged())
 }
 
-    function readLineAsNumberArray() {
-        const numbers: number[] = readLine().split(" ").map(Number);
-        return numbers;
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
-        private _costOfEachMeal: number[];
-        private _itemAnnaDidntConsume: number;
-        private _brianChargedAnna: number;
-        private _brianOverchargedAnna: string;
+    class BillDIvision {
+        private costOfEachMeal: number[];
+        private itemAnnaDidntConsume: number;
+        private brianChargedAnna: number;
+        private brianOverchargedAnna: number;
 
         constructor(costOfEachMeal: number[], itemAnnaDidntConsume: number, brianChargedAnna: number) {
-            this._costOfEachMeal = costOfEachMeal;
-            this._itemAnnaDidntConsume = itemAnnaDidntConsume;
-            this._brianChargedAnna = brianChargedAnna;
-            this._brianOverchargedAnna = "";
+            this.costOfEachMeal = costOfEachMeal;
+            this.itemAnnaDidntConsume = itemAnnaDidntConsume;
+            this.brianChargedAnna = brianChargedAnna;
+            this.brianOverchargedAnna = 0;
 
-            this._bonAppetit();
-            this.printResult();
+            this.bonAppetit();
         }
 
-            private _bonAppetit() {
-                const annaCost: number = this._calculateAnnaCost();
-                this._checkIfBrianOverchargedAnna(annaCost);
+            private bonAppetit() {
+                let annaCost: number = this.calculateAnnaCost();
+                this.calculateHowMuchBrianChargedAnna(annaCost);
             }
 
-                private _calculateAnnaCost(): number {
-                    const sum: number = this._costOfEachMeal.reduce((a, b) => a + b, 0);
-                    const annaCost: number = (sum - this._costOfEachMeal[this._itemAnnaDidntConsume]) / 2;
+                private calculateAnnaCost(): number {
+                    let sum: number = this.costOfEachMeal.reduce((a, b) => a + b, 0);
+                    let annaCost: number = (sum - this.costOfEachMeal[this.itemAnnaDidntConsume]) / 2;
                     return annaCost;
                 }
 
-                private _checkIfBrianOverchargedAnna(annaCost: number) {
-                    if (annaCost === this._brianChargedAnna)
-                        this._brianOverchargedAnna = "Bon Appetit";
-                    else {
-                        const brianOverchargedAnna: number = this._brianChargedAnna - annaCost;
-                        this._brianOverchargedAnna = brianOverchargedAnna.toString();
-                    }
+                private calculateHowMuchBrianChargedAnna(annaCost: number) {
+                    if (annaCost !== this.brianChargedAnna)
+                        this.brianOverchargedAnna = this.brianChargedAnna - annaCost;
                 }
-        
-            printResult() {
-                console.log(this._brianOverchargedAnna);
+
+            public brianOvercharged(): number {
+                return this.brianOverchargedAnna;
             }
+    }
+
+    function printOutput(charged: number) {
+        console.log(charged || "Bon Appetit");
     }
