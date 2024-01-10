@@ -1,53 +1,26 @@
-// Source: https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
-    "strings"
-)
+import "fmt"
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
-
-    readLineAsIntArray(scanner)
-    socks := readLineAsIntArray(scanner)
-
-    result := sockMerchant(socks)
-    fmt.Print(result)
+    var n int
+    fmt.Scan(&n)
+    var array []int = readIntArray(n)
+    fmt.Println(sockMerchant(array))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var inputLine string
-
-        if scanner.Scan() {
-            inputLine = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(inputLine, " ")
-        numbers := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            numbers[i] = number
-        }
-        return numbers
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
-
     func sockMerchant(socks []int) int {
-        pairs := 0
+        var pairs int = 0
         socksPairing := make(map[int]bool)
 
         for _, sock := range socks {
@@ -56,6 +29,6 @@ func main() {
             }
             socksPairing[sock] = !socksPairing[sock]
         }
-        
+
         return pairs
     }

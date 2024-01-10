@@ -1,45 +1,40 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 def main():
 
-    readLineAsIntList()
-    socks = readLineAsIntList()
-
-    result = Result(socks)
-
-
-def readLineAsIntList():
-
-    numbers = list(map(int, input().split()))
-    return numbers
+    n = int(input())
+    array = read_int_array()
+    obj = SalesByMatch(array)
+    print(obj.pairs())
 
 
-class Result:
+def read_int_array():
+
+    return list(map(int, input().split()))
+
+
+class SalesByMatch:
 
     def __init__(self, socks):
-        
-        self.__socks = socks
-        self.__pairs = 0
 
-        self.__sockMerchant()
-        self.printResult()
+        self._socks = socks
+        self._pairs = 0
+        self._sockMerchant()
 
 
-    def __sockMerchant(self):
+    def _sockMerchant(self):
 
         socksPairing = {}
 
-        for sock in self.__socks:
+        for sock in self._socks:
             if socksPairing.get(sock):
-                self.__pairs += 1
+                self._pairs += 1
             socksPairing[sock] = not socksPairing[sock] if socksPairing.get(sock) != None else True
 
 
-    def printResult(self):
-        
-        print(self.__pairs)
+    def pairs(self):
+
+        return self._pairs
 
 
 if __name__ == "__main__":

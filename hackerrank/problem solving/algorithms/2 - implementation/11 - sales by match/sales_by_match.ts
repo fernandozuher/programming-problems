@@ -1,8 +1,7 @@
-// Source: https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -17,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -25,42 +23,38 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
-
 function main() {
-    readLineAsNumberArray();
-    const socks: number[] = readLineAsNumberArray();
-
-    const result = new Result(socks);
+    let n: number = +readLine();
+    let array: number[] = readIntArray();
+    let obj = new SalesByMatch(array);
+    console.log(obj.pairs());
 }
 
-    function readLineAsNumberArray() {
-        const numbers: number[] = readLine().split(" ").map(Number);
-        return numbers;
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
-        _socks: number[];
-        _pairs: number;
+    class SalesByMatch {
+        socks: number[];
+        nPairs: number;
 
         constructor(socks: number[]) {
-            this._socks = [...socks];
-            this._pairs = 0;
-
-            this._sockMerchant();
-            this.printResult();
+            this.socks = socks;
+            this.nPairs = 0;
+            this.sockMerchant();
         }
 
-            _sockMerchant() {
-                const socksPairing = new Map<number, boolean>();
+            private sockMerchant() {
+                let socksPairing = new Map<number, boolean>();
 
-                for (let sock of this._socks) {
+                for (const sock of this.socks) {
                     if (socksPairing.get(sock))
-                        this._pairs++;
+                        ++this.nPairs;
                     socksPairing.set(sock, !socksPairing.get(sock));
                 }
             }
-        
-            printResult() {
-                console.log(this._pairs);
-            }
+
+        public pairs(): number {
+            return this.nPairs;
+        }
     }

@@ -1,56 +1,57 @@
-// Source: https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <map>
-#include <sstream>
 
 using namespace std;
 
-class Result {
+vector<int> read_int_array(const int n);
+
+class Sales_By_Match {
+public:
+    Sales_By_Match(const vector<int>& socks): socks{socks}, n_pairs{}
+    {
+        sock_merchant();
+    }
+
+    int pairs() const
+    {
+        return n_pairs;
+    }
 
 private:
-    vector<int> _socks;
-    int _pairs;
+    vector<int> socks;
+    int n_pairs;
 
-    void _sock_merchant() {
+    void sock_merchant()
+    {
         map<int, bool> socks_pairing;
 
-        for (int sock : _socks) {
+        for (const int sock : socks) {
             if (socks_pairing[sock])
-                _pairs++;
+                ++n_pairs;
             socks_pairing[sock] = !socks_pairing[sock];
         }
     }
-
-public:
-    Result(const vector<int> socks): _socks{socks} {
-        _pairs = 0;
-
-        _sock_merchant();
-        print_result();
-    }
-
-        void print_result() const {
-            cout << _pairs;
-        }
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> numbers;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> array {read_int_array(n)};
 
-    for (int number; ss >> number; numbers.push_back(number));
-    return numbers;
-}
-
-int main() {
-    read_line_as_vector_int();
-    vector<int> socks {read_line_as_vector_int()};
-
-    Result result(socks);
+    Sales_By_Match obj{array};
+    cout << obj.pairs();
 
     return 0;
 }
+
+    vector<int> read_int_array(const int n)
+    {
+        vector<int> array(n);
+        generate(array.begin(), array.end(), [] {int x; cin >> x; return x;});
+        return array;
+    }

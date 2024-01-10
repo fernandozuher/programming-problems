@@ -1,41 +1,40 @@
-// Source: https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        ReadLineAsListInt();
-        List<int> socks = ReadLineAsListInt();
-        
-        Result result = new Result(socks);
+        int n = int.Parse(Console.ReadLine());
+        List<int> array = _readIntArray();
+        var obj = new SalesByMatch(array);
+        Console.WriteLine(obj.Pairs);
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return numbers;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    public class SalesByMatch
     {
         private List<int> _socks;
         private int _pairs;
 
-        public Result(List<int> socks)
+        public SalesByMatch(List<int> socks)
         {
             _socks = socks;
             _pairs = 0;
-
-            _SockMerchant();
-            PrintResult();
+            _sockMerchant();
         }
 
-            private void _SockMerchant()
+            private void _sockMerchant()
             {
-                Dictionary<int, bool> socksPairing = new Dictionary<int, bool>();
+                var socksPairing = new Dictionary<int, bool>();
 
                 foreach (int sock in _socks)
                 {
@@ -46,8 +45,8 @@ class Solution
                 }
             }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_pairs);
-            }
+        public int Pairs
+        {
+            get { return _pairs; }
+        }
     }
