@@ -1,65 +1,51 @@
-#!/bin/python
-
-# Source: https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
-
+# https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
 def main():
 
-    pageQuantity = readLineAsIntList()
-    page = readLineAsIntList()
-
-    result = Result(pageQuantity[0], page[0])
-
-
-def readLineAsIntList():
-
-    numbers = list(map(int, input().split()))
-    return numbers
+    page_quantity = int(input())
+    page = int(input())
+    obj = DrawingBook(page_quantity, page)
+    print(obj.minimum_turn_of_pages())
 
 
-class Result:
+class DrawingBook:
 
-    def __init__(self, pageQuantity, page):
-        
-        self.__pageQuantity = pageQuantity
-        self.__page = page
-        self.__turnOfPagesFromFront = 0
-        self.__turnOfPagesFromBack = 0
-        self.__minimumTurnOfPages = 0
+    def __init__(self, page_quantity, page):
 
-        self.__drawingBook()
-        self.printResult()
+        self._page_quantity = page_quantity
+        self._page = page
+        self._turn_of_pages_from_front = 0
+        self._turn_of_pages_from_back = 0
+        self._minimum_turn_of_pages = 0
+        self._page_count()
 
 
-    def __drawingBook(self):
+    def _page_count(self):
 
-        self.__turnOfPagesFromFront = self.__calculateTurnOfPages(self.__page)
-        
-        maximumTurns = self.__calculateTurnOfPages(self.__pageQuantity)
-
-        self.__turnOfPagesFromBack = maximumTurns - self.__turnOfPagesFromFront
-
-        self.__minimumTurnOfPages = int(min(self.__turnOfPagesFromFront, self.__turnOfPagesFromBack))
+        self._turn_of_pages_from_front = self._calculate_turn_of_pages(self._page)
+        maximum_turns = self._calculate_turn_of_pages(self._page_quantity)
+        self._turn_of_pages_from_back = maximum_turns - self._turn_of_pages_from_front
+        self._minimum_turn_of_pages = int(min(self._turn_of_pages_from_front, self._turn_of_pages_from_back))
 
 
-    def __calculateTurnOfPages(self, page):
+    def _calculate_turn_of_pages(self, page):
 
-        return self.__pageIsOdd(page) if page & 1 else self.__pageIsEven(page)
+        return self._page_is_odd(page) if page & 1 else self._page_is_even(page)
 
 
-    def __pageIsOdd(self, page):
+    def _page_is_odd(self, page):
 
         return (page - 1) / 2
 
 
-    def __pageIsEven(self, page):
+    def _page_is_even(self, page):
 
         return page / 2
 
 
-    def printResult(self):
-        
-        print(self.__minimumTurnOfPages)
+    def minimum_turn_of_pages(self):
+
+        return self._minimum_turn_of_pages
 
 
 if __name__ == "__main__":

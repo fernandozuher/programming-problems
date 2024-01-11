@@ -1,26 +1,19 @@
-// Source: https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
 using System;
 
-
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        List<int> pageQuantity = ReadLineAsListInt();
-        List<int> page = ReadLineAsListInt();
-        
-        Result result = new Result(pageQuantity.First(), page.First());
+        int pageQuantity = int.Parse(Console.ReadLine());
+        int page = int.Parse(Console.ReadLine());
+        var obj = new DrawingBook(pageQuantity, page);
+        Console.WriteLine(obj.MinimumTurnOfPages);
     }
-
-        private static List<int> ReadLineAsListInt()
-        {
-            List<int> numbers = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return numbers;
-        }
 }
 
-    class Result
+    public class DrawingBook
     {
         private int _pageQuantity;
         private int _page;
@@ -28,46 +21,41 @@ class Solution
         private int _turnOfPagesFromBack;
         private int _minimumTurnOfPages;
 
-        public Result(int pageQuantity, int page)
+        public DrawingBook(int pageQuantity, int page)
         {
             _pageQuantity = pageQuantity;
             _page = page;
             _turnOfPagesFromFront = 0;
             _turnOfPagesFromBack = 0;
             _minimumTurnOfPages = 0;
-
-            _DrawingBook();
-            PrintResult();
+            _pageCount();
         }
 
-            private void _DrawingBook()
+            private void _pageCount()
             {
-                _turnOfPagesFromFront = _CalculateTurnOfPages(_page);
-        
-                int maximumTurns = _CalculateTurnOfPages(_pageQuantity);
-
+                _turnOfPagesFromFront = _calculateTurnOfPages(_page);
+                int maximumTurns = _calculateTurnOfPages(_pageQuantity);
                 _turnOfPagesFromBack = maximumTurns - _turnOfPagesFromFront;
-
                 _minimumTurnOfPages = Math.Min(_turnOfPagesFromFront, _turnOfPagesFromBack);
             }
 
-                int _CalculateTurnOfPages(int page)
+                private int _calculateTurnOfPages(int page)
                 {
-                    return (page & 1) == 1 ? _PageIsOdd(page) : _PageIsEven(page);
+                    return (page & 1) == 1 ? _pageIsOdd(page) : _pageIsEven(page);
                 }
 
-                    int _PageIsOdd(int page)
+                    private int _pageIsOdd(int page)
                     {
                         return (page - 1) / 2;
                     }
 
-                    int _PageIsEven(int page)
+                    private int _pageIsEven(int page)
                     {
                         return page / 2;
                     }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_minimumTurnOfPages);
-            }
+        public int MinimumTurnOfPages
+        {
+            get { return _minimumTurnOfPages; }
+        }
     }

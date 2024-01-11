@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,60 +23,51 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    const pageQuantity: number[] = readLineAsNumberArray();
-    const page: number[] = readLineAsNumberArray();
-
-    const result = new Result(pageQuantity[0], page[0]);
+    let pageQuantity: number = +readLine();
+    let page: number = +readLine();
+    let obj = new DrawingBook(pageQuantity, page);
+    console.log(obj.minimumTurnOfPages());
 }
 
-    function readLineAsNumberArray() {
-        const numbers: number[] = readLine().split(" ").map(Number);
-        return numbers;
-    }
-
-    class Result {
-        private _pageQuantity: number;
-        private _page: number;
-        private _turnOfPagesFromFront: number;
-        private _turnOfPagesFromBack: number;
-        private _minimumTurnOfPages: number;
+    class DrawingBook {
+        private pageQuantity: number;
+        private page: number;
+        private turnOfPagesFromFront: number;
+        private turnOfPagesFromBack: number;
+        private miniTurnOfPages: number;
 
         constructor(pageQuantity: number, page: number) {
-            this._pageQuantity = pageQuantity;
-            this._page = page;
-            this._turnOfPagesFromFront = 0;
-            this._turnOfPagesFromBack = 0;
-            this._minimumTurnOfPages = 0;
-
-            this._drawingBook();
-            this.printResult();
+            this.pageQuantity = pageQuantity;
+            this.page = page;
+            this.turnOfPagesFromFront = 0;
+            this.turnOfPagesFromBack = 0;
+            this.miniTurnOfPages = 0;
+            this.pageCount();
         }
 
-            private _drawingBook() {
-                this._turnOfPagesFromFront = this._calculateTurnOfPages(this._page);
-        
-                const maximumTurns: number = this._calculateTurnOfPages(this._pageQuantity);
-
-                this._turnOfPagesFromBack = maximumTurns - this._turnOfPagesFromFront;
-
-                this._minimumTurnOfPages = Math.min(this._turnOfPagesFromFront, this._turnOfPagesFromBack);
+            private pageCount() {
+                this.turnOfPagesFromFront = this.calculateTurnOfPages(this.page);
+                const maximumTurns: number = this.calculateTurnOfPages(this.pageQuantity);
+                this.turnOfPagesFromBack = maximumTurns - this.turnOfPagesFromFront;
+                this.miniTurnOfPages = Math.min(this.turnOfPagesFromFront, this.turnOfPagesFromBack);
             }
 
-                private _calculateTurnOfPages(page: number): number {
-                    return page & 1 ? this._pageIsOdd(page) : this._pageIsEven(page);
+                private calculateTurnOfPages(page: number): number {
+                    return page & 1 ? this.pageIsOdd(page) : this.pageIsEven(page);
                 }
 
-                    private _pageIsOdd(page: number): number {
+                    private pageIsOdd(page: number): number {
                         return (page - 1) / 2;
                     }
 
-                    private _pageIsEven(page: number): number {
+                    private pageIsEven(page: number): number {
                         return page / 2;
                     }
-        
-            printResult() {
-                console.log(this._minimumTurnOfPages);
-            }
+
+        public minimumTurnOfPages(): number {
+            return this.miniTurnOfPages;
+        }
     }

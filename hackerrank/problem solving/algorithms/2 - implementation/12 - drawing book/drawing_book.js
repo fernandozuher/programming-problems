@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,28 +14,25 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    const pageQuantity = readLineAsNumberArray();
-    const page = readLineAsNumberArray();
-
-    const result = new Result(pageQuantity[0], page[0]);
+    let pageQuantity = +readLine();
+    let page = +readLine();
+    let obj = new DrawingBook(pageQuantity, page);
+    console.log(obj.minimumTurnOfPages());
 }
 
-    function readLineAsNumberArray() {
-        const numbers = readLine().split(" ").map(Number);
-        return numbers;
-    }
-
-    class Result {
+    class DrawingBook {
         #pageQuantity;
         #page;
         #turnOfPagesFromFront;
@@ -47,18 +45,13 @@ function main() {
             this.#turnOfPagesFromFront = 0;
             this.#turnOfPagesFromBack = 0;
             this.#minimumTurnOfPages = 0;
-
-            this.#drawingBook();
-            this.printResult();
+            this.#pageCount();
         }
 
-            #drawingBook() {
+            #pageCount() {
                 this.#turnOfPagesFromFront = this.#calculateTurnOfPages(this.#page);
-        
-                const maximumTurns = this.#calculateTurnOfPages(this.#pageQuantity);
-
+                let maximumTurns = this.#calculateTurnOfPages(this.#pageQuantity);
                 this.#turnOfPagesFromBack = maximumTurns - this.#turnOfPagesFromFront;
-
                 this.#minimumTurnOfPages = Math.min(this.#turnOfPagesFromFront, this.#turnOfPagesFromBack);
             }
 
@@ -73,8 +66,8 @@ function main() {
                     #pageIsEven(page) {
                         return page / 2;
                     }
-        
-            printResult() {
-                console.log(this.#minimumTurnOfPages);
-            }
+
+        minimumTurnOfPages() {
+            return this.#minimumTurnOfPages;
+        }
     }

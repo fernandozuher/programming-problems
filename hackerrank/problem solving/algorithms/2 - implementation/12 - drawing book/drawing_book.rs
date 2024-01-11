@@ -1,48 +1,34 @@
-// Source: https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
-use std::io::{self, BufRead};
 use std::cmp;
-
+use text_io::read;
 
 fn main() {
-    let page_quantity = read_line_as_vec_i32();
-    let page = read_line_as_vec_i32();
-
-    let result: i32 = drawing_book(page_quantity.first().unwrap().clone(), page.first().unwrap().clone());
-    println!("{}", result);
+    let page_quantity: i32 = read!();
+    let page: i32 = read!();
+    println!("{}", page_count(page_quantity, page));
 }
 
-    fn read_line_as_vec_i32() -> Vec<i32> {
-        let stdin = io::stdin();
-        
-        let numbers: Vec<i32> = stdin.lock()
-          .lines().next().unwrap().unwrap()
-          .trim().split(' ')
-          .map(|s| s.parse().unwrap())
-          .collect();
+fn page_count(page_quantity: i32, page: i32) -> i32 {
+    let turn_of_pages_from_front: i32 = calculate_turn_of_pages(page);
+    let maximum_turns: i32 = calculate_turn_of_pages(page_quantity);
+    let turn_of_pages_from_back: i32 = maximum_turns - turn_of_pages_from_front;
+    let minimum_turn_of_pages: i32 = cmp::min(turn_of_pages_from_front, turn_of_pages_from_back);
+    return minimum_turn_of_pages;
+}
 
-        return numbers;
-    }
+fn calculate_turn_of_pages(page: i32) -> i32 {
+    return if page & 1 == 1 {
+        page_is_odd(page)
+    } else {
+        page_is_even(page)
+    };
+}
 
-    fn drawing_book(page_quantity: i32, page: i32) -> i32 {
-        let turn_of_pages_from_front: i32 = calculate_turn_of_pages(page);
-        
-        let maximum_turns: i32 = calculate_turn_of_pages(page_quantity);
+fn page_is_odd(page: i32) -> i32 {
+    return (page - 1) / 2;
+}
 
-        let turn_of_pages_from_back: i32 = maximum_turns - turn_of_pages_from_front;
-
-        let minimum_turn_of_pages: i32 = cmp::min(turn_of_pages_from_front, turn_of_pages_from_back);
-        return minimum_turn_of_pages
-    }
-
-        fn calculate_turn_of_pages(page: i32) -> i32 {
-            return if page & 1 == 1 {page_is_odd(page)} else {page_is_even(page)};
-        }
-
-            fn page_is_odd(page: i32) -> i32 {
-                return (page - 1) / 2;
-            }
-
-            fn page_is_even(page: i32) -> i32 {
-                return page / 2;
-            }
+fn page_is_even(page: i32) -> i32 {
+    return page / 2;
+}

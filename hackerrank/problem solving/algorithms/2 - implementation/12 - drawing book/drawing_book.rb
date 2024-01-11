@@ -1,57 +1,42 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
-
+# https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
 def main
-    pageQuantity = readLineAsIntArray
-    page = readLineAsIntArray
-
-    result = Result.new pageQuantity.first, page.first
+    page_quantity = gets.to_i
+    page = gets.to_i
+    obj = Drawing_book.new(page_quantity, page)
+    puts obj.minimum_turn_of_pages
 end
 
-    def readLineAsIntArray
-        numbers = gets.split.map(&:to_i)
-    end
+    class Drawing_book
+        attr_reader :minimum_turn_of_pages
 
-    class Result
-
-        def initialize pageQuantity, page
-            @pageQuantity = pageQuantity
+        def initialize(page_quantity, page)
+            @page_quantity = page_quantity
             @page = page
-            @turnOfPagesFromFront = 0
-            @turnOfPagesFromBack = 0
-            @minimumTurnOfPages = 0
-
-            _drawingBook
-            printResult
+            @turn_of_pages_from_front = 0
+            @turn_of_pages_from_back = 0
+            @minimum_turn_of_pages = 0
+            page_count
         end
 
-            private def _drawingBook
-                @turnOfPagesFromFront = _calculateTurnOfPages @page
-        
-                maximumTurns = _calculateTurnOfPages @pageQuantity
-
-                @turnOfPagesFromBack = maximumTurns - @turnOfPagesFromFront
-
-                @minimumTurnOfPages = [@turnOfPagesFromFront, @turnOfPagesFromBack].min
+            private def page_count
+                @turn_of_pages_from_front = calculate_turn_of_pages(@page)
+                maximum_turns = calculate_turn_of_pages(@page_quantity)
+                @turn_of_pages_from_back = maximum_turns - @turn_of_pages_from_front
+                @minimum_turn_of_pages = [@turn_of_pages_from_front, @turn_of_pages_from_back].min
             end
 
-                def _calculateTurnOfPages page
-                    page.odd? ? _pageIsOdd(page) : _pageIsEven(page)
+                private def calculate_turn_of_pages(page)
+                    page.odd? ? page_is_odd(page) : page_is_even(page)
                 end
 
-                    def _pageIsOdd page
+                    private def page_is_odd(page)
                         (page - 1) / 2
                     end
 
-                    def _pageIsEven page
+                    private def page_is_even(page)
                         page / 2
                     end
-
-            def printResult
-                puts @minimumTurnOfPages
-            end
     end
 
 main
