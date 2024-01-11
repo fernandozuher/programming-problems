@@ -37,14 +37,14 @@ function main() {
         private page: number;
         private turnOfPagesFromFront: number;
         private turnOfPagesFromBack: number;
-        private miniTurnOfPages: number;
+        private minTurnOfPages: number;
 
         constructor(pageQuantity: number, page: number) {
             this.pageQuantity = pageQuantity;
             this.page = page;
             this.turnOfPagesFromFront = 0;
             this.turnOfPagesFromBack = 0;
-            this.miniTurnOfPages = 0;
+            this.minTurnOfPages = 0;
             this.pageCount();
         }
 
@@ -52,7 +52,7 @@ function main() {
                 this.turnOfPagesFromFront = this.calculateTurnOfPages(this.page);
                 const maximumTurns: number = this.calculateTurnOfPages(this.pageQuantity);
                 this.turnOfPagesFromBack = maximumTurns - this.turnOfPagesFromFront;
-                this.miniTurnOfPages = Math.min(this.turnOfPagesFromFront, this.turnOfPagesFromBack);
+                this.minTurnOfPages = Math.min(this.turnOfPagesFromFront, this.turnOfPagesFromBack);
             }
 
                 private calculateTurnOfPages(page: number): number {
@@ -68,6 +68,6 @@ function main() {
                     }
 
         public minimumTurnOfPages(): number {
-            return this.miniTurnOfPages;
+            return this.minTurnOfPages;
         }
     }
