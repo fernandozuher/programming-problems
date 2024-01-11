@@ -52,6 +52,6 @@ int main()
     vector<int> read_int_array(const int n)
     {
         vector<int> array(n);
-        generate(array.begin(), array.end(), [] {int x; cin >> x; return x;});
+        ranges::generate(array, [] {int x; cin >> x; return x;});
         return array;
     }
