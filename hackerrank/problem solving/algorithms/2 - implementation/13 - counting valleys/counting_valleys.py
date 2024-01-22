@@ -1,58 +1,42 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 def main():
 
-    readLineAsIntList()
-    steps = readLineAsString()
-
-    result = Result(steps)
-
-
-def readLineAsIntList():
-
-    inputLine = list(map(int, input().split()))
-    return inputLine
+    n = int(input())
+    array = input()
+    obj = CountValleys(array)
+    print(obj.traversed_valleys())
 
 
-def readLineAsString():
-
-    inputLine = input()
-    return inputLine
-
-
-class Result:
+class CountValleys:
 
     def __init__(self, steps):
-        
-        self.__steps = steps
-        self.__traversedValleys = 0
 
-        self.__countingValleys()
-        self.printResult()
+        self._steps = steps
+        self._traversed_valleys = 0
+        self._counting_valleys()
 
 
-    def __countingValleys(self):
+    def _counting_valleys(self):
 
-        currentAltitude = 0
+        current_altitude = 0
 
-        for step in self.__steps:
-            wasTravessingAValley = currentAltitude < 0
-            currentAltitude += -1 if step == 'D' else 1
-            
-            if self.__isInSeaLevelFromValley(wasTravessingAValley, currentAltitude):
-                self.__traversedValleys += 1
+        for step in self._steps:
+            was_travessing_a_valley = current_altitude < 0
+            current_altitude += -1 if step == 'D' else 1
 
-
-    def __isInSeaLevelFromValley(self, wasTravessingAValley, currentAltitude):
-        
-        return wasTravessingAValley and not currentAltitude
+            if self._is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude):
+                self._traversed_valleys += 1
 
 
-    def printResult(self):
-        
-        print(self.__traversedValleys)
+    def _is_in_sea_level_from_valley(self, was_travessing_a_valley, current_altitude):
+
+        return was_travessing_a_valley and not current_altitude
+
+
+    def traversed_valleys(self):
+
+        return self._traversed_valleys
 
 
 if __name__ == "__main__":

@@ -1,66 +1,57 @@
-// Source: https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 #include <iostream>
-#include <vector>
-#include <sstream>
 
 using namespace std;
 
-class Result {
+class CountValleys {
+public:
+    CountValleys(const string& steps);
+    int traversed_valleys() const;
 
 private:
-    string _steps;
-    int _traversed_valleys;
+    string steps;
+    int n_traversed_valleys;
 
-    void _counting_valleys() {
-        int current_altitude {0};
-        for (char step : _steps) {
-            bool was_travessing_a_valley {current_altitude < 0};
-            current_altitude += step == 'D' ? -1 : 1;
-            
-            if (_is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude))
-                _traversed_valleys++;
-        }
-    }
+    void counting_valleys();
+        bool is_in_sea_level_from_valley(const bool was_travessing_a_valley, const int current_altitude) const;
 
-        bool _is_in_sea_level_from_valley(const bool was_travessing_a_valley, const int current_altitude) const {
-            return was_travessing_a_valley && !current_altitude;
-        }
-
-public:
-    Result(const string steps): _steps{steps} {
-        _traversed_valleys = 0;
-
-        _counting_valleys();
-        print_result();
-    }
-
-        void print_result() const {
-            cout << _traversed_valleys;
-        }
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> input_line;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+    CountValleys::CountValleys(const string& steps): steps{steps}, n_traversed_valleys{}
+    {
+        counting_valleys();
+    }
 
-    for (int number; ss >> number; input_line.push_back(number));
-    return input_line;
-}
+    int CountValleys::traversed_valleys() const
+    {
+        return n_traversed_valleys;
+    }
 
-string read_line_as_string() {
-    string input_line;
-    getline(cin, input_line);
-    return input_line;
-}
+        void CountValleys::counting_valleys()
+        {
+            int current_altitude {};
+            for (const char step : steps) {
+                bool was_travessing_a_valley {current_altitude < 0};
+                current_altitude += step == 'D' ? -1 : 1;
 
-int main() {
-    read_line_as_vector_int();
-    string steps {read_line_as_string()};
+                if (is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude))
+                    ++n_traversed_valleys;
+            }
+        }
 
-    Result result(steps);
+            bool CountValleys::is_in_sea_level_from_valley(const bool was_travessing_a_valley, const int current_altitude) const
+            {
+                return was_travessing_a_valley && !current_altitude;
+            }
+
+int main()
+{
+    int n;
+    string array;
+    cin >> n >> array;
+    CountValleys obj{array};
+    cout << obj.traversed_valleys();
 
     return 0;
 }

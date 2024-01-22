@@ -1,51 +1,37 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true 
+# https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 def main
-    readLineAsIntArray
-    steps = readLineAsString
-
-    result = Result.new steps
+    n = gets.to_i
+    array = gets
+    obj = Count_valleys.new(array)
+    puts obj.traversed_valleys
 end
 
-    def readLineAsIntArray
-        inputLine = gets.split.map(&:to_i)
-    end
+    class Count_valleys
 
-    def readLineAsString
-        inputLine = gets
-    end
+        attr_reader :traversed_valleys
 
-    class Result
-
-        def initialize steps
+        def initialize(steps)
             @steps = steps
-            @traversedValleys = 0
-
-            _countingValleys
-            printResult
+            @traversed_valleys = 0
+            counting_valleys
         end
 
-            private def _countingValleys
-                currentAltitude = 0
+            private def counting_valleys
+                current_altitude = 0
 
-                for step in @steps.split("")
-                    wasTravessingAValley = currentAltitude < 0
-                    currentAltitude += step == 'D' ? -1 : 1
+                for step in @steps.split('')
+                    was_travessing_a_valley = current_altitude < 0
+                    current_altitude += step == 'D' ? -1 : 1
                     
-                    if _isInSeaLevelFromValley wasTravessingAValley, currentAltitude
-                        @traversedValleys += 1
+                    if is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude)
+                        @traversed_valleys += 1
                     end
                 end
             end
 
-            private def _isInSeaLevelFromValley wasTravessingAValley, currentAltitude
-                wasTravessingAValley && currentAltitude == 0
-            end
-
-            def printResult
-                puts @traversedValleys
+            private def is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude)
+                was_travessing_a_valley && current_altitude == 0
             end
     end
 

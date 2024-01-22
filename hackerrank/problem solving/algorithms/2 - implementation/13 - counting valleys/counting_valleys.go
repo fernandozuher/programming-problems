@@ -1,69 +1,30 @@
-// Source: https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 package main
 
-import (
-    "fmt"
-    "unicode"
-)
+import "fmt"
 
 func main() {
-    var n int = readLineAsInt()
-    var steps []rune = readLineAsCharactersArray(n)
-
-    var result int = countingValleys(steps)
-    fmt.Print(result)
+    var n int
+    fmt.Scan(&n)
+    var array string
+    fmt.Scan(&array)
+    fmt.Println(countingValleys(array))
 }
 
-    func readLineAsInt() int {
-        var inputLine int
+    func countingValleys(steps string) int {
+        var currentAltitude int = 0
+        var traversedValleys int = 0
 
-        _, err := fmt.Scanf("%d", &inputLine)
-        checkError(err)
-
-        return inputLine
-    }
-
-    func readLineAsCharactersArray(n int) []rune {
-        var inputLine []rune = make([]rune, n)
-
-        for i := 0; i < n; i++ {
-            inputLine[i] = readOneCharacterWihtouSpace()
-        }
-
-        return inputLine
-    }
-
-        func readOneCharacterWihtouSpace() rune {
-            var character rune = ' ';
-
-            for unicode.IsSpace(character) {
-                _, err := fmt.Scanf("%c", &character)
-                checkError(err)
-            }
-
-            return character
-        }
-
-            func checkError(err error) {
-                if err != nil {
-                    panic(err)
-                }
-            }
-
-    func countingValleys(steps []rune) int {
-        currentAltitude := 0
-        traversedValleys := 0
-        
         for _, step := range steps {
-            var wasTravessingAValley bool = currentAltitude < 0
+            wasTravessingAValley := currentAltitude < 0
 
             if step == 'D' {
                 currentAltitude--
             } else {
                 currentAltitude++
             }
-            
+
             if isInSeaLevelFromValley(wasTravessingAValley, currentAltitude) {
                 traversedValleys++
             }

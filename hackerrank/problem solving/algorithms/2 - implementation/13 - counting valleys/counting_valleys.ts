@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,54 +23,42 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    readLineAsNumberArray();
-    const steps: string = readLineAsString();
-
-    const result = new Result(steps);
+    let n: number = +readLine();
+    let array: string = readLine();
+    let obj = new CountValleys(array);
+    console.log(obj.traversedValleys());
 }
 
-    function readLineAsNumberArray() {
-        const inputLine: number[] = readLine().split(" ").map(Number);
-        return inputLine;
-    }
-
-    function readLineAsString() {
-        const inputLine = readLine();
-        return inputLine;
-    }
-
-    class Result {
-        private _steps: string;
-        private _traversedValleys: number;
+    class CountValleys {
+        private steps: string;
+        private nTraversedValleys: number;
 
         constructor(steps: string) {
-            this._steps = steps;
-            this._traversedValleys = 0;
-
-            this._countingValleys();
-            this.printResult();
+            this.steps = steps;
+            this.nTraversedValleys = 0;
+            this.countingValleys();
         }
 
-            private _countingValleys() {
+            private countingValleys() {
                 let currentAltitude: number = 0;
 
-                for (let step of this._steps) {
-                    const wasTravessingAValley: boolean = currentAltitude < 0;
+                for (const step of this.steps) {
+                    let wasTravessingAValley: boolean = currentAltitude < 0;
                     currentAltitude += step === 'D' ? -1 : 1;
-                    
-                    if (this._isInSeaLevelFromValley(wasTravessingAValley, currentAltitude))
-                        this._traversedValleys++;
+
+                    if (this.isInSeaLevelFromValley(wasTravessingAValley, currentAltitude))
+                        ++this.nTraversedValleys;
                 }
             }
 
-                private _isInSeaLevelFromValley(wasTravessingAValley: boolean, currentAltitude: number) {
+                private isInSeaLevelFromValley(wasTravessingAValley: boolean, currentAltitude: number): boolean {
                     return wasTravessingAValley && !currentAltitude;
                 }
 
-        
-            printResult() {
-                console.log(this._traversedValleys);
+            public traversedValleys(): number {
+                return this.nTraversedValleys;
             }
     }

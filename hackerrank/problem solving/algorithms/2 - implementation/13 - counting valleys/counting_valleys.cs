@@ -1,65 +1,50 @@
-// Source: https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 using System;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        ReadLineAsListInt();
-        string steps = ReadLineAsString();
-        
-        Result result = new Result(steps);
+        int n = int.Parse(Console.ReadLine());
+        string steps = Console.ReadLine();
+        var obj = new CountValleys(steps);
+        Console.WriteLine(obj.TraversedValleys);
     }
-
-        private static List<int> ReadLineAsListInt()
-        {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
-        }
-
-        private static string ReadLineAsString()
-        {
-            string inputLine = Console.ReadLine();
-            return inputLine;
-        }
 }
 
-    class Result
+    public class CountValleys
     {
         private string _steps;
         private int _traversedValleys;
 
-        public Result(string steps)
+        public CountValleys(string steps)
         {
             _steps = steps;
             _traversedValleys = 0;
-
-            _CountingValleys();
-            PrintResult();
+            _countingValleys();
         }
 
-            private void _CountingValleys()
+            private void _countingValleys()
             {
                 int currentAltitude = 0;
-
                 foreach (char step in _steps)
                 {
                     bool wasTravessingAValley = currentAltitude < 0;
                     currentAltitude += step == 'D' ? -1 : 1;
-                    
-                    if (_IsInSeaLevelFromValley(wasTravessingAValley, currentAltitude))
-                        _traversedValleys++;
+
+                    if (_isInSeaLevelFromValley(wasTravessingAValley, currentAltitude))
+                        ++_traversedValleys;
                 }
             }
 
-                private bool _IsInSeaLevelFromValley(bool wasTravessingAValley, int currentAltitude)
+                private bool _isInSeaLevelFromValley(bool wasTravessingAValley, int currentAltitude)
                 {
                     return wasTravessingAValley && currentAltitude == 0;
                 }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_traversedValleys);
-            }
+        public int TraversedValleys
+        {
+            get { return _traversedValleys; }
+        }
     }
