@@ -1,99 +1,74 @@
-// Source: https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 package main
 
 import (
-    "bufio"
     "fmt"
     "math"
-    "os"
     "sort"
-    "strconv"
-    "strings"
 )
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
+    var budget, nKeyboardCosts, nUsbDriveCosts int
+    fmt.Scanf("%d %d %d", &budget, &nKeyboardCosts, &nUsbDriveCosts)
 
-    var inputLine []int = readLineAsIntArray(scanner)
-    var budget int = inputLine[0]
-
-    var keyboardCosts []int = readLineAsIntArray(scanner)
-    var usbDriveCosts []int = readLineAsIntArray(scanner)
+    var keyboardCosts []int = readIntArray(nKeyboardCosts)
+    var usbDriveCosts []int = readIntArray(nUsbDriveCosts)
 
     sort.Ints(keyboardCosts)
     sort.Ints(usbDriveCosts)
 
-    var result int = getMoneySpent(keyboardCosts, usbDriveCosts, budget)
-    fmt.Print(result)
+    fmt.Println(calculateMoneySpent(keyboardCosts, usbDriveCosts, budget))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var line string
-
-        if scanner.Scan() {
-            line = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(line, " ")
-        inputLine := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            inputLine[i] = number
-        }
-        return inputLine
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
-
-    func getMoneySpent(keyboardCosts []int, usbDriveCosts []int, budget int) int {
-        canBeSpent := 0
+    func calculateMoneySpent(keyboardCosts []int, usbDriveCosts []int, budget int) int {
+        var moneyThatCanBeSpent int = 0
 
         for i := 0; i < len(keyboardCosts); i++ {
-            
+
             if isNextCostEqualToCurrentOne(keyboardCosts, i) {
                 continue
             }
 
             for j := 0; j < len(usbDriveCosts); j++ {
-                
+
                 if isNextCostEqualToCurrentOne(usbDriveCosts, j) {
                     continue
                 }
 
                 var sum int = keyboardCosts[i] + usbDriveCosts[j]
 
-                if isSumInsideBudget(sum, budget) {
-                    canBeSpent = updateCost(sum, canBeSpent)
+                if isSumAffordableByBudget(sum, budget) {
+                    moneyThatCanBeSpent = updateCost(sum, moneyThatCanBeSpent)
                 } else {
                     break
                 }
             }
         }
 
-        if canBeSpent > 0 {
-            return canBeSpent
+        if moneyThatCanBeSpent > 0 {
+            return moneyThatCanBeSpent
         } else {
             return -1
         }
     }
 
-        func isNextCostEqualToCurrentOne(deviceCosts []int, currentIndex int) bool {
-            return currentIndex < len(deviceCosts) - 1 && deviceCosts[currentIndex] == deviceCosts[currentIndex + 1]
+        func isNextCostEqualToCurrentOne(deviceCosts []int, i int) bool {
+            return i < len(deviceCosts)-1 && deviceCosts[i] == deviceCosts[i+1]
         }
 
-        func isSumInsideBudget(sum int, budget int) bool {
+        func isSumAffordableByBudget(sum int, budget int) bool {
             return sum <= budget
         }
 
-        func updateCost(sum int, canBeSpent int) int {
-            return int(math.Max(float64(sum), float64(canBeSpent)))
+        func updateCost(sum int, moneyThatCanBeSpent int) int {
+            return int(math.Max(float64(sum), float64(moneyThatCanBeSpent)))
         }

@@ -1,89 +1,89 @@
-// Source: https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        List<int> newLine = ReadLineAsListInt();
-        int budget = newLine.First();
+        List<int> line = _readIntArray();
+        int budget = line.First();
 
-        List<int> keyboardCosts = ReadLineAsListInt();
-        List<int> usbDriveCosts = ReadLineAsListInt();
+        List<int> keyboardCosts = _readIntArray();
+        List<int> usbDriveCosts = _readIntArray();
 
         keyboardCosts.Sort();
         usbDriveCosts.Sort();
 
-        Result result = new Result(keyboardCosts, usbDriveCosts, budget);
+        var obj = new ElectronicsShop(keyboardCosts, usbDriveCosts, budget);
+        Console.WriteLine(obj.MoneyThatCanBeSpent);
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    public class ElectronicsShop
     {
         private List<int> _keyboardCosts;
         private List<int> _usbDriveCosts;
         private int _budget;
-        private int _canBeSpent;
+        private int _moneyThatCanBeSpent;
 
-        public Result(List<int> keyboardCosts, List<int> usbDriveCosts, int budget)
+        public ElectronicsShop(List<int> keyboardCosts, List<int> usbDriveCosts, int budget)
         {
             _keyboardCosts = keyboardCosts;
             _usbDriveCosts = usbDriveCosts;
             _budget = budget;
-            _canBeSpent = 0;
-
-            _GetMoneySpent();
-            PrintResult();
+            _moneyThatCanBeSpent = 0;
+            _calculateMoneySpent();
         }
 
-            private void _GetMoneySpent()
+            private void _calculateMoneySpent()
             {
-                for (int i = 0, n_keyboardCosts = _keyboardCosts.Count; i < n_keyboardCosts; i++)
+                for (int i = 0; i < _keyboardCosts.Count; ++i)
                 {
-                    if (_IsNextCostEqualToCurrentOne(_keyboardCosts, i))
+                    if (_isNextCostEqualToCurrentOne(_keyboardCosts, i))
                         continue;
 
-                    for (int j = 0, n_usbDriveCosts = _usbDriveCosts.Count; j < n_usbDriveCosts; j++)
-                    {                        
-                        if (_IsNextCostEqualToCurrentOne(_usbDriveCosts, j))
+                    for (int j = 0; j < _usbDriveCosts.Count; ++j)
+                    {
+                        if (_isNextCostEqualToCurrentOne(_usbDriveCosts, j))
                             continue;
 
                         int sum = _keyboardCosts[i] + _usbDriveCosts[j];
 
-                        if (_IsSumInsideBudget(sum))
-                            _canBeSpent = _UpdateCost(sum);
+                        if (_isSumAffordableByBudget(sum))
+                            _moneyThatCanBeSpent = _updateCost(sum);
                         else
                             break;
                     }
                 }
 
-                _canBeSpent = _canBeSpent > 0 ? _canBeSpent : -1;
+                _moneyThatCanBeSpent = _moneyThatCanBeSpent > 0 ? _moneyThatCanBeSpent : -1;
             }
 
-                private bool _IsNextCostEqualToCurrentOne(List<int> deviceCosts, int currentIndex)
+                private bool _isNextCostEqualToCurrentOne(List<int> deviceCosts, int i)
                 {
-                    return currentIndex < deviceCosts.Count - 1 && deviceCosts[currentIndex] == deviceCosts[currentIndex + 1];
+                    return i < deviceCosts.Count - 1 && deviceCosts[i] == deviceCosts[i + 1];
                 }
 
-                private bool _IsSumInsideBudget(int sum)
+                private bool _isSumAffordableByBudget(int sum)
                 {
                     return sum <= _budget;
                 }
 
-                private int _UpdateCost(int sum)
+                private int _updateCost(int sum)
                 {
-                    return Math.Max(sum, _canBeSpent);
+                    return Math.Max(sum, _moneyThatCanBeSpent);
                 }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_canBeSpent);
-            }
+        public int MoneyThatCanBeSpent
+        {
+            get { return _moneyThatCanBeSpent; }
+        }
     }

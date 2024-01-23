@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,84 +14,83 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    const inputLine = readLineAsNumberArray();
-    const budget = inputLine[0];
-    const keyboardCosts = readLineAsNumberArray();
-    const usbDriveCosts = readLineAsNumberArray();
+    let [budget, nKeyboardCosts, nUsbDriveCosts] = readIntArray();
+    let keyboardCosts = readIntArray();
+    let usbDriveCosts = readIntArray();
 
     keyboardCosts.sort((a, b) => a - b);
     usbDriveCosts.sort((a, b) => a - b);
 
-    const result = new Result(keyboardCosts, usbDriveCosts, budget);
+    let obj = new ElectronicsShop(keyboardCosts, usbDriveCosts, budget);
+    console.log(obj.moneyThatCanBeSpent());
 }
 
-    function readLineAsNumberArray() {
-        const inputLine = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
+    class ElectronicsShop {
         #keyboardCosts;
         #usbDriveCosts;
         #budget;
-        #canBeSpent;
+        #moneyThatCanBeSpent;
 
         constructor(keyboardCosts, usbDriveCosts, budget) {
-            this.#keyboardCosts = [...keyboardCosts];
-            this.#usbDriveCosts = [...usbDriveCosts];
+            this.#keyboardCosts = keyboardCosts;
+            this.#usbDriveCosts = usbDriveCosts;
             this.#budget = budget;
-            this.#canBeSpent = 0;
-
-            this.#getMoneySpent();
-            this.printResult();
+            this.#moneyThatCanBeSpent = 0;
+            this.#calculateMoneySpent();
         }
 
-            #getMoneySpent() {
-                for (let i = 0; i < this.#keyboardCosts.length; i++) {
-                    
+            #calculateMoneySpent() {
+                for (let i = 0; i < this.#keyboardCosts.length; ++i) {
+
                     if (this.#isNextCostEqualToCurrentOne(this.#keyboardCosts, i))
                         continue;
 
-                    for (let j = 0; j < this.#usbDriveCosts.length; j++) {
-                        
+                    for (let j = 0; j < this.#usbDriveCosts.length; ++j) {
+
                         if (this.#isNextCostEqualToCurrentOne(this.#usbDriveCosts, j))
                             continue;
 
-                        const sum = this.#keyboardCosts[i] + this.#usbDriveCosts[j];
+                        let sum = this.#keyboardCosts[i] + this.#usbDriveCosts[j];
 
-                        if (this.#isSumInsideBudget(sum))
-                            this.#canBeSpent = this.#updateCost(sum);
+                        if (this.#isSumAffordableByBudget(sum))
+                            this.#moneyThatCanBeSpent = this.#updateCost(sum);
                         else
                             break;
                     }
                 }
 
-                this.#canBeSpent = this.#canBeSpent ? this.#canBeSpent : -1;
+                this.#moneyThatCanBeSpent = this.#moneyThatCanBeSpent ? this.#moneyThatCanBeSpent : -1;
             }
 
-                #isNextCostEqualToCurrentOne(deviceCosts, currentIndex) {
-                    return currentIndex < deviceCosts.length - 1 && deviceCosts[currentIndex] === deviceCosts[currentIndex + 1];
+                #isNextCostEqualToCurrentOne(deviceCosts, i) {
+                    return i < deviceCosts.length - 1 && deviceCosts[i] === deviceCosts[i + 1];
                 }
 
-                #isSumInsideBudget(sum) {
+                #isSumAffordableByBudget(sum) {
                     return sum <= this.#budget;
                 }
 
                 #updateCost(sum) {
-                    return Math.max(sum, this.#canBeSpent);
+                    return Math.max(sum, this.#moneyThatCanBeSpent);
                 }
 
-            printResult() {
-                console.log(this.#canBeSpent);
-            }
+        moneyThatCanBeSpent() {
+            return this.#moneyThatCanBeSpent;
+        }
     }

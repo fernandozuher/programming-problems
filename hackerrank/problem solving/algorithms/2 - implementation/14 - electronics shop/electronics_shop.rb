@@ -1,76 +1,70 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 def main
-    inputLine = readLineAsIntArray
-    budget = inputLine.first
-    keyboardCosts = readLineAsIntArray
-    usbDriveCosts = readLineAsIntArray
 
-    keyboardCosts = keyboardCosts.sort
-    usbDriveCosts = usbDriveCosts.sort
+    budget, n_keyboard_costs, n_usb_drive_costs = read_int_array
+    keyboard_costs = read_int_array
+    usb_drive_costs = read_int_array
 
-    result = Result.new keyboardCosts, usbDriveCosts, budget
+    keyboard_costs.sort!
+    usb_drive_costs.sort!
+
+    obj = Electronics_shop.new(keyboard_costs, usb_drive_costs, budget)
+    puts obj.money_that_can_be_spent
 end
 
-    def readLineAsIntArray
-        inputLine = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    class Result
+    class Electronics_shop
+        attr_reader :money_that_can_be_spent
 
-        def initialize keyboardCosts, usbDriveCosts, budget
-            @keyboardCosts = keyboardCosts
-            @usbDriveCosts = usbDriveCosts
+        def initialize(keyboard_costs, usb_drive_costs, budget)
+            @keyboard_costs = keyboard_costs
+            @usb_drive_costs = usb_drive_costs
             @budget = budget
-            @canBeSpent = 0
-
-            _getMoneySpent
-            printResult
+            @money_that_can_be_spent = 0
+            calculate_money_spent
         end
 
-            private def _getMoneySpent
-                @keyboardCosts.each_index { |i|
+            private def calculate_money_spent
+                @keyboard_costs.each_index { |i|
 
-                    if _isNextCostEqualToCurrentOne @keyboardCosts, i
+                    if is_next_cost_equal_to_current_one(@keyboard_costs, i)
                         next
                     end
 
-                    @usbDriveCosts.each_index { |j|
+                    @usb_drive_costs.each_index { |j|
 
-                        if _isNextCostEqualToCurrentOne @usbDriveCosts, j
+                        if is_next_cost_equal_to_current_one(@usb_drive_costs, j)
                             next
                         end
 
-                        sum = @keyboardCosts[i] + @usbDriveCosts[j]
+                        sum = @keyboard_costs[i] + @usb_drive_costs[j]
 
-                        if _isSumInsideBudget sum
-                            @canBeSpent = _updateCost sum
+                        if is_sum_affordable_by_budget(sum)
+                            @money_that_can_be_spent = update_cost(sum)
                         else
                             break
                         end
                     }
 
-                    @canBeSpent = @canBeSpent > 0 ? @canBeSpent : -1
+                    @money_that_can_be_spent = @money_that_can_be_spent > 0 ? @money_that_can_be_spent : -1
                 }
             end
 
-                def _isNextCostEqualToCurrentOne deviceCosts, currentIndex
-                    return currentIndex < deviceCosts.size - 1 && deviceCosts[currentIndex] == deviceCosts[currentIndex + 1]
+                private def is_next_cost_equal_to_current_one(device_costs, i)
+                    i < device_costs.size - 1 && device_costs[i] == device_costs[i + 1]
                 end
 
-                def _isSumInsideBudget sum
-                    return sum <= @budget
+                private def is_sum_affordable_by_budget(sum)
+                    sum <= @budget
                 end
 
-                def _updateCost sum
-                    return [sum, @canBeSpent].max
+                private def update_cost(sum)
+                    [sum, @money_that_can_be_spent].max
                 end
-
-            def printResult
-                puts @canBeSpent
-            end
     end
 
 main
