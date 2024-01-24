@@ -1,70 +1,41 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?is_full_screen=true
 
 def main
-    inputLine = readLineAsIntArray
-    n = inputLine.first
+    n = gets.to_i
+    nearest_cats_or_not = Array.new(n)
 
-    inputLines = readCatsAndMousePositionsLines n
+    n.times do |i|
+        positions = read_int_array
+        obj = CatsAndAMouse.new(positions)
+        nearest_cats_or_not[i] = obj.nearest_cat_or_not
+    end
 
-    result = Result.new inputLines
+    puts nearest_cats_or_not
 end
 
-    def readLineAsIntArray
-        inputLine = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    def readCatsAndMousePositionsLines n
-        catsAndMousePositionsLines = Array.new(n)
+    class CatsAndAMouse
+        attr_reader :nearest_cat_or_not
 
-        for i in 0..(n-1)
-            catsAndMousePositionsLines[i] = readLineAsIntArray
-        end
-        
-        catsAndMousePositionsLines
-    end
-
-    class Result
-
-        def initialize catsAndMousePositionsLines
-            @catsAndMousePositionsLines = catsAndMousePositionsLines
-            @result = Array.new
-
-            _catAndMouse
-            printResult
+        def initialize(cats_and_mouse_positions)
+            @cat_a_position, @cat_b_position, @mouse_position = cats_and_mouse_positions
+            @nearest_cat_or_not = ''
+            find_nearest_cat_or_not
         end
 
-            private def _catAndMouse
-                for catsAndMousePositions in @catsAndMousePositionsLines
-                    _findNearestCatOrNot catsAndMousePositions
-                end
-            end
+            private def find_nearest_cat_or_not
+                cat_a_position_from_mouse = (@cat_a_position - @mouse_position).abs
+                cat_b_position_from_mouse = (@cat_b_position - @mouse_position).abs
 
-                private def _findNearestCatOrNot catsAndMousePositions
-                    catAPosition = catsAndMousePositions[0]
-                    catBPosition = catsAndMousePositions[1]
-                    mousePosition = catsAndMousePositions[2]
-
-                    catAPositionDifference = (catAPosition - mousePosition).abs
-                    catBPositionDifference = (catBPosition - mousePosition).abs
-
-                    _setStringResult catAPositionDifference, catBPositionDifference
-                end
-
-                    private def _setStringResult catAPositionDifference, catBPositionDifference
-                        if catAPositionDifference < catBPositionDifference
-                            @result.append("Cat A")
-                        elsif catAPositionDifference > catBPositionDifference
-                            @result.append("Cat B")
-                        else
-                            @result.append("Mouse C")
-                        end
-                    end
-
-            def printResult
-                for result in @result
-                    puts result
+                if cat_a_position_from_mouse < cat_b_position_from_mouse
+                    @nearest_cat_or_not = 'Cat A'
+                elsif cat_a_position_from_mouse > cat_b_position_from_mouse
+                    @nearest_cat_or_not = 'Cat B'
+                else
+                    @nearest_cat_or_not = 'Mouse C'
                 end
             end
     end

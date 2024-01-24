@@ -1,77 +1,50 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?is_full_screen=true
 
 def main():
 
-    inputLine = readLineAsIntList()
-    n = inputLine[0]
+    n = int(input())
+    nearest_cats_or_not = [None] * n
 
-    inputLines = readCatsAndMousePositionsLines(n)
-
-    result = Result(inputLines)
-
-
-def readLineAsIntList():
-
-    inputLine = list(map(int, input().split()))
-    return inputLine
-
-
-def readCatsAndMousePositionsLines(n):
-
-    catsAndMousePositionsLines = [None] * n
-
+    ANIMALS = 3
     for i in range(n):
-        catsAndMousePositionsLines[i] = readLineAsIntList()
+        positions = read_int_array(ANIMALS)
+        obj = CatsAndAMouse(positions)
+        nearest_cats_or_not[i] = obj.nearest_cat_or_not()
 
-    return catsAndMousePositionsLines
-
-
-class Result:
-
-    def __init__(self, catsAndMousePositionsLines):
-        
-        self.__catsAndMousePositionsLines = catsAndMousePositionsLines.copy()
-        self.__result = []
-
-        self.__catAndMouse()
-        self.printResult()
+    print(*nearest_cats_or_not, sep='\n')
 
 
-    def __catAndMouse(self):
+def read_int_array(n):
 
-        for catsAndMousePositions in self.__catsAndMousePositionsLines:
-                self.__findNearestCatOrNot(catsAndMousePositions)
-
-
-    def __findNearestCatOrNot(self, catsAndMousePositions):
-
-        catAPosition = catsAndMousePositions[0]
-        catBPosition = catsAndMousePositions[1]
-        mousePosition = catsAndMousePositions[2]
-
-        catAPositionDifference = abs(catAPosition - mousePosition)
-        catBPositionDifference = abs(catBPosition - mousePosition)
-
-        self.__setStringResult(catAPositionDifference, catBPositionDifference)
+    return list(map(int, input().split()))
 
 
-    def __setStringResult(self, catAPositionDifference, catBPositionDifference):
+class CatsAndAMouse:
 
-        if catAPositionDifference < catBPositionDifference:
-            self.__result.append("Cat A")
-        elif catAPositionDifference > catBPositionDifference:
-            self.__result.append("Cat B")
+    def __init__(self, cats_and_mouse_positions):
+
+        self._cat_a_position, self._cat_b_position, self._mouse_position = cats_and_mouse_positions
+        self._nearest_cat_or_not = ''
+        self._find_nearest_cat_or_not()
+
+
+    def _find_nearest_cat_or_not(self):
+
+        cat_a_position_from_mouse = abs(self._cat_a_position - self._mouse_position)
+        cat_b_position_from_mouse = abs(self._cat_b_position - self._mouse_position)
+
+        if cat_a_position_from_mouse < cat_b_position_from_mouse:
+            self._nearest_cat_or_not = 'Cat A'
+        elif cat_a_position_from_mouse > cat_b_position_from_mouse:
+            self._nearest_cat_or_not = 'Cat B'
         else:
-            self.__result.append("Mouse C")
+            self._nearest_cat_or_not = 'Mouse C'
 
 
-    def printResult(self):
-        
-        for result in self.__result:
-            print(result)
+    def nearest_cat_or_not(self):
+
+        return self._nearest_cat_or_not
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

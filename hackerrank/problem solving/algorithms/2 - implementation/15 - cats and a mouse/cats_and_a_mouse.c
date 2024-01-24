@@ -1,85 +1,79 @@
-// Source: https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int* read_line_as_int_array(const int n);
-int** read_cats_and_mouse_positions_lines(const int n);
-void cat_and_mouse(int **cats_and_mouse_positions_lines, const int n);
-    char* find_nearest_cat_or_not(const int *cats_and_mouse_positions);
-        char* get_string_result(const int cat_a_position_difference, const int cat_b_position_difference);
+int* read_int_array(const int n);
+char* find_nearest_cat_or_not(const int* const cats_and_mouse_positions);
+    char* get_string_result(const int cat_a_position_from_mouse, const int cat_b_position_from_mouse);
+void free_array(char *array[], const int n);
 
+int main()
+{
+    int n;
+    scanf("%d", &n);
 
-int main() {
-    const int *input_line = read_line_as_int_array(1);
-    const int n = input_line[0];
+    char *nearest_cats_or_not[n];
+    for (int i = 0, size_string = 8; i < n; ++i)
+        nearest_cats_or_not[i] = (char*) calloc(size_string, sizeof(char));
 
-    int **input_lines = read_cats_and_mouse_positions_lines(n);
-    cat_and_mouse(input_lines, n);
+    for (int i = 0, animals = 3; i < n; ++i) {
+        int *positions = read_int_array(animals);
+        nearest_cats_or_not[i] = find_nearest_cat_or_not(positions);
+        free(positions);
+    }
+
+    for (int i = 0; i < n; puts(nearest_cats_or_not[i++]));
+
+    free_array(nearest_cats_or_not, n);
 
     return 0;
 }
 
-    int* read_line_as_int_array(const int n) {
-        int *input_line = (int*) calloc(n, sizeof(int));
-
-        for (unsigned i = 0; i < n; i++)
-            scanf("%d", &input_line[i]);
-
-        return input_line;
+    int* read_int_array(const int n)
+    {
+        int *array = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; scanf("%d", &array[i++]));
+        return array;
     }
 
-    int** read_cats_and_mouse_positions_lines(const int n) {
-        int **input_lines = (int**) calloc(n, sizeof(int*));
+    char* find_nearest_cat_or_not(const int* const cats_and_mouse_positions)
+    {
+        int cat_a_position = cats_and_mouse_positions[0];
+        int cat_b_position = cats_and_mouse_positions[1];
+        int mouse_position = cats_and_mouse_positions[2];
 
-        for (unsigned i = 0; i < n; i++)
-            input_lines[i] = read_line_as_int_array(3);
+        int cat_a_position_from_mouse = abs(cat_a_position - mouse_position);
+        int cat_b_position_from_mouse = abs(cat_b_position - mouse_position);
 
-        return input_lines;
+        return get_string_result(cat_a_position_from_mouse, cat_b_position_from_mouse);
     }
 
-    void cat_and_mouse(int **cats_and_mouse_positions_lines, const int n) {
-        for (unsigned i = 0; i < n; i++) {
-            char* result = find_nearest_cat_or_not(cats_and_mouse_positions_lines[i]);
+        char* get_string_result(const int cat_a_position_from_mouse, const int cat_b_position_from_mouse)
+        {
+            char *result = NULL;
 
-            printf("%s\n", result);
+            if (cat_a_position_from_mouse != cat_b_position_from_mouse) {
+                const int string_size = 6;
+                result = (char*) calloc(string_size, sizeof(char));
 
-            free(result);
-        }
-        free(cats_and_mouse_positions_lines);
-    }
-
-        char* find_nearest_cat_or_not(const int *cats_and_mouse_positions) {
-            const int cat_a_position = cats_and_mouse_positions[0];
-            const int cat_b_position = cats_and_mouse_positions[1];
-            const int mouse_position = cats_and_mouse_positions[2];
-
-            free(cats_and_mouse_positions);
-
-            const int cat_a_position_difference = abs(cat_a_position - mouse_position);
-            const int cat_b_position_difference = abs(cat_b_position - mouse_position);
-
-            const char *result = get_string_result(cat_a_position_difference, cat_b_position_difference);
+                if (cat_a_position_from_mouse < cat_b_position_from_mouse)
+                    strcpy(result, "Cat A");
+                else
+                    strcpy(result, "Cat B");
+            }
+            else {
+                const int string_size = 8;
+                result = (char*) calloc(string_size, sizeof(char));
+                strcpy(result, "Mouse C");
+            }
 
             return result;
         }
 
-            char* get_string_result(const int cat_a_position_difference, const int cat_b_position_difference) {
-                char *result;
-
-                if (cat_a_position_difference != cat_b_position_difference) {
-                    result = (char*) calloc(6, sizeof(char));
-
-                    if (cat_a_position_difference < cat_b_position_difference)
-                        strcpy(result, "Cat A");
-                    else
-                        strcpy(result, "Cat B");
-                }
-                else {
-                    result = (char*) calloc(8, sizeof(char));
-                    strcpy(result, "Mouse C");
-                }
-
-                return result;
-            }
+    void free_array(char *array[], const int n)
+    {
+        for (int i = 0; i < n; ++i)
+            free(array[i]);
+    }

@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,77 +14,59 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    const inputLine = readLineAsNumberArray();
-    const n = inputLine[0];
+    let n = +readLine();
+    let nearestCatsOrNot = Array(n).fill('');
 
-    const inputLines = readCatsAndMousePositionsLines(n);
+    for (let i = 0, animals = 3; i < n; ++i) {
+        let positions = readIntArray(animals);
+        let obj = new CatsAndAMouse(positions);
+        nearestCatsOrNot[i] = obj.nearestCatOrNot();
+    }
 
-    const result = new Result(inputLines);
+    nearestCatsOrNot.forEach(x => console.log(x));
 }
 
-    function readLineAsNumberArray() {
-        const inputLine = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    function readCatsAndMousePositionsLines(n) {
-        let catsAndMousePositionsLines = new Array(n)
+    class CatsAndAMouse {
+        #catAPosition;
+        #catBPosition;
+        #mousePosition;
+        #nearestCatOrNot;
 
-        for (let i = 0; i < n; i++)
-            catsAndMousePositionsLines[i] = readLine().split(" ").map(Number);
-
-        return catsAndMousePositionsLines;
-    }
-
-    class Result {
-        #catsAndMousePositionsLines;
-        #result;
-
-        constructor(catsAndMousePositionsLines) {
-            this.#catsAndMousePositionsLines = [...catsAndMousePositionsLines];
-            this.#result = [];
-
-            this.#catAndMouse();
-            this.printResult();
+        constructor(catsAndMousePositions) {
+            [this.#catAPosition, this.#catBPosition, this.#mousePosition] = catsAndMousePositions;
+            this.#nearestCatOrNot = '';
+            this.#findNearestCatOrNot();
         }
 
-            #catAndMouse() {
-                for (let catsAndMousePositions of this.#catsAndMousePositionsLines)
-                    this.#findNearestCatOrNot(catsAndMousePositions);
+            #findNearestCatOrNot() {
+                let catAPositionFromMouse = Math.abs(this.#catAPosition - this.#mousePosition);
+                let catBPositionFromMouse = Math.abs(this.#catBPosition - this.#mousePosition);
+
+                if (catAPositionFromMouse < catBPositionFromMouse)
+                    this.#nearestCatOrNot = "Cat A";
+                else if (catAPositionFromMouse > catBPositionFromMouse)
+                    this.#nearestCatOrNot = "Cat B";
+                else
+                    this.#nearestCatOrNot = "Mouse C";
             }
 
-                #findNearestCatOrNot(catsAndMousePositions) {
-                    const catAPosition = catsAndMousePositions[0];
-                    const catBPosition = catsAndMousePositions[1];
-                    const mousePosition = catsAndMousePositions[2];
-
-                    const catAPositionDifference = Math.abs(catAPosition - mousePosition);
-                    const catBPositionDifference = Math.abs(catBPosition - mousePosition);
-
-                    this.#setStringResult(catAPositionDifference, catBPositionDifference);
-                }
-
-                    #setStringResult(catAPositionDifference, catBPositionDifference) {
-                        if (catAPositionDifference < catBPositionDifference)
-                            this.#result.push("Cat A");
-                        else if (catAPositionDifference > catBPositionDifference)
-                            this.#result.push("Cat B");
-                        else
-                            this.#result.push("Mouse C");
-                    }
-
-            printResult() {
-                for (let result of this.#result)
-                    console.log(result);
-            }
-}
+        nearestCatOrNot() {
+            return this.#nearestCatOrNot;
+        }
+    }
