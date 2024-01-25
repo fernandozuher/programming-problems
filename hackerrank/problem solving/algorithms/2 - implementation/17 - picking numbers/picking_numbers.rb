@@ -1,83 +1,75 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 def main
-    readLineAsIntArray
+    n = gets.to_i
+    array = read_int_array
+    array.sort!
 
-    numbers = readLineAsIntArray
-    numbers = numbers.sort
-
-    result = Result.new numbers
+    obj = PickingNumbers.new(array)
+    puts obj.subarray_biggest_size
 end
 
-    def readLineAsIntArray
-        inputLine = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    class Result
+    class PickingNumbers
+        attr_reader :subarray_biggest_size
 
         def initialize numbers
             @numbers = numbers
-            @subarrayBiggestSize = 1
-
-            _pickingNumbers
-            printResult
+            @subarray_biggest_size = 1
+            picking_numbers
         end
 
-            private def _pickingNumbers
-                firstReferenceNumberIndex = 0
-                secondReferenceNumberIndex = 0
-                subarrayCurrentSize = 1
+            private def picking_numbers
+                first_reference_number_index = 0
+                second_reference_number_index = 0
+                subarray_current_size = 1
 
                 for i in 1..(@numbers.size - 1)
-                    difference = @numbers[i] - @numbers[firstReferenceNumberIndex]
+                    difference = @numbers[i] - @numbers[first_reference_number_index]
 
                     case difference
                         when 0
-                            subarrayCurrentSize += 1
+                            subarray_current_size += 1
 
                         when 1
-                            subarrayCurrentSize += 1
-                            if @numbers[secondReferenceNumberIndex] != @numbers[i]
-                                secondReferenceNumberIndex = i
+                            subarray_current_size += 1
+                            if @numbers[second_reference_number_index] != @numbers[i]
+                                second_reference_number_index = i
                             end
 
                         else
-                            @subarrayBiggestSize = _updateSubarrayBiggestSize subarrayCurrentSize
-                            update = _updateFirstReferenceNumberIndexAndSubarrayCurrentSize i, secondReferenceNumberIndex
+                            @subarray_biggest_size = update_subarray_biggest_size(subarray_current_size)
+                            update = update_first_reference_number_index_and_subarray_current_size(i, second_reference_number_index)
 
-                            firstReferenceNumberIndex = update.first
-                            secondReferenceNumberIndex = i
-                            subarrayCurrentSize = update.last
+                            first_reference_number_index = update.first
+                            second_reference_number_index = i
+                            subarray_current_size = update.last
                     end
                 end
 
-                @subarrayBiggestSize = _updateSubarrayBiggestSize(subarrayCurrentSize)
+                @subarray_biggest_size = update_subarray_biggest_size(subarray_current_size)
             end
 
-                private def _updateSubarrayBiggestSize subarrayCurrentSize
-                    [subarrayCurrentSize, @subarrayBiggestSize].max
+                private def update_subarray_biggest_size(subarray_current_size)
+                    [subarray_current_size, @subarray_biggest_size].max
                 end
 
-                private def _updateFirstReferenceNumberIndexAndSubarrayCurrentSize i, secondReferenceNumberIndex
-                    firstReferenceNumberIndex, subarrayCurrentSize = 0, 0
+                private def update_first_reference_number_index_and_subarray_current_size(i, second_reference_number_index)
+                    first_reference_number_index, subarray_current_size = 0, 0
 
-                    if @numbers[i] - @numbers[secondReferenceNumberIndex] == 1
-                        firstReferenceNumberIndex = secondReferenceNumberIndex
-                        subarrayCurrentSize = i - secondReferenceNumberIndex + 1
+                    if @numbers[i] - @numbers[second_reference_number_index] == 1
+                        first_reference_number_index = second_reference_number_index
+                        subarray_current_size = i - second_reference_number_index + 1
                     else
-                        firstReferenceNumberIndex = i
-                        subarrayCurrentSize = 1
+                        first_reference_number_index = i
+                        subarray_current_size = 1
                     end
 
-                    result = [firstReferenceNumberIndex, subarrayCurrentSize]
-                    result
+                    [first_reference_number_index, subarray_current_size]
                 end
-
-            def printResult
-                puts @subarrayBiggestSize
-            end
     end
 
 main

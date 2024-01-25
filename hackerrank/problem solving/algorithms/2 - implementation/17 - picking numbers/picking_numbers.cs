@@ -1,81 +1,79 @@
-// Source: https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        ReadLineAsListInt();
+        int n = int.Parse(Console.ReadLine());
+        List<int> array = _readIntArray();
+        array.Sort();
 
-        List<int> numbers = ReadLineAsListInt();
-        numbers.Sort();
-
-        Result result = new Result(numbers);
+        var obj = new PickingNumbers(array);
+        Console.WriteLine(obj.SubarrayBiggestSize);
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    public class PickingNumbers
     {
         private List<int> _numbers;
         private int _subarrayBiggestSize;
 
-        public Result(List<int> numbers)
+        public PickingNumbers(List<int> numbers)
         {
             _numbers = numbers;
             _subarrayBiggestSize = 1;
-
-            _PickingNumbers();
-            PrintResult();
+            _pickingNumbers();
         }
 
-            private void _PickingNumbers()
+            private void _pickingNumbers()
             {
                 int firstReferenceNumberIndex = 0;
                 int secondReferenceNumberIndex = 0;
                 int subarrayCurrentSize = 1;
 
-                for (int i = 1, n = _numbers.Count; i < n; i++) {
+                for (int i = 1, n = _numbers.Count; i < n; ++i) {
                     int difference = _numbers[i] - _numbers[firstReferenceNumberIndex];
 
                     switch (difference) {
-                        case 0:
-                            subarrayCurrentSize++;
-                            break;
+                    case 0:
+                        ++subarrayCurrentSize;
+                        break;
 
-                        case 1:
-                            subarrayCurrentSize++;
-                            if (_numbers[secondReferenceNumberIndex] != _numbers[i])
-                                secondReferenceNumberIndex = i;
-                            break;
-
-                        default:
-                            _subarrayBiggestSize = _UpdateSubarrayBiggestSize(subarrayCurrentSize);
-
-                            List<int> update = _UpdateFirstReferenceNumberIndexAndSubarrayCurrentSize(i, secondReferenceNumberIndex);
-
-                            firstReferenceNumberIndex = update.First();
+                    case 1:
+                        ++subarrayCurrentSize;
+                        if (_numbers[secondReferenceNumberIndex] != _numbers[i])
                             secondReferenceNumberIndex = i;
-                            subarrayCurrentSize = update.Last();
-                            break;
+                        break;
+
+                    default:
+                        _subarrayBiggestSize = _updateSubarrayBiggestSize(subarrayCurrentSize);
+                        List<int> update = _updateFirstReferenceNumberIndexAndSubarrayCurrentSize(i, secondReferenceNumberIndex);
+
+                        firstReferenceNumberIndex = update.First();
+                        secondReferenceNumberIndex = i;
+                        subarrayCurrentSize = update.Last();
+                        break;
                     }
                 }
 
-                _subarrayBiggestSize = _UpdateSubarrayBiggestSize(subarrayCurrentSize);
+                _subarrayBiggestSize = _updateSubarrayBiggestSize(subarrayCurrentSize);
             }
 
-                int _UpdateSubarrayBiggestSize(int subarrayCurrentSize)
+                int _updateSubarrayBiggestSize(int subarrayCurrentSize)
                 {
                     return Math.Max(subarrayCurrentSize, _subarrayBiggestSize);
                 }
 
-                List<int> _UpdateFirstReferenceNumberIndexAndSubarrayCurrentSize(int i, int secondReferenceNumberIndex)
+                List<int> _updateFirstReferenceNumberIndexAndSubarrayCurrentSize(int i, int secondReferenceNumberIndex)
                 {
                     int firstReferenceNumberIndex, subarrayCurrentSize;
 
@@ -84,18 +82,17 @@ class Solution
                         firstReferenceNumberIndex = secondReferenceNumberIndex;
                         subarrayCurrentSize = i - secondReferenceNumberIndex + 1;
                     }
-                    else 
+                    else
                     {
                         firstReferenceNumberIndex = i;
                         subarrayCurrentSize = 1;
                     }
 
-                    List<int> result = new List<int>() {firstReferenceNumberIndex, subarrayCurrentSize};
-                    return result;
+                    return new List<int>() {firstReferenceNumberIndex, subarrayCurrentSize};
                 }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_subarrayBiggestSize);
-            }
+        public int SubarrayBiggestSize
+        {
+            get { return _subarrayBiggestSize; }
+        }
     }

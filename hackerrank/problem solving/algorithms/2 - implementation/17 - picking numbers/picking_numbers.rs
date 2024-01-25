@@ -1,81 +1,80 @@
-// Source: https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
-use std::io::{self, BufRead};
 use std::cmp;
-
+use text_io::read;
 
 fn main() {
-    read_line_as_vec_i32();
-
-    let mut numbers: Vec<i32> = read_line_as_vec_i32();
-    numbers.sort();
-
-    let result: usize = picking_numbers(&numbers);
-
-    println!("{}", result);
+    let n: usize = read!();
+    let mut array: Vec<i32> = read_int_array(n);
+    array.sort();
+    println!("{}", picking_numbers(&array));
 }
 
-    fn read_line_as_vec_i32() -> Vec<i32> {
-        let stdin = io::stdin();
+fn read_int_array(n: usize) -> Vec<i32> {
+    let mut array: Vec<i32> = Vec::new();
+    array.resize_with(n, || read!());
+    return array;
+}
 
-        let input_line: Vec<i32> = stdin.lock()
-          .lines().next().unwrap().unwrap()
-          .trim().split(' ')
-          .map(|s| s.parse().unwrap())
-          .collect();
+fn picking_numbers(numbers: &Vec<i32>) -> usize {
+    let mut subarray_biggest_size: usize = 0;
+    let mut first_reference_number_index: usize = 0;
+    let mut second_reference_number_index: usize = 0;
+    let mut subarray_current_size: usize = 1;
 
-        return input_line;
-    }
+    for i in 1..numbers.len() {
+        let difference: i32 = numbers[i] - numbers[first_reference_number_index];
 
-    fn picking_numbers(numbers: &Vec<i32>) -> usize {
-        let mut subarray_biggest_size: usize = 0;
-        let mut first_reference_number_index: usize = 0;
-        let mut second_reference_number_index: usize = 0;
-        let mut subarray_current_size: usize = 1;
-
-        for i in 1..numbers.len() {
-            let difference: i32 = numbers[i] - numbers[first_reference_number_index];
-
-            match difference {
-                0 => subarray_current_size += 1,
-                1 => {
-                    subarray_current_size += 1;
-                    if numbers[second_reference_number_index] != numbers[i] {
-                        second_reference_number_index = i;
-                    }
-                }
-                _ => {
-                    subarray_biggest_size = update_longest_subarray_size(subarray_biggest_size, subarray_current_size);
-
-                    let update: Vec<usize> = update_first_reference_number_index_and_subarray_current_size(numbers, i, second_reference_number_index);
-
-                    first_reference_number_index = *update.first().unwrap();
+        match difference {
+            0 => subarray_current_size += 1,
+            1 => {
+                subarray_current_size += 1;
+                if numbers[second_reference_number_index] != numbers[i] {
                     second_reference_number_index = i;
-                    subarray_current_size = *update.last().unwrap();
                 }
             }
-        }
+            _ => {
+                subarray_biggest_size =
+                    update_subarray_biggest_size(subarray_biggest_size, subarray_current_size);
 
-        subarray_biggest_size = update_longest_subarray_size(subarray_biggest_size, subarray_current_size);
-        return subarray_biggest_size;
+                let update: Vec<usize> =
+                    update_first_reference_number_index_and_subarray_current_size(
+                        numbers,
+                        i,
+                        second_reference_number_index,
+                    );
+
+                first_reference_number_index = *update.first().unwrap();
+                second_reference_number_index = i;
+                subarray_current_size = *update.last().unwrap();
+            }
+        }
     }
 
-        fn update_longest_subarray_size(subarray_biggest_size: usize, subarray_current_size: usize) -> usize {
-            return cmp::max(subarray_biggest_size, subarray_current_size);
-        }
+    return update_subarray_biggest_size(subarray_biggest_size, subarray_current_size);
+}
 
-        fn update_first_reference_number_index_and_subarray_current_size(numbers: &Vec<i32>, i: usize, second_reference_number_index: usize) -> Vec<usize> {
-            let (first_reference_number_index, subarray_current_size): (usize, usize);
+fn update_subarray_biggest_size(
+    subarray_biggest_size: usize,
+    subarray_current_size: usize,
+) -> usize {
+    return cmp::max(subarray_biggest_size, subarray_current_size);
+}
 
-            if numbers[i] - numbers[second_reference_number_index] == 1 {
-                first_reference_number_index = second_reference_number_index;
-                subarray_current_size = i - second_reference_number_index + 1;
-            }
-            else {
-                first_reference_number_index = i;
-                subarray_current_size = 1;
-            }
+fn update_first_reference_number_index_and_subarray_current_size(
+    numbers: &Vec<i32>,
+    i: usize,
+    second_reference_number_index: usize,
+) -> Vec<usize> {
+    let (first_reference_number_index, subarray_current_size): (usize, usize);
 
-            let result = vec![first_reference_number_index, subarray_current_size];
-            return result;
-        }
+    if numbers[i] - numbers[second_reference_number_index] == 1 {
+        first_reference_number_index = second_reference_number_index;
+        subarray_current_size = i - second_reference_number_index + 1;
+    } else {
+        first_reference_number_index = i;
+        subarray_current_size = 1;
+    }
+
+    return vec![first_reference_number_index, subarray_current_size];
+}

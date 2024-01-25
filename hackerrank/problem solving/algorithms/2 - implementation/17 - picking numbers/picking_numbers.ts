@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,55 +23,53 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    readLineAsNumberArray();
+    let n: number = +readLine();
+    let array: number[] = readIntArray();
+    array.sort((a, b) => a - b);
 
-    const numbers: number[] = readLineAsNumberArray();
-    numbers.sort((a, b) => a - b);
-
-    const result = new Result(numbers);
+    let obj = new PickingNumbers(array);
+    console.log(obj.subarrayBiggestSize());
 }
 
-    function readLineAsNumberArray() {
-        const inputLine: number[] = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
-        private _numbers: number[];
-        private _subarrayBiggestSize: number;
+    class PickingNumbers {
+        private numbers: number[];
+        private subarrayBiggestLength: number;
 
         constructor(numbers: number[]) {
-            this._numbers = [...numbers];
-            this._subarrayBiggestSize = 1;
-
-            this._pickingNumbers();
-            this.printResult();
+            this.numbers = numbers;
+            this.subarrayBiggestLength = 1;
+            this.pickingNumbers();
         }
 
-            private _pickingNumbers() {
+            private pickingNumbers() {
                 let firstReferenceNumberIndex = 0;
                 let secondReferenceNumberIndex = 0;
                 let subarrayCurrentSize = 1;
 
-                for (let i = 1, n = this._numbers.length; i < n; i++) {
-                    let difference: number = this._numbers[i] - this._numbers[firstReferenceNumberIndex];
+                for (let i = 1, n = this.numbers.length; i < n; ++i) {
+                    let difference: number = this.numbers[i] - this.numbers[firstReferenceNumberIndex];
 
                     switch (difference) {
                         case 0:
-                            subarrayCurrentSize++;
+                            ++subarrayCurrentSize;
                             break;
 
                         case 1:
-                            subarrayCurrentSize++;
-                            if (this._numbers[secondReferenceNumberIndex] != this._numbers[i])
+                            ++subarrayCurrentSize;
+                            if (this.numbers[secondReferenceNumberIndex] != this.numbers[i])
                                 secondReferenceNumberIndex = i;
                             break;
 
                         default:
-                            this._subarrayBiggestSize = this._updateSubarrayBiggestSize(subarrayCurrentSize);
-                            const update: number[] = this._updateFirstReferenceNumberIndexAndSubarrayCurrentSize(i, secondReferenceNumberIndex);
+                            this.subarrayBiggestLength = this.updateSubarrayBiggestSize(subarrayCurrentSize);
+                            let update: number[] = this.updateFirstReferenceNumberIndexAndSubarrayCurrentSize(i, secondReferenceNumberIndex);
 
                             firstReferenceNumberIndex = update[0];
                             secondReferenceNumberIndex = i;
@@ -80,17 +77,17 @@ function main() {
                     }
                 }
 
-                this._subarrayBiggestSize = this._updateSubarrayBiggestSize(subarrayCurrentSize);
+                this.subarrayBiggestLength = this.updateSubarrayBiggestSize(subarrayCurrentSize);
             }
 
-                private _updateSubarrayBiggestSize(subarrayCurrentSize: number): number {
-                    return Math.max(subarrayCurrentSize, this._subarrayBiggestSize);
+                private updateSubarrayBiggestSize(subarrayCurrentSize: number): number {
+                    return Math.max(subarrayCurrentSize, this.subarrayBiggestLength);
                 }
 
-                private _updateFirstReferenceNumberIndexAndSubarrayCurrentSize(i: number, secondReferenceNumberIndex: number): number[] {
+                private updateFirstReferenceNumberIndexAndSubarrayCurrentSize(i: number, secondReferenceNumberIndex: number): number[] {
                     let firstReferenceNumberIndex, subarrayCurrentSize: number;
 
-                    if (this._numbers[i] - this._numbers[secondReferenceNumberIndex] === 1) {
+                    if (this.numbers[i] - this.numbers[secondReferenceNumberIndex] === 1) {
                         firstReferenceNumberIndex = secondReferenceNumberIndex;
                         subarrayCurrentSize = i - secondReferenceNumberIndex + 1;
                     }
@@ -99,11 +96,10 @@ function main() {
                         subarrayCurrentSize = 1;
                     }
 
-                    const result = [firstReferenceNumberIndex, subarrayCurrentSize];
-                    return result;
+                    return [firstReferenceNumberIndex, subarrayCurrentSize];
                 }
 
-            printResult() {
-                console.log(this._subarrayBiggestSize);
-            }
+        subarrayBiggestSize(): number {
+            return this.subarrayBiggestLength;
+        }
     }

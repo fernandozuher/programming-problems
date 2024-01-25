@@ -1,54 +1,28 @@
-// Source: https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 package main
 
 import (
-    "bufio"
     "fmt"
     "math"
-    "os"
     "sort"
-    "strconv"
-    "strings"
 )
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
-
-    readLineAsIntArray(scanner)
-
-    var numbers []int = readLineAsIntArray(scanner)
-    sort.Ints(numbers)
-
-    var result int = pickingNumbers(numbers)
-    fmt.Print(result)
+    var n int
+    fmt.Scan(&n)
+    var array []int = readIntArray(n)
+    sort.Ints(array)
+    fmt.Println(pickingNumbers(array))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var line string
-
-        if scanner.Scan() {
-            line = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(line, " ")
-        inputLine := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            inputLine[i] = number
-        }
-        return inputLine
+        return array
     }
-
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
 
     func pickingNumbers(numbers []int) int {
         var subarrayBiggestSize int = 0
@@ -70,7 +44,7 @@ func main() {
                 }
 
             default:
-                subarrayBiggestSize = updateLongestSubarraySize(subarrayBiggestSize, subarrayCurrentSize)
+                subarrayBiggestSize = updateSubarrayBiggestSize(subarrayBiggestSize, subarrayCurrentSize)
 
                 var update []int = updateFirstReferenceNumberIndexAndSubarrayCurrentSize(numbers, i, secondReferenceNumberIndex)
 
@@ -80,11 +54,10 @@ func main() {
             }
         }
 
-        subarrayBiggestSize = updateLongestSubarraySize(subarrayBiggestSize, subarrayCurrentSize)
-        return subarrayBiggestSize
+        return updateSubarrayBiggestSize(subarrayBiggestSize, subarrayCurrentSize)
     }
 
-        func updateLongestSubarraySize(subarrayBiggestSize int, subarrayCurrentSize int) int {
+        func updateSubarrayBiggestSize(subarrayBiggestSize int, subarrayCurrentSize int) int {
             return int(math.Max(float64(subarrayBiggestSize), float64(subarrayCurrentSize)))
         }
 
@@ -99,6 +72,5 @@ func main() {
                 subarrayCurrentSize = 1
             }
 
-            var result []int = []int{firstReferenceNumberIndex, subarrayCurrentSize}
-            return result
+            return []int{firstReferenceNumberIndex, subarrayCurrentSize}
         }
