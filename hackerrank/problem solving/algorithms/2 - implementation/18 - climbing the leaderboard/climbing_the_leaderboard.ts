@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,64 +23,62 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    readLineAsNumberArray();
-    const ranked: number[] = readLineAsNumberArray();
+    let n: number = +readLine();
+    let ranked: number[] = readIntArray();
+    ranked = removeDuplicates(ranked);
 
-    readLineAsNumberArray();
-    const player: number[] = readLineAsNumberArray();
+    n = +readLine();
+    let player: number[] = readIntArray();
 
-    const result = new Result(ranked, player);
+    let obj = new ClimbingTheLeaderboard(ranked, player);
+    obj.rank().forEach(x => console.log(x));
 }
 
-    function readLineAsNumberArray() {
-        const inputLine = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
-    class Result {
-        private _ranked: number[];
-        private _player: number[];
-        private _playerRank: number[];
+    function removeDuplicates(array: number[]): number[] {
+        return [...new Set(array)];
+    }
+
+    function binarySearchDescendingOrder(array: number[], low: number, high: number, key: number): number {
+        if (high >= low) {
+            let middle: number = low + Math.trunc((high - low) / 2);
+
+            if (key === array[middle])
+                return middle;
+            else if (key > array[middle])
+                return binarySearchDescendingOrder(array, low, middle - 1, key);
+            else
+                return binarySearchDescendingOrder(array, middle + 1, high, key);
+        }
+        return low;
+    }
+
+    class ClimbingTheLeaderboard {
+        private ranked: number[];
+        private player: number[];
+        private playerRank: number[];
 
         constructor(ranked: number[], player: number[]) {
-            this._ranked = [...ranked];
-            this._player = [...player];
-            this._playerRank = [];
-
-            this._removeDuplicatesFromRankedArray();
-            this._climbingLeaderboard();
-            this.printResult();
+            this.ranked = ranked;
+            this.player = player;
+            this.playerRank = [];
+            this.climbingLeaderboard();
         }
 
-            private _removeDuplicatesFromRankedArray() {
-                this._ranked = [...new Set(this._ranked)];
-            }
-
-            private _climbingLeaderboard() {
-                for (const [i, playerScore] of this._player.entries()) {
-                    let index = this._binarySearchDescendingOrder(0, this._ranked.length - 1, playerScore);
-                    this._playerRank[i] = ++index;
+            private climbingLeaderboard() {
+                for (const [i, playerScore] of this.player.entries()) {
+                    let index = binarySearchDescendingOrder(this.ranked, 0, this.ranked.length - 1, playerScore);
+                    this.playerRank[i] = ++index;
                 }
             }
 
-                private _binarySearchDescendingOrder(low: number, high: number, key: number): number {
-                    if (high >= low) {
-                        const middle: number = low + Math.trunc((high - low) / 2);
-
-                        if (key === this._ranked[middle])
-                            return middle;
-                        else if (key > this._ranked[middle])
-                            return this._binarySearchDescendingOrder(low, middle - 1, key);
-                        else
-                            return this._binarySearchDescendingOrder(middle + 1, high, key);
-                    }
-                    return low;
-                }
-
-            printResult() {
-                for (const playerRank of this._playerRank)
-                    console.log(playerRank);
-            }
+        public rank(): number[] {
+            return this.playerRank;
+        }
     }

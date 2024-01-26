@@ -1,65 +1,52 @@
-// Source: https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
-use std::io::{self, BufRead};
-
+use text_io::read;
 
 fn main() {
-    read_line_as_vec_i32();
-    let mut ranked = read_line_as_vec_i32();
-    
-    read_line_as_vec_i32();
-    let player = read_line_as_vec_i32();
-
+    let mut n: usize = read!();
+    let mut ranked: Vec<i32> = read_int_array(n);
     ranked.dedup();
 
-    let result: Vec<i32> = climbing_leaderboard(&mut ranked, &player);
-    print_result(result);
+    n = read!();
+    let player: Vec<i32> = read_int_array(n);
+    print_array(&climbing_leaderboard(&ranked, &player));
 }
 
-    fn read_line_as_vec_i32() -> Vec<i32> {
-        let stdin = io::stdin();
-        
-        let input_line: Vec<i32> = stdin.lock()
-          .lines().next().unwrap().unwrap()
-          .trim().split(' ')
-          .map(|s| s.parse().unwrap())
-          .collect();
+fn read_int_array(n: usize) -> Vec<i32> {
+    let mut array: Vec<i32> = Vec::new();
+    array.resize_with(n, || read!());
+    return array;
+}
 
-        return input_line;
+fn climbing_leaderboard(ranked: &Vec<i32>, player: &Vec<i32>) -> Vec<i32> {
+    let mut player_rank: Vec<i32> = vec![0; player.len()];
+
+    let last_index: i32 = (ranked.len() - 1) as i32;
+    for i in 0..player.len() {
+        let index: i32 = binary_search_descending_order(ranked, 0, last_index, player[i]);
+        player_rank[i] = index + 1;
     }
 
-    fn climbing_leaderboard(ranked: &mut Vec<i32>, player: &Vec<i32>) -> Vec<i32> {
-        let mut player_rank: Vec<i32> = Vec::with_capacity(player.len());
-        unsafe { player_rank.set_len(player.len()); }
+    return player_rank;
+}
 
-        let last_index: i32 = (ranked.len() as i32) - 1;
-        for i in 0..player.len() {
-            let mut index: i32 = binary_search_descending_order(ranked, 0, last_index, player[i]);
-            player_rank[i] = index + 1;
-        }
+fn binary_search_descending_order(array: &Vec<i32>, low: i32, high: i32, key: i32) -> i32 {
+    if high >= low {
+        let middle: usize = (low + ((high - low) / 2)) as usize;
 
-        return player_rank;
-    }
-
-        fn binary_search_descending_order(ranked: &Vec<i32>, low: i32, high: i32, key: i32) -> i32 {
-            if high >= low {
-               let middle: usize = (low + ((high - low) / 2)) as usize;
-
-                if key == ranked[middle] {
-                    return middle as i32;
-                }
-                else if key > ranked[middle] {
-                    return binary_search_descending_order(ranked, low, (middle as i32) - 1, key);
-                }
-                else {
-                    return binary_search_descending_order(ranked, (middle as i32) + 1, high, key);
-                }
-            }
-            return low;
-        }
-
-    fn print_result(result: Vec<i32>) {
-        for number in result {
-            println!("{}", number);
+        if key == array[middle] {
+            return middle as i32;
+        } else if key > array[middle] {
+            return binary_search_descending_order(array, low, (middle - 1) as i32, key);
+        } else {
+            return binary_search_descending_order(array, (middle + 1) as i32, high, key);
         }
     }
+    return low;
+}
+
+fn print_array(array: &Vec<i32>) {
+    for element in array {
+        println!("{}", element);
+    }
+}

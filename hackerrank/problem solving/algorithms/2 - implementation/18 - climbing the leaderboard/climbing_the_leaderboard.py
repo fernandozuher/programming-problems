@@ -1,67 +1,62 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
 def main():
 
-    readLineAsIntList()
-    ranked = readLineAsIntList()
+    n = int(input())
+    ranked = read_int_array()
+    ranked = remove_duplicates(ranked)
 
-    readLineAsIntList()
-    player = readLineAsIntList()
+    n = read_int_array()
+    player = read_int_array()
 
-    result = Result(ranked, player)
-
-
-def readLineAsIntList():
-
-    inputLine = list(map(int, input().split()))
-    return inputLine
+    obj = ClimbingTheLeaderboard(ranked, player)
+    print(*obj.player_rank(), sep='\n')
 
 
-class Result:
+def read_int_array():
+
+    return list(map(int, input().split()))
+
+
+def remove_duplicates(array):
+
+    return list(dict.fromkeys(array))
+
+
+def binary_search_descending_order(array, low, high, key):
+
+    if high >= low:
+        middle = low + int((high - low) / 2)
+
+        if key == array[middle]:
+            return middle
+        elif key > array[middle]:
+            return binary_search_descending_order(array, low, middle - 1, key)
+        else:
+            return binary_search_descending_order(array, middle + 1, high, key)
+    return low
+
+
+class ClimbingTheLeaderboard:
 
     def __init__(self, ranked, player):
 
-        self.__ranked = ranked.copy()
-        self.__player = player.copy()
-        self.__playerRank = [None] * len(player)
-
-        self.__removeDuplicatesFromRankedList()
-        self.__climbingLeaderboard()
-        self.printResult()
+        self._ranked = ranked
+        self._player = player
+        self._player_rank = [None] * len(player)
+        self._climbing_leaderboard()
 
 
-    def __removeDuplicatesFromRankedList(self):
+    def _climbing_leaderboard(self):
 
-        self.__ranked = list(dict.fromkeys(self.__ranked))
-
-
-    def __climbingLeaderboard(self):
-
-        for i, playerScore in enumerate(self.__player):
-            index = self.__binarySearchDescendingOrder(0, len(self.__ranked) - 1, playerScore)
-            self.__playerRank[i] = index + 1
+        for i, player_score in enumerate(self._player):
+            index = binary_search_descending_order(self._ranked, 0, len(self._ranked) - 1, player_score)
+            self._player_rank[i] = index + 1
 
 
-    def __binarySearchDescendingOrder(self, low, high, key):
+    def player_rank(self):
 
-        if high >= low:
-            middle = low + int((high - low) / 2)
-
-            if key == self.__ranked[middle]:
-                return middle
-            elif key > self.__ranked[middle]:
-                return self.__binarySearchDescendingOrder(low, middle - 1, key)
-            else:
-                return self.__binarySearchDescendingOrder(middle + 1, high, key)
-        return low
-
-
-    def printResult(self):
-
-        for playerRank in self.__playerRank:
-            print(playerRank)
+        return self._player_rank
 
 
 if __name__ == "__main__":

@@ -1,81 +1,49 @@
-// Source: https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "sort"
-    "strconv"
-    "strings"
-)
+import "fmt"
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
+    var n int
 
-    readLineAsIntArray(scanner)
-    var ranked []int = readLineAsIntArray(scanner)
+    fmt.Scan(&n)
+    var ranked []int = readIntArray(n)
+    ranked = removeDuplicates(ranked)
 
-    readLineAsIntArray(scanner)
-    var player []int = readLineAsIntArray(scanner)
+    fmt.Scan(&n)
+    var player []int = readIntArray(n)
 
-    ranked = removeDuplicatesFromRankedArray(ranked)
-
-    sort.Sort(sort.Reverse(sort.IntSlice(ranked)))
-
-    var result []int = climbingLeaderboard(ranked, player)
-    printResult(result)
+    printArray(climbingLeaderboard(ranked, player))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var line string
-
-        if scanner.Scan() {
-            line = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(line, " ")
-        inputLine := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            inputLine[i] = number
-        }
-        return inputLine
+        return array
     }
 
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
+    func removeDuplicates(array []int) []int {
+        var newSize int = 0
+
+        for i := 0; i < len(array)-1; i++ {
+            if array[i] != array[i+1] {
+                array[newSize] = array[i]
+                newSize++
             }
         }
 
-    func removeDuplicatesFromRankedArray(ranked []int) []int {
-        set := make(map[int]int)
-
-        for _, element := range ranked {
-            set[element] = element
-        }
-
-        var deduplicated_ranked []int = make([]int, len(set))
-
-        i := 0
-        for key, _ := range set {
-            deduplicated_ranked[i] = key
-            i++
-        }
-
-        return deduplicated_ranked
+        array[newSize] = array[len(array)-1]
+        newSize++
+        return array[:newSize]
     }
 
     func climbingLeaderboard(ranked []int, player []int) []int {
         var playerRank []int = make([]int, len(player))
 
-        for i, n, lastIndex := 0, len(player), len(ranked)-1; i < n; i++ {
+        for i, lastIndex, n := 0, len(ranked)-1, len(player); i < n; i++ {
             var index int = binarySearchDescendingOrder(ranked, 0, lastIndex, player[i])
             playerRank[i] = index + 1
         }
@@ -83,23 +51,23 @@ func main() {
         return playerRank
     }
 
-        func binarySearchDescendingOrder(ranked []int, low int, high int, key int) int {
+        func binarySearchDescendingOrder(array []int, low int, high int, key int) int {
             if high >= low {
                 var middle int = low + (high-low)/2
 
-                if key == ranked[middle] {
+                if key == array[middle] {
                     return middle
-                } else if key > ranked[middle] {
-                    return binarySearchDescendingOrder(ranked, low, middle-1, key)
+                } else if key > array[middle] {
+                    return binarySearchDescendingOrder(array, low, middle-1, key)
                 } else {
-                    return binarySearchDescendingOrder(ranked, middle+1, high, key)
+                    return binarySearchDescendingOrder(array, middle+1, high, key)
                 }
             }
             return low
         }
 
-    func printResult(result []int) {
-        for _, number := range result {
-            fmt.Println(number)
+    func printArray(array []int) {
+        for _, element := range array {
+            fmt.Println(element)
         }
     }

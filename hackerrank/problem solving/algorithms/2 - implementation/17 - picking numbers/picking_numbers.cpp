@@ -6,7 +6,7 @@
 
 using namespace std;
 
-template<class T>
+template<class T = int>
 vector<T> read_array(const int n);
 
 class Picking_Numbers {
@@ -95,7 +95,7 @@ int main() {
     int n;
     cin >> n;
 
-    vector<int> array {read_array<int>(n)};
+    vector<int> array {read_array(n)};
     ranges::sort(array);
 
     Picking_Numbers obj{array};
@@ -104,7 +104,7 @@ int main() {
     return 0;
 }
 
-    template<class T>
+    template<class T = int>
     vector<T> read_array(const int n)
     {
         vector<T> array(n);
