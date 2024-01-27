@@ -1,37 +1,29 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 def main
-    inputLine = readLineAsIntArray
-    maximumHeightCanJump = inputLine.last
-
-    hurdlesHeights = readLineAsIntArray
-
-    result = Result.new hurdlesHeights, maximumHeightCanJump
+    n, maximum_height_can_jump = read_int_array
+    hurdles_heights = read_int_array
+    obj = Hurdle_race.new(hurdles_heights, maximum_height_can_jump)
+    puts obj.doses
 end
 
-    def readLineAsIntArray
-        inputLine = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    class Result
+    class Hurdle_race
+        attr_reader :doses
 
-        def initialize hurdlesHeights, maximumHeightCanJump
-            @hurdlesHeights = hurdlesHeights
-            @maximumHeightCanJump = maximumHeightCanJump
+        def initialize(hurdles_heights, maximum_height_can_jump)
+            @hurdles_heights = hurdles_heights
+            @maximum_height_can_jump = maximum_height_can_jump
             @doses = 0
-
-            _hurdleRace
-            printResult
+            hurdle_race
         end
-            private def _hurdleRace
-                highestHurdle = @hurdlesHeights.max
-                @doses = highestHurdle > @maximumHeightCanJump ? highestHurdle - @maximumHeightCanJump : 0
-            end
 
-            def printResult
-                puts @doses
+            private def hurdle_race
+                highest_hurdle = @hurdles_heights.max
+                @doses = highest_hurdle > @maximum_height_can_jump ? highest_hurdle - @maximum_height_can_jump : 0
             end
     end
 

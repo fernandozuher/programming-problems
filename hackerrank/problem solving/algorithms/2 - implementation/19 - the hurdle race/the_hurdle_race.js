@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,49 +14,46 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+////////////////////////////////////////////////
 
 function main() {
-    const inputLine = readLineAsNumberArray();
-    const maximumHeightCanJump = inputLine[1]
-
-    const hurdlesHeights = readLineAsNumberArray()
-
-    const result = new Result(hurdlesHeights, maximumHeightCanJump);
+    let [n, maximumHeightCanJump] = readIntArray();
+    let hurdlesHeights = readIntArray();
+    let obj = new HurdleRace(hurdlesHeights, maximumHeightCanJump);
+    console.log(obj.doses());
 }
 
-    function readLineAsNumberArray() {
-        const inputLine = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-        class Result {
-            #hurdlesHeights;
-            #maximumHeightCanJump;
-            #doses;
+    class HurdleRace {
+        #hurdlesHeights;
+        #maximumHeightCanJump;
+        #doses;
 
-            constructor(hurdlesHeights, maximumHeightCanJump) {
-                this.#hurdlesHeights = [...hurdlesHeights];
-                this.#maximumHeightCanJump = maximumHeightCanJump;
-                this.#doses = 0;
+        constructor(hurdlesHeights, maximumHeightCanJump) {
+            this.#hurdlesHeights = hurdlesHeights;
+            this.#maximumHeightCanJump = maximumHeightCanJump;
+            this.#doses = 0;
+            this.#hurdleRace();
+        }
 
-                this.#hurdleRace();
-                this.printResult();
+            #hurdleRace() {
+                let highestHurdle = Math.max(...this.#hurdlesHeights)
+                this.#doses = highestHurdle > this.#maximumHeightCanJump ? highestHurdle - this.#maximumHeightCanJump : 0;
             }
 
-                #hurdleRace() {
-                    const highestHurdle = Math.max(...this.#hurdlesHeights)
-                    this.#doses = highestHurdle > this.#maximumHeightCanJump ? highestHurdle - this.#maximumHeightCanJump : 0;
-                }
-
-                printResult() {
-                    console.log(this.#doses);
-                }
+        doses() {
+            return this.#doses;
         }
+    }

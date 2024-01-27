@@ -1,56 +1,62 @@
-// Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <sstream>
-#include <algorithm>
 
 using namespace std;
 
-class Result {
+template<class T = int>
+vector<T> read_array(const int n);
+
+class Hurdle_Race {
+public:
+    Hurdle_Race(const vector<int>& hurdles_heights, const int maximum_height_can_jump);
+    int doses() const;
 
 private:
-    vector<int> _hurdles_heights;
-    int _maximum_height_can_jump;
-    int _doses;
+    vector<int> hurdles_heights;
+    int maximum_height_can_jump;
+    int n_doses;
 
-    void _hurdle_race() {
-        const int highest_hurdle = *ranges::max_element(_hurdles_heights);
-        _doses = highest_hurdle > _maximum_height_can_jump ? highest_hurdle - _maximum_height_can_jump : 0;
-    }
-
-public:
-    Result(const vector<int> hurdles_heights, const int maximum_height_can_jump) {
-        _hurdles_heights = hurdles_heights;
-        _maximum_height_can_jump = maximum_height_can_jump;
-        _doses = 0;
-
-        _hurdle_race();
-        print_result();
-    }
-
-        void print_result() const {
-            cout << _doses << "\n";
-        }
+    void hurdle_race();
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> input_line;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+    Hurdle_Race::Hurdle_Race(const vector<int>& hurdles_heights, const int maximum_height_can_jump)
+        : hurdles_heights{hurdles_heights},
+          maximum_height_can_jump{maximum_height_can_jump},
+          n_doses{}
+    {
+        hurdle_race();
+    }
 
-    for (int number; ss >> number; input_line.push_back(number));
-    return input_line;
-}
+        void Hurdle_Race::hurdle_race()
+        {
+            int highest_hurdle {*ranges::max_element(hurdles_heights)};
+            n_doses = highest_hurdle > maximum_height_can_jump ? highest_hurdle - maximum_height_can_jump : 0;
+        }
 
-int main() {
-    const vector<int> input_line {read_line_as_vector_int()};
-    const int maximum_height_can_jump {input_line.back()};
+    int Hurdle_Race::doses() const
+    {
+        return n_doses;
+    }
 
-    const vector<int> hurdles_heights {read_line_as_vector_int()};
+int main()
+{
+    int n, maximum_height_can_jump;
+    cin >> n >> maximum_height_can_jump;
+    vector<int> hurdles_heights {read_array(n)};
 
-    const Result result(hurdles_heights, maximum_height_can_jump);
+    Hurdle_Race obj{hurdles_heights, maximum_height_can_jump};
+    cout << obj.doses();
 
     return 0;
 }
+
+    template<class T = int>
+    vector<T> read_array(const int n)
+    {
+        vector<T> array(n);
+        ranges::generate(array, [] {int x; cin >> x; return x;});
+        return array;
+    }

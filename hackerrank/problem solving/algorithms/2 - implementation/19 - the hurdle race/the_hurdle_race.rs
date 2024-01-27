@@ -1,33 +1,26 @@
-// Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
-use std::io::{self, BufRead};
-use std::cmp;
-
+use text_io::read;
 
 fn main() {
-    let input_line: Vec<i32> = read_line_as_vec_i32();
-    let maximum_height_can_jump: i32 = *input_line.last().unwrap();
-
-    let hurdle_heights = read_line_as_vec_i32();
-
-    let result = hurdle_race(&hurdle_heights, maximum_height_can_jump);
-    println!("{}", result);
+    let n: usize = read!();
+    let maximum_height_can_jump: i32 = read!();
+    let hurdle_heights = read_int_array(n);
+    println!("{}", hurdle_race(&hurdle_heights, maximum_height_can_jump));
 }
 
-    fn read_line_as_vec_i32() -> Vec<i32> {
-        let stdin = io::stdin();
+fn read_int_array(n: usize) -> Vec<i32> {
+    let mut array: Vec<i32> = Vec::new();
+    array.resize_with(n, || read!());
+    return array;
+}
 
-        let input_line: Vec<i32> = stdin.lock()
-          .lines().next().unwrap().unwrap()
-          .trim().split(' ')
-          .map(|s| s.parse().unwrap())
-          .collect();
+fn hurdle_race(hurdles_heights: &Vec<i32>, maximum_height_can_jump: i32) -> i32 {
+    let highest_hurdle: i32 = *hurdles_heights.iter().max().unwrap();
 
-        return input_line;
-    }
-
-    fn hurdle_race(hurdles_heights: &Vec<i32>, maximum_height_can_jump: i32) -> i32 {
-        let highest_hurdle: i32 = *hurdles_heights.iter().max().unwrap();
-        let doses: i32 = if highest_hurdle > maximum_height_can_jump {highest_hurdle - maximum_height_can_jump} else {0};
-        return doses;
-    }
+    if highest_hurdle > maximum_height_can_jump {
+        return highest_hurdle - maximum_height_can_jump;
+    } else {
+        return 0;
+    };
+}

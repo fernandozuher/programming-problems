@@ -1,69 +1,40 @@
-// Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
-    "strings"
-)
-
+import "fmt"
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
-
-    var inputLine []int = readLineAsIntArray(scanner)
-    var maximumHeightCanJump int = inputLine[1]
-
-    hurdlesHeights := readLineAsIntArray(scanner)
-
-    var result int = hurdleRace(hurdlesHeights, maximumHeightCanJump)
-    fmt.Print(result)
+    var n, maximumHeightCanJump int
+    fmt.Scan(&n, &maximumHeightCanJump)
+    var hurdlesHeights []int = readIntArray(n)
+    fmt.Println(hurdleRace(hurdlesHeights, maximumHeightCanJump))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var line string
-
-        if scanner.Scan() {
-            line = scanner.Text()
-        } else {
-            checkError(scanner.Err())
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        inputStringArray := strings.Split(line, " ")
-        inputLine := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            inputLine[i] = number
-        }
-        return inputLine
+        return array
     }
-
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
-            }
-        }
 
     func hurdleRace(hurdlesHeights []int, maximumHeightCanJump int) int {
-        highestHurdle := 0
-        doses := 0
-
-        for _, hurdleHeight := range hurdlesHeights {
-            if highestHurdle < hurdleHeight {
-                highestHurdle = hurdleHeight
-            }
-        }
+        var highestHurdle int = max(hurdlesHeights)
 
         if highestHurdle > maximumHeightCanJump {
-            doses = highestHurdle - maximumHeightCanJump
+            return highestHurdle - maximumHeightCanJump
         } else {
-            doses = 0
+            return 0
         }
-
-        return doses
     }
+
+        func max(array []int) int {
+            var max int = 0
+            for _, element := range array {
+                if max < element {
+                    max = element
+                }
+            }
+            return max
+        }

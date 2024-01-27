@@ -1,50 +1,49 @@
-// Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        List<int> inputLine = ReadLineAsListInt();
-        int maximumHeightCanJump = inputLine.Last();
+        List<int> array = _readIntArray();
+        int n = array.First(), maximumHeightCanJump = array.Last();
+        List<int> hurdlesHeights = _readIntArray();
 
-        List<int> hurdlesHeights = ReadLineAsListInt();
-
-        Result result = new Result(hurdlesHeights, maximumHeightCanJump);
+        var obj = new HurdleRace(hurdlesHeights, maximumHeightCanJump);
+        Console.WriteLine(obj.Doses);
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    public class HurdleRace
     {
         private List<int> _hurdlesHeights;
         private int _maximumHeightCanJump;
         private int _doses;
 
-        public Result(List<int> hurdlesHeights, int maximumHeightCanJump)
+        public HurdleRace(List<int> hurdlesHeights, int maximumHeightCanJump)
         {
             _hurdlesHeights = hurdlesHeights;
             _maximumHeightCanJump = maximumHeightCanJump;
             _doses = 0;
-
-            _HurdleRace();
-            PrintResult();
+            _hurdleRace();
         }
 
-            private void _HurdleRace()
+            private void _hurdleRace()
             {
                 int highestHurdle = _hurdlesHeights.Max();
                 _doses = highestHurdle > _maximumHeightCanJump ? highestHurdle - _maximumHeightCanJump : 0;
             }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_doses);
-            }
+        public int Doses
+        {
+            get { return _doses; }
+        }
     }

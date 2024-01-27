@@ -1,44 +1,37 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 def main():
 
-    inputLine = readLineAsIntList()
-    maximumHeightCanJump = inputLine[1]
-
-    hurdlesHeights = readLineAsIntList()
-
-    result = Result(hurdlesHeights, maximumHeightCanJump)
+    n, maximum_height_can_jump = read_int_array()
+    hurdles_heights = read_int_array()
+    obj = Hurdle_race(hurdles_heights, maximum_height_can_jump)
+    print(obj.doses())
 
 
-def readLineAsIntList():
+def read_int_array():
 
-    inputLine = list(map(int, input().split()))
-    return inputLine
-
-
-class Result:
-
-    def __init__(self, hurdlesHeights, maximumHeightCanJump):
-
-        self.__hurdlesHeights = hurdlesHeights.copy()
-        self.__maximumHeightCanJump = maximumHeightCanJump
-        self.__doses = 0
-
-        self.__hurdleRace()
-        self.printResult()
+    return list(map(int, input().split()))
 
 
-    def __hurdleRace(self):
+class Hurdle_race:
 
-        highestHurdle = max(self.__hurdlesHeights)
-        self.__doses = highestHurdle - self.__maximumHeightCanJump if highestHurdle > self.__maximumHeightCanJump else 0
+    def __init__(self, hurdles_heights, maximum_height_can_jump):
+
+        self._hurdles_heights = hurdles_heights
+        self._maximum_height_can_jump = maximum_height_can_jump
+        self._doses = 0
+        self._hurdle_race()
 
 
-    def printResult(self):
+    def _hurdle_race(self):
 
-        print(self.__doses)
+        highest_hurdle = max(self._hurdles_heights)
+        self._doses = highest_hurdle - self._maximum_height_can_jump if highest_hurdle > self._maximum_height_can_jump else 0
+
+
+    def doses(self):
+
+        return self._doses
 
 
 if __name__ == "__main__":
