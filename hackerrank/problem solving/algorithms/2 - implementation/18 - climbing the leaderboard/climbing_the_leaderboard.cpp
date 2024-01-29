@@ -47,7 +47,7 @@ private:
         }
     }
 
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////
 
 int main()
 {
@@ -70,7 +70,7 @@ int main()
     vector<T> read_array(const int n)
     {
         vector<T> array(n);
-        ranges::generate(array, [] {int x; cin >> x; return x;});
+        ranges::generate(array, [] {T x; cin >> x; return x;});
         return array;
     }
 

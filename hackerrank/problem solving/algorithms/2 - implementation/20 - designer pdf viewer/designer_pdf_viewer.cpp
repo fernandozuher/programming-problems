@@ -1,64 +1,80 @@
-// Source: https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
-#include <vector>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
+template<class T = int>
+vector<T> read(const int n = 0);
 
-class Result {
+class Designer_Pdf_Viewer {
+public:
+    Designer_Pdf_Viewer(const vector<int>& letters_heights, const string& word);
+    int area() const;
 
 private:
-    vector<int> _lettersHeights;
-    string _word;
-    int _area;
+    vector<int> letters_heights;
+    string word;
+    int area_size;
 
-    void _designer_pdf_viewer() {
-        int max_height {0};
-
-        for (char letter : _word) {
-            const int letter_index {letter - 'a'};
-            const int letter_height {_lettersHeights[letter_index]};
-
-            if (max_height < letter_height)
-                max_height = letter_height;
-        }
-
-        _area = max_height * _word.size();
-    }
-
-public:
-    Result(const vector<int> lettersHeights, const string word) {
-        _lettersHeights = lettersHeights;
-        _word = word;
-        _area = 0;
-
-        _designer_pdf_viewer();
-        print_area();
-    }
-
-        void print_area() const {
-            cout << _area << "\n";
-        }
+    void calculate_area();
 };
 
-vector<int> read_line_as_vector_int() {
-    vector<int> input_line;
-    string line;
-    getline(cin, line);
-    stringstream ss(line);
+    Designer_Pdf_Viewer::Designer_Pdf_Viewer(const vector<int>& letters_heights, const string& word)
+        : letters_heights{letters_heights}, word{word}, area_size{}
+    {
+        calculate_area();
+    }
 
-    for (int number; ss >> number; input_line.push_back(number));
-    return input_line;
-}
+        void Designer_Pdf_Viewer::calculate_area()
+        {
+            int max_height{};
 
-int main() {
-    const vector<int> input_line1 {read_line_as_vector_int()};
-    string input_line2;
-    cin >> input_line2;
+            for (const char letter : word) {
+                int letter_index {letter - 'a'};
+                int letter_height {letters_heights[letter_index]};
+                max_height = max(max_height, letter_height);
+            }
 
-    const Result result(input_line1, input_line2);
+            area_size = max_height * word.size();
+        }
+
+    int Designer_Pdf_Viewer::area() const
+    {
+        return area_size;
+    }
+
+/////////////////////////////////////////////////
+
+int main()
+{
+    vector<int> letters_heights {read()};
+    string word;
+    cin >> word;
+
+    Designer_Pdf_Viewer obj{letters_heights, word};
+    cout << obj.area();
 
     return 0;
 }
+
+    template<class T = int>
+    vector<T> read(const int n)
+    {
+        string line;
+        getline(cin, line);
+        istringstream is{line};
+        vector<T> array;
+
+        if (n) {
+            array.resize(n);
+            ranges::generate(array, [&is] {T x; is >> x; return x;});
+        }
+        else
+            for (T x; is >> x; array.push_back(x));
+
+        return array;
+    }

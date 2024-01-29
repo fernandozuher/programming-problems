@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,59 +14,53 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const inputLine1 = readLineAsNumberArray();
-    const inputLine2 = readLineAsString();
-
-    const result = new Result(inputLine1, inputLine2);
+    let lettersHeights = readIntArray();
+    let word = readLine();
+    let obj = new DesignerPdfViewer(lettersHeights, word);
+    console.log(obj.area());
 }
 
-    function readLineAsNumberArray() {
-        const inputLine = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    function readLineAsString() {
-        const inputLine = readLine();
-        return inputLine;
-    }
-
-    class Result {
+    class DesignerPdfViewer {
         #lettersHeights;
         #word;
         #area;
 
         constructor(lettersHeights, word) {
-            this.#lettersHeights = [...lettersHeights];
+            this.#lettersHeights = lettersHeights;
             this.#word = word;
             this.#area = 0;
-
-            this.#designerPdfViewer();
-            this.printResult();
+            this.#calculateArea();
         }
 
-            #designerPdfViewer() {
+            #calculateArea() {
                 let maxHeight = 0;
 
                 for (const letter of this.#word) {
-                    const letterIndex = letter.charCodeAt(0) - "a".charCodeAt(0);
-                    const letterHeight = this.#lettersHeights[letterIndex];
-                    if (maxHeight < letterHeight) maxHeight = letterHeight;
+                    let letterIndex = letter.charCodeAt(0) - 'a'.charCodeAt(0);
+                    let letterHeight = this.#lettersHeights[letterIndex];
+                    maxHeight = Math.max(maxHeight, letterHeight);
                 }
 
                 this.#area = maxHeight * this.#word.length;
             }
 
-            printResult() {
-                console.log(this.#area);
-            }
+        area() {
+            return this.#area;
+        }
     }

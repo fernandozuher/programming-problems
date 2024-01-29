@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 package main
 
@@ -10,53 +10,29 @@ import (
     "strings"
 )
 
-
 func main() {
     scanner := bufio.NewScanner(os.Stdin)
 
-    var inputLine1 []int = readLineAsIntArray(scanner)
-    var inputLine2 string = readLineAsString(scanner)
+    var lettersHeights []int = readIntArray(scanner)
+    scanner.Scan()
+    var word string = scanner.Text()
 
-    var result int = designerPdfViewer(inputLine1, inputLine2)
-    fmt.Print(result)
+    fmt.Println(designerPdfViewer(lettersHeights, word))
 }
 
-    func readLineAsIntArray(scanner *bufio.Scanner) []int {
-        var line string
-
+    func readIntArray(scanner *bufio.Scanner) []int {
         if scanner.Scan() {
-            line = scanner.Text()
-        } else {
-            checkError(scanner.Err())
-        }
+            lineArray := strings.Split(scanner.Text(), " ")
+            intArray := make([]int, len(lineArray))
 
-        inputStringArray := strings.Split(line, " ")
-        inputLine := make([]int, len(inputStringArray))
-
-        for i, stringNumber := range inputStringArray {
-            number, err := strconv.Atoi(stringNumber)
-            checkError(err)
-            inputLine[i] = number
-        }
-        return inputLine
-    }
-
-        func checkError(err error) {
-            if err != nil {
-                panic(err)
+            for i, element := range lineArray {
+                intArray[i], _ = strconv.Atoi(element)
             }
+
+            return intArray
         }
 
-    func readLineAsString(scanner *bufio.Scanner) string {
-        var line string
-
-        if scanner.Scan() {
-            line = scanner.Text()
-        } else {
-            checkError(scanner.Err())
-        }
-
-        return line
+        return []int{}
     }
 
     func designerPdfViewer(lettersHeights []int, word string) int {

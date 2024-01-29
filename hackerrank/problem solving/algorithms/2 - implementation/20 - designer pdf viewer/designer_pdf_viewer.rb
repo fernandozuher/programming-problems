@@ -1,50 +1,36 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 def main
-    inputLine1 = readLineAsIntArray
-    inputLine2 = readLineAsString
-
-    result = Result.new inputLine1, inputLine2
+    letters_heights = read_int_array
+    word = gets
+    obj = DesignerPdfViewer.new(letters_heights, word)
+    puts obj.area
 end
 
-    def readLineAsIntArray
-        inputLine = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
-    def readLineAsString
-        inputLine = gets
-    end
+    class DesignerPdfViewer
+        attr_reader :area
 
-    class Result
-
-        def initialize lettersHeights, word
-            @lettersHeights = lettersHeights
+        def initialize(letters_heights, word)
+            @letters_heights = letters_heights
             @word = word
             @area = 0
-
-            _designerPdfViewer
-            printResult
+            calculate_area
         end
 
-            private def _designerPdfViewer
-                maxHeight = 0
+            private def calculate_area
+                max_height = 0
 
                 @word.chars.each do |letter|
-                    letterIndex = letter.ord - "a".ord
-                    letterHeight = @lettersHeights[letterIndex]
-
-                    if maxHeight < letterHeight
-                        maxHeight = letterHeight
-                    end
+                    letter_index = letter.ord - 'a'.ord
+                    letter_height = @letters_heights[letter_index]
+                    max_height = [max_height, letter_height].max
                 end
 
-                @area = maxHeight * @word.size
-            end
-
-            def printResult
-                puts @area
+                @area = max_height * @word.size
             end
     end
 

@@ -1,48 +1,40 @@
-// Source: https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 
 class Solution
 {
     public static void Main()
     {
-        List<int> inputLine1 = ReadLineAsListInt();
-        String inputLine2 = ReadLineAsString();
-
-        Result result = new Result(inputLine1, inputLine2);
+        List<int> lettersHeights = _readIntArray();
+        String word = Console.ReadLine();
+        var obj = new DesignerPdfViewer(lettersHeights, word);
+        Console.WriteLine(obj.Area);
     }
 
-        private static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
-        }
-
-        private static string ReadLineAsString()
-        {
-            string inputLine = Console.ReadLine();
-            return inputLine;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class Result
+    class DesignerPdfViewer
     {
         private List<int> _lettersHeights;
         private string _word;
         private int _area;
 
-        public Result(List<int> lettersHeights, string word)
+        public DesignerPdfViewer(List<int> lettersHeights, string word)
         {
             _lettersHeights = lettersHeights;
             _word = word;
             _area = 0;
-
-            _DesignerPdfViewer();
-            PrintResult();
+            _calculateArea();
         }
 
-            private void _DesignerPdfViewer()
+            private void _calculateArea()
             {
                 int maxHeight = 0;
 
@@ -50,16 +42,14 @@ class Solution
                 {
                     int letterIndex = letter - 'a';
                     int letterHeight = _lettersHeights[letterIndex];
-
-                    if (maxHeight < letterHeight)
-                        maxHeight = letterHeight;
+                    maxHeight = Math.Max(maxHeight, letterHeight);
                 }
 
                 _area = maxHeight * _word.Length;
             }
 
-            public void PrintResult()
-            {
-                Console.WriteLine(_area);
-            }
+        public int Area
+        {
+            get { return _area; }
+        }
     }
