@@ -1,49 +1,29 @@
-// Source: https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
 package main
 
-import (
-    "fmt"
-)
-
+import "fmt"
 
 func main() {
-    var nTestCases int = readLineAsInt()
-    var nTestCasesCycles []int = readCycles(nTestCases)
-
-    result := utopianTree(nTestCasesCycles)
-    printTreesHeights(result)
+    var n int
+    fmt.Scan(&n)
+    var testCases []int = readLines(n)
+    printArray(utopianTree(testCases))
 }
 
-    func readLineAsInt() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
-
-    func readCycles(nTestCases int) []int {
-        var nTestCasesCycles []int = make([]int, nTestCases)
-
-        for i := range nTestCasesCycles {
-            nTestCasesCycles[i] = readLineAsInt()
+    func readLines(n int) []int {
+        var array []int = make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
-
-        return nTestCasesCycles
+        return array
     }
 
-    func checkError(err error) {
-        if err != nil {
-            panic(err)
-        }
-    }
-
-    func utopianTree(nTestCasesCycles []int) []int {
-        var treesHeights []int = make([]int, len(nTestCasesCycles))
-
+    func utopianTree(testCases []int) []int {
+        var treesHeights []int = make([]int, len(testCases))
         for i := range treesHeights {
-            treesHeights[i] = calculateHeight(nTestCasesCycles[i])
+            treesHeights[i] = calculateHeight(testCases[i])
         }
-
         return treesHeights
     }
 
@@ -65,8 +45,8 @@ func main() {
                 return cycle&1 == 1
             }
 
-    func printTreesHeights(treesHeights []int) {
-        for _, height := range treesHeights {
-            fmt.Println(height)
+    func printArray(array []int) {
+        for _, x := range array {
+            fmt.Println(x)
         }
     }

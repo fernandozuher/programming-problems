@@ -1,59 +1,42 @@
-#!/bin/ruby
-
-# Source: https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
-
+# https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
 def main
-    nTestCases = readLineAsInt
-    nTestCasesCycles = readCycles nTestCases
-
-    result = Result.new nTestCasesCycles
+    n = gets.to_i
+    test_cases = read_lines(n)
+    obj = Utopian_tree.new(test_cases)
+    puts obj.trees_heights
 end
 
-    def readLineAsInt
-        inputLine = gets.to_i
+    def read_lines(n)
+        Array.new(n).map{gets.to_i}
     end
 
-    def readCycles nTestCases
-        nTestCasesCycles = Array.new nTestCases
-        nTestCasesCycles = nTestCasesCycles.map {readLineAsInt}
-    end
+    class Utopian_tree
+        attr_reader :trees_heights
 
-    class Result
-
-        def initialize nTestCasesCycles
-            @nTestCasesCycles = nTestCasesCycles
-            @treesHeights = Array.new
-
-            _utopianTree
-            printResult
+        def initialize(test_cases)
+            @test_cases = test_cases
+            @trees_heights = Array.new(@test_cases.size)
+            calculate_trees_heights
         end
 
-            private def _utopianTree
-                @treesHeights = Array.new @nTestCasesCycles.size
-
-                for i in 0..(@treesHeights.size-1)
-                    @treesHeights[i] = _calculateHeight @nTestCasesCycles[i]
+            private def calculate_trees_heights
+                for i in 0..(@trees_heights.size-1)
+                    @trees_heights[i] = calculate_height(@test_cases[i])
                 end
             end
 
-            private def _calculateHeight cycles
-                height = 1
-
-                for cycle in 1..cycles
-                    height = _isCycleHappeningDuringSpring(cycle) == true ? height * 2 : height + 1
+                private def calculate_height(cycles)
+                    height = 1
+                    for cycle in 1..cycles
+                        height = is_cycle_happening_during_spring(cycle) == true ? height * 2 : height + 1
+                    end
+                    height
                 end
 
-                height
-            end
-
-                def _isCycleHappeningDuringSpring cycle
-                    cycle.odd?
-                end
-
-        def printResult
-            puts @treesHeights
-        end
+                    def is_cycle_happening_during_spring(cycle)
+                        cycle.odd?
+                    end
     end
 
 main

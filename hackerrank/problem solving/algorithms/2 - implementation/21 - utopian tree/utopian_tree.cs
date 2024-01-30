@@ -1,66 +1,57 @@
-// Source: https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        int nTestCases = ReadLineAsInt();
-        List<int> nTestCasesCycles = ReadCycles(nTestCases);
-        Result result = new Result(nTestCasesCycles);
+        int n = int.Parse(Console.ReadLine());
+        List<int> testCases = _readLines(n);
+        var obj = new UtopianTree(testCases);
+        obj.TreesHeights.ForEach(x => Console.WriteLine(x));
     }
 
-    private static int ReadLineAsInt()
-    {
-        return int.Parse(Console.ReadLine());
-    }
-
-    private static List<int> ReadCycles(int nTestCases)
-    {
-        List<int> nTestCasesCycles = new List<int>(new int[nTestCases]).Select(_ => ReadLineAsInt()).ToList();
-        return nTestCasesCycles;
-    }
+        private static List<int> _readLines(int n)
+        {
+            return new List<int>(new int[n]).Select(_ => int.Parse(Console.ReadLine())).ToList();
+        }
 }
 
-    class Result
+    public class UtopianTree
     {
-        private List<int> _nTestCasesCycles;
+        private List<int> _testCases;
         private List<int> _treesHeights;
 
-        public Result(List<int> nTestCasesCycles)
+        public UtopianTree(List<int> testCases)
         {
-            _nTestCasesCycles = nTestCasesCycles;
-            _treesHeights = new List<int>(new int[_nTestCasesCycles.Count]);
-
-            _UtopianTree();
-            PrintResult();
+            _testCases = testCases;
+            _treesHeights = new List<int>(new int[_testCases.Count]);
+            _calculateTreesHeights();
         }
 
-            private void _UtopianTree()
+            private void _calculateTreesHeights()
             {
-                int i = 0;
-                _treesHeights = _treesHeights.Select(_ => _CalculateHeight(_nTestCasesCycles[i++])).ToList();
+                _treesHeights = _treesHeights.Select((_, i) => _calculateHeight(_testCases[i])).ToList();
             }
 
-                private int _CalculateHeight(int cycles)
+                private int _calculateHeight(int cycles)
                 {
                     int height = 1;
-
                     for (int cycle = 1; cycle <= cycles; cycle++)
-                        height = _IsCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1;
-
+                        height = _isCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1;
                     return height;
                 }
 
-                    private bool _IsCycleHappeningDuringSpring(int cycle)
+                    private bool _isCycleHappeningDuringSpring(int cycle)
                     {
                         return (cycle & 1) == 1;
                     }
 
-            public void PrintResult()
-            {
-                _treesHeights.ForEach(Console.WriteLine);
-            }
+        public List<int> TreesHeights
+        {
+            get { return _treesHeights; }
+        }
     }

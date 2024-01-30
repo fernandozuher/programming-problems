@@ -1,63 +1,49 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
-
+# https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
 def main():
 
-    nTestCases = readLineAsInt()
-    nTestCasesCycles = readCycles(nTestCases)
-    result = Result(nTestCasesCycles)
+    n = int(input())
+    test_cases = read_lines(n)
+    obj = UtopianTree(test_cases)
+    print(*obj.trees_heights(), sep='\n')
 
 
-def readLineAsInt():
+def read_lines(n):
 
-    number = int(input())
-    return number
-
-
-def readCycles(nTestCases):
-
-    nTestCasesCycles = [readLineAsInt() for _ in range(nTestCases)]
-    return nTestCasesCycles
+    return [int(input()) for _ in range(n)]
 
 
-class Result:
+class UtopianTree:
 
-    def __init__(self, nTestCasesCycles):
+    def __init__(self, test_cases):
 
-        self.__nTestCasesCycles = nTestCasesCycles.copy()
-        self.__treesHeights = [None] * len(nTestCasesCycles)
-
-        self.__utopianTree()
-        self.printTreesHeights()
+        self._test_cases = test_cases
+        self._trees_heights = [None] * len(test_cases)
+        self._calculate_trees_heights()
 
 
-    def __utopianTree(self):
+    def _calculate_trees_heights(self):
 
-        for i in range(len(self.__treesHeights)):
-            self.__treesHeights[i] = self.__calculateHeight(self.__nTestCasesCycles[i])
+        for i in range(len(self._trees_heights)):
+            self._trees_heights[i] = self._calculate_height(self._test_cases[i])
 
 
-    def __calculateHeight(self, cycles):
+    def _calculate_height(self, cycles):
 
         height = 1
-
         for cycle in range(1, cycles+1):
-            height = height * 2 if self.__isCycleHappeningDuringSpring(cycle) else height + 1
-
+            height = height * 2 if self._is_cycle_happening_during_spring(cycle) else height + 1
         return height
 
 
-    def __isCycleHappeningDuringSpring(self, cycle):
+    def _is_cycle_happening_during_spring(self, cycle):
 
         return cycle & 1
 
 
-    def printTreesHeights(self):
+    def trees_heights(self):
 
-        for height in self.__treesHeights:
-            print(height)
+        return self._trees_heights
 
 
 if __name__ == "__main__":

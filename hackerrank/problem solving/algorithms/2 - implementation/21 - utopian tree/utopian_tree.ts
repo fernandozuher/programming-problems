@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,52 +23,46 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const nTestCases = readLineAsNumber();
-    const nTestCasesCycles = readCycles(nTestCases);
-    const result = new Result(nTestCasesCycles);
+    let n: number = +readLine();
+    let testCases: number[] = readLines(n);
+    let obj = new UtopianTree(testCases);
+    obj.treesHeights().forEach(x => console.log(x));
 }
 
-    function readLineAsNumber() {
-        const number = parseInt(readLine());
-        return number;
+    function readLines(n: number): number[] {
+        return [...Array(n).fill(0)].map(_ => +readLine());
     }
 
-    function readCycles(nTestCases: number): number[] {
-        let nTestCasesCycles = [...Array(nTestCases)].map(readLineAsNumber);
-        return nTestCasesCycles;
-    }
+    class UtopianTree {
+        private testCases: number[];
+        private heights: number[];
 
-    class Result {
-        private _nTestCasesCycles: number[];
-        private _treesHeights: number[];
-
-        constructor(nTestCasesCycles: number[]) {
-            this._nTestCasesCycles = [...nTestCasesCycles];
-            this._treesHeights = Array(nTestCasesCycles.length);
-
-            this._utopianTree();
-            this.printTreesHeights();
+        constructor(testCases: number[]) {
+            this.testCases = testCases;
+            this.heights = Array(testCases.length).fill(0);
+            this.calculateTreesHeights();
         }
 
-            private _utopianTree() {
-                for (let i = 0, n = this._treesHeights.length; i < n; i++)
-                    this._treesHeights[i] = this._calculateHeight(this._nTestCasesCycles[i]);
+            private calculateTreesHeights() {
+                for (let i = 0, n = this.heights.length; i < n; ++i)
+                    this.heights[i] = this.calculateHeight(this.testCases[i]);
             }
 
-                private _calculateHeight(cycles: number): number {
-                    let height = 1;
-                    for (let cycle = 1; cycle <= cycles; cycle++)
-                        height = this._isCycleHappeningDuringSpring(cycle) ? height * 2: height + 1;
+                private calculateHeight(cycles: number) {
+                    let height: number = 1;
+                    for (let cycle = 1; cycle <= cycles; ++cycle)
+                        height = this.isCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1;
                     return height;
                 }
 
-                    private _isCycleHappeningDuringSpring(cycle: number): boolean {
-                        return (cycle & 1) == 1;
+                    private isCycleHappeningDuringSpring(cycle: number): boolean {
+                        return (cycle & 1) === 1;
                     }
 
-            printTreesHeights() {
-                for (let height of this._treesHeights) console.log(height);
-            }
+        public treesHeights(): number[] {
+            return this.heights;
+        }
     }

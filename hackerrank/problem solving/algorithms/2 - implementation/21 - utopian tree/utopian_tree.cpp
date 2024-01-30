@@ -1,70 +1,85 @@
-// Source: https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <sstream>
-#include <algorithm>
 
 using namespace std;
 
-
-class Result {
+class Utopian_Tree {
+public:
+    Utopian_Tree(const vector<int>& test_cases);
+    vector<int> trees_heights() const;
 
 private:
-    vector<int> _n_test_cases_cycles;
-    vector<int> _trees_heights;
+    vector<int> test_cases;
+    vector<int> heights;
 
-    void _utopian_tree() {
-        int i {0};
-        auto lambda_expression = [&i, this]() {return _calculate_height(_n_test_cases_cycles.at(i++));};
-        generate(_trees_heights.begin(), _trees_heights.end(), lambda_expression);
-    }
-
-        int _calculate_height(const int cycles) const {
-            int height {1};
-
-            for (int cycle {1}; cycle <= cycles; cycle++)
-                height = _is_cycle_happening_during_spring(cycle) ? height * 2 : height + 1;
-
-            return height;
-        }
-
-            bool _is_cycle_happening_during_spring(const int cycle) const {
-                return cycle & 1;
-            }
-
-public:
-    Result(const vector<int> n_test_cases_cycles) {
-        _n_test_cases_cycles = n_test_cases_cycles;
-        _trees_heights.resize(_n_test_cases_cycles.size());
-
-        _utopian_tree();
-        print_trees_heights();
-    }
-
-        void print_trees_heights() const {
-            for (int height : _trees_heights)
-                cout << height << "\n";
-        }
+    void calculate_tree_heights();
+    int calculate_height(const int cycles) const;
+    bool is_cycle_happening_during_spring(const int cycle) const;
 };
 
-int read_line_as_int() {
-    int number;
-    cin >> number;
-    return number;
-}
+    Utopian_Tree::Utopian_Tree(const vector<int>& test_cases):
+        test_cases{test_cases}, heights{vector<int>(test_cases.size())}
+    {
+        calculate_tree_heights();
+    }
 
-vector<int> read_n_test_cases_cycles(const int n_test_cases) {
-    vector<int> n_test_cases_cycles(n_test_cases);
-    generate(n_test_cases_cycles.begin(), n_test_cases_cycles.end(), read_line_as_int);
-    return n_test_cases_cycles;
-}
+        void Utopian_Tree::calculate_tree_heights()
+        {
+            int i{};
+            auto lambda = [&i, this]() {return calculate_height(test_cases.at(i++));};
+            ranges::generate(heights, lambda);
+        }
+
+            int Utopian_Tree::calculate_height(const int cycles) const
+            {
+                int height {1};
+                for (int cycle {1}; cycle <= cycles; ++cycle)
+                    height = is_cycle_happening_during_spring(cycle) ? height * 2 : height + 1;
+                return height;
+            }
+
+                bool Utopian_Tree::is_cycle_happening_during_spring(const int cycle) const
+                {
+                    return cycle & 1;
+                }
+
+    vector<int> Utopian_Tree::trees_heights() const
+    {
+        return heights;
+    }
+
+//////////////////////////////////////////////////
+
+template<class T = int, class container = vector<T>>
+vector<int> read_lines(const int n);
+
+template<class T = int, class container = vector<T>>
+void print_array(const container& array);
 
 int main() {
-    const int n_test_cases {read_line_as_int()};
-    const vector<int> n_test_cases_cycles {read_n_test_cases_cycles(n_test_cases)};
-
-    const Result result(n_test_cases_cycles);
+    int n;
+    cin >> n;
+    vector<int> test_cases {read_lines(n)};
+    Utopian_Tree obj{test_cases};
+    print_array(obj.trees_heights());
 
     return 0;
 }
+
+    template<class T, class container>
+    vector<int> read_lines(const int n)
+    {
+        container array(n);
+        ranges::generate(array, [] {T x; cin >> x; return x;});
+        return array;
+    }
+
+    template<class T, class container>
+    void print_array(const container& array)
+    {
+        for (const T x : array)
+            cout << x << '\n';
+    }
