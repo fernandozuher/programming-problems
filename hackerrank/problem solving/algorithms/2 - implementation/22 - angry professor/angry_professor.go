@@ -1,52 +1,55 @@
-// Source: https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
 package main
 
-import (
-    "fmt"
-)
-
+import "fmt"
 
 func main() {
-    var nTestCases int = readOneInt()
-    var results []bool = make([]bool, nTestCases)
+    var n int
+    fmt.Scan(&n)
+    cancelledClasses := make([]bool, n)
 
-    for i := range results {
-        results[i] = angryProfessor()
+    for i := range cancelledClasses {
+        var nStudentsArrivalTime, cancellationThreshold int
+        fmt.Scan(&nStudentsArrivalTime, &cancellationThreshold)
+        var studentsArrivalTime []int = readIntArray(nStudentsArrivalTime)
+        cancelledClasses[i] = angryProfessor(studentsArrivalTime, cancellationThreshold)
     }
 
-    for i := range results {
-        if results[i] {
-            fmt.Println("YES")
-        } else {
-            fmt.Println("NO")
-        }
-    }
+    printFormattedOutput(cancelledClasses)
 }
 
-    func readOneInt() int {
-        var number int
-        fmt.Scan(&number)
-        return number
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
+        }
+        return array
     }
 
-    func angryProfessor() bool {
-        var nStudentsArrivalTime int = readOneInt()
-        var cancellationThreshold int = readOneInt()
-        var cancelledClass bool = countEarlyArrivalTime(nStudentsArrivalTime) < cancellationThreshold
+    func angryProfessor(studentsArrivalTime []int, cancellationThreshold int) bool {
+        var cancelledClass bool = countEarlyArrivalTime(studentsArrivalTime) < cancellationThreshold
         return cancelledClass
     }
 
-        func countEarlyArrivalTime(nStudentsArrivalTime int) int {
+        func countEarlyArrivalTime(studentsArrivalTime []int) int {
             earlyArrivalTimeCount := 0
 
-            for i, studentArrivalTime := 0, 0; i < nStudentsArrivalTime; i++ {
-                studentArrivalTime = readOneInt()
-
-                if studentArrivalTime <= 0 {
+            for _, arrivalTime := range studentsArrivalTime {
+                if arrivalTime <= 0 {
                     earlyArrivalTimeCount++
                 }
             }
 
             return earlyArrivalTimeCount
         }
+
+    func printFormattedOutput(array []bool) {
+        for _, x := range array {
+            if x {
+                fmt.Println("YES")
+            } else {
+                fmt.Println("NO")
+            }
+        }
+    }

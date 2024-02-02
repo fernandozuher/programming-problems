@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,54 +23,54 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const inputLine: number[] = readLineAsNumberArray();
-    const nTestCases: number = inputLine[0];
-    const results: boolean[] = Array(nTestCases).fill(false);
+    let n: number = +readLine();
+    let cancelledClasses: boolean[] = Array(n).fill(false);
 
-    for (const i in results) {
-        const angryProfessor = new AngryProfessor();
-        results[i] = angryProfessor.getCancelledClass();
+    for (const i in cancelledClasses) {
+        let [nStudentsArrivalTime, cancellationThreshold]: number[] = readIntArray();
+        let studentsArrivalTime: number[] = readIntArray();
+        let obj = new AngryProfessor(studentsArrivalTime, cancellationThreshold);
+        cancelledClasses[i] = obj.cancelledClass();
     }
 
-    for (const result of results)
-        console.log(result ? "YES" : "NO");
+    for (const cancelled of cancelledClasses)
+        console.log(cancelled ? 'YES' : 'NO');
 }
 
-    function readLineAsNumberArray(): number[] {
-        const inputLine = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
     class AngryProfessor {
-        _cancellationThreshold: number;
-        _studentsArrivalTime: number[];
-        _cancelledClass: boolean;
+        private studentsArrivalTime: number[];
+        private cancellationThreshold: number;
+        private cancelled: boolean;
 
-        constructor() {
-            const inputLine: number[] = readLineAsNumberArray();
-            this._cancellationThreshold = inputLine[1];
-            this._studentsArrivalTime = readLineAsNumberArray();
-
-            this._angryProfessor();
+        constructor(studentsArrivalTime: number[], cancellationThreshold: number) {
+            this.studentsArrivalTime = studentsArrivalTime;
+            this.cancellationThreshold = cancellationThreshold;
+            this.cancelled = false;
+            this.checkIfClassIsCancelled();
         }
 
-            _angryProfessor() {
-                this._cancelledClass = this._countEarlyArrivalTime() < this._cancellationThreshold;
+            private checkIfClassIsCancelled() {
+                this.cancelled = this.countEarlyArrivalTime() < this.cancellationThreshold;
             }
 
-                _countEarlyArrivalTime(): number {
-                    let earlyArrivalTimeCount: number = 0;
+                private countEarlyArrivalTime() {
+                    let earlyArrivalTimeCount = 0;
 
-                    for (const studentArrivalTime of this._studentsArrivalTime)
-                        if (studentArrivalTime <= 0)
-                            earlyArrivalTimeCount++;
+                    for (const arrivalTime of this.studentsArrivalTime)
+                        if (arrivalTime <= 0)
+                            ++earlyArrivalTimeCount;
 
                     return earlyArrivalTimeCount;
                 }
 
-        getCancelledClass(): boolean {
-            return this._cancelledClass;
+        public cancelledClass(): boolean {
+            return this.cancelled;
         }
     }

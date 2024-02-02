@@ -1,47 +1,54 @@
-// Source: https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-int read_one_int();
-bool angry_professor();
-    int count_early_arrival_time(const int n_students);
+int* read_int_array(const int n);
+bool angry_professor(const int* const students_arrival_time, const int n, const int cancellation_threshold);
+    int count_early_arrival_time(const int* const students_arrival_time, int n);
 
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    bool cancelled_classes[n];
 
-int main() {
-    const int n_test_cases = read_one_int();
-    bool results[n_test_cases];
+    for (int i = 0; i < n; ++i) {
+        int n_students_arrival_time, cancellation_threshold;
+        scanf("%d %d", &n_students_arrival_time, &cancellation_threshold);
+        int *students_arrival_time = read_int_array(n_students_arrival_time);
+        cancelled_classes[i] = angry_professor(students_arrival_time, n_students_arrival_time, cancellation_threshold);
 
-    for (int i = 0; i < n_test_cases; results[i++] = angry_professor());
-    for (int i = 0; i < n_test_cases; puts(results[i++] ? "YES" : "NO"));
+        free(students_arrival_time);
+        students_arrival_time = NULL;
+    }
+
+    for (int i = 0; i < n; puts(cancelled_classes[i++] ? "YES" : "NO"));
 
     return 0;
 }
 
-    int read_one_int() {
-        int number;
-        char white_space_or_eof;
-        scanf("%d%c", &number, &white_space_or_eof);
-        return number;
+    int* read_int_array(const int n)
+    {
+        int *array = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; scanf("%d", &array[i++]));
+        return array;
     }
 
-    bool angry_professor() {
-        const int n_students_arrival_time = read_one_int();
-        const int cancellation_threshold = read_one_int();
-        const bool cancelled_class = count_early_arrival_time(n_students_arrival_time) < cancellation_threshold;
+    bool angry_professor(const int* const students_arrival_time, const int n, const int cancellation_threshold)
+    {
+        bool cancelled_class = count_early_arrival_time(students_arrival_time, n) < cancellation_threshold;
         return cancelled_class;
     }
 
-        int count_early_arrival_time(const int n_students_arrival_time) {
+        int count_early_arrival_time(const int* const students_arrival_time, int n)
+        {
             int early_arrival_time_count = 0;
 
-            for (int i = 0, student_arrival_time; i < n_students_arrival_time; i++) {
-                student_arrival_time = read_one_int();
-
-                if (student_arrival_time <= 0)
-                    early_arrival_time_count++;
-            }
+            while (n--)
+                if (students_arrival_time[n] <= 0)
+                    ++early_arrival_time_count;
 
             return early_arrival_time_count;
         }

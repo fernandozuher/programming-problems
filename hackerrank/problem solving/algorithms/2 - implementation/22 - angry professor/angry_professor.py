@@ -1,58 +1,55 @@
-#!/bin/python3
-
-# Source: https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
 def main():
 
-    inputLine = readLineAsIntList()
-    nTestCases = inputLine[0]
-    results = [None] * nTestCases
+    n = int(input())
+    cancelled_classes = [None] * n
 
-    for i in range(len(results)):
-        angryProfessor = AngryProfessor()
-        results[i] = angryProfessor.getCancelledClass()
+    for i in range(n):
+        n_students_arrival_time, cancellation_threshold = read_int_array()
+        students_arrival_time = read_int_array()
+        obj = AngryProfessor(students_arrival_time, cancellation_threshold)
+        cancelled_classes[i] = obj.cancelled_class()
 
-    for result in results:
-        print("YES" if result else "NO")
+    for cancelled in cancelled_classes:
+        print("YES" if cancelled else "NO")
 
 
-def readLineAsIntList():
+def read_int_array():
 
-    inputLine = list(map(int, input().split()))
-    return inputLine
+    return list(map(int, input().split()))
 
 
 class AngryProfessor:
 
-    def __init__(self):
+    def __init__(self, students_arrival_time, cancellation_threshold):
 
-        inputLine = readLineAsIntList()
-        self.__cancellationThreshold = inputLine[1]
-        self.__studentsArrivalTime = readLineAsIntList()
-
-        self.__angryProfessor()
-
-
-    def __angryProfessor(self):
-
-        self.__cancelledClass = self.__countEarlyArrivalTime() < self.__cancellationThreshold
+        self._students_arrival_time = students_arrival_time
+        self._cancellation_threshold = cancellation_threshold
+        self._cancelled_class = False
+        self._check_if_class_is_cancelled()
 
 
-    def __countEarlyArrivalTime(self):
+    def _check_if_class_is_cancelled(self):
 
-        earlyArrivalTimeCount = 0
-
-        for studentArrivalTime in self.__studentsArrivalTime:
-            if studentArrivalTime <= 0:
-                earlyArrivalTimeCount += 1
-
-        return earlyArrivalTimeCount
+        self._cancelled_class = self._count_early_arrival_time() < self._cancellation_threshold
 
 
-    def getCancelledClass(self):
+    def _count_early_arrival_time(self):
 
-        return self.__cancelledClass
+        early_arrival_time_count = 0
+
+        for arrival_time in self._students_arrival_time:
+            if arrival_time <= 0:
+                early_arrival_time_count += 1
+
+        return early_arrival_time_count
 
 
-if __name__ == "__main__":
+    def cancelled_class(self):
+
+        return self._cancelled_class
+
+
+if __name__ == '__main__':
     main()

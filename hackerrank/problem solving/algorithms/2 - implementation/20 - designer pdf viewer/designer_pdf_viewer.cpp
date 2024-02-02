@@ -7,9 +7,6 @@
 
 using namespace std;
 
-template<class T = int>
-vector<T> read(const int n = 0);
-
 class Designer_Pdf_Viewer {
 public:
     Designer_Pdf_Viewer(const vector<int>& letters_heights, const string& word);
@@ -49,6 +46,9 @@ private:
 
 /////////////////////////////////////////////////
 
+template<class T = int>
+vector<T> read(const int n = 0);
+
 int main()
 {
     vector<int> letters_heights {read()};
@@ -64,17 +64,16 @@ int main()
     template<class T = int>
     vector<T> read(const int n)
     {
-        string line;
-        getline(cin, line);
-        istringstream is{line};
-        vector<T> array;
+        vector<T> array(n);
 
-        if (n) {
-            array.resize(n);
-            ranges::generate(array, [&is] {T x; is >> x; return x;});
-        }
-        else
+        if (n)
+            ranges::generate(array, [] {T x; cin >> x; return x;});
+        else {
+            string line;
+            getline(cin, line);
+            istringstream is{line};
             for (T x; is >> x; array.push_back(x));
+        }
 
         return array;
     }

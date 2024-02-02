@@ -1,66 +1,68 @@
-// Source: https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        List<int> inputLine = ReadLineAsListInt();
-        int nTestCases = inputLine.First();
-        List<bool> results = new List<bool>(new bool[nTestCases]);
+        int n = int.Parse(Console.ReadLine());
+        List<bool> cancelledClasses = new List<bool>(new bool[n]);
 
-        for (int i = 0, n = results.Count; i < n; i++)
-        {
-            AngryProfessor angryProfessor = new AngryProfessor();
-            results[i] = angryProfessor.GetCancelledClass();
+        for (int i = 0; i < n; ++i) {
+            List<int> line = _readIntArray();
+            int nStudentsArrivalTime = line.First();
+            int cancellationThreshold = line.Last();
+            List<int> studentsArrivalTime = _readIntArray();
+
+            var obj = new AngryProfessor(studentsArrivalTime, cancellationThreshold);
+            cancelledClasses[i] = obj.CancelledClass;
         }
 
-        foreach (bool result in results)
-            Console.WriteLine(result ? "YES" : "NO");
+        foreach (bool cancelled in cancelledClasses)
+            Console.WriteLine(cancelled ? "YES" : "NO");
     }
 
-        public static List<int> ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class AngryProfessor
+    public class AngryProfessor
     {
-        private int _cancellationThreshold;
         private List<int> _studentsArrivalTime;
+        private int _cancellationThreshold;
         private bool _cancelledClass;
 
-        public AngryProfessor()
+        public AngryProfessor(List<int> studentsArrivalTime, int cancellationThreshold)
         {
-            List<int> inputLine = Solution.ReadLineAsListInt();
-            _cancellationThreshold = inputLine.Last();
-            _studentsArrivalTime = Solution.ReadLineAsListInt();
-
-            _AngryProfessor();
+            _studentsArrivalTime = studentsArrivalTime;
+            _cancellationThreshold = cancellationThreshold;
+            _cancelledClass = false;
+            _checkIfClassIsCancelled();
         }
 
-            private void _AngryProfessor()
+            private void _checkIfClassIsCancelled()
             {
-                _cancelledClass = _CountEarlyArrivalTime() < _cancellationThreshold;
+                _cancelledClass = _countEarlyArrivalTime() < _cancellationThreshold;
             }
 
-                private int _CountEarlyArrivalTime()
+                private int _countEarlyArrivalTime()
                 {
                     int earlyArrivalTimeCount = 0;
 
-                    foreach (int studentArrivalTime in _studentsArrivalTime)
-                        if (studentArrivalTime <= 0)
-                            earlyArrivalTimeCount++;
+                    foreach (int arrivalTime in _studentsArrivalTime)
+                        if (arrivalTime <= 0)
+                            ++earlyArrivalTimeCount;
 
                     return earlyArrivalTimeCount;
                 }
 
-        public bool GetCancelledClass()
+        public bool CancelledClass
         {
-            return _cancelledClass;
+            get { return _cancelledClass; }
         }
     }
