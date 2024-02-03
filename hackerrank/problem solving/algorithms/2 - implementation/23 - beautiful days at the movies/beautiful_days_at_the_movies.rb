@@ -1,54 +1,50 @@
-# Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 def main
-    (startingDayNumber, endingDayNumber, divisor) = readLineAsIntList
-    beautifulDays = BeautifulDays.new startingDayNumber, endingDayNumber, divisor
+    starting_day_number, ending_day_number, divisor = read_int_array
+    obj = BeautifulDays.new(starting_day_number, ending_day_number, divisor)
+    puts obj.n_beautiful_days
 end
 
-    def readLineAsIntList
-        inputLine = gets.split.map(&:to_i)
+    def read_int_array
+        gets.split.map(&:to_i)
     end
 
     class BeautifulDays
+        attr_reader :n_beautiful_days
 
-        def initialize startingDayNumber, endingDayNumber, divisor
-            @startingDayNumber = startingDayNumber
-            @endingDayNumber = endingDayNumber
+        def initialize(starting_day_number, ending_day_number, divisor)
+            @starting_day_number = starting_day_number
+            @ending_day_number = ending_day_number
             @divisor = divisor
-            @nBeautifulDays = 0
-
-            _beautifulDays
-            printNBeautifulDays
+            @n_beautiful_days = 0
+            calculate_beautiful_days_quantity
         end
 
-            def _beautifulDays
-                for number in @startingDayNumber..@endingDayNumber
-                    reverseNumber = _generateReverseNumber number
+            def calculate_beautiful_days_quantity
+                for number in @starting_day_number..@ending_day_number
+                    reverse_number = generate_reverse_number(number)
 
-                    if _isDayBeautiful number, reverseNumber
-                        @nBeautifulDays += 1
+                    if is_day_beautiful(number, reverse_number)
+                        @n_beautiful_days += 1
                     end
                 end
             end
 
-                def _generateReverseNumber number
-                    reverseNumber = 0
+                def generate_reverse_number(number)
+                    reverse_number = 0
 
                     while number > 0
-                        reverseNumber = (reverseNumber * 10) + (number % 10)
+                        reverse_number = (reverse_number * 10) + (number % 10)
                         number = (number / 10).to_i
                     end
 
-                    reverseNumber
+                    reverse_number
                 end
 
-                def _isDayBeautiful number, reverseNumber
-                    beautifulDay = (number - reverseNumber).abs % @divisor == 0
+                def is_day_beautiful(number, reverse_number)
+                    (number - reverse_number).abs % @divisor == 0
                 end
-
-            def printNBeautifulDays
-                print @nBeautifulDays
-        end
     end
 
 main

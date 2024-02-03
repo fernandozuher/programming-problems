@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,55 +23,52 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const [startingDayNumber, endingDayNumber, divisor]: number[] = readLineAsNumberArray();
-    const beautifulDays: BeautifulDays = new BeautifulDays(startingDayNumber, endingDayNumber, divisor);
+    let [startingDayNumber, endingDayNumber, divisor]: number[] = readIntArray();
+    let obj = new BeautifulDays(startingDayNumber, endingDayNumber, divisor);
+    console.log(obj.nBeautifulDays());
 }
 
-    function readLineAsNumberArray(): number[] {
-        const inputLine: number[] = readLine().split(" ").map(Number);
-        return inputLine;
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
     class BeautifulDays {
-        private _startingDayNumber: number;
-        private _endingDayNumber: number;
-        private _divisor: number;
-        private _nBeautifulDays: number;
-        
-        constructor(startingDayNumber: number, endingDayNumber: number, divisor: number) {
-            this._startingDayNumber = startingDayNumber;
-            this._endingDayNumber = endingDayNumber;
-            this._divisor = divisor;
-            this._nBeautifulDays = 0;
-        
-            this._beautifulDays();
-            this.printNBeautifulDays();
-        }
-        
-            private _beautifulDays() {
-                for (let dayNumber = this._startingDayNumber; dayNumber <= this._endingDayNumber; dayNumber++) {
-                    const reverseNumber = this._generateReverseNumber(dayNumber);
+        private startingDayNumber: number;
+        private endingDayNumber: number;
+        private divisor: number;
+        private beautifulDaysQuantity: number;
 
-                    if (this._isDayBeautiful(dayNumber, reverseNumber))
-                        this._nBeautifulDays++;
+        constructor(startingDayNumber: number, endingDayNumber: number, divisor: number) {
+            this.startingDayNumber = startingDayNumber;
+            this.endingDayNumber = endingDayNumber;
+            this.divisor = divisor;
+            this.beautifulDaysQuantity = 0;
+            this.calculateBeautifulDaysQuantity();
+        }
+
+            private calculateBeautifulDaysQuantity() {
+                for (let number = this.startingDayNumber; number <= this.endingDayNumber; ++number) {
+                    let reverseNumber: number = this.generateReverseNumber(number);
+                    if (this.isDayBeautiful(number, reverseNumber))
+                        ++this.beautifulDaysQuantity;
                 }
             }
-            
-                private _generateReverseNumber(dayNumber: number): number {
+
+                private generateReverseNumber(number: number): number {
                     let reverseNumber = 0;
-                    for (; dayNumber > 0; dayNumber = Math.trunc(dayNumber / 10))
-                        reverseNumber = (reverseNumber * 10) + (dayNumber % 10);
+                    for (; number > 0; number = Math.trunc(number / 10))
+                        reverseNumber = (reverseNumber * 10) + (number % 10);
                     return reverseNumber;
                 }
-                
-                private _isDayBeautiful(number: number, reverseNumber: number): boolean {
-                    const beautifulDay = Math.abs(number - reverseNumber) % this._divisor == 0;
-                    return beautifulDay;
+
+                private isDayBeautiful(number: number, reverseNumber: number): boolean {
+                    return Math.abs(number - reverseNumber) % this.divisor == 0;
                 }
-            
-            printNBeautifulDays() {
-                console.log(this._nBeautifulDays);
-            }
+
+        public nBeautifulDays(): number {
+            return this.beautifulDaysQuantity;
+        }
     }

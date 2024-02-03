@@ -1,60 +1,56 @@
-# Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 def main():
 
-    [startingDayNumber, endingDayNumber, divisor] = readLineAsIntList()
-    beautifulDays = BeautifulDays(startingDayNumber, endingDayNumber, divisor)
+    starting_day_number, ending_day_number, divisor = read_int_array()
+    obj = BeautifulDays(starting_day_number, ending_day_number, divisor)
+    print(obj.n_beautiful_days())
 
 
-def readLineAsIntList():
+def read_int_array():
 
-    inputLine = list(map(int, input().split()))
-    return inputLine
+    return list(map(int, input().split()))
 
 
 class BeautifulDays:
 
-    def __init__(self, startingDayNumber, endingDayNumber, divisor):
+    def __init__(self, starting_day_number, ending_day_number, divisor):
 
-        self.__startingDayNumber = startingDayNumber
-        self.__endingDayNumber = endingDayNumber
-        self.__divisor = divisor
-        self.__nBeautifulDays = 0
-
-        self.__beautifulDays()
-        self.printNBeautifulDays()
+        self._starting_day_number = starting_day_number
+        self._ending_day_number = ending_day_number
+        self._divisor = divisor
+        self._n_beautiful_days = 0
+        self._calculate_beautiful_days_quantity()
 
 
-    def __beautifulDays(self):
+    def _calculate_beautiful_days_quantity(self):
 
-        for number in range(self.__startingDayNumber, self.__endingDayNumber + 1):
-            reverseNumber = self.__generateReverseNumber(number)
+        for number in range(self._starting_day_number, self._ending_day_number + 1):
+            reverse_number = self._generate_reverse_number(number)
+            if self._is_day_beautiful(number, reverse_number):
+                self._n_beautiful_days += 1
 
-            if self.__isDayBeautiful(number, reverseNumber):
-                self.__nBeautifulDays += 1
 
+    def _generate_reverse_number(self, number):
 
-    def __generateReverseNumber(self, number):
-
-        reverseNumber = 0
+        reverse_number = 0
 
         while number > 0:
-            reverseNumber = (reverseNumber * 10) + (number % 10)
+            reverse_number = (reverse_number * 10) + (number % 10)
             number = int(number / 10)
 
-        return reverseNumber
+        return reverse_number
 
 
-    def __isDayBeautiful(self, number, reverseNumber):
+    def _is_day_beautiful(self, number, reverse_number):
 
-        beautifulDay = abs(number - reverseNumber) % self.__divisor == 0
-        return beautifulDay
-
-
-    def printNBeautifulDays(self):
-
-        print(self.__nBeautifulDays)
+        return abs(number - reverse_number) % self._divisor == 0
 
 
-if __name__ == "__main__":
+    def n_beautiful_days(self):
+
+        return self._n_beautiful_days
+
+
+if __name__ == '__main__':
     main()

@@ -1,28 +1,28 @@
-// Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        List<int> inputLine = _ReadLineAsListInt();
-        int startingDayNumber = inputLine.First();
-        int endingDayNumber = inputLine[1];
-        int divisor = inputLine.Last();
-
-        BeautifulDays beautifulDays = new BeautifulDays(startingDayNumber, endingDayNumber, divisor);
+        List<int> line = _readIntArray();
+        int startingDayNumber = line.First();
+        int endingDayNumber = line[1];
+        int divisor = line.Last();
+        var obj = new BeautifulDays(startingDayNumber, endingDayNumber, divisor);
+        Console.WriteLine(obj.NBeautifulDays);
     }
 
-        private static List<int> _ReadLineAsListInt()
+        private static List<int> _readIntArray()
         {
-            List<int> inputLine = Console.ReadLine().Split().ToList().Select(int.Parse).ToList();
-            return inputLine;
+            return Console.ReadLine().Split().Select(int.Parse).ToList();
         }
 }
 
-    class BeautifulDays
+    public class BeautifulDays
     {
         private int _startingDayNumber;
         private int _endingDayNumber;
@@ -35,22 +35,20 @@ class Solution
             _endingDayNumber = endingDayNumber;
             _divisor = divisor;
             _nBeautifulDays = 0;
-
-            _BeautifulDays();
-            PrintNBeautifulDays();
+            _calculateBeautifulDaysQuantity();
         }
 
-            private void _BeautifulDays()
+            private void _calculateBeautifulDaysQuantity()
             {
-                for (int number = _startingDayNumber; number <= _endingDayNumber; number++)
+                for (int number = _startingDayNumber; number <= _endingDayNumber; ++number)
                 {
-                    int reverseNumber = _GenerateReverseNumber(number);
-                    if (_IsDayBeautiful(number, reverseNumber))
-                        _nBeautifulDays++;
+                    int reverseNumber = _generateReverseNumber(number);
+                    if (_isDayBeautiful(number, reverseNumber))
+                        ++_nBeautifulDays;
                 }
             }
 
-                private int _GenerateReverseNumber(int number)
+                private int _generateReverseNumber(int number)
                 {
                     int reverseNumber = 0;
                     for (; number > 0; number /= 10)
@@ -58,14 +56,13 @@ class Solution
                     return reverseNumber;
                 }
 
-                private bool _IsDayBeautiful(int number, int reverseNumber)
+                private bool _isDayBeautiful(int number, int reverseNumber)
                 {
-                    bool beautifulDay = Math.Abs(number - reverseNumber) % _divisor == 0;
-                    return beautifulDay;
+                    return Math.Abs(number - reverseNumber) % _divisor == 0;
                 }
 
-        public void PrintNBeautifulDays()
+        public int NBeautifulDays
         {
-            Console.WriteLine(_nBeautifulDays);
+            get { return _nBeautifulDays; }
         }
-}
+    }

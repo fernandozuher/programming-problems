@@ -1,66 +1,67 @@
-// Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 #include <iostream>
 
 using namespace std;
 
-
 class Beautiful_Days {
+public:
+    Beautiful_Days(const int starting_day_number, const int ending_day_number, const int divisor);
+    int n_beautiful_days() const;
 
 private:
-    int _starting_day_number;
-    int _ending_day_number;
-    int _divisor;
-    int _n_beautiful_days;
+    int starting_day_number;
+    int ending_day_number;
+    int divisor;
+    int beautiful_days_quantity;
 
-    void _beautiful_days() {
-        for (int number = _starting_day_number; number <= _ending_day_number; number++) {
-            const int reverse_number = _generate_reverse_number(number);
-
-            if (_is_day_beautiful(number, reverse_number))
-                _n_beautiful_days++;
-        }
-    }
-
-        int _generate_reverse_number(int number) const {
-            int reverse_number = 0;
-            for (; number > 0; number /= 10)
-                reverse_number = (reverse_number * 10) + (number % 10);
-            return reverse_number;
-        }
-
-        bool _is_day_beautiful(const int number, const int reverse_number) const {
-            const bool beautiful_day = abs(number - reverse_number) % _divisor == 0;
-            return beautiful_day;
-        }
-
-public:
-    Beautiful_Days(const int starting_day_number, const int ending_day_number, const int divisor) {
-        _starting_day_number = starting_day_number;
-        _ending_day_number = ending_day_number;
-        _divisor = divisor;
-        _n_beautiful_days = 0;
-
-        _beautiful_days();
-        print_n_beautiful_days();
-    }
-
-        void print_n_beautiful_days() const {
-            cout << _n_beautiful_days << "\n";
-        }
+    void calculate_beautiful_days_quantity();
+        int generate_reverse_number(int number) const;
+        bool is_day_beautiful(const int number, const int reverse_number) const;
 };
 
-int read_one_int() {
-    int number;
-    cin >> number;
-    return number;
-}
+    Beautiful_Days::Beautiful_Days(const int starting_day_number, const int ending_day_number, const int divisor)
+        : starting_day_number{starting_day_number}, ending_day_number{ending_day_number},
+          divisor{divisor}, beautiful_days_quantity{}
+    {
+        calculate_beautiful_days_quantity();
+    }
 
-int main() {
+        void Beautiful_Days::calculate_beautiful_days_quantity()
+        {
+            for (int number{starting_day_number}; number <= ending_day_number; ++number) {
+                int reverse_number {generate_reverse_number(number)};
+                if (is_day_beautiful(number, reverse_number))
+                    ++beautiful_days_quantity;
+            }
+        }
+
+            int Beautiful_Days::generate_reverse_number(int number) const
+            {
+                int reverse_number = 0;
+                for (; number > 0; number /= 10)
+                    reverse_number = (reverse_number * 10) + (number % 10);
+                return reverse_number;
+            }
+
+            bool Beautiful_Days::is_day_beautiful(const int number, const int reverse_number) const
+            {
+                return abs(number - reverse_number) % divisor == 0;
+            }
+
+    int Beautiful_Days::n_beautiful_days() const
+    {
+        return beautiful_days_quantity;
+    }
+
+//////////////////////////////////////////////////
+
+int main()
+{
     int starting_day_number, ending_day_number, divisor;
     cin >> starting_day_number >> ending_day_number >> divisor;
-    
-    const Beautiful_Days beautiful_days(starting_day_number, ending_day_number, divisor);
-    
+    Beautiful_Days obj{starting_day_number, ending_day_number, divisor};
+    cout << obj.n_beautiful_days();
+
     return 0;
 }

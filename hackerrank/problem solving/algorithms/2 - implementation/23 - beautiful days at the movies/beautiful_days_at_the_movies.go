@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 package main
 
@@ -7,29 +7,17 @@ import (
     "math"
 )
 
-
 func main() {
-    var startingDayNumber int = readOneInt()
-    var endingDayNumber int = readOneInt()
-    var divisor int = readOneInt()
-
-    var nBeautifulDays int = beautifulDays(startingDayNumber, endingDayNumber, divisor)
-
-    fmt.Println(nBeautifulDays)
+    var startingDayNumber, endingDayNumber, divisor int
+    fmt.Scan(&startingDayNumber, &endingDayNumber, &divisor)
+    fmt.Println(beautifulDays(startingDayNumber, endingDayNumber, divisor))
 }
-
-    func readOneInt() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
 
     func beautifulDays(startingDayNumber int, endingDayNumber int, divisor int) int {
         var nBeautifulDays int = 0
 
         for number := startingDayNumber; number <= endingDayNumber; number++ {
             var reverseNumber int = generateReverseNumber(number)
-
             if isDayBeautiful(number, reverseNumber, divisor) {
                 nBeautifulDays++
             }
@@ -47,6 +35,5 @@ func main() {
         }
 
         func isDayBeautiful(number int, reverseNumber int, divisor int) bool {
-            var beautifulDay bool = int(math.Abs(float64(number) - float64(reverseNumber))) % divisor == 0
-            return beautifulDay
+            return int(math.Abs(float64(number)-float64(reverseNumber)))%divisor == 0
         }
