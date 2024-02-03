@@ -38,7 +38,7 @@ private:
 
             int Beautiful_Days::generate_reverse_number(int number) const
             {
-                int reverse_number = 0;
+                int reverse_number{};
                 for (; number > 0; number /= 10)
                     reverse_number = (reverse_number * 10) + (number % 10);
                 return reverse_number;
