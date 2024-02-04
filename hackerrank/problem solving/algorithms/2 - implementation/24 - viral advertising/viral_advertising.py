@@ -1,13 +1,12 @@
-# Source: https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
 
 def main():
 
     days = int(input())
-    cumulativeLikes = viralAdvertising(days)
-    print(cumulativeLikes)
+    print(viral_advertising(days))
+''
 
-
-def viralAdvertising(days):
+def viral_advertising(days):
 
     shared, liked, cumulative = 5, 0, 0
 
@@ -19,5 +18,5 @@ def viralAdvertising(days):
     return cumulative
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

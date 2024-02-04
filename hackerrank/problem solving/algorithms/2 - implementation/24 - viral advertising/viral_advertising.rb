@@ -1,15 +1,14 @@
-# Source: https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
 
 def main
     days = gets.to_i
-    cumulativeLikes = viralAdvertising days
-    puts cumulativeLikes
+    puts viral_advertising(days)
 end
 
-    def viralAdvertising days
+    def viral_advertising(days)
         shared, liked, cumulative = 5, 0, 0
 
-        for _ in 1..days
+        days.times do
             liked = (shared / 2).to_i
             cumulative += liked
             shared = liked * 3
