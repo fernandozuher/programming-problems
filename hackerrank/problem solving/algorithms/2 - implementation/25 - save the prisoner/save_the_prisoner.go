@@ -1,60 +1,39 @@
-// Source: https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
 package main
 
 import "fmt"
 
-
 func main() {
-    var nTestCases int = ReadANumber()
-    var prisonersChairNumberToWarn []int = ReadTestCasesAndSaveThePrisoners(nTestCases)
-    PrintResults(prisonersChairNumberToWarn)
+    var n int
+    fmt.Scan(&n)
+    prisonersChairNumberToWarn := make([]int, n)
+
+    for i := 0; i < n; i++ {
+        var prisoners, sweets, chairNumberToBegin int
+        fmt.Scanf("%d %d %d", &prisoners, &sweets, &chairNumberToBegin)
+        prisonersChairNumberToWarn[i] = saveThePrisoner(prisoners, sweets, chairNumberToBegin)
+    }
+
+    printArray(prisonersChairNumberToWarn)
 }
 
-    func ReadANumber() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
+    func saveThePrisoner(prisoners int, sweets int, chairNumberToBegin int) int {
+        var prisonerChairNumberToWarn int = chairNumberToBegin + (sweets - 1)
+        x := prisonerChairNumberToWarn
 
-    func ReadTestCasesAndSaveThePrisoners(nTestCases int) []int {
-        var prisonersChairNumberToWarn []int = make([]int, nTestCases)
-
-        for i := 0; i < nTestCases; i++ {
-            var testCase []int = ReadTestCase()
-            prisonersChairNumberToWarn[i] = SaveThePrisoner(testCase)
-        }
-
-        return prisonersChairNumberToWarn
-    }
-
-        func ReadTestCase() []int {
-            const SIZE_TEST_CASE int = 3
-            var testCase []int = make([]int, SIZE_TEST_CASE)
-            fmt.Scanf("%d %d %d", &testCase[0], &testCase[1], &testCase[2])
-
-            return testCase
-        }
-
-        func SaveThePrisoner(testCase []int) int {
-            var prisoners int = testCase[0]
-            var sweets int = testCase[1]
-            var chairNumberToBegin int = testCase[2]
-            var prisonerChairNumberToWarn int = chairNumberToBegin + (sweets - 1)
-
-            if prisonerChairNumberToWarn > prisoners {
-                prisonerChairNumberToWarn %= prisoners
-
-                if prisonerChairNumberToWarn == 0 {
-                    prisonerChairNumberToWarn = prisoners
-                }
+        if x > prisoners {
+            x %= prisoners
+            if x == 0 {
+                x = prisoners
             }
-
-            return prisonerChairNumberToWarn
         }
 
-    func PrintResults(array []int) {
-        for _, number := range array {
-            fmt.Println(number)
+        return x
+    }
+
+    func printArray(array []int) {
+        for _, x := range array {
+            fmt.Println(x)
         }
     }

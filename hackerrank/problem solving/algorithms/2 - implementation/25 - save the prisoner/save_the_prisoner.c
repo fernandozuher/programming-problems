@@ -1,73 +1,42 @@
-// Source: https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
 #include <stdio.h>
 
-int read_a_number();
+int save_the_prisoner(const int prisoners, const int sweets, const int chair_number_to_begin);
+void print_array(const int* const array, const int n);
 
-int* read_test_cases_and_save_the_prisoners(const int N_TEST_CASES);
-    int* read_test_case();
-    int save_the_prisoner(int* test_case);
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    int prisoners_chair_number_to_warn[n];
 
-void print_results(const int *ARRAY, const int SIZE);
-int* free_array(int *array);
+    for (int i = 0; i < n; ++i) {
+        int prisoners, sweets, chair_number_to_begin;
+        scanf("%d %d %d", &prisoners, &sweets, &chair_number_to_begin);
+        prisoners_chair_number_to_warn[i] = save_the_prisoner(prisoners, sweets, chair_number_to_begin);
+    }
 
+    print_array(prisoners_chair_number_to_warn, n);
 
-int main() {
-    const int N_TEST_CASES = read_a_number();
-    int *prisoners_chair_number_to_warn = read_test_cases_and_save_the_prisoners(N_TEST_CASES);
-    print_results(prisoners_chair_number_to_warn, N_TEST_CASES);
-
-    prisoners_chair_number_to_warn = free_array(prisoners_chair_number_to_warn);
     return 0;
 }
 
-    int read_a_number() {
-        int number;
-        scanf("%d", &number);
-        return number;
-    }
+    int save_the_prisoner(const int prisoners, const int sweets, const int chair_number_to_begin)
+    {
+        int prisoner_chair_number_to_warn = chair_number_to_begin + (sweets - 1);
+        int x = prisoner_chair_number_to_warn;
 
-    int* read_test_cases_and_save_the_prisoners(const int N_TEST_CASES) {
-        int *prisoners_chair_number_to_warn = (int*) calloc (N_TEST_CASES, sizeof(int));
-
-        for (int i = 0; i < N_TEST_CASES; i++) {
-            int *test_case = read_test_case();
-            prisoners_chair_number_to_warn[i] = save_the_prisoner(test_case);
-            test_case = free_array(test_case);
+        if (x > prisoners) {
+            x %= prisoners;
+            if (x == 0)
+                x = prisoners;
         }
 
-        return prisoners_chair_number_to_warn;
+        return x;
     }
 
-        int* read_test_case() {
-            const int TEST_CASE_SIZE = 3;
-            int *test_case = (int*) calloc(TEST_CASE_SIZE, sizeof(int));
-            scanf("%d %d %d", &test_case[0], &test_case[1], &test_case[2]);
-            return test_case;
-        }
-
-        int save_the_prisoner(int* test_case) {
-            const int PRISONERS = test_case[0];
-            const int SWEETS = test_case[1];
-            const int CHAIR_NUMBER_TO_BEGIN = test_case[2];
-            int prisoner_chair_number_to_warn = CHAIR_NUMBER_TO_BEGIN + (SWEETS - 1);
-
-            if (prisoner_chair_number_to_warn > PRISONERS) {
-                prisoner_chair_number_to_warn %= PRISONERS;
-
-                if (prisoner_chair_number_to_warn == 0)
-                    prisoner_chair_number_to_warn = PRISONERS;
-            }
-
-            return prisoner_chair_number_to_warn;
-        }
-
-    void print_results(const int *ARRAY, const int SIZE) {
-        for (int i = 0; i < SIZE; i++)
-            printf("%d\n", ARRAY[i]);
-    }
-
-    int* free_array(int *array) {
-        free(array);
-        return NULL;
+    void print_array(const int* const array, const int n)
+    {
+        for (int i = 0; i < n; printf("%d\n", array[i++]));
     }
