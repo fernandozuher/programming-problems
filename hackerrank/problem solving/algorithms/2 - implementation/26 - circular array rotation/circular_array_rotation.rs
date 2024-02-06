@@ -1,90 +1,54 @@
-// Source: https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
-use std::io::{stdin, BufRead};
-
-#[macro_use]
-extern crate text_io;
-
+use text_io::read;
 
 fn main() {
-    let mut input: Vec<Vec<i32>> = read_input();
-    input = reduce_input_rotations(input);
-    input = rotate_input_array(input);
-    print_rotated_array_elements_according_to_queries(input);
+    let (n, mut rotation_count, n_queries): (usize, usize, usize) = (read!(), read!(), read!());
+    let array: Vec<i32> = read_int_array(n);
+    let queries: Vec<i32> = read_int_array(n_queries);
+
+    rotation_count = reduce_rotations(n, rotation_count);
+    let rotated_array: Vec<i32> = rotate_array(&array, rotation_count);
+    print_array_according_to_index_from_another_array(&rotated_array, &queries);
 }
 
-    fn read_input() -> Vec<Vec<i32>> {
-        let line: Vec<i32> = read_line_as_vec_i32();
-        let array_size: Vec<i32> = vec![*line.first().unwrap(); 1];
-        let rotation_count: Vec<i32> = vec![line[1]; 1];
-        let queries_size: Vec<i32> = vec![*line.last().unwrap(); 1];
+fn read_int_array(n: usize) -> Vec<i32> {
+    let mut array: Vec<i32> = Vec::new();
+    array.resize_with(n, || read!());
+    return array;
+}
 
-        let array: Vec<i32> = read_line_as_vec_i32();
-        let queries: Vec<i32> = read_queries(*queries_size.first().unwrap() as usize);
+fn reduce_rotations(n: usize, rotation_count: usize) -> usize {
+    if n > 1 {
+        return if rotation_count >= n {
+            rotation_count % n
+        } else {
+            rotation_count
+        };
+    } else {
+        return 0;
+    }
+}
 
-        let mut input: Vec<Vec<i32>> = vec![array, array_size, rotation_count, queries, queries_size];
+fn rotate_array(array: &Vec<i32>, rotation_count: usize) -> Vec<i32> {
+    let mut new_array: Vec<i32> = vec![0; array.len()];
 
-        return input;
+    let mut j = 0;
+    for i in (array.len() - rotation_count)..array.len() {
+        new_array[j] = array[i];
+        j += 1;
     }
 
-        fn read_line_as_vec_i32() -> Vec<i32> {
-            let array: Vec<i32> = stdin().lock()
-                                  .lines().next().unwrap().unwrap()
-                                  .trim().split(' ')
-                                  .map(|s| s.parse().unwrap())
-                                  .collect();
-            return array;
-        }
-
-        fn read_queries(array_size: usize) -> Vec<i32> {
-            let mut array: Vec<i32> = Vec::with_capacity(array_size);
-            unsafe { array.set_len(array_size); }
-
-            array.fill_with(|| read!());
-
-            return array;
-        }
-
-    fn reduce_input_rotations(mut input: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        let array_size = *input[1].first().unwrap();
-        let rotation_count: i32 = *input[2].first().unwrap();
-
-        if array_size > 1 {
-            input[2][0] = if rotation_count >= array_size {rotation_count % array_size} else {rotation_count};
-        }
-        else {
-            input[2][0] = 0;
-        }
-
-        return input;
+    for i in 0..(array.len() - rotation_count) {
+        new_array[j] = array[i];
+        j += 1;
     }
 
-    fn rotate_input_array(mut input: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-        let array: &Vec<i32> = &input[0];
-        let array_size: usize = *input[1].first().unwrap() as usize;
-        let rotation_count: usize = *input[2].first().unwrap() as usize;
+    return new_array;
+}
 
-        let mut new_array = Vec::with_capacity(array_size);
-        unsafe { new_array.set_len(array_size); }
-
-        let mut j = 0;
-        for i in (array_size - rotation_count)..array_size {
-            new_array[j] = array[i];
-            j += 1;
-        }
-
-        for i in 0..(array_size - rotation_count) {
-            new_array[j] = array[i];
-            j += 1;
-        }
-
-        input[0] = new_array;
-        return input;
-    }
-
-    fn print_rotated_array_elements_according_to_queries(input: Vec<Vec<i32>>) {
-        let array: &Vec<i32> = &input[0];
-        let queries: &Vec<i32> = &input[3];
-
-        queries.iter().for_each(|query| println!("{}", array[*query as usize]));
-    }
+fn print_array_according_to_index_from_another_array(array1: &Vec<i32>, array2: &Vec<i32>) {
+    array2
+        .iter()
+        .for_each(|i| println!("{}", array1[*i as usize]));
+}

@@ -1,110 +1,67 @@
-// Source: https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int** read_input();
-    int* read_a_number_and_return_it_into_array();
-    int* read_array(const int SIZE);
+int* read_int_array(const int n);
+int reduce_rotations(const int n, const const int rotation_count);
+int* rotate_array(int* const array, const int n, const int rotation_count);
+void print_array_according_to_index_from_another_array(const int* const array1, const int* const array2, const int n2);
 
-int** reduce_input_rotations(int **input);
-int** rotate_input_array(int **input);
-void print_rotated_array_elements_according_to_queries(int **input);
+int main()
+{
+    int n, rotation_count, n_queries;
+    scanf("%d %d %d", &n, &rotation_count, &n_queries);
+    int *array = read_int_array(n);
+    int *queries = read_int_array(n_queries);
 
-void* free_allocated_data(int **input);
+    rotation_count = reduce_rotations(n, rotation_count);
+    int *rotated_array = rotate_array(array, n, rotation_count);
+    print_array_according_to_index_from_another_array(rotated_array, queries, n_queries);
 
-
-int main() {
-    int **input = read_input();
-
-    input = reduce_input_rotations(input);
-    input = rotate_input_array(input);
-    print_rotated_array_elements_according_to_queries(input);
-
-    input = free_allocated_data(input);
+    free(array);
+    free(rotated_array);
+    free(queries);
+    array = rotated_array = queries = NULL;
 
     return 0;
 }
 
-    int** read_input() {
-        int *array_size = read_a_number_and_return_it_into_array();
-        int *rotation_count = read_a_number_and_return_it_into_array();
-        int *queries_size = read_a_number_and_return_it_into_array();
-
-        int *array = read_array(*array_size);
-        int *queries = read_array(*queries_size);
-
-        int **input = (int**) calloc(5, sizeof(int*));
-        input[0] = array;
-        input[1] = array_size;
-        input[2] = rotation_count;
-        input[3] = queries;
-        input[4] = queries_size;
-
-        return input;
+    int* read_int_array(const int n)
+    {
+        int *array = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; scanf("%d", &array[i++]));
+        return array;
     }
 
-        int* read_a_number_and_return_it_into_array() {
-            int *number = (int*) calloc(1, sizeof(int));
-            scanf("%d", number);
-            return number;
-        }
-
-        int* read_array(const int SIZE) {
-            int *array = (int*) calloc(SIZE, sizeof(int));
-            for (int i = 0; i < SIZE; i++)
-                scanf("%d", &array[i]);
-            return array;
-        }
-
-    int** reduce_input_rotations(int **input) {
-        const int ARRAY_SIZE = *input[1];
-        int ROTATION_COUNT = *input[2];
-
-        if (ARRAY_SIZE > 1)
-            *input[2] = ROTATION_COUNT = ROTATION_COUNT >= ARRAY_SIZE ? ROTATION_COUNT % ARRAY_SIZE : ROTATION_COUNT;
-        else
-            *input[2] = ROTATION_COUNT = 0;
-
-        return input;
+    int reduce_rotations(const int n, const int rotation_count)
+    {
+        if (n > 1)
+            return rotation_count >= n ? rotation_count % n : rotation_count;
+        return 0;
     }
 
-    int** rotate_input_array(int **input) {
-        const int *ARRAY = input[0];
-        const int ARRAY_SIZE = *input[1];
-        const int ROTATION_COUNT = *input[2];
-        int *new_array = (int*) calloc(ARRAY_SIZE, sizeof(int));
+    int* rotate_array(int* const array, const int n, const int rotation_count)
+    {
+        int *new_array = (int*) calloc(n, sizeof(int));
 
-        const int *FIRST_PART_NEW_ARRAY_ADDRESS = new_array;
-        const int *SECOND_PART_NEW_ARRAY_ADDRESS = new_array + ROTATION_COUNT;
+        int *first_part_new_array_address = new_array;
+        int *second_part_new_array_address = new_array + rotation_count;
 
-        const int *FIRST_PART_ARRAY_BEGIN_ADDRESS = ARRAY;
-        const int FIRST_PART_ARRAY_SIZE = (ARRAY_SIZE - ROTATION_COUNT) * sizeof(*ARRAY);
+        int *first_part_array_begin_address = array;
+        int first_part_n = (n - rotation_count) * sizeof(*array);
 
-        const int *SECOND_PART_ARRAY_BEGIN_ADDRESS = &ARRAY[ARRAY_SIZE - ROTATION_COUNT];
-        const int SECOND_PART_ARRAY_SIZE = ROTATION_COUNT * sizeof(*ARRAY);
+        int *second_part_array_begin_address = &array[n - rotation_count];
+        int second_part_n = rotation_count * sizeof(*array);
 
-        memcpy(FIRST_PART_NEW_ARRAY_ADDRESS, SECOND_PART_ARRAY_BEGIN_ADDRESS, SECOND_PART_ARRAY_SIZE);
-        memcpy(SECOND_PART_NEW_ARRAY_ADDRESS, FIRST_PART_ARRAY_BEGIN_ADDRESS, FIRST_PART_ARRAY_SIZE);
+        memcpy(first_part_new_array_address, second_part_array_begin_address, second_part_n);
+        memcpy(second_part_new_array_address, first_part_array_begin_address, first_part_n);
 
-        input[0] = new_array;
-        return input;
+        return new_array;
     }
 
-    void print_rotated_array_elements_according_to_queries(int **input) {
-        const int *ARRAY = input[0];
-        const int *QUERIES = input[3];
-        const int QUERIES_SIZE = *input[4];
-
-        for (int i = 0; i < QUERIES_SIZE; i++)
-            printf("%d\n", ARRAY[QUERIES[i]]);
-    }
-
-    void* free_allocated_data(int **input) {
-        for (int i = 0, size = 5; i < size; i++)
-            free(input[i]);
-        free(input);
-
-        return NULL;
+    void print_array_according_to_index_from_another_array(const int* const array1, const int* const array2, const int n2)
+    {
+        for (int i = 0; i < n2; printf("%d\n", array1[array2[i++]]));
     }

@@ -1,83 +1,48 @@
-// Source: https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
 package main
 
 import "fmt"
 
 func main() {
-    var input [][]int = ReadInput()
-    input = ReduceInputRotations(input)
-    input = RotateInputArray(input)
-    PrintRotatedArrayElementsAccordingToQueries(input)
+    var n, rotationCount, nQueries int
+    fmt.Scan(&n, &rotationCount, &nQueries)
+    var array []int = readIntArray(n)
+    var queries []int = readIntArray(nQueries)
+
+    rotationCount = reduceRotations(n, rotationCount)
+    var rotatedArray []int = rotateArray(array, rotationCount)
+    printArrayAccordingToIndexFromAnotherArray(rotatedArray, queries)
 }
 
-    func ReadInput() [][]int {
-        var arraySize []int = ReadANumberAndReturnItIntoArray()
-        var rotationCount []int = ReadANumberAndReturnItIntoArray()
-        var queriesSize []int = ReadANumberAndReturnItIntoArray()
-
-        var array []int = ReadArray(arraySize[0])
-        var queries []int = ReadArray(queriesSize[0])
-
-        input := make([][]int, 5)
-        input[0] = array
-        input[1] = arraySize
-        input[2] = rotationCount
-        input[3] = queries
-        input[4] = queriesSize
-
-        return input
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
+        }
+        return array
     }
 
-        func ReadANumberAndReturnItIntoArray() []int {
-            var number []int = make([]int, 1)
-            fmt.Scan(&number[0])
-            return number
-        }
-
-        func ReadArray(size int) []int {
-            var array []int = make([]int, size)
-            for i, _ := range array {
-                fmt.Scan(&array[i])
-            }
-            return array
-        }
-
-    func ReduceInputRotations(input [][]int) [][]int {
-        var arraySize int = input[1][0]
-        var rotationCount int = input[2][0]
-
-        if arraySize > 1 {
-            if rotationCount >= arraySize {
-                input[2][0] = rotationCount % arraySize
+    func reduceRotations(n int, rotationCount int) int {
+        if n > 1 {
+            if rotationCount >= n {
+                return rotationCount % n
             } else {
-                input[2][0] = rotationCount
+                return rotationCount
             }
         } else {
-            input[2][0] = 0
+            return 0
         }
-
-        return input
     }
 
-    func RotateInputArray(input [][]int) [][]int {
-        var array []int = input[0]
-        var arraySize int = input[1][0]
-        var rotationCount int = input[2][0]
-
-        var firstPartNewArray []int = array[arraySize-rotationCount:]
-        var secondPartNewArray []int = array[:arraySize-rotationCount]
-        var newArray []int = append(firstPartNewArray, secondPartNewArray...)
-
-        input[0] = newArray
-        return input
+    func rotateArray(array []int, rotationCount int) []int {
+        var firstPartNewArray []int = array[len(array)-rotationCount:]
+        var secondPartNewArray []int = array[:len(array)-rotationCount]
+        return append(firstPartNewArray, secondPartNewArray...)
     }
 
-    func PrintRotatedArrayElementsAccordingToQueries(input [][]int) {
-        var array []int = input[0]
-        var queries []int = input[3]
-
-        for _, query := range queries {
-            fmt.Println(array[query])
+    func printArrayAccordingToIndexFromAnotherArray(array1 []int, array2 []int) {
+        for _, i := range array2 {
+            fmt.Println(array1[i])
         }
     }
