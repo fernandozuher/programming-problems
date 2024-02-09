@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,36 +14,29 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const N_TEST_CASES = readANumber();
-    const output = new Array(N_TEST_CASES).fill();
+    let n = +readLine();
+    let nNumberDivisors = new Array(n).fill(0);
 
-    for (let i = 0; i < N_TEST_CASES; i++) {
-        const NUMBER = readANumber();
-        const OBJ = new FindDigits(NUMBER);
-        output[i] = OBJ.getDivisors();
+    for (let i = 0; i < n; ++i) {
+        let number = +readLine();
+        let obj = new FindDigits(number);
+        nNumberDivisors[i] = obj.divisors();
     }
 
-    printOutput(output);
+    nNumberDivisors.forEach(x => console.log(x));
 }
-
-    function readANumber() {
-        const NUMBER = +readLine();
-        return NUMBER;
-    }
-
-    function printOutput(array) {
-        array.forEach(number => console.log(number));
-    }
 
     class FindDigits {
         #number;
@@ -54,11 +48,11 @@ function main() {
             this.#findNumberDivisorsQuantity();
         }
 
-            #findNumberDivisorsQuantity(number) {
+            #findNumberDivisorsQuantity() {
                 for (let currentNumber = this.#number; currentNumber != 0; currentNumber = this.#removeLastDigitOfNumber(currentNumber)) {
-                    const DIVISOR = this.#getLastDigitOfNumber(currentNumber);
-                    if (this.#isNumberEvenlyDividedByDivisor(DIVISOR))
-                        this.#divisors++;
+                    let divisor = this.#getLastDigitOfNumber(currentNumber);
+                    if (this.#isNumberEvenlyDividedByDivisor(divisor))
+                        ++this.#divisors;
                 }
             }
 
@@ -74,7 +68,7 @@ function main() {
                     return Math.trunc(number / 10);
                 }
 
-        getDivisors() {
+        divisors() {
             return this.#divisors;
         }
     }

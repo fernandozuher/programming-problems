@@ -1,21 +1,20 @@
-// Source: https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
+use text_io::read;
 
 fn main() {
-    let n_test_cases: usize = read!();
-    let mut output: Vec<i32> = Vec::with_capacity(n_test_cases);
-    unsafe {
-        output.set_len(n_test_cases);
+    let n: usize = read!();
+    let mut n_number_divisors: Vec<i32> = vec![0; n];
+
+    for i in 0..n {
+        let number: i32 = read!();
+        n_number_divisors[i] = find_number_divisors_quantity(number)
     }
 
-    output.fill_with(find_numbers_divisors_quantity);
-    print_output(output);
+    print_array(&n_number_divisors);
 }
 
-fn find_numbers_divisors_quantity() -> i32 {
-    let number: i32 = read!();
+fn find_number_divisors_quantity(number: i32) -> i32 {
     let mut current_number = number;
     let mut divisors: i32 = 0;
 
@@ -42,6 +41,6 @@ fn remove_last_digit_of_number(number: i32) -> i32 {
     return number / 10;
 }
 
-fn print_output(array: Vec<i32>) {
-    array.iter().for_each(|element| println!("{}", element));
+fn print_array(array: &Vec<i32>) {
+    array.iter().for_each(|x| println!("{}", x));
 }

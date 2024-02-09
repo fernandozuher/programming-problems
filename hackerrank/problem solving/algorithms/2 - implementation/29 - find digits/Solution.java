@@ -1,56 +1,59 @@
-// Source: https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
 
-import java.util.Scanner;
-import java.util.List;
 import java.util.Arrays;
-
+import java.util.List;
+import java.util.Scanner;
 
 public class Solution {
-    private static Scanner _scanner;
+    private static Scanner scan;
 
     public static void main(String args[]) {
-        _scanner = new Scanner(System.in);
-        final int N_TEST_CASES = _readANumber();
-        List<Integer> output = Arrays.asList(new Integer[N_TEST_CASES]);
+        scan = new Scanner(System.in);
 
-        for (int i = 0; i < N_TEST_CASES; i++) {
-            final int NUMBER = _readANumber();
-            output.set(i, _findNumberDivisorsQuantity(NUMBER));
+        int n = scan.nextInt();
+        var nNumberDivisors = Arrays.asList(new Integer[n]);
+
+        for (int i = 0; i < n; ++i) {
+            int number = scan.nextInt();
+            var obj = new FindDigits(number);
+            nNumberDivisors.set(i, obj.divisors());
         }
 
-        printOutput(output);
+        nNumberDivisors.forEach(System.out::println);
     }
-
-        private static int _readANumber() {
-            final int NUMBER = _scanner.nextInt();
-            return NUMBER;
-        }
-
-        private static int _findNumberDivisorsQuantity(int number) {
-            int divisors = 0;
-
-            for (int currentNumber = number; currentNumber != 0; currentNumber = _removeLastDigitOfNumber(currentNumber)) {
-                final int DIVISOR = _getLastDigitOfNumber(currentNumber);
-                if (_isNumberEvenlyDividedByDivisor(number, DIVISOR))
-                    divisors++;
-            }
-
-            return divisors;
-        }
-
-            private static int _getLastDigitOfNumber(int number) {
-                return number % 10;
-            }
-
-            private static boolean _isNumberEvenlyDividedByDivisor(int number, int divisor) {
-                return divisor != 0 && number % divisor == 0;
-            }
-
-            private static int _removeLastDigitOfNumber(int number) {
-                return number / 10;
-            }
-
-        public static void printOutput(List<Integer> array) {
-            array.forEach(System.out::println);
-        }
 }
+
+    class FindDigits {
+        private int number;
+        private int nDivisors;
+
+        public FindDigits(final int number) {
+            this.number = number;
+            nDivisors = 0;
+            findNumberDivisorsQuantity();
+        }
+
+            private void findNumberDivisorsQuantity() {
+                for (int currentNumber = number; currentNumber != 0; currentNumber = removeLastDigitOfNumber(currentNumber)) {
+                    int divisor = getLastDigitOfNumber(currentNumber);
+                    if (isNumberEvenlyDividedByDivisor(divisor))
+                        ++nDivisors;
+                }
+            }
+
+                private int getLastDigitOfNumber(final int number) {
+                    return number % 10;
+                }
+
+                private boolean isNumberEvenlyDividedByDivisor(final int divisor) {
+                    return divisor != 0 && number % divisor == 0;
+                }
+
+                private int removeLastDigitOfNumber(final int number) {
+                    return number / 10;
+                }
+
+        public int divisors() {
+            return nDivisors;
+        }
+    }
