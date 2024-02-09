@@ -1,24 +1,21 @@
-// Source: https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-int read_a_number();
-int* read_an_array(const int SIZE_ARRAY);
-int jumping_on_clouds(const int *ARRAY, const int SIZE_ARRAY, const int JUMP_LENGTH);
-    int spent_energy_according_to_type_of_cloud(const int CLOUD_TYPE);
-    int generate_new_cloud_index(const int CLOUD_INDEX, const int SIZE_ARRAY, const int JUMP_LENGTH);
-    bool is_cloud_index_back_to_first_cloud(const int CLOUD_INDEX);
+int* read_int_array(const int n);
+int jumping_on_clouds(const int* const clouds, const int n, const int jump_length);
+    int spent_energy_according_to_type_of_cloud(const int cloud_type);
+    int generate_new_cloud_index(const int cloud_index, const int n, const int jump_length);
+    bool is_cloud_index_back_to_first_cloud(const int cloud_index);
 
-
-int main() {
-    const int SIZE_ARRAY = read_a_number();
-    const int JUMP_LENGTH = read_a_number();
-    int *array = read_an_array(SIZE_ARRAY);
-
-    const int ENERGY = jumping_on_clouds(array, SIZE_ARRAY, JUMP_LENGTH);
-    printf("%d\n", ENERGY);
+int main()
+{
+    int n, jump_length;
+    scanf("%d %d", &n, &jump_length);
+    int *array = read_int_array(n);
+    printf("%d\n", jumping_on_clouds(array, n, jump_length));
 
     free(array);
     array = NULL;
@@ -26,25 +23,20 @@ int main() {
     return 0;
 }
 
-    int read_a_number() {
-        int number;
-        scanf("%d", &number);
-        return number;
-    }
-
-    int* read_an_array(const int SIZE_ARRAY) {
-        int *array = (int*) calloc(SIZE_ARRAY, sizeof(int));
-        for (int i = 0; i < SIZE_ARRAY; i++)
-            scanf("%d", &array[i]);
+    int* read_int_array(const int n)
+    {
+        int *array = (int*) calloc(n, sizeof(int));
+        for (int i = 0; i < n; scanf("%d", &array[i++]));
         return array;
     }
 
-    int jumping_on_clouds(const int *ARRAY, const int SIZE_ARRAY, const int JUMP_LENGTH) {
+    int jumping_on_clouds(const int* const clouds, const int n, const int jump_length)
+    {
         int energy = 100;
 
-        for (int cloud_index = 0; true; ) {
-            energy -= spent_energy_according_to_type_of_cloud(ARRAY[cloud_index]);
-            cloud_index = generate_new_cloud_index(cloud_index, SIZE_ARRAY, JUMP_LENGTH);
+        for (int cloud_index = 0; true;) {
+            energy -= spent_energy_according_to_type_of_cloud(clouds[cloud_index]);
+            cloud_index = generate_new_cloud_index(cloud_index, n, jump_length);
             if (is_cloud_index_back_to_first_cloud(cloud_index))
                 break;
         }
@@ -52,14 +44,17 @@ int main() {
         return energy;
     }
 
-        int spent_energy_according_to_type_of_cloud(const int CLOUD_TYPE) {
-            return CLOUD_TYPE == 0 ? 1 : 3;
+        int spent_energy_according_to_type_of_cloud(const int cloud_type)
+        {
+            return cloud_type == 0 ? 1 : 3;
         }
 
-        int generate_new_cloud_index(const int CLOUD_INDEX, const int SIZE_ARRAY, const int JUMP_LENGTH) {
-            return (CLOUD_INDEX + JUMP_LENGTH) % SIZE_ARRAY;
+        int generate_new_cloud_index(const int cloud_index, const int n, const int jump_length)
+        {
+            return (cloud_index + jump_length) % n;
         }
 
-        bool is_cloud_index_back_to_first_cloud(const int CLOUD_INDEX) {
-            return CLOUD_INDEX == 0;
+        bool is_cloud_index_back_to_first_cloud(const int cloud_index)
+        {
+            return cloud_index == 0;
         }
