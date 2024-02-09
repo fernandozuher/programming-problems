@@ -1,54 +1,47 @@
-// Source: https://www.hackerrank.com/challenges/permutation-equation/problem?isfullscreen=true
+// https://www.hackerrank.com/challenges/permutation-equation/problem?isfullscreen=true
 
 package main
 
 import "fmt"
 
 func main() {
-    var size int = ReadANumber()
-    var array []int = ReadAnArray(size)
-
-    var permutatedArray []int = PermutationEquation(array)
-    PrintArray(permutatedArray)
+    var n int
+    fmt.Scan(&n)
+    var array []int = readIntArray(n)
+    var permutatedArray []int = permutationEquation(array)
+    printArray(permutatedArray)
 }
 
-    func ReadANumber() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
-
-    func ReadAnArray(size int) []int {
-        var array []int = make([]int, size)
-        for i := 0; i < size; i++ {
-            fmt.Scan(&array[i])
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := 0; i < n; i++ {
+            fmt.Scanf("%d", &array[i])
         }
         return array
     }
 
-    func PermutationEquation(array []int) []int {
-        var elementsPositionsArray []int = GenerateElementsPositionsArray(array)
-        var permutatedArray []int = GeneratePermutatedArray(elementsPositionsArray)
-        return permutatedArray
+    func permutationEquation(array []int) []int {
+        var elementsPositionsArray []int = generateElementsPositionsArray(array)
+        return generatePermutatedArray(elementsPositionsArray)
     }
 
-        func GenerateElementsPositionsArray(array []int) []int {
-            var elementsPositionsArray []int = make([]int, len(array))
+        func generateElementsPositionsArray(array []int) []int {
+            elementsPositionsArray := make([]int, len(array))
             for i, element := range array {
                 elementsPositionsArray[element-1] = i
             }
             return elementsPositionsArray
         }
 
-        func GeneratePermutatedArray(array []int) []int {
-            var permutatedArray []int = make([]int, len(array))
+        func generatePermutatedArray(array []int) []int {
+            permutatedArray := make([]int, len(array))
             for i, element := range array {
                 permutatedArray[i] = array[element] + 1
             }
             return permutatedArray
         }
 
-    func PrintArray(array []int) {
+    func printArray(array []int) {
         for _, element := range array {
             fmt.Println(element)
         }
