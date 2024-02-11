@@ -1,24 +1,24 @@
-// Source: https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int read_a_number();
-    int calculate_factorial(int* factorial, const int NUMBER);
-        int multiply_array_with_number(int* array, int array_size, const int NUMBER);
-            int get_last_digit_of_number(const int NUMBER);
-            int remove_last_digit_of_number(const int NUMBER);
-            int add_remaining_carry_to_array(int carry, int* array, int array_size);
-void print_factorial(const int* ARRAY, int array_size);
+int calculate_factorial(int* factorial, const int number);
+    int multiply_array_with_number(int *array, int n, const int number);
+        int get_last_digit_of_number(const int number);
+        int remove_last_digit_of_number(const int number);
+        int add_remaining_carry_to_array(int carry, int *array, int n);
+void print_factorial(const int *array, int n);
 
+int main()
+{
+    int number;
+    scanf("%d", &number);
+    const int max_digits_of_factorial_100 = 158;
+    int *factorial = (int*) calloc(max_digits_of_factorial_100, sizeof(int));
 
-int main() {
-    const int NUMBER = read_a_number();
-    const int MAX_DIGITS_OF_FACTORIAL_100 = 158;
-    int* factorial = (int*) calloc(MAX_DIGITS_OF_FACTORIAL_100, sizeof(int));
-
-    int factorial_size = calculate_factorial(factorial, NUMBER);
-    print_factorial(factorial, factorial_size);
+    int n = calculate_factorial(factorial, number);
+    print_factorial(factorial, n);
 
     free(factorial);
     factorial = NULL;
@@ -26,53 +26,53 @@ int main() {
     return 0;
 }
 
-    int read_a_number() {
-        int number;
-        scanf("%d", &number);
-        return number;
-    }
-
-    int calculate_factorial(int* factorial, const int NUMBER) {
+    int calculate_factorial(int* factorial, const int number)
+    {
         factorial[0] = 1;
-        int factorial_size = 1;
+        int n = 1;
 
-        for (int number = 2; number <= NUMBER; number++)
-            factorial_size = multiply_array_with_number(factorial, factorial_size, number);
+        for (int current_number = 2; current_number <= number; ++current_number)
+            n = multiply_array_with_number(factorial, n, current_number);
 
-        return factorial_size;
+        return n;
     }
 
-        int multiply_array_with_number(int* array, int array_size, const int NUMBER) {
+        int multiply_array_with_number(int *array, int n, const int number)
+        {
             int carry = 0;
 
-            for (int i = 0; i < array_size; i++) {
-                const int PRODUCT = array[i] * NUMBER + carry;
-                array[i] = get_last_digit_of_number(PRODUCT);
-                carry = remove_last_digit_of_number(PRODUCT);
+            for (int i = 0; i < n; ++i) {
+                int product = array[i] * number + carry;
+                array[i] = get_last_digit_of_number(product);
+                carry = remove_last_digit_of_number(product);
             }
 
-            array_size = add_remaining_carry_to_array(carry, array, array_size);
-            return array_size;
+            n = add_remaining_carry_to_array(carry, array, n);
+            return n;
         }
 
-            int get_last_digit_of_number(const int NUMBER) {
-                return NUMBER % 10;
+            int get_last_digit_of_number(const int number)
+            {
+                return number % 10;
             }
 
-            int remove_last_digit_of_number(const int NUMBER) {
-                return NUMBER / 10;
+            int remove_last_digit_of_number(const int number)
+            {
+                return number / 10;
             }
 
-            int add_remaining_carry_to_array(int carry, int* array, int array_size) {
-                while (carry != 0) {
-                    array[array_size++] = get_last_digit_of_number(carry);
+            int add_remaining_carry_to_array(int carry, int *array, int n)
+            {
+                for (; carry; ++n) {
+                    array[n] = get_last_digit_of_number(carry);
                     carry = remove_last_digit_of_number(carry);
                 }
-                return array_size;
+                return n;
             }
 
-    void print_factorial(const int* ARRAY, int array_size) {
-        while (array_size--)
-            printf("%d", ARRAY[array_size]);
+    void print_factorial(const int *array, int n)
+    {
+        while (n--)
+            printf("%d", array[n]);
         puts("");
     }

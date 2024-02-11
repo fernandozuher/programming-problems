@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
 package main
 
@@ -8,23 +8,16 @@ import (
 )
 
 func main() {
-    var number int = ReadANumber()
-    var factorial *big.Int = CalculateFactorialOf(number)
+    var number int
+    fmt.Scan(&number)
+    var factorial *big.Int = calculateFactorialOf(number)
     fmt.Println(factorial)
 }
 
-    func ReadANumber() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
-
-    func CalculateFactorialOf(number int) *big.Int {
+    func calculateFactorialOf(number int) *big.Int {
         var factorial *big.Int = big.NewInt(1)
-
-        for i := 2; i <= number; i++ {
-            factorial.Mul(factorial, big.NewInt(int64(i)))
+        for currentNumber := 2; currentNumber <= number; currentNumber++ {
+            factorial.Mul(factorial, big.NewInt(int64(currentNumber)))
         }
-
         return factorial
     }

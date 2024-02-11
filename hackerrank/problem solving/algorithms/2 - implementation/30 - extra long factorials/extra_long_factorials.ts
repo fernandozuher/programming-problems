@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,16 +23,17 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const NUMBER: number = +readLine();
-    const FACTORIAL: bigint = calculateFactorialOf(NUMBER);
-    console.log(FACTORIAL.toString());
+    let number: number = +readLine();
+    let factorial: bigint = calculateFactorialOf(number);
+    console.log(factorial.toString());
 }
 
     function calculateFactorialOf(number: number): bigint {
         let factorial: bigint = BigInt(1);
-        for (let i = BigInt(2); i <= number; i++)
-            factorial *= i;
+        for (let currentNumber = BigInt(2); currentNumber <= number; ++currentNumber)
+            factorial *= currentNumber;
         return factorial;
     }
