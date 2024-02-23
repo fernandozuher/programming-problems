@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,6 +6,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function(inputStdin) {
@@ -13,14 +14,16 @@ process.stdin.on('data', function(inputStdin) {
 });
 
 process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 const HackosFine = Object.freeze({
     HackosDaysFine: 15,
@@ -39,32 +42,29 @@ class DateThatWorks {
         this.#year = year;
     }
 
-    getDay() {
+    day() {
         return this.#day;
     }
 
-    getMonth() {
+    month() {
         return this.#month;
     }
 
-    getYear() {
+    year() {
         return this.#year;
     }
 }
 
 function main() {
-    const RETURN_DATE = readADate();
-    const DUE_DATE = readADate();
-
-    const OBJ = new LibraryFine(RETURN_DATE, DUE_DATE);
-    const FINE = OBJ.getFine();
-    console.log(FINE);
+    let returnDate = readADate();
+    let dueDate = readADate();
+    let obj = new LibraryFine(returnDate, dueDate);
+    console.log(obj.fine());
 }
 
     function readADate() {
-        const [DAY, MONTH, YEAR] = readLine().split(" ").map(Number);
-        const DATE = new DateThatWorks(DAY, MONTH, YEAR);
-        return DATE;
+        let [day, month, year] = readLine().split(' ').map(Number);
+        return new DateThatWorks(day, month, year);
     }
 
     class LibraryFine {
@@ -76,7 +76,6 @@ function main() {
             this.#returnDate = returnDate;
             this.#dueDate = dueDate;
             this.#fine = 0;
-
             this.#calculateFine();
         }
 
@@ -86,29 +85,29 @@ function main() {
                 else if (this.#isReturnDateLateInMoreThanOrEqualToOneYear())
                     this.#fine = HackosFine.HackosYearsFine;
                 else if (this.#isReturnDateLateInMoreThanOrEqualToOneMonth())
-                    this.#fine = (this.#returnDate.getMonth() - this.#dueDate.getMonth()) * HackosFine.HackosMonthsFine;
+                    this.#fine = (this.#returnDate.month() - this.#dueDate.month()) * HackosFine.HackosMonthsFine;
                 else
-                    this.#fine = (this.#returnDate.getDay() - this.#dueDate.getDay()) * HackosFine.HackosDaysFine;
+                    this.#fine = (this.#returnDate.day() - this.#dueDate.day()) * HackosFine.HackosDaysFine;
             }
 
                 #wereBooksReturnedInTime() {
-                    if ((this.#returnDate.getYear() < this.#dueDate.getYear()) ||
-                            ((this.#returnDate.getYear() === this.#dueDate.getYear()) && (this.#returnDate.getMonth() < this.#dueDate.getMonth())) ||
-                            ((this.#returnDate.getYear() === this.#dueDate.getYear()) && (this.#returnDate.getMonth() === this.#dueDate.getMonth()) && (this.#returnDate.getDay() <= this.#dueDate.getDay()))
+                    if ((this.#returnDate.year() < this.#dueDate.year()) ||
+                            ((this.#returnDate.year() === this.#dueDate.year()) && (this.#returnDate.month() < this.#dueDate.month())) ||
+                            ((this.#returnDate.year() === this.#dueDate.year()) && (this.#returnDate.month() === this.#dueDate.month()) && (this.#returnDate.day() <= this.#dueDate.day()))
                        )
                         return true;
                     return false;
                 }
 
                 #isReturnDateLateInMoreThanOrEqualToOneYear() {
-                    return this.#returnDate.getYear() > this.#dueDate.getYear();
+                    return this.#returnDate.year() > this.#dueDate.year();
                 }
 
                 #isReturnDateLateInMoreThanOrEqualToOneMonth() {
-                    return this.#returnDate.getMonth() > this.#dueDate.getMonth();
+                    return this.#returnDate.month() > this.#dueDate.month();
                 }
 
-        getFine() {
+        fine() {
             return this.#fine;
         }
     }

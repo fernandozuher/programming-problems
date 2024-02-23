@@ -1,7 +1,6 @@
-// Source: https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
-use chrono::Datelike;
-use chrono::NaiveDate;
+use chrono::{Datelike, NaiveDate};
 use text_io::read;
 
 enum HackosFine {
@@ -13,9 +12,7 @@ enum HackosFine {
 fn main() {
     let return_date: NaiveDate = read_a_date();
     let due_date: NaiveDate = read_a_date();
-
-    let fine: u32 = calculate_fine(return_date, due_date);
-    println!("{}", fine);
+    println!("{}", calculate_fine(&return_date, &due_date));
 }
 
 fn read_a_date() -> NaiveDate {
@@ -24,11 +21,10 @@ fn read_a_date() -> NaiveDate {
     let year: i32 = read!();
 
     let from_ymd_opt = NaiveDate::from_ymd_opt;
-    let date: NaiveDate = from_ymd_opt(year, month, day).unwrap();
-    return date;
+    return from_ymd_opt(year, month, day).unwrap();
 }
 
-fn calculate_fine(return_date: NaiveDate, due_date: NaiveDate) -> u32 {
+fn calculate_fine(return_date: &NaiveDate, due_date: &NaiveDate) -> u32 {
     let fine: u32;
 
     if were_books_returned_in_time(return_date, due_date) {
@@ -50,7 +46,7 @@ fn calculate_fine(return_date: NaiveDate, due_date: NaiveDate) -> u32 {
     return fine;
 }
 
-fn were_books_returned_in_time(return_date: NaiveDate, due_date: NaiveDate) -> bool {
+fn were_books_returned_in_time(return_date: &NaiveDate, due_date: &NaiveDate) -> bool {
     if (return_date.year() < due_date.year())
         || ((return_date.year() == due_date.year()) && (return_date.month() < due_date.month()))
         || ((return_date.year() == due_date.year())

@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
 package main
 
@@ -14,31 +14,25 @@ const (
 )
 
 func main() {
-    returnDate := ReadADate()
-    dueDate := ReadADate()
-
-    var fine int = CalculateFine(returnDate, dueDate)
-    fmt.Println(fine)
+    var returnDate time.Time = readADate()
+    var dueDate time.Time = readADate()
+    fmt.Println(calculateFine(returnDate, dueDate))
 }
 
-    func ReadADate() time.Time {
+    func readADate() time.Time {
         var day, month, year int
-        fmt.Scan(&day)
-        fmt.Scan(&month)
-        fmt.Scan(&year)
-
-        date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
-        return date
+        fmt.Scan(&day, &month, &year)
+        return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
     }
 
-    func CalculateFine(returnDate time.Time, dueDate time.Time) int {
+    func calculateFine(returnDate time.Time, dueDate time.Time) int {
         var fine int
 
-        if WereBooksReturnedInTime(returnDate, dueDate) {
+        if wereBooksReturnedInTime(returnDate, dueDate) {
             fine = 0
-        } else if IsReturnDateLateInMoreThanOrEqualToOneYear(returnDate.Year(), dueDate.Year()) {
+        } else if isReturnDateLateInMoreThanOrEqualToOneYear(returnDate.Year(), dueDate.Year()) {
             fine = HackosYearsFine
-        } else if IsReturnDateLateInMoreThanOrEqualToOneMonth(int(returnDate.Month()), int(dueDate.Month())) {
+        } else if isReturnDateLateInMoreThanOrEqualToOneMonth(int(returnDate.Month()), int(dueDate.Month())) {
             fine = (int(returnDate.Month()) - int(dueDate.Month())) * HackosMonthsFine
         } else {
             fine = (returnDate.Day() - dueDate.Day()) * HackosDaysFine
@@ -47,7 +41,7 @@ func main() {
         return fine
     }
 
-        func WereBooksReturnedInTime(returnDate time.Time, dueDate time.Time) bool {
+        func wereBooksReturnedInTime(returnDate time.Time, dueDate time.Time) bool {
             if (returnDate.Year() < dueDate.Year()) ||
                 ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) < int(dueDate.Month()))) ||
                 ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) == int(dueDate.Month())) && (returnDate.Day() <= dueDate.Day())) {
@@ -56,10 +50,10 @@ func main() {
             return false
         }
 
-        func IsReturnDateLateInMoreThanOrEqualToOneYear(returnDateYear int, dueDateYear int) bool {
+        func isReturnDateLateInMoreThanOrEqualToOneYear(returnDateYear int, dueDateYear int) bool {
             return returnDateYear > dueDateYear
         }
 
-        func IsReturnDateLateInMoreThanOrEqualToOneMonth(returnDateMonth int, dueDateMonth int) bool {
+        func isReturnDateLateInMoreThanOrEqualToOneMonth(returnDateMonth int, dueDateMonth int) bool {
             return returnDateMonth > dueDateMonth
         }
