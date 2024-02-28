@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
 
 package main
 
@@ -8,71 +8,60 @@ import (
 )
 
 func main() {
-    var size int = ReadANumber()
-    var array []int = ReadAnArray(size)
+    var n int
+    fmt.Scan(&n)
+    var array []int = readIntArray(n)
     sort.Ints(array)
 
-    var result []int = CutTheSticks(array)
-    PrintArray(result)
+    var result []int = cutTheSticks(array)
+    printArray(result)
 }
 
-    func ReadANumber() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
-
-    func ReadAnArray(size int) []int {
-        var array []int = make([]int, size)
-        for i, _ := range array {
-            fmt.Scan(&array[i])
+    func readIntArray(n int) []int {
+        array := make([]int, n)
+        for i := range array {
+            fmt.Scanf("%d", &array[i])
         }
         return array
     }
 
-    func CutTheSticks(array []int) []int {
-        var size int = len(array)
-        var remainingSticksOfEachIteration []int = InitializeResult(size)
-        
-        for i := 0; i < size; {
+    func cutTheSticks(array []int) []int {
+        var n int = len(array)
+        remainingSticksOfEachIteration := []int{n}
+
+        for i := 0; i < n; {
             var shortestStickLength int = array[i]
 
-            i = FindFirstElementIndexDifferentOfFirstCurrentShortestStickLengthIndex(i, array)
-            var currentIterationSize int = size - i
-            if i == size {
+            i = findFirstElementIndexDifferentOfFirstCurrentShortestStickLengthIndex(i, array)
+            var currentIterationSize int = n - i
+            if i == n {
                 break
             }
 
             remainingSticksOfEachIteration = append(remainingSticksOfEachIteration, currentIterationSize)
-            DecreaseSticksLengthsHigherThanCurrentShortestStickLength(i, array, shortestStickLength)
+            decreaseSticksLengthsHigherThanCurrentShortestStickLength(i, array, shortestStickLength)
         }
 
         return remainingSticksOfEachIteration
     }
 
-        func InitializeResult(size int) []int {
-            var remainingSticksOfEachIteration []int = make([]int, 1)
-            remainingSticksOfEachIteration[0] = size
-            return remainingSticksOfEachIteration
-        }
-
-        func FindFirstElementIndexDifferentOfFirstCurrentShortestStickLengthIndex(index int, array []int) int {
-            var size int = len(array)
+        func findFirstElementIndexDifferentOfFirstCurrentShortestStickLengthIndex(index int, array []int) int {
+            var n int = len(array)
             var shortestStickLength int = array[index]
-            for index < size && array[index] == shortestStickLength {
+            for index < n && array[index] == shortestStickLength {
                 index++
             }
             return index
         }
 
-        func DecreaseSticksLengthsHigherThanCurrentShortestStickLength(index int, array []int, shortestStickLength int) {
+        func decreaseSticksLengthsHigherThanCurrentShortestStickLength(index int, array []int, shortestStickLength int) {
             for i := index; i < len(array); i++ {
                 array[i] -= shortestStickLength
             }
         }
 
-    func PrintArray(array []int) {
-        for _, element := range array {
-            fmt.Println(element)
+    func printArray(array []int) {
+        for _, x := range array {
+            fmt.Println(x)
         }
     }

@@ -1,55 +1,41 @@
-// Source: https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
-
-use std::io::{stdin, BufRead};
+use text_io::read;
 
 fn main() {
-    let _size: usize = read!();
-    let mut array: Vec<usize> = read_an_array();
+    let n: usize = read!();
+    let mut array: Vec<usize> = read_int_array(n);
     array.sort();
-
-    let result: Vec<usize> = cut_the_sticks(array);
-    print_array(result);
+    print_array(&cut_the_sticks(&mut array));
 }
 
-fn read_an_array() -> Vec<usize> {
-    let array: Vec<usize> = stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
+fn read_int_array(n: usize) -> Vec<usize> {
+    let mut array: Vec<usize> = Vec::new();
+    array.resize_with(n, || read!());
     return array;
 }
 
-fn cut_the_sticks(mut array: Vec<usize>) -> Vec<usize> {
-    let size: usize = array.len();
-    let mut remaining_sticks_of_each_iteration: Vec<usize> = initialize_result(size);
+fn cut_the_sticks(mut array: &mut Vec<usize>) -> Vec<usize> {
+    let n: usize = array.len();
+    let mut remaining_sticks_of_each_iteration: Vec<usize> = vec![n; 1];
 
     let mut i = 0;
-    while i < size {
+    while i < n {
         let shortest_stick_length: usize = array[i];
 
         i = find_first_element_index_different_of_first_current_shortest_stick_length_index(
-            i,
-            array.clone(),
+            i, array,
         );
 
-        let current_iteration_size: usize = size - i;
-        if i == size {
+        let current_iterationn: usize = n - i;
+        if i == n {
             break;
         }
 
-        remaining_sticks_of_each_iteration.push(current_iteration_size);
+        remaining_sticks_of_each_iteration.push(current_iterationn);
         array = decrease_sticks_lengths_higher_than_current_shortest_stick_length(
             i,
-            array.clone(),
+            array,
             shortest_stick_length,
         );
     }
@@ -57,20 +43,14 @@ fn cut_the_sticks(mut array: Vec<usize>) -> Vec<usize> {
     return remaining_sticks_of_each_iteration;
 }
 
-fn initialize_result(size: usize) -> Vec<usize> {
-    let mut remaining_sticks_of_each_iteration: Vec<usize> = Vec::new();
-    remaining_sticks_of_each_iteration.push(size);
-    return remaining_sticks_of_each_iteration;
-}
-
 fn find_first_element_index_different_of_first_current_shortest_stick_length_index(
     mut index: usize,
-    array: Vec<usize>,
+    array: &Vec<usize>,
 ) -> usize {
-    let size: usize = array.len();
+    let n: usize = array.len();
     let shortest_stick_length: usize = array[index];
 
-    while index < size && array[index] == shortest_stick_length {
+    while index < n && array[index] == shortest_stick_length {
         index += 1;
     }
 
@@ -79,15 +59,15 @@ fn find_first_element_index_different_of_first_current_shortest_stick_length_ind
 
 fn decrease_sticks_lengths_higher_than_current_shortest_stick_length(
     index: usize,
-    mut array: Vec<usize>,
+    array: &mut Vec<usize>,
     shortest_stick_length: usize,
-) -> Vec<usize> {
+) -> &mut Vec<usize> {
     for i in index..array.len() {
         array[i] -= shortest_stick_length;
     }
     return array;
 }
 
-fn print_array(array: Vec<usize>) {
-    array.iter().for_each(|element| println!("{}", element));
+fn print_array(array: &Vec<usize>) {
+    array.iter().for_each(|x| println!("{}", x));
 }
