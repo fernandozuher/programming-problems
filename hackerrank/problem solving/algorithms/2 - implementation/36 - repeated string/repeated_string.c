@@ -1,90 +1,60 @@
-// Source: https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-char* read_a_string();
-unsigned long read_a_number();
-unsigned long find_quantity_of_a_in_repeated_string(char* string, const unsigned long N_CHARACTERS);
-    unsigned long find_quantity_of_a_in_string(char* string);
-    unsigned long find_quantity_of_repeated_entire_string(char* string, const unsigned long N_CHARACTERS);
-    unsigned long get_size_string(char* string);
-    unsigned long find_quantity_of_remaining_a(char* string, const unsigned long N_CHARACTERS);
-char* free_string(char* string);
+unsigned long find_quantity_of_character_in_repeated_string(const char* const string, const char character, const unsigned long n_letters);
+    unsigned long find_quantity_of_character_in_string(const char *string, const char character);
+    unsigned long quantity_of_repeated_entire_string(const char* const string, const unsigned long n_letters);
+    unsigned long find_quantity_of_character_in_remaining_characters(const char* const string, const char character, const unsigned long n_letters);
 
+int main()
+{
+    const int string_max_size = 102;
+    char string[string_max_size];
+    unsigned long n_letters;
+    scanf("%s %lu", string, &n_letters);
 
-int main() {
-    char* input_string = read_a_string();
-    const unsigned long N_CHARACTERS = read_a_number();
-
-    const unsigned long QUANTITY_OF_A = find_quantity_of_a_in_repeated_string(input_string, N_CHARACTERS);
-    printf("%lu\n", QUANTITY_OF_A);
-
-    input_string = free_string(input_string);
+    const char character = 'a';
+    printf("%lu\n", find_quantity_of_character_in_repeated_string(string, character, n_letters));
 
     return 0;
 }
 
-    char* read_a_string() {
-        const unsigned long INPUT_STRING_MAX_SIZE = 102;
-        char* input_string = (char*) calloc(INPUT_STRING_MAX_SIZE, sizeof(char));
-        scanf("%s", input_string);
-        return input_string;
+    unsigned long find_quantity_of_character_in_repeated_string(const char* const string, const char character, const unsigned long n_letters)
+    {
+        unsigned long quantity_of_character = find_quantity_of_character_in_string(string, character);
+        quantity_of_character *= quantity_of_repeated_entire_string(string, n_letters);
+        quantity_of_character += find_quantity_of_character_in_remaining_characters(string, character, n_letters);
+        return quantity_of_character;
     }
 
-    unsigned long read_a_number() {
-        unsigned long number;
-        scanf("%lu", &number);
-        return number;
-    }
-
-    unsigned long find_quantity_of_a_in_repeated_string(char* string, const unsigned long N_CHARACTERS) {
-        unsigned long quantity_of_a = find_quantity_of_a_in_string(string);
-        quantity_of_a *= find_quantity_of_repeated_entire_string(string, N_CHARACTERS);
-        quantity_of_a += find_quantity_of_remaining_a(string, N_CHARACTERS);
-
-        return quantity_of_a;
-    }
-
-        unsigned long find_quantity_of_a_in_string(char* string) {
-            unsigned long quantity_of_a = 0;
-
-            for (; *string != '\0'; string++)
-                if (*string == 'a')
-                    quantity_of_a++;
-
-            return quantity_of_a;
+        unsigned long find_quantity_of_character_in_string(const char *string, const char character)
+        {
+            unsigned long count = 0;
+            while (*string)
+                if (*string++ == character)
+                    ++count;
+            return count;
         }
 
-        unsigned long find_quantity_of_repeated_entire_string(char* string, const unsigned long N_CHARACTERS) {
-            const unsigned long SIZE_STRING = get_size_string(string);
-            const unsigned long N_STRINGS = N_CHARACTERS / SIZE_STRING;
-            return N_STRINGS;
+        unsigned long quantity_of_repeated_entire_string(const char* const string, const unsigned long n_letters)
+        {
+            return n_letters / strlen(string);
         }
 
-        unsigned long get_size_string(char* string) {
-            unsigned long size = 0;
-            while (*(string++) != '\0')
-                size++;
-            return size;
-        }
+        unsigned long find_quantity_of_character_in_remaining_characters(const char* const string, const char character, const unsigned long n_letters)
+        {
+            unsigned long n_remaining_characters_of_string = n_letters % strlen(string);
 
-        unsigned long find_quantity_of_remaining_a(char* string, const unsigned long N_CHARACTERS) {
-            const unsigned long SIZE_STRING = get_size_string(string);
-            const unsigned long N_REMAINING_CHARACTERS_OF_STRING = N_CHARACTERS % SIZE_STRING;
-
-            if (N_REMAINING_CHARACTERS_OF_STRING == 0)
+            if (n_remaining_characters_of_string == 0)
                 return 0;
 
-            char sub_string[N_REMAINING_CHARACTERS_OF_STRING + 1];
-            
-            strncpy(sub_string, string, N_REMAINING_CHARACTERS_OF_STRING);
-            sub_string[N_REMAINING_CHARACTERS_OF_STRING] = '\0';
-            
-            return find_quantity_of_a_in_string(sub_string);
-        }
+            char sub_string[n_remaining_characters_of_string + 1];
 
-    char* free_string(char* string) {
-        free(string);
-        return NULL;
-    }
+            strncpy(sub_string, string, n_remaining_characters_of_string);
+            sub_string[n_remaining_characters_of_string] = '\0';
+
+            return find_quantity_of_character_in_string(sub_string, character);
+        }
