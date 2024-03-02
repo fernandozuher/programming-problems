@@ -11,9 +11,7 @@ public class Solution {
         var scan = new Scanner(System.in);
         int n = scan.nextInt();
         scan.nextLine();
-
         List<Integer> array = Arrays.asList(new Integer[n]).stream().map(x -> scan.nextInt()).collect(toList());
-
         array = reverseArray(array);
 
         for (var x : array)

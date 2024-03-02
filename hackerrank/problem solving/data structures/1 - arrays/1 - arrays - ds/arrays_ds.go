@@ -12,7 +12,6 @@ func main() {
     for i := range array {
         fmt.Scanf("%d", &array[i])
     }
-
     array = reverseArray(array)
 
     for _, x := range array {

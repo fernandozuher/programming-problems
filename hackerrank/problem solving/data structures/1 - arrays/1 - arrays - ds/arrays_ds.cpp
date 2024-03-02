@@ -14,7 +14,6 @@ int main()
     cin >> n;
     vector<int> array(n);
     ranges::generate(array, [] {int x; cin >> x; return x;});
-
     array = reverse_array(array);
 
     for (const auto x : array)

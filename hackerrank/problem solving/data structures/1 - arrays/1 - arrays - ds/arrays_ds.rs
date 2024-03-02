@@ -6,7 +6,6 @@ fn main() {
     let n: usize = read!();
     let mut array: Vec<i32> = Vec::new();
     array.resize_with(n, || read!());
-
     array = reverse_array(&mut array);
     array.iter().for_each(|x| print!("{} ", x));
 }
