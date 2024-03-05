@@ -35,9 +35,8 @@ int main()
     {
         vector<vector<int>> array(n);
         vector<int> answers;
-        int last_answer {};
 
-        for (const auto& query : queries) {
+        for (int last_answer {}; const auto& query : queries) {
             const auto [type, x, y] {query};
 
             int index {(x ^ last_answer) % n};
