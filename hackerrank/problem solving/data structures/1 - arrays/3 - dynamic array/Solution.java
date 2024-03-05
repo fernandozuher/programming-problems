@@ -23,14 +23,18 @@ public class Solution {
         private static List<List<Integer>> readQueries(int n) {
             var queries = new ArrayList<List<Integer>>(n);
             while (n-- > 0) {
-                var query = Arrays.asList(new Integer[querySize]).stream().map(x -> scan.nextInt()).collect(toList());
+                var query = readIntArray(querySize);
                 queries.add(query);
             }
             return queries;
         }
 
+            private static List<Integer> readIntArray(final int n) {
+                return Arrays.asList(new Integer[n]).stream().map(x -> scan.nextInt()).collect(toList());
+            }
+
         private static List<Integer> dynamicArray(final List<List<Integer>> queries, final int n) {
-            List<List<Integer>> array = initializeArray(n);
+            List<List<Integer>> array = initializeMatrix(n);
             var answers = new ArrayList<Integer>();
             int lastAnswer = 0;
 
@@ -53,7 +57,7 @@ public class Solution {
             return answers;
         }
 
-            private static List<List<Integer>> initializeArray(final int n) {
+            private static List<List<Integer>> initializeMatrix(final int n) {
                 var list = new ArrayList<List<Integer>>(n);
                 for (int i = 0; i < n; ++i)
                     list.add(new ArrayList<Integer>());
