@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 public class Solution {
@@ -12,55 +13,55 @@ public class Solution {
 
     public static void main(String[] args) {
         scan = new Scanner(System.in);
+
         int n = scan.nextInt();
         int nQueries = scan.nextInt();
+        var obj = new DynamicArray(n);
 
-        List<List<Integer>> queries = readQueries(nQueries);
-        List<Integer> result = dynamicArray(queries, n);
-        result.forEach(System.out::println);
+        while (nQueries-- > 0)
+            obj.handleQuery(readIntArray(querySize));
+        obj.answers().forEach(System.out::println);
     }
 
-        private static List<List<Integer>> readQueries(int n) {
-            var queries = new ArrayList<List<Integer>>(n);
-            while (n-- > 0) {
-                var query = readIntArray(querySize);
-                queries.add(query);
-            }
-            return queries;
+        public static List<Integer> readIntArray(final int n) {
+            return Arrays.asList(new Integer[querySize]).stream().map(x -> scan.nextInt()).collect(toList());
         }
-
-            private static List<Integer> readIntArray(final int n) {
-                return Arrays.asList(new Integer[n]).stream().map(x -> scan.nextInt()).collect(toList());
-            }
-
-        private static List<Integer> dynamicArray(final List<List<Integer>> queries, final int n) {
-            List<List<Integer>> array = initializeMatrix(n);
-            var answers = new ArrayList<Integer>();
-            int lastAnswer = 0;
-
-            for (var query : queries) {
-                int type = query.get(0);
-                int x = query.get(1);
-                int y = query.get(2);
-
-                int index = (x ^ lastAnswer) % n;
-
-                if (type == 1)
-                    array.get(index).add(y);
-                else {
-                    int j = y % array.get(index).size();
-                    lastAnswer = array.get(index).get(j);
-                    answers.add(lastAnswer);
-                }
-            }
-
-            return answers;
-        }
-
-            private static List<List<Integer>> initializeMatrix(final int n) {
-                var list = new ArrayList<List<Integer>>(n);
-                for (int i = 0; i < n; ++i)
-                    list.add(new ArrayList<Integer>());
-                return list;
-            }
 }
+
+    class DynamicArray {
+        private int n;
+        private List<List<Integer>> array;
+        private List<Integer> answersToQueries;
+        private int lastAnswer;
+
+        public DynamicArray(final int n) {
+            this.n = n;
+
+            array = new ArrayList<List<Integer>>(n);
+            for (int i = 0; i < n; ++i)
+                array.add(new ArrayList<Integer>());
+
+            answersToQueries = new ArrayList<Integer>();
+            lastAnswer = 0;
+        }
+
+        public void handleQuery(final List<Integer> query) {
+            int type = query.get(0);
+            int x = query.get(1);
+            int y = query.get(2);
+
+            int index = (x ^ lastAnswer) % n;
+
+            if (type == 1)
+                array.get(index).add(y);
+            else {
+                int j = y % array.get(index).size();
+                lastAnswer = array.get(index).get(j);
+                answersToQueries.add(lastAnswer);
+            }
+        }
+
+        public List<Integer> answers() {
+            return answersToQueries;
+        }
+    }

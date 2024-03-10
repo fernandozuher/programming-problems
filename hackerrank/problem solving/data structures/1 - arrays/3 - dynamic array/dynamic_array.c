@@ -10,7 +10,7 @@ typedef struct {
 
 array* initialize_array(const int n);
 array* dynamic_array(array *a, const int n, const int* const query, array *answers, int *last_answer);
-    array* realloc_array(array *a, const int index);
+    array* realloc_built_in_array(array *a, const int index);
 void print_array(const int* const a, const int n);
 void free_inner_arrays(array *a, const int n);
 
@@ -24,7 +24,7 @@ int main()
 
     for (int i = 0, query_size = 3, last_answer = 0; i < n_queries; ++i) {
         int query[query_size];
-        scanf("%d %d %d", &query[0], &query[1], &query[2]);
+        scanf("%d %d %d", query, query+1, query+2);
         answers = dynamic_array(a, n, query, answers, &last_answer);
     }
 
@@ -53,12 +53,12 @@ int main()
         int index = (x ^ (*last_answer)) % n;
 
         if (type == 1) {
-            a = realloc_array(a, index);
+            a = realloc_built_in_array(a, index);
             int j = a[index].n - 1;
             a[index].arr[j] = y;
         }
         else {
-            answers = realloc_array(answers, 0);
+            answers = realloc_built_in_array(answers, 0);
             int i = answers->n - 1;
 
             int j = y % a[index].n;
@@ -70,7 +70,7 @@ int main()
         return answers;
     }
 
-        array* realloc_array(array *a, const int index)
+        array* realloc_built_in_array(array *a, const int index)
         {
             ++a[index].n;
             a[index].arr = (int*) realloc(a[index].arr, a[index].n * sizeof(int));
