@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <climits>
 #include <iostream>
+#include <numeric>
 #include <vector>
 
 using namespace std;
@@ -24,7 +25,7 @@ int main()
 
     int max_hourglass_sum(const vector<vector<int>>& matrix)
     {
-        int max_sum {INT_MIN};
+        int max_sum {numeric_limits<int>::min()};
 
         for (const auto rows_cols = {1, 2, 3, 4}; const int i : rows_cols)
             for (int j : rows_cols) {
