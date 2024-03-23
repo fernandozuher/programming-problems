@@ -38,14 +38,20 @@ function main() {
         for (let i = 1, rowsCols = 4; i <= rowsCols; ++i)
             for (let j = 1; j <= rowsCols; ++j) {
                 let currentSum: number = hourglassSum(matrix, i, j);
-                maxSum = currentSum > maxSum ? currentSum : maxSum;
+                maxSum = Math.max(maxSum, currentSum);
             }
 
         return maxSum;
     }
 
         function hourglassSum(matrix: number[][], i: number, j: number): number {
-            return matrix[i - 1][j - 1] + matrix[i - 1][j] + matrix[i - 1][j + 1]
-                   + matrix[i][j] +
-                   matrix[i + 1][j - 1] + matrix[i + 1][j] + matrix[i + 1][j + 1];
+            let subrow1FirstIndex: number = i - 1;
+            let subrow3FirstIndex: number = i + 1;
+            let firstColIndex: number = j - 1;
+            let end: number = firstColIndex + 3;
+
+            let subrow1Sum: number = matrix[subrow1FirstIndex].slice(firstColIndex, end).reduce((a, b) => a + b);
+            let subrow3Sum: number = matrix[subrow3FirstIndex].slice(firstColIndex, end).reduce((a, b) => a + b);
+
+            return subrow1Sum + matrix[i][j] + subrow3Sum;
         }

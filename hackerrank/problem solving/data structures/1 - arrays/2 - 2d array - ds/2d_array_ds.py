@@ -24,9 +24,15 @@ def max_hourglass_sum(matrix):
 
 def hourglass_sum(matrix, i, j):
 
-    return matrix[i - 1][j - 1] + matrix[i - 1][j] + matrix[i - 1][j + 1] \
-           + matrix[i][j] + \
-           matrix[i + 1][j - 1] + matrix[i + 1][j] + matrix[i + 1][j + 1]
+    subrow_1_first_index = i - 1
+    subrow_3_first_index = i + 1
+    first_col_index = j - 1
+    end = first_col_index + 3
+
+    subrow_1_sum = sum(matrix[subrow_1_first_index][first_col_index:end])
+    subrow_3_sum = sum(matrix[subrow_3_first_index][first_col_index:end])
+
+    return subrow_1_sum + matrix[i][j] + subrow_3_sum
 
 
 if __name__ == '__main__':

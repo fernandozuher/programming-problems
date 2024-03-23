@@ -31,8 +31,23 @@ public class Solution {
         }
 
             public static int hourglassSum(final List<List<Integer>> matrix, final int i, final int j) {
-                return matrix.get(i - 1).get(j - 1) + matrix.get(i - 1).get(j) + matrix.get(i - 1).get(j + 1)
-                       + matrix.get(i).get(j) +
-                       matrix.get(i + 1).get(j - 1) + matrix.get(i + 1).get(j) + matrix.get(i + 1).get(j + 1);
+                int subrow1FirstIndex = i - 1;
+                int subrow3FirstIndex = i + 1;
+                int firstColIndex = j - 1;
+                final int end = firstColIndex + 3;
+
+                int subrow1Sum = matrix.get(subrow1FirstIndex)
+                                 .subList(firstColIndex, end)
+                                 .stream()
+                                 .mapToInt(Integer::intValue)
+                                 .sum();
+
+                int subrow3Sum = matrix.get(subrow3FirstIndex)
+                                 .subList(firstColIndex, end)
+                                 .stream()
+                                 .mapToInt(Integer::intValue)
+                                 .sum();
+
+                return subrow1Sum + matrix.get(i).get(j) + subrow3Sum;
             }
 }

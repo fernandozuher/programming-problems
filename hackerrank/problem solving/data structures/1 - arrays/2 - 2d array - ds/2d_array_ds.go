@@ -37,7 +37,20 @@ func main() {
     }
 
         func hourglassSum(matrix [][]int, i int, j int) int {
-            return matrix[i-1][j-1] + matrix[i-1][j] + matrix[i-1][j+1] +
-                matrix[i][j] +
-                matrix[i+1][j-1] + matrix[i+1][j] + matrix[i+1][j+1]
+            var subrow1FirstIndex int = i - 1
+            var subrow3FirstIndex int = i + 1
+            var firstColIndex int = j - 1
+            var end int = firstColIndex + 3
+
+            subrow1 := matrix[subrow1FirstIndex][firstColIndex:end]
+            subrow3 := matrix[subrow3FirstIndex][firstColIndex:end]
+
+            sum := 0
+            for i := range subrow1 {
+                sum += subrow1[i] + subrow3[i]
+            }
+
+            sum += matrix[i][j]
+
+            return sum
         }

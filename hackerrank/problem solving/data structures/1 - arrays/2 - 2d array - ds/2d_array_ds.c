@@ -7,6 +7,7 @@
 
 int max_hourglass_sum(const int matrix[MATRIX_SIZE][MATRIX_SIZE]);
     int hourglass_sum(const int matrix[MATRIX_SIZE][MATRIX_SIZE], const int i, const int j);
+        int slice_sum(const int matrix[MATRIX_SIZE][MATRIX_SIZE], const int i, const int j, const int size);
 
 int main()
 {
@@ -35,7 +36,21 @@ int main()
 
         int hourglass_sum(const int matrix[MATRIX_SIZE][MATRIX_SIZE], const int i, const int j)
         {
-            return matrix[i - 1][j - 1] + matrix[i - 1][j] + matrix[i - 1][j + 1]
-                   + matrix[i][j] +
-                   matrix[i + 1][j - 1] + matrix[i + 1][j] + matrix[i + 1][j + 1];
+            int subrow_1_first_index = i - 1;
+            int subrow_3_first_index = i + 1;
+            int first_col_index = j - 1;
+            const int n = 3;
+
+            int subrow_1_sum = slice_sum(matrix, subrow_1_first_index, first_col_index, n);
+            int subrow_3_sum = slice_sum(matrix, subrow_3_first_index, first_col_index, n);
+
+            return subrow_1_sum + matrix[i][j] + subrow_3_sum;
         }
+
+            int slice_sum(const int matrix[MATRIX_SIZE][MATRIX_SIZE], const int i, const int j, const int n)
+            {
+                int sum = 0;
+                for (int k = j, n2 = k + n; k < n2; ++k)
+                    sum += matrix[i][k];
+                return sum;
+            }

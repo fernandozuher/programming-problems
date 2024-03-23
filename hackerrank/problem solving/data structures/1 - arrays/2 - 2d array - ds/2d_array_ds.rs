@@ -27,11 +27,17 @@ fn max_hourglass_sum(matrix: &Vec<Vec<i32>>) -> i32 {
 }
 
 fn hourglass_sum(matrix: &Vec<Vec<i32>>, i: usize, j: usize) -> i32 {
-    return matrix[i - 1][j - 1]
-        + matrix[i - 1][j]
-        + matrix[i - 1][j + 1]
-        + matrix[i][j]
-        + matrix[i + 1][j - 1]
-        + matrix[i + 1][j]
-        + matrix[i + 1][j + 1];
+    let subrow1_first_index: usize = i - 1;
+    let subrow3_first_index: usize = i + 1;
+    let first_col_index: usize = j - 1;
+    let end: usize = first_col_index + 3;
+
+    let subrow1_sum: i32 = matrix[subrow1_first_index][first_col_index..end]
+        .iter()
+        .sum();
+    let subrow3_sum: i32 = matrix[subrow3_first_index][first_col_index..end]
+        .iter()
+        .sum();
+
+    return subrow1_sum + matrix[i][j] + subrow3_sum;
 }

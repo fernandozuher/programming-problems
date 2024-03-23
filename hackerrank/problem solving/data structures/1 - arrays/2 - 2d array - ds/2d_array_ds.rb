@@ -21,9 +21,15 @@ end
     end
 
         def hourglass_sum(matrix, i, j)
-            matrix[i - 1][j - 1] + matrix[i - 1][j] + matrix[i - 1][j + 1] \
-                + matrix[i][j] + \
-                matrix[i + 1][j - 1] + matrix[i + 1][j] + matrix[i + 1][j + 1]
+            subrow_1_first_index = i - 1
+            subrow_3_first_index = i + 1
+            first_col_index = j - 1
+            n = first_col_index + 3
+
+            subrow_1_sum = matrix[subrow_1_first_index][first_col_index...n].sum
+            subrow_3_sum = matrix[subrow_3_first_index][first_col_index...n].sum
+
+            subrow_1_sum + matrix[i][j] + subrow_3_sum
         end
 
 main

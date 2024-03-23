@@ -19,7 +19,7 @@ public class Solution {
                 for (int j = 1; j <= rowsCols; ++j)
                 {
                     int currentSum = HourglassSum(matrix, i, j);
-                    maxSum = currentSum > maxSum ? currentSum : maxSum;
+                    maxSum = Math.Max(maxSum, currentSum);
                 }
 
             return maxSum;
@@ -27,8 +27,14 @@ public class Solution {
 
             public static int HourglassSum(List<List<int>> matrix, int i, int j)
             {
-                return matrix[i - 1][j - 1] + matrix[i - 1][j] + matrix[i - 1][j + 1]
-                       + matrix[i][j] +
-                       matrix[i + 1][j - 1] + matrix[i + 1][j] + matrix[i + 1][j + 1];
+                int subrow1FirstIndex = i - 1;
+                int subrow3FirstIndex = i + 1;
+                int firstColIndex = j - 1;
+                const int n = 3;
+
+                int subrow1Sum = matrix[subrow1FirstIndex].GetRange(firstColIndex, n).Sum();
+                int subrow3Sum = matrix[subrow3FirstIndex].GetRange(firstColIndex, n).Sum();
+
+                return subrow1Sum + matrix[i][j] + subrow3Sum;
             }
 }
