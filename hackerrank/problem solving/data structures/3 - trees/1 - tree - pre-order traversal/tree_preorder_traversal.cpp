@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/tree-preorder-traversal/problem?isFullScreen=true
 
-#include <iostream>
-#include <memory>
+import <iostream>;
+import <memory>;
 
 using namespace std;
 

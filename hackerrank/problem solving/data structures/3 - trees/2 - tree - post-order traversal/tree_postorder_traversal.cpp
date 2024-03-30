@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/tree-postorder-traversal/problem?isFullScreen=true
 
-#include <iostream>
-#include <memory>
+import <iostream>;
+import <memory>;
 
 using namespace std;
 
