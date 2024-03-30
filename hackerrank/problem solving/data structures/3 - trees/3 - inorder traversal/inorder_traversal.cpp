@@ -1,4 +1,4 @@
-// https://www.hackerrank.com/challenges/tree-preorder-traversal/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/tree-inorder-traversal/problem?isFullScreen=true
 
 #include <iostream>
 #include <memory>
@@ -14,7 +14,7 @@ struct Node {
 };
 
 shared_ptr<Node> insert_node(const shared_ptr<Node>& node, const int data);
-void pre_order(const shared_ptr<Node>& node);
+void in_order(const shared_ptr<Node>& root);
 
 int main()
 {
@@ -25,7 +25,7 @@ int main()
     for (int data; n-- && cin >> data;)
         root = insert_node(root, data);
 
-    pre_order(root);
+    in_order(root);
 
     return 0;
 }
@@ -45,11 +45,11 @@ int main()
         return node;
     }
 
-    void pre_order(const shared_ptr<Node>& node)
+    void in_order(const shared_ptr<Node>& root)
     {
-        if (node) {
-            cout << node->data << ' ';
-            pre_order(node->left);
-            pre_order(node->right);
+        if (root) {
+            in_order(root->left);
+            cout << root->data << ' ';
+            in_order(root->right);
         }
     }
