@@ -21,7 +21,7 @@ bool checkBST(Node* root)
         return !root || in_order(root->left) && is_previous_less_than_current(previous, root->data) && in_order(root->right);
     }
 
-        bool is_previous_less_than_current(int &previous, const int current)
+        bool is_previous_less_than_current(int& previous, const int current)
         {
             if (previous != -1 && previous >= current)
                 return false;
