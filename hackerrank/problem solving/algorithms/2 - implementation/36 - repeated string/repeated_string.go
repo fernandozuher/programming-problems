@@ -1,61 +1,28 @@
-// Source: https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "strings"
+)
 
 func main() {
-    var inputString string = ReadAString()
-    var nCharacters uint64 = ReadANumber()
-
-    var quantityOfA uint64 = FindQuantityOfAInRepeatedString(inputString, nCharacters)
-    fmt.Println(quantityOfA)
+    var inputString string
+    var nCharacters int64
+    fmt.Scan(&inputString, &nCharacters)
+    const letter = 'a'
+    fmt.Println(countInRepeatedString(inputString, letter, nCharacters))
 }
 
-    func ReadAString() string {
-        var inputString string
-        fmt.Scan(&inputString)
-        return inputString
+    func countInRepeatedString(inputString string, letter rune, nCharacters int64) int64 {
+        var repeatedEntireString int64 = nCharacters / int64(len(inputString))
+        var nSubstring int64 = nCharacters % int64(len(inputString))
+        var substring string = inputString[:nSubstring]
+
+        var quantity int64 = int64(strings.Count(inputString, string(letter)))
+        quantity *= repeatedEntireString
+        quantity += int64(strings.Count(substring, string(letter)))
+
+        return quantity
     }
-
-    func ReadANumber() uint64 {
-        var number uint64
-        fmt.Scan(&number)
-        return number
-    }
-
-    func FindQuantityOfAInRepeatedString(inputString string, nCharacters uint64) uint64 {
-        var quantityOfA uint64 = FindQuantityOfAInString(inputString)
-        quantityOfA *= FindQuantityOfRepeatedEntireString(nCharacters, uint64(len(inputString)))
-        quantityOfA += FindQuantityOfRemainingA(nCharacters, inputString)
-
-        return quantityOfA
-    }
-
-        func FindQuantityOfAInString(inputString string) uint64 {
-            var quantityOfA uint64 = 0
-
-            for _, character := range inputString {
-                if character == 'a' {
-                    quantityOfA++
-                }
-            }
-
-            return quantityOfA
-        }
-
-        func FindQuantityOfRepeatedEntireString(nCharacters uint64, sizeString uint64) uint64 {
-            var nStrings uint64 = nCharacters / sizeString
-            return nStrings
-        }
-
-        func FindQuantityOfRemainingA(nCharacters uint64, inputString string) uint64 {
-            var nRemainingCharactersOfString uint64 = nCharacters % uint64(len(inputString))
-
-            if nRemainingCharactersOfString == 0 {
-                return 0
-            }
-
-            var subString string = inputString[0:nRemainingCharactersOfString]
-            return FindQuantityOfAInString(subString)
-        }
