@@ -1,8 +1,8 @@
 // https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
-#include <algorithm>
-#include <iostream>
-#include <string_view>
+import <algorithm>;
+import <iostream>;
+import <string_view>;
 
 using namespace std;
 
