@@ -1,8 +1,8 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-#include <algorithm>
-#include <iostream>
-#include <map>
+import <algorithm>;
+import <iostream>;
+import <map>;
 
 using namespace std;
 
