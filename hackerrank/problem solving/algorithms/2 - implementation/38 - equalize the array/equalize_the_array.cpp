@@ -19,10 +19,10 @@ int main()
     return 0;
 }
 
-    int equalize_array(const map<int, int>& frequency, const int n)
+    int equalize_array(const map<int, int>& array, const int n)
     {
         auto cmp {[](const auto& p1, const auto& p2) { return p1.second < p2.second;}};
-        int maximum_quantity_of_equal_element {ranges::max_element(frequency, cmp)->second};
-        int minimum_number_of_deletions_required {n - maximum_quantity_of_equal_element};
-        return minimum_number_of_deletions_required;
+        int maximum_quantity_of_equal_element {ranges::max_element(array, cmp)->second};
+        int minimum_number_required_deletions {n - maximum_quantity_of_equal_element};
+        return minimum_number_required_deletions;
     }

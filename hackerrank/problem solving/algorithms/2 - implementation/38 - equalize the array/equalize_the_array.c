@@ -27,8 +27,8 @@ int main()
     int equalize_array(const int* const array, const int n)
     {
         int maximum_quantity_of_equal_element = find_maximum_quantity_of_equal_element(array, n);
-        int minimum_number_of_deletions_required = n - maximum_quantity_of_equal_element;
-        return minimum_number_of_deletions_required;
+        int minimum_number_required_deletions = n - maximum_quantity_of_equal_element;
+        return minimum_number_required_deletions;
     }
 
         int find_maximum_quantity_of_equal_element(const int* const array, const int n)
