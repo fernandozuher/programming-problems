@@ -22,7 +22,7 @@ int main()
 
     int equalize_array(const map<int, int>& array, const int n)
     {
-        int maximum_quantity_of_equal_element = *ranges::max_element(views::values(array));
+        int maximum_quantity_of_equal_element {*ranges::max_element(views::values(array))};
         int minimum_number_required_deletions {n - maximum_quantity_of_equal_element};
         return minimum_number_required_deletions;
     }
