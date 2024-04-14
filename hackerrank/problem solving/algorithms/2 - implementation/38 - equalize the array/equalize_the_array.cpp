@@ -1,9 +1,9 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-#include <algorithm>
-#include <iostream>
-#include <map>
-#include <ranges>
+import <algorithm>;
+import <iostream>;
+import <map>;
+import <ranges>;
 
 using namespace std;
 
