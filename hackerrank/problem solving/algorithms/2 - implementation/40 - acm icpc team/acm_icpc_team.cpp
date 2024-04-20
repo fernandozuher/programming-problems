@@ -46,10 +46,9 @@ private:
 
     void ACM_ICPC_TEAM::find_maximum_subjects_and_teams_that_know_them()
     {
-        auto binaries_views {span(binaries)};
         auto previous_binaries {span(binaries.begin(), binaries.end() - 1)};
         for (const auto& [i, previous] : previous_binaries | views::enumerate | views::as_const)
-            for (const auto& current : binaries_views | views::drop(i + 1) | views::as_const)
+            for (const auto& current : binaries | views::drop(i + 1) | views::as_const)
                 update_maximum_subjects_and_teams_that_know_them(count_subjects_known_by_2_teams(previous, current));
     }
 
