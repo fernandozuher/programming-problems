@@ -9,7 +9,7 @@ class Solution
 {
     static void Main()
     {
-        List<int>? array = ReadIntArray();
+        List<int> array = ReadIntArray();
         int attendees = array.First(), topics = array.Last();
         List<BigInteger> binaries = ReadBinaries(attendees);
         var obj = new ACM_ICPC_TEAM(binaries);
@@ -64,7 +64,7 @@ class Solution
                     _teamsThatKnowMaximumSubjects = 1;
                 }
                 else if (subjectsKnownBy2Teams == _maximumSubjectsKnownByTeams)
-                    _teamsThatKnowMaximumSubjects += 1;
+                    ++_teamsThatKnowMaximumSubjects;
             }
 
         public int MaximumSubjectsKnownByTeams
