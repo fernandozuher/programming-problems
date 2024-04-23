@@ -1,119 +1,80 @@
-// Source: https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
-unsigned long* initialize_empty_array(const unsigned long SIZE);
-unsigned long* read_a_test_case();
-    unsigned long read_a_number();
+typedef struct {
+    long n_black_gifts;
+    long n_white_gifts;
+    long black_gift_cost;
+    long white_gift_cost;
+    long cost_to_convert_between_gifts;
+} gifts;
 
-unsigned long calculate_minimum_cost_of_buying_gifts(const unsigned long* INPUT);
-    bool are_original_costs_cheaper_or_equal_than_convertion_between_gifts(const unsigned long* INPUT);
-    unsigned long calculate_minimum_standard_cost(const unsigned long* INPUT);
-    unsigned long calculate_minimum_cost_in_converting_gifts(const unsigned long* INPUT);
+gifts read_test_case();
+long calculate_minimum_cost_of_buying_gifts(const gifts *const x);
+    bool are_original_costs_cheaper_or_equal_than_convertion_between_gifts(const gifts *const x);
+    long calculate_minimum_standard_cost(const gifts *const x);
+    long calculate_minimum_cost_in_converting_gifts(const gifts *const x);
+void print_array(const long *const array, const int n);
 
-void print_array(const unsigned long* ARRAY, const unsigned long SIZE);
-unsigned long* free_array(unsigned long* array);
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    long output[n];
 
-
-int main() {
-    const unsigned long N_TEST_CASES = read_a_number();
-    unsigned long* output = initialize_empty_array(N_TEST_CASES);
-
-    for (unsigned long int i = 0; i < N_TEST_CASES; i++) {
-        unsigned long* input = read_a_test_case();
-        output[i] = calculate_minimum_cost_of_buying_gifts(input);
-
-        input = free_array(input);
+    for (int i = 0; i < n; ++i) {
+        gifts x = read_test_case();
+        output[i] = calculate_minimum_cost_of_buying_gifts(&x);
     }
+    print_array(output, n);
 
-    print_array(output, N_TEST_CASES);
-
-    output = free_array(output);
     return 0;
 }
 
-    unsigned long* initialize_empty_array(const unsigned long SIZE) {
-        unsigned long* array = (unsigned long*) calloc(SIZE, sizeof(unsigned long));
-        return array;
+    gifts read_test_case()
+    {
+        gifts x;
+        scanf("%ld %ld %ld %ld %ld",
+              &x.n_black_gifts, &x.n_white_gifts,
+              &x.black_gift_cost, &x.white_gift_cost,
+              &x.cost_to_convert_between_gifts);
+        return x;
     }
 
-    unsigned long* read_a_test_case() {
-        const unsigned long N_BLACK_GIFTS = read_a_number();
-        const unsigned long N_WHITE_GIFTS = read_a_number();
-        const unsigned long BLACK_GIFT_COST = read_a_number();
-        const unsigned long WHITE_GIFT_COST = read_a_number();
-        const unsigned long COST_TO_CONVERT_BETWEEN_GIFTS = read_a_number();
-
-        unsigned long* array = (unsigned long*) calloc(5, sizeof(unsigned long));
-        array[0] = N_BLACK_GIFTS;
-        array[1] = N_WHITE_GIFTS;
-        array[2] = BLACK_GIFT_COST;
-        array[3] = WHITE_GIFT_COST;
-        array[4] = COST_TO_CONVERT_BETWEEN_GIFTS;
-
-        return array;
+    long calculate_minimum_cost_of_buying_gifts(const gifts *const x)
+    {
+        if (are_original_costs_cheaper_or_equal_than_convertion_between_gifts(x))
+            return calculate_minimum_standard_cost(x);
+        return calculate_minimum_cost_in_converting_gifts(x);
     }
 
-        unsigned long read_a_number() {
-            unsigned long number;
-            scanf("%lu", &number);
-            return number;
+        bool are_original_costs_cheaper_or_equal_than_convertion_between_gifts(const gifts *const x)
+        {
+            long cost_to_convert_from_black_to_white = x->black_gift_cost + x->cost_to_convert_between_gifts;
+            long cost_to_convert_from_white_to_black = x->white_gift_cost + x->cost_to_convert_between_gifts;
+            return x->white_gift_cost <= cost_to_convert_from_black_to_white && x->black_gift_cost <= cost_to_convert_from_white_to_black;
         }
 
-    unsigned long calculate_minimum_cost_of_buying_gifts(const unsigned long* INPUT) {
-        if (are_original_costs_cheaper_or_equal_than_convertion_between_gifts(INPUT))
-            return calculate_minimum_standard_cost(INPUT);
-        return calculate_minimum_cost_in_converting_gifts(INPUT);
-    }
-
-        bool are_original_costs_cheaper_or_equal_than_convertion_between_gifts(const unsigned long* INPUT) {
-            const unsigned long BLACK_GIFT_COST = INPUT[2];
-            const unsigned long WHITE_GIFT_COST = INPUT[3];
-            const unsigned long COST_TO_CONVERT_BETWEEN_GIFTS = INPUT[4];
-
-            const unsigned long COST_TO_CONVERT_FROM_BLACK_TO_WHITE = BLACK_GIFT_COST + COST_TO_CONVERT_BETWEEN_GIFTS;
-            const unsigned long COST_TO_CONVERT_FROM_WHITE_TO_BLACK = WHITE_GIFT_COST + COST_TO_CONVERT_BETWEEN_GIFTS;
-
-            return WHITE_GIFT_COST <= COST_TO_CONVERT_FROM_BLACK_TO_WHITE && BLACK_GIFT_COST <= COST_TO_CONVERT_FROM_WHITE_TO_BLACK;
+        long calculate_minimum_standard_cost(const gifts *const x)
+        {
+            return x->n_black_gifts * x->black_gift_cost + x->n_white_gifts * x->white_gift_cost;
         }
 
-        unsigned long calculate_minimum_standard_cost(const unsigned long* INPUT) {
-            const unsigned long N_BLACK_GIFTS = INPUT[0];
-            const unsigned long N_WHITE_GIFTS = INPUT[1];
-            const unsigned long BLACK_GIFT_COST = INPUT[2];
-            const unsigned long WHITE_GIFT_COST = INPUT[3];
+        long calculate_minimum_cost_in_converting_gifts(const gifts *const x)
+        {
+            long cost_to_convert_from_black_to_white = x->black_gift_cost + x->cost_to_convert_between_gifts;
+            long total_gifts = x->n_black_gifts + x->n_white_gifts;
 
-            return N_BLACK_GIFTS * BLACK_GIFT_COST + N_WHITE_GIFTS * WHITE_GIFT_COST;
-        }
-
-        unsigned long calculate_minimum_cost_in_converting_gifts(const unsigned long* INPUT) {
-            const unsigned long N_BLACK_GIFTS = INPUT[0];
-            const unsigned long N_WHITE_GIFTS = INPUT[1];
-            const unsigned long BLACK_GIFT_COST = INPUT[2];
-            const unsigned long WHITE_GIFT_COST = INPUT[3];
-            const unsigned long COST_TO_CONVERT_BETWEEN_GIFTS = INPUT[4];
-
-            const unsigned long COST_TO_CONVERT_FROM_BLACK_TO_WHITE = BLACK_GIFT_COST + COST_TO_CONVERT_BETWEEN_GIFTS;
-            const unsigned long TOTAL_GIFTS = N_BLACK_GIFTS + N_WHITE_GIFTS;
-
-            unsigned long minimum_cost_of_buying_gifts;
-
-            if (WHITE_GIFT_COST > COST_TO_CONVERT_FROM_BLACK_TO_WHITE)
-                minimum_cost_of_buying_gifts = TOTAL_GIFTS * BLACK_GIFT_COST + N_WHITE_GIFTS * COST_TO_CONVERT_BETWEEN_GIFTS;
+            if (x->white_gift_cost > cost_to_convert_from_black_to_white)
+                return total_gifts * x->black_gift_cost + x->n_white_gifts * x->cost_to_convert_between_gifts;
             else
-                minimum_cost_of_buying_gifts = TOTAL_GIFTS * WHITE_GIFT_COST + N_BLACK_GIFTS * COST_TO_CONVERT_BETWEEN_GIFTS;
-
-            return minimum_cost_of_buying_gifts;
+                return total_gifts * x->white_gift_cost + x->n_black_gifts * x->cost_to_convert_between_gifts;
         }
 
-    void print_array(const unsigned long* ARRAY, const unsigned long SIZE) {
-        for (int i = 0; i < SIZE; i++)
-            printf("%lu\n", ARRAY[i]);
-    }
-
-    unsigned long* free_array(unsigned long* array) {
-        free(array);
-        return NULL;
+    void print_array(const long *const array, const int n)
+    {
+        for (int i = 0; i < n; ++i)
+            printf("%ld\n", array[i]);
     }
