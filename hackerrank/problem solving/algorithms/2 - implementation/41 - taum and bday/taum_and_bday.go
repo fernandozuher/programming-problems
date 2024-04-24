@@ -1,73 +1,63 @@
-// Source: https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
 package main
 
 import "fmt"
 
-func main() {
-    var nTestCases uint64 = ReadANumber()
-    var output []uint64 = make([]uint64, nTestCases)
-
-    for i, _ := range output {
-        var input = ReadATestCase()
-        output[i] = CalculateMinimumCostOfBuyingGifts(input)
-    }
-
-    PrintArray(output)
+type Gifts struct {
+    nBlackGifts               int64
+    nWhiteGifts               int64
+    blackGiftCost             int64
+    whiteGiftCost             int64
+    costToConvertBetweenGifts int64
 }
 
-    func ReadANumber() uint64 {
-        var number uint64
-        fmt.Scan(&number)
-        return number
+func main() {
+    var n int32
+    fmt.Scan(&n)
+    output := make([]int64, n)
+
+    for i, _ := range output {
+        output[i] = calculateMinimumCostOfBuyingGifts(readTestCase())
+    }
+    printArray(output)
+}
+
+    func readTestCase() Gifts {
+        var x Gifts
+        fmt.Scan(&x.nBlackGifts, &x.nWhiteGifts, &x.blackGiftCost, &x.whiteGiftCost, &x.costToConvertBetweenGifts)
+        return x
     }
 
-    func ReadATestCase() []uint64 {
-        nBlackGifts, nWhiteGifts := ReadANumber(), ReadANumber()
-        blackGiftCost, whiteGiftCost, costToConvertBetweenGifts := ReadANumber(), ReadANumber(), ReadANumber()
-
-        return []uint64{nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts}
+    func calculateMinimumCostOfBuyingGifts(x Gifts) int64 {
+        if areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(x) {
+            return calculateMinimumStandardCost(x)
+        }
+        return calculateMinimumCostInConvertingGifts(x)
     }
 
-    func CalculateMinimumCostOfBuyingGifts(input []uint64) uint64 {
-        if AreOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(input) {
-            return CalculateMinimumStandardCost(input)
-        }
-        return CalculateMinimumCostInConvertingGifts(input)
-    }
-
-        func AreOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(input []uint64) bool {
-            blackGiftCost, whiteGiftCost, costToConvertBetweenGifts := input[2], input[3], input[4]
-            var costToConvertFromBlackToWhite uint64 = blackGiftCost + costToConvertBetweenGifts
-            var costToConvertFromWhiteToBlack uint64 = whiteGiftCost + costToConvertBetweenGifts
-
-            return whiteGiftCost <= costToConvertFromBlackToWhite && blackGiftCost <= costToConvertFromWhiteToBlack
+        func areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(x Gifts) bool {
+            var costToConvertFromBlackToWhite int64 = x.blackGiftCost + x.costToConvertBetweenGifts
+            var costToConvertFromWhiteToBlack int64 = x.whiteGiftCost + x.costToConvertBetweenGifts
+            return x.whiteGiftCost <= costToConvertFromBlackToWhite && x.blackGiftCost <= costToConvertFromWhiteToBlack
         }
 
-        func CalculateMinimumStandardCost(input []uint64) uint64 {
-            nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost := input[0], input[1], input[2], input[3]
-            return nBlackGifts*blackGiftCost + nWhiteGifts*whiteGiftCost
+        func calculateMinimumStandardCost(x Gifts) int64 {
+            return x.nBlackGifts*x.blackGiftCost + x.nWhiteGifts*x.whiteGiftCost
         }
 
-        func CalculateMinimumCostInConvertingGifts(input []uint64) uint64 {
-            nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts := input[0], input[1], input[2], input[3], input[4]
+        func calculateMinimumCostInConvertingGifts(x Gifts) int64 {
+            var costToConvertFromBlackToWhite int64 = x.blackGiftCost + x.costToConvertBetweenGifts
+            var totalGifts int64 = x.nBlackGifts + x.nWhiteGifts
 
-            var costToConvertFromBlackToWhite uint64 = blackGiftCost + costToConvertBetweenGifts
-            var totalGifts uint64 = nBlackGifts + nWhiteGifts
-
-            var minimumCostOfBuyingGifts uint64
-
-            if whiteGiftCost > costToConvertFromBlackToWhite {
-                minimumCostOfBuyingGifts = totalGifts*blackGiftCost + nWhiteGifts*costToConvertBetweenGifts
-            } else {
-                minimumCostOfBuyingGifts = totalGifts*whiteGiftCost + nBlackGifts*costToConvertBetweenGifts
+            if x.whiteGiftCost > costToConvertFromBlackToWhite {
+                return totalGifts*x.blackGiftCost + x.nWhiteGifts*x.costToConvertBetweenGifts
             }
-
-            return minimumCostOfBuyingGifts
+            return totalGifts*x.whiteGiftCost + x.nBlackGifts*x.costToConvertBetweenGifts
         }
 
-    func PrintArray(array []uint64) {
-        for _, element := range array {
-            fmt.Println(element)
+    func printArray(array []int64) {
+        for _, x := range array {
+            fmt.Println(x)
         }
     }
