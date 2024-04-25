@@ -1,107 +1,83 @@
-// Source: https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+namespace ProgrammingProblem
 {
-    public static void Main()
+record struct Gifts(long nBlackGifts, long nWhiteGifts, long blackGiftCost,
+                    long whiteGiftCost, long costToConvertBetweenGifts);
+
+class Solution
+{
+    static void Main()
     {
-        int nTestCases = Convert.ToInt32(_ReadANumber());
-        List<ulong> output = _InitializeEmptyArray(nTestCases);
-
-        for (int i = 0; i < nTestCases; i++)
+        int n = int.Parse(ReadLine());
+        var output = new List<long>(new long[n]).Select(x =>
         {
-            List<ulong> input = _ReadATestCase();
-            TaumAndBday obj = new TaumAndBday(input);
-            output[i] = obj.GetMinimumCostOfBuyingGifts();
-        }
+            var obj = new TaumAndBday(ReadTestCase());
+            obj.CalculateMinimumCostOfBuyingGifts();
+            return obj.MinimumCostOfBuyingGifts;
+        }).ToList();
 
-        _PrintArray(output);
+        output.ForEach(WriteLine);
     }
 
-        private static ulong _ReadANumber()
+        static Gifts ReadTestCase()
         {
-            return ulong.Parse(Console.ReadLine());
+            var line1 = ReadLongArray();
+            var line2 = ReadLongArray();
+            return new Gifts(line1.First(), line1.Last(), line2.First(), line2[1], line2.Last());
         }
 
-        private static List<ulong> _InitializeEmptyArray(int size)
-        {
-            return new List<ulong>(new ulong[size]);
-        }
-
-        private static List<ulong> _ReadATestCase()
-        {
-            List<ulong> array = Console.ReadLine().Split().Select(ulong.Parse).ToList();
-            ulong nBlackGifts = array.First();
-            ulong nWhiteGifts = array.Last();
-
-            array = Console.ReadLine().Split().Select(ulong.Parse).ToList();
-            ulong blackGiftCost = array.First();
-            ulong whiteGiftCost = array[1];
-            ulong costToConvertBetweenGifts = array.Last();
-
-            return new List<ulong> {nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts};
-        }
-
-        private static void _PrintArray(List<ulong> array)
-        {
-            array.ForEach(Console.WriteLine);
-        }
+            static List<long> ReadLongArray()
+            {
+                return ReadLine().Split().Select(long.Parse).ToList();
+            }
 }
 
-    public class TaumAndBday
+    class TaumAndBday
     {
-        private ulong _NBlackGifts, _NWhiteGifts;
-        private ulong _BlackGiftCost, _WhiteGiftCost;
-        private ulong _CostToConvertBetweenGifts;
+        private Gifts _gifts;
+        private long _costToConvertFromBlackToWhite, _costToConvertFromWhiteToBlack;
+        private long _minimumCostOfBuyingGifts;
 
-        private ulong _CostToConvertFromBlackToWhite, _CostToConvertFromWhiteToBlack;
-
-        private ulong _MinimumCostOfBuyingGifts;
-
-        public TaumAndBday(List<ulong> input) {
-            _NBlackGifts = input.First();
-            _NWhiteGifts = input[1];
-            _BlackGiftCost = input[2];
-            _WhiteGiftCost = input[3];
-            _CostToConvertBetweenGifts = input.Last();
-
-            _CostToConvertFromBlackToWhite = _BlackGiftCost + _CostToConvertBetweenGifts;
-            _CostToConvertFromWhiteToBlack = _WhiteGiftCost + _CostToConvertBetweenGifts;
-
-            _MinimumCostOfBuyingGifts = _CalculateMinimumCostOfBuyingGifts();
+        public TaumAndBday(Gifts gifts) {
+            _gifts = gifts;
+            _costToConvertFromBlackToWhite = _gifts.blackGiftCost + _gifts.costToConvertBetweenGifts;
+            _costToConvertFromWhiteToBlack = _gifts.whiteGiftCost + _gifts.costToConvertBetweenGifts;
+            _minimumCostOfBuyingGifts = 0;
         }
 
-            private ulong _CalculateMinimumCostOfBuyingGifts()
-            {
-                if (_AreOriginalCostsCheaperOrEqualThanConvertionBetweenGifts())
-                    return _CalculateMinimumStandardCost();
+        public void CalculateMinimumCostOfBuyingGifts()
+        {
+            _minimumCostOfBuyingGifts = _areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts() ?
+                                        _calculateMinimumStandardCost() : _calculateMinimumCostInConvertingGifts();
+        }
 
-                return _CalculateMinimumCostInConvertingGifts();
+            private bool _areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts()
+            {
+                return _gifts.whiteGiftCost <= _costToConvertFromBlackToWhite
+                       && _gifts.blackGiftCost <= _costToConvertFromWhiteToBlack;
             }
 
-                private bool _AreOriginalCostsCheaperOrEqualThanConvertionBetweenGifts()
-                {
-                    return _WhiteGiftCost <= _CostToConvertFromBlackToWhite && _BlackGiftCost <= _CostToConvertFromWhiteToBlack;
-                }
+            private long _calculateMinimumStandardCost()
+            {
+                return _gifts.nBlackGifts * _gifts.blackGiftCost + _gifts.nWhiteGifts * _gifts.whiteGiftCost;
+            }
 
-                private ulong _CalculateMinimumStandardCost()
-                {
-                    return _NBlackGifts * _BlackGiftCost + _NWhiteGifts * _WhiteGiftCost;
-                }
+            private long _calculateMinimumCostInConvertingGifts()
+            {
+                long totalGifts = _gifts.nBlackGifts + _gifts.nWhiteGifts;
 
-                private ulong _CalculateMinimumCostInConvertingGifts()
-                {
-                    ulong totalGifts = _NBlackGifts + _NWhiteGifts;
+                if (_gifts.whiteGiftCost > _costToConvertFromBlackToWhite)
+                    return totalGifts * _gifts.blackGiftCost + _gifts.nWhiteGifts * _gifts.costToConvertBetweenGifts;
 
-                    if (_WhiteGiftCost > _CostToConvertFromBlackToWhite)
-                        return totalGifts * _BlackGiftCost + _NWhiteGifts * _CostToConvertBetweenGifts;
+                return totalGifts * _gifts.whiteGiftCost + _gifts.nBlackGifts * _gifts.costToConvertBetweenGifts;
+            }
 
-                    return totalGifts * _WhiteGiftCost + _NBlackGifts * _CostToConvertBetweenGifts;
-                }
-
-        public ulong GetMinimumCostOfBuyingGifts()
+        public long MinimumCostOfBuyingGifts
         {
-            return _MinimumCostOfBuyingGifts;
+            get => _minimumCostOfBuyingGifts;
         }
     }
+}
