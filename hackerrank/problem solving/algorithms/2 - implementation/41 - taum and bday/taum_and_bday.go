@@ -14,10 +14,13 @@ type Gifts struct {
 
 func main() {
     var n int32
-    fmt.Scan(&n)
+    _, err := fmt.Scan(&n)
+    if err != nil {
+        return
+    }
     output := make([]int64, n)
 
-    for i, _ := range output {
+    for i := range output {
         output[i] = calculateMinimumCostOfBuyingGifts(readTestCase())
     }
     printArray(output)
@@ -25,18 +28,21 @@ func main() {
 
     func readTestCase() Gifts {
         var x Gifts
-        fmt.Scan(&x.nBlackGifts, &x.nWhiteGifts, &x.blackGiftCost, &x.whiteGiftCost, &x.costToConvertBetweenGifts)
+        _, err := fmt.Scan(&x.nBlackGifts, &x.nWhiteGifts, &x.blackGiftCost, &x.whiteGiftCost, &x.costToConvertBetweenGifts)
+        if err != nil {
+            return Gifts{}
+        }
         return x
     }
 
     func calculateMinimumCostOfBuyingGifts(x Gifts) int64 {
-        if areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(x) {
+        if areOriginalCostsCheaperOrEqualThanConversionBetweenGifts(x) {
             return calculateMinimumStandardCost(x)
         }
         return calculateMinimumCostInConvertingGifts(x)
     }
 
-        func areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(x Gifts) bool {
+        func areOriginalCostsCheaperOrEqualThanConversionBetweenGifts(x Gifts) bool {
             var costToConvertFromBlackToWhite int64 = x.blackGiftCost + x.costToConvertBetweenGifts
             var costToConvertFromWhiteToBlack int64 = x.whiteGiftCost + x.costToConvertBetweenGifts
             return x.whiteGiftCost <= costToConvertFromBlackToWhite && x.blackGiftCost <= costToConvertFromWhiteToBlack

@@ -1,77 +1,62 @@
-# Source: https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+
+Gifts = Struct.new(:n_black_gifts,
+                   :n_white_gifts,
+                   :black_gift_cost,
+                   :white_gift_cost,
+                   :cost_to_convert_between_gifts)
 
 def main
-    nTestCases = gets.to_i
-    output = Array.new nTestCases
-
-    for i in 0...nTestCases
-        input = readATestCase
-        obj = TaumAndBday.new(input)
-        output[i] = obj.getMinimumCostOfBuyingGifts
-    end
-
-    puts output
+  n = gets.to_i
+  output = Array.new(n).map {
+    obj = TaumAndBday.new(read_test_case)
+    obj.calculate_minimum_cost_of_buying_gifts
+    obj.minimum_cost_of_buying_gifts
+  }
+  puts output
 end
 
-    def readATestCase
-        nBlackGifts, nWhiteGifts = readAnIntArray
-        blackGiftCost, whiteGiftCost, costToConvertBetweenGifts = readAnIntArray
-        [nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts]
+  def read_test_case
+    array = read_int_array
+    array += read_int_array
+    Gifts.new(*array)
+  end
+
+    def read_int_array
+      gets.split.map(&:to_i)
     end
 
-        def readAnIntArray
-            gets.strip.split.map(&:to_i)
-        end
+  class TaumAndBday
+    attr_reader :minimum_cost_of_buying_gifts
 
-    class TaumAndBday
-        @nBlackGifts
-        @nWhiteGifts
-        @blackGiftCost
-        @whiteGiftCost
-        @costToConvertBetweenGifts
-
-        @costToConvertFromBlackToWhite
-        @costToConvertFromWhiteToBlack
-
-        @minimumCostOfBuyingGifts
-
-        def initialize input
-            @nBlackGifts, @nWhiteGifts, @blackGiftCost, @whiteGiftCost, @costToConvertBetweenGifts = input
-
-            @costToConvertFromBlackToWhite = @blackGiftCost + @costToConvertBetweenGifts
-            @costToConvertFromWhiteToBlack = @whiteGiftCost + @costToConvertBetweenGifts
-
-            @minimumCostOfBuyingGifts = _calculateMinimumCostOfBuyingGifts
-        end
-
-            def _calculateMinimumCostOfBuyingGifts
-                if _areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts
-                    return _calculateMinimumStandardCost
-                end
-                return _calculateMinimumCostInConvertingGifts
-            end
-
-                def _areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts
-                    @whiteGiftCost <= @costToConvertFromBlackToWhite && @blackGiftCost <= @costToConvertFromWhiteToBlack
-                end
-
-                def _calculateMinimumStandardCost
-                    @nBlackGifts * @blackGiftCost + @nWhiteGifts * @whiteGiftCost
-                end
-
-                def _calculateMinimumCostInConvertingGifts
-                    totalGifts = @nBlackGifts + @nWhiteGifts
-
-                    if @whiteGiftCost > @costToConvertFromBlackToWhite
-                        return totalGifts * @blackGiftCost + @nWhiteGifts * @costToConvertBetweenGifts
-                    else
-                        return totalGifts * @whiteGiftCost + @nBlackGifts * @costToConvertBetweenGifts
-                    end
-                end
-
-        def getMinimumCostOfBuyingGifts
-            @minimumCostOfBuyingGifts
-        end
+    def initialize(gifts)
+      @gifts = gifts
+      @cost_to_convert_from_black_to_white = @gifts.black_gift_cost + @gifts.cost_to_convert_between_gifts
+      @cost_to_convert_from_white_to_black = @gifts.white_gift_cost + @gifts.cost_to_convert_between_gifts
+      @minimum_cost_of_buying_gifts = 0
     end
+
+    def calculate_minimum_cost_of_buying_gifts
+      @minimum_cost_of_buying_gifts = are_original_costs_cheaper_or_equal_than_conversion_between_gifts ?
+                                        calculate_minimum_standard_cost : calculate_minimum_cost_in_converting_gifts
+    end
+
+      private def are_original_costs_cheaper_or_equal_than_conversion_between_gifts
+        @gifts.white_gift_cost <= @cost_to_convert_from_black_to_white &&
+          @gifts.black_gift_cost <= @cost_to_convert_from_white_to_black
+      end
+
+      private def calculate_minimum_standard_cost
+        @gifts.n_black_gifts * @gifts.black_gift_cost + @gifts.n_white_gifts * @gifts.white_gift_cost
+      end
+
+      private def calculate_minimum_cost_in_converting_gifts
+        total_gifts = @gifts.n_black_gifts + @gifts.n_white_gifts
+        if @gifts.white_gift_cost > @cost_to_convert_from_black_to_white
+          return total_gifts * @gifts.black_gift_cost + @gifts.n_white_gifts * @gifts.cost_to_convert_between_gifts
+        end
+        total_gifts * @gifts.white_gift_cost + @gifts.n_black_gifts * @gifts.cost_to_convert_between_gifts
+      end
+  end
 
 main

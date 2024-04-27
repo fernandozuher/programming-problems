@@ -30,13 +30,13 @@ fn read_test_case() -> Gifts {
 }
 
 fn calculate_minimum_cost_of_buying_gifts(x: Gifts) -> i64 {
-    match are_original_costs_cheaper_or_equal_than_convertion_between_gifts(&x) {
+    match are_original_costs_cheaper_or_equal_than_conversion_between_gifts(&x) {
         true => calculate_minimum_standard_cost(&x),
         false => calculate_minimum_cost_in_converting_gifts(&x),
     }
 }
 
-fn are_original_costs_cheaper_or_equal_than_convertion_between_gifts(x: &Gifts) -> bool {
+fn are_original_costs_cheaper_or_equal_than_conversion_between_gifts(x: &Gifts) -> bool {
     let cost_to_convert_from_black_to_white: i64 =
         x.black_gift_cost + x.cost_to_convert_between_gifts;
     let cost_to_convert_from_white_to_black: i64 =

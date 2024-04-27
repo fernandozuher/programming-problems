@@ -12,7 +12,7 @@ class Gifts {
     public long costToConvertBetweenGifts;
 }
 
-public class Main {
+public class Solution {
     private static Scanner scan;
 
     public static void main(String[] args) {
@@ -54,11 +54,11 @@ public class Main {
         }
 
         public long calculateMinimumCostOfBuyingGifts() {
-            if (areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts()) return calculateMinimumStandardCost();
+            if (areOriginalCostsCheaperOrEqualThanConversionBetweenGifts()) return calculateMinimumStandardCost();
             return calculateMinimumCostInConvertingGifts();
         }
 
-            private boolean areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts() {
+            private boolean areOriginalCostsCheaperOrEqualThanConversionBetweenGifts() {
                 return gifts.whiteGiftCost <= costToConvertFromBlackToWhite && gifts.blackGiftCost <= costToConvertFromWhiteToBlack;
             }
 

@@ -1,74 +1,73 @@
-# Source: https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+
+from typing import NamedTuple
+
+
+class Gifts(NamedTuple):
+    n_black_gifts: int
+    n_white_gifts: int
+    black_gift_cost: int
+    white_gift_cost: int
+    cost_to_convert_between_gifts: int
+
 
 def main():
+    n = int(input())
+    output = [0] * n
 
-    N_TEST_CASES = int(input())
-    output = [None] * N_TEST_CASES
+    for i in range(n):
+        obj = TaumAndBday(read_test_case())
+        obj.calculate_minimum_cost_of_buying_gifts()
+        output[i] = obj.minimum_cost_of_buying_gifts()
 
-    for i in range(N_TEST_CASES):
-        INPUT = readATestCase()
-        OBJ = TaumAndBday(INPUT)
-        output[i] = OBJ.getMinimumCostOfBuyingGifts()
-
-    print(*output, sep="\n")
-
-
-def readATestCase():
-
-    N_BLACK_GIFTS, N_WHITE_GIFTS = readAnIntArray()
-    BLACK_GIFT_COST, WHITE_GIFT_COST, COST_TO_CONVERT_BETWEEN_GIFTS = readAnIntArray()
-    return [N_BLACK_GIFTS, N_WHITE_GIFTS, BLACK_GIFT_COST, WHITE_GIFT_COST, COST_TO_CONVERT_BETWEEN_GIFTS]
+    print(*output, sep='\n')
 
 
-def readAnIntArray():
+def read_test_case():
+    array = read_int_array()
+    array += read_int_array()
+    return Gifts(*array)
 
+
+def read_int_array():
     return list(map(int, input().split()))
 
 
 class TaumAndBday:
+    def __init__(self, gifts):
+        self._gifts = gifts
+        self._cost_to_convert_from_black_to_white = (self._gifts.black_gift_cost +
+                                                     self._gifts.cost_to_convert_between_gifts)
+        self._cost_to_convert_from_white_to_black = (self._gifts.white_gift_cost +
+                                                     self._gifts.cost_to_convert_between_gifts)
+        self._minimum_cost_of_buying_gifts = 0
 
-    def __init__(self, INPUT):
+    def calculate_minimum_cost_of_buying_gifts(self):
+        self._minimum_cost_of_buying_gifts = self._calculate_minimum_standard_cost() if \
+            self._are_original_costs_cheaper_or_equal_than_conversion_between_gifts() else \
+            self._calculate_minimum_cost_in_converting_gifts()
 
-        self.__nBlackGifts, self.__nWhiteGifts, self.__blackGiftCost, self.__whiteGiftCost, self.__costToConvertBetweenGifts = INPUT
+    def _are_original_costs_cheaper_or_equal_than_conversion_between_gifts(self):
+        return self._gifts.white_gift_cost <= self._cost_to_convert_from_black_to_white and \
+            self._gifts.black_gift_cost <= self._cost_to_convert_from_white_to_black
 
-        self.__costToConvertFromBlackToWhite = self.__blackGiftCost + self.__costToConvertBetweenGifts
-        self.__costToConvertFromWhiteToBlack = self.__whiteGiftCost + self.__costToConvertBetweenGifts
+    def _calculate_minimum_standard_cost(self):
+        return self._gifts.n_black_gifts * self._gifts.black_gift_cost + \
+            self._gifts.n_white_gifts * self._gifts.white_gift_cost
 
-        self.__minimumCostOfBuyingGifts = self.__calculateMinimumCostOfBuyingGifts()
+    def _calculate_minimum_cost_in_converting_gifts(self):
+        total_gifts = self._gifts.n_black_gifts + self._gifts.n_white_gifts
 
+        if self._gifts.white_gift_cost > self._cost_to_convert_from_black_to_white:
+            return total_gifts * self._gifts.black_gift_cost + \
+                self._gifts.n_white_gifts * self._gifts.cost_to_convert_between_gifts
 
-    def __calculateMinimumCostOfBuyingGifts(self):
+        return total_gifts * self._gifts.white_gift_cost + \
+            self._gifts.n_black_gifts * self._gifts.cost_to_convert_between_gifts
 
-        if self.__areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts():
-            return self.__calculateMinimumStandardCost()
-
-        return self.__calculateMinimumCostInConvertingGifts()
-
-
-    def __areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts(self):
-
-        return self.__whiteGiftCost <= self.__costToConvertFromBlackToWhite and self.__blackGiftCost <= self.__costToConvertFromWhiteToBlack
-
-
-    def __calculateMinimumStandardCost(self):
-
-        return self.__nBlackGifts * self.__blackGiftCost + self.__nWhiteGifts * self.__whiteGiftCost
-
-
-    def __calculateMinimumCostInConvertingGifts(self):
-
-        TOTAL_GIFTS = self.__nBlackGifts + self.__nWhiteGifts
-
-        if self.__whiteGiftCost > self.__costToConvertFromBlackToWhite:
-            return TOTAL_GIFTS * self.__blackGiftCost + self.__nWhiteGifts * self.__costToConvertBetweenGifts
-
-        return TOTAL_GIFTS * self.__whiteGiftCost + self.__nBlackGifts * self.__costToConvertBetweenGifts
+    def minimum_cost_of_buying_gifts(self):
+        return self._minimum_cost_of_buying_gifts
 
 
-    def getMinimumCostOfBuyingGifts(self):
-
-        return self.__minimumCostOfBuyingGifts
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

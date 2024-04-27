@@ -50,11 +50,11 @@ class Solution
 
         public void CalculateMinimumCostOfBuyingGifts()
         {
-            _minimumCostOfBuyingGifts = _areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts() ?
+            _minimumCostOfBuyingGifts = _areOriginalCostsCheaperOrEqualThanConversionBetweenGifts() ?
                                         _calculateMinimumStandardCost() : _calculateMinimumCostInConvertingGifts();
         }
 
-            private bool _areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts()
+            private bool _areOriginalCostsCheaperOrEqualThanConversionBetweenGifts()
             {
                 return _gifts.whiteGiftCost <= _costToConvertFromBlackToWhite
                        && _gifts.blackGiftCost <= _costToConvertFromWhiteToBlack;

@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
 'use strict';
 
@@ -6,94 +6,81 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
+process.stdin.on('data', function (inputStdin) {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+process.stdin.on('end', function () {
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    const N_TEST_CASES = +readLine();
-    const OUTPUT = new Array(N_TEST_CASES).fill(BigInt(0));
+    let n = +readLine();
+    let output = new Array(n).fill(BigInt(0)).map(_ =>{
+        let obj = new TaumAndBday(readTestCase());
+        obj.calculateMinimumCostOfBuyingGifts();
+        return obj.minimumCostOfBuyingGifts();
+    });
 
-    for (let i = 0; i < N_TEST_CASES; i++) {
-        const INPUT = readATestCase();
-        const OBJ = new TaumAndBday(INPUT);
-        OUTPUT[i] = OBJ.getMinimumCostOfBuyingGifts();
-    }
-
-    printArray(OUTPUT);
+    output.forEach(x => console.log(x.toString()));
 }
 
-    function readATestCase() {
-        const [N_BLACK_GIFTS, N_WHITE_GIFTS] = readAnIntArray();
-        const [BLACK_GIFT_COST, WHITE_GIFT_COST, COST_TO_CONVERT_BETWEEN_GIFTS] = readAnIntArray();
-        return [N_BLACK_GIFTS, N_WHITE_GIFTS, BLACK_GIFT_COST, WHITE_GIFT_COST, COST_TO_CONVERT_BETWEEN_GIFTS];
+    function readTestCase() {
+        let array = readIntArray();
+        array.push(...readIntArray());
+        const [nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts] = array;
+        return {nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts};
     }
 
-        function readAnIntArray() {
-            return readLine().split(" ").map(BigInt);
+        function readIntArray() {
+            return readLine().split(' ').map(BigInt);
         }
-
-    function printArray(array) {
-        array.forEach(element => console.log(element.toString()));
-    }
 
     class TaumAndBday {
-        #nBlackGifts;
-        #nWhiteGifts;
-        #blackGiftCost;
-        #whiteGiftCost;
-        #costToConvertBetweenGifts;
-
+        #gifts;
         #costToConvertFromBlackToWhite;
         #costToConvertFromWhiteToBlack;
-
         #minimumCostOfBuyingGifts;
 
-        constructor(input) {
-            [this.#nBlackGifts, this.#nWhiteGifts, this.#blackGiftCost, this.#whiteGiftCost, this.#costToConvertBetweenGifts] = input;
-
-            this.#costToConvertFromBlackToWhite = this.#blackGiftCost + this.#costToConvertBetweenGifts;
-            this.#costToConvertFromWhiteToBlack = this.#whiteGiftCost + this.#costToConvertBetweenGifts;
-
-            this.#minimumCostOfBuyingGifts = this.#calculateMinimumCostOfBuyingGifts();
+        constructor(gifts) {
+            this.#gifts = gifts;
+            this.#costToConvertFromBlackToWhite = this.#gifts.blackGiftCost + this.#gifts.costToConvertBetweenGifts;
+            this.#costToConvertFromWhiteToBlack = this.#gifts.whiteGiftCost + this.#gifts.costToConvertBetweenGifts;
         }
 
-            #calculateMinimumCostOfBuyingGifts() {
-                if (this.#areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts())
-                    return this.#calculateMinimumStandardCost();
+        calculateMinimumCostOfBuyingGifts() {
+            this.#minimumCostOfBuyingGifts = this.#areOriginalCostsCheaperOrEqualThanConversionBetweenGifts() ?
+                this.#calculateMinimumStandardCost() : this.#calculateMinimumCostInConvertingGifts();
+        }
 
-                return this.#calculateMinimumCostInConvertingGifts();
+            #areOriginalCostsCheaperOrEqualThanConversionBetweenGifts() {
+                return this.#gifts.whiteGiftCost <= this.#costToConvertFromBlackToWhite
+                    && this.#gifts.blackGiftCost <= this.#costToConvertFromWhiteToBlack;
             }
 
-                #areOriginalCostsCheaperOrEqualThanConvertionBetweenGifts() {
-                    return this.#whiteGiftCost <= this.#costToConvertFromBlackToWhite && this.#blackGiftCost <= this.#costToConvertFromWhiteToBlack;
-                }
+            #calculateMinimumStandardCost() {
+                return this.#gifts.nBlackGifts * this.#gifts.blackGiftCost + this.#gifts.nWhiteGifts * this.#gifts.whiteGiftCost;
+            }
 
-                #calculateMinimumStandardCost() {
-                    return BigInt(this.#nBlackGifts * this.#blackGiftCost + this.#nWhiteGifts * this.#whiteGiftCost);
-                }
-
-                #calculateMinimumCostInConvertingGifts() {
-                    const TOTAL_GIFTS = this.#nBlackGifts + this.#nWhiteGifts;
-
-                    if (this.#whiteGiftCost > this.#costToConvertFromBlackToWhite)
-                        return BigInt(TOTAL_GIFTS * this.#blackGiftCost + this.#nWhiteGifts * this.#costToConvertBetweenGifts);
-
-                    return BigInt(TOTAL_GIFTS * this.#whiteGiftCost + this.#nBlackGifts * this.#costToConvertBetweenGifts);
-                }
-
-        getMinimumCostOfBuyingGifts() {
+            #calculateMinimumCostInConvertingGifts() {
+                let totalGifts = this.#gifts.nBlackGifts + this.#gifts.nWhiteGifts;
+                if (this.#gifts.whiteGiftCost > this.#costToConvertFromBlackToWhite)
+                    return totalGifts * this.#gifts.blackGiftCost + this.#gifts.nWhiteGifts * this.#gifts.costToConvertBetweenGifts;
+                return totalGifts * this.#gifts.whiteGiftCost + this.#gifts.nBlackGifts * this.#gifts.costToConvertBetweenGifts;
+            }
+    
+        minimumCostOfBuyingGifts() {
             return this.#minimumCostOfBuyingGifts;
         }
     }
