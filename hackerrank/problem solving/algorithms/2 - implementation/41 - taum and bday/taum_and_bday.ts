@@ -72,16 +72,16 @@ function main() {
                 this.calculateMinimumStandardCost() : this.calculateMinimumCostInConvertingGifts();
         }
     
-            areOriginalCostsCheaperOrEqualThanConversionBetweenGifts(): boolean {
+            private areOriginalCostsCheaperOrEqualThanConversionBetweenGifts(): boolean {
                 return this.gifts_data.whiteGiftCost <= this.costToConvertFromBlackToWhite
                     && this.gifts_data.blackGiftCost <= this.costToConvertFromWhiteToBlack;
             }
         
-            calculateMinimumStandardCost(): bigint {
+            private calculateMinimumStandardCost(): bigint {
                 return this.gifts_data.nBlackGifts * this.gifts_data.blackGiftCost + this.gifts_data.nWhiteGifts * this.gifts_data.whiteGiftCost;
             }
         
-            calculateMinimumCostInConvertingGifts(): bigint {
+            private calculateMinimumCostInConvertingGifts(): bigint {
                 let totalGifts: bigint = this.gifts_data.nBlackGifts + this.gifts_data.nWhiteGifts;
                 if (this.gifts_data.whiteGiftCost > this.costToConvertFromBlackToWhite)
                     return totalGifts * this.gifts_data.blackGiftCost + this.gifts_data.nWhiteGifts * this.gifts_data.costToConvertBetweenGifts;
