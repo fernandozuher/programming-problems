@@ -1,12 +1,9 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
 
 #include <algorithm>
-#include <charconv>
 #include <cmath>
 #include <iostream>
 #include <ranges>
-#include <string>
-#include <string_view>
 #include <vector>
 
 using namespace std;
@@ -14,10 +11,7 @@ using namespace std;
 namespace programing_problems {
 
 int calculate_potential_kaprekar_number(int number);
-    string_view left_number_in_string(string_view square_number_in_string, size_t length_of_number_in_string);
-    string_view right_number_in_string(string_view square_number_in_string, size_t length_of_number_in_string);
-    int sum_numbers_in_strings(string_view left_number_in_string, string_view right_number_in_string);
-
+    int number_digits(long n);
 
 class Kaprekar_Numbers {
     int lower_limit, upper_limit;
@@ -46,38 +40,22 @@ public:
 
         int calculate_potential_kaprekar_number(const int number)
         {
-            long square_number{static_cast<long>(pow(number, 2))};
-            string square_number_in_string{to_string(square_number)};
-            size_t length_of_number_in_string{to_string(number).size()};
-
-            return sum_numbers_in_strings(
-               left_number_in_string(square_number_in_string, length_of_number_in_string),
-               right_number_in_string(square_number_in_string, length_of_number_in_string)
-           );
+            auto square_number {pow(number, 2)};
+            auto divisor {pow(10, number_digits(number))};
+            auto [left_number, right_number] {ldiv(square_number, divisor)};
+            return left_number + right_number;
         }
 
-            string_view left_number_in_string(const string_view square_number_in_string,
-                                              const size_t length_of_number_in_string)
+            int number_digits(const long n)
             {
-                size_t digits_to_take{square_number_in_string.size() - length_of_number_in_string};
-                return square_number_in_string.substr(0, digits_to_take);
-            }
-
-            string_view right_number_in_string(const string_view square_number_in_string,
-                                               const size_t length_of_number_in_string)
-            {
-                size_t digits_to_skip{square_number_in_string.size() - length_of_number_in_string};
-                size_t digits_to_take{square_number_in_string.size() - digits_to_skip};
-                return square_number_in_string.substr(digits_to_skip, digits_to_take);
-            }
-
-            int sum_numbers_in_strings(const string_view left_number_in_string,
-                                       const string_view right_number_in_string)
-            {
-                int n1{}, n2{};
-                from_chars(left_number_in_string.begin(), left_number_in_string.end(), n1);
-                from_chars(right_number_in_string.begin(), right_number_in_string.end(), n2);
-                return n1 + n2;
+                if (n < 10) return 1;
+                if (n < 100) return 2;
+                if (n < 1000) return 3;
+                if (n < 10000) return 4;
+                if (n < 100000) return 5;
+                if (n < 1000000) return 6;
+                if (n < 10000000) return 7;
+                return 8;
             }
 }
 
