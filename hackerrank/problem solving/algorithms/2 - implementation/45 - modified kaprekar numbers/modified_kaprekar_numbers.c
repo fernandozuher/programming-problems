@@ -5,29 +5,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_QUANTITY_OF_KAPREKAR_NUMBERS 100
-
-typedef struct {
-    int size;
-    int arr[MAX_QUANTITY_OF_KAPREKAR_NUMBERS];
-} array;
-
 bool is_number_kaprekar(int number);
     int number_digits(long n);
-void print_output(const array* const arr);
 
 int main()
 {
     int lower_limit, upper_limit;
     scanf("%d %d", &lower_limit, &upper_limit);
+    bool valid_range = false;
 
-    array kaprekar_numbers = {0, {0}};
     for (int number = lower_limit; number <= upper_limit; ++number) {
-        if (is_number_kaprekar(number))
-            kaprekar_numbers.arr[kaprekar_numbers.size++] = number;
+        if (is_number_kaprekar(number)) {
+            printf("%d ", number);
+            valid_range = true;
+        }
     }
 
-    print_output(&kaprekar_numbers);
+    if (!valid_range)
+        puts("INVALID RANGE");
 
     return 0;
 }
@@ -55,12 +50,3 @@ int main()
             if (n < 10000000) return 7;
             return 8;
         }
-
-    void print_output(const array* const arr)
-    {
-        if (arr->size)
-            for (int i = 0; i < arr->size; ++i)
-                printf("%d ", arr->arr[i]);
-        else
-            puts("INVALID RANGE");
-    }
