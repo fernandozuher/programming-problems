@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
-// Written in C23: false and true first-class language features
+// Written in C23: false and true first-class language features, no need to include stdbool.h anymore
 
 #include <math.h>
 #include <stdio.h>
