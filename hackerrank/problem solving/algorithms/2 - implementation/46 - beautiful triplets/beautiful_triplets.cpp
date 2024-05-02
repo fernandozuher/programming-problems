@@ -28,9 +28,9 @@ int main()
     {
         int n_beautiful_triplets{};
 
-        if (const int n {static_cast<int>(array.size())}; n > 2) {
-            for (const auto [i, v1] : array | take(array.size() - 2) | enumerate)
-                for (const auto [j, v2] : array | drop(i + 1) | take(array.size() - 1) | enumerate) {
+        if (const int n {static_cast<int>(array.size())}; n > 2)
+            for (const auto [i, v1] : array | take(n - 2) | enumerate)
+                for (const auto [j, v2] : array | drop(i + 1) | take(n - 1) | enumerate) {
 
                     if (const int first_difference {v2 - v1}; first_difference < beautiful_difference)
                         continue;
@@ -43,7 +43,6 @@ int main()
                         else if (second_difference > beautiful_difference)
                             break;
                 }
-        }
 
         return n_beautiful_triplets;
     }
