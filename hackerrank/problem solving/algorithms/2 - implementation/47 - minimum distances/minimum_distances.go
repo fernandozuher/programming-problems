@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
 package main
 

@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
 #[macro_use]
 extern crate text_io;
