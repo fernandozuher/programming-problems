@@ -6,7 +6,7 @@
 
 using namespace std;
 
-constexpr int no_index { -1};
+constexpr int no_index {-1};
 
 int find_minimum_distance_while_read_input(int n);
 
@@ -26,9 +26,7 @@ int main()
 
         for (int i{}, element; i < n && cin >> element; ++i)
             if (first_indexes_of_elements.contains(element)) {
-                auto [first_index, second_index] {first_indexes_of_elements[element]};
-
-                if (second_index == no_index) {
+                if (auto [first_index, second_index] {first_indexes_of_elements[element]}; second_index == no_index) {
                     first_indexes_of_elements[element].second = second_index = i;
                     int minimum_distance_of_current_element {second_index - first_index};
                     minimum_distance = min(minimum_distance, minimum_distance_of_current_element);

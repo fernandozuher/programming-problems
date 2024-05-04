@@ -1,33 +1,16 @@
 // https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
-
 use std::cmp;
 use std::collections::HashMap;
-use std::io::{stdin, BufRead};
+use text_io::read;
 
 const NO_INDEX: i32 = -1;
 
 fn main() {
-    let _: i32 = read!();
-    let array: Vec<i32> = read_an_int_array();
+    let n: usize = read!();
+    let mut array: Vec<i32> = Vec::new();
+    array.resize_with(n, || read!());
     println!("{}", find_minimum_distance(array));
-}
-
-fn read_an_int_array() -> Vec<i32> {
-    let array: Vec<i32> = stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
-
-    return array;
 }
 
 fn find_minimum_distance(array: Vec<i32>) -> i32 {
@@ -36,7 +19,7 @@ fn find_minimum_distance(array: Vec<i32>) -> i32 {
 
     for (i, element) in array.iter().enumerate() {
         if first_indexes_of_elements.contains_key(element) {
-            let (mut first_index, mut second_index): (i32, i32) =
+            let (first_index, mut second_index): (i32, i32) =
                 *first_indexes_of_elements.get_mut(element).unwrap();
 
             if second_index == NO_INDEX {
@@ -55,8 +38,8 @@ fn find_minimum_distance(array: Vec<i32>) -> i32 {
 
 fn minimum_distance_or_no_index(minimum_distance: i32) -> i32 {
     if minimum_distance != i32::MAX {
-        return minimum_distance;
+        minimum_distance
     } else {
-        return NO_INDEX;
-    };
+        NO_INDEX
+    }
 }

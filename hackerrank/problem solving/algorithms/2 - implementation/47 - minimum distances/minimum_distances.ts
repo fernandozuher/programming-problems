@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,41 +23,38 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 const NO_INDEX = -1;
 
 function main() {
-    const _: number = +readLine();
-    const ARRAY: Array<number> = readANumericArray();
-    console.log(findMinimumDistance(ARRAY));
+    +readLine();
+    let array: number[] = readIntArray();
+    console.log(findMinimumDistance(array));
 }
 
-    function readANumericArray(): Array<number> {
-        return readLine().split(" ").map(Number);
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
     }
 
-    function findMinimumDistance(array: Array<number>): number {
+    function findMinimumDistance(array: number[]) {
         let minimumDistance: number = Number.MAX_SAFE_INTEGER;
-        const FIRST_INDEXES_OF_ELEMENTS: {[key: number]: Array<number>} = {};
+        let first_indexes_of_elements: {[key: number]: number[]} = {};
 
-        for (let i = 0, element; i < array.length; i++) {
+        for (let i = 0, element; i < array.length; ++i) {
             element = array[i];
         
-            if (FIRST_INDEXES_OF_ELEMENTS.hasOwnProperty(element)) {
-                let [firstIndex, secondIndex]: Array<number> = FIRST_INDEXES_OF_ELEMENTS[element];
+            if (first_indexes_of_elements.hasOwnProperty(element)) {
+                let [firstIndex, secondIndex]: number[] = first_indexes_of_elements[element]
 
-                if (secondIndex == NO_INDEX) {
-                    FIRST_INDEXES_OF_ELEMENTS[element][1] = secondIndex = i;
-                    const MINIMUM_DISTANCE_OF_CURRENT_ELEMENT: number = secondIndex - firstIndex;
-                    minimumDistance = Math.min(minimumDistance, MINIMUM_DISTANCE_OF_CURRENT_ELEMENT);
+                if (secondIndex === NO_INDEX) {
+                    first_indexes_of_elements[element][1] = secondIndex = i;
+                    let minimum_distance_OF_current_element: number = secondIndex - firstIndex;
+                    minimumDistance = Math.min(minimumDistance, minimum_distance_OF_current_element);
                 }
             } else
-                FIRST_INDEXES_OF_ELEMENTS[element] = [i, NO_INDEX];
+                first_indexes_of_elements[element] = [i, NO_INDEX];
         }
 
-        return minimumDistanceOrNoIndex(minimumDistance);
+        return minimumDistance !== Number.MAX_SAFE_INTEGER ? minimumDistance : NO_INDEX;
     }
-
-        function minimumDistanceOrNoIndex(minimumDistance: number): number {
-            return minimumDistance != Number.MAX_SAFE_INTEGER ? minimumDistance : NO_INDEX;
-        }

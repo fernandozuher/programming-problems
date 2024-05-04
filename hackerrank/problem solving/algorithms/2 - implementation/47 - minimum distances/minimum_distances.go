@@ -7,48 +7,46 @@ import (
     "math"
 )
 
-const NO_INDEX int = -1
+const NoIndex int = -1
 
 func main() {
-    var arraySize int
-    fmt.Scan(&arraySize)
-    fmt.Println(findMinimumDistanceWhileReadElements(arraySize))
+    var n int
+    _, err := fmt.Scan(&n)
+    if err != nil {
+        return
+    }
+    fmt.Println(findMinimumDistanceWhileReadElements(n))
 }
 
-func findMinimumDistanceWhileReadElements(size int) int {
-    var minimumDistance int = math.MaxInt
-    var firstIndexesOfElements map[int][2]int = make(map[int][2]int)
+func findMinimumDistanceWhileReadElements(n int) int {
+    var minimumDistance = math.MaxInt
+    firstIndexesOfElements := map[int][2]int{}
 
-    for i, element := 0, 0; i < size; i++ {
-        fmt.Scan(&element)
+    for i := range n {
+        var element int
+        _, err := fmt.Scan(&element)
+        if err != nil {
+            return 0
+        }
 
         if indexes, ok := firstIndexesOfElements[element]; ok {
-            var firstIndex, secondIndex int = indexes[0], indexes[1]
-
-            if secondIndex == NO_INDEX {
+            if firstIndex, secondIndex := indexes[0], indexes[1]; secondIndex == NoIndex {
                 secondIndex = i
                 indexes[1] = secondIndex
-                var minimumDistanceOfCurrentElement int = secondIndex - firstIndex
+                minimumDistanceOfCurrentElement := secondIndex - firstIndex
                 minimumDistance = min(minimumDistance, minimumDistanceOfCurrentElement)
             }
         } else {
-            firstIndexesOfElements[element] = [2]int{i, NO_INDEX}
+            firstIndexesOfElements[element] = [2]int{i, NoIndex}
         }
     }
 
     return minimumDistanceOrNoIndex(minimumDistance)
 }
 
-func min(num1 int, num2 int) int {
-    if num1 <= num2 {
-        return num1
-    }
-    return num2
-}
-
 func minimumDistanceOrNoIndex(minimumDistance int) int {
     if minimumDistance != math.MaxInt {
         return minimumDistance
     }
-    return NO_INDEX
+    return NoIndex
 }

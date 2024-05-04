@@ -1,28 +1,29 @@
 // https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class MinimumDistances
+public class Solution
 {
     private static int NO_INDEX = -1;
-    public static void Main()
+
+    static void Main()
     {
-        int _ = int.Parse(Console.ReadLine());
-        List<int> array = _readAnIntArray();
-        Console.WriteLine(_findMinimumDistance(array));
+        int _ = int.Parse(ReadLine());
+        List<int> array = ReadIntArray();
+        WriteLine(FindMinimumDistance(array));
     }
 
-        private static List<int> _readAnIntArray()
+        static List<int> ReadIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
+            return ReadLine().Split().Select(int.Parse).ToList();
         }
 
-        private static int _findMinimumDistance(List<int> array)
+        static int FindMinimumDistance(List<int> array)
         {
             int minimumDistance = Int32.MaxValue;
-            Dictionary<int, (int firstIndex, int secondIndex)> firstIndexesOfElements = new Dictionary<int, (int firstIndex, int secondIndex)>();
+            var firstIndexesOfElements = new Dictionary<int, (int firstIndex, int secondIndex)>();
 
-            for (int i = 0; i < array.Count; i++)
+            foreach (int i in Enumerable.Range(0, array.Count))
             {
                 int element = array[i];
                 if (firstIndexesOfElements.ContainsKey(element))
@@ -40,11 +41,6 @@ public class MinimumDistances
                     firstIndexesOfElements.Add(element, (i, NO_INDEX));
             }
 
-            return _minimumDistanceOrNoIndex(minimumDistance);
+            return minimumDistance != Int32.MaxValue ? minimumDistance : NO_INDEX;
         }
-
-            private static int _minimumDistanceOrNoIndex(int minimumDistance)
-            {
-                return minimumDistance != Int32.MaxValue ? minimumDistance : NO_INDEX;
-            }
 }

@@ -4,20 +4,18 @@ import sys
 
 NO_INDEX = -1
 
+
 def main():
-
     _ = input()
-    ARRAY = read_an_int_array()
-    print(find_minimum_distance(ARRAY))
+    array = read_int_array()
+    print(find_minimum_distance(array))
 
 
-def read_an_int_array():
-
+def read_int_array():
     return list(map(int, input().split()))
 
 
 def find_minimum_distance(array):
-
     minimum_distance = sys.maxsize
     first_indexes_of_elements = {}
 
@@ -28,18 +26,13 @@ def find_minimum_distance(array):
             if second_index == NO_INDEX:
                 second_index = i
                 first_indexes_of_elements[element] = (first_index, second_index)
-                MINIMUM_DISTANCE_OF_CURRENT_ELEMENT = second_index - first_index
-                minimum_distance = min(minimum_distance, MINIMUM_DISTANCE_OF_CURRENT_ELEMENT)
+                minimum_distance_of_current_element = second_index - first_index
+                minimum_distance = min(minimum_distance, minimum_distance_of_current_element)
         else:
             first_indexes_of_elements[element] = (i, NO_INDEX)
-    
-    return minimum_distance_or_no_index(minimum_distance)
-
-
-def minimum_distance_or_no_index(minimum_distance):
 
     return minimum_distance if minimum_distance != sys.maxsize else NO_INDEX
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
