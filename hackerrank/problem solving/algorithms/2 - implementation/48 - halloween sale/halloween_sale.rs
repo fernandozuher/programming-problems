@@ -1,52 +1,33 @@
-// Source: https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
-use std::convert::TryFrom;
-use std::io::{stdin, BufRead};
+use std::cmp;
+use text_io::read;
 
 fn main() {
-    let [game_default_price, discount, game_minimum_price, budget] =
-        <[i32; 4]>::try_from(read_an_int_array()).ok().unwrap();
-
+    let default_price_game: i32 = read!();
+    let discount: i32 = read!();
+    let minimum_price_game: i32 = read!();
+    let budget: i32 = read!();
     println!(
         "{}",
-        how_many_games_can_be_bought(game_default_price, discount, game_minimum_price, budget)
+        how_many_games_can_be_bought(default_price_game, discount, minimum_price_game, budget)
     );
 }
 
-fn read_an_int_array() -> Vec<i32> {
-    let array: Vec<i32> = stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
-
-    return array;
-}
-
 fn how_many_games_can_be_bought(
-    game_default_price: i32,
+    default_price_game: i32,
     discount: i32,
-    game_minimum_price: i32,
+    minimum_price_game: i32,
     budget: i32,
 ) -> i32 {
     let mut games_can_be_bought_quantity: i32 = 0;
-    let mut current_game_price: i32 = game_default_price;
-    let mut current_budget: i32 = budget - game_default_price;
+    let mut current_price_game: i32 = default_price_game;
+    let mut current_budget: i32 = budget - default_price_game;
 
     while current_budget >= 0 {
         games_can_be_bought_quantity += 1;
-        current_game_price -= discount;
-
-        current_budget -= if current_game_price >= game_minimum_price {
-            current_game_price
-        } else {
-            game_minimum_price
-        };
+        current_price_game -= discount;
+        current_budget -= cmp::max(current_price_game, minimum_price_game);
     }
 
     return games_can_be_bought_quantity;

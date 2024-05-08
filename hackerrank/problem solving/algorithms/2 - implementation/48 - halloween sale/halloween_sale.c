@@ -1,37 +1,28 @@
-// Source: https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
 #include <stdio.h>
 
-int read_a_number();
-int how_many_games_can_be_bought(const int game_default_price, const int discount, const int game_minimum_price, const int budget);
+int how_many_games_can_be_bought(const int default_price_game, const int discount,
+                                 const int minimum_price_game, const int budget);
 
 int main()
 {
-    const int game_default_price = read_a_number();
-    const int discount = read_a_number();
-    const int game_minimum_price = read_a_number();
-    const int budget = read_a_number();
-
-    printf("%d\n", how_many_games_can_be_bought(game_default_price, discount, game_minimum_price, budget));
+    int default_price_game, discount, minimum_price_game, budget;
+    scanf("%d %d %d %d", &default_price_game, &discount, &minimum_price_game, &budget);
+    printf("%d\n", how_many_games_can_be_bought(default_price_game, discount, minimum_price_game, budget));
 
     return 0;
 }
 
-    int read_a_number()
-    {
-        int number;
-        scanf("%d", &number);
-        return number;
-    }
-
-    int how_many_games_can_be_bought(const int game_default_price, const int discount, const int game_minimum_price, const int budget)
+    int how_many_games_can_be_bought(const int default_price_game, const int discount,
+                                     const int minimum_price_game, const int budget)
     {
         int games_can_be_bought_quantity = 0;
 
-        for (int current_game_price = game_default_price, current_budget = budget - game_default_price; current_budget >= 0;) {
-            games_can_be_bought_quantity++;
-            current_game_price -= discount;
-            current_budget -= current_game_price >= game_minimum_price ? current_game_price : game_minimum_price;
+        for (int current_price_game = default_price_game, current_budget = budget - default_price_game; current_budget >= 0;) {
+            ++games_can_be_bought_quantity;
+            current_price_game -= discount;
+            current_budget -= current_price_game >= minimum_price_game ? current_price_game : minimum_price_game;
         }
 
         return games_can_be_bought_quantity;
