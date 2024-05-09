@@ -1,44 +1,39 @@
-// Source: https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
 package main
 
 import "fmt"
 
 func main() {
-    var nTestCases int = readANumber()
-    var output []int = solveTestCases(nTestCases)
-    for _, element := range output {
-        fmt.Println(element)
+    var n int
+    _, err := fmt.Scan(&n)
+    if err != nil {
+        return
+    }
+    output := make([]int, n)
+
+    for i := 0; i < n; i++ {
+        var amountOfMoney, chocolateBarCost, nWrappersToTurnInBar int
+        _, err := fmt.Scan(&amountOfMoney, &chocolateBarCost, &nWrappersToTurnInBar)
+        if err != nil {
+            return
+        }
+        output[i] = howManyChocolatesCanBeEaten(amountOfMoney, chocolateBarCost, nWrappersToTurnInBar)
+    }
+
+    for _, x := range output {
+        fmt.Println(x)
     }
 }
 
-    func readANumber() int {
-        var number int
-        fmt.Scan(&number)
-        return number
-    }
+    func howManyChocolatesCanBeEaten(amountOfMoney int, chocolateBarCost int, nWrappersToTurnInBar int) int {
+        eatenChocolates := amountOfMoney / chocolateBarCost
 
-    func solveTestCases(nTestCases int) []int {
-        var output []int = make([]int, nTestCases)
-
-        for i := 0; i < nTestCases; i++ {
-            var amountOfMoney int = readANumber()
-            var chocolateBarCost int = readANumber()
-            var nWrappersToTurnInBar int = readANumber()
-            output[i] = howManyChocolatesCanBeEaten(amountOfMoney, chocolateBarCost, nWrappersToTurnInBar)
+        for availableWrappers := eatenChocolates; availableWrappers >= nWrappersToTurnInBar; {
+            chocolatesForFree := availableWrappers / nWrappersToTurnInBar
+            availableWrappers = availableWrappers - (chocolatesForFree * nWrappersToTurnInBar) + chocolatesForFree
+            eatenChocolates += chocolatesForFree
         }
 
-        return output
+        return eatenChocolates
     }
-
-        func howManyChocolatesCanBeEaten(amountOfMoney int, chocolateBarCost int, nWrappersToTurnInBar int) int {
-            var eatenChocolates int = amountOfMoney / chocolateBarCost
-
-            for availableWrappers := eatenChocolates; availableWrappers >= nWrappersToTurnInBar; {
-                var chocolatesForFree int = availableWrappers / nWrappersToTurnInBar
-                availableWrappers = availableWrappers - (chocolatesForFree * nWrappersToTurnInBar) + chocolatesForFree
-                eatenChocolates += chocolatesForFree
-            }
-
-            return eatenChocolates
-        }
