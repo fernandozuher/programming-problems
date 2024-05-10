@@ -1,46 +1,37 @@
-// Source: https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
 package main
 
 import (
     "fmt"
-    "math"
+    "slices"
 )
 
 func main() {
-    var nWidthMeasurements, nTestCases int
-    fmt.Scan(&nWidthMeasurements, &nTestCases)
-    var widthMeasurements []int = readAnIntArray(nWidthMeasurements)
-
-    var maximumAffordableWidthsVehicles []int = findMaximumAffordableWidthsVehiclesWhileReadTestCases(nTestCases, widthMeasurements)
-    for _, element := range maximumAffordableWidthsVehicles {
-        fmt.Println(element)
+    var nWidthMeasurements, n int
+    fmt.Scan(&nWidthMeasurements, &n)
+    for _, x := range findMaximumAffordableWidthsVehiclesWhileReadTestCases(n, readIntArray(nWidthMeasurements)) {
+        fmt.Println(x)
     }
 }
 
-    func readAnIntArray(size int) []int {
-        array := make([]int, size)
-        for i, _ := range array {
-            fmt.Scan(&array[i])
-        }
-        return array
+func readIntArray(n int) []int {
+    array := make([]int, n)
+    for i := range array {
+        fmt.Scan(&array[i])
     }
+    return array
+}
 
-    func findMaximumAffordableWidthsVehiclesWhileReadTestCases(nTestCases int, widthMeasurements []int) []int {
-        maximumAffordableWidthsVehicles := make([]int, nTestCases)
-        const TEST_CASE_SIZE = 2
-
-        for i , _ := range maximumAffordableWidthsVehicles {
-            maximumAffordableWidthsVehicles[i] = maximumAffordableWidthVehicleInRange(widthMeasurements, readAnIntArray(TEST_CASE_SIZE))
-        }
-
-        return maximumAffordableWidthsVehicles
+func findMaximumAffordableWidthsVehiclesWhileReadTestCases(n int, widthMeasurements []int) []int {
+    maximumAffordableWidthsVehicles := make([]int, n)
+    const TestCaseSize = 2
+    for i := range maximumAffordableWidthsVehicles {
+        maximumAffordableWidthsVehicles[i] = maximumAffordableWidthVehicleInRange(widthMeasurements, readIntArray(TestCaseSize))
     }
+    return maximumAffordableWidthsVehicles
+}
 
-        func maximumAffordableWidthVehicleInRange(widthMeasurements []int, point []int) int {
-            var min int = math.MaxInt
-            for i := point[0]; i <= point[1]; i++ {
-                min = int(math.Min(float64(min), float64(widthMeasurements[i])))
-            }
-            return min
-        }
+func maximumAffordableWidthVehicleInRange(widthMeasurements []int, point []int) int {
+    return slices.Min(widthMeasurements[point[0] : point[1]+1])
+}
