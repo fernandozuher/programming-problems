@@ -1,4 +1,4 @@
-# Source: https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
 $max_integer = 2 << 32
 
