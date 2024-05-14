@@ -1,77 +1,41 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
+// From C# 8.0
 
-using System;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        List<int> inputLine = _readAnIntArray();
+        List<int> inputLine = ReadIntArray();
         int nCities = inputLine.First(), _ = inputLine.Last();
-
-        List<int> citiesWithSpaceStation = _readAnIntArray();
-        FlatlandSpaceStations obj = new FlatlandSpaceStations(nCities, citiesWithSpaceStation);
-        Console.WriteLine(obj.GetMaxDistanceFromSpaceStation());
+        List<int> citiesWithSpaceStation = ReadIntArray();
+        citiesWithSpaceStation.Sort();
+        WriteLine(FindMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
     }
 
-        private static List<int> _readAnIntArray()
+        static List<int> ReadIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
-        }
-}
-
-    public class FlatlandSpaceStations
-    {
-        int _nCities;
-        List<int> _citiesWithSpaceStation;
-        int _maxDistanceFromSpaceStation;
-
-        public FlatlandSpaceStations(int nCities, List<int> citiesWithSpaceStation)
-        {
-            _nCities = nCities;
-            _citiesWithSpaceStation = citiesWithSpaceStation;
-            _maxDistanceFromSpaceStation = 0;
-
-            _citiesWithSpaceStation.Sort();
-            _findMaxDistanceFromSpaceStation();
+            return ReadLine().Split().Select(int.Parse).ToList();
         }
 
-            private void _findMaxDistanceFromSpaceStation()
+        static int FindMaxDistanceFromSpaceStation(int nCities, List<int> citiesWithSpaceStation)
+        {
+            int maxDistanceFromSpaceStation, previousCity;
+            maxDistanceFromSpaceStation = previousCity = citiesWithSpaceStation.First();
+            foreach (int cityWithSpaceStation in citiesWithSpaceStation.Skip(1))
             {
-                const int firstCity = 0;
-                _maxDistanceFromSpaceStation = _citiesWithSpaceStation.First() - firstCity;
-
-                for (int i = 1, previousCity = _citiesWithSpaceStation.First(); i < _citiesWithSpaceStation.Count; i++)
-                {
-                    int distance = _calculateDistanceBetweenCities(_citiesWithSpaceStation[i], previousCity);
-                    _maxDistanceFromSpaceStation = Math.Max(_maxDistanceFromSpaceStation, distance);
-                    previousCity = _citiesWithSpaceStation[i];
-                }
-
-                if (!_hasLastCitySpaceStation())
-                {
-                    int distance = _calculateDistanceOfLastCity();
-                    _maxDistanceFromSpaceStation = Math.Max(_maxDistanceFromSpaceStation, distance);
-                }
+                int distanceBetweenCities = (cityWithSpaceStation - previousCity) / 2;
+                maxDistanceFromSpaceStation = Math.Max(maxDistanceFromSpaceStation, distanceBetweenCities);
+                previousCity = cityWithSpaceStation;
             }
 
-                private int _calculateDistanceBetweenCities(int cityWithSpaceStation, int previousCity)
-                {
-                    return (cityWithSpaceStation - previousCity) / 2;
-                }
+            if ((nCities - 1 == citiesWithSpaceStation.Last()) is var hasLastCitySpaceStation && !hasLastCitySpaceStation)
+            {
+                int distanceOfLastCity = nCities - 1 - citiesWithSpaceStation.Last();
+                maxDistanceFromSpaceStation = Math.Max(maxDistanceFromSpaceStation, distanceOfLastCity);
+            }
 
-                private bool _hasLastCitySpaceStation()
-                {
-                    return _nCities-1 == _citiesWithSpaceStation.Last();
-                }
-
-                private int _calculateDistanceOfLastCity()
-                {
-                    return _nCities-1 - _citiesWithSpaceStation.Last();
-                }
-
-        public int GetMaxDistanceFromSpaceStation()
-        {
-            return _maxDistanceFromSpaceStation;
+            return maxDistanceFromSpaceStation;
         }
-    }
+}

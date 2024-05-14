@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
+// Baseline 2022
 
 'use strict';
 
@@ -6,78 +7,50 @@ process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
 let inputString = '';
+let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
+process.stdin.on('data', function (inputStdin) {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
+process.stdin.on('end', function () {
+    inputLines = inputString.split('\n');
+    inputString = '';
     main();
 });
 
 function readLine() {
-    return inputString[currentLine++];
+    return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const [N_CITIES, _] = readAnIntArray()
-    const CITIES_WITH_SPACE_STATION = readAnIntArray();
-    const OBJ = new FlatlandSpaceStations(N_CITIES, CITIES_WITH_SPACE_STATION);
-    console.log(OBJ.getMaxDistanceFromSpaceStation());
+    const [nCities, _] = readIntArray();
+    let citiesWithSpaceStation = readIntArray().sort((a, b) => a - b);
+    console.log(findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
 }
 
-    function readAnIntArray() {
-        return readLine().split(" ").map(Number);
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
     }
 
-    class FlatlandSpaceStations {
-        #nCities;
-        #citiesWithSpaceStation;
-        #maxDistanceFromSpaceStation;
+    function findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation) {
+        let maxDistanceFromSpaceStation, previousCity;
+        maxDistanceFromSpaceStation = previousCity = citiesWithSpaceStation[0];
 
-        constructor(nCities, citiesWithSpaceStation) {
-            this.#nCities = nCities;
-            this.#citiesWithSpaceStation = citiesWithSpaceStation;
-            this.#maxDistanceFromSpaceStation = 0;
+        citiesWithSpaceStation.slice(1).forEach(cityWithSpaceStation => {
+            let distanceBetweenCities = Math.trunc((cityWithSpaceStation - previousCity) / 2);
+            maxDistanceFromSpaceStation = Math.max(maxDistanceFromSpaceStation, distanceBetweenCities);
+            previousCity = cityWithSpaceStation;
+        });
 
-            this.#citiesWithSpaceStation.sort((a, b) => a - b);
-            this.#findMaxDistanceFromSpaceStation();
+        let hasLastCitySpaceStation = nCities - 1 === citiesWithSpaceStation.findLast();
+        if (!hasLastCitySpaceStation) {
+            let distanceOfLastCity = nCities - 1 - citiesWithSpaceStation.findLast();
+            maxDistanceFromSpaceStation = Math.max(maxDistanceFromSpaceStation, distanceOfLastCity);
         }
 
-            #findMaxDistanceFromSpaceStation() {
-                const FIRST_CITY = 0;
-                this.#maxDistanceFromSpaceStation = this.#citiesWithSpaceStation[0] - FIRST_CITY;
-                const SIZE = this.#citiesWithSpaceStation.length;
-
-                for (let i = 1, previousCity = this.#citiesWithSpaceStation[0]; i < SIZE; i++) {
-                    const DISTANCE = this.#calculateDistanceBetweenCities(this.#citiesWithSpaceStation[i], previousCity);
-                    this.#maxDistanceFromSpaceStation = Math.max(this.#maxDistanceFromSpaceStation, DISTANCE);
-                    previousCity = this.#citiesWithSpaceStation[i];
-                }
-
-                if (!this.#hasLastCitySpaceStation()) {
-                    const DISTANCE = this.#calculateDistanceOfLastCity();
-                    this.#maxDistanceFromSpaceStation = Math.max(this.#maxDistanceFromSpaceStation, DISTANCE);
-                }
-            }
-
-                #calculateDistanceBetweenCities(cityWithSpaceStation, previousCity) {
-                    return Math.trunc((cityWithSpaceStation - previousCity) / 2);
-                }
-
-                #hasLastCitySpaceStation() {
-                    return this.#nCities-1 == this.#citiesWithSpaceStation[this.#citiesWithSpaceStation.length - 1]
-                }
-
-                #calculateDistanceOfLastCity() {
-                    return this.#nCities-1 - this.#citiesWithSpaceStation[this.#citiesWithSpaceStation.length - 1]
-                }
-
-
-        getMaxDistanceFromSpaceStation() {
-            return this.#maxDistanceFromSpaceStation;
-        }
+        return maxDistanceFromSpaceStation;
     }

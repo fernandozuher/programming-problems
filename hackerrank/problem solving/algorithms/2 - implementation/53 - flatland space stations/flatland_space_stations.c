@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
-// C23 version
+// From C23
 
 #include <stdio.h>
 #include <stdlib.h>
