@@ -1,7 +1,8 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
-// From C23
 
-#include <stdio.h>
+#include <iostream>
+
+using namespace std;
 
 int find_min_loaves_to_satisfy_rules(int n);
     bool is_odd(int n);
@@ -9,20 +10,22 @@ int find_min_loaves_to_satisfy_rules(int n);
 int main()
 {
     int n;
-    scanf("%d", &n);
-    int min_loaves = find_min_loaves_to_satisfy_rules(n);
-    min_loaves == -1 ? puts("NO") : printf("%d", min_loaves);
+    cin >> n;
+    if (int min_loaves {find_min_loaves_to_satisfy_rules(n)}; min_loaves == -1)
+        cout << "NO";
+    else
+        cout << min_loaves;
 
     return 0;
 }
 
     int find_min_loaves_to_satisfy_rules(int n)
     {
-        int min_loaves_to_satisfy_rules = 0;
+        int min_loaves_to_satisfy_rules{};
         int current;
-        scanf("%d", &current);
+        cin >> current;
 
-        for (int next; --n && scanf("%d", &next);)
+        for (int next; --n && cin >> next;)
             if (is_odd(current)) {
                 current = next + 1;
                 min_loaves_to_satisfy_rules += 2;
