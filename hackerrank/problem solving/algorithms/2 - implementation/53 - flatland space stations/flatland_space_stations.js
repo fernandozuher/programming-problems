@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
-// Baseline 2022
+// From ES2022
 
 'use strict';
 
@@ -46,9 +46,9 @@ function main() {
             previousCity = cityWithSpaceStation;
         });
 
-        let hasLastCitySpaceStation = nCities - 1 === citiesWithSpaceStation.findLast();
+        let hasLastCitySpaceStation = nCities - 1 === citiesWithSpaceStation.at(-1);
         if (!hasLastCitySpaceStation) {
-            let distanceOfLastCity = nCities - 1 - citiesWithSpaceStation.findLast();
+            let distanceOfLastCity = nCities - 1 - citiesWithSpaceStation.at(-1);
             maxDistanceFromSpaceStation = Math.max(maxDistanceFromSpaceStation, distanceOfLastCity);
         }
 
