@@ -19,17 +19,18 @@ int main()
     int find_min_loaves_to_satisfy_rules(int n)
     {
         int min_loaves_to_satisfy_rules = 0;
-        int current;
-        scanf("%d", &current);
+        int loaves;
+        scanf("%d", &loaves);
 
-        for (int next; --n && scanf("%d", &next);)
-            if (is_odd(current)) {
-                current = next + 1;
+        while (--n)
+            if (is_odd(loaves)) {
+                scanf("%d", &loaves);
+                ++loaves;
                 min_loaves_to_satisfy_rules += 2;
             } else
-                current = next;
+                scanf("%d", &loaves);
 
-        return is_odd(current) ? -1 : min_loaves_to_satisfy_rules;
+        return is_odd(loaves) ? -1 : min_loaves_to_satisfy_rules;
     }
 
         bool is_odd(const int n)

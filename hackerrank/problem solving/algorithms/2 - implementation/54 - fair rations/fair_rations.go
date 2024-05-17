@@ -1,41 +1,42 @@
-// Source: https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
+// From Go 1.22
 
 package main
 
-import (
-    "fmt"
-    "strconv"
-)
+import "fmt"
 
 func main() {
-    var nSubjects int
-    fmt.Scan(&nSubjects)
-    var nLoavesOfEachPerson []int = readAnIntArray(nSubjects)
-    fmt.Println(findMinLoavesToSatisfyRules(nLoavesOfEachPerson))
+    var n int
+    fmt.Scan(&n)
+    if minLoaves := findMinLoavesToSatisfyRules(n); minLoaves == -1 {
+        fmt.Println("NO")
+    } else {
+        fmt.Println(minLoaves)
+    }
 }
 
-    func readAnIntArray(size int) []int {
-        var array []int = make([]int, size)
-        for i := 0; i < size; i++ {
-            fmt.Scan(&array[i])
+func findMinLoavesToSatisfyRules(n int) int {
+    minLoavesToSatisfyRules := 0
+    var loaves int
+    fmt.Scan(&loaves)
+
+    for range n - 1 {
+        if isOdd(loaves) {
+            fmt.Scan(&loaves)
+            loaves++
+            minLoavesToSatisfyRules += 2
+        } else {
+            fmt.Scan(&loaves)
         }
-        return array
     }
 
-    func findMinLoavesToSatisfyRules(nLoavesOfEachPerson []int) string {
-        var minLoavesToSatisfyRules int = 0
-        var size int = len(nLoavesOfEachPerson)
-
-        for i, newSize := 0, size-1; i < newSize; i++ {
-            if nLoavesOfEachPerson[i] % 2 == 1 {
-                nLoavesOfEachPerson[i]++
-                nLoavesOfEachPerson[i+1]++
-                minLoavesToSatisfyRules += 2
-            }
-        }
-
-        if nLoavesOfEachPerson[size-1] % 2 == 1 {
-            return "NO"
-        }
-        return strconv.Itoa(minLoavesToSatisfyRules)
+    if isOdd(loaves) {
+        return -1
+    } else {
+        return minLoavesToSatisfyRules
     }
+}
+
+func isOdd(n int) bool {
+    return n&1 == 1
+}

@@ -22,17 +22,18 @@ int main()
     int find_min_loaves_to_satisfy_rules(int n)
     {
         int min_loaves_to_satisfy_rules{};
-        int current;
-        cin >> current;
+        int loaves;
+        cin >> loaves;
 
-        for (int next; --n && cin >> next;)
-            if (is_odd(current)) {
-                current = next + 1;
+        while (--n)
+            if (is_odd(loaves)) {
+                cin >> loaves;
+                ++loaves;
                 min_loaves_to_satisfy_rules += 2;
             } else
-                current = next;
+                cin >> loaves;
 
-        return is_odd(current) ? -1 : min_loaves_to_satisfy_rules;
+        return is_odd(loaves) ? -1 : min_loaves_to_satisfy_rules;
     }
 
         bool is_odd(const int n)

@@ -1,47 +1,35 @@
-// Source: https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
-#[macro_use]
-extern crate text_io;
-
-use std::io::{stdin, BufRead};
+use num::Integer;
+use text_io::read;
 
 fn main() {
-    let _n_subjects: i32 = read!();
-    let mut n_loaves_of_each_person: Vec<i32> = read_an_int_array();
-    println!(
-        "{}",
-        find_min_loaves_to_satisfy_rules(&mut n_loaves_of_each_person)
-    );
+    let n: i32 = read!();
+    let min_loaves = find_min_loaves_to_satisfy_rules(n);
+    if min_loaves != -1 {
+        println!("{}", min_loaves);
+    } else {
+        println!("NO");
+    }
 }
 
-fn read_an_int_array() -> Vec<i32> {
-    let array: Vec<i32> = stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
-
-    return array;
-}
-
-fn find_min_loaves_to_satisfy_rules(n_loaves_of_each_person: &mut Vec<i32>) -> String {
+fn find_min_loaves_to_satisfy_rules(n: i32) -> i32 {
     let mut min_loaves_to_satisfy_rules: i32 = 0;
+    let mut loaves: i32 = read!();
 
-    for i in 0..(n_loaves_of_each_person.len() - 1) {
-        if *n_loaves_of_each_person.get(i).unwrap() % 2 == 1 {
-            n_loaves_of_each_person[i] += 1;
-            n_loaves_of_each_person[i + 1] += 1;
+    for _i in 1..n {
+        if loaves.is_odd() {
+            loaves = read!();
+            loaves += 1;
             min_loaves_to_satisfy_rules += 2;
+        } else {
+            loaves = read!();
         }
     }
 
-    if *n_loaves_of_each_person.last().unwrap() % 2 == 1 {
-        return "NO".to_string();
-    }
-    return min_loaves_to_satisfy_rules.to_string();
+    return if loaves.is_odd() {
+        -1
+    } else {
+        min_loaves_to_satisfy_rules
+    };
 }
