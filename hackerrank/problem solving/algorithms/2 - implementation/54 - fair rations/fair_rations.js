@@ -1,5 +1,4 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
-// From ES2022
 
 'use strict';
 
@@ -35,15 +34,18 @@ function main() {
 
     function findMinLoavesToSatisfyRules(nLoavesOfEachPerson) {
         let minLoavesToSatisfyRules = 0;
+        let loaves = nLoavesOfEachPerson[0];
 
-        for (let i = 0, n = nLoavesOfEachPerson.length - 1; i < n; ++i) {
-            if (isOdd(nLoavesOfEachPerson[i])) {
-                ++nLoavesOfEachPerson[i + 1];
+        for (let x of nLoavesOfEachPerson.slice(1)) {
+            if (isOdd(loaves)) {
+                loaves = x + 1;
                 minLoavesToSatisfyRules += 2;
             }
+            else
+                loaves = x;
         }
 
-        return isOdd(nLoavesOfEachPerson.at(-1)) ? -1 : minLoavesToSatisfyRules;
+        return isOdd(loaves) ? -1 : minLoavesToSatisfyRules;
     }
 
         function isOdd(n) {

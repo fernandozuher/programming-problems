@@ -12,12 +12,16 @@ def main():
 
 def find_min_loaves_to_satisfy_rules(n_loaves_of_each_person):
     min_loaves_to_satisfy_rules = 0
-    for i in range(len(n_loaves_of_each_person) - 1):
-        if is_odd(n_loaves_of_each_person[i]):
-            n_loaves_of_each_person[i + 1] += 1
-            min_loaves_to_satisfy_rules += 2
+    loaves = n_loaves_of_each_person[0]
 
-    return -1 if is_odd(n_loaves_of_each_person[-1]) else min_loaves_to_satisfy_rules
+    for x in n_loaves_of_each_person[1:]:
+        if is_odd(loaves):
+            loaves = x + 1
+            min_loaves_to_satisfy_rules += 2
+        else:
+            loaves = x
+
+    return -1 if is_odd(loaves) else min_loaves_to_satisfy_rules
 
 
 def is_odd(n):

@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
+// From C# 8.0
 
 using static System.Console;
 using System.Linq;
@@ -18,15 +19,20 @@ class Solution
         static int FindMinLoavesToSatisfyRules(List<int> nLoavesOfEachPerson)
         {
             int minLoavesToSatisfyRules = 0;
+            int loaves = nLoavesOfEachPerson.First();
 
-            foreach (int i in Enumerable.Range(0, nLoavesOfEachPerson.Count - 1))
-                if (IsOdd(nLoavesOfEachPerson[i]))
+            foreach (int x in nLoavesOfEachPerson.Skip(1))
+            {
+                if (IsOdd(loaves))
                 {
-                    ++nLoavesOfEachPerson[i + 1];
+                    loaves = x + 1;
                     minLoavesToSatisfyRules += 2;
                 }
+                else
+                    loaves = x;
+            }
 
-            return IsOdd(nLoavesOfEachPerson.Last()) ? -1 : minLoavesToSatisfyRules;
+            return IsOdd(loaves) ? -1 : minLoavesToSatisfyRules;
         }
 
             static bool IsOdd(int n)
