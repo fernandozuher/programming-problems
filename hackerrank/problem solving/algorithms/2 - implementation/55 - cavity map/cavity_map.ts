@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/cavity-map/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cavity-map/problem?isFullScreen=true
 
 'use strict';
 
@@ -16,7 +16,6 @@ process.stdin.on('data', function(inputStdin: string): void {
 process.stdin.on('end', function(): void {
     inputLines = inputString.split('\n');
     inputString = '';
-
     main();
 });
 
@@ -24,23 +23,24 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
 
 function main() {
-    const N_ROWS_COLUMNS: number = +readLine();
-    const MATRIX: Array<Array<string>> = Array(N_ROWS_COLUMNS).fill('0').map(_ => readLine().split(''));
-    changeMatrixToCavityMap(MATRIX);
-    MATRIX.forEach(element => console.log(element.join('')));
+    let nRowsColumns: number = +readLine();
+    let matrix: string[][] = Array(nRowsColumns).fill('0').map(_ => readLine().split(''));
+    changeMatrixToCavityMap(matrix);
+    matrix.forEach(x => console.log(x.join('')));
 }
 
-    function changeMatrixToCavityMap(matrix: Array<Array<string>>) {
-        const CAVITY: string = 'X';
-        for (let i = 1, newSize = matrix.length - 1; i < newSize; i++)
-            for (let j = 1; j < newSize; j++)
+    function changeMatrixToCavityMap(matrix: string[][]) {
+        const CAVITY = 'X';
+        for (let i = 1, newSize = matrix.length - 1; i < newSize; ++i)
+            for (let j = 1; j < newSize; ++j)
                 if (isCellCavity(matrix, i, j))
                     matrix[i][j] = CAVITY;
     }
 
-        function isCellCavity(matrix: Array<Array<string>>, i: number, j: number): boolean {
+        function isCellCavity(matrix: string[][], i: number, j: number): boolean {
             return matrix[i - 1][j] < matrix[i][j]
                 && matrix[i][j - 1] < matrix[i][j]
                 && matrix[i + 1][j] < matrix[i][j]
