@@ -12,14 +12,14 @@ end
     range = 1...(matrix.size - 1)
     range.each { |i|
       range.each { |j|
-        if is_cell_cavity?(matrix, i, j)
+        if is_cell_cavity(matrix, i, j)
           matrix[i][j] = cavity
         end
       }
     }
   end
 
-    def is_cell_cavity?(matrix, i, j)
+    def is_cell_cavity(matrix, i, j)
       matrix[i - 1][j] < matrix[i][j] \
         && matrix[i][j - 1] < matrix[i][j] \
         && matrix[i + 1][j] < matrix[i][j] \
