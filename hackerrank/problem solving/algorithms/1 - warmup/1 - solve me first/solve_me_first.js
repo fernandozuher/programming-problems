@@ -23,6 +23,8 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let num1 = +readLine();
     let num2 = +readLine();

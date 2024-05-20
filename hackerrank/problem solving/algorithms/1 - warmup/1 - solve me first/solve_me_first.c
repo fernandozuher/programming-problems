@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-int solve_me_first(const int a, const int b);
+int solve_me_first(int a, int b);
 
 int main()
 {

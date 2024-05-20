@@ -1,17 +1,17 @@
 // https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
 class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int num1 = int.Parse(Console.ReadLine());
-        int num2 = int.Parse(Console.ReadLine());
-        Console.WriteLine(_solveMeFirst(num1, num2));
+        int num1 = int.Parse(ReadLine());
+        int num2 = int.Parse(ReadLine());
+        WriteLine(SolveMeFirst(num1, num2));
     }
 
-        private static int _solveMeFirst(int a, int b)
+        static int SolveMeFirst(int a, int b)
         {
             return a + b;
         }

@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class SolveMeFirst {
+public class Solution {
     public static void main(String[] args) {
         var scan = new Scanner(System.in);
         int num1 = scan.nextInt();
@@ -10,7 +10,7 @@ public class SolveMeFirst {
         System.out.println(solveMeFirst(num1, num2));
     }
 
-        private static int solveMeFirst(final int a, final int b) {
+        public static int solveMeFirst(final int a, final int b) {
             return a + b;
         }
 }
