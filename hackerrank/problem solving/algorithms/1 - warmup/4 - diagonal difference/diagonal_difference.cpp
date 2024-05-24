@@ -1,19 +1,22 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+// From C++23
 
+#include <algorithm>
 #include <iostream>
+#include <iterator>
+#include <ranges>
 #include <vector>
 
 using namespace std;
 
-vector<vector<int>> read_matrix(const int n);
+vector<vector<int>> read_matrix(int n);
 int diagonal_difference(const vector<vector<int>>& matrix);
 
 int main()
 {
     int n;
     cin >> n;
-
-    vector<vector<int>> matrix {read_matrix(n)};
+    auto matrix {read_matrix(n)};
     cout << diagonal_difference(matrix);
 
     return 0;
@@ -22,22 +25,18 @@ int main()
     vector<vector<int>> read_matrix(const int n)
     {
         vector<vector<int>> matrix(n);
-        for (int i {}; i < n; ++i)
-            for (int j {}; j < n; ++j) {
-                int element;
-                cin >> element;
-                matrix.at(i).push_back(element);
-            }
+        for (auto& row : matrix)
+            copy_n(istream_iterator<int>(cin), n, back_inserter(row));
         return matrix;
     }
 
     int diagonal_difference(const vector<vector<int>>& matrix)
     {
-        int primary_diagonal {}, secondary_diagonal {};
+        int primary_diagonal{}, secondary_diagonal{};
 
-        for (int i {}, j = matrix.size() - 1, n = matrix.size(); i < n; ++i, --j) {
-            primary_diagonal += matrix.at(j).at(j);
-            secondary_diagonal += matrix.at(j).at(i);
+        for (int n = matrix.size() - 1; const auto& [i, row] : matrix | views::enumerate) {
+            primary_diagonal += row.at(i);
+            secondary_diagonal += row.at(n--);
         }
 
         return abs(primary_diagonal - secondary_diagonal);

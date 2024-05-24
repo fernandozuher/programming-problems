@@ -1,36 +1,38 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
+// C++23
 
 #include <algorithm>
 #include <iostream>
-#include <numeric>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(const int n);
-void mini_max_sum(const vector<int>& array);
+vector<long> read_int_array(int n);
+tuple<long, long> min_max_sum(const vector<long>& array);
 
 int main()
 {
-    const int n = 5;
-    vector<int> array {read_int_array(n)};
-    ranges::sort(array);
-    mini_max_sum(array);
+    constexpr int n{5};
+    vector array {read_int_array(n)};
+    const auto [min, max] {min_max_sum(array)};
+    cout << min << ' ' << max;
 
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
+    vector<long> read_int_array(const int n)
     {
-        vector<int> array(n);
-        ranges::generate(array, [] {int x; cin >> x; return x;});
+        vector<long> array(n);
+        copy_n(istream_iterator<long>(cin), n, array.begin());
         return array;
     }
 
-    void mini_max_sum(const vector<int>& array)
+    tuple<long, long> min_max_sum(const vector<long>& array)
     {
-        long total_sum {accumulate(array.begin(), array.end(), 0l)};
-        long min_sum {total_sum - array.back()};
-        long max_sum {total_sum - array.front()};
-        cout << min_sum << ' ' << max_sum;
+        long sum {*ranges::fold_left_first(array, plus())};
+        const auto [min, max] {ranges::minmax_element(array)};
+        long min_sum {sum - *max};
+        long max_sum {sum - *min};
+        return {min_sum, max_sum};
     }

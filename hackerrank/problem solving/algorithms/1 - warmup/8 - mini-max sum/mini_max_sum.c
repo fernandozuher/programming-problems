@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int* read_int_array(const int n);
-int compare (const void *a, const void *b);
+int compare(const void *a, const void *b);
 void mini_max_sum(int *array, const int n);
 
 int main()
@@ -24,7 +24,7 @@ int main()
         return array;
     }
 
-    int compare (const void *a, const void *b)
+    int compare(const void *a, const void *b)
     {
         return (*(int*) a - *(int*) b);
     }

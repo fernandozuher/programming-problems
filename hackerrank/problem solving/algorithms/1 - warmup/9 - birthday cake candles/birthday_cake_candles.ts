@@ -29,12 +29,12 @@ function main() {
     console.log(birthdayCakeCandles(array));
 }
 
-function readIntArray(): number[] {
-    return readLine().split(' ').map(Number);
-}
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
+    }
 
-function birthdayCakeCandles(candles: number[]): number {
-    let maxElement: number = Math.max(...candles);
-    let count: number = candles.filter(number => number === maxElement).length;
-    return count;
-}
+    function birthdayCakeCandles(candles: number[]): number {
+        let maxElement: number = Math.max(...candles);
+        let count: number = candles.filter(number => number === maxElement).length;
+        return count;
+    }

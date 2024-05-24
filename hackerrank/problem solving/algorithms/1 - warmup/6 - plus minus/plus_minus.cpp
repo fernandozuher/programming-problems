@@ -1,51 +1,37 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-#include <algorithm>
 #include <iomanip>
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(const int n);
-void plus_minus(const vector<int>& array);
+tuple<double, double, double> plus_minus(const int n);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<int> array {read_int_array(n)};
-    plus_minus(array);
-
+    const auto [positive_proportion, negative_proportion, zero_proportion]{plus_minus(n)};
+    cout << setprecision(6) << fixed << positive_proportion << '\n' << negative_proportion << '\n' << zero_proportion;
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
+    tuple<double, double, double> plus_minus(const int n)
     {
-        vector<int> array(n);
-        ranges::generate(array, [] {int n; cin >> n; return n;});
-        return array;
-    }
+        int positive{}, negative{}, zero{};
 
-    void plus_minus(const vector<int>& array)
-    {
-        int positive_quantity {}, negative_quantity {}, zero_quantity {};
-
-        for (const auto& number : array)
-            if (number > 0)
-                ++positive_quantity;
-            else if (number < 0)
-                ++negative_quantity;
+        for (int i{}, x; i < n && cin >> x; ++i)
+            if (x > 0)
+                ++positive;
+            else if (x < 0)
+                ++negative;
             else
-                ++zero_quantity;
+                ++zero;
 
-        int n = array.size();
-        double positive_values_proportion {(double) positive_quantity / n};
-        double negative_values_proportion {(double) negative_quantity / n};
-        double zero_values_proportion {(double) zero_quantity / n};
+        double cast_n = n;
+        double positive_proportion {positive / cast_n};
+        double negative_proportion {negative / cast_n};
+        double zero_proportion {zero / cast_n};
 
-        cout << setprecision(6) << fixed
-             << positive_values_proportion << '\n'
-             << negative_values_proportion << '\n'
-             << zero_values_proportion;
+        return {positive_proportion, negative_proportion, zero_proportion};
     }
