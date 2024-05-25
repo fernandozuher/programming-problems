@@ -1,48 +1,48 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
+// From C23
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int* read_int_array(const int n);
-void plus_minus(int *array, const int n);
+float *plus_minus(int n);
+    float *wrap_result(const float *array, int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int *array = read_int_array(n);
-    plus_minus(array, n);
+    float *result = plus_minus(n);
+    printf("%.6f\n%.6f\n%.6f", result[0], result[1], result[2]);
+    free(result);
 
     return 0;
 }
 
-    int* read_int_array(const int n)
+    float *plus_minus(const int n)
     {
-        int *array = (int*) calloc(n, sizeof(int));
-        for (int i = 0; i < n; scanf("%d", &array[i++]));
-        return array;
-    }
+        int positive = 0, negative = 0, zero = 0;
 
-    void plus_minus(int *array, const int n)
-    {
-        int positive_quantity = 0;
-        int negative_quantity = 0;
-        int zero_quantity = 0;
-
-        for (int i = 0; i < n; ++i)
-            if (array[i] > 0)
-                ++positive_quantity;
-            else if (array[i] < 0)
-                ++negative_quantity;
+        for (int i = 0, x; i < n && scanf("%d", &x); ++i)
+            if (x > 0)
+                ++positive;
+            else if (x < 0)
+                ++negative;
             else
-                ++zero_quantity;
+                ++zero;
 
-        float positive_values_proportion = (float) positive_quantity / n;
-        float negative_values_proportion = (float) negative_quantity / n;
-        float zero_values_proportion = (float) zero_quantity / n;
+        float positive_proportion = (float) positive / n;
+        float negative_proportion = (float) negative / n;
+        float zero_proportion = (float) zero / n;
 
-        printf("%.6f\n%.6f\n%.6f",
-               positive_values_proportion,
-               negative_values_proportion,
-               zero_values_proportion);
+        constexpr int n_result = 3;
+        float temp_result[] = {positive_proportion, negative_proportion, zero_proportion};
+        return wrap_result(temp_result, n_result);
     }
+
+        float *wrap_result(const float *const array, const int n)
+        {
+            auto result = (float*) malloc(n * sizeof(float));
+            memcpy(result, array, n * sizeof(float));
+            return result;
+        }

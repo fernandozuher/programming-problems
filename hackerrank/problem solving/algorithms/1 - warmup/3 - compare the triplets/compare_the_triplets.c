@@ -1,60 +1,53 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
+// From C23
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int* read_int_array(const int size);
-int* compare_triplets(const int const *array1, const int const *array2, int size);
-    int* prepare_output(const int player1, const int player2);
-int* free_array(int *array);
+int *read_int_array(int n);
+int *compare_triplets(int array1[], int array2[], int n);
+    int *prepare_output(int player1, int player2);
 
 int main()
 {
-    const int size = 3;
-    int *array1 = read_int_array(size);
-    int *array2 = read_int_array(size);
+    constexpr int n = 3;
+    int *array1 = read_int_array(n);
+    int *array2 = read_int_array(n);
 
-    int *result = compare_triplets(array1, array2, size);
-    array1 = free_array(array1);
-    array2 = free_array(array2);
-
-    printf("%d %d\n", result[0], result[1]);
-    result = free_array(result);
+    int *result = compare_triplets(array1, array2, n);
+    printf("%d %d", result[0], result[1]);
+    free(array1);
+    free(array2);
+    free(result);
 
     return 0;
 }
 
-    int* read_int_array(const int size)
+    int *read_int_array(const int n)
     {
-        int *array = (int*) calloc(size, sizeof(int));
-        for (int i = 0; i < size; scanf("%d", &array[i++]));
+        auto array = (int*) malloc(sizeof(int));
+        for (int i = 0; i < n && scanf("%d", &array[i]); ++i);
         return array;
     }
 
-    int* compare_triplets(const int const *array1, const int const *array2, int size)
+    int *compare_triplets(int array1[], int array2[], int n)
     {
         int player1 = 0, player2 = 0;
 
-        while (size--)
-            if (array1[size] > array2[size])
-                player1++;
-            else if (array1[size] < array2[size])
-                player2++;
+        while (n--)
+            if (array1[n] > array2[n])
+                ++player1;
+            else if (array2[n] > array1[n])
+                ++player2;
 
         return prepare_output(player1, player2);
     }
 
-        int* prepare_output(const int player1, const int player2)
+        int *prepare_output(const int player1, const int player2)
         {
-            const int size_result = 2;
-            int *result = (int*) calloc(size_result, sizeof(int));
+            constexpr int n = 2;
+            auto result = (int*) malloc(n * sizeof(int));
             result[0] = player1;
             result[1] = player2;
             return result;
         }
-
-    int* free_array(int *array)
-    {
-        free(array);
-        return NULL;
-    }

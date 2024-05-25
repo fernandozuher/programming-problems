@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void staircase(const int n);
+void staircase(int n);
 
 int main()
 {
@@ -19,6 +19,6 @@ int main()
                 printf(" ");
             for (int k = 0; k < i; ++k)
                 printf("#");
-            printf("\n");
+            puts("");
         }
     }
