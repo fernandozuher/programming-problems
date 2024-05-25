@@ -17,7 +17,7 @@ int main()
     constexpr int n{3};
     vector array1 {read_int_array(n)};
     vector array2 {read_int_array(n)};
-    const auto [alice_score, bob_score] {compare_triplets(array1, array2)};
+    auto [alice_score, bob_score] {compare_triplets(array1, array2)};
     cout << alice_score << ' ' << bob_score;
 
     return 0;

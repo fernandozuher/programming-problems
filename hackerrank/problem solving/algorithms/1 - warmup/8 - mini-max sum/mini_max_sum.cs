@@ -15,9 +15,9 @@ public class Solution
 
         private static void _miniMaxSum(List<int> array)
         {
-            long totalSum = array.Aggregate(0L, (sum, num) => sum + num);
-            long minSum = totalSum - array.Last();
-            long maxSum = totalSum - array.First();
+            long sum = array.Aggregate(0L, (sum, num) => sum + num);
+            long minSum = sum - array.Last();
+            long maxSum = sum - array.First();
             Console.WriteLine("{0} {1}", minSum, maxSum);
         }
 }

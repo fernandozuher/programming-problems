@@ -30,22 +30,22 @@ function main() {
 }
 
     function plusMinus(array) {
-        let [positiveQuantity, negativeQuantity, zeroQuantity] = [0, 0, 0];
+        let [positive, negative, zero] = [0, 0, 0];
 
         for (let number of array)
             if (number > 0)
-                ++positiveQuantity;
+                ++positive;
             else if (number < 0)
-                ++negativeQuantity;
+                ++negative;
             else
-                ++zeroQuantity;
+                ++zero;
 
         let n = array.length;
-        let positiveValuesProportion = positiveQuantity / n;
-        let negativeValuesProportion = negativeQuantity / n;
-        let zeroValuesProportion = zeroQuantity / n;
+        let positiveProportion = positive / n;
+        let negativeProportion = negative / n;
+        let zeroProportion = zero / n;
         
-        console.log(positiveValuesProportion.toFixed(6));
-        console.log(negativeValuesProportion.toFixed(6));
-        console.log(zeroValuesProportion.toFixed(6));
+        console.log(positiveProportion.toFixed(6));
+        console.log(negativeProportion.toFixed(6));
+        console.log(zeroProportion.toFixed(6));
     }

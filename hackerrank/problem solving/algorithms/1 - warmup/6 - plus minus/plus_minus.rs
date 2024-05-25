@@ -23,26 +23,26 @@ fn read_int_array() -> Vec<i32> {
 }
 
 fn plus_minus(array: &Vec<i32>) {
-    let mut positive_quantity: i32 = 0;
-    let mut negative_quantity: i32 = 0;
-    let mut zero_quantity: i32 = 0;
+    let mut positive: i32 = 0;
+    let mut negative: i32 = 0;
+    let mut zero: i32 = 0;
 
     for number in array {
         if number > &0 {
-            positive_quantity += 1;
+            positive += 1;
         } else if number < &0 {
-            negative_quantity += 1;
+            negative += 1;
         } else {
-            zero_quantity += 1;
+            zero += 1;
         }
     }
 
     let n = array.len() as f32;
-    let positive_values_proportion = (positive_quantity as f32) / n;
-    let negative_values_proportion = (negative_quantity as f32) / n;
-    let zero_values_proportion = (zero_quantity as f32) / n;
+    let positive_proportion = (positive as f32) / n;
+    let negative_proportion = (negative as f32) / n;
+    let zero_proportion = (zero as f32) / n;
 
-    println!("{:.6}", positive_values_proportion);
-    println!("{:.6}", negative_values_proportion);
-    println!("{:.6}", zero_values_proportion);
+    println!("{:.6}", positive_proportion);
+    println!("{:.6}", negative_proportion);
+    println!("{:.6}", zero_proportion);
 }

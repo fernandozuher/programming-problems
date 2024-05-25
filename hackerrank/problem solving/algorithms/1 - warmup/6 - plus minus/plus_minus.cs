@@ -20,25 +20,25 @@ public class Solution
 
     private static void _plusMinus(List<int> array)
     {
-        int positiveQuantity = 0;
-        int negativeQuantity = 0;
-        int zeroQuantity = 0;
+        int positive = 0;
+        int negative = 0;
+        int zero = 0;
 
         foreach (int number in array)
             if (number > 0)
-                ++positiveQuantity;
+                ++positive;
             else if (number < 0)
-                ++negativeQuantity;
+                ++negative;
             else
-                ++zeroQuantity;
+                ++zero;
 
         int n = array.Count;
-        double positiveValuesProportion = (double) positiveQuantity / n;
-        double negativeValuesProportion = (double) negativeQuantity / n;
-        double zeroValuesProportion = (double) zeroQuantity / n;
+        double positiveProportion = (double) positive / n;
+        double negativeProportion = (double) negative / n;
+        double zeroProportion = (double) zero / n;
 
-        Console.WriteLine("{0:0.000000}", positiveValuesProportion);
-        Console.WriteLine("{0:0.000000}", negativeValuesProportion);
-        Console.WriteLine("{0:0.000000}", zeroValuesProportion);
+        Console.WriteLine("{0:0.000000}", positiveProportion);
+        Console.WriteLine("{0:0.000000}", negativeProportion);
+        Console.WriteLine("{0:0.000000}", zeroProportion);
     }
 }

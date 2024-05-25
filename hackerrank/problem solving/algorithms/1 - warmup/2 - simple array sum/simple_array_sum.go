@@ -7,22 +7,15 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = read_int_array(n)
-    fmt.Println(simple_array_sum(array))
+    fmt.Println(simple_array_sum(n))
 }
 
-    func read_int_array(n int) []int {
-        array := make([]int, n)
-        for i := 0; i < n; i++ {
-            fmt.Scan(&array[i])
-        }
-        return array
-    }
-
-    func simple_array_sum(array []int) int {
+    func simpleArraySum(n int) int {
         var sum int = 0
-        for _, num := range array {
-            sum += num
+        for i := range n {
+            var x int
+            fmt.Scan(&x)
+            sum += x
         }
         return sum
     }

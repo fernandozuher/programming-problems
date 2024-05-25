@@ -9,24 +9,24 @@ def main():
 
 def plus_minus(array):
 
-    positive_quantity, negative_quantity, zero_quantity = 0, 0, 0
+    positive, negative, zero = 0, 0, 0
 
     for number in array:
         if number > 0:
-            positive_quantity += 1
+            positive += 1
         elif number < 0:
-            negative_quantity += 1
+            negative += 1
         else:
-            zero_quantity += 1
+            zero += 1
 
     n = len(array)
-    positive_values_proportion = float(positive_quantity / n)
-    negative_values_proportion = float(negative_quantity / n)
-    zero_values_proportion = float(zero_quantity / n)
+    positive_proportion = float(positive / n)
+    negative_proportion = float(negative / n)
+    zero_proportion = float(zero / n)
     
-    print("%.6f" % positive_values_proportion)
-    print("%.6f" % negative_values_proportion)
-    print("%.6f" % zero_values_proportion)
+    print("%.6f" % positive_proportion)
+    print("%.6f" % negative_proportion)
+    print("%.6f" % zero_proportion)
 
 
 if __name__ == '__main__':

@@ -9,13 +9,13 @@
 using namespace std;
 
 vector<long> read_int_array(int n);
-tuple<long, long> min_max_sum(const vector<long>& array);
+pair<long, long> min_max_sum(const vector<long>& array);
 
 int main()
 {
     constexpr int n{5};
     vector array {read_int_array(n)};
-    const auto [min, max] {min_max_sum(array)};
+    auto [min, max] {min_max_sum(array)};
     cout << min << ' ' << max;
 
     return 0;
@@ -28,7 +28,7 @@ int main()
         return array;
     }
 
-    tuple<long, long> min_max_sum(const vector<long>& array)
+    pair<long, long> min_max_sum(const vector<long>& array)
     {
         long sum {*ranges::fold_left_first(array, plus())};
         const auto [min, max] {ranges::minmax_element(array)};

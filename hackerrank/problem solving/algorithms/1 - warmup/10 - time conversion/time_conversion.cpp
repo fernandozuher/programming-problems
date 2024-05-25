@@ -5,9 +5,9 @@
 using namespace std;
 
 string time_conversion(const string& time);
-bool is_first_period_of_day(const string& day_period);
-string change_hour(const string& hour, string time);
-string convert_pm_hour_to_24_h(const string& hour);
+    bool is_first_period_of_day(const string& day_period);
+    string change_hour(const string& hour, string time);
+    string convert_pm_hour_to_24_h(const string& hour);
 
 int main()
 {

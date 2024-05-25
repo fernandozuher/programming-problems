@@ -34,8 +34,8 @@ function readIntArray(): number[] {
 }
 
 function miniMaxSum(array: number[]) {
-    let totalSum: number = array.reduce((sum, number) => sum + number, 0);
-    let minSum: number = totalSum - array[array.length - 1];
-    let maxSum: number = totalSum - array[0];
+    let sum: number = array.reduce((sum, number) => sum + number, 0);
+    let minSum: number = sum - array[array.length - 1];
+    let maxSum: number = sum - array[0];
     console.log(`${minSum} ${maxSum}`);
 }

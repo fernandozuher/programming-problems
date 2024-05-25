@@ -1,27 +1,23 @@
 // https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
-// From C++23
 
-#include <algorithm>
 #include <iostream>
-#include <iterator>
-#include <vector>
 
 using namespace std;
 
-int simple_array_sum(const vector<int>& array);
+int simple_array_sum(int n);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<int> array;
-    copy_n(istream_iterator<int>(cin), n, back_inserter(array));
-    cout << simple_array_sum(array);
+    cout << simple_array_sum(n);
 
     return 0;
 }
 
-    int simple_array_sum(const vector<int>& array)
+    int simple_array_sum(int n)
     {
-        return *ranges::fold_left_first(array, plus());
+        int sum{};
+        for (int x; n-- && cin >> x; sum += x);
+        return sum;
     }

@@ -20,24 +20,24 @@ func main() {
     }
 
     func plusMinus(array []int) {
-        var positiveQuantity, negativeQuantity, zeroQuantity int = 0, 0, 0
+        var positive, negative, zero int = 0, 0, 0
 
         for _, number := range array {
             if number > 0 {
-                positiveQuantity++
+                positive++
             } else if number < 0 {
-                negativeQuantity++
+                negative++
             } else {
-                zeroQuantity++
+                zero++
             }
         }
 
         n := float64(len(array))
-        positiveValuesProportion := float64(positiveQuantity) / n
-        negativeValuesProportion := float64(negativeQuantity) / n
-        zeroValuesProportion := float64(zeroQuantity) / n
+        positiveProportion := float64(positive) / n
+        negativeProportion := float64(negative) / n
+        zeroProportion := float64(zero) / n
 
-        fmt.Printf("%.6f\n", positiveValuesProportion)
-        fmt.Printf("%.6f\n", negativeValuesProportion)
-        fmt.Printf("%.6f\n", zeroValuesProportion)
+        fmt.Printf("%.6f\n", positiveProportion)
+        fmt.Printf("%.6f\n", negativeProportion)
+        fmt.Printf("%.6f\n", zeroProportion)
     }

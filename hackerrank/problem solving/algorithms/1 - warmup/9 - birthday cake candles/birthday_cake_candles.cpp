@@ -1,34 +1,31 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
-// C++20
 
-#include <algorithm>
 #include <iostream>
-#include <iterator>
-#include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(int n);
-int birthday_cake_candles(const vector<int>& candles);
+int birthday_cake_candles(int n);
 
 int main()
 {
     int n;
     cin >> n;
-    vector array {read_int_array(n)};
-    cout << birthday_cake_candles(array);
+    cout << birthday_cake_candles(n);
 
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
+    int birthday_cake_candles(const int n)
     {
-        vector<int> array;
-        copy_n(istream_iterator<int>(cin), n, back_inserter(array));
-        return array;
-    }
+        int max_element_quantity{};
 
-    int birthday_cake_candles(const vector<int>& candles)
-    {
-        return ranges::count(candles, *ranges::max_element(candles));
+        for (int i{}, max_element{}, x; i < n && cin >> x; ++i)
+            if (x > max_element) {
+                max_element = x;
+                max_element_quantity = 1;
+            }
+            else if (x == max_element)
+                ++max_element_quantity;
+
+        return max_element_quantity;
     }

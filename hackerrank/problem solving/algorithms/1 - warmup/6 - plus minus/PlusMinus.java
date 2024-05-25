@@ -21,25 +21,25 @@ public class PlusMinus {
         }
 
         private static void plusMinus(List<Integer> array) {
-            int positiveQuantity = 0;
-            int negativeQuantity = 0;
-            int zeroQuantity = 0;
+            int positive = 0;
+            int negative = 0;
+            int zero = 0;
 
             for (var number : array)
                 if (number > 0)
-                    ++positiveQuantity;
+                    ++positive;
                 else if (number < 0)
-                    ++negativeQuantity;
+                    ++negative;
                 else
-                    ++zeroQuantity;
+                    ++zero;
 
             int n = array.size();
-            double positiveValuesProportion = (double) positiveQuantity / n;
-            double negativeValuesProportion = (double) negativeQuantity / n;
-            double zeroValuesProportion = (double) zeroQuantity / n;
+            double positiveProportion = (double) positive / n;
+            double negativeProportion = (double) negative / n;
+            double zeroProportion = (double) zero / n;
 
-            System.out.printf("%.6f\n", positiveValuesProportion);
-            System.out.printf("%.6f\n", negativeValuesProportion);
-            System.out.printf("%.6f\n", zeroValuesProportion);
+            System.out.printf("%.6f\n", positiveProportion);
+            System.out.printf("%.6f\n", negativeProportion);
+            System.out.printf("%.6f\n", zeroProportion);
         }
 }

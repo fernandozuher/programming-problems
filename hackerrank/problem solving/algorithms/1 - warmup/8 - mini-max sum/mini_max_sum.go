@@ -23,12 +23,12 @@ func main() {
     }
 
     func miniMaxSum(array []int) {
-        var totalSum int = 0
+        var sum int = 0
         for _, value := range array {
-            totalSum += value
+            sum += value
         }
 
-        var minSum int = totalSum - array[len(array)-1]
-        var maxSum int = totalSum - array[0]
+        var minSum int = sum - array[len(array)-1]
+        var maxSum int = sum - array[0]
         fmt.Printf("%d %d", minSum, maxSum)
     }
