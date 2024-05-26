@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 int *read_int_array(int n);
-int *compare_triplets(int array1[], int array2[], int n);
+int *compare_triplets(const int array1[], const int array2[], int n);
     int *prepare_output(int player1, int player2);
 
 int main()
@@ -30,7 +30,7 @@ int main()
         return array;
     }
 
-    int *compare_triplets(int array1[], int array2[], int n)
+    int *compare_triplets(const int array1[], const int array2[], int n)
     {
         int player1 = 0, player2 = 0;
 

@@ -5,13 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *time_conversion(const char *time);
-    char *convert_time(const char *time);
-    char *get_hour(const char *time);
-    char *get_day_period(const char *time);
-    bool is_12_hour(const char *hour);
-    bool is_first_period_of_day(const char *day_period);
-    char *change_hour(const char *hour, char *time);
+char *time_conversion(const char time[]);
+    char *convert_time(const char time[]);
+    char *get_hour(const char time[]);
+    char *get_day_period(const char time[]);
+    bool is_12_hour(const char hour[]);
+    bool is_first_period_of_day(const char day_period[]);
+    char *change_hour(const char hour[], char *time);
     char *convert_pm_hour_to_24_h(char *hour);
 
 int main()
@@ -24,7 +24,7 @@ int main()
     return 0;
 }
 
-    char *time_conversion(const char *const time)
+    char *time_conversion(const char time[])
     {
         char *converted_time = convert_time(time);
         char *hour = get_hour(time);
@@ -43,7 +43,7 @@ int main()
         return converted_time;
     }
 
-        char *convert_time(const char *const time)
+        char *convert_time(const char time[])
         {
             constexpr int time_string_size = 9;
             const auto converted_time = (char*) malloc(time_string_size);
@@ -52,7 +52,7 @@ int main()
             return converted_time;
         }
 
-        char *get_hour(const char *const time)
+        char *get_hour(const char time[])
         {
             constexpr int hour_size = 3;
             const auto hour = (char*) malloc(hour_size);
@@ -61,7 +61,7 @@ int main()
             return hour;
         }
 
-        char *get_day_period(const char *const time)
+        char *get_day_period(const char time[])
         {
             constexpr int day_period_string_size = 2;
             const auto day_period = (char*) malloc(day_period_string_size);
@@ -73,17 +73,17 @@ int main()
             return day_period;
         }
 
-        bool is_12_hour(const char *const hour)
+        bool is_12_hour(const char hour[])
         {
             return !strcmp(hour, "12");
         }
 
-        bool is_first_period_of_day(const char *const day_period)
+        bool is_first_period_of_day(const char day_period[])
         {
             return !strcmp(day_period, "A");
         }
 
-        char *change_hour(const char *const hour, char *time)
+        char *change_hour(const char hour[], char *time)
         {
             constexpr int hour_size = 2;
             strncpy(time, hour, hour_size);

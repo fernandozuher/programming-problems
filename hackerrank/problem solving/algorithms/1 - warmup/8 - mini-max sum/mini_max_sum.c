@@ -7,8 +7,8 @@
 
 long *read_array(int n);
 int compare(const void *a, const void *b);
-long *mini_max_sum(const long *array, int n);
-    long *wrap_result(const long *array, int n);
+long *mini_max_sum(const long array[], int n);
+    long *wrap_result(const long array[], int n);
 
 int main()
 {
@@ -36,7 +36,7 @@ int main()
         return *(long *) a - *(long *) b;
     }
 
-    long *mini_max_sum(const long *const array, const int n)
+    long *mini_max_sum(const long array[], const int n)
     {
         long sum = 0;
         for (int i = 0; i < n; sum += array[i], ++i);
@@ -48,7 +48,7 @@ int main()
         return wrap_result(temp_result, n_result);
     }
 
-        long *wrap_result(const long *const array, const int n)
+        long *wrap_result(const long array[], const int n)
         {
             auto result = (long*) malloc(n * sizeof(long));
             memcpy(result, array, n * sizeof(long));

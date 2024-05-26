@@ -6,7 +6,7 @@
 #include <string.h>
 
 float *plus_minus(int n);
-    float *wrap_result(const float *array, int n);
+    float *wrap_result(const float array[], int n);
 
 int main()
 {
@@ -40,7 +40,7 @@ int main()
         return wrap_result(temp_result, n_result);
     }
 
-        float *wrap_result(const float *const array, const int n)
+        float *wrap_result(const float array[], const int n)
         {
             auto result = (float*) malloc(n * sizeof(float));
             memcpy(result, array, n * sizeof(float));
