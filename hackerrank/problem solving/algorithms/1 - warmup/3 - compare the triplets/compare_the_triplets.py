@@ -2,13 +2,13 @@
 
 def main():
 
-    array1 = read_an_int_array()
-    array2 = read_an_int_array()
+    array1 = read_int_array()
+    array2 = read_int_array()
     result = compare_triplets(array1, array2)
     print(f"{result[0]} {result[1]}")
 
 
-def read_an_int_array():
+def read_int_array():
 
     return list(map(int, input().split()))
 

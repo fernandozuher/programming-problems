@@ -24,13 +24,13 @@ function readLine(): string {
 }
 
 function main() {
-    let array1: number[] = readAnIntArray();
-    let array2: number[] = readAnIntArray();
+    let array1: number[] = readIntArray();
+    let array2: number[] = readIntArray();
     let result: number[] = compareTriplets(array1, array2);
     console.log(result.join(' '));
 }
 
-    function readAnIntArray(): number[] {
+    function readIntArray(): number[] {
         return readLine().split(' ').map(Number);
     }
 

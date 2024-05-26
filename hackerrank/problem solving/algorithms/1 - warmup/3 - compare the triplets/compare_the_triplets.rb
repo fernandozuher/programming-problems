@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
 def main
-    array1 = read_an_int_array
-    array2 = read_an_int_array
+    array1 = read_int_array
+    array2 = read_int_array
     result = compare_triplets(array1, array2)
     puts "#{result[0]} #{result[1]}"
 end
 
-    def read_an_int_array
+    def read_int_array
         gets.split.map(&:to_i)
     end
 

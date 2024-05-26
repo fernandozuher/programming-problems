@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/staircase/problem?isFullScreen=true
+// From Go 1.22
 
 package main
 
@@ -10,14 +11,14 @@ func main() {
     staircase(n)
 }
 
-    func staircase(n int) {
-        for i := 1; i <= n; i++ {
-            for j := 0; j < n-i; j++ {
-                fmt.Print(" ")
-            }
-            for k := 0; k < i; k++ {
-                fmt.Print("#")
-            }
-            fmt.Print("\n")
+func staircase(n int) {
+    for i := range n {
+        for range n - i + 1 {
+            fmt.Print(" ")
         }
+        for range i + 1 {
+            fmt.Print("#")
+        }
+        fmt.Println("")
     }
+}

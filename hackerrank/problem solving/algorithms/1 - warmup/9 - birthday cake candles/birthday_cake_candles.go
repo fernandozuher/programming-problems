@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
+// From Go 1.22
 
 package main
 
@@ -7,29 +8,22 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = readIntArray(n)
-    fmt.Println(birthdayCakeCandles(array))
+    fmt.Print(birthdayCakeCandles(n))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
+func birthdayCakeCandles(n int) int {
+    maxElement, countMax := 0, 0
+
+    for range n {
+        var x int
+        fmt.Scan(&x)
+        if maxElement < x {
+            maxElement = x
+            countMax = 1
+        } else if maxElement == x {
+            countMax++
         }
-        return array
     }
 
-    func birthdayCakeCandles(candles []int) int {
-        var maxElement, countMax int = 0, 0
-
-        for _, number := range candles {
-            if maxElement < number {
-                maxElement = number
-                countMax = 1
-            } else if maxElement == number {
-                countMax++
-            }
-        }
-
-        return countMax
-    }
+    return countMax
+}

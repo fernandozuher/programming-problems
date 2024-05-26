@@ -12,13 +12,13 @@ public class CompareTheTriplets {
     public static void main(String[] args) {
         scan = new Scanner(System.in);
 
-        List<Integer> array1 = readAnIntArray();
-        List<Integer> array2 = readAnIntArray();
+        List<Integer> array1 = readIntArray();
+        List<Integer> array2 = readIntArray();
         List<Integer> result = compareTriplets(array1, array2);
         System.out.println(result.get(0) + " " + result.get(1));
     }
 
-        private static List<Integer> readAnIntArray() {
+        private static List<Integer> readIntArray() {
             return Stream.of(scan.nextLine().split(" "))
                    .map(Integer::parseInt)
                    .collect(toList());

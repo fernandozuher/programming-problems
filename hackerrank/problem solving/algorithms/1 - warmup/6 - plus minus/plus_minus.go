@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
+// From Go 1.22
 
 package main
 
@@ -7,37 +8,30 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = readIntArray(n)
-    plusMinus(array)
+    positiveProportion, negativeProportion, zeroProportion := plusMinus(n)
+    fmt.Printf("%.6f\n", positiveProportion)
+    fmt.Printf("%.6f\n", negativeProportion)
+    fmt.Printf("%.6f", zeroProportion)
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := 0; i < n; i++ {
-            fmt.Scan(&array[i])
+func plusMinus(n int) (float64, float64, float64) {
+    positive, negative, zero := 0, 0, 0
+
+    for range n {
+        var x int
+        fmt.Scan(&x)
+        if x > 0 {
+            positive++
+        } else if x < 0 {
+            negative++
+        } else {
+            zero++
         }
-        return array
     }
 
-    func plusMinus(array []int) {
-        var positive, negative, zero int = 0, 0, 0
+    positiveProportion := float64(positive) / float64(n)
+    negativeProportion := float64(negative) / float64(n)
+    zeroProportion := float64(zero) / float64(n)
 
-        for _, number := range array {
-            if number > 0 {
-                positive++
-            } else if number < 0 {
-                negative++
-            } else {
-                zero++
-            }
-        }
-
-        n := float64(len(array))
-        positiveProportion := float64(positive) / n
-        negativeProportion := float64(negative) / n
-        zeroProportion := float64(zero) / n
-
-        fmt.Printf("%.6f\n", positiveProportion)
-        fmt.Printf("%.6f\n", negativeProportion)
-        fmt.Printf("%.6f\n", zeroProportion)
-    }
+    return positiveProportion, negativeProportion, zeroProportion
+}

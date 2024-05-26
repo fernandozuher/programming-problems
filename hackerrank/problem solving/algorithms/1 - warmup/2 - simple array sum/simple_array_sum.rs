@@ -5,11 +5,11 @@ use text_io::read;
 
 fn main() {
     let _n: i32 = read!();
-    let array: Vec<i32> = read_an_int_array();
+    let array: Vec<i32> = read_int_array();
     println!("{}", simple_array_sum(&array));
 }
 
-fn read_an_int_array() -> Vec<i32> {
+fn read_int_array() -> Vec<i32> {
     let array: Vec<i32> = stdin()
         .lock()
         .lines()

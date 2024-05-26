@@ -10,6 +10,6 @@ func main() {
     fmt.Println(solveMeFirst(a, b))
 }
 
-    func solveMeFirst(a int, b int) int {
-        return a + b
-    }
+func solveMeFirst(a int, b int) int {
+    return a + b
+}

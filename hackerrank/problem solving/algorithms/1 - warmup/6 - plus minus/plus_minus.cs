@@ -9,11 +9,11 @@ public class Solution
     public static void Main()
     {
         int n = int.Parse(Console.ReadLine());
-        List<int> array = _readAnIntArray();
+        List<int> array = _readIntArray();
         _plusMinus(array);
     }
 
-    private static List<int> _readAnIntArray()
+    private static List<int> _readIntArray()
     {
         return Console.ReadLine().Split(' ').Select(int.Parse).ToList();
     }
