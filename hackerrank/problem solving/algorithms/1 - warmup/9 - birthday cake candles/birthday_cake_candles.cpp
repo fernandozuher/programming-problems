@@ -17,15 +17,15 @@ int main()
 
     int birthday_cake_candles(const int n)
     {
-        int max_element_quantity{};
+        int max_count{};
 
         for (int i{}, max_element{}, x; i < n && cin >> x; ++i)
             if (x > max_element) {
                 max_element = x;
-                max_element_quantity = 1;
+                max_count = 1;
             }
             else if (x == max_element)
-                ++max_element_quantity;
+                ++max_count;
 
-        return max_element_quantity;
+        return max_count;
     }

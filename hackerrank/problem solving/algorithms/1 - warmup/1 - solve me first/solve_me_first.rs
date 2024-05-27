@@ -5,7 +5,7 @@ use text_io::read;
 fn main() {
     let num1: i32 = read!();
     let num2: i32 = read!();
-    println!("{}", solve_me_first(num1, num2));
+    print!("{}", solve_me_first(num1, num2));
 }
 
 fn solve_me_first(a: i32, b: i32) -> i32 {

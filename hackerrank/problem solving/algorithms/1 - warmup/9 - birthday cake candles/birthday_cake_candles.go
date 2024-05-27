@@ -12,18 +12,18 @@ func main() {
 }
 
 func birthdayCakeCandles(n int) int {
-    maxElement, countMax := 0, 0
+    maxElement, maxCount := 0, 0
 
     for range n {
         var x int
         fmt.Scan(&x)
-        if maxElement < x {
+        if x > maxElement {
             maxElement = x
-            countMax = 1
-        } else if maxElement == x {
-            countMax++
+            maxCount = 1
+        } else if x == maxElement {
+            maxCount++
         }
     }
 
-    return countMax
+    return maxCount
 }

@@ -1,48 +1,33 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-use std::io::{stdin, BufRead};
 use text_io::read;
 
 fn main() {
-    let n: i32 = read!();
-    let array: Vec<i32> = read_int_array();
-    plus_minus(&array);
+    let n: usize = read!();
+    let (positive_proportion, negative_proportion, zero_proportion) = plus_minus(n);
+    println!("{:.6}", positive_proportion);
+    println!("{:.6}", negative_proportion);
+    println!("{:.6}", zero_proportion);
 }
 
-fn read_int_array() -> Vec<i32> {
-    return stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
-}
-
-fn plus_minus(array: &Vec<i32>) {
+fn plus_minus(n: usize) -> (f32, f32, f32) {
     let mut positive: i32 = 0;
     let mut negative: i32 = 0;
     let mut zero: i32 = 0;
 
-    for number in array {
-        if number > &0 {
+    for _ in 0..n {
+        let x: i32 = read!();
+        if x > 0 {
             positive += 1;
-        } else if number < &0 {
+        } else if x < 0 {
             negative += 1;
         } else {
             zero += 1;
         }
     }
 
-    let n = array.len() as f32;
-    let positive_proportion = (positive as f32) / n;
-    let negative_proportion = (negative as f32) / n;
-    let zero_proportion = (zero as f32) / n;
-
-    println!("{:.6}", positive_proportion);
-    println!("{:.6}", negative_proportion);
-    println!("{:.6}", zero_proportion);
+    let positive_proportion = positive as f32 / n as f32;
+    let negative_proportion = negative as f32 / n as f32;
+    let zero_proportion = zero as f32 / n as f32;
+    return (positive_proportion, negative_proportion, zero_proportion);
 }

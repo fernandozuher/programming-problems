@@ -1,37 +1,29 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-use std::io::{stdin, BufRead};
+use text_io::read;
 
 fn main() {
-    let array1: Vec<i32> = read_and_int_array();
-    let array2: Vec<i32> = read_and_int_array();
-    let result: Vec<i32> = compare_triplets(&array1, &array2);
-    println!("{} {}", result[0], result[1]);
+    const N: usize = 3;
+    let array1: Vec<i32> = read_int_array(N);
+    let array2: Vec<i32> = read_int_array(N);
+    let (player1, player2) = compare_triplets(&array1, &array2);
+    print!("{} {}", player1, player2);
 }
 
-fn read_and_int_array() -> Vec<i32> {
-    return stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
+fn read_int_array(n: usize) -> Vec<i32> {
+    return (0..n).map(|_| read!()).collect();
 }
 
-fn compare_triplets(array1: &Vec<i32>, array2: &Vec<i32>) -> Vec<i32> {
+fn compare_triplets(array1: &[i32], array2: &[i32]) -> (i32, i32) {
     let (mut player1, mut player2) = (0, 0);
 
-    for (val1, val2) in array1.iter().zip(array2.iter()) {
-        if val1 > val2 {
+    for (p1, p2) in array1.iter().zip(array2.iter()) {
+        if p1 > p2 {
             player1 += 1;
-        } else if val2 > val1 {
+        } else if p2 > p1 {
             player2 += 1;
         }
     }
 
-    return vec![player1, player2];
+    return (player1, player2);
 }

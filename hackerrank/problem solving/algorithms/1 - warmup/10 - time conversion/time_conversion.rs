@@ -4,7 +4,7 @@ use text_io::read;
 
 fn main() {
     let time: String = read!();
-    println!("{}", time_conversion(&time));
+    print!("{}", time_conversion(&time));
 }
 
 fn time_conversion(time: &String) -> String {

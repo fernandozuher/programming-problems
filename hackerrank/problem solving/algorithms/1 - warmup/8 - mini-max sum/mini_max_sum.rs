@@ -1,33 +1,22 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-use std::io::{stdin, BufRead};
+use text_io::read;
 
 fn main() {
-    let mut array: Vec<i64> = read_int_array();
+    const N: usize = 5;
+    let mut array: Vec<i64> = read_int_array(N);
     array.sort();
-    mini_max_sum(&array);
+    let (min, max) = mini_max_sum(&array);
+    print!("{} {}", min, max);
 }
 
-fn read_int_array() -> Vec<i64> {
-    return stdin()
-        .lock()
-        .lines()
-        .next()
-        .unwrap()
-        .unwrap()
-        .trim()
-        .split(' ')
-        .map(|s| s.parse().unwrap())
-        .collect();
+fn read_int_array(n: usize) -> Vec<i64> {
+    return (0..n).map(|_| read!()).collect();
 }
 
-fn mini_max_sum(array: &Vec<i64>) {
-    let mut total_sum: i64 = 0;
-    for n in array.iter() {
-        total_sum += *n;
-    }
-
-    let min_sum: i64 = total_sum - array[array.len() - 1];
-    let max_sum: i64 = total_sum - array[0];
-    println!("{} {}", min_sum, max_sum);
+fn mini_max_sum(array: &Vec<i64>) -> (i64, i64) {
+    let mut sum: i64 = array.iter().sum();
+    let min_sum: i64 = sum - array[array.len() - 1];
+    let max_sum: i64 = sum - array[0];
+    return (min_sum, max_sum);
 }
