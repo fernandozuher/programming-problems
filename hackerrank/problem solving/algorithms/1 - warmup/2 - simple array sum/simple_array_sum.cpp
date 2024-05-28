@@ -11,7 +11,6 @@ int main()
     int n;
     cin >> n;
     cout << simple_array_sum(n);
-
     return 0;
 }
 

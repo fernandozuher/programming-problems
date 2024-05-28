@@ -10,7 +10,6 @@ int main()
     int n;
     scanf("%d", &n);
     printf("%d\n", diagonal_difference(n));
-
     return 0;
 }
 

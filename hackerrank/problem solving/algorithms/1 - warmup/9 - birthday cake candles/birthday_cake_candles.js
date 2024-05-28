@@ -23,18 +23,29 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let n = +readLine();
     let array = readIntArray();
     console.log(birthdayCakeCandles(array));
 }
 
-function readIntArray() {
-    return readLine().split(' ').map(Number);
-}
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
+    }
 
     function birthdayCakeCandles(candles) {
-        let maxElement = Math.max(...candles);
-        let count = candles.filter(number => number === maxElement).length;
-        return count;
+        let maxCount = 0;
+        let maxElement = 0;
+
+        for (let x of candles)
+            if (x > maxElement) {
+                maxElement = x;
+                maxCount = 1;
+            }
+            else if (x === maxElement)
+                ++maxCount;
+
+        return maxCount;
     }

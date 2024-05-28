@@ -23,19 +23,28 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let n = +readLine();
-    let array = readLine().split(' ').map(Number);
-    plusMinus(array);
+    let array = readIntArray();
+    let [positiveProportion, negativeProportion, zeroProportion] = plusMinus(array);
+    console.log(positiveProportion.toFixed(6));
+    console.log(negativeProportion.toFixed(6));
+    console.log(zeroProportion.toFixed(6));
 }
+
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
+    }
 
     function plusMinus(array) {
         let [positive, negative, zero] = [0, 0, 0];
 
-        for (let number of array)
-            if (number > 0)
+        for (let x of array)
+            if (x > 0)
                 ++positive;
-            else if (number < 0)
+            else if (x < 0)
                 ++negative;
             else
                 ++zero;
@@ -45,7 +54,5 @@ function main() {
         let negativeProportion = negative / n;
         let zeroProportion = zero / n;
         
-        console.log(positiveProportion.toFixed(6));
-        console.log(negativeProportion.toFixed(6));
-        console.log(zeroProportion.toFixed(6));
+        return [positiveProportion, negativeProportion, zeroProportion];
     }

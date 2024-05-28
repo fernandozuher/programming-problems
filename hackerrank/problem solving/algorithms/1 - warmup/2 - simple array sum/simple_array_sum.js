@@ -23,12 +23,18 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let n = +readLine();
-    let array = readLine().split(' ').map(Number);
+    +readLine();
+    let array = readIntArray();
     console.log(simpleArraySum(array));
 }
 
+    function readIntArray() {
+        return readLine().split(' ').map(Number);
+    }
+
     function simpleArraySum(array) {
-        return array.reduce((sum, num) => sum + num, 0);
+        return array.reduce((a, b) => a + b);
     }

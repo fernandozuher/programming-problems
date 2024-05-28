@@ -1,36 +1,31 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
 class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        List<List<int>> matrix = _readMatrix(n);
-        Console.WriteLine("{0}", _diagonalDifference(matrix));
+        int n = int.Parse(ReadLine());
+        WriteLine(DiagonalDifference(n));
     }
 
-        private static List<List<int>> _readMatrix(int n)
-        {
-            var matrix = new List<List<int>>();
-            while (n-- > 0)
-                matrix.Add(Console.ReadLine().Split(" ").Select(int.Parse).ToList());
-            return matrix;
-        }
-
-        private static int _diagonalDifference(List<List<int>> matrix)
+        static int DiagonalDifference(int n)
         {
             int primaryDiagonal = 0, secondaryDiagonal = 0;
 
-            for (int i = 0, j = matrix.Count - 1, n = matrix.Count; i < n; ++i, --j)
+            for (int i = 0; i < n; ++i)
             {
-                primaryDiagonal += matrix[j][j];
-                secondaryDiagonal += matrix[j][i];
+                List<int> line = ReadIntArray();
+                primaryDiagonal += line[i];
+                secondaryDiagonal += line[n - i - 1];
             }
 
             return Math.Abs(primaryDiagonal - secondaryDiagonal);
         }
+
+            static List<int> ReadIntArray()
+            {
+                return ReadLine().Split().Select(int.Parse).ToList();
+            }
 }

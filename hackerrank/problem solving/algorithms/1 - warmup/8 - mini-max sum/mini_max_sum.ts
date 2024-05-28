@@ -23,19 +23,22 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let array: number[] = readIntArray();
     array.sort((a, b) => a - b);
-    miniMaxSum(array);
-}
-
-function readIntArray(): number[] {
-    return readLine().split(' ').map(Number);
-}
-
-function miniMaxSum(array: number[]) {
-    let sum: number = array.reduce((sum, number) => sum + number, 0);
-    let minSum: number = sum - array[array.length - 1];
-    let maxSum: number = sum - array[0];
+    let [minSum, maxSum] = miniMaxSum(array);
     console.log(`${minSum} ${maxSum}`);
 }
+
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
+    }
+
+    function miniMaxSum(array: number[]): number[] {
+        let sum: number = array.reduce((a, b) => a + b);
+        let minSum: number = sum - array[array.length - 1];
+        let maxSum: number = sum - array[0];
+        return [minSum, maxSum];
+    }

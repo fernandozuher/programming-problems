@@ -1,20 +1,23 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
 class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        List<int> array = Console.ReadLine().Split(" ").Select(int.Parse).ToList();
-        Console.WriteLine("{0}", _aVeryBigSum(array));
+        int _n = int.Parse(ReadLine());
+        List<int> array = ReadIntArray();
+        WriteLine(AVeryBigSum(array));
     }
 
-        private static long _aVeryBigSum(List<int> array)
+        static List<int> ReadIntArray()
         {
-            return array.Aggregate(0L, (sum, number) => sum + number);
+            return ReadLine().Split().Select(int.Parse).ToList();
+        }
+
+        static long AVeryBigSum(List<int> array)
+        {
+            return array.Aggregate(0L, (a, b) => a + b);
         }
 }

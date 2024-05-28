@@ -9,7 +9,6 @@ int main()
     int n;
     scanf("%d", &n);
     printf("%d", simple_array_sum(n));
-
     return 0;
 }
 

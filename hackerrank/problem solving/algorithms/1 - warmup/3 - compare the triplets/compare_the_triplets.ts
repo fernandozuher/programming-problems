@@ -23,11 +23,13 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let array1: number[] = readIntArray();
     let array2: number[] = readIntArray();
-    let result: number[] = compareTriplets(array1, array2);
-    console.log(result.join(' '));
+    let [player1, player2]: number[] = compareTriplets(array1, array2);
+    console.log(player1, player2);
 }
 
     function readIntArray(): number[] {
@@ -39,9 +41,9 @@ function main() {
         
         for (let i in array1)
             if (array1[i] > array2[i])
-                player1++;
-            else if (array1[i] < array2[i])
-                player2++;
+                ++player1;
+            else if (array2[i] > array1[i])
+                ++player2;
         
         return [player1, player2];
     }

@@ -23,12 +23,18 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let n: number = +readLine();
-    let array: number[] = readLine().split(' ').map(Number);
+    +readLine();
+    let array: number[] = readIntArray();
     console.log(aVeryBigSum(array));
 }
 
+    function readIntArray(): number[] {
+        return readLine().split(' ').map(Number);
+    }
+
     function aVeryBigSum(array: number[]): number {
-        return array.reduce((sum, number) => sum + number, 0);
+        return array.reduce((a, b) => a + b);
     }

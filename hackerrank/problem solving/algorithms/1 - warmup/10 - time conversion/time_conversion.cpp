@@ -14,7 +14,6 @@ int main()
     string time;
     cin >> time;
     cout << time_conversion(time);
-
     return 0;
 }
 

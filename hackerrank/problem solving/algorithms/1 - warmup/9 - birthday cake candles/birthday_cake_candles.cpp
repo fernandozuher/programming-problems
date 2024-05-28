@@ -11,7 +11,6 @@ int main()
     int n;
     cin >> n;
     cout << birthday_cake_candles(n);
-
     return 0;
 }
 

@@ -12,7 +12,6 @@ int main()
     int n;
     cin >> n;
     cout << diagonal_difference(n);
-
     return 0;
 }
 

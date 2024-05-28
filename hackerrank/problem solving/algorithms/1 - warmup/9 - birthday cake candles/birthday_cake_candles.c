@@ -4,11 +4,11 @@
 
 int birthday_cake_candles(int n);
 
-int main() {
+int main()
+{
     int n;
     scanf("%d", &n);
     printf("%d", birthday_cake_candles(n));
-
     return 0;
 }
 

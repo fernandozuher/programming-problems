@@ -1,16 +1,16 @@
 // https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        string time = Console.ReadLine();
-        Console.WriteLine(_timeConversion(time));
+        string time = ReadLine();
+        WriteLine(TimeConversion(time));
     }
 
-        private static string _timeConversion(string time)
+        static string TimeConversion(string time)
         {
             string convertedTime = time.Substring(0, 8);
             string hour = time.Substring(0, 2);

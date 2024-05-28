@@ -11,7 +11,6 @@ int main()
     int n;
     cin >> n;
     cout << a_very_big_sum(n);
-
     return 0;
 }
 

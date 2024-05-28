@@ -1,24 +1,24 @@
 // https://www.hackerrank.com/challenges/staircase/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
 class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        _staircase(n);
+        int n = int.Parse(ReadLine());
+        Staircase(n);
     }
 
-        private static void _staircase(int n)
+        static void Staircase(int n)
         {
-            for (int i = 1; i <= n; ++i)
+            foreach (int i in Enumerable.Range(1, n))
             {
-                for (int j = 0; j < n - i; ++j)
-                    Console.Write(" ");
-                for (int k = 0; k < i; ++k)
-                    Console.Write("#");
-                Console.Write("\n");
+                foreach (int j in Enumerable.Range(0, n - i))
+                    Write(" ");
+                foreach (int k in Enumerable.Range(0, i))
+                    Write("#");
+                WriteLine();
             }
         }
 }

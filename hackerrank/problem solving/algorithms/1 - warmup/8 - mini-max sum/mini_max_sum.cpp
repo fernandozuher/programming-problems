@@ -17,7 +17,6 @@ int main()
     vector array {read_int_array(n)};
     auto [min, max] {min_max_sum(array)};
     cout << min << ' ' << max;
-
     return 0;
 }
 

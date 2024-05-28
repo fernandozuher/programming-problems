@@ -23,6 +23,8 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let time: string = readLine();
     console.log(timeConversion(time));

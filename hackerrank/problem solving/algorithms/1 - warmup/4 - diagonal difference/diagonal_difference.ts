@@ -23,26 +23,23 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let n: number = +readLine();
-    let matrix: number[][] = readMatrix(n);
-    console.log(diagonalDifference(matrix));
+    console.log(diagonalDifference(n));
 }
 
-    function readMatrix(n: number): number[][] {
-        let matrix: number[][] = [];
-        for (let i = 0; i < n; ++i)
-            matrix.push(readLine().split(' ').map(Number));
-        return matrix;
-    }
-
-    function diagonalDifference(matrix: number[][]): number {
-        let [primaryDiagonal, secondaryDiagonal]: number[] = [0, 0];
-
-        for (let i = 0, j = matrix.length - 1, n = matrix.length; i < n; ++i, --j) {
-            primaryDiagonal += matrix[j][j];
-            secondaryDiagonal += matrix[j][i];
+    function diagonalDifference(n: number): number {
+        let [primaryDiagonal, secondaryDiagonal] = [0, 0];
+        for (let i = 0; i < n; ++i) {
+            let line: number[] = readIntArray();
+            primaryDiagonal += line[i];
+            secondaryDiagonal += line[n - i - 1];
         }
-
         return Math.abs(primaryDiagonal - secondaryDiagonal);
     }
+
+        function readIntArray(): number[] {
+            return readLine().split(' ').map(Number);
+        }

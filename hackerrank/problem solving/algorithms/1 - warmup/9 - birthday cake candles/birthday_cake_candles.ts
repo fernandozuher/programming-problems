@@ -23,6 +23,8 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let n: number = +readLine();
     let array: number[] = readIntArray();
@@ -34,7 +36,16 @@ function main() {
     }
 
     function birthdayCakeCandles(candles: number[]): number {
-        let maxElement: number = Math.max(...candles);
-        let count: number = candles.filter(number => number === maxElement).length;
-        return count;
+        let maxCount = 0;
+        let maxElement = 0;
+
+        for (let x of candles)
+            if (x > maxElement) {
+                maxElement = x;
+                maxCount = 1;
+            }
+            else if (x === maxElement)
+                ++maxCount;
+
+        return maxCount;
     }

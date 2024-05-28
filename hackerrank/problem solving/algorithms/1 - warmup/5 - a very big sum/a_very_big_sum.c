@@ -9,7 +9,6 @@ int main()
     int n;
     scanf("%d", &n);
     printf("%ld\n", a_very_big_sum(n));
-
     return 0;
 }
 

@@ -20,7 +20,6 @@ int main()
     char string[max_string];
     scanf("%s", string);
     printf("%s", time_conversion(string));
-
     return 0;
 }
 

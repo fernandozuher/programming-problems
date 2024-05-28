@@ -23,6 +23,8 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let n: number = +readLine();
     staircase(n);
