@@ -1,7 +1,6 @@
 # https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 
 def main():
-
     time = input()
     print(time_conversion(time))
 
@@ -15,7 +14,6 @@ def time_conversion(time):
         if period_of_day == "A":
             midnight = "00"
             converted_time = converted_time.replace(hour, midnight, 1)
-
     elif period_of_day == "P":
         new_hour = int(hour)
         new_hour += 12

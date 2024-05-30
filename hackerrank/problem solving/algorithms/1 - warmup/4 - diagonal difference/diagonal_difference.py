@@ -1,31 +1,19 @@
 # https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
 
-import math
-
 def main():
-
     n = int(input())
-    matrix = read_matrix(n)
-    print(diagonalDifference(matrix))
+    print(diagonal_difference(n))
 
 
-def read_matrix(n):
-
-    matrix = []
-    for i in range(n):
-        matrix.append(list(map(int, input().split())))
-    return matrix
-
-
-def diagonalDifference(matrix):
-
+def diagonal_difference(n):
     primary_diagonal, secondary_diagonal = 0, 0
-    primary_diagonal_range = range(len(matrix))
-    secondary_diagonal_range = range(len(matrix)-1, -1, -1)
+    primary_diagonal_range = range(n)
+    secondary_diagonal_range = range(n - 1, -1, -1)
 
     for i, j in zip(primary_diagonal_range, secondary_diagonal_range):
-        primary_diagonal += matrix[j][j]
-        secondary_diagonal += matrix[j][i]
+        line = list(map(int, input().split()))
+        primary_diagonal += line[i]
+        secondary_diagonal += line[j]
 
     return abs(primary_diagonal - secondary_diagonal)
 
