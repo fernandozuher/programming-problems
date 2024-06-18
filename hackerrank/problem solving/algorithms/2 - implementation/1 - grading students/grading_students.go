@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
+// From Go 1.22
 
 package main
 
@@ -22,24 +23,21 @@ func readIntArray(n int) []int {
 func gradingStudents(grades []int) []int {
     n := len(grades)
     newGrades := make([]int, n)
+    minGrade := 38
 
-    for i, minGrade := 0, 38; i < n; i++ {
-
+    for i := range n {
         if grades[i] < minGrade || isZeroRemainder(grades[i]) {
             newGrades[i] = grades[i]
         } else {
-            var quocient int = grades[i] / 5
-            var nextMultiple5 int = (quocient + 1) * 5
+            var quotient int = grades[i] / 5
+            var nextMultiple5 int = (quotient + 1) * 5
             var difference int = nextMultiple5 - grades[i]
 
-            var result int
             if difference < 3 {
-                result = nextMultiple5
+                newGrades[i] = nextMultiple5
             } else {
-                result = grades[i]
+                newGrades[i] = grades[i]
             }
-
-            newGrades[i] = result
         }
     }
 
@@ -51,7 +49,7 @@ func isZeroRemainder(grade int) bool {
 }
 
 func printArray(array []int) {
-    for i := range array {
-        fmt.Println(array[i])
+    for _, x := range array {
+        fmt.Println(x)
     }
 }

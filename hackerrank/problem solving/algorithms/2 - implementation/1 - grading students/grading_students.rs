@@ -8,44 +8,38 @@ fn main() {
     print_int_array(&grading_students(&array));
 }
 
-fn read_int_array(n: usize) -> Vec<i32> {
-    let mut array: Vec<i32> = Vec::new();
-    array.resize_with(n, || read!());
-    return array;
-}
-
-fn is_zero_remainder(grade: i32) -> bool {
-    return grade % 5 == 0;
-}
-
-fn grading_students(grades: &Vec<i32>) -> Vec<i32> {
-    let n: usize = grades.len();
-    let mut new_grades: Vec<i32> = Vec::with_capacity(n);
-    unsafe { new_grades.set_len(n) };
-    let min_grade: i32 = 38;
-
-    for i in 0..n {
-        if grades[i] < min_grade || is_zero_remainder(grades[i]) {
-            new_grades[i] = grades[i];
-        } else {
-            let quocient: i32 = grades[i] / 5;
-            let next_multiple_5: i32 = (quocient + 1) * 5;
-            let difference: i32 = next_multiple_5 - grades[i];
-
-            let mut result: i32;
-            if difference < 3 {
-                result = next_multiple_5;
-            } else {
-                result = grades[i];
-            }
-
-            new_grades[i] = result;
-        }
+    fn read_int_array(n: usize) -> Vec<i32> {
+        return (0..n).map(|_| read!()).collect();
     }
 
-    return new_grades;
-}
+    fn grading_students(grades: &[i32]) -> Vec<i32> {
+        let n: usize = grades.len();
+        let mut new_grades: Vec<i32> = vec![0; n];
+        let min_grade: i32 = 38;
 
-fn print_int_array(array: &Vec<i32>) {
-    array.iter().for_each(|x| println!("{}", x));
-}
+        for i in 0..n {
+            if grades[i] < min_grade || is_zero_remainder(grades[i]) {
+                new_grades[i] = grades[i];
+            } else {
+                let quotient: i32 = grades[i] / 5;
+                let next_multiple_5: i32 = (quotient + 1) * 5;
+                let difference: i32 = next_multiple_5 - grades[i];
+
+                new_grades[i] = if difference < 3 {
+                    next_multiple_5
+                } else {
+                    grades[i]
+                }
+            }
+        }
+
+        return new_grades;
+    }
+
+        fn is_zero_remainder(grade: i32) -> bool {
+            return grade % 5 == 0;
+        }
+
+    fn print_int_array(array: &[i32]) {
+        array.iter().for_each(|x| println!("{}", x));
+    }

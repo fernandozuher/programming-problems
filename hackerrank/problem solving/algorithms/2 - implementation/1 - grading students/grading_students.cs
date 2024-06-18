@@ -1,57 +1,47 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        List<int> array = _readIntArray(n);
-        _printArray(_gradingStudents(array));
+        int n = int.Parse(ReadLine());
+        List<int> array = ReadIntArray(n);
+        GradingStudents(array).ForEach(WriteLine);
     }
 
-        private static List<int> _readIntArray(int n)
+        static List<int> ReadIntArray(int n)
         {
-            List<int> array = new List<int>(n);
+            var array = new List<int>(new int[n]);
             for (int i = 0; i < n; ++i)
-                array.Add(int.Parse(Console.ReadLine()));
+                array[i] = int.Parse(ReadLine());
             return array;
         }
 
-        private static List<int> _gradingStudents(List<int> grades)
+        static List<int> GradingStudents(List<int> grades)
         {
             int n = grades.Count;
-            List<int> newGrades = new List<int>(n);
+            var newGrades = new List<int>(new int[n]);
 
             for (int i = 0, minGrade = 38; i < n; ++i)
             {
-                if (grades[i] < minGrade || isZeroRemainder(grades[i]))
-                    newGrades.Add(grades[i]);
+                if (grades[i] < minGrade || IsZeroRemainder(grades[i]))
+                    newGrades[i] = grades[i];
                 else
                 {
-                    int quocient = grades[i] / 5;
-                    int nextMultiple5 = (quocient + 1) * 5;
+                    int quotient = grades[i] / 5;
+                    int nextMultiple5 = (quotient + 1) * 5;
                     int difference = nextMultiple5 - grades[i];
-
-                    int result = difference < 3 ? nextMultiple5 : grades[i];
-                    newGrades.Add(result);
+                    newGrades[i] = difference < 3 ? nextMultiple5 : grades[i];
                 }
             }
 
             return newGrades;
         }
 
-            private static bool isZeroRemainder(int grade)
+            static bool IsZeroRemainder(int grade)
             {
                 return grade % 5 == 0;
             }
-
-        private static void _printArray(List<int> array)
-        {
-            foreach (var x in array)
-                Console.WriteLine(x);
-        }
 }

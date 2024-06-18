@@ -23,10 +23,12 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let n = +readLine();
     let array = readIntArray(n);
-    printArray(gradingStudents(array));
+    gradingStudents(array).forEach(x => console.log(x));
 }
 
     function readIntArray(n) {
@@ -38,13 +40,13 @@ function main() {
 
         for (let i = 0, minGrade = 38; i < grades.length; ++i) {
 
-            if (grades[i] < minGrade || isZeroRemainder(grades[i])) newGrades[i] = grades[i];
+            if (grades[i] < minGrade || isZeroRemainder(grades[i]))
+                newGrades[i] = grades[i];
             else {
-                let quocient = Math.floor((grades[i] / 5));
-                let nextMultiple5 = (quocient + 1) * 5;
+                let quotient = Math.floor((grades[i] / 5));
+                let nextMultiple5 = (quotient + 1) * 5;
                 let difference = nextMultiple5 - grades[i];
-                let result = difference < 3 ? nextMultiple5 : grades[i];
-                newGrades[i] = result;
+                newGrades[i] = difference < 3 ? nextMultiple5 : grades[i];
             }
         }
 
@@ -54,7 +56,3 @@ function main() {
         function isZeroRemainder(grade) {
             return grade % 5 === 0;
         }
-
-    function printArray(array) {
-        array.forEach(x => console.log(x));
-    }
