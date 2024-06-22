@@ -18,28 +18,19 @@ type AppleAndOrange struct {
 }
 
 func readInput() AppleAndOrange {
-    var startingSam, endingSam int
-    fmt.Scan(&startingSam, &endingSam)
-
-    var appleTreeLocation, orangeTreeLocation int
-    fmt.Scan(&appleTreeLocation, &orangeTreeLocation)
-
-    var nApples, nOranges int
-    fmt.Scan(&nApples, &nOranges)
-
-    var applesDistanceFromTree []int = readIntArray(nApples)
-    var orangesDistanceFromTree []int = readIntArray(nOranges)
-
-    return AppleAndOrange{startingSam, endingSam,
-        appleTreeLocation, orangeTreeLocation,
-        nApples, nOranges,
-        applesDistanceFromTree, orangesDistanceFromTree}
+    var input AppleAndOrange
+    fmt.Scan(&input.startingSam, &input.endingSam)
+    fmt.Scan(&input.appleTreeLocation, &input.orangeTreeLocation)
+    fmt.Scan(&input.nApples, &input.nOranges)
+    input.applesDistanceFromTree = readIntArray(input.nApples)
+    input.orangesDistanceFromTree = readIntArray(input.nOranges)
+    return input
 }
 
 func readIntArray(n int) []int {
     array := make([]int, n)
     for i := range array {
-        fmt.Scanf("%d", &array[i])
+        fmt.Scan(&array[i])
     }
     return array
 }
@@ -51,11 +42,9 @@ func countApplesAndOranges(input AppleAndOrange) {
 }
 
 func countFruitsOnHouse(input AppleAndOrange, fruit string) int {
-    var filteredInput [][]int = filterInput(input, fruit)
-    var treeLocation int = filteredInput[0][0]
-    var fruits []int = filteredInput[1]
+    treeLocation, fruits := filterInput(input, fruit)
+    fruitsOnHouse := 0
 
-    var fruitsOnHouse int = 0
     for _, partialLocation := range fruits {
         location := treeLocation + partialLocation
         if location >= input.startingSam && location <= input.endingSam {
@@ -66,18 +55,9 @@ func countFruitsOnHouse(input AppleAndOrange, fruit string) int {
     return fruitsOnHouse
 }
 
-func filterInput(input AppleAndOrange, fruit string) [][]int {
-    const data int = 2
-    var filteredInput [][]int = make([][]int, data)
-    filteredInput[0] = make([]int, 1)
-
+func filterInput(input AppleAndOrange, fruit string) (int, []int) {
     if fruit == "apple" {
-        filteredInput[0][0] = input.appleTreeLocation
-        filteredInput[1] = input.applesDistanceFromTree
-    } else {
-        filteredInput[0][0] = input.orangeTreeLocation
-        filteredInput[1] = input.orangesDistanceFromTree
+        return input.appleTreeLocation, input.applesDistanceFromTree
     }
-
-    return filteredInput
+    return input.orangeTreeLocation, input.orangesDistanceFromTree
 }
