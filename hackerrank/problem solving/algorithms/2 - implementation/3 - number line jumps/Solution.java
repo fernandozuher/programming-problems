@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
-public class NumberLineJumps {
+public class Solution {
     private static Scanner scan;
 
     public static void main(String[] args) {
