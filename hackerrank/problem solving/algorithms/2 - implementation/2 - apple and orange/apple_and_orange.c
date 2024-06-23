@@ -66,6 +66,11 @@ int main()
                     ++fruits_on_house;
             }
 
+            free(filtered_input[0]);
+            free(filtered_input[1]);
+            free(filtered_input[2]);
+            free(filtered_input);
+
             return fruits_on_house;
         }
 

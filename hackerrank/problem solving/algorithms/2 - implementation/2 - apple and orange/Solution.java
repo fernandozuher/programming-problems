@@ -1,10 +1,17 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
+// From Java 21
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
+
+class AppleAndOrange {
+    public int startingSam, endingSam;
+    public int appleTreeLocation, orangeTreeLocation;
+    public int nApples, nOranges;
+    public List<Integer> applesDistanceFromTree, orangesDistanceFromTree;
+}
 
 public class Solution {
     private static Scanner scan;
@@ -15,38 +22,33 @@ public class Solution {
         countApplesAndOranges(input);
     }
 
-        private static AppleAndOrange readInput() {
-            int startingSam = scan.nextInt();
-            int endingSam = scan.nextInt();
-            int appleTreeLocation = scan.nextInt();
-            int orangeTreeLocation = scan.nextInt();
-
-            // Discard new line and sizes of arraays
-            scan.nextLine();
-            scan.nextLine();
-
-            List<Integer> applesDistanceFromTree = readIntArray();
-            List<Integer> orangesDistanceFromTree = readIntArray();
-
-            return new AppleAndOrange(startingSam, endingSam,
-                                      appleTreeLocation, orangeTreeLocation,
-                                      applesDistanceFromTree, orangesDistanceFromTree);
+        public static AppleAndOrange readInput() {
+            var input = new AppleAndOrange();
+            input.startingSam = scan.nextInt();
+            input.endingSam = scan.nextInt();
+            input.appleTreeLocation = scan.nextInt();
+            input.orangeTreeLocation = scan.nextInt();
+            input.nApples = scan.nextInt();
+            input.nOranges = scan.nextInt();
+            input.applesDistanceFromTree = readIntArray(input.nApples);
+            input.orangesDistanceFromTree = readIntArray(input.nOranges);
+            return input;
         }
 
-            private static List<Integer> readIntArray() {
-                return Stream.of(scan.nextLine().split(" ")).map(Integer::parseInt).collect(toList());
+            public static List<Integer> readIntArray(final int n) {
+                return Stream.of(new Integer[n]).map(_ -> scan.nextInt()).collect(toList());
             }
 
-        private static void countApplesAndOranges(final AppleAndOrange input) {
+        public static void countApplesAndOranges(final AppleAndOrange input) {
             int applesOnHouse = countFruitsOnHouse(input, "apple");
             int orangesOnHouse = countFruitsOnHouse(input, "orange");
             System.out.println(applesOnHouse + "\n" + orangesOnHouse);
         }
 
-            private static int countFruitsOnHouse(final AppleAndOrange input, final String fruit) {
-                List<List<Integer>> filteredInput = filterInput(input, fruit);
-                int treeLocation = filteredInput.get(0).get(0);
-                List<Integer> fruits = filteredInput.get(1);
+            public static int countFruitsOnHouse(final AppleAndOrange input, final String fruit) {
+                var temp = filterInput(input, fruit);
+                var treeLocation = (int) temp.getFirst();
+                var fruits = (List<Integer>) temp.getLast();
 
                 return (int) fruits.stream().filter(partialLocation -> {
                     int location = treeLocation + partialLocation;
@@ -54,39 +56,9 @@ public class Solution {
                 }).count();
             }
 
-                private static List<List<Integer>> filterInput(final AppleAndOrange input,
-                        final String fruit) {
-                    final int data = 2;
-                    var filteredInput = new ArrayList<List<Integer>>(data);
-                    filteredInput.add(new ArrayList<Integer>());
-                    filteredInput.add(new ArrayList<Integer>());
-
-                    if (fruit == "apple") {
-                        filteredInput.get(0).add(input.appleTreeLocation);
-                        filteredInput.set(1, input.applesDistanceFromTree);
-                    } else {
-                        filteredInput.get(0).add(input.orangeTreeLocation);
-                        filteredInput.set(1, input.orangesDistanceFromTree);
-                    }
-
-                    return filteredInput;
+                public static List <Object> filterInput(final AppleAndOrange input, final String fruit) {
+                    return fruit.equals("apple") ?
+                            List.of(input.appleTreeLocation, input.applesDistanceFromTree)
+                            : List.of(input.orangeTreeLocation, input.orangesDistanceFromTree);
                 }
 }
-
-    class AppleAndOrange {
-        public int startingSam, endingSam;
-        public int appleTreeLocation, orangeTreeLocation;
-        public List<Integer> applesDistanceFromTree, orangesDistanceFromTree;
-
-        public AppleAndOrange(int startingSam, int endingSam,
-                              int appleTreeLocation, int orangeTreeLocation,
-                              List<Integer> applesDistanceFromTree,
-                              List<Integer> orangesDistanceFromTree) {
-            this.startingSam = startingSam;
-            this.endingSam = endingSam;
-            this.appleTreeLocation = appleTreeLocation;
-            this.orangeTreeLocation = orangeTreeLocation;
-            this.applesDistanceFromTree = applesDistanceFromTree;
-            this.orangesDistanceFromTree = orangesDistanceFromTree;
-        }
-    }

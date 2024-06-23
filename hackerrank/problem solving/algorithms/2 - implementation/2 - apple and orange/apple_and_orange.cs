@@ -2,6 +2,13 @@
 
 using static System.Console;
 
+struct AppleAndOrange
+{
+    public int StartingSam, EndingSam;
+    public int AppleTreeLocation, OrangeTreeLocation;
+    public List<int> ApplesDistanceFromTree, OrangesDistanceFromTree;
+}
+
 class Solution
 {
     static void Main()
@@ -56,10 +63,3 @@ class Solution
                         : (input.OrangeTreeLocation, input.OrangesDistanceFromTree);
                 }
 }
-
-    struct AppleAndOrange
-    {
-        public int StartingSam, EndingSam;
-        public int AppleTreeLocation, OrangeTreeLocation;
-        public List<int> ApplesDistanceFromTree, OrangesDistanceFromTree;
-    }
