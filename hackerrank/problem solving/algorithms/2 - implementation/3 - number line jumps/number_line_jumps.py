@@ -1,18 +1,15 @@
-# Source: https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 def main():
-
     array = read_int_array()
     print(kangaroo(array))
 
 
 def read_int_array():
-
     return list(map(int, input().split()))
 
 
 def kangaroo(array):
-
     x1, v1, x2, v2 = array
 
     if v2 >= v1:

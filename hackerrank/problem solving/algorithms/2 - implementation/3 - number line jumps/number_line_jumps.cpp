@@ -1,27 +1,27 @@
-// Source: https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(const int n);
+vector<int> read_int_array(int n);
 string kangaroo(const vector<int>& array);
 
 int main()
 {
-    const int size {4};
-    vector<int> array {read_int_array(size)};
+    constexpr int n{4};
+    vector array {read_int_array(n)};
     cout << kangaroo(array);
-
     return 0;
 }
 
     vector<int> read_int_array(const int n)
     {
-        vector<int> array(4);
-        ranges::generate(array, [] {int n; cin >> n; return n;});
+        vector<int> array(n);
+        copy_n(istream_iterator<int>(cin), n, array.begin());
         return array;
     }
 

@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 'use strict';
 
@@ -23,6 +23,8 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     let array = readIntArray();
     console.log(kangaroo(array));
@@ -34,8 +36,7 @@ function main() {
 
     function kangaroo(array) {
         let [x1, v1, x2, v2] = [...array];
-        if (v2 >= v1)
-            return 'NO';
+        if (v2 >= v1) return 'NO';
         for (; x1 < x2; x1 += v1, x2 += v2);
         return x1 === x2 ? 'YES' : 'NO';
     }

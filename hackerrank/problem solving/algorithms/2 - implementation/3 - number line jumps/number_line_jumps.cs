@@ -1,28 +1,26 @@
-// Source: https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
 class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        List<int> array = _readIntArray();
-        Console.WriteLine(_kangaroo(array));
+        List<int> array = ReadIntArray();
+        WriteLine(Kangaroo(array));
     }
 
-        private static List<int> _readIntArray()
+        static List<int> ReadIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
+            return ReadLine().Split().Select(int.Parse).ToList();
         }
 
-        private static string _kangaroo(List<int> array)
+        static string Kangaroo(List<int> array)
         {
-            int x1 = array[0];
+            int x1 = array.First();
             int v1 = array[1];
             int x2 = array[2];
-            int v2 = array[3];
+            int v2 = array.Last();
 
             if (v2 >= v1)
                 return "NO";
