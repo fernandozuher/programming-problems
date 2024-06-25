@@ -1,4 +1,4 @@
-// Source: https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
 'use strict';
 
@@ -9,11 +9,11 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
+process.stdin.on('data', function (inputStdin: string): void {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
+process.stdin.on('end', function (): void {
     inputLines = inputString.split('\n');
     inputString = '';
     main();
@@ -23,68 +23,67 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
     readIntArray();
     let setA: number[] = readIntArray();
     let setB: number[] = readIntArray();
-    let result = new Result(setA, setB);
-    console.log(result.totalFactors());
+    let obj = new BetweenTwoSets(setA, setB);
+    obj.findFactors();
+    console.log(obj.totalFactors());
 }
 
     function readIntArray() {
-        return readLine().split(" ").map(Number);
+        return readLine().split(' ').map(Number);
     }
-
-    class Result {
-        private setA: number[];
-        private setB: number[];
-        private potentialFactors: number[];
+    
+    class BetweenTwoSets {
+        private readonly setA: number[];
+        private readonly setB: number[];
+        private readonly potentialFactors: number[];
         private factors: number;
-
+    
         public constructor(setA: number[], setB: number[]) {
-            this.setA = [...setA];
-            this.setB = [...setB];
-            this.potentialFactors = new Array();
+            this.setA = setA;
+            this.setB = setB;
+            this.potentialFactors = [];
             this.factors = 0;
-
-            this.findFactors();
         }
-
-            private findFactors() {
-                this.findNumbersDivisibleBySetA();
-                this.findFactorsOfSetB();
-                this.countFactors();
+    
+        public findFactors() {
+            this.findNumbersDivisibleBySetA();
+            this.findFactorsOfSetB();
+            this.countFactors();
+        }
+    
+            private findNumbersDivisibleBySetA() {
+                for (let potentialFactor = this.setA.at(-1); potentialFactor <= this.setB[0]; potentialFactor += this.setA.at(-1)) {
+                    let isARealPotentialFactor = true;
+        
+                    for (let x of this.setA)
+                        if (potentialFactor % x) {
+                            isARealPotentialFactor = false;
+                            break;
+                        }
+        
+                    if (isARealPotentialFactor)
+                        this.potentialFactors.push(potentialFactor);
+                }
             }
-
-                private findNumbersDivisibleBySetA() {
-                    let lastElementOfSetA: number = this.setA[this.setA.length - 1];
-
-                    for (let potentialFactor = lastElementOfSetA; potentialFactor <=this.setB[0]; potentialFactor += lastElementOfSetA) {
-                        let isARealPotentialFactor = true;
-
-                        for (let elementA of this.setA)
-                            if (potentialFactor % elementA) {
-                                isARealPotentialFactor = false;
-                                break;
-                            }
-
-                        if (isARealPotentialFactor)
-                            this.potentialFactors.push(potentialFactor);
-                    }
-                }
-
-                private findFactorsOfSetB() {
-                    for (let elementB of this.setB)
-                        for (let [i, potentialFactor] of this.potentialFactors.entries())
-                            if (potentialFactor && elementB % potentialFactor)
-                                this.potentialFactors[i] = 0;
-                }
-
-                private countFactors() {
-                    this.factors = this.potentialFactors.reduce((sum, item) => item != 0 ? ++sum : sum, 0);
-                }
-            
-            public totalFactors(): number {
-                return this.factors;
+        
+            private findFactorsOfSetB() {
+                for (let x of this.setB)
+                    for (let [i, potentialFactor] of this.potentialFactors.entries())
+                        if (potentialFactor && x % potentialFactor)
+                            this.potentialFactors[i] = 0;
             }
+        
+            private countFactors() {
+                this.factors = this.potentialFactors.filter(x => x).length;
+            }
+    
+        public totalFactors(): number {
+            return this.factors;
+        }
     }
