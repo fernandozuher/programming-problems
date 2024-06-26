@@ -2,41 +2,36 @@
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(const int n);
+vector<int> read_int_array(int n);
+tuple<int, int> breaking_records(const vector<int>& scores);
 
-class Breaking_Best_And_Worst_Records {
+int main()
+{
+    int n;
+    cin >> n;
+    vector array{read_int_array(n)};
+    const auto [most_points_records, least_points_records] {breaking_records(array)};
+    cout << most_points_records << ' ' << least_points_records;
+    return 0;
+}
 
-public:
-    Breaking_Best_And_Worst_Records(const vector<int>& array): scores{array},
-        breaking_most_points_records{}, breaking_least_points_records{}
+    vector<int> read_int_array(const int n)
     {
-        breaking_records();
+        vector<int> array(n);
+        copy_n(istream_iterator<int>(cin), n, array.begin());
+        return array;
     }
 
-    int most_points_records() const
+    tuple<int, int> breaking_records(const vector<int>& scores)
     {
-        return breaking_most_points_records;
-    }
+        int breaking_most_points_records{}, breaking_least_points_records{};
 
-    int least_points_records() const
-    {
-        return breaking_least_points_records;
-    }
-
-private:
-    vector<int> scores;
-    int breaking_most_points_records, breaking_least_points_records;
-
-    void breaking_records()
-    {
-        int most_points {scores.front()};
-        int least_points {scores.front()};
-
-        for (const int score : scores)
+        for (int most_points{scores.front()}, least_points{scores.front()}; const int score : scores)
             if (score > most_points) {
                 most_points = score;
                 ++breaking_most_points_records;
@@ -45,24 +40,6 @@ private:
                 least_points = score;
                 ++breaking_least_points_records;
             }
-    }
-};
 
-int main()
-{
-    int n;
-    cin >> n;
-    vector<int> array {read_int_array(n)};
-
-    Breaking_Best_And_Worst_Records records{array};
-    cout << records.most_points_records() << ' ' << records.least_points_records();
-
-    return 0;
-}
-
-    vector<int> read_int_array(const int n)
-    {
-        vector<int> array(n);
-        generate(array.begin(), array.end(), []{int x; cin >> x; return x;});
-        return array;
+        return {breaking_most_points_records, breaking_least_points_records};
     }

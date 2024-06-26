@@ -1,10 +1,11 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
+// From C23
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int* read_int_array(const int n);
-int* breaking_records(const int* const scores, const int n);
+int *read_int_array(int n);
+int *breaking_records(const int scores[], int n);
 
 int main()
 {
@@ -12,24 +13,24 @@ int main()
     scanf("%d", &n);
     int *array = read_int_array(n);
 
-    int *result = breaking_records(array, n);
-    printf("%d %d\n", result[0], result[1]);
-    
+    int *records = breaking_records(array, n);
+    printf("%d %d\n", records[0], records[1]);
+
     free(array);
-    free(result);
-    array = result = NULL;
+    free(records);
 
     return 0;
 }
 
-    int* read_int_array(const int n)
+    int *read_int_array(const int n)
     {
-        int *array = (int*) calloc(n, sizeof(int));
-        for (int i = 0; i < n; scanf("%d", &array[i++]));
+        auto array = (int*) malloc(n * sizeof(int));
+        for (int i = 0; i < n; ++i)
+            scanf("%d", &array[i]);
         return array;
     }
 
-    int* breaking_records(const int* const scores, const int n)
+    int *breaking_records(const int scores[], const int n)
     {
         int most_points = scores[0], breaking_most_points_records = 0;
         int least_points = scores[0], breaking_least_points_records = 0;
@@ -44,8 +45,8 @@ int main()
                 ++breaking_least_points_records;
             }
 
-        const int n_result = 2;
-        int *records = (int*) calloc(n_result, sizeof(int));
+        constexpr int n_records = 2;
+        auto records = (int*) malloc(n_records * sizeof(int));
         records[0] = breaking_most_points_records;
         records[1] = breaking_least_points_records;
         return records;
