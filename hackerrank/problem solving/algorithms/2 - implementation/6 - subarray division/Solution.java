@@ -1,8 +1,10 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+// From Java 21
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.toList;
 
 public class Solution {
@@ -13,46 +15,26 @@ public class Solution {
 
         int n = scan.nextInt();
         scan.nextLine();
-
-        List<Integer> chocolateSquares = readIntArray();
-        List<Integer> dayMonth = readIntArray();
-
-        var obj = new TheBirthdayBar(chocolateSquares, dayMonth);
-        System.out.println(obj.waysBarCanBeDivided());
+        List<Integer> chocolateSquares = readIntArray(n);
+        final int nDayMonth = 2;
+        List<Integer> dayMonth = readIntArray(nDayMonth);
+        System.out.println(birthday(chocolateSquares, dayMonth));
     }
 
-        private static List<Integer> readIntArray() {
-            return Stream.of(scan.nextLine().split(" "))
-                   .map(Integer::parseInt)
-                   .collect(toList());
-        }
-}
-
-    class TheBirthdayBar {
-        private List<Integer> chocolateSquares;
-        private int day, month;
-        private int nDivisions;
-
-        public TheBirthdayBar(List<Integer> chocolateSquares, List<Integer> dayMonth) {
-            this.chocolateSquares = chocolateSquares;
-            day = dayMonth.get(0);
-            month = dayMonth.get(1);
-            nDivisions = 0;
-
-            birthday();
+        public static List<Integer> readIntArray(final int n) {
+            return Stream.of(new Integer[n]).map(_ -> scan.nextInt()).collect(toList());
         }
 
-            private void birthday() {
-                for (int i = 0, n1 = chocolateSquares.size() - month + 1; i < n1; ++i) {
-                    int sum = 0;
+        public static int birthday(List<Integer> chocolateSquares, List<Integer> dayMonth) {
+            int waysBarCanBeDivided = 0;
+            int day = dayMonth.getFirst();
+            int month = dayMonth.getLast();
 
-                    for (int j = i, n2 = i + month; j < n2; sum += chocolateSquares.get(j++));
-                    if (sum == day)
-                        ++nDivisions;
-                }
+            for (int i = 0, n = chocolateSquares.size() - month + 1; i < n; ++i) {
+                int sum = chocolateSquares.subList(i, i + month).stream().mapToInt(Integer::intValue).sum();
+                if (sum == day) ++waysBarCanBeDivided;
             }
 
-        public int waysBarCanBeDivided() {
-            return nDivisions;
+            return waysBarCanBeDivided;
         }
-    }
+}
