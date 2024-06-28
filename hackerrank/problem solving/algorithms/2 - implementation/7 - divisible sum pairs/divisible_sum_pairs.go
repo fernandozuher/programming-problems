@@ -11,30 +11,28 @@ func main() {
     var n, k int
     fmt.Scan(&n, &k)
     var array []int = readIntArray(n)
-
     sort.Ints(array)
-
     fmt.Print(divisibleSumPairs(array, k))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readIntArray(n int) []int {
+    array := make([]int, n)
+    for i := range array {
+        fmt.Scan(&array[i])
     }
+    return array
+}
 
-    func divisibleSumPairs(array []int, k int) int {
-        var nDivisibleSumPairs int = 0
+func divisibleSumPairs(array []int, k int) int {
+    nDivisibleSumPairs := 0
 
-        for i, n2 := 0, len(array)-1; i < n2; i++ {
-            for j, n := i+1, len(array); j < n; j++ {
-                if array[i] <= array[j] && ((array[i]+array[j])%k == 0) {
-                    nDivisibleSumPairs++
-                }
+    for i, num1 := range array[:len(array)-1] {
+        for _, num2 := range array[i+1:] {
+            if num1 <= num2 && ((num1+num2)%k == 0) {
+                nDivisibleSumPairs++
             }
         }
-
-        return nDivisibleSumPairs
     }
+
+    return nDivisibleSumPairs
+}

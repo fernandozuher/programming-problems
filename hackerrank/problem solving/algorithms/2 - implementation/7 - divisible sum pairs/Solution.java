@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+// From Java 16
 
 import java.util.Collections;
 import java.util.List;
@@ -11,47 +12,24 @@ public class Solution {
 
     public static void main(String[] args) {
         scan = new Scanner(System.in);
-
         int n = scan.nextInt();
         int k = scan.nextInt();
         scan.nextLine();
-
-        List<Integer> array = readIntArray();
-
+        List<Integer> array = readIntArray(n);
         Collections.sort(array);
-
-        var obj = new SubarrayDivision(array, k);
-        System.out.println(obj.nDivisibleSumPairs());
+        System.out.println(divisibleSumPairs(array, k));
     }
 
-        private static List<Integer> readIntArray() {
-            return Stream.of(scan.nextLine().split(" "))
-                   .map(Integer::parseInt)
-                   .collect(toList());
+        public static List<Integer> readIntArray(final int n) {
+            return Stream.of(new Integer[n]).map(_ -> scan.nextInt()).collect(toList());
+        }
+
+        public static int divisibleSumPairs(final List<Integer> array, final int k) {
+            int nDivisibleSumPairs = 0;
+            for (int i = 0, n = array.size() - 1; i < n; ++i)
+                for (int j = i + 1, n2 = array.size(); j < n2; ++j)
+                    if (array.get(i) <= array.get(j) && (array.get(i) + array.get(j)) % k == 0)
+                        ++nDivisibleSumPairs;
+            return nDivisibleSumPairs;
         }
 }
-
-    class SubarrayDivision {
-        private List<Integer> array;
-        private int k;
-        private int nDivisible;
-
-        public SubarrayDivision(final List<Integer> array, final int k) {
-            this.array = array;
-            this.k = k;
-            nDivisible = 0;
-
-            divisibleSumPairs();
-        }
-
-            private void divisibleSumPairs() {
-                for (int i = 0, n2 = array.size() - 1; i < n2; ++i)
-                    for (int j = i + 1, n = array.size(); j < n; ++j)
-                        if (array.get(i) <= array.get(j) && (array.get(i) + array.get(j)) % k == 0)
-                            ++nDivisible;
-            }
-
-        public int nDivisibleSumPairs() {
-            return nDivisible;
-        }
-    }

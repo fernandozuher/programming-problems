@@ -1,42 +1,28 @@
 # https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 def main
-    n, k = read_int_array
-    array = read_int_array
-
-    array.sort!
-
-    obj = SubarrayDivision.new(array, k)
-    puts obj.n_divisible_sum_pairs
+  _, k = read_int_array
+  array = read_int_array
+  array.sort!
+  p divisible_sum_pairs(array, k)
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
-    end
-
-    class SubarrayDivision
-
-        def initialize(array, k)
-            @array = array
-            @k = k
-            @n_divisible_sum_pairs = 0
-
-            divisible_sum_pairs
+  def read_int_array
+    gets.split.map(&:to_i)
+  end
+  
+  def divisible_sum_pairs(array, k)
+    n_divisible_sum_pairs = 0
+  
+    array[...-1].each_with_index { |num1, i|
+      array[i + 1...].each { |num2|
+        if num1 <= num2 and (num1 + num2) % k == 0
+          n_divisible_sum_pairs += 1;
         end
-
-            private def divisible_sum_pairs
-                for i in 0..(@array.size - 2)
-                    for j in (i + 1)..(@array.size - 1)
-                        if @array[i] <= @array[j] and (@array[i] + @array[j]) % @k == 0
-                            @n_divisible_sum_pairs += 1;
-                        end
-                    end
-                end
-            end
-
-        def n_divisible_sum_pairs
-            @n_divisible_sum_pairs
-        end
-    end
+      }
+    }
+  
+    n_divisible_sum_pairs
+  end
 
 main

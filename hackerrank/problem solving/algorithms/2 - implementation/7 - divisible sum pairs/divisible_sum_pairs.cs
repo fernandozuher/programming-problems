@@ -1,54 +1,28 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
 class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        List<int> array = _readIntArray();
-        int k = array[1];
-        array = _readIntArray();
-
+        List<int> array = ReadIntArray();
+        int k = array.Last();
+        array = ReadIntArray();
         array.Sort();
-
-        var obj = new SubarrayDivision(array, k);
-        Console.WriteLine(obj.NDivisibleSumPairs());
+        WriteLine(DivisibleSumPairs(array, k));
     }
 
-        private static List<int> _readIntArray()
+        static List<int> ReadIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
+            return ReadLine()!.Split().Select(int.Parse).ToList();
+        }
+
+        static int DivisibleSumPairs(List<int> array, int k)
+        {
+            return (from i in Enumerable.Range(0, array.Count - 1)
+                from num2 in array[(i + 1)..]
+                where array[i] <= num2 && (array[i] + num2) % k == 0
+                select i).Count();
         }
 }
-
-    public class SubarrayDivision
-    {
-        private List<int> _array;
-        private int _k;
-        private int _nDivisible;
-
-        public SubarrayDivision(List<int> array, int k)
-        {
-            _array = array;
-            _k = k;
-            _nDivisible = 0;
-
-            _divisibleSumPairs();
-        }
-
-            private void _divisibleSumPairs()
-            {
-                for (int i = 0, n2 = _array.Count - 1; i < n2; ++i)
-                    for (int j = i + 1; j < _array.Count; ++j)
-                        if (_array[i] <= _array[j] && (_array[i] + _array[j]) % _k == 0)
-                            ++_nDivisible;
-            }
-
-        public int NDivisibleSumPairs()
-        {
-            return _nDivisible;
-        }
-    }
