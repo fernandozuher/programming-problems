@@ -15,34 +15,33 @@ func main() {
     fmt.Println(findMostSpottedBird(array))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
+func readIntArray(n int) []int {
+    array := make([]int, n)
+    for i := range array {
+        fmt.Scan(&array[i])
+    }
+    return array
+}
+
+func findMostSpottedBird(birdSightings []int) int {
+    var mostSpottedBird int = birdSightings[0]
+    countMostSpottedBird := 1
+    tempCountMostSpottedBird := 1
+    n := len(birdSightings)
+
+    for i := 1; i < n; i++ {
+        if birdSightings[i] == birdSightings[i-1] {
+            tempCountMostSpottedBird++
+        } else if tempCountMostSpottedBird > countMostSpottedBird {
+            mostSpottedBird = birdSightings[i-1]
+            countMostSpottedBird = tempCountMostSpottedBird
+            tempCountMostSpottedBird = 1
         }
-        return array
     }
 
-    func findMostSpottedBird(birdSightings []int) int {
-        var mostSpottedBird int = birdSightings[0]
-        var countMostSpottedBird int = 1
-        var tempCountMostSpottedBird int = 1
-        n := len(birdSightings)
-
-        for i := 1; i < n; i++ {
-
-            if birdSightings[i] == birdSightings[i-1] {
-                tempCountMostSpottedBird++
-            } else if tempCountMostSpottedBird > countMostSpottedBird {
-                mostSpottedBird = birdSightings[i-1]
-                countMostSpottedBird = tempCountMostSpottedBird
-                tempCountMostSpottedBird = 1
-            }
-        }
-
-        if tempCountMostSpottedBird > countMostSpottedBird {
-            mostSpottedBird = birdSightings[n-1]
-        }
-
-        return mostSpottedBird
+    if tempCountMostSpottedBird > countMostSpottedBird {
+        mostSpottedBird = birdSightings[n-1]
     }
+
+    return mostSpottedBird
+}

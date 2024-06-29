@@ -1,60 +1,43 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        List<int> array = _readIntArray();
+        int unused = int.Parse(ReadLine()!);
+        List<int> array = ReadIntArray();
         array.Sort();
-        MigratoryBirds obj = new MigratoryBirds(array);
-        Console.WriteLine(obj.MostSpottedBird);
+        Console.WriteLine(FindMostSpottedBird(array));
     }
 
-        private static List<int> _readIntArray()
+        static List<int> ReadIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
-        }
-}
-
-    public class MigratoryBirds
-    {
-        private List<int> _birdSightings;
-        private int _mostSpottedBird;
-
-        public MigratoryBirds(List<int> birdSightings)
-        {
-            _birdSightings = birdSightings;
-            _findMostSpottedBird();
+            return ReadLine()!.Split().Select(int.Parse).ToList();
         }
 
-            private void _findMostSpottedBird()
+        static int FindMostSpottedBird(List<int> birdSightings)
+        {
+            int mostSpottedBird = birdSightings.First();
+            int countMostSpottedBird = 1;
+            int tempCountMostSpottedBird = 1;
+
+            for (int i = 1; i < birdSightings.Count; ++i)
             {
-                _mostSpottedBird = _birdSightings.First();
-                int countNMostSpottedBird = 1;
-                int tempCountMostSpottedBird = 1;
-
-                for (int i = 1; i < _birdSightings.Count; ++i)
-
-                    if (_birdSightings[i] == _birdSightings[i - 1])
-                        ++tempCountMostSpottedBird;
-
-                    else if (tempCountMostSpottedBird > countNMostSpottedBird) {
-                        _mostSpottedBird = _birdSightings[i - 1];
-                        countNMostSpottedBird = tempCountMostSpottedBird;
-                        tempCountMostSpottedBird = 1;
-                    }
-
-                if (tempCountMostSpottedBird > countNMostSpottedBird)
-                    _mostSpottedBird = _birdSightings.Last();
+                if (birdSightings[i] == birdSightings[i - 1])
+                    ++tempCountMostSpottedBird;
+                else if (tempCountMostSpottedBird > countMostSpottedBird)
+                {
+                    mostSpottedBird = birdSightings[i - 1];
+                    countMostSpottedBird = tempCountMostSpottedBird;
+                    tempCountMostSpottedBird = 1;
+                }
             }
 
-        public int MostSpottedBird
-        {
-            get { return _mostSpottedBird; }
+            if (tempCountMostSpottedBird > countMostSpottedBird)
+                mostSpottedBird = birdSightings.Last();
+
+            return mostSpottedBird;
         }
-    }
+}
