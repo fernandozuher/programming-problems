@@ -1,61 +1,45 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int year = int.Parse(Console.ReadLine());
+        int year = int.Parse(ReadLine()!);
         var obj = new DayOfTheProgrammer(year);
-        Console.WriteLine(obj.Date);
+        obj.calculateDateOf256thDay();
+        WriteLine(obj.Date);
     }
 }
 
-    public class DayOfTheProgrammer
+    class DayOfTheProgrammer(int year)
     {
-        private static int TransitionYear = 1918;
-        private int _year;
-        private string _date;
+        private const int TransitionYear = 1918;
+        private readonly int _year = year;
+        public string Date { get; private set; } = "";
 
-        public DayOfTheProgrammer(int year)
+        public void calculateDateOf256thDay()
         {
-            _year = year;
-            _date = "";
-            _findDateOf256thDay();
+            if (_year != TransitionYear)
+                Date = _isLeapYear() ? "12.09." : "13.09.";
+            else
+                Date = "26.09.";
+            Date += _year.ToString();
         }
 
-            private void _findDateOf256thDay()
+            private bool _isLeapYear()
             {
-                _findDayMonthOf256thDay();
-                _date += _year.ToString();
+                return _year > TransitionYear ? _isLeapGregorianYear() : _isLeapJulianYear();
             }
 
-                private void _findDayMonthOf256thDay()
+                private bool _isLeapGregorianYear()
                 {
-                    if (_year != TransitionYear)
-                        _date = _isLeapYear() ? "12.09." : "13.09.";
-                    else
-                        _date = "26.09.";
+                    return _year % 400 == 0 || (_year % 4 == 0 && _year % 100 != 0);
                 }
 
-                    private bool _isLeapYear()
-                    {
-                        return _year > TransitionYear ? _isLeapGregorianYear() : _isLeapJulianYear();
-                    }
-
-                        private bool _isLeapGregorianYear()
-                        {
-                            return _year % 400 == 0 || (_year % 4 == 0 && _year % 100 != 0);
-                        }
-
-                        private bool _isLeapJulianYear()
-                        {
-                            return _year % 4 == 0;
-                        }
-
-        public string Date
-        {
-            get { return _date; }
-        }
+                private bool _isLeapJulianYear()
+                {
+                    return _year % 4 == 0;
+                }
     }
