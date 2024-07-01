@@ -1,66 +1,78 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+// From C++23
 
 #include <algorithm>
 #include <iostream>
-#include <numeric>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(const int n);
-void print_output(const int charged);
+struct input {
+    int item_anna_didnt_consume{};
+    vector<int> cost_of_each_meal;
+    int brian_charged_anna{};
+};
 
 class Bill_Division {
 public:
-    Bill_Division(const vector<int>& cost_of_each_meal, const int item_anna_didnt_consume, const int brian_charged_anna)
-        : cost_of_each_meal{cost_of_each_meal}, item_anna_didnt_consume{item_anna_didnt_consume},
-        brian_charged_anna{brian_charged_anna}, brian_overcharged_anna{}
-    {
-        bon_appetit();
-    }
-
-    int brian_overcharged() const
-    {
-        return brian_overcharged_anna;
-    }
+    explicit Bill_Division(const input& data);
+    [[nodiscard]] int brian_overcharged_anna() const;
+    void bon_appetit();
 
 private:
-    vector<int> cost_of_each_meal;
     int item_anna_didnt_consume;
+    vector<int> cost_of_each_meal;
     int brian_charged_anna;
-    int brian_overcharged_anna;
+    int brian_overcharged{};
 
-    void bon_appetit()
+    int calculate_anna_cost();
+    void how_much_brian_overcharged(int anna_cost);
+};
+
+    Bill_Division::Bill_Division(const input& data): item_anna_didnt_consume{data.item_anna_didnt_consume},
+                                                     cost_of_each_meal{data.cost_of_each_meal},
+                                                     brian_charged_anna{data.brian_charged_anna} {}
+
+    int Bill_Division::brian_overcharged_anna() const
     {
-        int anna_cost {calculate_anna_cost()};
-        calculate_how_much_brian_overcharged_anna(anna_cost);
+        return brian_overcharged;
     }
 
-        int calculate_anna_cost()
+    void Bill_Division::bon_appetit()
+    {
+        int anna_cost{calculate_anna_cost()};
+        how_much_brian_overcharged(anna_cost);
+    }
+
+        int Bill_Division::calculate_anna_cost()
         {
-            int sum {accumulate(cost_of_each_meal.begin(), cost_of_each_meal.end(), 0)};
-            int anna_cost {(sum - cost_of_each_meal.at(item_anna_didnt_consume)) / 2};
-            return anna_cost;
+            int sum{*ranges::fold_left_first(cost_of_each_meal, plus())};
+            return (sum - cost_of_each_meal.at(item_anna_didnt_consume)) / 2;
         }
 
-        void calculate_how_much_brian_overcharged_anna(const int anna_cost)
+        void Bill_Division::how_much_brian_overcharged(const int anna_cost)
         {
             if (anna_cost != brian_charged_anna)
-                brian_overcharged_anna = brian_charged_anna - anna_cost;
+                brian_overcharged = brian_charged_anna - anna_cost;
         }
-};
+
+//////////////////////////////////////////////////
+
+vector<int> read_int_array(int n);
+void print_output(int charged);
 
 int main()
 {
-    int n, item_anna_didnt_consume;
-    cin >> n >> item_anna_didnt_consume;
+    int n;
+    input data;
+    cin >> n >> data.item_anna_didnt_consume;
+    data.cost_of_each_meal = read_int_array(n);
+    cin >> data.brian_charged_anna;
 
-    vector<int> cost_of_each_meal {read_int_array(n)};
-    int brian_charged_anna;
-    cin >> brian_charged_anna;
-
-    Bill_Division obj{cost_of_each_meal, item_anna_didnt_consume, brian_charged_anna};
-    print_output(obj.brian_overcharged());
+    Bill_Division obj{data};
+    obj.bon_appetit();
+    print_output(obj.brian_overcharged_anna());
 
     return 0;
 }
@@ -68,7 +80,7 @@ int main()
     vector<int> read_int_array(const int n)
     {
         vector<int> array(n);
-        ranges::generate(array, [] {int x; cin >> x; return x;});
+        copy_n(istream_iterator<int>(cin), n, array.begin());
         return array;
     }
 

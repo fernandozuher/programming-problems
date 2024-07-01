@@ -1,14 +1,20 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+// From C23
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int* read_int_array(const int n);
-int bon_appetit(const int* const cost_of_each_meal, const int n, const int item_anna_didnt_consume, const int brian_charged_anna);
-    int calculate_anna_cost(const int* const cost_of_each_meal, const int n, const int item_anna_didnt_consume);
-    int calculate_how_much_brian_overcharged_anna(const int brian_charged_anna, const int anna_cost);
-        char* convert_int_to_string(const int number);
-void print_output(const int charged);
+typedef struct {
+    int n, item_anna_didnt_consume;
+    int *cost_of_each_meal;
+    int brian_charged_anna;
+} input;
+
+int *read_int_array(int n);
+int bon_appetit(const input *data);
+    int calculate_anna_cost(const input *data);
+    int how_much_brian_overcharged_anna(int brian_charged_anna, int anna_cost);
+void print_output(int charged);
 
 int main()
 {
@@ -19,44 +25,41 @@ int main()
     int brian_charged_anna;
     scanf("%d", &brian_charged_anna);
 
-    int brian_overcharged_anna = bon_appetit(cost_of_each_meal, n, item_anna_didnt_consume, brian_charged_anna);
+    input data = {n, item_anna_didnt_consume, cost_of_each_meal, brian_charged_anna};
+    int brian_overcharged_anna = bon_appetit(&data);
     print_output(brian_overcharged_anna);
+
+    free(cost_of_each_meal);
 
     return 0;
 }
 
-    int* read_int_array(const int n)
+    int *read_int_array(const int n)
     {
-        int *array = (int*) calloc(n, sizeof(int));
-        for (int i = 0; i < n; scanf("%d", &array[i++]));
+        auto array = (int*) malloc(n * sizeof(int));
+        for (int i = 0; i < n; ++i)
+            scanf("%d", &array[i]);
         return array;
     }
 
-    int bon_appetit(const int* const cost_of_each_meal, const int n, const int item_anna_didnt_consume, const int brian_charged_anna)
+    int bon_appetit(const input *data)
     {
-        int anna_cost = calculate_anna_cost(cost_of_each_meal, n, item_anna_didnt_consume);
-        return calculate_how_much_brian_overcharged_anna(brian_charged_anna, anna_cost);
+        int anna_cost = calculate_anna_cost(data);
+        return how_much_brian_overcharged_anna(data->brian_charged_anna, anna_cost);
     }
 
-        int calculate_anna_cost(const int* const cost_of_each_meal, const int n, const int item_anna_didnt_consume)
+        int calculate_anna_cost(const input *data)
         {
             int sum = 0;
-            for (int i = 0; i < n; sum += cost_of_each_meal[i++]);
-            int anna_cost = (sum - cost_of_each_meal[item_anna_didnt_consume]) / 2;
-            return anna_cost;
+            for (int i = 0; i < data->n; ++i)
+                sum += data->cost_of_each_meal[i];
+            return (sum - data->cost_of_each_meal[data->item_anna_didnt_consume]) / 2;
         }
 
-        int calculate_how_much_brian_overcharged_anna(int brian_charged_anna, const int anna_cost)
+        int how_much_brian_overcharged_anna(const int brian_charged_anna, const int anna_cost)
         {
             return anna_cost != brian_charged_anna ? brian_charged_anna - anna_cost : 0;
         }
-
-            char* convert_int_to_string(const int number)
-            {
-                char *number_string = (char*) calloc(5, sizeof(char));
-                sprintf(number_string, "%d", number);
-                return number_string;
-            }
 
     void print_output(const int charged)
     {

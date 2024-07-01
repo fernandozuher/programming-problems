@@ -1,27 +1,27 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        List<int> input = _readIntArray();
-        int n = input.First();
-        int itemAnnaDidntConsume = input.Last();
+        Input data = default;
+        List<int> list = _readIntArray();
 
-        List<int> costOfEachMeal = _readIntArray();
-        int brianChargedAnna = int.Parse(Console.ReadLine());
+        int n = list.First();
+        data.ItemAnnaDidntConsume = list.Last();
+        data.CostOfEachMeal = _readIntArray();
+        data.BrianChargedAnna = int.Parse(ReadLine()!);
 
-        var obj = new BillDivision(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna);
+        var obj = new BillDivision(data);
+        obj.BonAppetit();
         _printOutput(obj.BrianOverchargedAnna);
     }
 
         private static List<int> _readIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
+            return ReadLine()!.Split().Select(int.Parse).ToList();
         }
 
         private static void _printOutput(int charged)
@@ -30,44 +30,35 @@ public class Solution
         }
 }
 
-    public class BillDivision
+    struct Input
     {
-        private List<int> _costOfEachMeal;
-        private int _itemAnnaDidntConsume;
-        private int _brianChargedAnna;
-        private int _brianOverchargedAnna;
+        public int ItemAnnaDidntConsume { get; set; }
+        public List<int> CostOfEachMeal { get; set; }
+        public int BrianChargedAnna { get; set; }
+    }
 
-        public BillDivision(List<int> costOfEachMeal, int itemAnnaDidntConsume, int brianChargedAnna)
+    class BillDivision(Input data)
+    {
+        private readonly int _itemAnnaDidntConsume = data.ItemAnnaDidntConsume;
+        private readonly List<int> _costOfEachMeal = data.CostOfEachMeal;
+        private readonly int _brianChargedAnna = data.BrianChargedAnna;
+        public int BrianOverchargedAnna { get; private set; }
+
+        public void BonAppetit()
         {
-            _costOfEachMeal = costOfEachMeal;
-            _itemAnnaDidntConsume = itemAnnaDidntConsume;
-            _brianChargedAnna = brianChargedAnna;
-            _brianOverchargedAnna = 0;
-
-            _bonAppetit();
+            int annaCost = _calculateAnnaCost();
+            _howMuchBrianOverchargedAnna(annaCost);
         }
 
-            private void _bonAppetit()
+            private int _calculateAnnaCost()
             {
-                int annaCost = _calculateAnnaCost();
-                _calculateHowMuchBrianOverchargedAnna(annaCost);
+                int sum = _costOfEachMeal.Sum();
+                return (sum - _costOfEachMeal[_itemAnnaDidntConsume]) / 2;
             }
 
-                private int _calculateAnnaCost()
-                {
-                    int sum = _costOfEachMeal.Sum();
-                    int annaCost = (sum - _costOfEachMeal[_itemAnnaDidntConsume]) / 2;
-                    return annaCost;
-                }
-
-                private void _calculateHowMuchBrianOverchargedAnna(int annaCost)
-                {
-                    if (annaCost != _brianChargedAnna)
-                        _brianOverchargedAnna = _brianChargedAnna - annaCost;
-                }
-
-        public int BrianOverchargedAnna
-        {
-            get { return _brianOverchargedAnna; }
-        }
+            private void _howMuchBrianOverchargedAnna(int annaCost)
+            {
+                if (annaCost != _brianChargedAnna)
+                    BrianOverchargedAnna = _brianChargedAnna - annaCost;
+            }
     }

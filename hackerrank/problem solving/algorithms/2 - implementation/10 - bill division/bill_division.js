@@ -9,11 +9,11 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
+process.stdin.on('data', function (inputStdin) {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
+process.stdin.on('end', function () {
     inputLines = inputString.split('\n');
     inputString = '';
     main();
@@ -23,53 +23,52 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let [n, itemAnnaDidntConsume] = readIntArray();    
+    let [, itemAnnaDidntConsume] = readIntArray();
     let costOfEachMeal = readIntArray();
     let brianChargedAnna = +readLine();
+    let input = [itemAnnaDidntConsume, costOfEachMeal, brianChargedAnna];
 
-    let obj = new BillDivision(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna);
-    printOutput(obj.brianOvercharged());
+    let obj = new BillDivision(input);
+    obj.bonAppetit();
+    printOutput(obj.brianOverchargedAnna());
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readIntArray() {
+    return readLine().split(' ').map(Number);
+}
 
     class BillDivision {
-        #costOfEachMeal;
         #itemAnnaDidntConsume;
+        #costOfEachMeal;
         #brianChargedAnna;
-        #brianOverchargedAnna;
+        #brianOvercharged;
 
-        constructor(costOfEachMeal, itemAnnaDidntConsume, brianChargedAnna) {
-            this.#costOfEachMeal = costOfEachMeal;
-            this.#itemAnnaDidntConsume = itemAnnaDidntConsume;
-            this.#brianChargedAnna = brianChargedAnna;
-            this.#brianOverchargedAnna = 0;
-
-            this.#bonAppetit();
+        constructor(input) {
+            [this.#itemAnnaDidntConsume, this.#costOfEachMeal, this.#brianChargedAnna] = input
+            this.#brianOvercharged = 0;
         }
 
-            #bonAppetit() {
-                let annaCost = this.#calculateAnnaCost();
-                this.#calculateHowMuchBrianOverchargedAnna(annaCost);
+        bonAppetit() {
+            let annaCost = this.#calculateAnnaCost();
+            this.#howMuchBrianOverchargedAnna(annaCost);
+        }
+
+            #calculateAnnaCost() {
+                let sum = this.#costOfEachMeal.reduce((a, b) => a + b, 0);
+                return (sum - this.#costOfEachMeal[this.#itemAnnaDidntConsume]) / 2;
             }
 
-                #calculateAnnaCost() {
-                    let sum = this.#costOfEachMeal.reduce((a, b) => a + b, 0);
-                    let annaCost = (sum - this.#costOfEachMeal[this.#itemAnnaDidntConsume]) / 2;
-                    return annaCost;
-                }
-
-                #calculateHowMuchBrianOverchargedAnna(annaCost) {
-                    if (annaCost !== this.#brianChargedAnna)
-                        this.#brianOverchargedAnna = this.#brianChargedAnna - annaCost;
-                }
-        
-            brianOvercharged() {
-                return this.#brianOverchargedAnna;
+            #howMuchBrianOverchargedAnna(annaCost) {
+                if (annaCost !== this.#brianChargedAnna)
+                    this.#brianOvercharged = this.#brianChargedAnna - annaCost;
             }
+
+        brianOverchargedAnna() {
+            return this.#brianOvercharged;
+        }
     }
 
     function printOutput(charged) {
