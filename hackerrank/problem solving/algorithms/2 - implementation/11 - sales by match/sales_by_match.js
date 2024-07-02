@@ -9,11 +9,11 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
+process.stdin.on('data', function (inputStdin) {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
+process.stdin.on('end', function () {
     inputLines = inputString.split('\n');
     inputString = '';
     main();
@@ -23,37 +23,25 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let n = +readLine();
+    readLine();
     let array = readIntArray();
-    let obj = new SalesByMatch(array);
-    console.log(obj.pairs());
+    console.log(sockMerchant(array));
 }
 
     function readIntArray() {
         return readLine().split(' ').map(Number);
     }
-
-    class SalesByMatch {
-        #socks;
-        #pairs;
-
-        constructor(socks) {
-            this.#socks = socks;
-            this.#pairs = 0;
-            this.#sockMerchant();
+    
+    function sockMerchant(socks) {
+        let pairs = 0;
+        let socksPairing = {};
+        for (let sock of socks) {
+            if (socksPairing[sock])
+                ++pairs;
+            socksPairing[sock] = !socksPairing[sock];
         }
-
-        #sockMerchant() {
-            let socksPairing = {};
-            for (let sock of this.#socks) {
-                if (socksPairing[sock])
-                    ++this.#pairs;
-                socksPairing[sock] = !socksPairing[sock];
-            }
-        }
-
-        pairs() {
-            return this.#pairs;
-        }
+        return pairs;
     }

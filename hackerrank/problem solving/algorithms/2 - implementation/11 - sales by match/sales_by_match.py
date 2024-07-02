@@ -1,41 +1,26 @@
 # https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 def main():
-
-    n = int(input())
+    _n = int(input())
     array = read_int_array()
-    obj = SalesByMatch(array)
-    print(obj.pairs())
+    print(sock_merchant(array))
 
 
 def read_int_array():
-
     return list(map(int, input().split()))
 
 
-class SalesByMatch:
+def sock_merchant(socks):
+    pairs = 0
+    socks_pairing = {}
 
-    def __init__(self, socks):
+    for sock in socks:
+        if socks_pairing.get(sock):
+            pairs += 1
+        socks_pairing[sock] = not socks_pairing[sock] if socks_pairing.get(sock) is not None else True
 
-        self._socks = socks
-        self._pairs = 0
-        self._sockMerchant()
-
-
-    def _sockMerchant(self):
-
-        socksPairing = {}
-
-        for sock in self._socks:
-            if socksPairing.get(sock):
-                self._pairs += 1
-            socksPairing[sock] = not socksPairing[sock] if socksPairing.get(sock) != None else True
+    return pairs
 
 
-    def pairs(self):
-
-        return self._pairs
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

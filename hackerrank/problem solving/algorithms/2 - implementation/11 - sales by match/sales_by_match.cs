@@ -1,52 +1,33 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
+        int _ = int.Parse(ReadLine()!);
         List<int> array = _readIntArray();
-        var obj = new SalesByMatch(array);
-        Console.WriteLine(obj.Pairs);
+        WriteLine(_sockMerchant(array));
     }
 
         private static List<int> _readIntArray()
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
+            return ReadLine()!.Split().Select(int.Parse).ToList();
         }
-}
 
-    public class SalesByMatch
-    {
-        private List<int> _socks;
-        private int _pairs;
-
-        public SalesByMatch(List<int> socks)
+        private static int _sockMerchant(List<int> socks)
         {
-            _socks = socks;
-            _pairs = 0;
-            _sockMerchant();
-        }
+            int pairs = 0;
+            var socksPairing = new Dictionary<int, bool>();
 
-            private void _sockMerchant()
+            foreach (int sock in socks)
             {
-                var socksPairing = new Dictionary<int, bool>();
-
-                foreach (int sock in _socks)
-                {
-                    bool value;
-                    if (socksPairing.TryGetValue(sock, out value) && value)
-                        _pairs++;
-                    socksPairing[sock] = !value;
-                }
+                if (socksPairing.TryGetValue(sock, out var value) && value)
+                    ++pairs;
+                socksPairing[sock] = !value;
             }
 
-        public int Pairs
-        {
-            get { return _pairs; }
+            return pairs;
         }
-    }
+}

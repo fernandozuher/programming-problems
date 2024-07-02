@@ -2,49 +2,21 @@
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 #include <map>
 
 using namespace std;
 
-vector<int> read_int_array(const int n);
-
-class Sales_By_Match {
-public:
-    Sales_By_Match(const vector<int>& socks): socks{socks}, n_pairs{}
-    {
-        sock_merchant();
-    }
-
-    int pairs() const
-    {
-        return n_pairs;
-    }
-
-private:
-    vector<int> socks;
-    int n_pairs;
-
-    void sock_merchant()
-    {
-        map<int, bool> socks_pairing;
-
-        for (const int sock : socks) {
-            if (socks_pairing[sock])
-                ++n_pairs;
-            socks_pairing[sock] = !socks_pairing[sock];
-        }
-    }
-};
+vector<int> read_int_array(int n);
+int sock_merchant(const vector<int>& socks);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<int> array {read_int_array(n)};
-
-    Sales_By_Match obj{array};
-    cout << obj.pairs();
+    vector array{read_int_array(n)};
+    cout << sock_merchant(array);
 
     return 0;
 }
@@ -52,6 +24,17 @@ int main()
     vector<int> read_int_array(const int n)
     {
         vector<int> array(n);
-        ranges::generate(array, [] {int x; cin >> x; return x;});
+        copy_n(istream_iterator<int>(cin), n, array.begin());
         return array;
+    }
+
+    int sock_merchant(const vector<int>& socks)
+    {
+        int pairs{};
+        for (map<int, bool> socks_pairing; const int sock : socks) {
+            if (socks_pairing[sock])
+                ++pairs;
+            socks_pairing[sock] = !socks_pairing[sock];
+        }
+        return pairs;
     }

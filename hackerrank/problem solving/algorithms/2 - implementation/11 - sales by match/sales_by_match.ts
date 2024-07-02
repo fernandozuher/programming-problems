@@ -9,11 +9,11 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
+process.stdin.on('data', function (inputStdin: string): void {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
+process.stdin.on('end', function (): void {
     inputLines = inputString.split('\n');
     inputString = '';
     main();
@@ -23,38 +23,27 @@ function readLine(): string {
     return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let n: number = +readLine();
+    readLine();
     let array: number[] = readIntArray();
-    let obj = new SalesByMatch(array);
-    console.log(obj.pairs());
+    console.log(sockMerchant(array));
 }
 
     function readIntArray(): number[] {
         return readLine().split(' ').map(Number);
     }
 
-    class SalesByMatch {
-        socks: number[];
-        nPairs: number;
+    function sockMerchant(socks: number[]): number {
+        let pairs = 0;
+        let socksPairing = new Map<number, boolean>();
 
-        constructor(socks: number[]) {
-            this.socks = socks;
-            this.nPairs = 0;
-            this.sockMerchant();
+        for (const sock of socks) {
+            if (socksPairing.get(sock))
+                ++pairs;
+            socksPairing.set(sock, !socksPairing.get(sock));
         }
 
-            private sockMerchant() {
-                let socksPairing = new Map<number, boolean>();
-
-                for (const sock of this.socks) {
-                    if (socksPairing.get(sock))
-                        ++this.nPairs;
-                    socksPairing.set(sock, !socksPairing.get(sock));
-                }
-            }
-
-        public pairs(): number {
-            return this.nPairs;
-        }
+        return pairs;
     }
