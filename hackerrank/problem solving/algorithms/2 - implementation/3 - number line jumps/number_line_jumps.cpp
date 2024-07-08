@@ -1,39 +1,40 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
+// From C++20
 
 #include <algorithm>
+#include <array>
 #include <iostream>
 #include <iterator>
-#include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(int n);
-string kangaroo(const vector<int>& array);
+constexpr int input_size{4};
+
+template<class T = int>
+array<T, input_size> read_input();
+template<class T = int>
+string kangaroo(const array<T, input_size>& array);
 
 int main()
 {
-    constexpr int n{4};
-    vector array {read_int_array(n)};
-    cout << kangaroo(array);
+    cout << kangaroo(read_input());
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
+    template<class T>
+    array<T, input_size> read_input()
     {
-        vector<int> array(n);
-        copy_n(istream_iterator<int>(cin), n, array.begin());
+        array<T, input_size> array;
+        copy_n(istream_iterator<T>(cin), input_size, array.begin());
         return array;
     }
 
-    string kangaroo(const vector<int>& array)
+    template<class T>
+    string kangaroo(const array<T, input_size>& array)
     {
-        int x1 {array.front()};
-        int v1 {array.at(1)};
-        int x2 {array.at(2)};
-        int v2 {array.back()};
-
+        auto [x1, v1, x2, v2]{array};
         if (v2 >= v1)
-            return "NO";
+            return "NO"s;
         for (; x1 < x2; x1 += v1, x2 += v2);
-        return x1 == x2 ? "YES" : "NO";
+        return x1 == x2 ? "YES"s : "NO"s;
     }
