@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
+// From C++20
 
 #include <algorithm>
 #include <iostream>
@@ -7,27 +8,27 @@
 
 using namespace std;
 
-vector<int> read_int_array(int n);
-tuple<int, int> breaking_records(const vector<int>& scores);
+template<class T = int>
+vector<T> read(int n);
+vector<int> breaking_records(const vector<int>& scores);
 
 int main()
 {
     int n;
     cin >> n;
-    vector array{read_int_array(n)};
-    const auto [most_points_records, least_points_records] {breaking_records(array)};
-    cout << most_points_records << ' ' << least_points_records;
+    ranges::copy(breaking_records(read(n)), ostream_iterator<int>(cout, " "));
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
+    template<class T>
+    vector<T> read(const int n)
     {
-        vector<int> array(n);
-        copy_n(istream_iterator<int>(cin), n, array.begin());
+        vector<T> array(n);
+        copy_n(istream_iterator<T>(cin), n, array.begin());
         return array;
     }
 
-    tuple<int, int> breaking_records(const vector<int>& scores)
+    vector<int> breaking_records(const vector<int>& scores)
     {
         int breaking_most_points_records{}, breaking_least_points_records{};
 
