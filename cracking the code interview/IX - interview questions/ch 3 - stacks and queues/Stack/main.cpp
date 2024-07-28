@@ -1,6 +1,5 @@
 // From C++23
 
-#include <exception>
 #include <iostream>
 #include <print>
 #include <ranges>
@@ -14,23 +13,17 @@ using namespace stack_exercises;
 template<class T = int>
 vector<T> data_test();
 template<class T = int>
-void pushing(const vector<T>& data, Stack<T>& stack);
+void test(Stack<T>& stack, const vector<T>& data);
 template<class T = int>
-void popping(int size, Stack<T>& stack);
+void pushing(Stack<T>& stack, const vector<T>& data);
+template<class T = int>
+void popping(Stack<T>& stack, int n);
 
 int main()
 {
     const auto data{data_test()};
     Stack stack;
-    try {
-        pushing(data, stack);
-        println("");
-        popping(data.size(), stack);
-    }
-    catch (const exception& error) {
-        cerr << error.what();
-    }
-
+    test(stack, data);
     return 0;
 }
 
@@ -41,7 +34,15 @@ vector<T> data_test()
 }
 
 template<class T>
-void pushing(const vector<T>& data, Stack<T>& stack)
+void test(Stack<T>& stack, const vector<T>& data)
+{
+    pushing(stack, data);
+    println("");
+    popping(stack, data.size());
+}
+
+template<class T>
+void pushing(Stack<T>& stack, const vector<T>& data)
 {
     println("Pushing...");
     for (const auto x : data) {
@@ -51,12 +52,17 @@ void pushing(const vector<T>& data, Stack<T>& stack)
 }
 
 template<class T>
-void popping(const int size, Stack<T>& stack)
+void popping(Stack<T>& stack, const int n)
 {
     println("Popping...");
-    // size + 1 to see exception
-    for ([[maybe_unused]] const auto _ : views::iota(0, size + 1)) {
-        print("peeked number {}, ", stack.peek());
-        println("popped number {}", stack.pop());
+    // n + 2 to watch exceptions
+    for ([[maybe_unused]] const auto _ : views::iota(0, n + 2)) {
+        try {
+            print("peeked number {}, ", stack.peek());
+            println("popped number {}", stack.pop());
+        }
+        catch (const out_of_range& error) {
+            cerr << error.what() << '\n';
+        }
     }
 }

@@ -30,7 +30,7 @@ T stack_exercises::Set_Of_Stacks<T>::pop()
 
     T data{top->stack.pop()};
     if (--size_of_top_stack == 0) {
-        println("Stack removed after popping returned element...");
+        print("Stack removed before returning popped element...");
         top = top->next;
         if (top)
             size_of_top_stack = threshold;

@@ -1,4 +1,5 @@
-#include <exception>
+// From C++23
+
 #include <iostream>
 #include <print>
 #include <ranges>
@@ -12,23 +13,17 @@ using namespace stack_exercises;
 template<class T = int>
 vector<T> data_test();
 template<class T = int>
-void pushing(const vector<T>& data, Min_Stack<T>& stack);
+void test(Min_Stack<T>& min_stack, const vector<T>& data);
 template<class T = int>
-void popping(int size, Min_Stack<T>& stack);
+void pushing(Min_Stack<T>& min_stack, const vector<T>& data);
+template<class T = int>
+void popping(Min_Stack<T>& min_stack, int n);
 
 int main()
 {
     const auto data{data_test()};
     Min_Stack stack;
-    try {
-        pushing(data, stack);
-        println("");
-        popping(data.size(), stack);
-    }
-    catch (const exception& error) {
-        cerr << error.what();
-    }
-
+    test(stack, data);
     return 0;
 }
 
@@ -39,23 +34,37 @@ vector<T> data_test()
 }
 
 template<class T>
-void pushing(const vector<T>& data, Min_Stack<T>& stack)
+void test(Min_Stack<T>& min_stack, const vector<T>& data)
+{
+    pushing(min_stack, data);
+    println("");
+    popping(min_stack, data.size());
+}
+
+template<class T>
+void pushing(Min_Stack<T>& min_stack, const vector<T>& data)
 {
     println("Pushing...");
     for (const auto x : data) {
-        stack.push(x);
-        println("number inserted {}, peeked number {}, min element {}", x, stack.peek(), stack.min());
+        min_stack.push(x);
+        println("Pushed, Peeked, Min: {}, {}, {}", x, min_stack.peek(), min_stack.min());
     }
 }
 
 template<class T>
-void popping(const int size, Min_Stack<T>& stack)
+void popping(Min_Stack<T>& min_stack, const int n)
 {
     println("Popping...");
-    println("min element {}", stack.min());
-    for ([[maybe_unused]] const auto _ : views::iota(0, size)) {
-        print("peeked number {}, ", stack.peek());
-        print("popped number {}, ", stack.pop());
-        println("min element {}", stack.min());
+    println("Min: {}", min_stack.min());
+    // n + 2 to watch exceptions
+    for ([[maybe_unused]] const auto _ : views::iota(0, n + 2)) {
+        try {
+            print("Peeked, Popped, Min: {}, ", min_stack.peek());
+            print("{}, ", min_stack.pop());
+            println("{}", min_stack.min());
+        }
+        catch (const out_of_range& error) {
+            cerr << error.what() << '\n';
+        }
     }
 }

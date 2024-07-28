@@ -4,7 +4,7 @@
 
 using namespace std;
 
-namespace queue_exercises {
+namespace stack_exercises {
     template<class T = int>
     struct Node {
         T data;
@@ -13,16 +13,15 @@ namespace queue_exercises {
     };
 
     template<class T = int>
-    class Queue {
-        shared_ptr<Node<T>> first;
-        shared_ptr<Node<T>> last;
+    class Stack {
+        shared_ptr<Node<T>> top;
 
     public:
-        void add(const T& data);
-        T remove();
+        void push(const T& data);
+        T pop();
         [[nodiscard]] T peek() const;
         [[nodiscard]] bool is_empty() const;
     };
 }
 
-#include "Queue.tpp"
+#include "Stack.tpp"

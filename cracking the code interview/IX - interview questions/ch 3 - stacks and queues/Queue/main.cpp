@@ -23,10 +23,9 @@ void removing(Queue<T>& queue, int n);
 int main()
 {
     constexpr auto n{5};
-    const auto data{data_test(n)};
+    auto data{data_test(n)};
     Queue queue;
     test(queue, data);
-
     return 0;
 }
 
@@ -41,14 +40,9 @@ vector<T> data_test(const int n)
 template<class T>
 void test(Queue<T>& queue, const vector<T>& data)
 {
-    try {
-        adding(queue, data);
-        println("");
-        removing(queue, data.size());
-    }
-    catch (const exception& error) {
-        cerr << error.what();
-    }
+    adding(queue, data);
+    println("");
+    removing(queue, data.size());
 }
 
 template<class T>
@@ -65,9 +59,14 @@ template<class T>
 void removing(Queue<T>& queue, const int n)
 {
     println("Removing...");
-    // n + 1 to see exception
-    for ([[maybe_unused]] const auto _ : views::iota(0, n + 1)) {
-        print("Peeked, Removed: {} ", queue.peek());
-        println("{}", queue.remove());
+    // n + 2 to watch exceptions
+    for ([[maybe_unused]] const auto _ : views::iota(0, n + 2)) {
+        try {
+            print("Peeked, Removed: {} ", queue.peek());
+            println("{}", queue.remove());
+        }
+        catch (const out_of_range& error) {
+            cerr << error.what() << '\n';
+        }
     }
 }
