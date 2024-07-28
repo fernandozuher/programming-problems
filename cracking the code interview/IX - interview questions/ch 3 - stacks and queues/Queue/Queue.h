@@ -4,26 +4,25 @@
 
 using namespace std;
 
-namespace stack_exercises {
+namespace queue_exercises {
     template<class T = int>
     struct Node {
         T data;
-        shared_ptr<Node> next;
+        shared_ptr<Node<T>> next;
         explicit Node(const T& data);
     };
 
     template<class T = int>
-    class Min_Stack {
-        shared_ptr<Node<T>> top;
-        T min_ele;
+    class Queue {
+        shared_ptr<Node<T>> first;
+        shared_ptr<Node<T>> last;
 
     public:
-        void push(const T& data);
-        T pop();
+        void add(const T& data);
+        T remove();
         [[nodiscard]] T peek() const;
         [[nodiscard]] bool is_empty() const;
-        [[nodiscard]] T min() const;
     };
 }
 
-#include "Min_Stack.tpp"
+#include "Queue.tpp"

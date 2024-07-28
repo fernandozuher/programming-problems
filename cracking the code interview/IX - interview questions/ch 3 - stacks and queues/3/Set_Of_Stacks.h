@@ -5,7 +5,7 @@
 namespace stack_exercises {
     template<class T = int>
     struct Individual_Stack {
-        Stack<T> stack;
+        Stack<T> stack{};
         shared_ptr<Individual_Stack> next;
     };
 
@@ -17,7 +17,7 @@ namespace stack_exercises {
 
     public:
         explicit Set_Of_Stacks(int n);
-        void push(T data);
+        void push(const T& data);
         T pop();
         [[nodiscard]] T peek() const;
         [[nodiscard]] bool is_empty();

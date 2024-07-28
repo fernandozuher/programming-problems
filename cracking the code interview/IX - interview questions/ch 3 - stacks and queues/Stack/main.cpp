@@ -21,8 +21,8 @@ void popping(int size, Stack<T>& stack);
 int main()
 {
     const auto data{data_test()};
+    Stack stack;
     try {
-        Stack stack;
         pushing(data, stack);
         println("");
         popping(data.size(), stack);

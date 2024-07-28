@@ -4,13 +4,11 @@
 #include "Stack.h"
 
 template<class T>
+stack_exercises::Node<T>::Node(const T& data): data{data} {}
+
+template<class T>
 void stack_exercises::Stack<T>::push(const T& data)
 {
-    if (!top) {
-        top = make_shared<Node<T>>(data);
-        return;
-    }
-
     auto node{make_shared<Node<T>>(data)};
     node->next = top;
     top = node;

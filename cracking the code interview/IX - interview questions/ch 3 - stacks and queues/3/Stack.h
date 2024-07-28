@@ -9,6 +9,7 @@ namespace stack_exercises {
     struct Node {
         T data;
         shared_ptr<Node> next;
+        explicit Node(const T& data);
     };
 
     template<class T = int>

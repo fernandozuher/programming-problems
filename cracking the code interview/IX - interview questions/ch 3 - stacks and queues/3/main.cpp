@@ -34,7 +34,7 @@ template<class T>
 void test(Set_Of_Stacks<T>& stacks, const int n_elements)
 {
     const auto data{data_test(n_elements)};
-    for (const auto x : data) {
+    for (const auto& x : data) {
         stacks.push(x);
         println("Pushed/Peeked: {}", stacks.peek());
     }

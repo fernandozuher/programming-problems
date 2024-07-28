@@ -4,6 +4,9 @@
 #include "Min_Stack.h"
 
 template<class T>
+stack_exercises::Node<T>::Node(const T& data): data{data} {}
+
+template<class T>
 void stack_exercises::Min_Stack<T>::push(const T& data)
 {
     if (!top) {

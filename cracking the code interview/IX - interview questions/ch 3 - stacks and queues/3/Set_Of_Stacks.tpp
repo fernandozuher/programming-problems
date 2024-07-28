@@ -7,21 +7,18 @@ template<class T>
 stack_exercises::Set_Of_Stacks<T>::Set_Of_Stacks(const int n): threshold{n} {}
 
 template<class T>
-void stack_exercises::Set_Of_Stacks<T>::push(const T data)
+void stack_exercises::Set_Of_Stacks<T>::push(const T& data)
 {
-    if (!top) {
-        top = make_shared<Individual_Stack<T>>();
-        size_of_top_stack = 1;
-    }
-    else if (size_of_top_stack < threshold)
-        ++size_of_top_stack;
-    else {
+    auto stack{make_shared<Individual_Stack<T>>()};
+    if (!top)
+        top = stack;
+    else if (size_of_top_stack == threshold) {
         println("New stack initialized...");
-        auto stack{make_shared<Individual_Stack<T>>()};
         stack->next = top;
         top = stack;
-        size_of_top_stack = 1;
+        size_of_top_stack = 0;
     }
+    ++size_of_top_stack;
     top->stack.push(data);
 }
 
