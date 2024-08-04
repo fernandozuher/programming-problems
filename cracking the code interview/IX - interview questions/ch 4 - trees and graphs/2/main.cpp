@@ -18,7 +18,7 @@ struct Tree_Node {
 };
 
 template<class T = int>
-shared_ptr<Tree_Node<T>> create_balanced_binary_search_tree(const vector<T>& elements);
+shared_ptr<Tree_Node<T>> generate_balanced_binary_search_tree_from(const vector<T>& elements);
 template<class T = int>
 void in_order(const shared_ptr<Tree_Node<T>>& node);
 
@@ -36,15 +36,15 @@ int main()
     // ranges::copy(tree, ostream_iterator<int>(cout, " "));
     // println("");
 
-    auto tree_root{create_balanced_binary_search_tree(elements)};
-    print("In order tree traversal: ");
+    auto tree_root{generate_balanced_binary_search_tree_from(elements)};
+    print("In-order tree traversal: ");
     in_order(tree_root);
 
     return 0;
 }
 
 template<class T>
-shared_ptr<Tree_Node<T>> create_balanced_binary_search_tree(const vector<T>& elements)
+shared_ptr<Tree_Node<T>> generate_balanced_binary_search_tree_from(const vector<T>& elements)
 {
     const int n = elements.size();
     int left{};
@@ -52,14 +52,14 @@ shared_ptr<Tree_Node<T>> create_balanced_binary_search_tree(const vector<T>& ele
     int middle{left + (right - left) / 2};
     auto root{make_shared<Tree_Node<T>>(elements.at(middle))};
 
-    Queue<tuple<shared_ptr<Tree_Node<T>>, pair<int, int>>> queue;
+    Queue<pair<shared_ptr<Tree_Node<T>>, pair<int, int>>> queue;
     queue.add({root, {left, right}});
 
-    println("Creating Balanced Binary Search Tree...");
+    println("Generating Balanced Binary Search Tree from array...");
 
     while (!queue.is_empty()) {
         const auto [node, index]{queue.remove()};
-        auto [left, right]{index};
+        tie(left, right) = index;
         middle = left + (right - left) / 2;
         print("{}: ", node->data);
 
