@@ -56,14 +56,14 @@ shared_ptr<Binary_Tree_Node<T>> generate_binary_tree()
     int middle{left + (right - left) / 2};
     auto root{make_shared<Binary_Tree_Node<T>>(elements.at(middle))};
 
-    using node_with_parents = pair<shared_ptr<Binary_Tree_Node<T>>, pair<int, int>>;
+    using node_in_range = pair<shared_ptr<Binary_Tree_Node<T>>, pair<int, int>>;
 
-    Queue<node_with_parents> queue;
+    Queue<node_in_range> queue;
     queue.add({root, {left, right}});
 
     while (!queue.is_empty()) {
-        auto [node, index]{queue.remove()};
-        tie(left, right) = index;
+        auto [node, range]{queue.remove()};
+        tie(left, right) = range;
         middle = left + (right - left) / 2;
 
         auto temp_right{middle - 1};
