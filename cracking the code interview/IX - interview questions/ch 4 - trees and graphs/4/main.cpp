@@ -24,8 +24,9 @@ shared_ptr<Binary_Tree_Node<T>> generate_balanced_binary_tree(bool balanced = tr
 template<class T = int>
 void in_order_traversal(const shared_ptr<Binary_Tree_Node<T>>& node);
 template<class T = int>
-bool is_tree_balanced(const shared_ptr<Binary_Tree_Node<T>>& node, set<int>& max_heights, int height = 0);
-bool compare_heights(set<int>& max_heights, int height);
+bool is_tree_balanced(const shared_ptr<Binary_Tree_Node<T>>& node, int height = 0,
+                      const shared_ptr<set<int>>& max_heights = make_shared<set<int>>());
+bool compare_heights(int height, const shared_ptr<set<int>>& max_heights = make_shared<set<int>>());
 
 int main()
 {
@@ -35,8 +36,7 @@ int main()
     for (const auto& tree : trees) {
         print("In-order tree traversal: ");
         in_order_traversal(tree);
-        set<int> max_heights;
-        println("\n\tIs tree balanced: {}", is_tree_balanced(tree, max_heights));
+        println("\n\tIs tree balanced: {}", is_tree_balanced(tree));
     }
     return 0;
 }
@@ -112,18 +112,19 @@ void in_order_traversal(const shared_ptr<Binary_Tree_Node<T>>& node)
 }
 
 template<class T>
-bool is_tree_balanced(const shared_ptr<Binary_Tree_Node<T>>& node, set<int>& max_heights, const int height)
+bool is_tree_balanced(const shared_ptr<Binary_Tree_Node<T>>& node, const int height,
+                      const shared_ptr<set<int>>& max_heights)
 {
     if (node)
-        return is_tree_balanced(node->left, max_heights, height + 1)
-            && is_tree_balanced(node->right, max_heights, height + 1);
+        return is_tree_balanced(node->left, height + 1, max_heights)
+            && is_tree_balanced(node->right, height + 1, max_heights);
 
-    return compare_heights(max_heights, height - 1);
+    return compare_heights(height - 1, max_heights);
 }
 
-bool compare_heights(set<int>& max_heights, const int height)
+bool compare_heights(const int height, const shared_ptr<set<int>>& max_heights)
 {
-    if (max_heights.empty() || (max_heights.size() == 1 && abs(height - *max_heights.begin()) == 1))
-        max_heights.insert(height);
-    return max_heights.contains(height);
+    if (max_heights->empty() || (max_heights->size() == 1 && abs(height - *max_heights->begin()) == 1))
+        max_heights->insert(height);
+    return max_heights->contains(height);
 }
