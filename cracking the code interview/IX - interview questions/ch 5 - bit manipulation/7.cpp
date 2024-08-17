@@ -9,8 +9,8 @@
 using namespace std;
 
 pair<int, int> initialize_bit_masks();
-int swap_bits(int n, const pair<int, int>& masks);
 int set_bit(int n, int i);
+int swap_bits(int n, const pair<int, int>& masks);
 
 int main()
 {
@@ -44,6 +44,11 @@ pair<int, int> initialize_bit_masks()
     return {mask_even_bits, mask_odd_bits};
 }
 
+int set_bit(const int n, const int i)
+{
+    return n | 1 << i;
+}
+
 int swap_bits(const int n, const pair<int, int>& masks)
 {
     int left_shifted_number{n << 1};
@@ -54,9 +59,4 @@ int swap_bits(const int n, const pair<int, int>& masks)
     const auto odd_bits{right_shifted_number & mask_even_bits};
 
     return even_bits | odd_bits;
-}
-
-int set_bit(const int n, const int i)
-{
-    return n | 1 << i;
 }
