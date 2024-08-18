@@ -34,9 +34,9 @@ int main()
     print_screen(vector<bitset<n_bits>>(bytes), width);
     println("\n");
 
-    for (const auto x1 : views::iota(-1, width))
-        for (const auto x2 : views::iota(-1, width))
-            for (const int y : views::iota(-1, height)) {
+    for (const auto x1 : views::iota(-1, width + 1)) // -1 and +1 to catch exceptions
+        for (const auto x2 : views::iota(-1, width + 1))
+            for (const int y : views::iota(-1, height + 1)) {
                 vector<bitset<n_bits>> screen(bytes);
                 println("x1 = {}, x2 = {}, y = {}", x1, x2, y);
 
@@ -58,6 +58,12 @@ void draw_line(vector<bitset<n_bits>>& screen, const int width, int x1, int x2, 
     if (const auto is_negative{[](const int x) { return signbit(x); }};
         ranges::any_of(initializer_list<int>{x1, x2, y}, is_negative))
         throw out_of_range("Points must be nonnegative");
+
+    if (x1 >= width || x2 >= width)
+        throw out_of_range("Points must be inside width (x1, x2) from 0 up to (exclusive) " + to_string(width));
+
+    if (const int height{static_cast<int>(screen.size()) / (width / n_bits)}; y >= height)
+        throw out_of_range("Points must be inside height (y) from 0 up to (exclusive) " + to_string(height));
 
     if (x2 < x1)
         swap(x1, x2);
