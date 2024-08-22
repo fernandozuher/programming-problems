@@ -7,6 +7,7 @@
 #include <memory>
 #include <print>
 #include <ranges>
+#include <set>
 #include <vector>
 
 using namespace std;
@@ -17,13 +18,12 @@ struct Node {
 };
 
 shared_ptr<Node> create_grid(int rows, int cols);
-vector<vector<pair<int, int>>> generate_off_limit_cells(int n, int n_cols, int n_off_limit_cells);
+vector<set<pair<int, int>>> generate_off_limit_cells(int n, int n_cols, int n_off_limit_cells);
 vector<vector<int>> combination(const vector<int>& elements, int n);
 
-bool find_path(const shared_ptr<Node>& node, vector<pair<int, int>>& path,
-               const vector<pair<int, int>>& off_limit_cells);
+bool find_path(const shared_ptr<Node>& node, vector<pair<int, int>>& path, const set<pair<int, int>>& off_limit_cells);
 void print_path_steps(const vector<pair<int, int>>& path);
-void print_path_grid(vector<pair<int, int>> path, int rows, int cols, const vector<pair<int, int>>& off_limit_cells);
+void print_path_grid(vector<pair<int, int>> path, int rows, int cols, const set<pair<int, int>>& off_limit_cells);
 
 int main()
 {
@@ -35,7 +35,7 @@ int main()
         for (const auto cols : views::iota(start_col, end_col)) {
             const auto root{create_grid(rows, cols)};
 
-            vector<vector<pair<int, int>>> vec_off_cells;
+            vector<set<pair<int, int>>> vec_off_cells;
             for (const auto i : views::iota(1, n_off_limit_cells + 1)) // 1 to avoid 0 off_time_cells
                 ranges::copy(generate_off_limit_cells(rows * cols, cols, i), back_inserter(vec_off_cells));
 
@@ -55,7 +55,7 @@ int main()
     return 0;
 }
 
-vector<vector<pair<int, int>>> generate_off_limit_cells(const int n, const int n_cols, const int n_off_limit_cells)
+vector<set<pair<int, int>>> generate_off_limit_cells(const int n, const int n_cols, const int n_off_limit_cells)
 {
     vector<int> elements(n - 2); // -2 because first and last position are not included
     ranges::iota(elements, 1); // From 1 to not include first element
@@ -68,9 +68,9 @@ vector<vector<pair<int, int>>> generate_off_limit_cells(const int n, const int n
         }
     };
 
-    vector<vector<pair<int, int>>> off_time_cells;
+    vector<set<pair<int, int>>> off_time_cells;
     for (const auto& vec : partial_combination) {
-        const auto vec_pair_index{vec | views::transform(from_n_to_pair_index) | ranges::to<vector>()};
+        const auto vec_pair_index{vec | views::transform(from_n_to_pair_index) | ranges::to<set>()};
         off_time_cells.push_back(vec_pair_index);
     }
 
@@ -114,8 +114,7 @@ shared_ptr<Node> create_grid(const int rows, const int cols)
     return my_map[{0, 0}];
 }
 
-bool find_path(const shared_ptr<Node>& node, vector<pair<int, int>>& path,
-               const vector<pair<int, int>>& off_limit_cells)
+bool find_path(const shared_ptr<Node>& node, vector<pair<int, int>>& path, const set<pair<int, int>>& off_limit_cells)
 {
     path.push_back(node->index);
 
@@ -129,8 +128,7 @@ bool find_path(const shared_ptr<Node>& node, vector<pair<int, int>>& path,
         nodes.push_back(node->down);
 
     for (const auto& way : nodes) {
-        // Linear search here because it is faster than binary search for small off_limit_cells
-        if (ranges::find(off_limit_cells, way->index) != off_limit_cells.end())
+        if (off_limit_cells.contains(way->index))
             continue;
 
         if (find_path(way, path, off_limit_cells))
@@ -151,7 +149,7 @@ void print_path_steps(const vector<pair<int, int>>& path)
         if (current_i < next_i)
             print("{},{} v ", current_i, current_j);
         else
-            print("{},{} > ", current_i, current_j);
+            print("{},{} -> ", current_i, current_j);
     }
 
     if (!path.empty())
@@ -161,24 +159,26 @@ void print_path_steps(const vector<pair<int, int>>& path)
 
 // There is a copy of "path" here because I don't want to change the original order after sorting it in this function
 void print_path_grid(vector<pair<int, int>> path, const int rows, const int cols,
-                     const vector<pair<int, int>>& off_limit_cells)
+                     const set<pair<int, int>>& off_limit_cells)
 {
     cout << setw(3) << " ";
     for (const auto i : views::iota(0, cols))
         cout << setw(3) << i;
     println("");
 
-    // For binary search below
-    ranges::sort(path);
+    bool use_linear_search{true};
+    if (constexpr int limit_for_linear_search{20}; path.size() > limit_for_linear_search) {
+        ranges::sort(path); // sort for binary search below
+        use_linear_search = false;
+    }
 
     for (const auto i : views::iota(0, rows)) {
         cout << setw(4) << i;
         for (const auto j : views::iota(0, cols))
-            // Linear search here because it is faster than binary search for small off_limit_cells
-            if (ranges::find(off_limit_cells, pair{i, j}) != off_limit_cells.end())
+            if (off_limit_cells.contains({i, j}))
                 cout << setw(3) << "X ";
-                // Binary search here because it is faster than linear search for non-small paths
-            else if (ranges::binary_search(path, pair{i, j}))
+            else if ((use_linear_search && ranges::binary_search(path, pair{i, j})) || (!use_linear_search &&
+                ranges::find(path, pair{i, j}) != path.end()))
                 cout << setw(3) << "- ";
             else
                 cout << setw(3) << "  ";
