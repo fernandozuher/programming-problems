@@ -7,7 +7,6 @@
 #include <vector>
 
 using namespace std;
-using namespace views;
 
 template<class T = int>
 void merge_sort(vector<T>& elements);
@@ -53,7 +52,7 @@ void merge_sort(vector<T>& elements, vector<T>& helper, const int low, const int
 template<class T>
 void merge(vector<T>& elements, vector<T>& helper, const int low, const int middle, const int high)
 {
-    ranges::copy(elements | drop(low) | take(high - low + 1), helper.begin() + low);
+    ranges::copy(elements | views::drop(low) | views::take(high - low + 1), helper.begin() + low);
 
     int helper_left{low};
     int helper_right{middle + 1};
@@ -65,5 +64,5 @@ void merge(vector<T>& elements, vector<T>& helper, const int low, const int midd
                                      : helper.at(helper_right++);
 
     int remaining{middle - helper_left + 1};
-    ranges::copy(helper | drop(helper_left) | take(remaining), elements.begin() + current);
+    ranges::copy(helper | views::drop(helper_left) | views::take(remaining), elements.begin() + current);
 }
