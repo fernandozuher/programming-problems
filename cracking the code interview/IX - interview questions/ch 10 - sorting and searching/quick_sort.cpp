@@ -40,10 +40,8 @@ template<class T>
 void quick_sort(vector<T>& elements, const int left, const int right)
 {
     int index{partition(elements, left, right)};
-
     if (left < index - 1)
         quick_sort(elements, left, index - 1);
-
     if (index < right)
         quick_sort(elements, index, right);
 }
@@ -54,7 +52,6 @@ int partition(vector<T>& elements, int left, int right)
     for (int middle{(left + right) / 2}, pivot{elements.at(middle)}; left <= right;) {
         for (; elements.at(left) < pivot; ++left);
         for (; elements.at(right) > pivot; --right);
-
         if (left <= right)
             swap(elements.at(left++), elements.at(right--));
     }
