@@ -1,0 +1,19 @@
+They work by providing runtime polymorphism, allowing you to call derived class methods through base class pointers or references.
+
+A few basics:
+
+    Declaration: A virtual function is declared in a base class using the 'virtual' keyword. This tells the compiler that the function can be overridden in derived classes.
+    Overriding: It is possible to override a base class's virtual function in derived classes. The override keyword indicates that you are intentionally overriding a base class method.
+    Polymorphism: When a base class pointer or reference is used to call a virtual function, C++ uses the vtable (virtual table) mechanism to determine which function to invoke. This allows dynamic dispatch of the function call to the appropriate derived class implementation.
+
+Virtual table:
+
+    Each class with a virtual function has a virtual table (vtable), which is an array of pointers to virtual functions.
+    Each object of a class with virtual functions contains a pointer to the vtable of its class. This hidden pointer is called 'vptr'.
+    When a virtual function is called, the vptr is used to look up the function address in the vtable.
+
+Key points:
+
+    It is recommended to always declare virtual destructors in base classes when using polymorphism to ensure the proper cleanup of derived class resources.
+    To ensure that a virtual method will be implemented by a derived class, you can declare it as a pure virtual function by adding =0 at the end of its signature. This makes the base class abstract, meaning it cannot be instantiated.
+    Virtual function calls involve an extra level of indirection (through the vtable) and can be slightly slower than non-virtual function calls.
