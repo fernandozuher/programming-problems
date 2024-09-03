@@ -1,3 +1,5 @@
+// From C++20
+
 #include <iostream>
 #include <ranges>
 
@@ -5,6 +7,9 @@ using namespace std;
 
 template<class T = int>
 T** my_2d_a1loc(int n_rows, int n_cols);
+
+template<class T = int>
+T** free_matrix(T** matrix);
 
 int main()
 {
@@ -21,8 +26,7 @@ int main()
         cout << "\n";
     }
 
-    free(matrix);
-    matrix = nullptr;
+    matrix = free_matrix(matrix);
     return 0;
 }
 
@@ -34,4 +38,14 @@ T** my_2d_a1loc(const int n_rows, const int n_cols)
     for (const int i : views::iota(0, n_rows))
         matrix_2d[i] = &matrix_1d[i * n_cols];
     return matrix_2d;
+}
+
+template<class T>
+T** free_matrix(T** matrix)
+{
+    if (matrix) {
+        free(matrix[0]);
+        free(matrix);
+    }
+    return nullptr;
 }
