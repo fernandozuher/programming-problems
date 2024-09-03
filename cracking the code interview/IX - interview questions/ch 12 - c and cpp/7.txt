@@ -1,0 +1,5 @@
+To properly release resources managed by derived classes when a base class is destroyed, the base class destructor must be declared as virtual.
+
+When an object is destroyed through a base class pointer with a virtual destructor, the destructor of the most-derived class is called first, followed by the destructors of any intermediate base classes, and finally, the base class destructor. This ensures that resources managed by the derived classes (such as dynamic memory, file handles, network connections, etc) are released before the base class's resources.
+
+If the base class destructor is not virtual, the destructors of derived classes will not be called, leading to resource leaks and undefined behavior.
