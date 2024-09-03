@@ -1,0 +1,11 @@
+It is used before a variable to tell a compiler not to optimise it because the variable could be changed outside the control of the program, in unexpected ways, such as hardware or a different thread.
+
+It is commonly used in:
+- Memory-mapped hardware registers.
+- Multithreaded programming.
+- Signal handlers.
+
+Volatile affects compilation by preventing optimizations from the compiler involving volatile variables. For example, the compiler won't cache the value of a volatile variable in a register, but will read it from memory every time it is accessed.
+Also the compiler will avoid reordering operations around accesses to volatile variables to ensure the sequence of operations involving volatile variables remains as intended in the source code.
+
+However volatile is limited because it doesn't make code thread-safe and don't guarantee correctness. In sumamry it is a tool to inform the compiler about special situations where optimization could lead to incorrect behavior, such as interacting with hardware or in multithreaded programs.
