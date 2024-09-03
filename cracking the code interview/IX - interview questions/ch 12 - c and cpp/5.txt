@@ -1,0 +1,121 @@
+- Shallow copy:
+	- Copies only the member variables of objects, including pointers.
+	- Pointers in both objects point to the same memory location.
+	- Default behavior provided by the compiler.
+	- Can lead to issues like double deletion and unexpected side effects.
+
+- Deep copy:
+	- Copies the actual data pointed to by the pointers, allocating separate memory.
+	- Objects are completely independent of each other.
+	- Requires custom implementation (copy constructor, assignment operator).
+	- Safer in cases where objects manage resources like dynamic memory, file handles, etc.
+
+Shallow copies are faster but can lead to problems if the object involves dynamic memory or resources. Deep copies are safer in these cases but require more overhead to implement correctly.
+
+I would use shallow copy, default provided by the compiler, if the object being copied don't manage resources. So it is simple to copy:
+#include <iostream>
+
+using namespace std;
+
+class A {
+    int num{};
+
+public:
+    explicit A(const int n): num{n} {}
+
+    [[nodiscard]] int n() const
+    {
+        return num;
+    }
+
+    void n(const int num)
+    {
+        this->num = num;
+    }
+};
+
+int main()
+{
+    A obj1{5}; // default constructor provided by the compiler
+    A obj2 = obj1; // default shallow copy (copy constructor) provided by the compiler
+
+    cout << "obj1: " << obj1.n() << '\n';
+    cout << "obj2: " << obj2.n() << '\n';
+
+    obj1 = A(1);
+    cout << "obj1: " << obj1.n() << '\n';
+    cout << "obj2: " << obj2.n() << '\n';
+
+    return 0;
+}
+
+
+---
+If the object manages resources, I would create a custom copy constructor/assignment operator to handle the proper copy of the resources:
+#include <iostream>
+
+using namespace std;
+
+class A {
+    int* num{};
+
+public:
+    explicit A(const int n)
+    {
+        num = new int(n);
+    }
+
+    A(const A& other)
+    {
+        delete num;
+        num = new int(*other.num);
+    }
+
+    A& operator=(const A& other)
+    {
+        if (this == &other)
+            return *this;
+
+        delete num;
+        num = new int(*other.num);
+        return *this;
+    }
+
+    ~A()
+    {
+        delete num;
+    }
+
+    [[nodiscard]] int* n() const
+    {
+        return num;
+    }
+};
+
+int main()
+{
+    A obj1(5);
+    A obj2(obj1);
+    A obj3 = obj2;
+
+    cout << "obj1: " << *obj1.n() << '\n';
+    cout << "obj2: " << *obj2.n() << '\n';
+    cout << "obj3: " << *obj3.n() << "\n\n";
+
+    obj1 = A(1);
+    cout << "obj1: " << *obj1.n() << '\n';
+    cout << "obj2: " << *obj2.n() << '\n';
+    cout << "obj3: " << *obj3.n() << "\n\n";
+
+    obj2 = A(2);
+    cout << "obj1: " << *obj1.n() << '\n';
+    cout << "obj2: " << *obj2.n() << '\n';
+    cout << "obj3: " << *obj3.n() << "\n\n";
+
+    obj3 = A(3);
+    cout << "obj1: " << *obj1.n() << '\n';
+    cout << "obj2: " << *obj2.n() << '\n';
+    cout << "obj3: " << *obj3.n() << "\n\n";
+
+    return 0;
+}
