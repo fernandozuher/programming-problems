@@ -7,12 +7,13 @@ using namespace std;
 
 struct Node {
     int data;
-    Node* a;
-    Node* b;
+    Node* a{};
+    Node* b{};
 };
 
 Node* copy_node(const Node* node);
 void print_node(const Node* node);
+Node* free_node(Node* node);
 
 int main()
 {
@@ -35,6 +36,9 @@ int main()
     cout << "Node b: ";
     print_node(node_b);
 
+    node_a = free_node(node_a);
+    node_b = free_node(node_b);
+
     return 0;
 }
 
@@ -51,4 +55,14 @@ Node* copy_node(const Node* node)
 void print_node(const Node* node)
 {
     println("{}: {}, {}", node->data, node->a->data, node->b->data);
+}
+
+Node* free_node(Node* node)
+{
+    if (node->a)
+        node->a = free_node(node->a);
+    if (node->b)
+        node->b = free_node(node->b);
+    free(node);
+    return nullptr;
 }
