@@ -11,16 +11,14 @@ void swap_without_temporary(int& a, int& b);
 
 int main()
 {
-    for (constexpr int start{numeric_limits<int>::min()}, end{numeric_limits<int>::max()};
-         const auto i : views::iota(start, end))
+    for (constexpr int start{-15}, end{16}; const auto i : views::iota(start, end))
         for (const auto j : views::iota(start, end)) {
             if (i == j)
                 continue;
             int a{i}, b{j};
-
             assert(pair(i, j) == pair(a, b));
             swap_without_temporary(a, b);
-            //println("{}, {} => {}, {}", i, j, b, a);
+            println("{}, {} => {}, {}", i, j, a, b);
             assert(pair(i, j) == pair(b, a));
         }
 
