@@ -1,6 +1,5 @@
 // From C++23 onwards
 
-//#define NDEBUG
 #include <cassert>
 #include <print>
 #include <ranges>
@@ -27,7 +26,7 @@ int main()
 
 void swap_without_temporary(int& a, int& b)
 {
-    b = a + b;
-    a = b - a;
-    b = b - a;
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
 }
