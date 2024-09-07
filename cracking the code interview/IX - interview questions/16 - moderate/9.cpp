@@ -21,6 +21,7 @@ int divide(int a, int b);
 int division_between_positives(int a, int b);
 int to_positive(int n);
 int to_negative(int n);
+bool is_there_only_one_negative(int a, int b);
 void assert_output(const assert_properties& p);
 
 int minus_one{numeric_limits<int>::max() + numeric_limits<int>::min()};
@@ -61,36 +62,27 @@ int operations(const char operator_type, const int a, const int b)
     return 0;
 }
 
-int multiply(int a, int b)
+int multiply(const int a, const int b)
 {
     if (a == 0 || b == 0)
         return 0;
 
-    int start, end, add_operand;
-    if (a > 0 && b > 0)
-        tie(start, end, add_operand) = tuple{0, b, a};
-    else if (a > 0 || b > 0)
-        tie(start, end, add_operand) = a > 0 ? tuple{0, a, b} : tuple{0, b, a};
-    else {
-        int positive_a{};
-        for ([[maybe_unused]] const int i : views::iota(a, 0))
-            positive_a += 1;
-        tie(start, end, add_operand) = tuple{b, 0, positive_a};
-    }
-
     int result{};
-    for ([[maybe_unused]] const int i : views::iota(start, end))
-        result += add_operand;
-    return result;
+    int new_a{to_positive(a)};
+    int new_b{to_positive(b)};
+    for ([[maybe_unused]] const int i : views::iota(0, new_b))
+        result += new_a;
+
+    return is_there_only_one_negative(a, b) ? to_negative(result) : result;
 }
 
-int subtract(int a, int b)
+int subtract(const int a, int b)
 {
     b = b > 0 ? to_negative(b) : to_positive(b);
     return a + b;
 }
 
-int divide(int a, int b)
+int divide(const int a, const int b)
 {
     if (b == 0)
         throw invalid_argument("Division can't be by zero.");
@@ -100,7 +92,7 @@ int divide(int a, int b)
         return 1;
 
     int result{division_between_positives(to_positive(a), to_positive(b))};
-    return (a < 0 && b > 0) || (a > 0 && b < 0) ? to_negative(result) : result;
+    return is_there_only_one_negative(a, b) ? to_negative(result) : result;
 }
 
 int division_between_positives(int a, int b)
@@ -130,6 +122,11 @@ int to_negative(int n)
     for ([[maybe_unused]] const int i : views::iota(0, n))
         negative_n += minus_one;
     return negative_n;
+}
+
+bool is_there_only_one_negative(const int a, const int b)
+{
+    return a < 0 && b > 0 || a > 0 && b < 0;
 }
 
 void assert_output(const assert_properties& p)
