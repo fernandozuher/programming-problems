@@ -21,7 +21,7 @@ int divide(int a, int b);
 int division_between_positives(int a, int b);
 int to_positive(int n);
 int to_negative(int n);
-bool is_there_only_one_negative(int a, int b);
+constexpr bool is_there_only_one_negative(int a, int b);
 void assert_output(const assert_properties& p);
 
 int minus_one{numeric_limits<int>::max() + numeric_limits<int>::min()};
@@ -124,7 +124,7 @@ int to_negative(int n)
     return negative_n;
 }
 
-bool is_there_only_one_negative(const int a, const int b)
+constexpr bool is_there_only_one_negative(const int a, const int b)
 {
     return a < 0 && b > 0 || a > 0 && b < 0;
 }
