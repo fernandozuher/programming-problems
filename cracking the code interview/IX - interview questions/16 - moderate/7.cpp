@@ -53,8 +53,7 @@ bool get_bit(const int n, const int index)
 
 bool will_overflow(const int a, const int b)
 {
-    return b < 0 && a >
-        numeric_limits<int>::max() + b;
+    return b < 0 && a > numeric_limits<int>::max() + b;
 }
 
 bool will_underflow(const int a, const int b)
