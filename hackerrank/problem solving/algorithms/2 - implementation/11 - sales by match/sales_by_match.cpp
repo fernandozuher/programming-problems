@@ -3,38 +3,38 @@
 #include <algorithm>
 #include <iostream>
 #include <iterator>
+#include <unordered_map>
 #include <vector>
-#include <map>
 
 using namespace std;
 
-vector<int> read_int_array(int n);
+template<class T = int>
+vector<T> read(int n);
 int sock_merchant(const vector<int>& socks);
 
 int main()
 {
     int n;
     cin >> n;
-    vector array{read_int_array(n)};
-    cout << sock_merchant(array);
-
+    cout << sock_merchant(read(n));
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
-    {
-        vector<int> array(n);
-        copy_n(istream_iterator<int>(cin), n, array.begin());
-        return array;
-    }
+template<class T>
+vector<T> read(const int n)
+{
+    vector<T> array(n);
+    copy_n(istream_iterator<T>(cin), n, array.begin());
+    return array;
+}
 
-    int sock_merchant(const vector<int>& socks)
-    {
-        int pairs{};
-        for (map<int, bool> socks_pairing; const int sock : socks) {
-            if (socks_pairing[sock])
-                ++pairs;
-            socks_pairing[sock] = !socks_pairing[sock];
-        }
-        return pairs;
+int sock_merchant(const vector<int>& socks)
+{
+    int pairs{};
+    for (unordered_map<int, bool> socks_pairing; const int sock : socks) {
+        if (socks_pairing[sock])
+            ++pairs;
+        socks_pairing[sock] = !socks_pairing[sock];
     }
+    return pairs;
+}
