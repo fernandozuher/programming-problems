@@ -24,6 +24,7 @@ function readLine(): string {
 }
 
 function main() {
+    let input: string = readLine();
     console.log('Hello, World.');
-    console.log(readLine());
+    console.log(input);
 }

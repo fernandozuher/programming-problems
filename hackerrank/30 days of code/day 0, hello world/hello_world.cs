@@ -1,12 +1,13 @@
 // https://www.hackerrank.com/challenges/30-hello-world/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static void Main()
+    private static void Main()
     {
-        Console.WriteLine("Hello, World.");
-        Console.WriteLine(Console.ReadLine());
+        var input = ReadLine();
+        WriteLine("Hello, World.");
+        WriteLine(input);
     }
 }

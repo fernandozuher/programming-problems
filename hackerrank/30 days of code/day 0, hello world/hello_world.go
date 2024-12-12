@@ -6,11 +6,13 @@ import (
     "bufio"
     "fmt"
     "os"
+    "strings"
 )
 
 func main() {
-    fmt.Println("Hello, World.")
     reader := bufio.NewReader(os.Stdin)
     input, _ := reader.ReadString('\n')
+    input = strings.TrimRight(input, "\n")
+    fmt.Println("Hello, World.")
     fmt.Println(input)
 }

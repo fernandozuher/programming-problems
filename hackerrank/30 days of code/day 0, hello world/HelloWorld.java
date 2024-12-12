@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("Hello, World.");
         Scanner scan = new Scanner(System.in);
-        System.out.println(scan.nextLine());
+        String input = scan.nextLine();
+        System.out.println("Hello, World.");
+        System.out.println(input);
     }
 }

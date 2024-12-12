@@ -9,11 +9,11 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
+process.stdin.on('data', function (inputStdin) {
     inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
+process.stdin.on('end', function () {
     inputLines = inputString.split('\n');
     inputString = '';
     main();
@@ -23,7 +23,8 @@ function readLine() {
     return inputLines[currentLine++];
 }
 
-function processData(inputString) {
+function processData() {
+    let input = readLine();
     console.log('Hello, World.');
-    console.log(readLine());
+    console.log(input);
 }

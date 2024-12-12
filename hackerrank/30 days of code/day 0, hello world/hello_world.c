@@ -8,6 +8,5 @@ int main()
     scanf("%104[^\n]", input);
     puts("Hello, World.");
     puts(input);
-
     return 0;
 }

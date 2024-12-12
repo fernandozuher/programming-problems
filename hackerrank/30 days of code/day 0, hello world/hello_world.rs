@@ -3,7 +3,7 @@
 use text_io::read;
 
 fn main() {
-    println!("Hello, World.");
     let input: String = read!("{}\n");
+    println!("Hello, World.");
     println!("{}", input);
 }
