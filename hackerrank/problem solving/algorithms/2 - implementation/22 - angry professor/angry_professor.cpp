@@ -1,93 +1,58 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
+// From C++20 onwards
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
-#include <sstream>
 
 using namespace std;
 
-class Angry_Professor {
-public:
-    Angry_Professor(const vector<int>& students_arrival_time, const int cancellation_threshold);
-    bool cancelled_class() const;
-
-private:
+struct input {
+    int n_students_arrival_time{}, cancellation_threshold{};
     vector<int> students_arrival_time;
-    int cancellation_threshold;
-    bool cancelled;
-
-    void check_if_class_is_cancelled();
-    int count_early_arrival_time() const;
 };
 
-    Angry_Professor::Angry_Professor(const vector<int>& students_arrival_time, const int cancellation_threshold):
-        students_arrival_time{students_arrival_time}, cancellation_threshold{cancellation_threshold},
-        cancelled{}
-    {
-        check_if_class_is_cancelled();
-    }
-
-        void Angry_Professor::check_if_class_is_cancelled()
-        {
-            cancelled = count_early_arrival_time() < cancellation_threshold;
-        }
-
-            int Angry_Professor::count_early_arrival_time() const
-            {
-                int early_arrival_time_count{};
-
-                for (const auto arrival_time : students_arrival_time)
-                    if (arrival_time <= 0)
-                        ++early_arrival_time_count;
-
-                return early_arrival_time_count;
-            }
-
-    bool Angry_Professor::cancelled_class() const
-    {
-        return cancelled;
-    }
-
-//////////////////////////////////////////////////
-
-template<class T = int>
-vector<T> read(const int n = 0);
+input read_input();
+template <class T = int>
+vector<T> read(int n);
+bool is_class_cancelled(const input& data);
+void print_output(const vector<bool>& array);
 
 int main()
 {
     int n;
     cin >> n;
     vector<bool> cancelled_classes(n);
-
-    for (auto&& cancelled : cancelled_classes) {
-        int n_students_arrival_time, cancellation_threshold;
-        cin >> n_students_arrival_time >> cancellation_threshold;
-        vector<int> students_arrival_time {read(n_students_arrival_time)};
-
-        Angry_Professor angry_professor{students_arrival_time, cancellation_threshold};
-        cancelled = angry_professor.cancelled_class();
-    }
-
-    for (const auto cancelled : cancelled_classes)
-        cout << (cancelled ? "YES" : "NO") << '\n';
-
+    ranges::generate(cancelled_classes, [] { return is_class_cancelled(read_input()); });
+    print_output(cancelled_classes);
     return 0;
 }
 
-    template<class T = int>
-    vector<T> read(const int n)
-    {
-        vector<T> array(n);
+input read_input()
+{
+    input data;
+    cin >> data.n_students_arrival_time >> data.cancellation_threshold;
+    data.students_arrival_time = read(data.n_students_arrival_time);
+    return data;
+}
 
-        if (n)
-            ranges::generate(array, [] {T x; cin >> x; return x;});
-        else {
-            string line;
-            getline(cin, line);
-            istringstream is{line};
-            for (T x; is >> x; array.push_back(x));
-        }
+template <class T>
+vector<T> read(const int n)
+{
+    vector<T> array(n);
+    copy_n(istream_iterator<T>(cin), n, array.begin());
+    return array;
+}
 
-        return array;
-    }
+bool is_class_cancelled(const input& data)
+{
+    int count_early_arrival_time = ranges::count_if(data.students_arrival_time, [](const auto x) { return x <= 0; });
+    return count_early_arrival_time < data.cancellation_threshold;
+}
+
+void print_output(const vector<bool>& array)
+{
+    auto yes_or_no{[](const auto x) { return x ? "YES"s : "NO"s; }};
+    ranges::transform(array, ostream_iterator<string>(cout, "\n"), yes_or_no);
+}
