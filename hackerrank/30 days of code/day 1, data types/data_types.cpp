@@ -1,16 +1,17 @@
 // https://www.hackerrank.com/challenges/30-data-types/problem?isFullScreen=true
+// From C++23 onwards
 
 #include <iostream>
-#include <limits>
 #include <iomanip>
+#include <print>
 
 using namespace std;
 
 int main()
 {
-    constexpr int i {4};
-    constexpr double d {4.0};
-    const string s {"HackerRank "};
+    constexpr int i{4};
+    constexpr double d{4.0};
+    const auto s{"HackerRank "s};
 
     int i2;
     double d2;
@@ -20,9 +21,9 @@ int main()
     cin.get();
     getline(cin, s2);
 
-    cout << i + i2 << '\n';
+    println("{}", i + i2);
     cout << fixed << setprecision(1) << d + d2 << '\n';
-    cout << s << s2 << '\n';
+    println("{}{}", s, s2);
 
     return 0;
 }

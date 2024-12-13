@@ -1,12 +1,13 @@
 // https://www.hackerrank.com/challenges/30-data-types/problem?isFullScreen=true
+// From C23 onwards
 
 #include <stdio.h>
 
 int main()
 {
-    const int i = 4;
-    const double d = 4.0;
-    const char s[] = "HackerRank ";
+    constexpr int i = 4;
+    constexpr double d = 4.0;
+    constexpr char s[] = "HackerRank ";
 
     int i2;
     double d2;

@@ -18,10 +18,8 @@ func main() {
 
     scanner.Scan()
     i2, _ := strconv.ParseUint(scanner.Text(), 10, 64)
-
     scanner.Scan()
     d2, _ := strconv.ParseFloat(scanner.Text(), 64)
-
     scanner.Scan()
     s2 := scanner.Text()
 

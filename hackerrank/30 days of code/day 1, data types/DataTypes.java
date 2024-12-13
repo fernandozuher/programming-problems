@@ -3,7 +3,6 @@
 import java.util.Scanner;
 
 public class DataTypes {
-
     public static void main(String[] args) {
         final int i = 4;
         final double d = 4.0;

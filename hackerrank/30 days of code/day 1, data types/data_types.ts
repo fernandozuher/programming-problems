@@ -24,15 +24,15 @@ function readLine(): string {
 }
 
 function main() {
-    const I: number = 4;
-    const D: number = 4.0;
-    const S: string = 'HackerRank ';
+    const i: number = 4;
+    const d: number = 4.0;
+    const s: string = 'HackerRank ';
 
     let i2: number = parseInt(readLine());
     let d2: number = parseFloat(readLine());
     let s2: string = readLine();
 
-    console.log(I + i2);
-    console.log((D + d2).toFixed(1));
-    console.log(S + s2);
+    console.log(i + i2);
+    console.log((d + d2).toFixed(1));
+    console.log(s + s2);
 }
