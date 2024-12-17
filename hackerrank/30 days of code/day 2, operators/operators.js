@@ -27,11 +27,10 @@ function main() {
     let mealCost = parseFloat(readLine());
     let tipPercent = parseInt(readLine());
     let taxPercent = parseInt(readLine());
-
     solve(mealCost, tipPercent, taxPercent);
 }
 
-    function solve(mealCost, tipPercent, taxPercent) {
-        let totalCost = (mealCost + mealCost * tipPercent / 100 + mealCost * taxPercent / 100).toFixed(0);
-        console.log(totalCost);
-    }
+function solve(mealCost, tipPercent, taxPercent) {
+    let totalCost = (mealCost + mealCost * tipPercent / 100 + mealCost * taxPercent / 100).toFixed(0);
+    console.log(totalCost);
+}
