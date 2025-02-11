@@ -1,16 +1,13 @@
 // https://www.hackerrank.com/challenges/30-conditional-statements/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-class Solution
+static class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-
-        if (n % 2 == 1 || n >= 6 && n <= 20)
-            Console.WriteLine("Weird");
-        else
-            Console.WriteLine("Not Weird");
+        int n = int.Parse(ReadLine());
+        bool isWeird = n % 2 == 1 || n >= 6 && n <= 20;
+        WriteLine(isWeird ? "Weird" : "Not Weird");
     }
 }

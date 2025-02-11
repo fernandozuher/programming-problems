@@ -25,9 +25,6 @@ function readLine() {
 
 function main() {
     let n = +readLine();
-
-    if (n & 1 || n >= 6 && n <= 20)
-        console.log('Weird');
-    else
-        console.log('Not Weird');
+    let isWeird = n & 1 || n >= 6 && n <= 20;
+    console.log(isWeird ? 'Weird' : 'Not Weird');
 }

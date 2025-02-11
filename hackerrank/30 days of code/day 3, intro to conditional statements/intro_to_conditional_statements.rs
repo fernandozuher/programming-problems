@@ -4,8 +4,8 @@ use text_io::read;
 
 fn main() {
     let n: i32 = read!();
-
-    if n & 1 == 1 || n >= 6 && n <= 20 {
+    let is_weird: bool = n & 1 == 1 || n >= 6 && n <= 20;
+    if is_weird {
         println!("Weird");
     } else {
         println!("Not Weird");

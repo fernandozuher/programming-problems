@@ -8,7 +8,7 @@ int main()
 {
     int n;
     cin >> n;
-    cout << ((n & 1 || n >= 6 && n <= 20) ? "Weird" : "Not Weird");
-
+    bool is_weird {n & 1 || n >= 6 && n <= 20};
+    cout << (is_weird ? "Weird" : "Not Weird");
     return 0;
 }

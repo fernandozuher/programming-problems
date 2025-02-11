@@ -5,12 +5,12 @@ package main
 import "fmt"
 
 func main() {
-    var n int
-    fmt.Scan(&n)
-
-    if n&1 == 1 || n >= 6 && n <= 20 {
-        fmt.Println("Weird")
-    } else {
-        fmt.Println("Not Weird")
-    }
+	var n int
+	fmt.Scan(&n)
+	isWeird := n&1 == 1 || n >= 6 && n <= 20
+	if isWeird {
+		fmt.Println("Weird")
+	} else {
+		fmt.Println("Not Weird")
+	}
 }
