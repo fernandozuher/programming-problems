@@ -1,15 +1,16 @@
 // https://www.hackerrank.com/challenges/30-class-vs-instance/problem?isFullScreen=true
+// From C++23 onwards
 
 #include <iostream>
+#include <print> // In C++23
 
 using namespace std;
 
 class Person {
-private:
     int age;
 
 public:
-    explicit Person(const int initial_age);
+    explicit Person(int initial_age);
     void am_i_old() const;
     void year_passes();
 };
@@ -19,8 +20,7 @@ Person::Person(const int initial_age)
     if (initial_age < 0) {
         age = 0;
         cout << "Age is not valid, setting age to 0.\n";
-    }
-    else
+    } else
         age = initial_age;
 }
 
@@ -45,13 +45,13 @@ int main()
     cin >> n_tests;
 
     for (int age; cin >> age && n_tests-- > 0;) {
-        Person p {age};
+        Person p{age};
         p.am_i_old();
 
-        for (int i {3}; i--; p.year_passes());
+        for (int i{3}; i--; p.year_passes());
         p.am_i_old();
 
-        cout << '\n';
+        println("");
     }
 
     return 0;
