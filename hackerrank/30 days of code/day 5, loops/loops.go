@@ -7,8 +7,8 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-
-    for i := 1; i <= 10; i++ {
+    for i := range 10 {
+        i += 1
         fmt.Printf("%d x %d = %d\n", n, i, n*i)
     }
 }
