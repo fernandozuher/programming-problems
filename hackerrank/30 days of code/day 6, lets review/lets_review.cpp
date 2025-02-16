@@ -13,7 +13,7 @@ int main()
     for (auto [i, word] = tuple{0, ""s}; i < n && cin >> word; ++i) {
         string word1, word2;
 
-        for (bool is_word1_turn {true}; const char ch : word) {
+        for (bool is_word1_turn{true}; const char ch : word) {
             is_word1_turn ? word1 += ch : word2 += ch;
             is_word1_turn = !is_word1_turn;
         }

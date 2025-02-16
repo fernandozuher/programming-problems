@@ -1,9 +1,8 @@
 # https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
 
 def main():
-
     n = int(input())
-    
+
     for _ in range(n):
         word = input()
         word1, word2 = '', ''

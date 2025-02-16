@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/30-review-loop/problem?isFullScreen=true
+// From Go 1.22 onwards
 
 package main
 
@@ -8,7 +9,7 @@ func main() {
     var n int
     fmt.Scan(&n)
 
-    for i := 0; i < n; i++ {
+    for range n {
         var word string
         fmt.Scan(&word)
         var word1, word2 string

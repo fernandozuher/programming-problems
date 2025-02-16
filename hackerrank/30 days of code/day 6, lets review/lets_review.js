@@ -9,33 +9,32 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 function main() {
-    let n = +readLine();
+  for (let i = 0, n = +readLine(); i < n; i++) {
+    let word = readLine();
+    let word1 = '';
+    let word2 = '';
+    let isWord1Turn = true;
 
-    for (let i = 0; i < n; i++) {
-        let word = readLine();
-        let word1 = '', word2 = '';
-        let isWord1Turn = true;
+    [...word].forEach((ch) => {
+      isWord1Turn ? (word1 += ch) : (word2 += ch);
+      isWord1Turn = !isWord1Turn;
+    });
 
-        [...word].forEach(ch => {
-            isWord1Turn ? (word1 += ch) : (word2 += ch);
-            isWord1Turn = !isWord1Turn;
-        })
-
-        console.log(`${word1} ${word2}`);
-    }
+    console.log(`${word1} ${word2}`);
+  }
 }

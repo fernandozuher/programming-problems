@@ -8,14 +8,15 @@ public class LetsReview {
 
         for (int i = 0, n = scan.nextInt(); i < n && scan.hasNext(); i++) {
             String word = scan.next();
-            String word1 = "", word2 = "";
+            StringBuilder word1 = new StringBuilder();
+            StringBuilder word2 = new StringBuilder();
             boolean isWord1Turn = true;
 
             for (char ch : word.toCharArray()) {
                 if (isWord1Turn)
-                    word1 += ch;
+                    word1.append(ch);
                 else
-                    word2 += ch;
+                    word2.append(ch);
                 isWord1Turn = !isWord1Turn;
             }
 
