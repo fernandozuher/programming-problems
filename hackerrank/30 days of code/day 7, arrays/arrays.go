@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/30-arrays/problem?isFullScreen=true
+// From Go 1.22 onwards
 
-package solution
+package main
 
 import "fmt"
 
@@ -9,7 +10,7 @@ func main() {
     fmt.Scan(&n)
 
     array := make([]int, n)
-    for i, _ := range array {
+    for i := range n {
         fmt.Scan(&array[i])
     }
 

@@ -1,16 +1,16 @@
 // https://www.hackerrank.com/challenges/30-arrays/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 using System.Collections.Generic;
 using System.Linq;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        List<int> array = Console.ReadLine().Split().Select(int.Parse).ToList();
+        int n = int.Parse(ReadLine());
+        List<int> array = ReadLine().Split().Select(int.Parse).ToList();
         for (int i = n - 1; i >= 0; i--)
-            Console.Write("{0} ", array[i]);
+            Write("{0} ", array[i]);
     }
 }
