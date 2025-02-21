@@ -9,33 +9,41 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let n = +readLine();
-    let phoneBook = {};
+  let n = +readLine();
+  let phoneBook = initPhoneBook(n);
+  queryNames(phoneBook);
+}
 
-    while (n-- > 0) {
-        const [NAME, PHONE] = readLine().split(' ');
-        phoneBook[NAME] = PHONE;
-    }
+function initPhoneBook(n) {
+  let phoneBook = {};
+  while (n-- > 0) {
+    const [name, phone] = readLine().split(' ');
+    phoneBook[name] = phone;
+  }
+  return phoneBook;
+}
 
-    for (let name; name = readLine();) {
-        if (phoneBook[name])
-            console.log(`${name}=${phoneBook[name]}`)
-        else
-            console.log('Not found');
-    }
+function queryNames(phoneBook) {
+  for (let name; (name = readLine()); )
+    if (phoneBook[name])
+      console.log(`${name}=${phoneBook[name]}`);
+    else
+      console.log('Not found');
 }

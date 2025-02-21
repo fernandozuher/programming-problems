@@ -9,33 +9,41 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
 function main() {
-    let n: number = +readLine();
-    let phoneBook: {[key: string]: string} = {};
+  let n: number = +readLine();
+  let phoneBook: { [key: string]: string } = initPhoneBook(n);
+  queryNames(phoneBook);
+}
 
-    while (n-- > 0) {
-        const [NAME, PHONE]: string[] = readLine().split(' ');
-        phoneBook[NAME] = PHONE;
-    }
+function initPhoneBook(n: number): { [key: string]: string } {
+  let phoneBook: { [key: string]: string } = {};
+  while (n-- > 0) {
+    const [name, phone] = readLine().split(' ');
+    phoneBook[name] = phone;
+  }
+  return phoneBook;
+}
 
-    for (let name: string; name = readLine();) {
-        if (phoneBook[name])
-            console.log(`${name}=${phoneBook[name]}`)
-        else
-            console.log('Not found');
-    }
+function queryNames(phoneBook: { [key: string]: string }) {
+  for (let name; (name = readLine()); )
+    if (phoneBook[name])
+      console.log(`${name}=${phoneBook[name]}`);
+    else
+      console.log('Not found');
 }

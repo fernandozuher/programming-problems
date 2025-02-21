@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/30-dictionaries-and-maps/problem?isFullScreen=true
+// From C23 onwards: auto, nullptr
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,62 +13,55 @@ typedef struct {
     char phone[11];
 } contact;
 
-contact* read_contacts(const int n);
-int compare_contacts(const void *a, const void *b);
-void check_name(const contact *contacts, const int n);
-    int compare_contacts_to_binary_search(const void *key, const void *array);
+contact *init_phone_book(int n);
+int compare_names(const void *a, const void *b);
+void query_names(const contact *phone_book, int n);
+int compare_contacts(const void *key, const void *array);
 
 int main()
 {
     int n;
     scanf("%d", &n);
+    contact *phone_book = init_phone_book(n);
+    qsort(phone_book, n, sizeof(contact), compare_names);
+    query_names(phone_book, n);
 
-    contact *contacts = read_contacts(n);
-    qsort(contacts, n, sizeof(contact), compare_contacts);
-    check_name(contacts, n);
-
-    free(contacts);
-    contacts = NULL;
+    free(phone_book);
+    phone_book = nullptr;
 
     return 0;
 }
 
-    contact* read_contacts(const int n)
-    {
-        contact *contacts = (contact*) calloc(n, sizeof(contact));
-        char name[MAX_NAME_LENGTH], phone[MAX_PHONE_LENGTH];
+contact *init_phone_book(const int n)
+{
+    auto phone_book = (contact *) malloc(n * sizeof(contact));
+    for (int i = 0; i < n; ++i)
+        scanf("%20s %10s", phone_book[i].name, phone_book[i].phone);
+    return phone_book;
+}
 
-        for (int i = 0; i < n; ++i) {
-            scanf("%20s %10s", name, phone);
-            strcpy(contacts[i].name, name);
-            strcpy(contacts[i].phone, phone);
-        }
+int compare_names(const void *a, const void *b)
+{
+    const contact *const l = a;
+    const contact *const r = b;
+    return strcmp(l->name, r->name);
+}
 
-        return contacts;
+void query_names(const contact *phone_book, const int n)
+{
+    for (char query[MAX_NAME_LENGTH]; scanf("%s", query) != EOF;) {
+        contact *result = bsearch(query, phone_book, n, sizeof(contact), compare_contacts);
+
+        if (result)
+            printf("%s=%s\n", result->name, result->phone);
+        else
+            puts("Not found");
     }
+}
 
-    int compare_contacts(const void *a, const void *b)
-    {
-        contact const *const l = a;
-        contact const *const r = b;
-        return strcmp(l->name, r->name);
-    }
-
-    void check_name(const contact *contacts, const int n)
-    {
-        for (char query[MAX_NAME_LENGTH]; scanf("%s", query) != EOF;) {
-            contact *result = bsearch(query, contacts, n, sizeof(contact), compare_contacts_to_binary_search);
-
-            if (result)
-                printf("%s=%s\n", result->name, result->phone);
-            else
-                puts("Not found");
-        }
-    }
-
-        int compare_contacts_to_binary_search(const void *key, const void *array)
-        {
-            char const *const l = key;
-            contact const *const r = array;
-            return strcmp(l, r->name);
-        }
+int compare_contacts(const void *key, const void *array)
+{
+    char const *const l = key;
+    contact const *const r = array;
+    return strcmp(l, r->name);
+}
