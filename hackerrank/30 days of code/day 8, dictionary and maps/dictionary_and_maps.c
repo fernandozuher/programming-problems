@@ -16,7 +16,7 @@ typedef struct {
 contact *init_phone_book(int n);
 int compare_names(const void *a, const void *b);
 void query_names(const contact *phone_book, int n);
-int compare_contacts(const void *key, const void *array);
+int compare_contacts(const void *query, const void *data);
 
 int main()
 {
@@ -59,9 +59,9 @@ void query_names(const contact *phone_book, const int n)
     }
 }
 
-int compare_contacts(const void *key, const void *array)
+int compare_contacts(const void *query, const void *data)
 {
-    char const *const l = key;
-    contact const *const r = array;
+    const char *const l = query;
+    const contact *const r = data;
     return strcmp(l, r->name);
 }
