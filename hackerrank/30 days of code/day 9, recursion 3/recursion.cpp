@@ -4,16 +4,17 @@
 
 using namespace std;
 
-int factorial(int n)
-{
-    return n == 1 ? 1 : n * factorial(n - 1);
-}
+int factorial(int n);
 
 int main()
 {
     int n;
     cin >> n;
     cout << factorial(n);
-
     return 0;
+}
+
+int factorial(const int n)
+{
+    return n == 1 ? 1 : n * factorial(n - 1);
 }

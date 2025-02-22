@@ -9,7 +9,7 @@ public class Recursion {
         System.out.println(factorial(n));
     }
 
-        private static int factorial(int n) {
-            return n == 1 ? 1 : n * factorial(n - 1);
-        }
+    private static int factorial(int n) {
+        return n == 1 ? 1 : n * factorial(n - 1);
+    }
 }

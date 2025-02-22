@@ -1,17 +1,17 @@
 // https://www.hackerrank.com/challenges/30-recursion/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        Console.WriteLine(_factorial(n));
+        int n = int.Parse(ReadLine());
+        WriteLine(Factorial(n));
     }
 
-        private static int _factorial(int n)
-        {
-            return n == 1 ? 1 : n * _factorial(n - 1);
-        }
+    private static int Factorial(int n)
+    {
+        return n == 1 ? 1 : n * Factorial(n - 1);
+    }
 }

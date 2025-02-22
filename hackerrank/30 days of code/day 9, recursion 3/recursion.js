@@ -9,25 +9,27 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    console.log(factorial(n));
+  let n = +readLine();
+  console.log(factorial(n));
 }
 
-    function factorial(n) {
-        return n == 1 ? 1 : n * factorial(n - 1);
-    }
+function factorial(n) {
+  return n === 1 ? 1 : n * factorial(n - 1);
+}
