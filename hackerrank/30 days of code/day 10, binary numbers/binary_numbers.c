@@ -3,78 +3,81 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-constexpr int N_BITS_OF_BINARY_INT = sizeof(int) * 8;
+constexpr int SIZE_OF_BINARY_INT = sizeof(int) * 8;
 
-bool *int_to_binary(int n);
-bool is_least_significant_bit_on(int n);
-int max_consecutive_ones_from(const bool *binary);
-int *count_ones_in_sequence(int i, const bool *binary);
-int find_last_index_with_consecutive_ones(int i, const bool *binary);
+typedef struct {
+    int first, next_after_last;
+} range;
+
+char *int_to_binary(int n);
+char least_significant_bit(int n);
+int max_consecutive_ones_from(const char *binary);
+range find_range_bits_1(const char *binary, int i);
+int find_begin(const char *binary, int i);
+int find_end(const char *binary, int i);
+int format_index(const char *ptr, const char *start);
 int max(int a, int b);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    bool *binary = int_to_binary(n); // lest significant bit starting from the left
+    char *binary = int_to_binary(n); // lest significant bit starting from left
     printf("%d\n", max_consecutive_ones_from(binary));
 
     free(binary);
     return 0;
 }
 
-bool *int_to_binary(int n)
+char *int_to_binary(int n)
 {
-    auto binary = (bool *) calloc(N_BITS_OF_BINARY_INT, sizeof(bool));
-    for (int i = 0; i < N_BITS_OF_BINARY_INT && n > 0; ++i, n /= 2)
-        binary[i] = is_least_significant_bit_on(n);
+    auto binary = (char *) calloc(SIZE_OF_BINARY_INT, sizeof(char));
+    memset(binary, '0', SIZE_OF_BINARY_INT);
+    for (int i = 0; i < SIZE_OF_BINARY_INT && n > 0; ++i, n /= 2)
+        binary[i] = least_significant_bit(n);
     return binary;
 }
 
-bool is_least_significant_bit_on(const int n)
+char least_significant_bit(const int n)
 {
-    return n & 1;
+    return n & 1 ? '1' : '0';
 }
 
-int max_consecutive_ones_from(const bool *const binary)
+int max_consecutive_ones_from(const char *const binary)
 {
-    if (binary == nullptr)
-        return 0;
-
-    int max_consecutive_ones = 0;
-    for (int i = 0; i < N_BITS_OF_BINARY_INT; ++i) {
-        bool is_bit_set = binary[i];
-
-        if (is_bit_set) {
-            int *i_and_consecutive_ones = count_ones_in_sequence(i, binary);
-            i = i_and_consecutive_ones[0];
-            max_consecutive_ones = max(i_and_consecutive_ones[1], max_consecutive_ones);
-            free(i_and_consecutive_ones);
-        }
+    int max_n_bits = 0;
+    for (int i = 0; i < SIZE_OF_BINARY_INT; ++i) {
+        range bits_range = find_range_bits_1(binary, i);
+        int n_bits = bits_range.next_after_last - bits_range.first;
+        max_n_bits = max(n_bits, max_n_bits);
+        i = bits_range.next_after_last;
     }
-    return max_consecutive_ones;
+    return max_n_bits;
 }
 
-int *count_ones_in_sequence(const int i, const bool *const binary)
+range find_range_bits_1(const char *const binary, const int i)
 {
-    int first_index = i;
-    int last_index = find_last_index_with_consecutive_ones(i, binary);
-    int consecutive_ones = last_index - first_index + 1;
-
-    auto output = (int *) malloc(2 * sizeof(int));
-    output[0] = last_index;
-    output[1] = consecutive_ones;
-    return output;
+    range bits_range = {find_begin(binary, i), find_end(binary, i)};
+    return bits_range;
 }
 
-int find_last_index_with_consecutive_ones(int i, const bool *const binary)
+int find_begin(const char *const binary, const int i)
 {
-    if (binary == nullptr)
-        return 0;
-    ++i;
-    for (; i < N_BITS_OF_BINARY_INT && binary[i]; ++i);
-    return i - 1;
+    char *ptr = strchr(binary + i, '1');
+    return format_index(ptr, binary);
+}
+
+int find_end(const char *const binary, const int i)
+{
+    char *ptr = strchr(binary + i, '0');
+    return format_index(ptr, binary);
+}
+
+int format_index(const char *const ptr, const char *const start)
+{
+    return ptr == nullptr ? (SIZE_OF_BINARY_INT - 1) : (ptr - start);
 }
 
 int max(const int a, const int b)

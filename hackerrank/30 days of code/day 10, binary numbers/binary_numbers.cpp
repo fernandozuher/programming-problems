@@ -1,46 +1,44 @@
 // https://www.hackerrank.com/challenges/30-binary-numbers/problem?isFullScreen=true
 
+#include <algorithm>
 #include <bitset>
 #include <iostream>
 #include <tuple>
 
 using namespace std;
 
-int max_consecutive_ones_from(const bitset<32>& binary);
-tuple<int, int> count_ones_in_sequence(int i, const bitset<32>& binary);
-int find_last_index_with_consecutive_ones(int i, const bitset<32>& binary);
+int max_consecutive_ones_from(const string_view& binary);
+tuple<int, int> find_range_bits_1(const string_view& binary, int i);
+int find_index(const string_view& binary, int i, char data);
 
 int main()
 {
     int n;
     cin >> n;
-    auto binary{bitset<32>(n)};
+    auto binary{bitset<32>(n).to_string()};
     cout << max_consecutive_ones_from(binary);
     return 0;
 }
 
-int max_consecutive_ones_from(const bitset<32>& binary)
+int max_consecutive_ones_from(const string_view& binary)
 {
-    int max_consecutive_ones{};
-    for (int i{}, consecutive_ones{}; i < binary.size(); ++i)
-        if (const bool is_bit_on{binary[i]}; is_bit_on) {
-            tie(i, consecutive_ones) = count_ones_in_sequence(i, binary);
-            max_consecutive_ones = max(consecutive_ones, max_consecutive_ones);
-        }
-    return max_consecutive_ones;
+    int max_n_bits{};
+    for (int i{}; i < binary.size(); ++i) {
+        auto [first, next_after_last]{find_range_bits_1(binary, i)};
+        int n_bits{next_after_last - first};
+        max_n_bits = max(n_bits, max_n_bits);
+        i = next_after_last;
+    }
+    return max_n_bits;
 }
 
-tuple<int, int> count_ones_in_sequence(int i, const bitset<32>& binary)
+tuple<int, int> find_range_bits_1(const string_view& binary, const int i)
 {
-    int first_index{i};
-    int last_index{find_last_index_with_consecutive_ones(i, binary)};
-    int consecutive_ones{last_index - first_index + 1};
-    return {last_index, consecutive_ones};
+    return {find_index(binary, i, '1'), find_index(binary, i, '0')};
 }
 
-int find_last_index_with_consecutive_ones(int i, const bitset<32>& binary)
+int find_index(const string_view& binary, const int i, const char data)
 {
-    ++i;
-    for (; i < binary.size() && binary[i]; ++i);
-    return i - 1;
+    auto it{find(binary.begin() + i, binary.end(), data)};
+    return static_cast<int>(distance(binary.begin(), it));
 }
