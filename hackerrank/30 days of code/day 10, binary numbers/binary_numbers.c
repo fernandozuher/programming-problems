@@ -14,10 +14,9 @@ typedef struct {
 char *int_to_binary(int n);
 char least_significant_bit(int n);
 int max_consecutive_ones_from(const char *binary);
-range find_range_bits_1(const char *binary, int i);
-int find_begin(const char *binary, int i);
-int find_end(const char *binary, int i);
-int format_index(const char *ptr, const char *start);
+int size_of_next_range_of_bits_1(const char *binary, int begin_index);
+int find_next_after_last_index_of_consecutive_1s(const char *binary, int begin_index);
+int format_index(const char *next_after_last_index, const char *binary);
 int max(int a, int b);
 
 int main()
@@ -49,35 +48,31 @@ int max_consecutive_ones_from(const char *const binary)
 {
     int max_n_bits = 0;
     for (int i = 0; i < SIZE_OF_BINARY_INT; ++i) {
-        range bits_range = find_range_bits_1(binary, i);
-        int n_bits = bits_range.next_after_last - bits_range.first;
-        max_n_bits = max(n_bits, max_n_bits);
-        i = bits_range.next_after_last;
+        if (binary[i] == '1') {
+            int n_bits = size_of_next_range_of_bits_1(binary, i);
+            max_n_bits = max(n_bits, max_n_bits);
+            i += n_bits;
+        }
     }
     return max_n_bits;
 }
 
-range find_range_bits_1(const char *const binary, const int i)
+int size_of_next_range_of_bits_1(const char *const binary, const int begin_index)
 {
-    range bits_range = {find_begin(binary, i), find_end(binary, i)};
-    return bits_range;
+    int next_after_last_index = find_next_after_last_index_of_consecutive_1s(binary, begin_index);
+    return next_after_last_index - begin_index;
 }
 
-int find_begin(const char *const binary, const int i)
+int find_next_after_last_index_of_consecutive_1s(const char *const binary, const int begin_index)
 {
-    char *ptr = strchr(binary + i, '1');
-    return format_index(ptr, binary);
+    constexpr char off_bit = '0';
+    char *next_after_last_index = strchr(binary + begin_index, off_bit);
+    return format_index(next_after_last_index, binary);
 }
 
-int find_end(const char *const binary, const int i)
+int format_index(const char *const next_after_last_index, const char *const binary)
 {
-    char *ptr = strchr(binary + i, '0');
-    return format_index(ptr, binary);
-}
-
-int format_index(const char *const ptr, const char *const start)
-{
-    return ptr == nullptr ? (SIZE_OF_BINARY_INT - 1) : (ptr - start);
+    return next_after_last_index == nullptr ? SIZE_OF_BINARY_INT : (next_after_last_index - binary);
 }
 
 int max(const int a, const int b)

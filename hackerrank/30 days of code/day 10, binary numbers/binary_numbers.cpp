@@ -3,13 +3,12 @@
 #include <algorithm>
 #include <bitset>
 #include <iostream>
-#include <tuple>
 
 using namespace std;
 
 int max_consecutive_ones_from(const string_view& binary);
-tuple<int, int> find_range_bits_1(const string_view& binary, int i);
-int find_index(const string_view& binary, int i, char data);
+int size_of_next_range_of_bits_1(const string_view& binary, int begin_index);
+int find_next_after_last_index_of_consecutive_1s(const string_view& binary, int begin_index);
 
 int main()
 {
@@ -24,21 +23,27 @@ int max_consecutive_ones_from(const string_view& binary)
 {
     int max_n_bits{};
     for (int i{}; i < binary.size(); ++i) {
-        auto [first, next_after_last]{find_range_bits_1(binary, i)};
-        int n_bits{next_after_last - first};
-        max_n_bits = max(n_bits, max_n_bits);
-        i = next_after_last;
+        if (binary[i] == '1') {
+            int n_bits{size_of_next_range_of_bits_1(binary, i)};
+            max_n_bits = max(n_bits, max_n_bits);
+            i += n_bits;
+        }
     }
     return max_n_bits;
 }
 
-tuple<int, int> find_range_bits_1(const string_view& binary, const int i)
+int size_of_next_range_of_bits_1(const string_view& binary, const int begin_index)
 {
-    return {find_index(binary, i, '1'), find_index(binary, i, '0')};
+    int next_after_last_index{find_next_after_last_index_of_consecutive_1s(binary, begin_index)};
+    return next_after_last_index - begin_index;
 }
 
-int find_index(const string_view& binary, const int i, const char data)
+int find_next_after_last_index_of_consecutive_1s(const string_view& binary, const int begin_index)
 {
-    auto it{find(binary.begin() + i, binary.end(), data)};
-    return static_cast<int>(distance(binary.begin(), it));
+    auto it{find(binary.begin() + begin_index, binary.end(), '0')};
+    if (it == binary.end())
+        return static_cast<int>(binary.size());
+
+    int next_after_last_index{static_cast<int>(distance(binary.begin(), it))};
+    return next_after_last_index;
 }

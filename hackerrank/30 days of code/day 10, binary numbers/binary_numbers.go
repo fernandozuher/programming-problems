@@ -2,26 +2,39 @@
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "strings"
+)
 
 func main() {
     var n int
     fmt.Scan(&n)
+    binary := fmt.Sprintf("%b", n)
+    fmt.Println(maxConsecutiveOnesFrom(binary))
+}
 
-    var maxOnes, ones int
-    for ; n > 0; n /= 2 {
-        if n%2 == 1 {
-            ones++
-        } else {
-            if ones > maxOnes {
-                maxOnes = ones
-            }
-            ones = 0
+func maxConsecutiveOnesFrom(binary string) int {
+    maxNBits := 0
+    for i := 0; i < len(binary); i++ {
+        if binary[i] == '1' {
+            nBits := sizeOfNextRangeOfBits1(binary, i)
+            maxNBits = max(nBits, maxNBits)
+            i += nBits
         }
     }
+    return maxNBits
+}
 
-    if ones > maxOnes {
-        maxOnes = ones
+func sizeOfNextRangeOfBits1(binary string, beginIndex int) int {
+    nextAfterLastIndex := findNextAfterLastIndexOfConsecutive1s(binary, beginIndex)
+    return nextAfterLastIndex - beginIndex
+}
+
+func findNextAfterLastIndexOfConsecutive1s(binary string, beginIndex int) int {
+    nextAfterLastIndex := strings.IndexRune(binary[beginIndex:], '0')
+    if nextAfterLastIndex == -1 {
+        return len(binary)
     }
-    fmt.Println(maxOnes)
+    return nextAfterLastIndex + beginIndex // + beginIndex because index was found from it, not the whole binary
 }
