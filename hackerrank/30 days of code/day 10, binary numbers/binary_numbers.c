@@ -46,15 +46,15 @@ char least_significant_bit(const int n)
 
 int max_consecutive_ones_from(const char *const binary)
 {
-    int max_n_bits = 0;
+    int max_1_bits = 0;
     for (int i = 0; i < SIZE_OF_BINARY_INT; ++i) {
         if (binary[i] == '1') {
             int n_bits = size_of_next_range_of_bits_1(binary, i);
-            max_n_bits = max(n_bits, max_n_bits);
+            max_1_bits = max(n_bits, max_1_bits);
             i += n_bits;
         }
     }
-    return max_n_bits;
+    return max_1_bits;
 }
 
 int size_of_next_range_of_bits_1(const char *const binary, const int begin_index)

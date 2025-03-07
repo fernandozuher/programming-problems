@@ -36,5 +36,6 @@ func findNextAfterLastIndexOfConsecutive1s(binary string, beginIndex int) int {
     if nextAfterLastIndex == -1 {
         return len(binary)
     }
-    return nextAfterLastIndex + beginIndex // + beginIndex because index was found from it, not the whole binary
+    // + beginIndex because index was found from that, not from index 0
+    return nextAfterLastIndex + beginIndex
 }

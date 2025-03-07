@@ -21,15 +21,15 @@ int main()
 
 int max_consecutive_ones_from(const string_view& binary)
 {
-    int max_n_bits{};
+    int max_1_bits{};
     for (int i{}; i < binary.size(); ++i) {
         if (binary[i] == '1') {
             int n_bits{size_of_next_range_of_bits_1(binary, i)};
-            max_n_bits = max(n_bits, max_n_bits);
+            max_1_bits = max(n_bits, max_1_bits);
             i += n_bits;
         }
     }
-    return max_n_bits;
+    return max_1_bits;
 }
 
 int size_of_next_range_of_bits_1(const string_view& binary, const int begin_index)

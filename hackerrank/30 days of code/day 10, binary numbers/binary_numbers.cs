@@ -1,24 +1,52 @@
 // https://www.hackerrank.com/challenges/30-binary-numbers/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-class Solution
+public class Solution
 {
     public static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        int maxOnes = 0, ones = 0;
-
-        for (; n > 0; n /= 2)
-            if (n % 2 == 1)
-                ++ones;
-            else
-            {
-                maxOnes = Math.Max(maxOnes, ones);
-                ones = 0;
-            }
-
-        maxOnes = Math.Max(maxOnes, ones);
-        Console.WriteLine(maxOnes);
+        int n = int.Parse(ReadLine());
+        var binary = new IntToBinary(n);
+        WriteLine(binary.MaxConsecutiveOnesFromBinary);
     }
+}
+
+class IntToBinary
+{
+    private readonly string _binary;
+    private readonly int _maxConsecutiveOnes;
+
+    public IntToBinary(int n)
+    {
+        _binary = Convert.ToString(n, 2);
+        _maxConsecutiveOnes = FindMaxConsecutiveOnesFromBinary();
+    }
+
+    private int FindMaxConsecutiveOnesFromBinary()
+    {
+        int max1Bits = 0;
+        for (int i = 0; i < _binary.Length; i++)
+            if (_binary[i] == '1')
+            {
+                int nBits = SizeOfNextRangeOfBits1(i);
+                max1Bits = Math.Max(nBits, max1Bits);
+                i += nBits;
+            }
+        return max1Bits;
+    }
+
+    private int SizeOfNextRangeOfBits1(int beginIndex)
+    {
+        int nextAfterLastIndex = FindNextAfterLastIndexOfConsecutive1s(beginIndex);
+        return nextAfterLastIndex - beginIndex;
+    }
+
+    private int FindNextAfterLastIndexOfConsecutive1s(int beginIndex)
+    {
+        int nextAfterLastIndex = _binary.IndexOf('0', beginIndex);
+        return nextAfterLastIndex == -1 ? _binary.Length : nextAfterLastIndex;
+    }
+
+    public int MaxConsecutiveOnesFromBinary => _maxConsecutiveOnes;
 }
