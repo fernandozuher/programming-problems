@@ -6,44 +6,40 @@
 
 using namespace std;
 
-int max_consecutive_ones_from(const string_view& binary);
-int size_of_next_range_of_bits_1(const string_view& binary, int begin_index);
-int find_next_after_last_index_of_consecutive_1s(const string_view& binary, int begin_index);
+string int_to_binary(int n);
+int find_size_widest_range_bits_1_from(const string_view& binary);
+int find_size_next_range_bits_1_from(const string_view& binary);
 
 int main()
 {
     int n;
     cin >> n;
-    auto binary{bitset<32>(n).to_string()};
-    cout << max_consecutive_ones_from(binary);
+    string binary{int_to_binary(n)};
+    cout << find_size_widest_range_bits_1_from(binary);
     return 0;
 }
 
-int max_consecutive_ones_from(const string_view& binary)
+string int_to_binary(const int n)
 {
-    int max_1_bits{};
-    for (int i{}; i < binary.size(); ++i) {
+    return bitset<32>(n).to_string();
+}
+
+int find_size_widest_range_bits_1_from(const string_view& binary)
+{
+    int size_widest_range{};
+    for (int i{}; i < binary.size(); ++i)
         if (binary[i] == '1') {
-            int n_bits{size_of_next_range_of_bits_1(binary, i)};
-            max_1_bits = max(n_bits, max_1_bits);
-            i += n_bits;
+            string_view binary_from_i = binary.substr(i);
+            int size_range = find_size_next_range_bits_1_from(binary_from_i);
+            size_widest_range = max(size_range, size_widest_range);
+            i += size_range;
         }
-    }
-    return max_1_bits;
+    return size_widest_range;
 }
 
-int size_of_next_range_of_bits_1(const string_view& binary, const int begin_index)
+int find_size_next_range_bits_1_from(const string_view& binary)
 {
-    int next_after_last_index{find_next_after_last_index_of_consecutive_1s(binary, begin_index)};
-    return next_after_last_index - begin_index;
-}
-
-int find_next_after_last_index_of_consecutive_1s(const string_view& binary, const int begin_index)
-{
-    auto it{find(binary.begin() + begin_index, binary.end(), '0')};
-    if (it == binary.end())
-        return static_cast<int>(binary.size());
-
-    int next_after_last_index{static_cast<int>(distance(binary.begin(), it))};
-    return next_after_last_index;
+    if (auto it{ranges::find(binary, '0')}; it != binary.end())
+        return distance(binary.begin(), it);
+    return binary.size();
 }

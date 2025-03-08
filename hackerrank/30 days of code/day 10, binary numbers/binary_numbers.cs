@@ -8,45 +8,46 @@ public class Solution
     {
         int n = int.Parse(ReadLine());
         var binary = new IntToBinary(n);
-        WriteLine(binary.MaxConsecutiveOnesFromBinary);
+        WriteLine(binary.SizeWidestRangeBits1);
     }
 }
 
 class IntToBinary
 {
     private readonly string _binary;
-    private readonly int _maxConsecutiveOnes;
+    private readonly int _sizeWidestRangeBits1;
 
     public IntToBinary(int n)
     {
         _binary = Convert.ToString(n, 2);
-        _maxConsecutiveOnes = FindMaxConsecutiveOnesFromBinary();
+        _sizeWidestRangeBits1 = FindSizeWidestRangeBits1();
     }
 
-    private int FindMaxConsecutiveOnesFromBinary()
+    private int FindSizeWidestRangeBits1()
     {
-        int max1Bits = 0;
+        int sizeWidestRange = 0;
         for (int i = 0; i < _binary.Length; i++)
             if (_binary[i] == '1')
             {
-                int nBits = SizeOfNextRangeOfBits1(i);
-                max1Bits = Math.Max(nBits, max1Bits);
-                i += nBits;
+                int sizeRange = FindSizeRangeBits1(i);
+                sizeWidestRange = Math.Max(sizeRange, sizeWidestRange);
+                i += sizeRange;
             }
-        return max1Bits;
+        return sizeWidestRange;
     }
 
-    private int SizeOfNextRangeOfBits1(int beginIndex)
+    private int FindSizeRangeBits1(int beginIndex)
     {
-        int nextAfterLastIndex = FindNextAfterLastIndexOfConsecutive1s(beginIndex);
-        return nextAfterLastIndex - beginIndex;
+        int index = FindBit0(beginIndex);
+        int size = index == -1 ? _binary.Length : index;
+        size -= beginIndex;
+        return size;
     }
 
-    private int FindNextAfterLastIndexOfConsecutive1s(int beginIndex)
+    private int FindBit0(int beginIndex)
     {
-        int nextAfterLastIndex = _binary.IndexOf('0', beginIndex);
-        return nextAfterLastIndex == -1 ? _binary.Length : nextAfterLastIndex;
+        return _binary.IndexOf('0', beginIndex);
     }
 
-    public int MaxConsecutiveOnesFromBinary => _maxConsecutiveOnes;
+    public int SizeWidestRangeBits1 => _sizeWidestRangeBits1;
 }

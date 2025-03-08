@@ -28,45 +28,39 @@ function readLine(): string {
 function main() {
   let n: number = +readLine();
   let binary = new IntToBinary(n);
-  console.log(binary.maxConsecutiveOnesFromBinary());
+  console.log(binary.sizeWidestRangeBitsOne());
 }
 
 class IntToBinary {
   private readonly binary: string;
-  private readonly maxConsecutiveOnes: number;
+  private readonly sizeWidestRangeBits1: number;
 
-  public constructor(n: number) {
+  constructor(n: number) {
     this.binary = n.toString(2);
-    this.maxConsecutiveOnes = this.findMaxConsecutiveOnesFromBinary();
+    this.sizeWidestRangeBits1 = this.findSizeWidestRangeBits1();
   }
 
-  private findMaxConsecutiveOnesFromBinary(): number {
-    let max1Bits = 0;
+  private findSizeWidestRangeBits1(): number {
+    let sizeWidestRange = 0;
     for (let i = 0; i < this.binary.length; i++)
       if (this.binary[i] === '1') {
-        let nBits = this.sizeOfNextRangeOfBits1(i);
-        max1Bits = Math.max(nBits, max1Bits);
-        i += nBits;
+        let sizeRange: number = this.findSizeRangeBits1(i);
+        sizeWidestRange = Math.max(sizeRange, sizeWidestRange);
+        i += sizeRange;
       }
-    return max1Bits;
+    return sizeWidestRange;
   }
 
-  private sizeOfNextRangeOfBits1(beginIndex: number): number {
-    let nextAfterLastIndex: number =
-      this.findNextAfterLastIndexOfConsecutive1s(beginIndex);
-    return nextAfterLastIndex - beginIndex;
+  private findSizeRangeBits1(beginIndex: number): number {
+    let index = this.findBit0(beginIndex);
+    return index === -1 ? this.binary.length - beginIndex : index;
   }
 
-  private findNextAfterLastIndexOfConsecutive1s(beginIndex: number): number {
-    let nextAfterLastIndex: number = this.binary
-      .substring(beginIndex)
-      .indexOf('0');
-    return nextAfterLastIndex === -1
-      ? this.binary.length
-      : nextAfterLastIndex + beginIndex; // + begin_index because index was found from that, not from index 0
+  private findBit0(beginIndex: number): number {
+    return this.binary.substring(beginIndex).indexOf('0');
   }
 
-  public maxConsecutiveOnesFromBinary(): number {
-    return this.maxConsecutiveOnes;
+  sizeWidestRangeBitsOne() {
+    return this.sizeWidestRangeBits1;
   }
 }

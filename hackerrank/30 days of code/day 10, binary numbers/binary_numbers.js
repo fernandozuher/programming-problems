@@ -28,43 +28,39 @@ function readLine() {
 function main() {
   let n = +readLine();
   let binary = new IntToBinary(n);
-  console.log(binary.maxConsecutiveOnesFromBinary());
+  console.log(binary.sizeWidestRangeBitsOne());
 }
 
 class IntToBinary {
-  #binary = '';
-  #maxConsecutiveOnes = 0;
+  #binary;
+  #sizeWidestRangeBits1;
 
   constructor(n) {
     this.#binary = n.toString(2);
-    this.#maxConsecutiveOnes = this.#findMaxConsecutiveOnesFromBinary();
+    this.#sizeWidestRangeBits1 = this.#findSizeWidestRangeBits1();
   }
 
-  #findMaxConsecutiveOnesFromBinary() {
-    let max1Bits = 0;
+  #findSizeWidestRangeBits1() {
+    let sizeWidestRange = 0;
     for (let i = 0; i < this.#binary.length; i++)
       if (this.#binary[i] === '1') {
-        let nBits = this.#sizeOfNextRangeOfBits1(i);
-        max1Bits = Math.max(nBits, max1Bits);
-        i += nBits;
+        let sizeRange = this.#findSizeRangeBits1(i);
+        sizeWidestRange = Math.max(sizeRange, sizeWidestRange);
+        i += sizeRange;
       }
-    return max1Bits;
+    return sizeWidestRange;
   }
 
-  #sizeOfNextRangeOfBits1(beginIndex) {
-    let nextAfterLastIndex =
-      this.#findNextAfterLastIndexOfConsecutive1s(beginIndex);
-    return nextAfterLastIndex - beginIndex;
+  #findSizeRangeBits1(beginIndex) {
+    let index = this.#findBit0(beginIndex);
+    return index === -1 ? this.#binary.length - beginIndex : index;
   }
 
-  #findNextAfterLastIndexOfConsecutive1s(beginIndex) {
-    let nextAfterLastIndex = this.#binary.substring(beginIndex).indexOf('0');
-    return nextAfterLastIndex === -1
-      ? this.#binary.length
-      : nextAfterLastIndex + beginIndex; // + begin_index because index was found from that, not from index 0
+  #findBit0(beginIndex) {
+    return this.#binary.substring(beginIndex).indexOf('0');
   }
 
-  maxConsecutiveOnesFromBinary() {
-    return this.#maxConsecutiveOnes;
+  sizeWidestRangeBitsOne() {
+    return this.#sizeWidestRangeBits1;
   }
 }

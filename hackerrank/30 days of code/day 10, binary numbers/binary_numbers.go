@@ -10,32 +10,34 @@ import (
 func main() {
     var n int
     fmt.Scan(&n)
-    binary := fmt.Sprintf("%b", n)
-    fmt.Println(maxConsecutiveOnesFrom(binary))
+    binary := intToBinary(n)
+    fmt.Println(findSizeWidestRangeBits1From(binary))
 }
 
-func maxConsecutiveOnesFrom(binary string) int {
-    maxNBits := 0
+func intToBinary(n int) string {
+    return fmt.Sprintf("%b", n)
+}
+
+func findSizeWidestRangeBits1From(binary string) int {
+    sizeWidestRange := 0
     for i := 0; i < len(binary); i++ {
         if binary[i] == '1' {
-            nBits := sizeOfNextRangeOfBits1(binary, i)
-            maxNBits = max(nBits, maxNBits)
-            i += nBits
+            binaryFromI := binary[i:]
+            sizeRange := findSizeNextRangeBits1From(binaryFromI)
+            sizeWidestRange = max(sizeRange, sizeWidestRange)
+            i += sizeRange
         }
     }
-    return maxNBits
+    return sizeWidestRange
 }
 
-func sizeOfNextRangeOfBits1(binary string, beginIndex int) int {
-    nextAfterLastIndex := findNextAfterLastIndexOfConsecutive1s(binary, beginIndex)
-    return nextAfterLastIndex - beginIndex
-}
-
-func findNextAfterLastIndexOfConsecutive1s(binary string, beginIndex int) int {
-    nextAfterLastIndex := strings.IndexRune(binary[beginIndex:], '0')
-    if nextAfterLastIndex == -1 {
-        return len(binary)
+func findSizeNextRangeBits1From(binary string) int {
+    if size := findBit0(binary); size != -1 {
+        return size
     }
-    // + beginIndex because index was found from that, not from index 0
-    return nextAfterLastIndex + beginIndex
+    return len(binary)
+}
+
+func findBit0(binary string) int {
+    return strings.IndexRune(binary, '0')
 }

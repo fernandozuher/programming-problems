@@ -2,32 +2,31 @@
 
 def main
   n = gets.to_i
-  binary = n.to_s(2)
-  print max_consecutive_ones_from(binary)
+  binary = int_to_binary(n)
+  puts find_size_widest_range_bits_1_from(binary)
 end
 
-def max_consecutive_ones_from(binary)
-  max_1_bits = 0
+def int_to_binary(n)
+  n.to_s(2)
+end
+
+def find_size_widest_range_bits_1_from(binary)
+  size_widest_range = 0
   i = 0
   while i < binary.size
     if binary[i] == '1'
-      n_bits = size_of_next_range_of_bits_1(binary, i)
-      max_1_bits = [n_bits, max_1_bits].max
-      i += n_bits
+      binary_from_i = binary[i..]
+      size_range = find_size_next_range_bits_1_from(binary_from_i)
+      size_widest_range = [size_range, size_widest_range].max
+      i += size_range
     end
     i += 1
   end
-  max_1_bits
+  size_widest_range
 end
 
-def size_of_next_range_of_bits_1(binary, begin_index)
-  next_after_last_index = find_next_after_last_index_of_consecutive_1s(binary, begin_index)
-  next_after_last_index - begin_index
-end
-
-def find_next_after_last_index_of_consecutive_1s(binary, begin_index)
-  next_after_last_index = binary.index('0', begin_index)
-  next_after_last_index == nil ? binary.size : next_after_last_index
+def find_size_next_range_bits_1_from(binary)
+  binary.index('0') || binary.size
 end
 
 main

@@ -3,33 +3,30 @@
 
 def main():
     n = int(input())
-    binary = format(n, "b")
-    print(max_consecutive_ones_from(binary))
+    binary = int_to_binary(n)
+    print(find_size_widest_range_bits_1_from(binary))
 
 
-def max_consecutive_ones_from(binary):
-    max_1_bits = 0
+def int_to_binary(n):
+    return bin(n)[2:]
+
+
+def find_size_widest_range_bits_1_from(binary):
+    size_widest_range = 0
     i = 0
     while i < len(binary):
         if binary[i] == '1':
-            n_bits = size_of_next_range_of_bits_1(binary, i)
-            max_1_bits = max(n_bits, max_1_bits)
-            i += n_bits
+            binary_from_i = binary[i:]
+            size_range = find_size_next_range_bits_1_from(binary_from_i)
+            size_widest_range = max(size_range, size_widest_range)
+            i += size_range
         i += 1
-    return max_1_bits
+    return size_widest_range
 
 
-def size_of_next_range_of_bits_1(binary, begin_index):
-    next_after_last_index = find_next_after_last_index_of_consecutive_1s(binary, begin_index)
-    return next_after_last_index - begin_index
-
-
-def find_next_after_last_index_of_consecutive_1s(binary, begin_index):
-    next_after_last_index = binary[begin_index:].find('0')
-    if next_after_last_index == -1:
-        return len(binary)
-    # + begin_index because index was found from that, not from index 0
-    return next_after_last_index + begin_index
+def find_size_next_range_bits_1_from(binary):
+    index = binary.find('0')
+    return index if index != -1 else len(binary)
 
 
 if __name__ == '__main__':
