@@ -2,31 +2,12 @@
 
 def main
   n = gets.to_i
-  binary = int_to_binary(n)
-  puts find_size_widest_range_bits_1_from(binary)
+  binary = n.to_s(2)
+  puts find_max_length_of_ones(binary)
 end
 
-def int_to_binary(n)
-  n.to_s(2)
-end
-
-def find_size_widest_range_bits_1_from(binary)
-  size_widest_range = 0
-  i = 0
-  while i < binary.size
-    if binary[i] == '1'
-      binary_from_i = binary[i..]
-      size_range = find_size_next_range_bits_1_from(binary_from_i)
-      size_widest_range = [size_range, size_widest_range].max
-      i += size_range
-    end
-    i += 1
-  end
-  size_widest_range
-end
-
-def find_size_next_range_bits_1_from(binary)
-  binary.index('0') || binary.size
+def find_max_length_of_ones(binary)
+  binary.split('0').map(&:length).max
 end
 
 main

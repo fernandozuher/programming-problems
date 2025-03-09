@@ -27,40 +27,10 @@ function readLine() {
 
 function main() {
   let n = +readLine();
-  let binary = new IntToBinary(n);
-  console.log(binary.sizeWidestRangeBitsOne());
+  let binary = n.toString(2);
+  console.log(findMaxLengthOfOnes(binary));
 }
 
-class IntToBinary {
-  #binary;
-  #sizeWidestRangeBits1;
-
-  constructor(n) {
-    this.#binary = n.toString(2);
-    this.#sizeWidestRangeBits1 = this.#findSizeWidestRangeBits1();
-  }
-
-  #findSizeWidestRangeBits1() {
-    let sizeWidestRange = 0;
-    for (let i = 0; i < this.#binary.length; i++)
-      if (this.#binary[i] === '1') {
-        let sizeRange = this.#findSizeRangeBits1(i);
-        sizeWidestRange = Math.max(sizeRange, sizeWidestRange);
-        i += sizeRange;
-      }
-    return sizeWidestRange;
-  }
-
-  #findSizeRangeBits1(beginIndex) {
-    let index = this.#findBit0(beginIndex);
-    return index === -1 ? this.#binary.length - beginIndex : index;
-  }
-
-  #findBit0(beginIndex) {
-    return this.#binary.substring(beginIndex).indexOf('0');
-  }
-
-  sizeWidestRangeBitsOne() {
-    return this.#sizeWidestRangeBits1;
-  }
+function findMaxLengthOfOnes(binary) {
+  return Math.max(...binary.split('0').map(segment => segment.length));
 }
