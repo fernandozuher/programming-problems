@@ -10,41 +10,34 @@ import (
 const nRowsColumns = 6
 
 func main() {
-    var matrix [nRowsColumns][nRowsColumns]int = readMatrix()
-    var maxSum int = calculateMaxSum(matrix)
-    fmt.Println(maxSum)
+    matrix := readMatrix()
+    fmt.Println(calculateMaxSum(matrix))
 }
 
-    func readMatrix() [nRowsColumns][nRowsColumns]int {
-        matrix := [nRowsColumns][nRowsColumns]int{}
+func readMatrix() [nRowsColumns][nRowsColumns]int {
+    matrix := [nRowsColumns][nRowsColumns]int{}
 
-        for i := range matrix {
-            for j := range matrix {
-                fmt.Scan(&matrix[i][j])
-            }
+    for i := range matrix {
+        for j := range matrix {
+            fmt.Scan(&matrix[i][j])
         }
-
-        return matrix
     }
 
-    func calculateMaxSum(matrix [nRowsColumns][nRowsColumns]int) int {
-        var maxSum int = math.MinInt
+    return matrix
+}
 
-        for i, beforeRowsColumnsLimit := 1, 5; i < beforeRowsColumnsLimit; i++ {
-            for j := 1; j < beforeRowsColumnsLimit; j++ {
-                var currentSum int = sumAround(matrix, i, j)
-
-                if currentSum > maxSum {
-                    maxSum = currentSum
-                }
-            }
+func calculateMaxSum(matrix [nRowsColumns][nRowsColumns]int) int {
+    maxSum := math.MinInt
+    for i, beforeRowsColumnsLimit := 1, 5; i < beforeRowsColumnsLimit; i++ {
+        for j := 1; j < beforeRowsColumnsLimit; j++ {
+            maxSum = max(maxSum, sumAround(matrix, i, j))
         }
-
-        return maxSum
     }
+    return maxSum
+}
 
-        func sumAround(matrix [nRowsColumns][nRowsColumns]int, i int, j int) int {
-            return matrix[i-1][j-1] + matrix[i-1][j] + matrix[i-1][j+1] +
-                matrix[i][j] +
-                matrix[i+1][j-1] + matrix[i+1][j] + matrix[i+1][j+1]
-        }
+func sumAround(matrix [nRowsColumns][nRowsColumns]int, i int, j int) int {
+    return matrix[i-1][j-1] + matrix[i-1][j] + matrix[i-1][j+1] +
+        matrix[i][j] +
+        matrix[i+1][j-1] + matrix[i+1][j] + matrix[i+1][j+1]
+}

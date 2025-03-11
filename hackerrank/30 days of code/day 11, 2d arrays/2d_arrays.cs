@@ -1,47 +1,45 @@
 // https://www.hackerrank.com/challenges/30-2d-arrays/problem?isFullScreen=true
 
-using System;
-using System.Linq;
+using static System.Console;
 
 class Solution
 {
     public static void Main()
     {
-        int[ , ] matrix = _readMatrix();
-        int maxSum = _calculateMaxSum(matrix);
-        Console.WriteLine(maxSum);
+        int[,] matrix = ReadMatrix();
+        WriteLine(CalculateMaxSum(matrix));
     }
 
-        private static int[ , ] _readMatrix()
+    private static int[,] ReadMatrix()
+    {
+        const int nRowsColumns = 6;
+        var matrix = new int[nRowsColumns, nRowsColumns];
+
+        for (int i = 0; i < nRowsColumns; i++)
         {
-            const int nRowsColumns = 6;
-            int[ , ] matrix = new int[nRowsColumns, nRowsColumns];
-
-            for (int i = 0; i < nRowsColumns; i++)
-            {
-                int[] row = Console.ReadLine().Split().Select(int.Parse).ToArray();
-                for (int j = 0; j < nRowsColumns; j++)
-                    matrix[i, j] = row[j];
-            }
-
-            return matrix;
+            int[] row = [.. ReadLine().Split().Select(int.Parse)];
+            for (int j = 0; j < nRowsColumns; j++)
+                matrix[i, j] = row[j];
         }
 
-        private static int _calculateMaxSum(int[ , ] matrix)
-        {
-            int maxSum = int.MinValue;
+        return matrix;
+    }
 
-            for (int i = 1, beforeRowsColumnsLimit = 5; i < beforeRowsColumnsLimit; i++)
-                for (int j = 1; j < beforeRowsColumnsLimit; j++)
-                    maxSum = Math.Max(maxSum, _sumAround(matrix, i, j));
+    private static int CalculateMaxSum(int[,] matrix)
+    {
+        int maxSum = int.MinValue;
 
-            return maxSum;
-        }
+        for (int i = 1, beforeRowsColumnsLimit = 5; i < beforeRowsColumnsLimit; i++)
+            for (int j = 1; j < beforeRowsColumnsLimit; j++)
+                maxSum = Math.Max(maxSum, SumAround(matrix, i, j));
 
-            private static int _sumAround(int[ , ] matrix, int i, int j)
-            {
-                return matrix[i - 1, j - 1] + matrix[i - 1, j] + matrix[i - 1, j + 1] +
-                       matrix[i, j] +
-                       matrix[i + 1, j - 1] + matrix[i + 1, j] + matrix[i + 1, j + 1];
-            }
+        return maxSum;
+    }
+
+    private static int SumAround(int[,] matrix, int i, int j)
+    {
+        return matrix[i - 1, j - 1] + matrix[i - 1, j] + matrix[i - 1, j + 1] +
+               matrix[i, j] +
+               matrix[i + 1, j - 1] + matrix[i + 1, j] + matrix[i + 1, j + 1];
+    }
 }
