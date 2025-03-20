@@ -1,67 +1,75 @@
 // https://www.hackerrank.com/challenges/30-inheritance/problem?isFullScreen=true
+// From Java 21: _ unnamed variable
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-public class Inheritance {
+class Solution {
+    private static final Scanner scan = new Scanner(System.in);
+
     public static void main(String[] args) {
-        var scan = new Scanner(System.in);
+        var data = readInput();
+        var student = new Student(data.personalData(), data.studentData());
+        student.printPerson();
+        System.out.println("Grade: " + student.calculate_grade());
+    }
 
+    private static PersonalAndStudentData readInput() {
         String firstName = scan.next();
         String lastName = scan.next();
         int id = scan.nextInt();
         int nScores = scan.nextInt();
-
-        List<Integer> scores = Arrays.asList(new Integer[nScores])
-                                     .stream()
-                                     .map(x -> scan.nextInt())
-                                     .collect(Collectors.toList());
-
-        Student student = new Student(firstName, lastName, id, scores);
-        student.printPerson();
-        System.out.println("Grade: " + student.calculate());
+        var scores = Arrays.stream(new Integer[nScores]).map(_ -> scan.nextInt()).toList();
+        return new PersonalAndStudentData(new PersonalData(firstName, lastName, id), new StudentData(scores));
     }
 }
 
-    class Person {
-        protected String firstName, lastName;
-        protected int id;
+record PersonalAndStudentData(PersonalData personalData, StudentData studentData) {
+}
 
-        Person(final String firstName, final String lastName, final int id) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.id = id;
-        }
+record PersonalData(String firstName, String lastName, int id) {
+}
 
-        public void printPerson() {
-            System.out.println("Name: " + lastName + ", " + firstName +   "\nID: " + id);
-        }
+record StudentData(List<Integer> scores) {
+}
+
+class Person {
+    private String firstName, lastName;
+    private int id;
+
+    Person(PersonalData data) {
+        this.firstName = data.firstName();
+        this.lastName = data.lastName();
+        this.id = data.id();
     }
 
-        class Student extends Person {
-            private List<Integer> scores;
+    public void printPerson() {
+        System.out.println("Name: " + lastName + ", " + firstName + "\nID: " + id);
+    }
+}
 
-            public Student(final String firstName, final String lastName, final int id, final List<Integer> scores) {
-                super(firstName, lastName, id);
-                this.scores = scores;
-            }
+class Student extends Person {
+    private List<Integer> scores;
 
-            public char calculate() {
-                int avg = (int)scores.stream().mapToDouble(i -> i).average().orElse(0.0);
+    public Student(PersonalData personalData, StudentData studentData) {
+        super(personalData);
+        this.scores = studentData.scores();
+    }
 
-                if (avg >= 90 && avg <= 100)
-                    return 'O';
-                else if (avg >= 80 && avg < 90)
-                    return 'E';
-                else if (avg >= 70 && avg < 80)
-                    return 'A';
-                else if (avg >= 55 && avg < 70)
-                    return 'P';
-                else if (avg >= 40 && avg < 55)
-                    return 'D';
-                else
-                    return 'T';
-            }
-        }
+    public char calculate_grade() {
+        int avg = (int) scores.stream().mapToInt(i -> i).average().orElse(0);
+
+        if (avg > 100 || avg < 40)
+            return 'T';
+        else if (avg >= 90)
+            return 'O';
+        else if (avg >= 80)
+            return 'E';
+        else if (avg >= 70)
+            return 'A';
+        else if (avg >= 55)
+            return 'P';
+        return 'D';
+    }
+}

@@ -1,70 +1,60 @@
 // https://www.hackerrank.com/challenges/30-inheritance/problem?isFullScreen=true
 
-using System;
-using System.Linq;
+using static System.Console;
 
-class Solution
+
+public static class Solution
 {
     public static void Main()
     {
-        string[] inputs = Console.ReadLine().Split();
-
-        string firstName = inputs[0];
-        string lastName = inputs[1];
-        int id = int.Parse(inputs[2]);
-
-        int nScores = int.Parse(Console.ReadLine());
-        int[] scores = Console.ReadLine().Split().Select(int.Parse).ToArray();
-
-        Student student = new Student(firstName, lastName, id, scores);
+        var (personalData, studentData) = ReadInput();
+        var student = new Student(personalData, studentData);
         student.PrintPerson();
-        Console.WriteLine("Grade: " + student.Calculate());
+        WriteLine("Grade: " + student.CalculateGrade());
+    }
+
+    private static (PersonalData, StudentData) ReadInput()
+    {
+        var line = ReadLine().Split();
+        (string firstName, string lastName, int id) = (line[0], line[1], int.Parse(line[2]));
+        ReadLine(); // Skip the next line
+        int[] scores = [.. ReadLine().Split().Select(int.Parse)];
+        return (new PersonalData(firstName, lastName, id), new StudentData(scores));
     }
 }
 
-    class Person
+public record PersonalData(string FirstName, string LastName, int Id);
+public record StudentData(int[] Scores);
+
+public class Person(PersonalData data)
+{
+    private string _firstName = data.FirstName, _lastName = data.LastName;
+    private int _id = data.Id;
+
+    public void PrintPerson()
     {
-        protected string firstName, lastName;
-        protected int id;
-
-        public Person(string firstName, string lastName, int id)
-        {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.id = id;
-        }
-
-        public void PrintPerson()
-        {
-            Console.WriteLine("Name: " + lastName + ", " + firstName + "\nID: " + id);
-        }
+        WriteLine("Name: " + _lastName + ", " + _firstName + "\nID: " + _id);
     }
+}
 
-        class Student : Person
-        {
-            private int[] _scores;
+public class Student(PersonalData personalData, StudentData studentData) : Person(personalData)
+{
+    private int[] _scores = studentData.Scores;
 
-            public Student(string firstName, string lastName, int id, int[] scores)
-            : base(firstName, lastName, id)
-            {
-                _scores =  scores;
-            }
+    public char CalculateGrade()
+    {
+        int avg = _scores.Sum() / _scores.Length;
 
-            public char Calculate()
-            {
-                int avg = (int)Queryable.Average(_scores.AsQueryable());
-
-                if (avg >= 90 && avg <= 100)
-                    return 'O';
-                else if (avg >= 80 && avg < 90)
-                    return 'E';
-                else if (avg >= 70 && avg < 80)
-                    return 'A';
-                else if (avg >= 55 && avg < 70)
-                    return 'P';
-                else if (avg >= 40 && avg < 55)
-                    return 'D';
-                else
-                    return 'T';
-            }
-        }
+        if (avg > 100 || avg < 40)
+            return 'T';
+        else if (avg >= 90)
+            return 'O';
+        else if (avg >= 80)
+            return 'E';
+        else if (avg >= 70)
+            return 'A';
+        else if (avg >= 55)
+            return 'P';
+        return 'D';
+    }
+}

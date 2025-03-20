@@ -1,69 +1,90 @@
 // https://www.hackerrank.com/challenges/30-inheritance/problem?isFullScreen=true
+// From C++23 onward: ranges::fold_left_first
 
 #include <algorithm>
 #include <iostream>
-#include <numeric>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
+struct personal_data {
+    string first_name, last_name;
+    int id{};
+};
+
+struct student_data {
+    vector<int> scores;
+};
+
 class Person {
-protected:
     string first_name, last_name;
     int id;
 
 public:
-    Person(const string& first_name, const string& last_name, const int id)
-        : first_name{first_name}, last_name{last_name}, id{id}
-    {}
-
-    void print_person() const
-    {
-        cout << "Name: " << last_name << ", " << first_name << "\nID: " << id << '\n';
-    }
+    explicit Person(const personal_data& data);
+    void print_person() const;
 };
 
-class Student: public Person {
+class Student : public Person {
     vector<int> scores;
 
 public:
-    Student(const string& first_name, const string& last_name, const int id, const vector<int>& scores)
-        : Person{first_name, last_name, id}, scores{scores}
-    {}
-
-    char calculate_grade() const
-    {
-        int sum_scores {accumulate(scores.begin(), scores.end(), 0)};
-        size_t n {scores.size()};
-        auto avg {sum_scores / n};
-
-        if (avg >= 90 && avg <= 100)
-            return 'O';
-        else if (avg >= 80 && avg < 90)
-            return 'E';
-        else if (avg >= 70 && avg < 80)
-            return 'A';
-        else if (avg >= 55 && avg < 70)
-            return 'P';
-        else if (avg >= 40 && avg < 55)
-            return 'D';
-        else
-            return 'T';
-    }
+    explicit Student(const personal_data& personal_d, const student_data& student_d);
+    [[nodiscard]] char calculate_grade() const;
 };
+
+Person::Person(const personal_data& data)
+    : first_name{data.first_name}, last_name{data.last_name}, id{data.id}
+{
+}
+
+void Person::print_person() const
+{
+    cout << "Name: " << last_name << ", " << first_name << '\n';
+    cout << "ID: " << id << '\n';
+}
+
+Student::Student(const personal_data& personal_d, const student_data& student_d)
+    : Person{personal_d}, scores{student_d.scores}
+{
+}
+
+char Student::calculate_grade() const
+{
+    if (auto avg{*ranges::fold_left_first(scores, plus{}) / scores.size()}; avg > 100 || avg < 40)
+        return 'T';
+    else if (avg >= 90)
+        return 'O';
+    else if (avg >= 80)
+        return 'E';
+    else if (avg >= 70)
+        return 'A';
+    else if (avg >= 55)
+        return 'P';
+    return 'D';
+}
+
+//////////////////////////////////////////////////
+
+tuple<personal_data, student_data> read_input();
 
 int main()
 {
-    string first_name, last_name;
-    int id, n_scores;
-    cin >> first_name >> last_name >> id >> n_scores;
-
-    vector<int> scores(n_scores);
-    ranges::generate(scores, [] {int n; cin >> n; return n;});
-
-    Student student {first_name, last_name, id, scores};
+    auto [personal_d, student_d]{read_input()};
+    Student student{personal_d, student_d};
     student.print_person();
-    cout << "Grade: " << student.calculate_grade() << '\n';
-
+    cout << "Grade: " << student.calculate_grade();
     return 0;
+}
+
+tuple<personal_data, student_data> read_input()
+{
+    personal_data personal_d;
+    student_data student_d;
+    int n_scores;
+    cin >> personal_d.first_name >> personal_d.last_name >> personal_d.id >> n_scores;
+    student_d.scores.resize(n_scores);
+    copy_n(istream_iterator<int>(cin), n_scores, student_d.scores.begin());
+    return {personal_d, student_d};
 }
