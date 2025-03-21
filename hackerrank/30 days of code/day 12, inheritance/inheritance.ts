@@ -9,70 +9,81 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let [firstName, lastName, id]: any[] = readLine().split(' ');
-    let nScores: number = +readLine();
-    let scores: number[] = readLine().split(' ').map(Number);
-
-    let student = new Student(firstName, lastName, id, scores);
-    student.printPerson();
-    console.log('Grade: ' + student.calculate());
+  let [personalData, studentData] = readInput();
+  let student = new Student(personalData, studentData);
+  student.printPerson();
+  console.log('Grade: ' + student.calculateGrade());
 }
 
-    class Person {
-        protected firstName: string;
-        protected lastName: string;
-        protected id: number; 
+function readInput(): [PersonalData, StudentData] {
+  let [firstName, lastName, id] = readLine().split(' ');
+  readLine(); // Skip next line about size of scores
+  let scores: number[] = readLine().split(' ').map(Number);
+  return [{ firstName, lastName, id }, { scores }];
+}
 
-        constructor(firstName: string, lastName: string, id: number) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.id = id;
-        }
+interface PersonalData {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly id: string;
+}
 
-        public printPerson() {
-            console.log('Name: ' + this.lastName + ', ' + this.firstName + '\nID: ' + this.id);
-        }
-    }
+interface StudentData {
+  readonly scores: number[];
+}
 
-        class Student extends Person {
-            private scores: number[];
+class Person {
+  private firstName: string;
+  private lastName: string;
+  private id: string;
 
-            constructor(firstName: string, lastName: string, id: number, scores: number[]) {
-                super(firstName, lastName, id);
-                this.scores = scores;
-            }
+  constructor(personalData: PersonalData) {
+    this.firstName = personalData.firstName;
+    this.lastName = personalData.lastName;
+    this.id = personalData.id;
+  }
 
-            public calculate() {
-                let sumScores: number = this.scores.reduce((a, b) => a + b, 0);
-                let n: number = this.scores.length;
-                let avg: number = sumScores / n;
-            
-                if (avg >= 90 && avg <= 100)
-                    return 'O';
-                else if (avg >= 80 && avg < 90)
-                    return 'E';
-                else if (avg >= 70 && avg < 80)
-                    return 'A';
-                else if (avg >= 55 && avg < 70)
-                    return 'P';
-                else if (avg >= 40 && avg < 55)
-                    return 'D';
-                else
-                    return 'T';
-            }
-        }
+  printPerson() {
+    console.log(
+      'Name: ' + this.lastName + ', ' + this.firstName + '\nID: ' + this.id,
+    );
+  }
+}
+
+class Student extends Person {
+  private scores: number[];
+
+  constructor(personalData: PersonalData, studentData: StudentData) {
+    super(personalData);
+    this.scores = studentData.scores;
+  }
+
+  public calculateGrade(): string {
+    let sum: number = this.scores.reduce((a, b) => a + b, 0);
+    let avg: number = sum / this.scores.length;
+
+    if (avg > 100 || avg < 40) return 'T';
+    else if (avg >= 90) return 'O';
+    else if (avg >= 80) return 'E';
+    else if (avg >= 70) return 'A';
+    else if (avg >= 55) return 'P';
+    return 'D';
+  }
+}

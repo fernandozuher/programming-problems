@@ -8,66 +8,87 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let [firstName, lastName, id] = readLine().split(' ');
-    let nScores = +readLine();
-    let scores = readLine().split(' ').map(Number);
-
-    let student = new Student(firstName, lastName, nScores, scores);
-    student.printPerson();
-    console.log('Grade: ' + student.calculate());
+  let [personalData, studentData] = readInput();
+  let student = new Student(personalData, studentData);
+  student.printPerson();
+  console.log('Grade: ' + student.calculateGrade());
 }
 
-    class Person {
-        constructor(firstName, lastName, id) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.id = id;
-        }
+function readInput() {
+  let [firstName, lastName, id] = readLine().split(' ');
+  readLine(); // Skip next line about size of scores
+  let scores = readLine().split(' ').map(Number);
+  return [new PersonalData(firstName, lastName, id), new StudentData(scores)];
+}
 
-        printPerson() {
-            console.log('Name: ' + this.lastName + ', ' + this.firstName + '\nID: ' + this.id)
-        }
-    }
+class PersonalData {
+  constructor(firstName, lastName, id) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.id = id;
+    Object.freeze(this);
+  }
+}
 
-        class Student extends Person {
-            #scores;
+class StudentData {
+  constructor(scores) {
+    this.scores = scores;
+    Object.freeze(this);
+  }
+}
 
-            constructor(firstName, lastName, id, scores) {
-                super(firstName, lastName, id);
-                this.#scores = scores;
-            }
+class Person {
+  #firstName;
+  #lastName;
+  #id;
 
-            calculate() {
-                let sumScores = this.#scores.reduce((a, b) => a + b, 0);
-                let n = this.#scores.length;
-                let avg = sumScores / n;
-            
-                if (avg >= 90 && avg <= 100)
-                    return 'O';
-                else if (avg >= 80 && avg < 90)
-                    return 'E';
-                else if (avg >= 70 && avg < 80)
-                    return 'A';
-                else if (avg >= 55 && avg < 70)
-                    return 'P';
-                else if (avg >= 40 && avg < 55)
-                    return 'D';
-                else
-                    return 'T';
-            }
-        }
+  constructor(personalData) {
+    this.#firstName = personalData.firstName;
+    this.#lastName = personalData.lastName;
+    this.#id = personalData.id;
+  }
+
+  printPerson() {
+    console.log(
+      'Name: ' + this.#lastName + ', ' + this.#firstName + '\nID: ' + this.#id,
+    );
+  }
+}
+
+class Student extends Person {
+  #scores;
+
+  constructor(personalData, studentData) {
+    super(personalData);
+    this.#scores = studentData.scores;
+  }
+
+  calculateGrade() {
+    let sum = this.#scores.reduce((a, b) => a + b, 0);
+    let avg = sum / this.#scores.length;
+
+    if (avg > 100 || avg < 40) return 'T';
+    else if (avg >= 90) return 'O';
+    else if (avg >= 80) return 'E';
+    else if (avg >= 70) return 'A';
+    else if (avg >= 55) return 'P';
+    return 'D';
+  }
+}
