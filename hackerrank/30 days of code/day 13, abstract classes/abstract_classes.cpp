@@ -9,17 +9,16 @@ protected:
     string title, author;
 
 public:
-    Book(const string& title, const string& author): title{title}, author{author} {}
+    Book(const string_view& title, const string_view& author): title{title}, author{author} {}
     virtual void display() = 0;
+    virtual ~Book() = default;
 };
 
-class My_Book: public Book {
-private:
+class My_Book final : public Book {
     double price;
 
 public:
-    My_Book(const string& title, const string& author, double price): Book{title, author}, price{price} {}
-
+    My_Book(const string_view& title, const string_view& author, double price): Book{title, author}, price{price} {}
     void display() override
     {
         cout << "Title: " << title << "\nAuthor: " << author << "\nPrice: " << price;
@@ -35,7 +34,7 @@ int main()
     getline(cin, author);
     cin >> price;
 
-    My_Book novel {title, author, price};
+    My_Book novel{title, author, price};
     novel.display();
 
     return 0;

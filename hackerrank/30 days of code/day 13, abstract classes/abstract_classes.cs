@@ -1,44 +1,32 @@
 // https://www.hackerrank.com/challenges/30-abstract-classes/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
 public class Solution
 {
     public static void Main()
     {
-        string title = Console.ReadLine();
-        string author = Console.ReadLine();
-        int price = int.Parse(Console.ReadLine());
-
+        string title = ReadLine();
+        string author = ReadLine();
+        int price = int.Parse(ReadLine());
         Book novel = new MyBook(title, author, price);
-        novel.display();
+        novel.Display();
     }
 }
 
-    abstract class Book
+abstract class Book(string title, string author)
+{
+    protected string title = title, author = author;
+
+    public abstract void Display();
+}
+
+class MyBook(string title, string author, double price) : Book(title, author)
+{
+    private double _price = price;
+
+    public override void Display()
     {
-        protected string title, author;
-
-        public Book(string title, string author)
-        {
-            this.title = title;
-            this.author = author;
-        }
-
-        public abstract void display();
+        WriteLine("Title: {0} \nAuthor: {1} \nPrice: {2}", title, author, _price);
     }
-
-        class MyBook : Book
-        {
-            private double _price;
-
-            public MyBook(string title, string author, double price) : base(title, author)
-            {
-                _price = price;
-            }
-
-            public override void display()
-            {
-                Console.WriteLine("Title: {0} \nAuthor: {1} \nPrice: {2}", title, author, _price);
-            }
-        }
+}
