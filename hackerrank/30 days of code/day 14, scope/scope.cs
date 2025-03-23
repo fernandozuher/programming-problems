@@ -1,35 +1,26 @@
 // https://www.hackerrank.com/challenges/30-scope/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
 class Solution
 {
     public static void Main()
     {
-        int n = int.Parse(Console.ReadLine()); // Not used
-        List<int> array = Console.ReadLine().Split().Select(int.Parse).ToList();
-
-        Difference difference = new Difference(array);
+        ReadLine(); // Size not used
+        List<int> numbers = [.. ReadLine().Split().Select(int.Parse)];
+        var difference = new Difference(numbers);
         difference.ComputeDifference();
-        Console.WriteLine(difference.MaximumDifference);
+        WriteLine(difference.MaximumDifference);
     }
 }
 
-    class Difference
+class Difference(List<int> elements)
+{
+    private readonly List<int> _elements = elements;
+    public int MaximumDifference;
+
+    public void ComputeDifference()
     {
-        private List<int> _elements;
-        public int MaximumDifference;
-
-        public Difference(List<int> elements)
-        {
-            _elements = elements;
-        }
-
-        public void ComputeDifference()
-        {
-            _elements.Sort();
-            MaximumDifference = _elements.Last() - _elements.First();
-        }
+        MaximumDifference = _elements.Max() - _elements.Min();
     }
+}

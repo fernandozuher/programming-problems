@@ -1,24 +1,25 @@
 // https://www.hackerrank.com/challenges/30-scope/problem?isFullScreen=true
+// From C++20 onward
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
 class Difference {
-private:
     vector<int> elements;
 
 public:
-    int maximum_difference;
+    int maximum_difference{};
 
-    Difference(const vector<int>& elements): elements{elements} {}
+    explicit Difference(const vector<int>& elements): elements{elements} {}
 
     void compute_difference()
     {
-        ranges::sort(elements);
-        maximum_difference = elements.back() - elements.front();
+        const auto [min, max]{ranges::minmax_element(elements)};
+        maximum_difference = *max - *min;
     }
 };
 
@@ -26,11 +27,10 @@ int main()
 {
     int n;
     cin >> n;
+    vector<int> numbers(n);
+    copy_n(istream_iterator<int>(cin), n, numbers.begin());
 
-    vector<int> array(n);
-    ranges::generate(array, [] {int n; cin >> n; return n;});
-
-    Difference difference {array};
+    Difference difference{numbers};
     difference.compute_difference();
     cout << difference.maximum_difference;
 
