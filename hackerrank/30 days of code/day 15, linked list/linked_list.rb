@@ -1,51 +1,51 @@
 # https://www.hackerrank.com/challenges/30-linked-list/problem?isFullScreen=true
 
 def main
-    my_list = Solution.new
-    head = nil
-    T = gets.to_i
-
-    T.times do
-        data = gets.to_i
-        head = my_list.insert(head, data)
-    end
-
-    my_list.display(head)
+  n = gets.to_i
+  list = initialize_list(n)
+  list.display
 end
 
-    class Solution
+def initialize_list(n)
+  list = SinglyLinkedList.new
+  n.times do
+    list.insert(gets.to_i)
+  end
+  list
+end
 
-        def insert(head, value)
-            if head
-                start = head
-                while start.next
-                    start = start.next
-                end
-                start.next = Node.new(value)
-            else
-                start = Node.new(value)
-                head = start
-            end
+class SinglyLinkedList
 
-            head
-        end
+  Node = Struct.new(:data, :next)
 
-        def display(head)
-           current = head
-           while current 
-              print current.data, ' '
-              current = current.next
-           end
-       end
+  def initialize
+    @head = nil
+  end
+
+  def insert(data)
+    tail = tail_node
+    if tail
+      tail.next = Node.new(data)
+    else
+      @head = Node.new(data)
     end
+  end
 
-        class Node
-            attr_accessor :data, :next
+  private def tail_node
+    tail = @head
+    while tail&.next
+      tail = tail.next
+    end
+    tail
+  end
 
-            def initialize(data)
-                @data = data
-                @next = nil
-            end
-        end
+  def display
+    node = @head
+    while node
+      print "#{node.data} "
+      node = node.next
+    end
+  end
+end
 
 main

@@ -1,59 +1,24 @@
 // https://www.hackerrank.com/challenges/30-linked-list/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+class Solution
 {
-    public static Node insert(Node head, int data)
-    {
-        Node start;
-
-        if (head != null)
-        {
-            start = head;
-            for ( ; start.next != null; start = start.next);
-            start.next = new Node(data);
-        }
-        else
-        {
-            start = new Node(data);
-            head = start;
-        }
-
-        return head;
-    }
-
-    public static void display(Node head)
-    {
-        Node start = head;
-
-        while (start != null)
-        {
-            Console.Write(start.data + " ");
-            start = start.next;
-        }
-    }
-
     public static void Main()
     {
-        Node head = null;
-        int T = Int32.Parse(Console.ReadLine());
+        int n = int.Parse(ReadLine() ?? "0");
+        var list = InitializeList(n);
+        DisplayList(list);
+    }
 
-        while (T-- > 0)
-            head = insert(head, Int32.Parse(Console.ReadLine()));
+    private static LinkedList<int> InitializeList(int n)
+    {
+        return new LinkedList<int>([.. Enumerable.Range(0, n).Select(_ => int.Parse(ReadLine() ?? "0"))]);
+    }
 
-        display(head);
+    private static void DisplayList(LinkedList<int> list)
+    {
+        foreach (var x in list)
+            Write($"{x} ");
     }
 }
-
-    public class Node
-    {
-        public int data;
-        public Node next;
-
-        public Node(int d)
-        {
-            data = d;
-            next = null;
-        }
-    }

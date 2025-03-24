@@ -1,19 +1,30 @@
 // https://www.hackerrank.com/challenges/30-linked-list/problem?isFullScreen=true
 
-#include <algorithm>
 #include <forward_list>
 #include <iostream>
+#include <iterator>
+#include <ranges>
 
 using namespace std;
 
+forward_list<int> initialize_list(int n);
+void display_list(const forward_list<int>& list);
+
 int main()
 {
-    int n;
-    cin >> n;
-    forward_list<int> singly_list;
-
-    for (auto end = singly_list.before_begin(); cin >> n; end = singly_list.insert_after(end, n));
-    ranges::for_each(singly_list, [](auto& node){cout << node << ' ';});
-
+    int size;
+    cin >> size;
+    forward_list<int> list{initialize_list(size)};
+    display_list(list);
     return 0;
+}
+
+forward_list<int> initialize_list(int n)
+{
+    return views::iota(0, n) | views::transform([](auto) {int x; cin >> x; return x;}) | ranges::to<forward_list<int>>();
+}
+
+void display_list(const forward_list<int>& list)
+{
+    ranges::copy(list, ostream_iterator<int>(cout, " "));
 }

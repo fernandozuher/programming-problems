@@ -9,57 +9,62 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let T = +readLine();
-    let head = null;
-    let mylist = new Solution();
-
-    while (T--)
-        head = mylist.insert(head, +readLine());
-
-    mylist.display(head);
+  let n = +readLine();
+  let list = initializeList(n);
+  list.display();
 }
 
-    function Node(data) {
-        this.data = data;
-        this.next = null;
-    }
+function initializeList(n) {
+  let list = new LinkedList();
+  while (n--) list.insert(+readLine());
+  return list;
+}
 
-    function Solution() {
-        this.insert = function(head, data) {
-            let start;
-            if (head) {
-                start = head;
-                for ( ; start.next; start = start.next);
-                start.next = new Node(data);
-            }
-            else {
-                start = new Node(data);
-                head = start;
-            }
+class LinkedList {
+  #head;
 
-            return head;
-        }
+  constructor() {
+    this.#head = null;
+  }
 
-        this.display = function(head) {
-            let start = head;
-            while (start) {
-                process.stdout.write(start.data + ' ');
-                start = start.next;
-            }
-        };
-    }
+  insert(data) {
+    let tail = this.#tailNode();
+    if (tail) tail.next = new INode(data);
+    else this.#head = new INode(data);
+  }
+
+  #tailNode() {
+    let tail = this.#head;
+    for (; tail && tail.next; tail = tail.next);
+    return tail;
+  }
+
+  display() {
+    for (let node = this.#head; node; node = node.next)
+      process.stdout.write(node.data + ' ');
+  }
+}
+
+class INode {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
