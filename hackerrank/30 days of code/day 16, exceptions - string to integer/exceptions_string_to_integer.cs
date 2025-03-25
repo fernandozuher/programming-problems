@@ -1,18 +1,19 @@
 // https://www.hackerrank.com/challenges/30-exceptions-string-to-integer/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
 class Solution
 {
     public static void Main()
     {
-        string s = Console.ReadLine();
-
-        try {
-            Console.WriteLine(int.Parse(s));
+        string s = ReadLine();
+        try
+        {
+            WriteLine(int.Parse(s));
         }
-        catch (FormatException) {
-            Console.WriteLine("Bad String");
+        catch (FormatException)
+        {
+            WriteLine("Bad String");
         }
     }
 }

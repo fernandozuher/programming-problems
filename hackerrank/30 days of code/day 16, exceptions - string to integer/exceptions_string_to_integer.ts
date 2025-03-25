@@ -9,29 +9,29 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
-function main() {
-    let s: string = readLine();
+//////////////////////////////////////////////////
 
-    try {
-        let error = () => {throw "Bad String"};
-        let num = parseInt(s) ? parseInt(s) : error();
-        console.log(num);
-    } 
-    catch (e) {
-        console.log(e);
-    }
+function main() {
+  let s: string = readLine();
+  try {
+    let error = () => { throw 'Bad String'; };
+    let num: number = parseInt(s) ? parseInt(s) : error();
+    console.log(num);
+  } catch (e) {
+    console.log(e);
+  }
 }

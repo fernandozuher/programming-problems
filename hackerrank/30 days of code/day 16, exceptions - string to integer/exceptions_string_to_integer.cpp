@@ -10,8 +10,7 @@ int main()
 
     try {
         cout << stoi(s);
-    }
-    catch (invalid_argument&) {
+    } catch (invalid_argument&) {
         cout << "Bad String";
     }
 
