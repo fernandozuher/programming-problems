@@ -1,68 +1,71 @@
 // https://www.hackerrank.com/challenges/30-queues-stacks/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
+using static System.Console;
 
-public class Solution
+public static class Solution
 {
     public static void Main()
     {
-        string word = Console.ReadLine();
-        QueuesAndStacks obj = new QueuesAndStacks();
-
-        foreach (char c in word)
-        {
-            obj.PushCharacter(c);
-            obj.EnqueueCharacter(c);
-        }
-
-        CheckIfWordIsPalindrome(obj, word);
+        string word = ReadLine();
+        var obj = InitQueueAndStack(word);
+        CheckIfPalindrome(obj, word);
     }
 
-    public static void CheckIfWordIsPalindrome(QueuesAndStacks obj, string word)
+    private static QueueAndStack InitQueueAndStack(string word)
+    {
+        QueueAndStack obj = new();
+        foreach (char c in word)
+        {
+            obj.EnqueueCharacter(c);
+            obj.PushCharacter(c);
+        }
+        return obj;
+    }
+
+    private static void CheckIfPalindrome(QueueAndStack obj, string word)
     {
         bool isPalindrome = true;
 
-        for (int i = 0, len = word.Length / 2; i < len; ++i)
-            if (obj.PopCharacter() != obj.DequeueCharacter())
+        for (int halfLength = word.Length / 2; halfLength-- > 0;)
+            if (obj.DequeueCharacter() != obj.PopCharacter())
             {
                 isPalindrome = false;
                 break;
             }
 
         string notWord = isPalindrome ? " " : " not ";
-        Console.Write("The word, {0}, is{1}a palindrome.", word, notWord);
+        Write("The word, {0}, is{1}a palindrome.", word, notWord);
     }
 }
 
-    public class QueuesAndStacks
+public class QueueAndStack
+{
+    private Queue<char> _myQueue;
+    private Stack<char> _myStack;
+
+    public QueueAndStack()
     {
-        private Stack<char> _myStack;
-        private Queue<char> _myQueue;
-
-        public QueuesAndStacks()
-        {
-            _myStack = new Stack<char>();
-            _myQueue = new Queue<char>();
-        }
-
-        public void PushCharacter(char ch)
-        {
-            _myStack.Push(ch);
-        }
-
-        public void EnqueueCharacter(char ch)
-        {
-            _myQueue.Enqueue(ch);
-        }
-
-        public char PopCharacter()
-        {
-            return _myStack.Pop();
-        }
-
-        public char DequeueCharacter()
-        {
-            return _myQueue.Dequeue();
-        }
+        _myQueue = new Queue<char>();
+        _myStack = new Stack<char>();
     }
+
+    public void EnqueueCharacter(char ch)
+    {
+        _myQueue.Enqueue(ch);
+    }
+
+    public void PushCharacter(char ch)
+    {
+        _myStack.Push(ch);
+    }
+
+    public char DequeueCharacter()
+    {
+        return _myQueue.Dequeue();
+    }
+
+    public char PopCharacter()
+    {
+        return _myStack.Pop();
+    }
+}

@@ -9,67 +9,72 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let word = readLine();
-    let obj = new QueuesAndStacks();
-    
-    for (const ch of word) {
-        obj.pushCharacter(ch);
-        obj.enqueueCharacter(ch);
-    }
-
-    checkIfWordIsPalindrome(obj, word);
+  let word: string = readLine();
+  let obj: QueueAndStack = initQueueAndStack(word);
+  checkIfPalindrome(obj, word);
 }
 
-    class QueuesAndStacks {
-        private myQueue: string[];
-        private myStack: string[];
-        
-        public constructor() {
-            this.myQueue = [];
-            this.myStack = [];
-        }
+function initQueueAndStack(word: string): QueueAndStack {
+  let obj = new QueueAndStack();
+  for (const ch of word) {
+    obj.enqueueCharacter(ch);
+    obj.pushCharacter(ch);
+  }
+  return obj;
+}
 
-        public pushCharacter(ch: string) {
-            this.myStack.push(ch);
-        }
+class QueueAndStack {
+  private myQueue: string[];
+  private myStack: string[];
 
-        public enqueueCharacter(ch: string) {
-            this.myQueue.push(ch);
-        }
+  constructor() {
+    this.myQueue = [];
+    this.myStack = [];
+  }
 
-        public popCharacter() {
-            return this.myStack.pop();
-        }
+  enqueueCharacter(ch: string) {
+    this.myQueue.push(ch);
+  }
 
-        public dequeueCharacter() {
-            return this.myQueue.shift();
-        }
+  pushCharacter(ch: string) {
+    this.myStack.push(ch);
+  }
+
+  dequeueCharacter(): string | undefined {
+    return this.myQueue.shift();
+  }
+
+  popCharacter(): string | undefined {
+    return this.myStack.pop();
+  }
+}
+
+function checkIfPalindrome(obj: QueueAndStack, word: string) {
+  let isPalindrome = true;
+
+  for (let halfLength: number = word.length / 2; halfLength-- > 0; )
+    if (obj.dequeueCharacter() !== obj.popCharacter()) {
+      isPalindrome = false;
+      break;
     }
 
-    function checkIfWordIsPalindrome(obj: QueuesAndStacks, word: string) {
-        let isPalindrome = true;
-
-        for (let i = 0, len = word.length / 2; i < len; ++i)
-            if (obj.popCharacter() != obj.dequeueCharacter()) {
-                isPalindrome = false;
-                break;
-            }
-
-        let notWord: string = isPalindrome ? " " : " not ";
-        console.log("The word, " + word + ", is" + notWord + "a palindrome.");
-    }
+  let notWord = isPalindrome ? ' ' : ' not ';
+  console.log('The word, ' + word + ', is' + notWord + 'a palindrome.');
+}
