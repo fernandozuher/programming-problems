@@ -28,8 +28,8 @@ public class Calculator : AdvancedArithmetic
         return sum + n;
     }
 
-    private static bool IsDivisibleBy(int n, int i)
+    private static bool IsDivisibleBy(int a, int b)
     {
-        return n % i == 0;
+        return a % b == 0;
     }
 }

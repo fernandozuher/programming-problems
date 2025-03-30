@@ -26,7 +26,7 @@ class Calculator implements AdvancedArithmetic {
         return sum + n;
     }
 
-    private static boolean isDivisibleBy(int n, int i) {
-        return n % i == 0;
+    private static boolean isDivisibleBy(int a, int b) {
+        return a % b == 0;
     }
 }

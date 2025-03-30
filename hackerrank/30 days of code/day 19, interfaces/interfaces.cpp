@@ -5,9 +5,9 @@
 using namespace std;
 
 namespace Advanced_Arithmetic_Exercise {
-    bool is_divisible_by(int n, int i)
+    bool is_divisible_by(int a, int b)
     {
-        return n % i == 0;
+        return a % b == 0;
     }
 
     class Advanced_Arithmetic {

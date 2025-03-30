@@ -45,6 +45,6 @@ class Calculator implements AdvancedArithmetic {
   }
 }
 
-function isDivisibleBy(n: number, i: number): boolean {
-  return n % i === 0;
+function isDivisibleBy(a: number, b: number): boolean {
+  return a % b === 0;
 }

@@ -29,8 +29,8 @@ class Calculator(AdvancedArithmetic):
         return sum + n
 
 
-def is_divisible_by(n, i):
-    return n % i == 0
+def is_divisible_by(a, b):
+    return a % b == 0
 
 
 if __name__ == '__main__':
