@@ -1,28 +1,35 @@
 // https://www.hackerrank.com/challenges/30-interfaces/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+public static class Solution
 {
-    public static void Main() {
-        int n = int.Parse(Console.ReadLine());
-        AdvancedArithmetic calc = new Calculator();
-        Console.WriteLine("I implemented: AdvancedArithmetic\n" + calc.DivisorSum(n));
+    public static void Main()
+    {
+        int n = int.Parse(ReadLine());
+        var calc = new Calculator();
+        WriteLine("I implemented: AdvancedArithmetic\n" + calc.DivisorSum(n));
     }
 }
 
-    public interface AdvancedArithmetic
+public interface AdvancedArithmetic
+{
+    int DivisorSum(int n);
+}
+
+public class Calculator : AdvancedArithmetic
+{
+    public int DivisorSum(int n)
     {
-        int DivisorSum(int n);
+        int sum = 0;
+        for (int i = 1; i <= n / 2; ++i)
+            if (IsDivisibleBy(n, i))
+                sum += i;
+        return sum + n;
     }
 
-        public class Calculator: AdvancedArithmetic
-        {
-            public int DivisorSum(int n) {
-                int sum = 0;
-                for (int i = 1; i <= n / 2; ++i)
-                    if (n % i == 0)
-                        sum += i;
-                return sum + n;
-            }
-        }
+    private static bool IsDivisibleBy(int n, int i)
+    {
+        return n % i == 0;
+    }
+}

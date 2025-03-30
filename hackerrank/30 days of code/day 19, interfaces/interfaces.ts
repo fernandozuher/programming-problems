@@ -9,36 +9,42 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let calc = new Calculator();
-    console.log(`I implemented: AdvancedArithmetic \n${calc.divisorSum(n)}`);
+  let n: number = +readLine();
+  let calc = new Calculator();
+  console.log(`I implemented: AdvancedArithmetic \n${calc.divisorSum(n)}`);
 }
 
-    interface AdvancedArithmetic {
-        divisorSum(n: number): number;
-    }
+interface AdvancedArithmetic {
+  divisorSum(n: number): number;
+}
 
-        class Calculator implements AdvancedArithmetic {
-            public divisorSum(n: number): number {
-                let sum = 0;
-                for (let i = 1; i <= n / 2; i++)
-                    if (!(n % i))
-                        sum += i;
-                return sum + n;
-            }
-        }
+class Calculator implements AdvancedArithmetic {
+  public divisorSum(n: number): number {
+    let sum = 0;
+    for (let i = 1; i <= n / 2; i++)
+      if (isDivisibleBy(n, i))
+        sum += i;
+    return sum + n;
+  }
+}
+
+function isDivisibleBy(n: number, i: number): boolean {
+  return n % i === 0;
+}
