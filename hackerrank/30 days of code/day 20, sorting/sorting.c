@@ -1,47 +1,82 @@
 // https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
+// From C23: auto, nullptr
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int bubble_sort(int *array, int n);
-    void swap(int *array, const int i);
+typedef struct {
+    int *data;
+    int size;
+} array_t;
+
+array_t *read_input();
+int bubble_sort(array_t *numbers);
+void sort_slice(int *a, int *end, int *total_swaps);
+void swap_adjacent(int *a, int i);
+array_t *free_array_t(array_t *numbers);
 
 int main()
 {
-    int n;
-    scanf("%d", &n);
+    array_t *numbers = read_input();
+    int n_swaps = bubble_sort(numbers);
 
-    int array[n];
-    for (int i = 0; i < n; ++i)
-        scanf("%d", &array[i]);
+    printf("Array is sorted in %d swaps.", n_swaps);
+    printf("\nFirst Element: %d", numbers->data[0]);
+    printf("\nLast Element: %d", numbers->data[numbers->size - 1]);
 
-    printf("Array is sorted in %d swaps.", bubble_sort(array, n));
-    printf("\nFirst Element: %d", array[0]);
-    printf("\nLast Element: %d", array[n - 1]);
-
+    numbers = free_array_t(numbers);
     return 0;
 }
 
-    int bubble_sort(int *array, int n)
-    {
-        int number_of_swaps = 0;
+array_t *read_input()
+{
+    int n;
+    scanf("%d", &n);
+    auto a = (int *) malloc(n * sizeof(int));
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &a[i]);
 
-        while (--n) {
-            for (int i = 0; i < n; ++i)
-                if (array[i] > array[i + 1]) {
-                    swap(array, i);
-                    ++number_of_swaps;
-                }
+    auto numbers = (array_t *) malloc(sizeof(array_t));
+    numbers->data = a;
+    numbers->size = n;
+    return numbers;
+}
 
-            if (!number_of_swaps)
-                break;
+int bubble_sort(array_t *numbers)
+{
+    int total_swaps = 0;
+    for (int *a = numbers->data, end = numbers->size; end > 0;)
+        sort_slice(a, &end, &total_swaps);
+    return total_swaps;
+}
+
+void sort_slice(int *a, int *end, int *total_swaps)
+{
+    int new_end = 0;
+    int n_swaps = 0;
+
+    for (int i = 0, n = *end - 1; i < n; ++i) {
+        if (a[i] > a[i + 1]) {
+            swap_adjacent(a, i);
+            new_end = i + 1;
+            n_swaps += 1;
         }
-
-        return number_of_swaps;
     }
 
-        void swap(int *array, const int i)
-        {
-            int temp = array[i];
-            array[i] = array[i + 1];
-            array[i + 1] = temp;
-        }
+    *end = new_end;
+    *total_swaps += n_swaps;
+}
+
+void swap_adjacent(int *a, int i)
+{
+    int temp = a[i];
+    a[i] = a[i + 1];
+    a[i + 1] = temp;
+}
+
+array_t *free_array_t(array_t *numbers)
+{
+    free(numbers->data);
+    free(numbers);
+    return nullptr;
+}

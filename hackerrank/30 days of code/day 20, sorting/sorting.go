@@ -5,34 +5,45 @@ package main
 import "fmt"
 
 func main() {
-    var n int
-    fmt.Scan(&n)
-
-    array := make([]int, n)
-    for i, _ := range array {
-        fmt.Scan(&array[i])
-    }
-
-    fmt.Printf("Array is sorted in %d swaps.", bubbleSort(array))
-    fmt.Printf("\nFirst Element: %d", array[0])
-    fmt.Printf("\nLast Element: %d", array[len(array)-1])
+    numbers := readInput()
+    nSwaps := bubbleSort(numbers)
+    fmt.Printf("Array is sorted in %d swaps.", nSwaps)
+    fmt.Printf("\nFirst Element: %d", numbers[0])
+    fmt.Printf("\nLast Element: %d", numbers[len(numbers)-1])
 }
 
-    func bubbleSort(a []int) int {
-        numberOfSwaps := 0
-
-        for n := len(a) - 1; n > 0; n-- {
-            for i := 0; i < n; i++ {
-                if a[i] > a[i+1] {
-                    a[i], a[i+1] = a[i+1], a[i]
-                    numberOfSwaps++
-                }
-            }
-
-            if numberOfSwaps == 0 {
-                break
-            }
-        }
-
-        return numberOfSwaps
+func readInput() []int {
+    var n int
+    fmt.Scan(&n)
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
+    return numbers
+}
+
+func bubbleSort(a []int) int {
+    totalSwaps := 0
+    end := len(a)
+
+    for end > 0 {
+        nSwaps, newEnd := sortSlice(a[0:end])
+        totalSwaps += nSwaps
+        end = newEnd
+    }
+    return totalSwaps
+}
+
+func sortSlice(a []int) (int, int) {
+    nSwaps := 0
+    newEnd := 0
+
+    for i := range len(a) - 1 {
+        if a[i] > a[i+1] {
+            a[i], a[i+1] = a[i+1], a[i]
+            nSwaps += 1
+            newEnd = i + 1
+        }
+    }
+    return nSwaps, newEnd
+}
