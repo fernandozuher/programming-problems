@@ -1,47 +1,54 @@
 // https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
 #include <iostream>
-#include <sstream>
+#include <ranges>
 #include <vector>
 
 using namespace std;
 
+vector<int> read_input();
 int bubble_sort(vector<int>& v);
+tuple<int, int> sort_slice(auto v);
 
 int main()
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-
-    string s;
-    getline(cin, s); // remove new line character
-    getline(cin, s);
-    stringstream is(s);
-    ranges::generate(v, [&is]{int x; is >> x; return x;});
-
-    cout << "Array is sorted in " << bubble_sort(v) << " swaps.";
-    cout << "\nFirst Element: " << v.front();
-    cout << "\nLast Element: " << v.back();
-
+    vector numbers{read_input()};
+    int n_swaps{bubble_sort(numbers)};
+    cout << "Array is sorted in " << n_swaps << " swaps.";
+    cout << "\nFirst Element: " << numbers.front();
+    cout << "\nLast Element: " << numbers.back();
     return 0;
 }
 
-    int bubble_sort(vector<int>& v)
-    {
-        int number_of_swaps {};
+vector<int> read_input()
+{
+    int n;
+    cin >> n;
+    return views::iota(0, n) | views::transform([](auto) { int x; cin >> x; return x; }) | ranges::to<vector<int>>();
+}
 
-        for (int n = v.size(); --n;) {
-            for (int i {}; i < n; ++i)
-                if (v.at(i) > v.at(i + 1)) {
-                    swap(v.at(i), v.at(i + 1));
-                    ++number_of_swaps;
-                }
-
-            if (!number_of_swaps)
-                break;
-        }
-
-        return number_of_swaps;
+int bubble_sort(vector<int>& v)
+{
+    int total_swaps{};
+    for (auto end = v.size(); end;) {
+        auto [n_swaps, new_end] = sort_slice(v | views::take(end));
+        total_swaps += n_swaps;
+        end = new_end;
     }
+    return total_swaps;
+}
+
+tuple<int, int> sort_slice(auto v)
+{
+    int new_end{};
+    int n_swaps{};
+    for (auto elements: v | views::slide(2)) {
+        if (elements[0] > elements[1]) {
+            swap(elements[0], elements[1]);
+            new_end = &elements[1] - &v[0];
+            n_swaps += 1;
+        }
+    }
+    return {n_swaps, new_end};
+}
