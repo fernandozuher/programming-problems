@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
-// From C23: auto, nullptr
+// C23
 
 #include <stdio.h>
 #include <stdlib.h>
