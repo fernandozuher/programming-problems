@@ -52,17 +52,14 @@ int bubble_sort(array_t *numbers)
 
 void sort_slice(int *a, int *end, int *total_swaps)
 {
-    int new_end = 0;
-    int n_swaps = 0;
-
+    int new_end = 0, n_swaps = 0;
     for (int i = 0, n = *end - 1; i < n; ++i) {
         if (a[i] > a[i + 1]) {
             swap_adjacent(a, i);
+            ++n_swaps;
             new_end = i + 1;
-            n_swaps += 1;
         }
     }
-
     *end = new_end;
     *total_swaps += n_swaps;
 }

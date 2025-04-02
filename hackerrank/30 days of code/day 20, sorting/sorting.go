@@ -23,9 +23,7 @@ func readInput() []int {
 }
 
 func bubbleSort(a []int) int {
-    totalSwaps := 0
-    end := len(a)
-
+    totalSwaps, end := 0, len(a)
     for end > 0 {
         nSwaps, newEnd := sortSlice(a[0:end])
         totalSwaps += nSwaps
@@ -35,13 +33,11 @@ func bubbleSort(a []int) int {
 }
 
 func sortSlice(a []int) (int, int) {
-    nSwaps := 0
-    newEnd := 0
-
+    nSwaps, newEnd := 0, 0
     for i := range len(a) - 1 {
         if a[i] > a[i+1] {
             a[i], a[i+1] = a[i+1], a[i]
-            nSwaps += 1
+            nSwaps++
             newEnd = i + 1
         }
     }

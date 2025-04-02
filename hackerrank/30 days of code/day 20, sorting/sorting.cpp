@@ -41,13 +41,12 @@ int bubble_sort(vector<int>& v)
 
 tuple<int, int> sort_slice(auto v)
 {
-    int new_end{};
-    int n_swaps{};
-    for (auto elements: v | views::slide(2)) {
+    int n_swaps{}, new_end{};
+    for (auto [i, elements] : v | views::slide(2) | views::enumerate) {
         if (elements[0] > elements[1]) {
             swap(elements[0], elements[1]);
-            new_end = &elements[1] - &v[0];
-            n_swaps += 1;
+            ++n_swaps;
+            new_end = i + 1;
         }
     }
     return {n_swaps, new_end};

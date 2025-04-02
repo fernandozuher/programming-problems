@@ -29,7 +29,7 @@ fn bubble_sort(a: &mut [i32]) -> usize {
 
 fn sort_slice(a: &mut [i32]) -> (usize, usize) {
     let mut n_swaps: usize = 0;
-    let mut new_end = 0;
+    let mut new_end: usize = 0;
 
     for i in 0..(a.len() - 1) {
         if a[i] > a[i + 1] {
