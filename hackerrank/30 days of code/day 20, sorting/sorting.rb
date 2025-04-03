@@ -1,31 +1,39 @@
 # https://www.hackerrank.com/challenges/30-interfaces/problem?isFullScreen=true
 
 def main
-    _ = gets
-    list = gets.split.map(&:to_i)
-
-    puts "Array is sorted in #{bubble_sort(list)} swaps."
-    puts "First Element: #{list.first}"
-    puts "Last Element: #{list.last}"
+  numbers = read_input
+  n_swaps = bubble_sort(numbers)
+  puts "Array is sorted in #{n_swaps} swaps."
+  puts "First Element: #{numbers.first}"
+  puts "Last Element: #{numbers.last}"
 end
 
-    def bubble_sort(a)
-        numberOfSwaps = 0
+def read_input
+  gets # Skip size of list
+  gets.split.map(&:to_i)
+end
 
-        for n in (a.size-1).downto(0)
-            for i in 0...n
-                if a[i] > a[i + 1]
-                    a[i], a[i + 1] = a[i + 1], a[i]
-                    numberOfSwaps += 1
-                end
-                
-                if not numberOfSwaps
-                    break
-                end
-            end
-        end
+def bubble_sort(a)
+  total_swaps = 0
+  n = a.size
+  while n > 0
+    n_swaps, new_end = sort_slice(a, n)
+    total_swaps += n_swaps
+    n = new_end
+  end
+  total_swaps
+end
 
-        return numberOfSwaps
+def sort_slice(a, n)
+  n_swaps, new_end = 0, 0
+  (n - 1).times { |i|
+    if a[i] > a[i + 1]
+      a[i], a[i + 1] = a[i + 1], a[i]
+      n_swaps += 1
+      new_end = i + 1
     end
+  }
+  [n_swaps, new_end]
+end
 
 main

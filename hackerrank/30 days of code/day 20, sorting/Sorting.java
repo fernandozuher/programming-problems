@@ -1,40 +1,51 @@
 // https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
+// Java 21
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.*;
+
 import static java.util.stream.Collectors.toList;
 
-public class Sorting {
+import java.util.stream.*;
+
+class Solution {
+    private static final Scanner scan = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        String _newLine = scan.nextLine(); // new line character
-
-        List<Integer> list = Stream.of(scan.nextLine().split(" "))
-                             .map(Integer::parseInt)
-                             .collect(toList());
-
-        System.out.format("Array is sorted in %d swaps.", bubbleSort(list));
-        System.out.format("\nFirst Element: %d", list.get(0));
-        System.out.format("\nLast Element: %d", list.get(list.size() - 1));
+        List<Integer> numbers = readInput();
+        int nSwaps = bubbleSort(numbers);
+        System.out.format("Array is sorted in %d swaps.", nSwaps);
+        System.out.format("\nFirst Element: %d", numbers.getFirst());
+        System.out.format("\nLast Element: %d", numbers.getLast());
     }
 
-        private static int bubbleSort(List<Integer> a) {
-            int numberOfSwaps = 0;
+    private static List<Integer> readInput() {
+        int n = scan.nextInt();
+        scan.nextLine(); // Skip new line character
+        return IntStream.range(0, n).mapToObj(_ -> scan.nextInt()).collect(toList());
+    }
 
-            for (int n = a.size() - 1; n > 0; --n) {
-                for (int i = 0; i < n; ++i)
-                    if (a.get(i) > a.get(i + 1)) {
-                        Collections.swap(a, i, i + 1);
-                        ++numberOfSwaps;
-                    }
-
-                if (numberOfSwaps == 0)
-                    break;
-            }
-
-            return numberOfSwaps;
+    private static int bubbleSort(List<Integer> l) {
+        int totalSwaps = 0;
+        for (int end = l.size(); end > 0; ) {
+            Pair pair = sortSlice(l, end);
+            totalSwaps += pair.nSwaps;
+            end = pair.newEnd;
         }
+        return totalSwaps;
+    }
+
+    private static Pair sortSlice(List<Integer> l, int end) {
+        int nSwaps = 0, newEnd = 0;
+        --end; // Decrease end to avoid out of range error
+        for (int i = 0; i < end; i++)
+            if (l.get(i) > l.get(i + 1)) {
+                Collections.swap(l, i, i + 1);
+                ++nSwaps;
+                newEnd = i + 1;
+            }
+        return new Pair(nSwaps, newEnd);
+    }
+
+    private record Pair(int nSwaps, int newEnd) {
+    }
 }

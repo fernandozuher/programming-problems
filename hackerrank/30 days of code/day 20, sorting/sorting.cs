@@ -1,44 +1,49 @@
 // https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
-public class Solution
+public static class Solution
 {
     public static void Main()
     {
-        int _ = int.Parse(Console.ReadLine());
-        List<int> list = Console.ReadLine().Split().Select(int.Parse).ToList();
-
-        Console.WriteLine("Array is sorted in {0} swaps.", _bubbleSort(list));
-        Console.WriteLine("First Element: {0}", list.First());
-        Console.WriteLine("Last Element: {0}", list.Last());
+        List<int> numbers = ReadInput();
+        int nSwaps = BubbleSort(numbers);
+        WriteLine("Array is sorted in {0} swaps.", nSwaps);
+        WriteLine("First Element: {0}", numbers[0]);
+        WriteLine("Last Element: {0}", numbers[^1]);
     }
 
-        private static int _bubbleSort(List<int> a)
+    private static List<int> ReadInput()
+    {
+        ReadLine(); // Skip size of list
+        return ReadLine().Split().Select(int.Parse).ToList();
+    }
+
+    private static int BubbleSort(List<int> l)
+    {
+        int totalSwaps = 0;
+        for (int end = l.Count; end > 0;)
         {
-            int numberOfSwaps = 0;
-
-            for (int n = a.Count - 1; n > 0; --n)
-            {
-                for (int i = 0; i < n; ++i)
-                    if (a[i] > a[i + 1]) {
-                        _swap(a, i);
-                        ++numberOfSwaps;
-                    }
-
-                if (numberOfSwaps == 0)
-                    break;
-            }
-
-            return numberOfSwaps;
+            var (nSwaps, newEnd) = SortSlice(l, end);
+            totalSwaps += nSwaps;
+            end = newEnd;
         }
+        return totalSwaps;
+    }
 
-            private static void _swap(List<int> a, int i)
+    private static (int, int) SortSlice(List<int> l, int end)
+    {
+        int nSwaps = 0, newEnd = 0;
+        --end; // Decrease end to avoid out of range error
+        for (int i = 0; i < end; i++)
+        {
+            if (l[i] > l[i + 1])
             {
-                int temp = a[i];
-                a[i] = a[i + 1];
-                a[i + 1] = temp;
+                (l[i], l[i + 1]) = (l[i + 1], l[i]);
+                ++nSwaps;
+                newEnd = i + 1;
             }
+        }
+        return (nSwaps, newEnd);
+    }
 }
