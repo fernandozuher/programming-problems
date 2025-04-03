@@ -2,9 +2,7 @@
 // Java 21
 
 import java.util.*;
-
 import static java.util.stream.Collectors.toList;
-
 import java.util.stream.*;
 
 class Solution {
@@ -46,6 +44,5 @@ class Solution {
         return new Pair(nSwaps, newEnd);
     }
 
-    private record Pair(int nSwaps, int newEnd) {
-    }
+    private record Pair(int nSwaps, int newEnd) {}
 }
