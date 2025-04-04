@@ -1,34 +1,36 @@
 // https://www.hackerrank.com/challenges/30-generics/problem?isFullScreen=true
+// C++23
 
 #include <iostream>
+#include <ranges>
 #include <vector>
 
 using namespace std;
 
-template <typename T>
-void print_array(const vector<T>& v);
+template<class T = int>
+vector<T> read_input();
+template<class T = int>
+void print_vector(const vector<T>& v);
 
 int main()
 {
-    int n;
-    cin >> n;
-    vector<int> int_vector(n);
-    for (int i {}, value; i < n && cin >> value; int_vector.at(i++) = value);
-
-    cin >> n;
-    vector<string> string_vector(n);
-    string value;
-    for (int i {}; i < n && cin >> value; string_vector.at(i++) = value);
-
-    print_array(int_vector);
-    print_array(string_vector);
-
+    vector numbers{read_input()};
+    vector strings{read_input<string>()};
+    print_vector(numbers);
+    print_vector(strings);
     return 0;
 }
 
-    template <typename T>
-    void print_array(const vector<T>& v)
-    {
-        for (const auto& x : v)
-            cout << x << '\n';
-    }
+template<class T>
+vector<T> read_input()
+{
+    int n;
+    cin >> n;
+    return views::iota(0, n) | views::transform([](auto) { T x; cin >> x; return x; }) | ranges::to<vector<T>>();
+}
+
+template<class T>
+void print_vector(const vector<T>& v)
+{
+    ranges::copy(v, ostream_iterator<T>(cout, "\n"));
+}

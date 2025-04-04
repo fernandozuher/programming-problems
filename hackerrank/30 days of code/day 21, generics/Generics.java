@@ -1,33 +1,29 @@
 // https://www.hackerrank.com/challenges/30-generics/problem?isFullScreen=true
+// Java 22
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Stream;
-import static java.util.stream.Collectors.toList;
+import java.util.*;
+import java.util.stream.IntStream;
 
-public class Generics {
-    public static void main(String args[]) {
-        Scanner scan = new Scanner(System.in);
+class Solution {
+    private static final Scanner scan = new Scanner(System.in);
 
+    public static void main() {
+        List<Integer> numbers = readInput(Integer.class);
+        List<String> strings = readInput(String.class);
+        printList(numbers);
+        printList(strings);
+    }
+
+    private static <T> List<T> readInput(Class<T> type) {
+        Objects.requireNonNull(type, "Type cannot be null");
         int n = scan.nextInt();
-        scan.nextLine(); // new line character
-        List<Integer> intList = Arrays.asList(new Integer[n]).stream().map(x -> x = scan.nextInt()).collect(toList());
+        scan.nextLine(); // Skip new line character
+        return IntStream.range(0, n)
+                .mapToObj(_ -> type == Integer.class ? (T) Integer.valueOf(scan.nextLine()) : (T) scan.nextLine())
+                .toList();
+    }
 
-        n = scan.nextInt();
-        scan.nextLine(); // new line character
-        List<String> stringList = Arrays.asList(new String[n]).stream().map(x -> x = scan.nextLine()).collect(toList());
-
-        var intPrinter = new Printer<Integer>();
-        var stringPrinter = new Printer<String>();
-        intPrinter.printList(intList);
-        stringPrinter.printList(stringList);
+    private static <T> void printList(List<T> l) {
+        l.forEach(System.out::println);
     }
 }
-
-    class Printer <T> {
-        public void printList(final List<T> l) {
-            l.forEach(System.out::println);
-        }
-    }

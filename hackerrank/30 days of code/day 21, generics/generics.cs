@@ -1,26 +1,28 @@
 // https://www.hackerrank.com/challenges/30-generics/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
-public class Printer
+public class Solution
 {
     public static void Main()
     {
-        int _ = int.Parse(Console.ReadLine());
-        List<int> intList = Console.ReadLine().Split().Select(int.Parse).ToList();
-
-        _ = int.Parse(Console.ReadLine());
-        List<string> stringList = Console.ReadLine().Split().ToList();
-
-        _printArray<Int32>(intList);
-        _printArray<String>(stringList);
+        List<int> numbers = ReadInput<int>();
+        List<string> strings = ReadInput<string>();
+        PrintList<int>(numbers);
+        PrintList<string>(strings);
     }
 
-        private static void _printArray<T>(List<T> list)
-        {
-            foreach (var x in list)
-                Console.WriteLine(x);
-        }
+    private static List<T> ReadInput<T>()
+    {
+        int n = int.Parse(ReadLine());
+        return Enumerable.Range(0, n)
+                         .Select(_ => ReadLine())
+                         .Select(x => (T)Convert.ChangeType(x, typeof(T)))
+                         .ToList();
+    }
+
+    private static void PrintList<T>(List<T> l)
+    {
+        WriteLine(string.Join("\n", l));
+    }
 }
