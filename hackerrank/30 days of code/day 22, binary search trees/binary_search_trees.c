@@ -14,7 +14,7 @@ typedef struct Node {
 [[nodiscard]] Node *insert_node(Node *root, int data);
 [[nodiscard]] Node *new_node(int data);
 int get_height(const Node *root);
-void get_max_height_in_place_by_traversal(const Node *root, int current_height, int *max_height);
+void get_height_in_place_by_traversal(const Node *root, int current_height, int *max_height);
 int max(int a, int b);
 Node *free_tree(Node *root);
 
@@ -65,20 +65,20 @@ int main()
 int get_height(const Node *root)
 {
     int max_height = 0;
-    get_max_height_in_place_by_traversal(root, 0, &max_height);
+    get_height_in_place_by_traversal(root, 0, &max_height);
     return max_height;
 }
 
-void get_max_height_in_place_by_traversal(const Node *root, int current_height, int *max_height)
+void get_height_in_place_by_traversal(const Node *root, int current_height, int *max_height)
 {
     if (!root)
         return;
     *max_height = max(current_height, *max_height);
-    get_max_height_in_place_by_traversal(root->left, current_height + 1, max_height);
-    get_max_height_in_place_by_traversal(root->right, current_height + 1, max_height);
+    get_height_in_place_by_traversal(root->left, current_height + 1, max_height);
+    get_height_in_place_by_traversal(root->right, current_height + 1, max_height);
 }
 
-int max(int a, int b)
+inline int max(int a, int b)
 {
     return a >= b ? a : b;
 }
