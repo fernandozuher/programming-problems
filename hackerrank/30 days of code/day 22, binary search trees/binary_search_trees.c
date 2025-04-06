@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/30-binary-search-trees/problem?isFullScreen=true
+// C23
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,72 +10,85 @@ typedef struct Node {
     int data;
 } Node;
 
-Node* insert(Node *root, int data);
-    Node* new_node(int data);
-int get_height(Node *root);
+[[nodiscard]] Node *read_tree();
+[[nodiscard]] Node *insert_node(Node *root, int data);
+[[nodiscard]] Node *new_node(int data);
+int get_height(const Node *root);
+void get_max_height_in_place_by_traversal(const Node *root, int current_height, int *max_height);
+int max(int a, int b);
+Node *free_tree(Node *root);
 
 int main()
 {
-    Node *root = NULL;
-    int T, data;
-    scanf("%d", &T);
-
-    while (T--) {
-        scanf("%d", &data);
-        root = insert(root, data);
-    }
-
-    int height = get_height(root);
-    printf("%d", height);
-
+    Node *root = read_tree();
+    printf("%d", get_height(root));
+    free_tree(root);
     return 0;
 }
 
-    Node* insert(Node *root, int data)
-    {
-        if (!root)
-            return new_node(data);
-        else {
-            Node *cur;
-
-            if (data <= root->data) {
-                cur = insert(root->left, data);
-                root->left = cur;
-            }
-            else {
-                cur = insert(root->right, data);
-                root->right = cur;
-            }
-        }
-
-        return root;
+[[nodiscard]] Node *read_tree()
+{
+    int n;
+    scanf("%d", &n);
+    Node *root = nullptr;
+    for (int data; n--;) {
+        scanf("%d", &data);
+        root = insert_node(root, data);
     }
+    return root;
+}
 
-        Node* new_node(int data)
-        {
-            Node *node = (Node*) malloc(sizeof(Node));
-            node->left = node->right = NULL;
-            node->data = data;
-            return node;
-        }    
-// Immutable HackerRank code ABOVE
+[[nodiscard]] Node *insert_node(Node *root, int data)
+{
+    if (!root)
+        return new_node(data);
 
-    int get_height(Node *root)
-    {
-        static int current_height = 0, max_height = 0;
-
-        if (root->left || root->right) {
-            ++current_height;
-
-            if (root->left)
-                get_height(root->left);
-            if (root->right)
-                get_height(root->right);
-
-            --current_height;
-        }
-        else if (current_height > max_height)
-            max_height = current_height;
-
-        return max_height;
+    Node *node;
+    if (data <= root->data) {
+        node = insert_node(root->left, data);
+        root->left = node;
+    } else {
+        node = insert_node(root->right, data);
+        root->right = node;
     }
+    return root;
+}
+
+[[nodiscard]] Node *new_node(int data)
+{
+    auto node = (Node *) malloc(sizeof(Node));
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
+
+int get_height(const Node *root)
+{
+    int max_height = 0;
+    get_max_height_in_place_by_traversal(root, 0, &max_height);
+    return max_height;
+}
+
+void get_max_height_in_place_by_traversal(const Node *root, int current_height, int *max_height)
+{
+    if (!root)
+        return;
+    *max_height = max(current_height, *max_height);
+    get_max_height_in_place_by_traversal(root->left, current_height + 1, max_height);
+    get_max_height_in_place_by_traversal(root->right, current_height + 1, max_height);
+}
+
+int max(int a, int b)
+{
+    return a >= b ? a : b;
+}
+
+Node *free_tree(Node *root)
+{
+    if (root) {
+        free_tree(root->left);
+        free_tree(root->right);
+        free(root);
+    }
+    return nullptr;
+}
