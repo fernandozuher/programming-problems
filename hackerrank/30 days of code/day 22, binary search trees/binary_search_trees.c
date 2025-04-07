@@ -15,6 +15,7 @@ typedef struct Node {
 [[nodiscard]] Node *new_node(int data);
 int get_height(const Node *root);
 void get_height_in_place_by_traversal(const Node *root, int current_height, int *max_height);
+bool is_leaf(const Node *root);
 int max(int a, int b);
 Node *free_tree(Node *root);
 
@@ -73,9 +74,17 @@ void get_height_in_place_by_traversal(const Node *root, int current_height, int 
 {
     if (!root)
         return;
-    *max_height = max(current_height, *max_height);
+    if (is_leaf(root)) {
+        *max_height = max(current_height, *max_height);
+        return;
+    }
     get_height_in_place_by_traversal(root->left, current_height + 1, max_height);
     get_height_in_place_by_traversal(root->right, current_height + 1, max_height);
+}
+
+bool is_leaf(const Node *root)
+{
+    return !root->left && !root->right;
 }
 
 inline int max(int a, int b)
