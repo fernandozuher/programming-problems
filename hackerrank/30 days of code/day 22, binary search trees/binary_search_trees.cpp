@@ -13,7 +13,7 @@ typedef struct Node {
 shared_ptr<Node> read_tree();
 shared_ptr<Node> insert_node(shared_ptr<Node> root, int data);
 int get_height(const shared_ptr<Node>& root);
-void get_height(const shared_ptr<Node>& root, int current_height, const shared_ptr<int>& max_height);
+void get_height(const shared_ptr<Node>& root, int current_height, int& max_height);
 bool is_leaf(const shared_ptr<Node>& root);
 
 int main()
@@ -51,17 +51,17 @@ shared_ptr<Node> insert_node(shared_ptr<Node> root, int data)
 
 int get_height(const shared_ptr<Node>& root)
 {
-    auto max_height{make_shared<int>()};
+    int max_height{};
     get_height(root, 0, max_height);
-    return *max_height;
+    return max_height;
 }
 
-void get_height(const shared_ptr<Node>& root, int current_height, const shared_ptr<int>& max_height)
+void get_height(const shared_ptr<Node>& root, int current_height, int& max_height)
 {
     if (!root)
         return;
     if (is_leaf(root)) {
-        *max_height = max(current_height, *max_height);
+        max_height = max(current_height, max_height);
         return;
     }
     get_height(root->left, current_height + 1, max_height);
