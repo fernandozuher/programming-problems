@@ -14,8 +14,6 @@ typedef struct Node {
 [[nodiscard]] Node *insert_node(Node *root, int data);
 [[nodiscard]] Node *new_node(int data);
 int get_height(const Node *root);
-void get_height_in_place_by_traversal(const Node *root, int current_height, int *max_height);
-bool is_leaf(const Node *root);
 int max(int a, int b);
 Node *free_tree(Node *root);
 
