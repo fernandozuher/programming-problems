@@ -43,15 +43,10 @@ int main()
 {
     if (!root)
         return new_node(data);
-
-    Node *node;
-    if (data <= root->data) {
-        node = insert_node(root->left, data);
-        root->left = node;
-    } else {
-        node = insert_node(root->right, data);
-        root->right = node;
-    }
+    if (data <= root->data)
+        root->left = insert_node(root->left, data);
+    else
+        root->right = insert_node(root->right, data);
     return root;
 }
 
@@ -65,26 +60,11 @@ int main()
 
 int get_height(const Node *root)
 {
-    int max_height = 0;
-    get_height_in_place_by_traversal(root, 0, &max_height);
-    return max_height;
-}
-
-void get_height_in_place_by_traversal(const Node *root, int current_height, int *max_height)
-{
     if (!root)
-        return;
-    if (is_leaf(root)) {
-        *max_height = max(current_height, *max_height);
-        return;
-    }
-    get_height_in_place_by_traversal(root->left, current_height + 1, max_height);
-    get_height_in_place_by_traversal(root->right, current_height + 1, max_height);
-}
-
-bool is_leaf(const Node *root)
-{
-    return !root->left && !root->right;
+        return -1;
+    int left_height = get_height(root->left);
+    int right_height = get_height(root->right);
+    return max(left_height, right_height) + 1;
 }
 
 inline int max(int a, int b)
