@@ -1,76 +1,49 @@
 // https://www.hackerrank.com/challenges/30-binary-search-trees/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+record Node(int Data)
 {
-    private static int _currentHeight = 0;
-    private static int _maxHeight = 0;
-
-    public static void Main()
-    {
-        Node root = null;
-        int T = int.Parse(Console.ReadLine());
-
-        while (T-- > 0)
-        {
-            int data = int.Parse(Console.ReadLine());
-            root = _insert(root, data);
-        }
-
-        Console.WriteLine(_getHeight(root));
-    }
-
-        private static Node _insert(Node root, int data)
-        {
-            if (root == null)
-                return new Node(data);
-            else
-            {
-                Node cur;
-
-                if (data <= root.data)
-                {
-                    cur = _insert(root.left, data);
-                    root.left = cur;
-                }
-                else
-                {
-                    cur = _insert(root.right, data);
-                    root.right = cur;
-                }
-
-                return root;
-            }
-        }
-
-        private static int _getHeight(Node root)
-        {
-            if (root.left != null || root.right != null)
-            {
-                ++_currentHeight;
-
-                if (root.left != null)
-                    _getHeight(root.left);
-                if (root.right != null)
-                    _getHeight(root.right);
-
-                --_currentHeight;
-            }
-            else if (_currentHeight > _maxHeight)
-                _maxHeight = _currentHeight;
-
-            return _maxHeight;
-        }
+    public Node? Left { get; set; }
+    public Node? Right { get; set; }
 }
 
-    public class Node
+static class Solution
+{
+    static void Main()
     {
-        public Node left, right;
-        public int data;
-        public Node(int data)
-        {
-            this.data = data;
-            left = right = null;
-        }
+        Node root = ReadTree();
+        WriteLine(GetHeight(root));
     }
+
+    private static Node? ReadTree()
+    {
+        Node? root = null;
+        for (int n = int.Parse(ReadLine()); n-- > 0;)
+        {
+            int data = int.Parse(ReadLine());
+            root = InsertNode(root, data);
+        }
+        return root;
+    }
+
+    private static Node InsertNode(Node? root, int data)
+    {
+        if (root == null)
+            return new Node(data);
+        if (data <= root.Data)
+            root.Left = InsertNode(root.Left, data);
+        else
+            root.Right = InsertNode(root.Right, data);
+        return root;
+    }
+
+    private static int GetHeight(Node? root)
+    {
+        if (root == null)
+            return -1;
+        int leftHeight = GetHeight(root.Left);
+        int rightHeight = GetHeight(root.Right);
+        return Math.Max(leftHeight, rightHeight) + 1;
+    }
+}

@@ -1,75 +1,66 @@
-// https://www.hackerrank.com/challenges/30-binary-search-trees/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
+
+'use strict';
 
 process.stdin.resume();
-process.stdin.setEncoding('ascii');
-let _input = "";
+process.stdin.setEncoding('utf-8');
 
-process.stdin.on('data', function(data) {
-    _input += data;
+let inputString = '';
+let inputLines = [];
+let currentLine = 0;
+
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-function main() {
-    let tree = new BinarySearchTree();
-    let root = null;
-    let values = _input.split('\n').map(Number);
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
+});
 
-    for (let x of values)
-        root = tree.insert(root, x);
-
-    console.log(tree.getHeight(root));
+function readLine() {
+  return inputLines[currentLine++];
 }
 
-    function BinarySearchTree() {
-        this.insert = function(root, data) {
-            if (!root) {
-                this.root = new Node(data);
-                return this.root;
-            }
+//////////////////////////////////////////////////
 
-            if (data <= root.data) {
-                if (root.left)
-                    this.insert(root.left, data);
-                else
-                    root.left = new Node(data);
-            }
-            else {
-                if (root.right)
-                    this.insert(root.right, data);
-                else
-                    root.right = new Node(data);
-            }
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
 
-            return this.root;
-        };
+function main() {
+  const root = readTree();
+  console.log(getHeight(root));
+}
 
-        this.getHeight = function(root) {
-// Immutable HackerRank code above
+function readTree() {
+  let root = null;
+  for (let n = +readLine(); n-- > 0;) {
+    const data = +readLine();
+    root = insertNode(root, data);
+  }
+  return root;
+}
 
-            arguments.callee.currentHeight = arguments.callee.currentHeight || 0;
-            arguments.callee.maxHeight = arguments.callee.maxHeight || 0;
-            
-            if (root.left || root.right) {
-                arguments.callee.currentHeight++;
-                
-                if (root.left)
-                    this.getHeight(root.left);
-                
-                if (root.right)
-                    this.getHeight(root.right);
-                
-                arguments.callee.currentHeight--;
+function insertNode(root, data) {
+  if (root == null)
+    return new Node(data);
+  if (data <= root.data)
+    root.left = insertNode(root.left, data);
+  else
+    root.right = insertNode(root.right, data);
+  return root;
+}
 
-            }
-            else if (arguments.callee.currentHeight > arguments.callee.maxHeight)
-                arguments.callee.maxHeight = arguments.callee.currentHeight;
-            
-            return arguments.callee.maxHeight;
-        };
-    };
-
-// Immutable HackerRank code below
-        function Node(data) {
-            this.data = data;
-            this.left = null;
-            this.right = null;
-        };
+function getHeight(root) {
+  if (root == null)
+    return -1;
+  const leftHeight = getHeight(root.left);
+  const rightHeight = getHeight(root.right);
+  return Math.max(leftHeight, rightHeight) + 1;
+}
