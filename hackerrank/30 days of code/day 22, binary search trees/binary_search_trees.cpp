@@ -24,9 +24,9 @@ int main()
 
 shared_ptr<Node> read_tree()
 {
+    shared_ptr<Node> root;
     int n;
     cin >> n;
-    shared_ptr<Node> root;
     for (int data; n-- && cin >> data;)
         root = insert_node(root, data);
     return root;

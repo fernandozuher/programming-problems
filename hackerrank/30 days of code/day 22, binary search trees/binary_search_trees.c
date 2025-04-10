@@ -27,9 +27,9 @@ int main()
 
 [[nodiscard]] Node *read_tree()
 {
+    Node *root = nullptr;
     int n;
     scanf("%d", &n);
-    Node *root = nullptr;
     for (int data; n--;) {
         scanf("%d", &data);
         root = insert_node(root, data);
