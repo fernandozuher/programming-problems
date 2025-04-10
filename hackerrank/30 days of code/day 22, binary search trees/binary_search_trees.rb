@@ -1,70 +1,41 @@
 # https://www.hackerrank.com/challenges/30-binary-search-trees/problem?isFullScreen=true
 
 def main
-    my_tree = Solution.new
-    root = nil
-    T = gets.to_i
-
-    for i in 1..T
-        data = gets.to_i
-        root = my_tree.insert(root, data)
-    end
-
-    height = my_tree.get_height(root)
-    print height
+  root = read_tree
+  puts get_height(root)
 end
 
-    class Solution
-        @@current_height = 0
-        @@max_height = 0
+def read_tree
+  root = nil
+  n = gets.to_i rescue 0
+  n.times {
+    data = gets.to_i
+    root = insert_node(root, data)
+  }
+  root
+end
 
-        def insert(root, data)
-            if root == nil
-                return Node.new(data)
-            else
-                if data <= root.data
-                    cur = self.insert(root.left, data)
-                    root.left = cur
-                else
-                    cur = self.insert(root.right, data)
-                    root.right = cur
-                end
-            end
+def insert_node(root, data)
+  if root.nil?
+    return Node.new(data: data, left: nil, right: nil)
+  end
+  if data <= root.data
+    root.left = insert_node(root.left, data)
+  else
+    root.right = insert_node(root.right, data)
+  end
+  root
+end
 
-            return root
-        end
-    # Immutable Hacker_rank code above
+Node = Struct.new(:data, :left, :right)
 
-        def get_height(root)
-            if root.left || root.right
-                @@current_height += 1
-
-                if root.left
-                    get_height(root.left)
-                end
-
-                if root.right
-                    get_height(root.right)
-                end
-                
-                @@current_height -= 1
-                
-            elsif @@current_height > @@max_height
-                @@max_height = @@current_height
-            end
-
-            @@max_height
-        end
-    end
-
-# Immutable Hacker_rank code below
-    class Node
-        attr_accessor :left, :right, :data
-
-        def initialize data
-          @left = @right = nil
-          @data = data
-        end
-    end
+def get_height(root)
+  if root.nil?
+    return -1
+  end
+  left_height = get_height(root.left)
+  right_height = get_height(root.right)
+  [left_height, right_height].max + 1
+end
 
 main
