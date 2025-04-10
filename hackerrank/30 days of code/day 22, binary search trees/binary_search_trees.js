@@ -1,4 +1,4 @@
-// https://www.hackerrank.com/challenges/30-sorting/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/30-binary-search-trees/problem?isFullScreen=true
 
 'use strict';
 
@@ -25,14 +25,6 @@ function readLine() {
 
 //////////////////////////////////////////////////
 
-class Node {
-  constructor(data) {
-    this.data = data;
-    this.left = null;
-    this.right = null;
-  }
-}
-
 function main() {
   const root = readTree();
   console.log(getHeight(root));
@@ -55,6 +47,14 @@ function insertNode(root, data) {
   else
     root.right = insertNode(root.right, data);
   return root;
+}
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
 }
 
 function getHeight(root) {

@@ -1,4 +1,4 @@
-// https://www.hackerrank.com/challenges/30-generics/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/30-binary-search-trees/problem?isFullScreen=true
 
 'use strict';
 
@@ -25,16 +25,16 @@ function readLine(): string {
 
 //////////////////////////////////////////////////
 
+function main() {
+  const root: MyNode | null = readTree();
+  console.log(getHeight(root));
+}
+
 type MyNode = {
   data: number;
   left: MyNode | null;
   right: MyNode | null;
 };
-
-function main() {
-  const root: MyNode | null = readTree();
-  console.log(getHeight(root));
-}
 
 function readTree(): MyNode | null {
   let root: MyNode | null = null;
