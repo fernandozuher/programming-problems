@@ -21,10 +21,9 @@ class Solution {
     }
 
     private static Node readTree() {
-        int n = scan.nextInt();
         Node root = null;
-        for (int data; n-- > 0; ) {
-            data = scan.nextInt();
+        for (int n = scan.nextInt(); n-- > 0;) {
+            int data = scan.nextInt();
             root = insertNode(root, data);
         }
         return root;
