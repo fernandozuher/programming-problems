@@ -1,73 +1,84 @@
 // https://www.hackerrank.com/challenges/30-binary-trees/problem?isFullScreen=true
+// C23
 
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct Node {
+    int data;
     struct Node *left;
     struct Node *right;
-    int data;
 } Node;
 
-Node* insert(Node *root, int data);
-    Node* new_node(int data);
+[[nodiscard]] Node *read_tree();
+[[nodiscard]] Node *insert_node(Node *root, int data);
+[[nodiscard]] Node *new_node(int data);
 void level_order(Node *root);
+Node *free_tree(Node *root);
 
 int main()
 {
-    Node *root = NULL;
-    int n_tests, data;
-    scanf("%d", &n_tests);
-
-    while (n_tests--) {
-        scanf("%d", &data);
-        root = insert(root, data);
-    }
-
+    Node *root = read_tree();
     level_order(root);
-
+    free_tree(root);
     return 0;
 }
 
-    Node* insert(Node *root, int data)
-    {
-        if (!root)
-            return new_node(data);
-        else {
-            Node *cur;
-            if (data <= root->data) {
-                cur = insert(root->left, data);
-                root->left = cur;
-            }
-            else {
-                cur = insert(root->right, data);
-                root->right = cur;
-            }
-
-        }
-        return root;
+[[nodiscard]] Node *read_tree()
+{
+    Node *root = nullptr;
+    int n;
+    scanf("%d", &n);
+    for (int data; n--;) {
+        scanf("%d", &data);
+        root = insert_node(root, data);
     }
+    return root;
+}
 
-        Node* new_node(const int data)
-        {
-            Node *node = (Node*) malloc(sizeof(Node));
-            node->left = node->right = NULL;
-            node->data = data;
-            return node;
-        }
-// Immutable HackerRank code above
+[[nodiscard]] Node *insert_node(Node *root, int data)
+{
+    if (!root)
+        return new_node(data);
+    if (data <= root->data)
+        root->left = insert_node(root->left, data);
+    else
+        root->right = insert_node(root->right, data);
+    return root;
+}
 
-    void level_order(Node *root)
-    {
-        if (!root)
-            return;
+[[nodiscard]] Node *new_node(int data)
+{
+    auto node = (Node *) malloc(sizeof(Node));
+    node->data = data;
+    node->left = node->right = nullptr;
+    return node;
+}
 
-        Node *queue[20];
-        queue[0] = root;
-        printf("%d ", queue[0]->data);
+void level_order(Node *root)
+{
+    if (!root)
+        return;
+    constexpr int max_input = 20;
+    Node *queue[max_input];
+    queue[0] = root;
 
-        for (int i = 0, n = 1; i < n; ++i) {
-            queue[i]->left && (queue[n++] = queue[i]->left) && printf("%d ", queue[i]->left->data);
-            queue[i]->right && (queue[n++] = queue[i]->right) && printf("%d ", queue[i]->right->data);
-        }
+    for (int i = 0, n = 1; i < n; ++i) {
+        Node *current = queue[i];
+        printf("%d ", current->data);
+        if (current->left)
+            queue[n++] = current->left;
+        if (current->right)
+            queue[n++] = current->right;
     }
+}
+
+Node *free_tree(Node *root)
+{
+    if (root) {
+        free_tree(root->left);
+        free_tree(root->right);
+        free(root);
+    }
+    return nullptr;
+}

@@ -1,64 +1,61 @@
 // https://www.hackerrank.com/challenges/30-binary-trees/problem?isFullScreen=true
 
 #include <iostream>
+#include <memory>
 #include <queue>
 
 using namespace std;
 
-class Node {
-public:
+typedef struct Node {
     int data;
-    Node *left, *right;
-    Node(int d): data{d}, left{}, right{} {}
-};
+    shared_ptr<Node> left, right;
+    explicit Node(int d): data{d} {}
+} Node;
 
-class Solution {
-public:
-    static Node* insert(Node* root, const int data)
-    {
-        if (!root)
-            return new Node(data);
-        else {
-            Node* cur;
-            if (data <= root->data) {
-                cur = insert(root->left, data);
-                root->left = cur;
-            }
-            else {
-                cur = insert(root->right, data);
-                root->right = cur;
-            }
-            return root;
-        }
-    }
-
-    static void level_order(Node* root)
-    {
-        if (!root)
-            return;
-
-        queue<Node*> my_queue;
-        my_queue.push(root);
-        cout << my_queue.front()->data << " ";
-
-        for (; !my_queue.empty(); my_queue.pop()) {
-
-            if (my_queue.front()->left)
-                my_queue.push(my_queue.front()->left), cout << my_queue.front()->left->data << " ";
-
-            if (my_queue.front()->right)
-                my_queue.push(my_queue.front()->right), cout << my_queue.front()->right->data << " ";
-        }
-    }
-};
+shared_ptr<Node> read_tree();
+shared_ptr<Node> insert_node(shared_ptr<Node> root, int data);
+void level_order(const shared_ptr<Node>& root);
 
 int main()
 {
-    Node* root {};
-    int data;
-
-    for (cin >> data; cin >> data; root = Solution::insert(root, data));
-    Solution::level_order(root);
-
+    shared_ptr root{read_tree()};
+    level_order(root);
     return 0;
+}
+
+shared_ptr<Node> read_tree()
+{
+    shared_ptr<Node> root;
+    int n;
+    cin >> n;
+    for (int data; n-- && cin >> data;)
+        root = insert_node(root, data);
+    return root;
+}
+
+shared_ptr<Node> insert_node(shared_ptr<Node> root, int data)
+{
+    if (!root)
+        return make_shared<Node>(data);
+    if (data <= root->data)
+        root->left = insert_node(root->left, data);
+    else
+        root->right = insert_node(root->right, data);
+    return root;
+}
+
+void level_order(const shared_ptr<Node>& root)
+{
+    if (!root)
+        return;
+
+    queue<shared_ptr<Node>> my_queue;
+    my_queue.push(root);
+    for (; !my_queue.empty(); my_queue.pop()) {
+        cout << my_queue.front()->data << " ";
+        if (my_queue.front()->left)
+            my_queue.push(my_queue.front()->left);
+        if (my_queue.front()->right)
+            my_queue.push(my_queue.front()->right);
+    }
 }
