@@ -1,66 +1,51 @@
 # https://www.hackerrank.com/challenges/30-binary-trees/problem?isFullScreen=true
 
 def main
-    my_tree = Tree.new
-    root = nil
-    n_tests = gets.to_i
-
-    for i in 1..n_tests
-        data = gets.to_i
-        root = my_tree.insert(root, data)
-    end
-
-    my_tree.level_order(root)
+  root = read_tree
+  level_order(root)
 end
 
-    class Tree
-        def insert (root, data)
-            if root == nil
-                return Node.new(data)
-            else
-                if data <= root.data
-                    cur = self.insert(root.left, data)
-                    root.left = cur
-                else
-                    cur = self.insert(root.right, data)
-                    root.right = cur
-                end
-            end
+def read_tree
+  root = nil
+  n = gets.to_i rescue 0
+  n.times {
+    data = gets.to_i
+    root = insert_node(root, data)
+  }
+  root
+end
 
-            return root
-        end
+def insert_node(root, data)
+  if root.nil?
+    return Node.new(data, nil, nil)
+  end
+  if data <= root.data
+    root.left = insert_node(root.left, data)
+  else
+    root.right = insert_node(root.right, data)
+  end
+  root
+end
 
-        def level_order(root)
-            if not root
-                return
-            end
+Node = Struct.new(:data, :left, :right)
 
-            print root.data, ' '
-            my_queue = Queue.new
-            my_queue << root
+def level_order(root)
+  unless root
+    return
+  end
 
-            while not my_queue.empty?
-                first = my_queue.pop
-
-                if first.left
-                    my_queue << first.left
-                    print first.left.data, ' '
-                end
-
-                if first.right
-                    my_queue << first.right
-                    print first.right.data, ' '
-                end
-            end
-        end
+  my_queue = Queue.new
+  my_queue << root
+  until my_queue.empty?
+    current = my_queue.pop
+    print current.data, ' '
+    if current.left
+      my_queue << current.left
     end
-
-        class Node
-            attr_accessor :left, :right, :data
-            def initialize data
-                @left=@right=nil
-                @data=data
-            end
-        end
+    if current.right
+      my_queue << current.right
+    end
+  end
+end
 
 main

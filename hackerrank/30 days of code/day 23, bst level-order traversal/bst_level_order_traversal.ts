@@ -9,71 +9,62 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let root = null;
-    for (let n = +readLine(), data; n--; data = +readLine(), root = Tree.insert(root, data));
-    Tree.levelOrder(root);
+  const root: MyNode | null = readTree();
+  levelOrder(root);
 }
 
-    class Tree {
-        public static insert(root: MyNode, data: number) {
-            if (!root)
-                return new MyNode(data);
-            
-            if (data <= root.data)
-                if (root.left)
-                    this.insert(root.left, data);
-                else
-                    root.left = new MyNode(data);
-            else
-                if (root.right)
-                    this.insert(root.right, data);
-                else
-                    root.right = new MyNode(data);
-            return root;
-        }
+type MyNode = {
+  data: number;
+  left: MyNode | null;
+  right: MyNode | null;
+};
 
-        public static levelOrder(root: MyNode) {
-            if (!root)
-                return;
+function readTree(): MyNode | null {
+  let root: MyNode | null = null;
+  for (let n: number = +readLine(); n-- > 0; ) {
+    const data: number = +readLine();
+    root = insertNode(root, data);
+  }
+  return root;
+}
 
-            let myQueue = [];
-            myQueue.push(root);
-            process.stdout.write(myQueue[0].data + " ");
+function insertNode(root: MyNode | null, data: number): MyNode {
+  if (root == null)
+    return { data, left: null, right: null };
+  if (data <= root.data)
+    root.left = insertNode(root.left, data);
+  else
+    root.right = insertNode(root.right, data);
+  return root;
+}
 
-            for (; myQueue.length; myQueue.shift()) {
-                if (myQueue[0].left) {
-                    myQueue.push(myQueue[0].left);
-                    process.stdout.write(myQueue[0].left.data + " ");
-                }
+function levelOrder(root: MyNode | null) {
+  if (!root) return;
 
-                if (myQueue[0].right) {
-                    myQueue.push(myQueue[0].right);
-                    process.stdout.write(myQueue[0].right.data + " ");
-                }
-            }
-        }
-    }
-
-        class MyNode {
-            public data: number;
-            public left: MyNode | null;
-            public right: MyNode | null;
-            public constructor(data: number) {
-                this.data = data;
-            }
-        }
+  let myQueue: MyNode[] = [];
+  myQueue.push(root);
+  for (let i = 0; i < myQueue.length; i++) {
+    process.stdout.write(myQueue[i].data + ' ');
+    if (myQueue[i].left)
+      myQueue.push(<MyNode>myQueue[i].left);
+    if (myQueue[i].right)
+      myQueue.push(<MyNode>myQueue[i].right);
+  }
+}

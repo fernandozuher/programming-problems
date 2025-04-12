@@ -1,65 +1,53 @@
 # https://www.hackerrank.com/challenges/30-binary-trees/problem?isFullScreen=true
 
+from dataclasses import dataclass
 from collections import deque
 
+
 def main():
+    root = read_tree()
+    level_order(root)
 
-    n_tests = int(input())
-    my_tree = Solution()
+
+def read_tree():
     root = None
-
-    for i in range(n_tests):
+    n = int(input())
+    for _ in range(n):
         data = int(input())
-        root = my_tree.insert(root, data)
-
-    my_tree.level_order(root)
-
-
-class Tree:
-
-    def insert(self, root, data):
-
-        if not root:
-            return Node(data)
-        else:
-            if data <= root.data:
-                cur = self.insert(root.left, data)
-                root.left = cur
-            else:
-                cur = self.insert(root.right, data)
-                root.right = cur
-        
-        return root
+        root = insert_node(root, data)
+    return root
 
 
-    def level_order(self, root):
-
-        if not root:
-            return
-
-        my_queue = deque()
-        my_queue.append(root)
-        print(my_queue[0].data, end=' ')
-
-        while len(my_queue):
-
-            if my_queue[0].left:
-                my_queue.append(my_queue[0].left)
-                print(my_queue[0].left.data, end=" ")
-
-            if my_queue[0].right:
-                my_queue.append(my_queue[0].right)
-                print(my_queue[0].right.data, end=" ")
-
-            my_queue.popleft()
+def insert_node(root, data):
+    if root is None:
+        return Node(data)
+    if data <= root.data:
+        root.left = insert_node(root.left, data)
+    else:
+        root.right = insert_node(root.right, data)
+    return root
 
 
+@dataclass
 class Node:
+    data: int
+    left: 'Node' = None
+    right: 'Node' = None
 
-    def __init__(self, data):
 
-        self.right = self.left = None
-        self.data = data
+def level_order(root):
+    if not root:
+        return
+
+    my_queue = deque()
+    my_queue.append(root)
+    while len(my_queue):
+        current = my_queue.popleft()
+        print(current.data, end=" ")
+        if current.left:
+            my_queue.append(current.left)
+        if current.right:
+            my_queue.append(current.right)
 
 
 if __name__ == '__main__':
