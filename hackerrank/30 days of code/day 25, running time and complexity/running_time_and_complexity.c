@@ -1,29 +1,31 @@
 // https://www.hackerrank.com/challenges/30-running-time-and-complexity/problem?isFullScreen=true
+// C23
 
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
+
+bool is_prime(int n);
 
 int main()
 {
-    int n;
-    scanf("%d", &n);
-
-    for (int number; n-- && scanf("%d", &number);) {
-        if (number == 1) {
-            puts("Not prime");
-            continue;
-        }
-
-        int i = 2, limit = sqrt(number);
-        for (; i <= limit; ++i)
-            if (!(number % i)) {
-                puts("Not prime");
-                break;
-            }
-
-        if (i > limit)
-            puts("Prime");
-    }
-
+    int n_tests;
+    scanf("%d", &n_tests);
+    for (int n; n_tests-- && scanf("%d", &n);)
+        puts(is_prime(n) ? "Prime" : "Not prime");
     return 0;
+}
+
+bool is_prime(int n)
+{
+    if (n == 1)
+        return false;
+    if (n == 2)
+        return true;
+    if (n % 2 == 0)
+        return false;
+
+    for (int divisor = 3, limit = sqrt(n); divisor <= limit; divisor += 2)
+        if (n % divisor == 0)
+            return false;
+    return true;
 }

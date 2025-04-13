@@ -3,28 +3,33 @@
 use text_io::read;
 
 fn main() {
-    let n: i32 = read!();
-
-    for _ in 0..n {
-        let number: i32 = read!();
-
-        if number == 1 {
-            println!("Not prime");
-            continue;
-        }
-
-        let mut i: i32 = 2;
-        let limit: i32 = (number as f64).sqrt() as i32;
-        while i <= limit {
-            if number % i == 0 {
-                println!("Not prime");
-                break;
-            }
-            i += 1;
-        }
-
-        if i > limit {
+    let n_tests: usize = read!();
+    for _ in 0..n_tests {
+        let n: usize = read!();
+        if is_prime(n) {
             println!("Prime");
+        } else {
+            println!("Not prime");
         }
     }
+}
+
+fn is_prime(n: usize) -> bool {
+    if n == 1 {
+        return false;
+    }
+    if n == 2 {
+        return true;
+    }
+    if n % 2 == 0 {
+        return false;
+    }
+
+    let limit: usize = (n as f64).sqrt() as usize;
+    for divisor in (3..=limit).step_by(2) {
+        if n % divisor == 0 {
+            return false;
+        }
+    }
+    true
 }
