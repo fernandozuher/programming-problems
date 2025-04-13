@@ -1,70 +1,40 @@
 // https://www.hackerrank.com/challenges/30-linked-list-deletion/problem?isFullScreen=true
 
-using System;
+using static System.Console;
 
-public class Solution
+static class Solution
 {
-    public static void Main()
+    static void Main()
     {
-        Node head = null;
-        for (int nTests = int.Parse(Console.ReadLine()); nTests-- > 0;) {
-            int data = int.Parse(Console.ReadLine());
-            head = Insert(head, data);
-        }
-        head = RemoveDuplicates(head);
-        Display(head);
+        LinkedList<int> l = ReadList();
+        RemoveDuplicates(l);
+        Display(l);
     }
 
-        public static Node Insert(Node head, int data)
-        {
-            Node p = new Node(data);
+    private static LinkedList<int> ReadList()
+    {
+        int n = int.Parse(ReadLine());
+        return new LinkedList<int>(Enumerable.Range(0, n).Select(_ => int.Parse(ReadLine())));
+    }
 
-            if (head == null)
-                head = p;
-            else if (head.next == null)
-                head.next = p;
+    private static void RemoveDuplicates(LinkedList<int> list)
+    {
+        var seen = new HashSet<int>();
+        var current = list.First;
+        while (current != null)
+        {
+            var next = current.Next;
+            if (seen.Contains(current.Value))
+                list.Remove(current);
             else
-            {
-                Node start = head;
-                while (start.next != null)
-                    start = start.next;
-                start.next = p;
-
-            }
-
-            return head;
-        }
-
-        public static Node RemoveDuplicates(Node head)
-        {
-            Node original = head;
-            while (head.next != null) {
-                if (head.data == head.next.data)
-                    head.next = head.next.next;
-                else
-                    head = head.next;
-            }
-            return original;
-        }
-
-        public static void Display(Node head)
-        {
-            Node start = head;
-            while (start != null)
-            {
-                Console.Write(start.data + " ");
-                start = start.next;
-            }
-        }
-}
-
-    public class Node
-    {
-        public int data;
-        public Node next;
-        public Node(int d)
-        {
-            data = d;
-            next = null;
+                seen.Add(current.Value);
+            current = next;
         }
     }
+
+    private static void Display(LinkedList<int> l)
+    {
+        foreach (var x in l)
+            Write(x + " ");
+    }
+}
