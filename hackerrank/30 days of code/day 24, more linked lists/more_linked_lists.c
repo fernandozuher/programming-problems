@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/30-linked-list-deletion/problem?isFullScreen=true
+// C23
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,69 +9,73 @@ typedef struct Node {
     struct Node *next;
 } Node;
 
-Node* insert(Node *head, const int data);
-Node* remove_duplicates(Node *head);
+Node *read_list();
+Node *allocate_node(int data);
+Node *remove_duplicates(Node *head);
 void display(Node *head);
+Node *free_list(Node *head);
 
 int main()
 {
-    int n_tests, data;
-    scanf("%d", &n_tests);
-    Node *head = NULL;
-
-    while (n_tests--) {
-        scanf("%d", &data);
-        head = insert(head, data);
-    }
-
+    Node *head = read_list();
     head = remove_duplicates(head);
     display(head);
-
+    free_list(head);
     return 0;
 }
 
-    Node* insert(Node *head, const int data)
-    {
-        Node *p = (Node*) malloc(sizeof(Node));
-        p->data = data;
-        p->next = NULL;
+Node *read_list()
+{
+    int n, data;
+    scanf("%d", &n);
+    Node *head = nullptr, *tail = nullptr;
 
-        if (!head)
-            head = p;
-        else if (!head->next)
-            head->next = p;
-        else {
-            Node *start = head;
-            while (start->next)
-                start = start->next;
-            start->next = p;
-        }
-
-        return head;
-    }
-
-    Node* remove_duplicates(Node *head)
-    {
-        Node *original = head;
-
-        while (head->next) {
-            if (head->data == head->next->data) {
-                Node *to_be_removed = head->next;
-                head->next = head->next->next;
-                free(to_be_removed);
-            }
-            else
-                head = head->next;
-        }
-
-        return original;
-    }
-
-    void display(Node *head)
-    {
-        Node *start = head;
-        while (start) {
-            printf("%d ", start->data);
-            start = start->next;
+    while (n--) {
+        scanf("%d", &data);
+        Node *new_node = allocate_node(data);
+        if (head == nullptr) {
+            head = new_node;
+            tail = new_node;
+        } else {
+            tail->next = new_node;
+            tail = new_node;
         }
     }
+    return head;
+}
+
+Node *allocate_node(int data)
+{
+    auto node = (Node *) malloc(sizeof(Node));
+    node->data = data;
+    node->next = nullptr;
+    return node;
+}
+
+Node *remove_duplicates(Node *head)
+{
+    for (Node *node = head; node->next != nullptr;) {
+        if (node->data == node->next->data) {
+            Node *to_be_removed = node->next;
+            node->next = node->next->next;
+            free(to_be_removed);
+        } else
+            node = node->next;
+    }
+    return head;
+}
+
+void display(Node *head)
+{
+    for (Node *node = head; node != nullptr; node = node->next)
+        printf("%d ", node->data);
+}
+
+Node *free_list(Node *head)
+{
+    for (Node *node = head; node != nullptr; node = head) {
+        head = head->next;
+        free(node);
+    }
+    return nullptr;
+}
