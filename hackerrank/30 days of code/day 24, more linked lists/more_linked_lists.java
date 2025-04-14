@@ -7,9 +7,9 @@ import java.util.stream.*;
 class Solution {
     public static void main(String[] args) {
         try (Scanner scan = new Scanner(System.in)) {
-            LinkedList<Integer> l = readList(scan);
-            removeDuplicates(l);
-            display(l);
+            LinkedList<Integer> dataList = readList(scan);
+            removeDuplicates(dataList);
+            display(dataList);
         }
     }
 

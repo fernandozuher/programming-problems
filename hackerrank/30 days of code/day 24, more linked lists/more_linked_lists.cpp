@@ -11,10 +11,10 @@ template<class T = int>
 forward_list<T> read_list();
 
 template<class T = int>
-void remove_duplicates(forward_list<T>& data_list);
+void remove_duplicates(forward_list<T>& l);
 
 template<class T = int>
-void display(const forward_list<T>& data_list);
+void display(const forward_list<T>& l);
 
 int main()
 {

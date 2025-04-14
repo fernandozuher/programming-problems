@@ -6,9 +6,9 @@ static class Solution
 {
     static void Main()
     {
-        LinkedList<int> l = ReadList();
-        RemoveDuplicates(l);
-        Display(l);
+        LinkedList<int> dataList = ReadList();
+        RemoveDuplicates(dataList);
+        Display(dataList);
     }
 
     private static LinkedList<int> ReadList()
@@ -17,15 +17,15 @@ static class Solution
         return new LinkedList<int>(Enumerable.Range(0, n).Select(_ => int.Parse(ReadLine())));
     }
 
-    private static void RemoveDuplicates(LinkedList<int> list)
+    private static void RemoveDuplicates(LinkedList<int> dataList)
     {
         var seen = new HashSet<int>();
-        var current = list.First;
+        var current = dataList.First;
         while (current != null)
         {
             var next = current.Next;
             if (seen.Contains(current.Value))
-                list.Remove(current);
+                dataList.Remove(current);
             else
                 seen.Add(current.Value);
             current = next;
