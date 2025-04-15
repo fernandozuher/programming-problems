@@ -11,7 +11,7 @@ template<class T = int>
 forward_list<T> read_list();
 
 template<class T = int>
-void remove_consecutive_duplicates(forward_list<T>& l);
+void remove_duplicates(forward_list<T>& l);
 
 template<class T = int>
 void display(const forward_list<T>& l);
@@ -19,7 +19,7 @@ void display(const forward_list<T>& l);
 int main()
 {
     forward_list data_list{read_list()};
-    remove_consecutive_duplicates(data_list);
+    remove_duplicates(data_list);
     display(data_list);
 }
 
@@ -32,7 +32,7 @@ forward_list<T> read_list()
 }
 
 template<class T>
-void remove_consecutive_duplicates(forward_list<T>& l)
+void remove_duplicates(forward_list<T>& l)
 {
     l.unique();
 }

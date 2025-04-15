@@ -8,7 +8,7 @@ class Solution {
     public static void main(String[] args) {
         try (Scanner scan = new Scanner(System.in)) {
             LinkedList<Integer> dataList = readList(scan);
-            removeConsecutiveDuplicates(dataList);
+            removeDuplicates(dataList);
             display(dataList);
         }
     }
@@ -18,7 +18,7 @@ class Solution {
         return IntStream.range(0, n).mapToObj(_ -> scan.nextInt()).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    private static void removeConsecutiveDuplicates(LinkedList<Integer> l) {
+    private static void removeDuplicates(LinkedList<Integer> l) {
         HashSet<Integer> seen = new HashSet<>();
         l.removeIf(x -> !seen.add(x));
     }
