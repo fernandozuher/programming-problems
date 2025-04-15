@@ -35,10 +35,9 @@ Node *read_list()
         scanf("%d", &data);
         Node *new_node = allocate_node(data);
 
-        if (head == nullptr) {
-            head = new_node;
-            tail = new_node;
-        } else {
+        if (head == nullptr)
+            head = tail = new_node;
+        else {
             tail->next = new_node;
             tail = new_node;
         }
