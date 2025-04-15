@@ -9,68 +9,58 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
+
+//////////////////////////////////////////////////
 
 function main() {
-    let nTests = +readLine();
-    let head = null;
-    let list = new Solution();
-
-    for (i = 0; i < nTests; ++i) {
-        let data = +readLine();
-        head = list.insert(head, data);
-    }
-
-    head = list.removeDuplicates(head);
-    list.display(head);
+  const head = readList();
+  removeConsecutiveDuplicates(head);
+  display(head);
 }
 
-    function MoreLinkedLists() {
-        this.insert = function(head, data) {
-            let p = new Node(data);
+function readList() {
+  let n = +readLine();
+  let head = null;
+  let tail = null;
 
-            if (!head)
-                head = p;
-            else if (!head.next)
-                head.next = p;
-            else {
-                let start = head;
-                while (start.next)
-                    start = start.next;
-                start.next = p;
-            }
-
-            return head;
-        };
-
-        this.removeDuplicates = function(head) {
-            let original = head;
-            while (head.next)
-                head.data === head.next.data ? (head.next = head.next.next) : (head = head.next);
-            return original;
-        }
-
-        this.display = function(head) {
-            for (let start = head; start;) {
-                process.stdout.write(start.data + ' ');
-                start = start.next;
-            }
-        };
+  while (n--) {
+    let newNode = new MyNode(+readLine());
+    if (!head) head = tail = newNode;
+    else {
+      tail.next = newNode;
+      tail = newNode;
     }
+  }
+  return head;
+}
 
-        function Node(data) {
-            this.data = data;
-            this.next = null;
-        }
+class MyNode {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+
+function removeConsecutiveDuplicates(head) {
+  for (let node = head; node?.next; )
+    if (node.data === node.next.data) node.next = node.next.next;
+    else node = node.next;
+}
+
+function display(head) {
+  for (let node = head; node; node = node.next)
+    process.stdout.write(node.data + ' ');
+}
