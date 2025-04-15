@@ -7,7 +7,7 @@ static class Solution
     static void Main()
     {
         LinkedList<int> dataList = ReadList();
-        RemoveDuplicates(dataList);
+        RemoveConsecutiveDuplicates(dataList);
         Display(dataList);
     }
 
@@ -17,7 +17,7 @@ static class Solution
         return new LinkedList<int>(Enumerable.Range(0, n).Select(_ => int.Parse(ReadLine())));
     }
 
-    private static void RemoveDuplicates(LinkedList<int> dataList)
+    private static void RemoveConsecutiveDuplicates(LinkedList<int> dataList)
     {
         var seen = new HashSet<int>();
         var current = dataList.First;
