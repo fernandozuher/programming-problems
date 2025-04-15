@@ -11,14 +11,14 @@ typedef struct Node {
 
 Node *read_list();
 Node *allocate_node(int data);
-Node *remove_duplicates(Node *head);
+void remove_consecutive_duplicates(Node *head);
 void display(Node *head);
 Node *free_list(Node *head);
 
 int main()
 {
     Node *head = read_list();
-    head = remove_duplicates(head);
+    remove_consecutive_duplicates(head);
     display(head);
     free_list(head);
     return 0;
@@ -26,13 +26,15 @@ int main()
 
 Node *read_list()
 {
-    int n, data;
+    int n;
     scanf("%d", &n);
     Node *head = nullptr, *tail = nullptr;
 
     while (n--) {
+        int data;
         scanf("%d", &data);
         Node *new_node = allocate_node(data);
+
         if (head == nullptr) {
             head = new_node;
             tail = new_node;
@@ -52,7 +54,7 @@ Node *allocate_node(int data)
     return node;
 }
 
-Node *remove_duplicates(Node *head)
+void remove_consecutive_duplicates(Node *head)
 {
     for (Node *node = head; node->next != nullptr;) {
         if (node->data == node->next->data) {
@@ -62,7 +64,6 @@ Node *remove_duplicates(Node *head)
         } else
             node = node->next;
     }
-    return head;
 }
 
 void display(Node *head)
