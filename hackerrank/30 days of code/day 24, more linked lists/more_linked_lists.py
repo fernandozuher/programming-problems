@@ -1,65 +1,49 @@
 # https://www.hackerrank.com/challenges/30-linked-list-deletion/problem?isFullScreen=true
 
+from dataclasses import dataclass
+
+
 def main():
+    head = read_list()
+    remove_consecutive_duplicates(head)
+    display(head)
 
-    my_list = MoreLinkedLists()
-    n_tests = int(input())
+
+def read_list():
+    n = int(input())
     head = None
+    tail = None
 
-    for _ in range(n_tests):
-        data = int(input())
-        head = my_list.insert(head, data)
-
-    head = my_list.remove_duplicates(head)
-    my_list.display(head)
-
-
-class MoreLinkedLists:
-
-    def insert(self, head, data):
-
-        p = Node(data)
-
-        if head == None:
-            head = p
-        elif head.next == None:
-            head.next = p
+    for _ in range(0, n):
+        new_node = Node(int(input()))
+        if head is None:
+            head = tail = new_node
         else:
-            start = head
-            while start.next != None:
-                start = start.next
-            start.next = p
-
-        return head
+            tail.next = new_node
+            tail = new_node
+    return head
 
 
-    def remove_duplicates(self, head):
-
-        original = head
-
-        while head.next:
-            if head.data == head.next.data:
-                head.next = head.next.next
-            else:
-                head = head.next
-
-        return original
-
-
-    def display(self, head):
-
-        current = head
-        while current:
-            print(current.data, end=' ')
-            current = current.next
-
-
+@dataclass
 class Node:
+    data: int
+    next: 'Node' = None
 
-    def __init__(self, data):
 
-        self.data = data
-        self.next = None
+def remove_consecutive_duplicates(head):
+    node = head
+    while node and node.next:
+        if node.data == node.next.data:
+            node.next = node.next.next
+        else:
+            node = node.next
+
+
+def display(head):
+    node = head
+    while node:
+        print(node.data, end=' ')
+        node = node.next
 
 
 if __name__ == '__main__':
