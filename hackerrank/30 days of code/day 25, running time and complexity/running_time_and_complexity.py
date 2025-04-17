@@ -1,26 +1,32 @@
 # https://www.hackerrank.com/challenges/30-running-time-and-complexity/problem?isFullScreen=true
 
-import math
+from math import sqrt
+
 
 def main():
+    n_tests = int(input())
+    process_prime_tests(n_tests)
 
-    n = int(input())
-    for _ in range(n):
-        number = int(input())
 
-        if number == 1:
-            print("Not prime")
-            continue
+def process_prime_tests(n_tests):
+    for _ in range(n_tests):
+        n = int(input())
+        print('Prime' if is_prime(n) else 'Not prime')
 
-        i, limit = 2, math.sqrt(number)
-        while i <= limit:
-            if not (number % i):
-                print("Not prime")
-                break
-            i += 1
 
-        if i > limit:
-            print("Prime")
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+
+    limit = int(sqrt(n) + 1)
+    for divisor in range(3, limit, 2):
+        if n % divisor == 0:
+            return False
+    return True
 
 
 if __name__ == '__main__':

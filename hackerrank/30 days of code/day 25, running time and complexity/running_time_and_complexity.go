@@ -10,7 +10,10 @@ import (
 func main() {
     var nTests int
     fmt.Scan(&nTests)
+    processPrimeTests(nTests)
+}
 
+func processPrimeTests(nTests int) {
     for range nTests {
         var n int
         fmt.Scan(&n)
@@ -23,7 +26,7 @@ func main() {
 }
 
 func isPrime(n int) bool {
-    if n == 1 {
+    if n <= 1 {
         return false
     }
     if n == 2 {
@@ -33,8 +36,7 @@ func isPrime(n int) bool {
         return false
     }
 
-    limit := int(math.Sqrt(float64(n)))
-    for divisor := 3; divisor <= limit; divisor += 2 {
+    for divisor, limit := 3, int(math.Sqrt(float64(n))); divisor <= limit; divisor += 2 {
         if n%divisor == 0 {
             return false
         }

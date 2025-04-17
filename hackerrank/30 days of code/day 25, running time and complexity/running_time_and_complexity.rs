@@ -4,6 +4,10 @@ use text_io::read;
 
 fn main() {
     let n_tests: usize = read!();
+    process_prime_tests(n_tests);
+}
+
+fn process_prime_tests(n_tests: usize) {
     for _ in 0..n_tests {
         let n: usize = read!();
         if is_prime(n) {
@@ -15,7 +19,7 @@ fn main() {
 }
 
 fn is_prime(n: usize) -> bool {
-    if n == 1 {
+    if n <= 1 {
         return false;
     }
     if n == 2 {
