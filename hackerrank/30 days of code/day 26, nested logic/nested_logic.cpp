@@ -13,7 +13,7 @@ int calculate_fine(const date& returned_real_date, const date& due_date);
 
 int main()
 {
-    auto [returned_real_date, due_date] = read_dates();
+    auto [returned_real_date, due_date]{read_dates()};
     cout << calculate_fine(returned_real_date, due_date);
     return 0;
 }
@@ -31,9 +31,9 @@ tuple<date, date> read_dates()
 
 int calculate_fine(const date& returned_real_date, const date& due_date)
 {
-    constexpr int per_day = 15;
-    constexpr int per_month = 500;
-    constexpr int per_year = 10000;
+    constexpr int per_day{15};
+    constexpr int per_month{500};
+    constexpr int per_year{10000};
 
     if (returned_real_date <= due_date)
         return 0;
