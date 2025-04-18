@@ -1,67 +1,56 @@
 // https://www.hackerrank.com/challenges/30-nested-logic/problem?isFullScreen=true
 
 #include <iostream>
+#include <tuple>
+
 using namespace std;
 
-enum hackos_fine {
-    hackos_days_fine = 15,
-    hackos_months_fine = 500,
-    hackos_years_fine = 10000
+enum class Hackos_Fine {
+    per_day = 15,
+    per_month = 500,
+    per_year = 10000
 };
 
-struct date {
-    int day, month, year;
-};
+using date = struct date {
+    int day{}, month{}, year{};
 
-class Book_Return_Date {
-public:
-    Book_Return_Date(const date& returned_real_date, const date& due_date):
-        returned_real_date{returned_real_date}, due_date{due_date}
+    bool operator<=(const date& other) const
     {
-        calculate_fine();
-    }
-
-    int fine() const
-    {
-        return fine_amount;
-    }
-
-private:
-    date returned_real_date, due_date;
-    int fine_amount;
-
-    void calculate_fine()
-    {
-        if (returned_real_date.year < due_date.year)
-            fine_amount = 0;
-        else if (returned_real_date.year == due_date.year) {
-            if (returned_real_date.month < due_date.month)
-                fine_amount = 0;
-            else if (returned_real_date.month == due_date.month)
-                fine_amount = (returned_real_date.day < due_date.day) ? 0 : (returned_real_date.day - due_date.day) * hackos_days_fine;
-            else
-                fine_amount = (returned_real_date.month - due_date.month) * hackos_months_fine;
-        }
-        else
-            fine_amount = hackos_years_fine;
+        return tie(year, month, day) <= tie(other.year, other.month, other.day);
     }
 };
 
-void read_stdin_dates(date& returned_real_date, date& due_date);
+tuple<date, date> read_dates();
+bool has_book_returned_until_due_date(const date& returned_real_date, const date& due_date);
+int calculate_fine(const date& returned_real_date, const date& due_date);
 
 int main()
 {
-    date returned_real_date, due_date;
-    read_stdin_dates(returned_real_date, due_date);
-
-    Book_Return_Date book_return_date_obj(returned_real_date, due_date);
-    cout << book_return_date_obj.fine();
-
+    auto [returned_real_date, due_date] = read_dates();
+    cout << (has_book_returned_until_due_date(returned_real_date, due_date)
+                 ? 0
+                 : calculate_fine(returned_real_date, due_date));
     return 0;
 }
 
-void read_stdin_dates(date& returned_real_date, date& due_date)
+tuple<date, date> read_dates()
 {
-    cin >> returned_real_date.day >> returned_real_date.month >> returned_real_date.year
-        >> due_date.day >> due_date.month >> due_date.year;
+    date returned_real_date, due_date;
+    cin >> returned_real_date.day >> returned_real_date.month >> returned_real_date.year;
+    cin >> due_date.day >> due_date.month >> due_date.year;
+    return {returned_real_date, due_date};
+}
+
+bool has_book_returned_until_due_date(const date& returned_real_date, const date& due_date)
+{
+    return returned_real_date <= due_date;
+}
+
+int calculate_fine(const date& returned_real_date, const date& due_date)
+{
+    if (returned_real_date.year > due_date.year)
+        return static_cast<int>(Hackos_Fine::per_year);
+    if (returned_real_date.year == due_date.year && returned_real_date.month > due_date.month)
+        return (returned_real_date.month - due_date.month) * static_cast<int>(Hackos_Fine::per_month);
+    return (returned_real_date.day - due_date.day) * static_cast<int>(Hackos_Fine::per_day);
 }
