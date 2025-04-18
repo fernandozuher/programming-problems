@@ -1,27 +1,14 @@
 // https://www.hackerrank.com/challenges/30-nested-logic/problem?isFullScreen=true
+// C++20
 
+#include <chrono>
 #include <iostream>
 #include <tuple>
 
 using namespace std;
 
-enum class Hackos_Fine {
-    per_day = 15,
-    per_month = 500,
-    per_year = 10000
-};
-
-using date = struct date {
-    int day{}, month{}, year{};
-
-    bool operator<=(const date& other) const
-    {
-        return tie(year, month, day) <= tie(other.year, other.month, other.day);
-    }
-};
-
-tuple<date, date> read_dates();
-int calculate_fine(const date& returned_real_date, const date& due_date);
+tuple<chrono::year_month_day, chrono::year_month_day> read_dates();
+int calculate_fine(const chrono::year_month_day& returned_real_date, const chrono::year_month_day& due_date);
 
 int main()
 {
@@ -30,19 +17,25 @@ int main()
     return 0;
 }
 
-tuple<date, date> read_dates()
+tuple<chrono::year_month_day, chrono::year_month_day> read_dates()
 {
-    date returned_real_date, due_date;
-    cin >> returned_real_date.day >> returned_real_date.month >> returned_real_date.year;
-    cin >> due_date.day >> due_date.month >> due_date.year;
-    return {returned_real_date, due_date};
+    int d1, m1, y1, d2, m2, y2;
+    cin >> d1 >> m1 >> y1;
+    cin >> d2 >> m2 >> y2;
+    return {
+        chrono::year_month_day{chrono::year{y1}, chrono::month(m1), chrono::day(d1)},
+        chrono::year_month_day{chrono::year{y2}, chrono::month(m2), chrono::day(d2)}
+    };
 }
 
-int calculate_fine(const date& returned_real_date, const date& due_date)
+int calculate_fine(const chrono::year_month_day& returned_real_date, const chrono::year_month_day& due_date)
 {
-    if (returned_real_date.year > due_date.year)
-        return static_cast<int>(Hackos_Fine::per_year);
-    if (returned_real_date.year == due_date.year && returned_real_date.month > due_date.month)
-        return (returned_real_date.month - due_date.month) * static_cast<int>(Hackos_Fine::per_month);
-    return (returned_real_date.day - due_date.day) * static_cast<int>(Hackos_Fine::per_day);
+    constexpr int per_day = 15,
+            per_month = 500,
+            per_year = 10000;
+    if (returned_real_date.year() > due_date.year())
+        return per_year;
+    if (returned_real_date.year() == due_date.year() && returned_real_date.month() > due_date.month())
+        return static_cast<int>((returned_real_date.month() - due_date.month()).count()) * per_month;
+    return static_cast<int>((returned_real_date.day() - due_date.day()).count()) * per_day;
 }
