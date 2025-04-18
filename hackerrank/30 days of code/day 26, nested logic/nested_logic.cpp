@@ -21,15 +21,12 @@ using date = struct date {
 };
 
 tuple<date, date> read_dates();
-bool has_book_returned_until_due_date(const date& returned_real_date, const date& due_date);
 int calculate_fine(const date& returned_real_date, const date& due_date);
 
 int main()
 {
     auto [returned_real_date, due_date] = read_dates();
-    cout << (has_book_returned_until_due_date(returned_real_date, due_date)
-                 ? 0
-                 : calculate_fine(returned_real_date, due_date));
+    cout << (returned_real_date <= due_date ? 0 : calculate_fine(returned_real_date, due_date));
     return 0;
 }
 
@@ -39,11 +36,6 @@ tuple<date, date> read_dates()
     cin >> returned_real_date.day >> returned_real_date.month >> returned_real_date.year;
     cin >> due_date.day >> due_date.month >> due_date.year;
     return {returned_real_date, due_date};
-}
-
-bool has_book_returned_until_due_date(const date& returned_real_date, const date& due_date)
-{
-    return returned_real_date <= due_date;
 }
 
 int calculate_fine(const date& returned_real_date, const date& due_date)
