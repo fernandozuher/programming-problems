@@ -30,7 +30,7 @@ date read_date()
 
 int calculate_fine(const date& returned_real_date, const date& due_date)
 {
-    int fine = late_by_year(returned_real_date, due_date);
+    int fine{late_by_year(returned_real_date, due_date)};
     if (fine)
         return fine;
 
