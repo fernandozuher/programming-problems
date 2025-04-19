@@ -7,52 +7,97 @@ typedef struct date_struct {
     int day, month, year;
 } date;
 
-void read_dates(date dates[]);
-int calculate_fine(const date dates[]);
+date read_date();
+
 bool is_book_returned_until_due_date(const date *returned_real_date, const date *due_date);
+bool is_in_advance_by_year(const date *returned_real_date, const date *due_date);
+bool is_in_advance_by_month(const date *returned_real_date, const date *due_date);
+bool is_until_due_date(const date *returned_real_date, const date *due_date);
+
+int calculate_fine(const date *returned_real_date, const date *due_date);
+int late_by_year(const date *returned_real_date, const date *due_date);
+int late_by_month(const date *returned_real_date, const date *due_date);
+int late_by_day(const date *returned_real_date, const date *due_date);
 
 int main()
 {
-    date dates[2];
-    read_dates(dates);
-    printf("%d\n", calculate_fine(dates));
+    date returned_real_date = read_date();
+    date due_date = read_date();
+    int fine = is_book_returned_until_due_date(&returned_real_date, &due_date)
+                   ? 0
+                   : calculate_fine(&returned_real_date, &due_date);
+    printf("%d\n", fine);
+
     return 0;
 }
 
-void read_dates(date dates[])
+date read_date()
 {
-    scanf("%d %d %d", &dates[0].day, &dates[0].month, &dates[0].year);
-    scanf("%d %d %d", &dates[1].day, &dates[1].month, &dates[1].year);
-}
-
-int calculate_fine(const date dates[])
-{
-    auto returned_real_date = dates[0];
-    auto due_date = dates[1];
-
-    if (is_book_returned_until_due_date(&returned_real_date, &due_date))
-        return 0;
-
-    constexpr int per_year = 10000;
-    if (returned_real_date.year > due_date.year)
-        return per_year;
-
-    constexpr int per_month = 500;
-    if (returned_real_date.year == due_date.year && returned_real_date.month > due_date.month)
-        return (returned_real_date.month - due_date.month) * per_month;
-
-    // else is late by day
-    constexpr int per_day = 15;
-    return (returned_real_date.day - due_date.day) * per_day;
+    date x;
+    scanf("%d %d %d", &x.day, &x.month, &x.year);
+    return x;
 }
 
 bool is_book_returned_until_due_date(const date *returned_real_date, const date *due_date)
 {
-    bool is_in_advance_by_year = returned_real_date->year < due_date->year;
-    bool is_in_advance_by_month = returned_real_date->year == due_date->year
-                                  && returned_real_date->month < due_date->month;
-    bool is_until_due_date = returned_real_date->year == due_date->year
-                             && returned_real_date->month == due_date->month
-                             && returned_real_date->day <= due_date->day;
-    return is_in_advance_by_year || is_in_advance_by_month || is_until_due_date;
+    return is_in_advance_by_year(returned_real_date, due_date)
+           || is_in_advance_by_month(returned_real_date, due_date)
+           || is_until_due_date(returned_real_date, due_date);
+}
+
+bool is_in_advance_by_year(const date *returned_real_date, const date *due_date)
+{
+    return returned_real_date->year < due_date->year;
+}
+
+bool is_in_advance_by_month(const date *returned_real_date, const date *due_date)
+{
+    return returned_real_date->year == due_date->year && returned_real_date->month < due_date->month;
+}
+
+bool is_until_due_date(const date *returned_real_date, const date *due_date)
+{
+    return returned_real_date->year == due_date->year && returned_real_date->month == due_date->month
+           && returned_real_date->day <= due_date->day;
+}
+
+int calculate_fine(const date *returned_real_date, const date *due_date)
+{
+    int fine = late_by_year(returned_real_date, due_date);
+    if (fine)
+        return fine;
+
+    fine = late_by_month(returned_real_date, due_date);
+    if (fine)
+        return fine;
+
+    return late_by_day(returned_real_date, due_date);
+}
+
+int late_by_year(const date *returned_real_date, const date *due_date)
+{
+    if (returned_real_date->year > due_date->year) {
+        constexpr int per_year = 10000;
+        return per_year;
+    }
+    return 0;
+}
+
+int late_by_month(const date *returned_real_date, const date *due_date)
+{
+    if (returned_real_date->year == due_date->year && returned_real_date->month > due_date->month) {
+        constexpr int per_month = 500;
+        return (returned_real_date->month - due_date->month) * per_month;
+    }
+    return 0;
+}
+
+int late_by_day(const date *returned_real_date, const date *due_date)
+{
+    if (returned_real_date->year == due_date->year && returned_real_date->month == due_date->month
+        && returned_real_date->day > due_date->day) {
+        constexpr int per_day = 15;
+        return (returned_real_date->day - due_date->day) * per_day;
+    }
+    return 0;
 }
