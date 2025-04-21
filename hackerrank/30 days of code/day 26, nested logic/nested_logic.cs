@@ -1,65 +1,64 @@
 // https://www.hackerrank.com/challenges/30-nested-logic/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using static System.Console;
 
 public class Solution
 {
     public static void Main()
     {
-        DateTime returnedRealDate, dueDate;
-        _readStdinDates(out returnedRealDate, out dueDate);
-        var bookReturnDate = new BookReturnDate(returnedRealDate, dueDate);
-        Console.WriteLine(bookReturnDate.Fine());
+        DateTime returnedRealDate = ReadDate();
+        DateTime dueDate = ReadDate();
+        WriteLine(returnedRealDate <= dueDate ? 0 : CalculateFine(returnedRealDate, dueDate));
     }
 
-        private static void _readStdinDates(out DateTime returnedRealDate, out DateTime dueDate)
-        {
-            List<int> numbers = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
-            returnedRealDate = new DateTime(numbers[2], numbers[1], numbers[0]);
-
-            numbers = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
-            dueDate = new DateTime(numbers[2], numbers[1], numbers[0]);
-        }
-}
-
-    public class BookReturnDate
+    private static DateTime ReadDate()
     {
-        private DateTime _returnedRealDate, _dueDate;
-        private int _fine;
-
-        public BookReturnDate(DateTime returnedRealDate, DateTime dueDate)
-        {
-            _returnedRealDate = returnedRealDate;
-            _dueDate = dueDate;
-            _calculateFine();
-        }
-
-            private void _calculateFine()
-            {
-                if (_returnedRealDate <= _dueDate)
-                    _fine = 0;
-                else if (_returnedRealDate.Year == _dueDate.Year)
-                {
-                    if (_returnedRealDate.Month == _dueDate.Month)
-                        _fine = (_returnedRealDate.Day - _dueDate.Day) * (int) HackosFine.HackosDaysFine;
-                    else
-                        _fine = (_returnedRealDate.Month - _dueDate.Month) * (int) HackosFine.HackosMonthsFine;
-                }
-                else
-                    _fine = (int) HackosFine.HackosYearsFine;
-            }
-
-        public int Fine()
-        {
-            return _fine;
-        }
+        var dateParts = ReadLine().Split(" ").Select(int.Parse).ToArray();
+        int day = dateParts[0], month = dateParts[1], year = dateParts[2];
+        return new DateTime(year, month, day);
     }
 
-        enum HackosFine
+    private static int CalculateFine(DateTime returnedRealDate, DateTime dueDate)
+    {
+        int fine = LateByYear(returnedRealDate, dueDate);
+        if (fine != 0)
+            return fine;
+
+        fine = LateByMonth(returnedRealDate, dueDate);
+        if (fine != 0)
+            return fine;
+
+        return LateByDay(returnedRealDate, dueDate);
+    }
+
+    private static int LateByYear(DateTime returnedRealDate, DateTime dueDate)
+    {
+        if (returnedRealDate.Year > dueDate.Year)
         {
-            HackosDaysFine = 15,
-            HackosMonthsFine = 500,
-            HackosYearsFine = 10000
+            const int perYear = 10000;
+            return perYear;
         }
+        return 0;
+    }
+
+    private static int LateByMonth(DateTime returnedRealDate, DateTime dueDate)
+    {
+        if (returnedRealDate.Year == dueDate.Year && returnedRealDate.Month > dueDate.Month)
+        {
+            const int perMonth = 500;
+            return (returnedRealDate.Month - dueDate.Month) * perMonth;
+        }
+        return 0;
+    }
+
+    private static int LateByDay(DateTime returnedRealDate, DateTime dueDate)
+    {
+        if (returnedRealDate.Year == dueDate.Year && returnedRealDate.Month == dueDate.Month &&
+            returnedRealDate.Day > dueDate.Day)
+        {
+            const int perDay = 15;
+            return (returnedRealDate.Day - dueDate.Day) * perDay;
+        }
+        return 0;
+    }
+}
