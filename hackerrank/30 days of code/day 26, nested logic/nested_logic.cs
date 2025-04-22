@@ -8,7 +8,10 @@ public class Solution
     {
         DateTime returnedRealDate = ReadDate();
         DateTime dueDate = ReadDate();
-        WriteLine(returnedRealDate <= dueDate ? 0 : CalculateFine(returnedRealDate, dueDate));
+        if (returnedRealDate <= dueDate)
+            WriteLine(0);
+        else
+            WriteLine(new FineOnDelay(returnedRealDate, dueDate).Fine);
     }
 
     private static DateTime ReadDate()
@@ -17,48 +20,56 @@ public class Solution
         int day = dateParts[0], month = dateParts[1], year = dateParts[2];
         return new DateTime(year, month, day);
     }
+}
 
-    private static int CalculateFine(DateTime returnedRealDate, DateTime dueDate)
+public class FineOnDelay
+{
+    private static readonly int _finePerYear = 10000;
+    private static readonly int _finePerMonth = 500;
+    private static readonly int _finePerDay = 15;
+
+    private readonly DateTime _returnedRealDate;
+    private readonly DateTime _dueDate;
+    public int Fine { get; }
+
+    public FineOnDelay(DateTime returnedRealDate, DateTime dueDate)
     {
-        int fine = LateByYear(returnedRealDate, dueDate);
+        _returnedRealDate = returnedRealDate;
+        _dueDate = dueDate;
+        Fine = CalculateFine();
+    }
+
+    private int CalculateFine()
+    {
+        int fine = LateByYear();
         if (fine != 0)
             return fine;
 
-        fine = LateByMonth(returnedRealDate, dueDate);
+        fine = LateByMonth();
         if (fine != 0)
             return fine;
 
-        return LateByDay(returnedRealDate, dueDate);
+        return LateByDay();
     }
 
-    private static int LateByYear(DateTime returnedRealDate, DateTime dueDate)
+    private int LateByYear()
     {
-        if (returnedRealDate.Year > dueDate.Year)
-        {
-            const int perYear = 10000;
-            return perYear;
-        }
+        if (_returnedRealDate.Year > _dueDate.Year)
+            return _finePerYear;
         return 0;
     }
 
-    private static int LateByMonth(DateTime returnedRealDate, DateTime dueDate)
+    private int LateByMonth()
     {
-        if (returnedRealDate.Year == dueDate.Year && returnedRealDate.Month > dueDate.Month)
-        {
-            const int perMonth = 500;
-            return (returnedRealDate.Month - dueDate.Month) * perMonth;
-        }
+        if (_returnedRealDate.Year == _dueDate.Year && _returnedRealDate.Month > _dueDate.Month)
+            return (_returnedRealDate.Month - _dueDate.Month) * _finePerMonth;
         return 0;
     }
 
-    private static int LateByDay(DateTime returnedRealDate, DateTime dueDate)
+    private int LateByDay()
     {
-        if (returnedRealDate.Year == dueDate.Year && returnedRealDate.Month == dueDate.Month &&
-            returnedRealDate.Day > dueDate.Day)
-        {
-            const int perDay = 15;
-            return (returnedRealDate.Day - dueDate.Day) * perDay;
-        }
+        if (_returnedRealDate.Year == _dueDate.Year && _returnedRealDate.Month == _dueDate.Month && _returnedRealDate.Day > _dueDate.Day)
+            return (_returnedRealDate.Day - _dueDate.Day) * _finePerDay;
         return 0;
     }
 }
