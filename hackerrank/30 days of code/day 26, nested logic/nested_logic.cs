@@ -24,9 +24,9 @@ public class Solution
 
 public class FineOnDelay
 {
-    private static readonly int _finePerYear = 10000;
-    private static readonly int _finePerMonth = 500;
-    private static readonly int _finePerDay = 15;
+    private static readonly int s_finePerYear = 10000;
+    private static readonly int s_finePerMonth = 500;
+    private static readonly int s_finePerDay = 15;
 
     private readonly DateTime _returnedRealDate;
     private readonly DateTime _dueDate;
@@ -55,21 +55,21 @@ public class FineOnDelay
     private int LateByYear()
     {
         if (_returnedRealDate.Year > _dueDate.Year)
-            return _finePerYear;
+            return s_finePerYear;
         return 0;
     }
 
     private int LateByMonth()
     {
         if (_returnedRealDate.Year == _dueDate.Year && _returnedRealDate.Month > _dueDate.Month)
-            return (_returnedRealDate.Month - _dueDate.Month) * _finePerMonth;
+            return (_returnedRealDate.Month - _dueDate.Month) * s_finePerMonth;
         return 0;
     }
 
     private int LateByDay()
     {
         if (_returnedRealDate.Year == _dueDate.Year && _returnedRealDate.Month == _dueDate.Month && _returnedRealDate.Day > _dueDate.Day)
-            return (_returnedRealDate.Day - _dueDate.Day) * _finePerDay;
+            return (_returnedRealDate.Day - _dueDate.Day) * s_finePerDay;
         return 0;
     }
 }
