@@ -9,93 +9,100 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
-function readLine(): string {
-    return inputLines[currentLine++];
-}
+//////////////////////////////////////////////////
 
 function main() {
-    let returnedRealDate: DateThatWorks = formatStringDate(readLine());
-    let dueDate: DateThatWorks = formatStringDate(readLine());
-    let bookReturnDateObj: BookReturnDate = new BookReturnDate(returnedRealDate, dueDate);
-    console.log(bookReturnDateObj.fine());
+  const returnedDate: Date = readDate();
+  const dueDate: Date = readDate();
+  const fine =
+    returnedDate <= dueDate ? 0 : new FineOnDelay(returnedDate, dueDate).fine;
+  console.log(fine);
 }
 
-    function formatStringDate(input: string) {
-        let numbers: number[] = input.split(' ').map(Number);
-        let date: DateThatWorks = new DateThatWorks(numbers[0], numbers[1], numbers[2]);
-        return date;
-    }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
-    class DateThatWorks {
-        private dayValue: number;
-        private monthValue: number;
-        private yearValue: number;
+function readDate(): Date {
+  const [day, month, year] = readLine().split(' ').map(Number);
+  return new Date(year, month - 1, day);
+}
 
-        public constructor(day: number, month: number, year: number) {
-            this.dayValue = day;
-            this.monthValue = month;
-            this.yearValue = year;
-        }
+class FineOnDelay {
+  private static FINE_PER_YEAR = 10000;
+  private static FINE_PER_MONTH = 500;
+  private static FINE_PER_DAY = 15;
 
-        public day(): number {
-            return this.dayValue;
-        }
+  private readonly returnedDate: Date;
+  private readonly dueDate: Date;
+  private readonly fineValue: number;
 
-        public month(): number {
-            return this.monthValue;
-        }
+  constructor(returnedDate: Date, dueDate: Date) {
+    this.returnedDate = returnedDate;
+    this.dueDate = dueDate;
+    this.fineValue = this.calculateFine();
+  }
 
-        public year(): number {
-            return this.yearValue;
-        }
-    }
+  private calculateFine(): number {
+    let fine: number = this.lateByYear();
+    if (fine !== 0) return fine;
 
-    class BookReturnDate {
-        private returnedRealDate: DateThatWorks | null;
-        private dueDate: DateThatWorks | null;
-        private fineAmount: number | null;
+    fine = this.lateByMonth();
+    if (fine !== 0) return fine;
 
-        public constructor(returnedRealDate: DateThatWorks, dueDate: DateThatWorks) {
-            this.returnedRealDate = returnedRealDate;
-            this.dueDate = dueDate;
-            this.calculateFine();
-        }
+    return this.lateByDay();
+  }
 
-            private calculateFine() {
-                if (this.returnedRealDate.year() < this.dueDate.year())
-                    this.fineAmount = 0;
-                else if (this.returnedRealDate.year() === this.dueDate.year()) {
-                    if (this.returnedRealDate.month() < this.dueDate.month())
-                        this.fineAmount = 0;
-                    else if (this.returnedRealDate.month() === this.dueDate.month()) {
-                        if (this.returnedRealDate.day() < this.dueDate.day())
-                            this.fineAmount = 0;
-                        else
-                            this.fineAmount = (this.returnedRealDate.day() - this.dueDate.day()) * HackosFine.HackosDaysFine;
-                    }
-                    else
-                        this.fineAmount = (this.returnedRealDate.month() - this.dueDate.month()) * HackosFine.HackosMonthsFine;
-                } else
-                    this.fineAmount = HackosFine.HackosYearsFine;
-            }
+  private lateByYear(): number {
+    return this.returnedDate.getFullYear() > this.dueDate.getFullYear()
+      ? FineOnDelay.FINE_PER_YEAR
+      : 0;
+  }
 
-        public fine(): number {
-            return this.fineAmount;
-        }
-    }
+  private lateByMonth(): number {
+    if (
+      this.isSameYear() ||
+      this.returnedDate.getMonth() > this.dueDate.getMonth()
+    )
+      return (
+        (this.returnedDate.getMonth() - this.dueDate.getMonth()) *
+        FineOnDelay.FINE_PER_MONTH
+      );
+    return 0;
+  }
 
-        enum HackosFine {
-            HackosDaysFine = 15,
-            HackosMonthsFine = 500,
-            HackosYearsFine = 10000
-        }
+  private isSameYear(): boolean {
+    return this.returnedDate.getFullYear() === this.dueDate.getFullYear();
+  }
+
+  private lateByDay(): number {
+    if (
+      this.isSameYear() &&
+      this.isSameMonth() &&
+      this.returnedDate.getDate() > this.dueDate.getDate()
+    )
+      return (
+        (this.returnedDate.getDate() - this.dueDate.getDate()) *
+        FineOnDelay.FINE_PER_DAY
+      );
+    return 0;
+  }
+
+  private isSameMonth(): boolean {
+    return this.returnedDate.getMonth() === this.dueDate.getMonth();
+  }
+
+  get fine(): number {
+    return this.fineValue;
+  }
+}

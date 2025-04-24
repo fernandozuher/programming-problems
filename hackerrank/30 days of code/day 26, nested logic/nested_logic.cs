@@ -1,22 +1,18 @@
 // https://www.hackerrank.com/challenges/30-nested-logic/problem?isFullScreen=true
 
-using static System.Console;
-
 public class Solution
 {
     public static void Main()
     {
-        DateTime returnedRealDate = ReadDate();
+        DateTime returnedDate = ReadDate();
         DateTime dueDate = ReadDate();
-        if (returnedRealDate <= dueDate)
-            WriteLine(0);
-        else
-            WriteLine(new FineOnDelay(returnedRealDate, dueDate).Fine);
+        int fine = returnedDate <= dueDate ? 0 : (new FineOnDelay(returnedDate, dueDate).Fine);
+        Console.WriteLine(fine);
     }
 
     private static DateTime ReadDate()
     {
-        var dateParts = ReadLine().Split(" ").Select(int.Parse).ToArray();
+        var dateParts = Console.ReadLine().Split(" ").Select(int.Parse).ToArray();
         int day = dateParts[0], month = dateParts[1], year = dateParts[2];
         return new DateTime(year, month, day);
     }
@@ -28,13 +24,13 @@ public class FineOnDelay
     private static readonly int s_finePerMonth = 500;
     private static readonly int s_finePerDay = 15;
 
-    private readonly DateTime _returnedRealDate;
+    private readonly DateTime _returnedDate;
     private readonly DateTime _dueDate;
     public int Fine { get; }
 
-    public FineOnDelay(DateTime returnedRealDate, DateTime dueDate)
+    public FineOnDelay(DateTime returnedDate, DateTime dueDate)
     {
-        _returnedRealDate = returnedRealDate;
+        _returnedDate = returnedDate;
         _dueDate = dueDate;
         Fine = CalculateFine();
     }
@@ -54,22 +50,32 @@ public class FineOnDelay
 
     private int LateByYear()
     {
-        if (_returnedRealDate.Year > _dueDate.Year)
+        if (_returnedDate.Year > _dueDate.Year)
             return s_finePerYear;
         return 0;
     }
 
     private int LateByMonth()
     {
-        if (_returnedRealDate.Year == _dueDate.Year && _returnedRealDate.Month > _dueDate.Month)
-            return (_returnedRealDate.Month - _dueDate.Month) * s_finePerMonth;
+        if (IsSameYear() && _returnedDate.Month > _dueDate.Month)
+            return (_returnedDate.Month - _dueDate.Month) * s_finePerMonth;
         return 0;
+    }
+
+    private bool IsSameYear()
+    {
+        return _returnedDate.Year == _dueDate.Year;
     }
 
     private int LateByDay()
     {
-        if (_returnedRealDate.Year == _dueDate.Year && _returnedRealDate.Month == _dueDate.Month && _returnedRealDate.Day > _dueDate.Day)
-            return (_returnedRealDate.Day - _dueDate.Day) * s_finePerDay;
+        if (IsSameYear() && IsSameMonth() && _returnedDate.Day > _dueDate.Day)
+            return (_returnedDate.Day - _dueDate.Day) * s_finePerDay;
         return 0;
+    }
+
+    private bool IsSameMonth()
+    {
+        return _returnedDate.Month == _dueDate.Month;
     }
 }

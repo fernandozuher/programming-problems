@@ -6,12 +6,10 @@ import java.time.LocalDate;
 class Solution {
     public static void main(String[] args) {
         try (var scan = new Scanner(System.in)) {
-            LocalDate returnedRealDate = readDate(scan);
+            LocalDate returnedDate = readDate(scan);
             LocalDate dueDate = readDate(scan);
-            if (!returnedRealDate.isAfter(dueDate))
-                System.out.println(0);
-            else
-                System.out.println(new FineOnDelay(returnedRealDate, dueDate).fine());
+            int fine = !returnedDate.isAfter(dueDate) ? 0 : new FineOnDelay(returnedDate, dueDate).fine();
+            System.out.println(fine);
         }
     }
 
@@ -27,12 +25,12 @@ class FineOnDelay {
     private static final int FINE_PER_MONTH = 500;
     private static final int FINE_PER_DAY = 15;
 
-    private final LocalDate returnedRealDate;
+    private final LocalDate returnedDate;
     private final LocalDate dueDate;
-    private int fineValue;
+    private final int fineValue;
 
-    public FineOnDelay(LocalDate returnedRealDate, LocalDate dueDate) {
-        this.returnedRealDate = returnedRealDate;
+    public FineOnDelay(LocalDate returnedDate, LocalDate dueDate) {
+        this.returnedDate = returnedDate;
         this.dueDate = dueDate;
         fineValue = calculateFine();
     }
@@ -50,23 +48,29 @@ class FineOnDelay {
     }
 
     private int lateByYear() {
-        if (returnedRealDate.getYear() > dueDate.getYear())
+        if (returnedDate.getYear() > dueDate.getYear())
             return FINE_PER_YEAR;
         return 0;
     }
 
     private int lateByMonth() {
-        if (returnedRealDate.getYear() == dueDate.getYear() && returnedRealDate.getMonthValue() > dueDate.getMonthValue())
-            return (returnedRealDate.getMonthValue() - dueDate.getMonthValue()) * FINE_PER_MONTH;
+        if (isSameYear() && returnedDate.getMonthValue() > dueDate.getMonthValue())
+            return (returnedDate.getMonthValue() - dueDate.getMonthValue()) * FINE_PER_MONTH;
         return 0;
     }
 
+    private boolean isSameYear() {
+        return returnedDate.getYear() == dueDate.getYear();
+    }
+
     private int lateByDay() {
-        if (returnedRealDate.getYear() == dueDate.getYear()
-                && returnedRealDate.getMonthValue() == dueDate.getMonthValue()
-                && returnedRealDate.getDayOfMonth() > dueDate.getDayOfMonth())
-            return (returnedRealDate.getDayOfMonth() - dueDate.getDayOfMonth()) * FINE_PER_DAY;
+        if (isSameYear() && isSameMonth() && returnedDate.getDayOfMonth() > dueDate.getDayOfMonth())
+            return (returnedDate.getDayOfMonth() - dueDate.getDayOfMonth()) * FINE_PER_DAY;
         return 0;
+    }
+
+    private boolean isSameMonth() {
+        return returnedDate.getMonthValue() == dueDate.getMonthValue();
     }
 
     public int fine() {

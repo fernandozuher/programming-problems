@@ -9,96 +9,100 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
-function readLine() {
-    return inputLines[currentLine++];
-}
+//////////////////////////////////////////////////
 
 function main() {
-    let [returnedRealDate, dueDate] = readStdinDates();
-    let bookReturnDate = new BookReturnDate(returnedRealDate, dueDate);
-    console.log(bookReturnDate.fine());
+  const returnedDate = readDate();
+  const dueDate = readDate();
+  const fine =
+    returnedDate <= dueDate ? 0 : new FineOnDelay(returnedDate, dueDate).fine;
+  console.log(fine);
 }
 
-    function readStdinDates() {
-        let numbers = readLine().split(' ').map(Number);
-        let returnedRealDate = new DateThatWorks(...numbers);
-        
-        numbers = readLine().split(' ').map(Number);
-        let dueDate = new DateThatWorks(...numbers);
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-        return [returnedRealDate, dueDate];
-    }
+function readDate() {
+  const [day, month, year] = readLine().split(' ').map(Number);
+  return new Date(year, month - 1, day);
+}
 
-        class DateThatWorks {
-            #day = 0;
-            #month = 0;
-            #year = 0;
+class FineOnDelay {
+  static #FINE_PER_YEAR = 10000;
+  static #FINE_PER_MONTH = 500;
+  static #FINE_PER_DAY = 15;
 
-            constructor(day, month, year) {
-                this.#day = day;
-                this.#month = month;
-                this.#year = year;
-            }
+  #returnedDate;
+  #dueDate;
+  #fine;
 
-            day() {
-                return this.#day;
-            }
+  constructor(returnedDate, dueDate) {
+    this.#returnedDate = returnedDate;
+    this.#dueDate = dueDate;
+    this.#fine = this.#calculateFine();
+  }
 
-            month() {
-                return this.#month;
-            }
+  #calculateFine() {
+    let fine = this.#lateByYear();
+    if (fine !== 0) return fine;
 
-            year() {
-                return this.#year;
-            }
-        }
+    fine = this.#lateByMonth();
+    if (fine !== 0) return fine;
 
-    class BookReturnDate {
-        #returnedRealDate = Object;
-        #dueDate = Object;
-        #fine = 0;
+    return this.#lateByDay();
+  }
 
-        constructor(returnedRealDate, dueDate) {
-            this.#returnedRealDate = returnedRealDate;
-            this.#dueDate = dueDate;
-            this.#calculateFine();
-        }
+  #lateByYear() {
+    if (this.#returnedDate.getFullYear() > this.#dueDate.getFullYear())
+      return FineOnDelay.#FINE_PER_YEAR;
+    return 0;
+  }
 
-            #calculateFine() {
-                if (this.#returnedRealDate.year() < this.#dueDate.year())
-                    this.#fine = 0;
-                else if (this.#returnedRealDate.year() === this.#dueDate.year()) {
-                    if (this.#returnedRealDate.month() < this.#dueDate.month())
-                        this.#fine = 0;
-                    else if (this.#returnedRealDate.month() === this.#dueDate.month()) {
-                        if (this.#returnedRealDate.day() < this.#dueDate.day())
-                            this.#fine = 0;
-                        else
-                            this.#fine = (this.#returnedRealDate.day() - this.#dueDate.day()) * HackosFine.HackosDaysFine;
-                    }
-                    else
-                        this.#fine = (this.#returnedRealDate.month() - this.#dueDate.month()) * HackosFine.HackosMonthsFine;
-                } else
-                    this.#fine = HackosFine.HackosYearsFine;
-            }
+  #lateByMonth() {
+    if (
+      this.#isSameYear() &&
+      this.#returnedDate.getMonth() > this.#dueDate.getMonth()
+    )
+      return (
+        (this.#returnedDate.getMonth() - this.#dueDate.getMonth()) *
+        FineOnDelay.#FINE_PER_MONTH
+      );
+    return 0;
+  }
 
-        fine() {
-            return this.#fine;
-        }
-    }
+  #isSameYear() {
+    return this.#returnedDate.getFullYear() === this.#dueDate.getFullYear();
+  }
 
-        const HackosFine = Object.freeze({
-            HackosDaysFine: 15,
-            HackosMonthsFine: 500,
-            HackosYearsFine: 10000
-        });
+  #lateByDay() {
+    if (
+      this.#isSameYear() &&
+      this.#isSameMonth() &&
+      this.#returnedDate.getDate() > this.#dueDate.getDate()
+    )
+      return (
+        (this.#returnedDate.getDate() - this.#dueDate.getDate()) *
+        FineOnDelay.#FINE_PER_DAY
+      );
+    return 0;
+  }
+
+  #isSameMonth() {
+    return this.#returnedDate.getMonth() === this.#dueDate.getMonth();
+  }
+
+  get fine() {
+    return this.#fine;
+  }
+}
