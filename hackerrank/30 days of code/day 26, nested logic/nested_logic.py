@@ -1,59 +1,63 @@
 # https://www.hackerrank.com/challenges/30-nested-logic/problem?isFullScreen=true
 
-from enum import Enum
-import datetime
+from datetime import datetime
+
 
 def main():
-
-    returned_real_date, due_date = read_stdin_dates()
-    book_return_date = BookReturnDate(returned_real_date, due_date)
-    print(book_return_date.fine())
-
-
-def read_stdin_dates():
-
-    day1, month1, year1 = map(int, input().split())
-    day2, month2, year2 = map(int, input().split())
-
-    returned_real_date = datetime.datetime(year1, month1, day1)
-    due_date = datetime.datetime(year2, month2, day2)
-
-    return [returned_real_date, due_date]
+    returned_date = read_date()
+    due_date = read_date()
+    fine = 0 if returned_date <= due_date else FineOnDelay(returned_date, due_date).fine()
+    print(fine)
 
 
-class BookReturnDate:
-
-    def __init__(self, returned_real_date, due_date):
-
-        self._returned_real_date, self._due_date = returned_real_date, due_date
-        self._fine = 0
-        self._calculate_fine()
+def read_date():
+    day, month, year = map(int, input().split())
+    return datetime(year, month, day)
 
 
-    def _calculate_fine(self):
+class FineOnDelay:
+    FINE_PER_YEAR = 10000
+    FINE_PER_MONTH = 500
+    FINE_PER_DAY = 15
 
-        if self._returned_real_date <= self._due_date:
-            self._fine = 0
-        elif self._returned_real_date.year == self._due_date.year:
-            if self._returned_real_date.month == self._due_date.month:
-                self._fine = (self._returned_real_date.day - self._due_date.day) * HackosFine.hackos_days_fine.value
-            else:
-                self._fine = (self._returned_real_date.month - self._due_date.month) * HackosFine.hackos_months_fine.value
-        else:
-            self._fine = HackosFine.hackos_years_fine.value
-        return self._fine
+    def __init__(self, returned_date, due_date):
+        self.__returned_date, self.__due_date = returned_date, due_date
+        self.__fine = self.__calculate_fine()
 
+    def __calculate_fine(self):
+        fine = self.__late_by_year()
+        if fine:
+            return fine
+
+        fine = self.__late_by_month()
+        if fine:
+            return fine
+
+        return self.__late_by_day()
+
+    def __late_by_year(self):
+        if self.__returned_date.year > self.__due_date.year:
+            return FineOnDelay.FINE_PER_YEAR
+        return 0
+
+    def __late_by_month(self):
+        if self.__is_same_year() and self.__returned_date.month > self.__due_date.month:
+            return (self.__returned_date.month - self.__due_date.month) * FineOnDelay.FINE_PER_MONTH
+        return 0
+
+    def __is_same_year(self):
+        return self.__returned_date.year == self.__due_date.year
+
+    def __late_by_day(self):
+        if self.__is_same_year() and self.__is_same_month() and self.__returned_date.day > self.__due_date.day:
+            return (self.__returned_date.day - self.__due_date.day) * FineOnDelay.FINE_PER_DAY
+        return 0
+
+    def __is_same_month(self):
+        return self.__returned_date.month == self.__due_date.month
 
     def fine(self):
-
-        return self._fine
-
-
-class HackosFine(Enum):
-
-    hackos_days_fine = 15
-    hackos_months_fine = 500
-    hackos_years_fine = 10000
+        return self.__fine
 
 
 if __name__ == "__main__":
