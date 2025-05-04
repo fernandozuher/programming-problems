@@ -11,13 +11,14 @@ class MinimumIndexTests(unittest.TestCase):
 
     def test_unique_values(self):
         numbers = [2, 1]
-        self.assertEqual(minimum_index_of_smallest_element(numbers), 1)
-        self.assertEqual(len(set(numbers)), len(numbers), "Array elements are not unique.")
+        index = minimum_index_of_smallest_element(numbers)
+        self.assertEqual(index, 1)
+        self.assertEqual(len(set(numbers)), len(numbers), "Elements are not unique.")
 
     def test_two_minimum_values(self):
         numbers = [1, 2, 1]
-        result = minimum_index_of_smallest_element(numbers)
-        self.assertEqual(result, 0)
+        index = minimum_index_of_smallest_element(numbers)
+        self.assertEqual(index, 0)
         self.assertEqual(numbers.count(min(numbers)), 2,
                          "There should be exactly two occurrences of the minimum value.")
 

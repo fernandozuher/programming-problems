@@ -6,126 +6,71 @@
 #include <iostream>
 #include <ranges>
 #include <set>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
 
-class Test_data_empty_array {
-public:
-    static vector<int> array()
-    {
-        return {};
-    }
+struct test_case {
+    vector<int> numbers;
+    optional<const int> expected_result;
 };
 
-class Test_data_unique_values {
-public:
-    static vector<int> array()
-    {
-        return {2, 1};
-    }
-
-    static int expected_result()
-    {
-        return 1;
-    }
-};
-
-class Test_data_exactly_two_different_minimums {
-public:
-    static vector<int> array()
-    {
-        return {1, 2, 1};
-    }
-
-    static int expected_result()
-    {
-        return 0;
-    }
-};
-
-void test_with_empty_array();
-int minimum_index_of_smallest_element(const vector<int>& numbers);
-void test_with_unique_values();
-void assert_size(const vector<int>& numbers);
-void assert_vector_unique(const vector<int>& numbers);
-void verify_result(const vector<int>& numbers, int expected_result);
-void test_with_exactly_two_different_minimums();
-void assert_two_occurrences_of_minimum(const vector<int>& numbers);
+unordered_map<string, test_case> generate_test_cases();
+void minimum_index_test(const test_case& test);
+optional<int> minimum_index_of_smallest_element(const span<const int>& numbers);
+void unique_values_test(const span<const int>& numbers);
+void exactly_two_different_minimums_test(const span<const int>& numbers);
 
 int main()
 {
-    try {
-        test_with_empty_array();
-        test_with_unique_values();
-        test_with_exactly_two_different_minimums();
-        cout << "OK";
-        return 0;
-    } catch (...) {
-        cerr << "A test case failed!";
-        return 1;
-    }
+    auto test_cases{generate_test_cases()};
+    ranges::for_each(test_cases, [](const auto& pair) { minimum_index_test(pair.second); });
+    unique_values_test(test_cases["unique_values"s].numbers);
+    exactly_two_different_minimums_test(test_cases["exactly_two_different_minimums"s].numbers);
+    cout << "OK";
+    return 0;
 }
 
-void test_with_empty_array()
+unordered_map<string, test_case> generate_test_cases()
 {
-    const vector<int>& numbers{Test_data_empty_array::array()};
-    assert(numbers.empty() && "The vector should be empty in this test case.");
-    try {
-        minimum_index_of_smallest_element(numbers);
-    } catch (const invalid_argument&) {
-        return;
-    }
-    assert(false);
+    test_case empty_numbers{.numbers = {}, .expected_result = nullopt};
+    test_case unique_values{.numbers = {2, 1}, .expected_result = 1};
+    test_case exactly_two_different_minimums{.numbers = {1, 2, 1}, .expected_result = 0};
+    return {
+        {"empty_numbers"s, empty_numbers}, {"unique_values"s, unique_values},
+        {"exactly_two_different_minimums"s, exactly_two_different_minimums}
+    };
 }
 
-int minimum_index_of_smallest_element(const vector<int>& numbers)
+void minimum_index_test(const test_case& test)
+{
+    try {
+        assert(minimum_index_of_smallest_element(test.numbers) == test.expected_result);
+    } catch (const invalid_argument&) {
+        if (test.numbers.empty()) {
+            cerr << "Caught exception for empty input as expected.";
+        } else {
+            throw;
+        }
+    }
+}
+
+optional<int> minimum_index_of_smallest_element(const span<const int>& numbers)
 {
     if (numbers.empty())
-        throw invalid_argument("Cannot get the minimum value index from an empty sequence");
+        return nullopt;
     return static_cast<int>(ranges::min_element(numbers) - numbers.begin());
 }
 
-void test_with_unique_values()
+void unique_values_test(const span<const int>& numbers)
 {
-    const vector<int>& numbers{Test_data_unique_values::array()};
-    assert_size(numbers);
-    assert_vector_unique(numbers);
-    verify_result(numbers, Test_data_unique_values::expected_result());
+    assert(set(numbers.begin(), numbers.end()).size() == numbers.size() && "Elements are not unique.");
 }
 
-void assert_size(const vector<int>& numbers)
+void exactly_two_different_minimums_test(const span<const int>& numbers)
 {
-    assert(numbers.size() >= 2 && "The vector should have at least two unique elements.");
-}
-
-void assert_vector_unique(const vector<int>& numbers)
-{
-    assert(set(numbers.begin(), numbers.end()).size() == numbers.size() && "Vector elements are not unique.");
-}
-
-void verify_result(const vector<int>& numbers, int expected_result)
-{
-    try {
-        int result{minimum_index_of_smallest_element(numbers)};
-        assert(result == expected_result && "Result does not match expected result.");
-    } catch (invalid_argument& e) {
-        cerr << e.what();
-        assert(false);
-    }
-}
-
-void test_with_exactly_two_different_minimums()
-{
-    const vector<int>& numbers{Test_data_exactly_two_different_minimums::array()};
-    assert_size(numbers);
-    assert_two_occurrences_of_minimum(numbers);
-    verify_result(numbers, Test_data_exactly_two_different_minimums::expected_result());
-}
-
-void assert_two_occurrences_of_minimum(const vector<int>& numbers)
-{
-    int min1{*ranges::min_element(numbers)};
-    int count{static_cast<int>(ranges::count_if(numbers, [min1](int x) { return x == min1; }))};
+    int min{*ranges::min_element(numbers)};
+    int count{static_cast<int>(ranges::count(numbers, min))};
     assert(count == 2 && "There should be exactly two occurrences of the minimum value.");
 }
