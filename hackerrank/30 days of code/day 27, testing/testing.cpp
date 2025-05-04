@@ -34,9 +34,9 @@ int main()
 
 unordered_map<string, test_case> generate_test_cases()
 {
-    test_case empty_numbers{.numbers = {}, .expected_result = nullopt};
-    test_case unique_values{.numbers = {2, 1}, .expected_result = 1};
-    test_case exactly_two_different_minimums{.numbers = {1, 2, 1}, .expected_result = 0};
+    test_case empty_numbers{.numbers{}, .expected_result{nullopt}};
+    test_case unique_values{.numbers{2, 1}, .expected_result{1}};
+    test_case exactly_two_different_minimums{.numbers{1, 2, 1}, .expected_result{0}};
     return {
         {"empty_numbers"s, empty_numbers}, {"unique_values"s, unique_values},
         {"exactly_two_different_minimums"s, exactly_two_different_minimums}
