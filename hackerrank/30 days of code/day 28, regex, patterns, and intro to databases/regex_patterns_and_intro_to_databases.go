@@ -11,27 +11,21 @@ import (
 func main() {
     var n int
     fmt.Scan(&n)
-    var names []string = findNamesWithGmailDomainsEmailsFromStdin(n)
-    sortInPlaceAndPrintNames(names)
+    names := collectGmailUsers(n)
+    sort.Strings(names)
+    fmt.Println(strings.Join(names, "\n"))
 }
 
-    func findNamesWithGmailDomainsEmailsFromStdin(n int) []string {
-        var names []string
+func collectGmailUsers(n int) []string {
+    var names []string
 
-        for i := 0; i < n; i++ {
-            var name, emailId string
-            fmt.Scan(&name, &emailId)
-            if strings.Contains(emailId, "@gmail.com") {
-                names = append(names, name)
-            }
-        }
-
-        return names
-    }
-
-    func sortInPlaceAndPrintNames(names []string) {
-        sort.Strings(names)
-        for _, x := range names {
-            fmt.Println(x)
+    for range n {
+        var name, email string
+        fmt.Scan(&name, &email)
+        if strings.HasSuffix(email, "@gmail.com") {
+            names = append(names, name)
         }
     }
+
+    return names
+}

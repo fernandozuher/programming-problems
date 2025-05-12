@@ -9,38 +9,37 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
-function readLine(): string {
-    return inputLines[currentLine++];
-}
+//////////////////////////////////////////////////
 
 function main() {
-    let n: number = +readLine();
-    let names: string[] = findNamesWithGmailDomainsEmailsFromStdin(n);
-    sortInPlaceAndPrintNames(names);
+  const n: number = +readLine();
+  const names: string[] = collectGmailUsers(n);
+  names.sort();
+  console.log(names.join('\n'));
 }
 
-    function findNamesWithGmailDomainsEmailsFromStdin(n: number): string[] {
-        let names: string[] = [];
-        while (n--) {
-            let [name, emailId] = readLine().split(' ');
-            if (emailId.includes('@gmail.com'))
-                names.push(name);
-        }
-        return names;
-    }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
-    function sortInPlaceAndPrintNames(names: string[]) {
-        names.sort();
-        for (const name of names)
-            console.log(name);
-    }
+function collectGmailUsers(n: number): string[] {
+  const names: string[] = [];
+
+  while (n--) {
+    const [name, email] = readLine().split(' ');
+    if (email.endsWith('@gmail.com'))
+      names.push(name);
+  }
+
+  return names;
+}

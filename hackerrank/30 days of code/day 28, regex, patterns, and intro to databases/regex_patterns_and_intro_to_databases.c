@@ -12,7 +12,7 @@ typedef struct {
     int size;
 } string_array;
 
-string_array collect_emails_names_while_read_stdin(int n);
+string_array collect_gmail_users(int n);
 char *collect_name_if_has_gmail_domain();
 bool has_gmail_domain(const char *email);
 void sort(string_array names);
@@ -24,14 +24,14 @@ int main()
 {
     int n;
     scanf("%d", &n);
-    string_array names = collect_emails_names_while_read_stdin(n);
+    string_array names = collect_gmail_users(n);
     sort(names);
     print(names);
     free_strings(names);
     return 0;
 }
 
-string_array collect_emails_names_while_read_stdin(int n)
+string_array collect_gmail_users(int n)
 {
     auto names = (char **) malloc(n * sizeof(char *));
     int size = 0;

@@ -8,31 +8,28 @@
 
 using namespace std;
 
-vector<string> collect_emails_names_while_read_stdin(int n);
-optional<string> collect_name_if_has_gmail_domain();
+vector<string> collect_gmail_users(int n);
 
 int main()
 {
     int n;
     cin >> n;
-    vector names{collect_emails_names_while_read_stdin(n)};
+    vector names{collect_gmail_users(n)};
     ranges::sort(names);
     ranges::copy(names, ostream_iterator<string>(cout, "\n"));
     return 0;
 }
 
-vector<string> collect_emails_names_while_read_stdin(int n)
+vector<string> collect_gmail_users(int n)
 {
     vector<string> names;
-    while (n--)
-        if (auto name{collect_name_if_has_gmail_domain()}; name)
-            names.emplace_back(name.value());
-    return names;
-}
 
-optional<string> collect_name_if_has_gmail_domain()
-{
-    string name, email;
-    cin >> name >> email;
-    return email.ends_with("@gmail.com"s) ? make_optional(name) : nullopt;
+    while (n--) {
+        string name, email;
+        cin >> name >> email;
+        if (email.ends_with("@gmail.com"s))
+            names.push_back(name);
+    }
+
+    return names;
 }

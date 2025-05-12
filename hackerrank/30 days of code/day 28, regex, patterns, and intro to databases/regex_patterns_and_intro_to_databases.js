@@ -8,38 +8,37 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
-function readLine() {
-    return inputLines[currentLine++];
-}
+//////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let names = findNamesWithGmailDomainsEmailsFromStdin(n);
-    sortInPlaceAndPrintNames(names);
+  const n = +readLine();
+  const names = collectGmailUsers(n);
+  names.sort();
+  console.log(names.join('\n'));
 }
 
-    function findNamesWithGmailDomainsEmailsFromStdin(n) {
-        let names = [];
-        while (n--) {
-            let [name, emailId] = readLine().split(' ');
-            if (emailId.includes('@gmail.com'))
-                names.push(name);
-        }
-        return names;
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function sortInPlaceAndPrintNames(names) {
-        names.sort();
-        for (const name of names)
-            console.log(name);
-    }
+function collectGmailUsers(n) {
+  const names = [];
+
+  while (n--) {
+    const [name, email] = readLine().split(' ');
+    if (email.endsWith('@gmail.com'))
+      names.push(name);
+  }
+
+  return names;
+}
