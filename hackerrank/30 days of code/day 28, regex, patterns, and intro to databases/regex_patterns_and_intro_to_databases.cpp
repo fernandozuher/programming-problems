@@ -1,43 +1,38 @@
 // https://www.hackerrank.com/challenges/30-regex-patterns/problem?isFullScreen=true
+// C++20
 
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 using namespace std;
 
-vector<string> find_names_with_gmail_domains_emails_from_stdin(int n);
-    bool is_gmail_domain(const string& email_id);
-void sort_in_place_and_print_names(vector<string>& names);
+vector<string> collect_emails_names_while_read_stdin(int n);
+optional<string> collect_name_if_has_gmail_domain();
 
 int main()
 {
     int n;
     cin >> n;
-
-    vector<string> names {find_names_with_gmail_domains_emails_from_stdin(n)};
-    sort_in_place_and_print_names(names);
-
+    vector names{collect_emails_names_while_read_stdin(n)};
+    ranges::sort(names);
+    ranges::copy(names, ostream_iterator<string>(cout, "\n"));
     return 0;
 }
 
-    vector<string> find_names_with_gmail_domains_emails_from_stdin(int n)
-    {
-        vector<string> names;
+vector<string> collect_emails_names_while_read_stdin(int n)
+{
+    vector<string> names;
+    while (n--)
+        if (auto name{collect_name_if_has_gmail_domain()}; name)
+            names.emplace_back(name.value());
+    return names;
+}
 
-        while (n--) {
-            string name, email_id;
-            cin >> name >> email_id;
-            if (email_id.find("@gmail.com") != std::string::npos)
-                names.push_back(name);
-        }
-
-        return names;
-    }
-
-    void sort_in_place_and_print_names(vector<string>& names)
-    {
-        ranges::sort(names);
-        for (const auto& name : names)
-            cout << name << '\n';
-    }
+optional<string> collect_name_if_has_gmail_domain()
+{
+    string name, email;
+    cin >> name >> email;
+    return email.ends_with("@gmail.com") ? make_optional(name) : nullopt;
+}
