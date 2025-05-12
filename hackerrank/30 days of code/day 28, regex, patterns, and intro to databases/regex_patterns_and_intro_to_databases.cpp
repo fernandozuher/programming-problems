@@ -34,5 +34,5 @@ optional<string> collect_name_if_has_gmail_domain()
 {
     string name, email;
     cin >> name >> email;
-    return email.ends_with("@gmail.com") ? make_optional(name) : nullopt;
+    return email.ends_with("@gmail.com"s) ? make_optional(name) : nullopt;
 }
