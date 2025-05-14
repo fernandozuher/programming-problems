@@ -5,32 +5,18 @@ package main
 import "fmt"
 
 func main() {
-    var n int
-    fmt.Scan(&n)
-
-    for i := 0; i < n; i++ {
-        var count, lim int
-        fmt.Scan(&count, &lim)
-        fmt.Println(bitwiseAnd(count, lim))
+    var testCases int
+    fmt.Scan(&testCases)
+    for range testCases {
+        var n, k int
+        fmt.Scan(&n, &k)
+        fmt.Println(bitwiseAnd(n, k))
     }
 }
 
 func bitwiseAnd(n int, k int) int {
-    var maximumValueLessThanK int = 0
-
-    for i := 1; i <= n; i++ {
-        for j := i + 1; j <= n; j++ {
-            var operation int = i & j
-
-            if operation < k && operation > maximumValueLessThanK {
-                if operation == k-1 {
-                    return operation
-                } else {
-                    maximumValueLessThanK = operation
-                }
-            }
-        }
+    if (k - 1 | k) <= n {
+        return k - 1
     }
-
-    return maximumValueLessThanK
+    return k - 2
 }

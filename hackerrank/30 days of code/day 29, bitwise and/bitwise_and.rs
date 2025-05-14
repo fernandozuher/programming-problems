@@ -3,30 +3,18 @@
 use text_io::{read, scan};
 
 fn main() {
-    let n = read!();
-    for i in 0..n {
-        let (count, lim): (i32, i32);
-        scan!("{} {}", count, lim);
-        println!("{}", bitwise_and(count, lim));
+    let test_cases: usize = read!();
+    for _ in 0..test_cases {
+        let (n, k): (i32, i32);
+        scan!("{} {}", n, k);
+        println!("{}", bitwise_and(n, k));
     }
 }
 
 fn bitwise_and(n: i32, k: i32) -> i32 {
-    let mut maximum_value_less_than_k: i32 = 0;
-
-    for i in 1..=n {
-        for j in (i + 1)..=n {
-            let operation = i & j;
-
-            if operation < k && operation > maximum_value_less_than_k {
-                if operation == k - 1 {
-                    return operation;
-                } else {
-                    maximum_value_less_than_k = operation;
-                }
-            }
-        }
+    if (k - 1 | k) <= n {
+        k - 1
+    } else {
+        k - 2
     }
-
-    return maximum_value_less_than_k;
 }
