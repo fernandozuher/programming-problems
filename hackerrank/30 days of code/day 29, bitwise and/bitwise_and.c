@@ -2,34 +2,29 @@
 
 #include <stdio.h>
 
-int bitwise_and(const int n, const int k);
+int bitwise_and(int n, int k);
 
 int main()
 {
-    int n;
-    scanf("%d", &n);
-
-    for (int count, lim; n-- && scanf("%d %d", &count, &lim);)
-        printf("%d\n", bitwise_and(count, lim));
-
+    int t;
+    scanf("%d", &t);
+    while (t--) {
+        int n, k;
+        scanf("%d %d", &n, &k);
+        printf("%d\n", bitwise_and(n, k));
+    }
     return 0;
 }
 
-    int bitwise_and(const int n, const int k)
-    {
-        int maximum_value_less_than_k = 0;
+int bitwise_and(int n, int k)
+{
+    int maximum_value_less_than_k = 0;
 
-        for (int i = 1; i <= n; ++i)
-            for (int j = i + 1; j <= n; ++j) {
-                int operation = i & j;
+    for (int a = k - 1; a > 0; a--)
+        if ((a | a + 1) <= n) {
+            maximum_value_less_than_k = a;
+            break;
+        }
 
-                if (operation < k && operation > maximum_value_less_than_k) {
-                    if (operation == k - 1)
-                        return operation;
-                    else
-                        maximum_value_less_than_k = operation;
-                }
-            }
-
-        return maximum_value_less_than_k;
-    }
+    return maximum_value_less_than_k;
+}
