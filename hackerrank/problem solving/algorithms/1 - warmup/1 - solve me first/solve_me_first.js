@@ -9,28 +9,28 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let num1 = +readLine();
-    let num2 = +readLine();
-    console.log(solveMeFirst(num1, num2));
+  let n1 = +readLine();
+  let n2 = +readLine();
+  console.log(solveMeFirst(n1, n2));
 }
 
-    function solveMeFirst(a, b) {
-        return a + b;
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
+
+function solveMeFirst(n1, n2) {
+  return n1 + n2;
+}

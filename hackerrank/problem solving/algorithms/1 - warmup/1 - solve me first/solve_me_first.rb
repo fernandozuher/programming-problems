@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
 
 def main
-  num1 = gets.to_i
-  num2 = gets.to_i
-  p solve_me_first(num1, num2)
+  n1 = gets.to_i
+  n2 = gets.to_i
+  puts solve_me_first(n1, n2)
 end
 
-  def solve_me_first(a, b)
-    a + b
-  end
+def solve_me_first(n1, n2)
+  n1 + n2
+end
 
 main

@@ -4,17 +4,17 @@
 
 using namespace std;
 
-int solve_me_first(int a, int b);
+int solve_me_first(int n1, int n2);
 
 int main()
 {
-    int num1, num2;
-    cin >> num1 >> num2;
-    cout << solve_me_first(num1, num2);
+    int n1, n2;
+    cin >> n1 >> n2;
+    cout << solve_me_first(n1, n2);
     return 0;
 }
 
-    int solve_me_first(const int a, const int b)
-    {
-        return a + b;
-    }
+int solve_me_first(int n1, int n2)
+{
+    return n1 + n2;
+}

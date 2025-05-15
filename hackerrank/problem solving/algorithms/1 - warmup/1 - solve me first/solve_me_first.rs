@@ -3,11 +3,11 @@
 use text_io::read;
 
 fn main() {
-    let num1: i32 = read!();
-    let num2: i32 = read!();
-    print!("{}", solve_me_first(num1, num2));
+    let n1: i32 = read!();
+    let n2: i32 = read!();
+    print!("{}", solve_me_first(n1, n2));
 }
 
-fn solve_me_first(a: i32, b: i32) -> i32 {
-    return a + b;
+fn solve_me_first(n1: i32, n2: i32) -> i32 {
+    n1 + n2
 }

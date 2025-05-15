@@ -5,11 +5,11 @@ package main
 import "fmt"
 
 func main() {
-    var a, b int
-    fmt.Scan(&a, &b)
-    fmt.Println(solveMeFirst(a, b))
+    var n1, n2 int
+    fmt.Scan(&n1, &n2)
+    fmt.Print(solveMeFirst(n1, n2))
 }
 
-func solveMeFirst(a int, b int) int {
-    return a + b
+func solveMeFirst(n1 int, n2 int) int {
+    return n1 + n2
 }
