@@ -4,14 +4,14 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    print!("{}", simple_array_sum(n));
+    print!("{}", sum_stdin(n));
 }
 
-fn simple_array_sum(n: usize) -> i32 {
+fn sum_stdin(n: usize) -> i32 {
     let mut sum: i32 = 0;
     for _ in 0..n {
         let x: i32 = read!();
         sum += x;
     }
-    return sum;
+    sum
 }

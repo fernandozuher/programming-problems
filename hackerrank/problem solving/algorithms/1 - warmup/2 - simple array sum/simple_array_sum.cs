@@ -1,23 +1,16 @@
 // https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int _n = int.Parse(ReadLine());
-        List<int> array = ReadIntArray();
-        WriteLine(SimpleArraySum(array));
+        Console.ReadLine();
+        int[] numbers = ReadArray();
+        Console.WriteLine(numbers.Sum());
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine().Split().Select(int.Parse).ToList();
-        }
-
-        static int SimpleArraySum(List<int> array)
-        {
-            return array.Aggregate(0, (a, b) => a + b);
-        }
+    private static int[] ReadArray()
+    {
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
 }

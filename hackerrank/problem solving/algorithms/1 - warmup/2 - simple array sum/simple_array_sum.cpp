@@ -4,19 +4,23 @@
 
 using namespace std;
 
-int simple_array_sum(int n);
+int sum_stdin(int n);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << simple_array_sum(n);
+    cout << sum_stdin(n);
     return 0;
 }
 
-    int simple_array_sum(int n)
-    {
-        int sum{};
-        for (int x; n-- && cin >> x; sum += x);
-        return sum;
+int sum_stdin(int n)
+{
+    int sum{};
+    while (n--) {
+        int x;
+        cin >> x;
+        sum += x;
     }
+    return sum;
+}

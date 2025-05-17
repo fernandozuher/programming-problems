@@ -9,32 +9,32 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    +readLine();
-    let array = readIntArray();
-    console.log(simpleArraySum(array));
+  readLine();
+  const numbers = readArray();
+  console.log(sum(numbers));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function simpleArraySum(array) {
-        return array.reduce((a, b) => a + b);
-    }
+function readArray() {
+  return readLine().split(' ').map(Number);
+}
+
+function sum(array) {
+  return array.reduce((a, b) => a + b, 0);
+}

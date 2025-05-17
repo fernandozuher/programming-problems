@@ -2,19 +2,23 @@
 
 #include <stdio.h>
 
-int simple_array_sum(int n);
+int sum_stdin(int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    printf("%d", simple_array_sum(n));
+    printf("%d", sum_stdin(n));
     return 0;
 }
 
-    int simple_array_sum(int n)
-    {
-        int sum = 0;
-        for (int x; n-- && scanf("%d", &x); sum += x);
-        return sum;
+int sum_stdin(int n)
+{
+    int sum = 0;
+    while (n--) {
+        int x;
+        scanf("%d", &x);
+        sum += x;
     }
+    return sum;
+}

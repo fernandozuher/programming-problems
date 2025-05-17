@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
 def main():
-    n = int(input())
-    array = list(map(int, input().split()))
-    print(simple_array_sum(array))
+    input()
+    numbers = read_array()
+    print(sum(numbers))
 
 
-def simple_array_sum(arr):
-    return sum(arr)
+def read_array():
+    return list(map(int, input().split()))
 
 
 if __name__ == '__main__':
