@@ -6,7 +6,7 @@ def main
 end
 
 def sum_stdin
-  gets.split.map(&:to_i).reduce(:+)
+  gets.split.map(&:to_i).sum
 end
 
 main
