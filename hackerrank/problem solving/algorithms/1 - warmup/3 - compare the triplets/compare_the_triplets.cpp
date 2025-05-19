@@ -1,44 +1,44 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
-// From C++23
+// C++23
 
 #include <algorithm>
+#include <array>
 #include <iostream>
-#include <iterator>
 #include <ranges>
-#include <vector>
 
 using namespace std;
 
-vector<int> read_int_array(int n);
-pair<int, int> compare_triplets(const vector<int>& array1, const vector<int>& array2);
+constexpr int triplet_size{3};
+
+array<int, triplet_size> read_input();
+pair<int, int> compare_triplets(const array<int, triplet_size>& triplet_a, const array<int, triplet_size>& triplet_b);
 
 int main()
 {
-    constexpr int n{3};
-    vector array1 {read_int_array(n)};
-    vector array2 {read_int_array(n)};
-    auto [alice_score, bob_score] {compare_triplets(array1, array2)};
-    cout << alice_score << ' ' << bob_score;
-
+    array triplet_a{read_input()};
+    array triplet_b{read_input()};
+    auto [score_a, score_b]{compare_triplets(triplet_a, triplet_b)};
+    cout << score_a << ' ' << score_b << '\n';
     return 0;
 }
 
-    vector<int> read_int_array(const int n)
-    {
-        vector<int> array;
-        copy_n(istream_iterator<int>(cin), n, back_inserter(array));
-        return array;
-    }
+array<int, triplet_size> read_input()
+{
+    array<int, triplet_size> result;
+    for (auto& x : result)
+        cin >> x;
+    return result;
+}
 
-    pair<int, int> compare_triplets(const vector<int>& array1, const vector<int>& array2)
-    {
-        int player1{}, player2{};
+pair<int, int> compare_triplets(const array<int, triplet_size>& triplet_a, const array<int, triplet_size>& triplet_b)
+{
+    int score_a{}, score_b{};
 
-        for (const auto [p1, p2] : views::zip(array1, array2))
-            if (p1 > p2)
-                ++player1;
-            else if (p2 > p1)
-                ++player2;
+    for (auto [ta, tb] : views::zip(triplet_a, triplet_b))
+        if (ta > tb)
+            ++score_a;
+        else if (tb > ta)
+            ++score_b;
 
-        return {player1, player2};
-    }
+    return {score_a, score_b};
+}

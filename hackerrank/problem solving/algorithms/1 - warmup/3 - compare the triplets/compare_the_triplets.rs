@@ -2,28 +2,31 @@
 
 use text_io::read;
 
+const TRIPLET_SIZE: usize = 3;
+
 fn main() {
-    const N: usize = 3;
-    let array1: Vec<i32> = read_int_array(N);
-    let array2: Vec<i32> = read_int_array(N);
-    let (player1, player2) = compare_triplets(&array1, &array2);
-    print!("{} {}", player1, player2);
+    let triplet_a: [i32; TRIPLET_SIZE] = read_input();
+    let triplet_b: [i32; TRIPLET_SIZE] = read_input();
+    let (score_a, score_b) = compare_triplets(triplet_a, triplet_b);
+    println!("{} {}", score_a, score_b);
 }
 
-fn read_int_array(n: usize) -> Vec<i32> {
-    return (0..n).map(|_| read!()).collect();
+fn read_input() -> [i32; TRIPLET_SIZE] {
+    let mut array: [i32; TRIPLET_SIZE] = [0; TRIPLET_SIZE];
+    array.iter_mut().for_each(|x| *x = read!());
+    array
 }
 
-fn compare_triplets(array1: &[i32], array2: &[i32]) -> (i32, i32) {
-    let (mut player1, mut player2) = (0, 0);
+fn compare_triplets(triplet_a: [i32; TRIPLET_SIZE], triplet_b: [i32; TRIPLET_SIZE]) -> (i32, i32) {
+    let (mut score_a, mut score_b) = (0, 0);
 
-    for (p1, p2) in array1.iter().zip(array2.iter()) {
-        if p1 > p2 {
-            player1 += 1;
-        } else if p2 > p1 {
-            player2 += 1;
+    for (ta, tb) in triplet_a.iter().zip(triplet_b.iter()) {
+        if ta > tb {
+            score_a += 1;
+        } else if tb > ta {
+            score_b += 1;
         }
     }
 
-    return (player1, player2);
+    (score_a, score_b)
 }

@@ -9,41 +9,40 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let array1 = readIntArray();
-    let array2 = readIntArray();
-    let [player1, player2] = compareTriplets(array1, array2);
-    console.log(player1, player2);
+  const tripletA = readInput();
+  const tripletB = readInput();
+  const [scoreA, scoreB] = compareTriplets(tripletA, tripletB);
+  console.log(scoreA, scoreB);
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function compareTriplets(array1, array2) {
-        let [player1, player2] = [0, 0];
+function readInput() {
+  return readLine().split(' ').map(Number);
+}
 
-        for (let i in array1)
-            if (array1[i] > array2[i])
-                ++player1;
-            else if (array2[i] > array1[i])
-                ++player2;
+function compareTriplets(tripletA, tripletB) {
+  let [scoreA, scoreB] = [0, 0];
 
-        return [player1, player2];
-    }
+  for (let i = 0; i < tripletA.length; i++) {
+    if (tripletA[i] > tripletB[i]) ++scoreA;
+    else if (tripletB[i] > tripletA[i]) ++scoreB;
+  }
+
+  return [scoreA, scoreB];
+}

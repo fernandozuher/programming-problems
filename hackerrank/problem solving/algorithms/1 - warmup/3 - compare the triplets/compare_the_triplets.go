@@ -4,30 +4,36 @@ package main
 
 import "fmt"
 
+const (
+    tripletSize = 3
+    resultSize  = 2
+)
+
 func main() {
-    const n = 3
-    var array1 []int = readIntArray(n)
-    var array2 []int = readIntArray(n)
-    var result []int = compareTriplets(array1, array2)
+    tripletA := readInput()
+    tripletB := readInput()
+    result := compareTriplets(tripletA, tripletB)
     fmt.Printf("%d %d\n", result[0], result[1])
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
+func readInput() [tripletSize]int {
+    var array [tripletSize]int
     for i := range array {
         fmt.Scan(&array[i])
     }
     return array
 }
 
-func compareTriplets(a []int, b []int) []int {
-    player1, player2 := 0, 0
+func compareTriplets(a [tripletSize]int, b [tripletSize]int) [resultSize]int {
+    scoreA, scoreB := 0, 0
+
     for i := range a {
         if a[i] > b[i] {
-            player1++
+            scoreA++
         } else if b[i] > a[i] {
-            player2++
+            scoreB++
         }
     }
-    return []int{player1, player2}
+
+    return [resultSize]int{scoreA, scoreB}
 }

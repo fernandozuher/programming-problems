@@ -1,53 +1,49 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
-// From C23
+// C23
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int *read_int_array(int n);
-int *compare_triplets(const int array1[], const int array2[], int n);
-    int *prepare_output(int player1, int player2);
+typedef struct {
+    int *array;
+    int size;
+} array_t;
+
+void read_input(const array_t array);
+void compare_triplets(const array_t triplet_a, const array_t triplet_b, const array_t result);
 
 int main()
 {
-    constexpr int n = 3;
-    int *array1 = read_int_array(n);
-    int *array2 = read_int_array(n);
+    constexpr int triplet_size = 3;
+    constexpr int result_size = 3;
+    int input_a[triplet_size], input_b[triplet_size], output[result_size];
+    array_t triplet_a = {input_a, triplet_size};
+    array_t triplet_b = {input_b, triplet_size};
+    array_t result = {output, result_size};
 
-    int *result = compare_triplets(array1, array2, n);
-    printf("%d %d", result[0], result[1]);
-    free(array1);
-    free(array2);
-    free(result);
+    read_input(triplet_a);
+    read_input(triplet_b);
+    compare_triplets(triplet_a, triplet_b, result);
+    printf("%d %d\n", result.array[0], result.array[1]);
 
     return 0;
 }
 
-    int *read_int_array(const int n)
-    {
-        auto array = (int*) malloc(sizeof(int));
-        for (int i = 0; i < n && scanf("%d", &array[i]); ++i);
-        return array;
-    }
+void read_input(const array_t array)
+{
+    for (int i = 0, n = array.size; i < n; ++i)
+        scanf("%d", &array.array[i]);
+}
 
-    int *compare_triplets(const int array1[], const int array2[], int n)
-    {
-        int player1 = 0, player2 = 0;
+void compare_triplets(const array_t triplet_a, const array_t triplet_b, const array_t result)
+{
+    int score_a = 0, score_b = 0;
 
-        while (n--)
-            if (array1[n] > array2[n])
-                ++player1;
-            else if (array2[n] > array1[n])
-                ++player2;
+    for (int i = 0, n = triplet_a.size; i < n; ++i)
+        if (triplet_a.array[i] > triplet_b.array[i])
+            ++score_a;
+        else if (triplet_b.array[i] > triplet_a.array[i])
+            ++score_b;
 
-        return prepare_output(player1, player2);
-    }
-
-        int *prepare_output(const int player1, const int player2)
-        {
-            constexpr int n = 2;
-            auto result = (int*) malloc(n * sizeof(int));
-            result[0] = player1;
-            result[1] = player2;
-            return result;
-        }
+    result.array[0] = score_a;
+    result.array[1] = score_b;
+}

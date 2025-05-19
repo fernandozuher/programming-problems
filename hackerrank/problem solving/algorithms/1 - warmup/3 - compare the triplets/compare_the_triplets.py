@@ -1,26 +1,26 @@
 # https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
 def main():
-    array1 = read_int_array()
-    array2 = read_int_array()
-    player1, player2 = compare_triplets(array1, array2)
-    print(f"{player1} {player2}")
+    triplet_a = read_input()
+    triplet_b = read_input()
+    score_a, score_b = compare_triplets(triplet_a, triplet_b)
+    print(f"{score_a} {score_b}")
 
 
-def read_int_array():
+def read_input():
     return list(map(int, input().split()))
 
 
-def compare_triplets(array1, array2):
-    player1, player2 = 0, 0
+def compare_triplets(triplet_a, triplet_b):
+    score_a, score_b = 0, 0
 
-    for p1, p2 in zip(array1, array2):
-        if p1 > p2:
-            player1 += 1
-        elif p2 > p1:
-            player2 += 1
+    for ta, tb in zip(triplet_a, triplet_b):
+        if ta > tb:
+            score_a += 1
+        elif tb > ta:
+            score_b += 1
 
-    return [player1, player2]
+    return [score_a, score_b]
 
 
 if __name__ == '__main__':
