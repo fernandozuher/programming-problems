@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
-// From Go 1.22
+// Go 1.22
 
 package main
 
@@ -11,24 +11,26 @@ import (
 func main() {
     var n int
     fmt.Scan(&n)
-    fmt.Print(diagonalDifference(n))
+    fmt.Println(diagonalDifference(n))
 }
 
 func diagonalDifference(n int) int {
-    primaryDiagonal, secondaryDiagonal := 0, 0
+    primarySum, secondarySum := 0, 0
 
     for i := range n {
-        for j := range n {
-            var x int
-            fmt.Scan(&x)
-            if i == j {
-                primaryDiagonal += x
-            }
-            if j == n-i-1 {
-                secondaryDiagonal += x
-            }
-        }
+        numbers := readNumbers(n)
+        primarySum += numbers[i]
+        secondarySum += numbers[n-i-1]
+
     }
 
-    return int(math.Abs(float64(secondaryDiagonal - primaryDiagonal)))
+    return int(math.Abs(float64(secondarySum - primarySum)))
+}
+
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
+    }
+    return numbers
 }

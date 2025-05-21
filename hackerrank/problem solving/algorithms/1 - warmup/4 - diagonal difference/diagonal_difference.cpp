@@ -1,31 +1,41 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
 #include <iostream>
+#include <ranges>
+#include <vector>
 
 using namespace std;
 
 int diagonal_difference(int n);
+vector<int> read_numbers(int n);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << diagonal_difference(n);
+    cout << diagonal_difference(n) << '\n';
     return 0;
 }
 
-    int diagonal_difference(const int n)
-    {
-        int primary_diagonal{}, secondary_diagonal{};
+int diagonal_difference(int n)
+{
+    int primary_sum{}, secondary_sum{};
 
-        for (int i = 0; i < n; ++i)
-            for (int j = 0, x; j < n && cin >> x; ++j) {
-                if (i == j)
-                    primary_diagonal += x;
-                if (j == n - i - 1)
-                    secondary_diagonal += x;
-            }
-
-        return abs(primary_diagonal - secondary_diagonal);
+    for (const auto i : views::iota(0, n)) {
+        vector numbers = read_numbers(n);
+        primary_sum += numbers.at(i);
+        secondary_sum += numbers.at(n - i - 1);
     }
+
+    return abs(primary_sum - secondary_sum);
+}
+
+vector<int> read_numbers(int n)
+{
+    return views::iota(0, n) | views::transform([](auto) {
+        int x;
+        cin >> x;
+        return x;
+    }) | ranges::to<vector>();
+}

@@ -2,21 +2,23 @@
 
 def main
   n = gets.to_i
-  p diagonal_difference(n)
+  puts diagonal_difference(n)
 end
 
-  def diagonal_difference(n)
-    primary_diagonal, secondary_diagonal = 0, 0
-    j = n - 1
-  
-    n.times do |i|
-      line = gets.split.map(&:to_i)
-      primary_diagonal += line[i]
-      secondary_diagonal += line[j]
-      j -= 1
-    end
-  
-    (primary_diagonal - secondary_diagonal).abs
+def diagonal_difference(n)
+  primary_sum, secondary_sum = 0, 0
+
+  n.times do |i|
+    numbers = read_numbers
+    primary_sum += numbers[i]
+    secondary_sum += numbers[n - i - 1]
   end
+
+  (primary_sum - secondary_sum).abs
+end
+
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
 main

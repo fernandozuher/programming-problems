@@ -9,37 +9,39 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    console.log(diagonalDifference(n));
+  const n = +readLine();
+  console.log(diagonalDifference(n));
 }
 
-    function diagonalDifference(n) {
-        let [primaryDiagonal, secondaryDiagonal] = [0, 0];
-        for (let i = 0; i < n; ++i) {
-            let line = readIntArray();
-            primaryDiagonal += line[i];
-            secondaryDiagonal += line[n - i - 1];
-        }
-        return Math.abs(primaryDiagonal - secondaryDiagonal);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-        function readIntArray() {
-            return readLine().split(' ').map(Number);
-        }
+function diagonalDifference(n) {
+  let [primarySum, secondarySum] = [0, 0];
+
+  for (let i = 0; i < n; i++) {
+    const numbers = readNumbers();
+    primarySum += numbers[i];
+    secondarySum += numbers[n - i - 1];
+  }
+
+  return Math.abs(primarySum - secondarySum);
+}
+
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}

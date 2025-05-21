@@ -6,16 +6,18 @@ def main():
 
 
 def diagonal_difference(n):
-    primary_diagonal, secondary_diagonal = 0, 0
-    primary_diagonal_range = range(n)
-    secondary_diagonal_range = range(n - 1, -1, -1)
+    primary_sum, secondary_sum = 0, 0
 
-    for i, j in zip(primary_diagonal_range, secondary_diagonal_range):
-        line = list(map(int, input().split()))
-        primary_diagonal += line[i]
-        secondary_diagonal += line[j]
+    for i in range(n):
+        numbers = read_numbers()
+        primary_sum += numbers[i]
+        secondary_sum += numbers[n - i - 1]
 
-    return abs(primary_diagonal - secondary_diagonal)
+    return abs(primary_sum - secondary_sum)
+
+
+def read_numbers():
+    return list(map(int, input().split()))
 
 
 if __name__ == '__main__':

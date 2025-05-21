@@ -4,23 +4,21 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    print!("{}", diagonal_difference(n));
+    println!("{}", diagonal_difference(n));
 }
 
 fn diagonal_difference(n: usize) -> i32 {
-    let (mut primary_diagonal, mut secondary_diagonal) = (0, 0);
+    let (mut primary_sum, mut secondary_sum) = (0, 0);
 
     for i in 0..n {
-        for j in 0..n {
-            let x: i32 = read!();
-            if i == j {
-                primary_diagonal += x;
-            }
-            if j == n - i - 1 {
-                secondary_diagonal += x;
-            }
-        }
+        let numbers = read_numbers(n);
+        primary_sum += numbers[i];
+        secondary_sum += numbers[n - i - 1];
     }
 
-    return (primary_diagonal - secondary_diagonal).abs();
+    (primary_sum - secondary_sum).abs()
+}
+
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
 }

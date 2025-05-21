@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 int diagonal_difference(int n);
+void read_numbers(int numbers[], int n);
 
 int main()
 {
@@ -13,15 +14,22 @@ int main()
     return 0;
 }
 
-    int diagonal_difference(const int n)
-    {
-        int primary_diagonal = 0, secondary_diagonal = 0;
-        for (int i = 0; i < n; ++i)
-            for (int j = 0, x; j < n && scanf("%d", &x); ++j) {
-                if (i == j)
-                    primary_diagonal += x;
-                if (j == n - i - 1)
-                    secondary_diagonal += x;
-            }
-        return abs(primary_diagonal - secondary_diagonal);
+int diagonal_difference(int n)
+{
+    int primary_sum = 0, secondary_sum = 0;
+
+    int numbers[n];
+    for (int i = 0; i < n; ++i) {
+        read_numbers(numbers, n);
+        primary_sum += numbers[i];
+        secondary_sum += numbers[n - i - 1];
     }
+
+    return abs(primary_sum - secondary_sum);
+}
+
+void read_numbers(int numbers[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &numbers[i]);
+}
