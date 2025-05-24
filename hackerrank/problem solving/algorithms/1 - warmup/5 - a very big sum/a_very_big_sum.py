@@ -1,13 +1,17 @@
 # https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
 def main():
-    n = int(input())
-    array = list(map(int, input().split()))
-    print(a_very_big_sum(array))
+    input()
+    numbers = read_numbers()
+    print(a_very_big_sum(numbers))
 
 
-def a_very_big_sum(array):
-    return sum(array)
+def read_numbers():
+    return list(map(int, input().split()))
+
+
+def a_very_big_sum(numbers):
+    return sum(numbers)
 
 
 if __name__ == '__main__':

@@ -14,9 +14,10 @@ int main()
     return 0;
 }
 
-    long a_very_big_sum(int n)
-    {
-        long sum{};
-        for (long x; n-- && cin >> x; sum += x);
-        return sum;
-    }
+long a_very_big_sum(int n)
+{
+    long sum{};
+    for (long i{}, x; i < n && cin >> x; ++i)
+        sum += x;
+    return sum;
+}

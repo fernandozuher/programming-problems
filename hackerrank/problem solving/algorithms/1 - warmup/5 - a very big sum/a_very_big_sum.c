@@ -12,9 +12,10 @@ int main()
     return 0;
 }
 
-    long a_very_big_sum(int n)
-    {
-        long sum = 0;
-        for (long x; n-- && scanf("%ld", &x); sum += x);
-        return sum;
-    }
+long a_very_big_sum(int n)
+{
+    long sum = 0;
+    for (long i = 0, x; i < n && scanf("%ld", &x); ++i)
+        sum += x;
+    return sum;
+}

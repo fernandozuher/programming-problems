@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
-// From Go 1.22
+// Go 1.22
 
 package main
 
@@ -8,7 +8,7 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    fmt.Print(aVeryBigSum(n))
+    fmt.Println(aVeryBigSum(n))
 }
 
 func aVeryBigSum(n int) int64 {
