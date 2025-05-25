@@ -9,12 +9,8 @@ fn main() {
 
 fn staircase(n: usize) {
     for i in 1..=n {
-        for j in 0..n - i {
-            print!(" ");
-        }
-        for k in 0..i {
-            print!("#");
-        }
-        println!();
+        let spaces = " ".repeat(n - i);
+        let hashes = "#".repeat(i);
+        println!("{}{}", spaces, hashes);
     }
 }

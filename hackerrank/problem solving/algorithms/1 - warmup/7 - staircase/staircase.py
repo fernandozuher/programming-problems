@@ -7,11 +7,9 @@ def main():
 
 def staircase(n):
     for i in range(1, n + 1):
-        for _ in range(n - i):
-            print(' ', end='')
-        for _ in range(i):
-            print('#', end='')
-        print('')
+        spaces = ' ' * (n - i)
+        hashes = '#' * i
+        print(spaces + hashes)
 
 
 if __name__ == '__main__':

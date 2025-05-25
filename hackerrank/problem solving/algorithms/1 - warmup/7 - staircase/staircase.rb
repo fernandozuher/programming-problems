@@ -5,16 +5,11 @@ def main
   staircase(n)
 end
 
-  def staircase(n)
-    (1..n).each { |i|
-      (0...n - i).each {
-        print ' '
-      }
-      (0...i).each {
-        print '#'
-      }
-      puts ''
-    }
+def staircase(n)
+  n.times do |i|
+    hashes = '#' * (i + 1)
+    puts hashes.rjust(n)
   end
+end
 
 main

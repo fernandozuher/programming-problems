@@ -1,9 +1,9 @@
 // https://www.hackerrank.com/challenges/staircase/problem?isFullScreen=true
-// From Go 1.22
 
 package main
 
 import "fmt"
+import "strings"
 
 func main() {
     var n int
@@ -12,13 +12,9 @@ func main() {
 }
 
 func staircase(n int) {
-    for i := range n {
-        for range n - i + 1 {
-            fmt.Print(" ")
-        }
-        for range i + 1 {
-            fmt.Print("#")
-        }
-        fmt.Println("")
+    for i := 1; i <= n; i++ {
+        spaces := strings.Repeat(" ", n-i)
+        hashes := strings.Repeat("#", i)
+        fmt.Println(spaces + hashes)
     }
 }
