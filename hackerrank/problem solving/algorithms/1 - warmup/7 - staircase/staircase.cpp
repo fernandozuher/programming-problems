@@ -1,5 +1,4 @@
 // https://www.hackerrank.com/challenges/staircase/problem?isFullScreen=true
-// C++20
 
 #include <iostream>
 
