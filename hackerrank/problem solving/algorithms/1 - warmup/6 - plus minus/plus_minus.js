@@ -9,50 +9,45 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let array = readIntArray();
-    let [positiveProportion, negativeProportion, zeroProportion] = plusMinus(array);
-    console.log(positiveProportion.toFixed(6));
-    console.log(negativeProportion.toFixed(6));
-    console.log(zeroProportion.toFixed(6));
+  readLine();
+  const numbers = readNumbers();
+  const ratios = plusMinus(numbers);
+  printRatios(ratios);
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function plusMinus(array) {
-        let [positive, negative, zero] = [0, 0, 0];
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        for (let x of array)
-            if (x > 0)
-                ++positive;
-            else if (x < 0)
-                ++negative;
-            else
-                ++zero;
+function plusMinus(numbers) {
+  let [positive, negative, zero] = [0, 0, 0];
 
-        let n = array.length;
-        let positiveProportion = positive / n;
-        let negativeProportion = negative / n;
-        let zeroProportion = zero / n;
-        
-        return [positiveProportion, negativeProportion, zeroProportion];
-    }
+  for (const x of numbers)
+    if (x > 0) ++positive;
+    else if (x < 0) ++negative;
+    else ++zero;
+
+  const n = numbers.length;
+  return [positive / n, negative / n, zero / n];
+}
+
+function printRatios(ratios) {
+  for (const ratio of ratios) console.log(ratio.toFixed(6));
+}

@@ -1,48 +1,54 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
-// From C23
+// C23
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-float *plus_minus(int n);
-    float *wrap_result(const float array[], int n);
+void read_numbers(int numbers[], int n);
+void plus_minus(const int numbers[], int n, float ratios[]);
+void print_ratios(const float ratios[], int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    float *result = plus_minus(n);
-    printf("%.6f\n%.6f\n%.6f", result[0], result[1], result[2]);
-    free(result);
+    int numbers[n];
+    read_numbers(numbers, n);
+
+    constexpr int n_ratios = 3;
+    float ratios[n_ratios];
+    plus_minus(numbers, n, ratios);
+    print_ratios(ratios, n_ratios);
 
     return 0;
 }
 
-    float *plus_minus(const int n)
-    {
-        int positive = 0, negative = 0, zero = 0;
+void read_numbers(int numbers[], int n)
+{
+    for (int i = 0, x; i < n && scanf("%d", &x); ++i)
+        numbers[i] = x;
+}
 
-        for (int i = 0, x; i < n && scanf("%d", &x); ++i)
-            if (x > 0)
-                ++positive;
-            else if (x < 0)
-                ++negative;
-            else
-                ++zero;
+void plus_minus(const int numbers[], int n, float ratios[])
+{
+    int positive = 0, negative = 0, zero = 0;
 
-        float positive_proportion = (float) positive / n;
-        float negative_proportion = (float) negative / n;
-        float zero_proportion = (float) zero / n;
-
-        constexpr int n_result = 3;
-        float temp_result[] = {positive_proportion, negative_proportion, zero_proportion};
-        return wrap_result(temp_result, n_result);
+    for (int i = 0; i < n; ++i) {
+        if (numbers[i] > 0)
+            ++positive;
+        else if (numbers[i] < 0)
+            ++negative;
+        else
+            ++zero;
     }
 
-        float *wrap_result(const float array[], const int n)
-        {
-            auto result = (float*) malloc(n * sizeof(float));
-            memcpy(result, array, n * sizeof(float));
-            return result;
-        }
+    float total = (float) n;
+    ratios[0] = positive / total;
+    ratios[1] = negative / total;
+    ratios[2] = zero / total;
+}
+
+void print_ratios(const float ratios[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        printf("%.6f\n", ratios[i]);
+}

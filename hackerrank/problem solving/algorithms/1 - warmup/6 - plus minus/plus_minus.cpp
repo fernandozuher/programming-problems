@@ -1,37 +1,55 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
+// C++23
 
 #include <iomanip>
 #include <iostream>
+#include <ranges>
+#include <vector>
 
 using namespace std;
 
-tuple<double, double, double> plus_minus(const int n);
+vector<int> read_numbers(int n);
+array<double, 3> plus_minus(const vector<int>& numbers);
+void print_ratios(const array<double, 3>& ratios);
 
 int main()
 {
     int n;
     cin >> n;
-    const auto [positive_proportion, negative_proportion, zero_proportion]{plus_minus(n)};
-    cout << setprecision(6) << fixed << positive_proportion << '\n' << negative_proportion << '\n' << zero_proportion;
+    vector numbers{read_numbers(n)};
+    auto ratios{plus_minus(numbers)};
+    print_ratios(ratios);
     return 0;
 }
 
-    tuple<double, double, double> plus_minus(const int n)
-    {
-        int positive{}, negative{}, zero{};
+vector<int> read_numbers(int n)
+{
+    return views::iota(0, n) | views::transform([](auto) {
+        int x;
+        cin >> x;
+        return x;
+    }) | ranges::to<vector>();
+}
 
-        for (int i{}, x; i < n && cin >> x; ++i)
-            if (x > 0)
-                ++positive;
-            else if (x < 0)
-                ++negative;
-            else
-                ++zero;
+array<double, 3> plus_minus(const vector<int>& numbers)
+{
+    int positive{}, negative{}, zero{};
 
-        double cast_n = n;
-        double positive_proportion {positive / cast_n};
-        double negative_proportion {negative / cast_n};
-        double zero_proportion {zero / cast_n};
+    for (auto x : numbers)
+        if (x > 0)
+            ++positive;
+        else if (x < 0)
+            ++negative;
+        else
+            ++zero;
 
-        return {positive_proportion, negative_proportion, zero_proportion};
-    }
+    double n{static_cast<double>(numbers.size())};
+    return {positive / n, negative / n, zero / n};
+}
+
+void print_ratios(const array<double, 3>& ratios)
+{
+    cout << fixed << setprecision(6);
+    for (auto ratio : ratios)
+        cout << ratio << '\n';
+}

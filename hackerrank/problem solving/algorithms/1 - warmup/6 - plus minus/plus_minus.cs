@@ -1,43 +1,41 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int n = int.Parse(ReadLine());
-        List<int> array = ReadIntArray();
-        var (positiveProportion, negativeProportion, zeroProportion) = PlusMinus(array);
-        WriteLine("{0:0.000000}", positiveProportion);
-        WriteLine("{0:0.000000}", negativeProportion);
-        WriteLine("{0:0.000000}", zeroProportion);
+        Console.ReadLine();
+        int[] numbers = ReadNumbers();
+        double[] ratios = PlusMinus(numbers);
+        PrintRatios(ratios);
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine().Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
 
-        static (double, double, double) PlusMinus(List<int> array)
-        {
-            int positive = 0;
-            int negative = 0;
-            int zero = 0;
+    private static double[] PlusMinus(int[] numbers)
+    {
+        int positive = 0;
+        int negative = 0;
+        int zero = 0;
 
-            foreach (int x in array)
-                if (x > 0)
-                    ++positive;
-                else if (x < 0)
-                    ++negative;
-                else
-                    ++zero;
+        foreach (int x in numbers)
+            if (x > 0)
+                ++positive;
+            else if (x < 0)
+                ++negative;
+            else
+                ++zero;
 
-            int n = array.Count;
-            double positiveProportion = (double) positive / n;
-            double negativeProportion = (double) negative / n;
-            double zeroProportion = (double) zero / n;
+        double n = numbers.Length;
+        return [positive / n, negative / n, zero / n];
+    }
 
-            return (positiveProportion, negativeProportion, zeroProportion);
-        }
+    private static void PrintRatios(double[] ratios)
+    {
+        foreach (double ratio in ratios)
+            Console.WriteLine(ratio.ToString("F6"));
+    }
 }

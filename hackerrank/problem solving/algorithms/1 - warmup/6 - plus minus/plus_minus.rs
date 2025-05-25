@@ -4,30 +4,36 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let (positive_proportion, negative_proportion, zero_proportion) = plus_minus(n);
-    println!("{:.6}", positive_proportion);
-    println!("{:.6}", negative_proportion);
-    println!("{:.6}", zero_proportion);
+    let numbers: Vec<i32> = read_numbers(n);
+    let ratios: Vec<f32> = plus_minus(&numbers);
+    print_ratios(ratios);
 }
 
-fn plus_minus(n: usize) -> (f32, f32, f32) {
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+fn plus_minus(numbers: &[i32]) -> Vec<f32> {
     let mut positive: i32 = 0;
     let mut negative: i32 = 0;
     let mut zero: i32 = 0;
 
-    for _ in 0..n {
-        let x: i32 = read!();
-        if x > 0 {
+    for x in numbers.iter() {
+        if *x > 0 {
             positive += 1;
-        } else if x < 0 {
+        } else if *x < 0 {
             negative += 1;
         } else {
             zero += 1;
         }
     }
 
-    let positive_proportion = positive as f32 / n as f32;
-    let negative_proportion = negative as f32 / n as f32;
-    let zero_proportion = zero as f32 / n as f32;
-    return (positive_proportion, negative_proportion, zero_proportion);
+    let n = numbers.len() as f32;
+    vec![positive as f32 / n, negative as f32 / n, zero as f32 / n]
+}
+
+fn print_ratios(ratios: Vec<f32>) {
+    for ratio in ratios.iter() {
+        println!("{:.6}", ratio);
+    }
 }

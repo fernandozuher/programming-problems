@@ -1,19 +1,20 @@
 # https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
 def main():
-    _ = int(input())
-    array = list(map(int, input().split()))
-    positive_proportion, negative_proportion, zero_proportion = plus_minus(array)
-
-    print("%.6f" % positive_proportion)
-    print("%.6f" % negative_proportion)
-    print("%.6f" % zero_proportion)
+    input()
+    numbers = read_numbers()
+    ratios = plus_minus(numbers)
+    print_ratios(ratios)
 
 
-def plus_minus(array):
+def read_numbers():
+    return list(map(int, input().split()))
+
+
+def plus_minus(numbers):
     positive, negative, zero = 0, 0, 0
 
-    for number in array:
+    for number in numbers:
         if number > 0:
             positive += 1
         elif number < 0:
@@ -21,12 +22,13 @@ def plus_minus(array):
         else:
             zero += 1
 
-    n = len(array)
-    positive_proportion = float(positive / n)
-    negative_proportion = float(negative / n)
-    zero_proportion = float(zero / n)
+    n = len(numbers)
+    return float(positive / n), float(negative / n), float(zero / n)
 
-    return positive_proportion, negative_proportion, zero_proportion
+
+def print_ratios(ratios):
+    for ratio in ratios:
+        print(f"{ratio:.6f}")
 
 
 if __name__ == '__main__':
