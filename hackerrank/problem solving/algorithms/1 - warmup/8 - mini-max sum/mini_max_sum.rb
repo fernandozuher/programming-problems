@@ -1,17 +1,25 @@
 # https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
 def main
-  array = gets.split.map(&:to_i)
-  array.sort!
-  min_sum, max_sum = mini_max_sum(array)
+  numbers = read_numbers
+  min_sum, max_sum = calc_min_max_sum(numbers)
   puts "#{min_sum} #{max_sum}"
 end
 
-  def mini_max_sum(array)
-    total_sum = array.sum
-    min_sum = total_sum - array.last
-    max_sum = total_sum - array.first
-    [min_sum, max_sum]
+def read_numbers
+  gets.split.map(&:to_i)
+end
+
+def calc_min_max_sum(numbers)
+  sum = min = max = numbers.first
+
+  numbers[1..].each do |x|
+    sum += x
+    min = [x, min].min
+    max = [x, max].max
   end
+
+  [sum - max, sum - min]
+end
 
 main

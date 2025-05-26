@@ -2,33 +2,31 @@
 
 package main
 
-import (
-    "fmt"
-    "sort"
-)
+import "fmt"
 
 func main() {
     const n = 5
-    var array []int = readIntArray(n)
-    sort.Ints(array)
-    var minSum, maxSum int = miniMaxSum(array)
-    fmt.Print(minSum, maxSum)
+    var numbers []int = readNumbers(n)
+    var minSum, maxSum int = calcMinMaxSum(numbers)
+    fmt.Println(minSum, maxSum)
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
-    return array
+    return numbers
 }
 
-func miniMaxSum(array []int) (int, int) {
-    sum := 0
-    for _, value := range array {
-        sum += value
+func calcMinMaxSum(numbers []int) (int, int) {
+    sum, minValue, maxValue := numbers[0], numbers[0], numbers[0]
+
+    for _, x := range numbers[1:] {
+        sum += x
+        minValue = min(x, minValue)
+        maxValue = max(x, maxValue)
     }
-    var minSum int = sum - array[len(array)-1]
-    var maxSum int = sum - array[0]
-    return minSum, maxSum
+
+    return sum - maxValue, sum - minValue
 }

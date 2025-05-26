@@ -9,36 +9,41 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let array = readIntArray();
-    array.sort((a, b) => a - b);
-    let [minSum, maxSum] = miniMaxSum(array);
-    console.log(`${minSum} ${maxSum}`);
+  const numbers = readNumbers();
+  const [minSum, maxSum] = calcMinMaxSum(numbers);
+  console.log(`${minSum} ${maxSum}`);
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function miniMaxSum(array) {
-        let sum = array.reduce((a, b) => a + b);
-        let minSum = sum - array[array.length - 1];
-        let maxSum = sum - array[0];
-        return [minSum, maxSum];
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
+
+function calcMinMaxSum(numbers) {
+  let sum, min, max;
+  sum = min = max = numbers[0];
+
+  for (let i = 1; i < numbers.length; i++) {
+    sum += numbers[i];
+    min = Math.min(min, numbers[i]);
+    max = Math.max(max, numbers[i]);
+  }
+
+  return [sum - max, sum - min];
+}

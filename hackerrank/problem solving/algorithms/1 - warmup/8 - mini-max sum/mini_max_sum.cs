@@ -1,27 +1,31 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        List<int> array = ReadIntArray();
-        array.Sort();
-        var (minSum, maxSum) = MiniMaxSum(array);
-        WriteLine("{0} {1}", minSum, maxSum);
+        int[] numbers = ReadNumbers();
+        var (minSum, maxSum) = CalcMinMaxSum(numbers);
+        Console.WriteLine("{0} {1}", minSum, maxSum);
     }
 
-        static List<int> ReadIntArray()
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
+
+    private static (long, long) CalcMinMaxSum(int[] numbers)
+    {
+        long sum, min, max;
+        sum = min = max = numbers[0];
+
+        foreach (var x in numbers.Skip(1))
         {
-            return ReadLine().Split().Select(int.Parse).ToList();
+            sum += x;
+            min = Math.Min(x, min);
+            max = Math.Max(x, max);
         }
 
-        static (long, long) MiniMaxSum(List<int> array)
-        {
-            long sum = array.Aggregate(0L, (a, b) => a + b);
-            long minSum = sum - array.Last();
-            long maxSum = sum - array.First();
-            return (minSum, maxSum);
-        }
+        return (sum - max, sum - min);
+    }
 }

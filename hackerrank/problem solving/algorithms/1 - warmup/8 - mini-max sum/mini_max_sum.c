@@ -1,56 +1,43 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
-// From C23
+// C23
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-long *read_array(int n);
-int compare(const void *a, const void *b);
-long *mini_max_sum(const long array[], int n);
-    long *wrap_result(const long array[], int n);
+void read_numbers(long numbers[], int n);
+void calc_min_max_sum(const long numbers[], int n, long min_max_sum[]);
 
 int main()
 {
     constexpr int n = 5;
-    long *array = read_array(n);
-    qsort(array, n, sizeof(long), compare);
+    long numbers[n];
+    read_numbers(numbers, n);
 
-    long *result = mini_max_sum(array, n);
-    printf("%ld %ld", result[0], result[1]);
-    free(array);
-    free(result);
+    long min_max_sum[2];
+    calc_min_max_sum(numbers, n, min_max_sum);
+    printf("%ld %ld\n", min_max_sum[0], min_max_sum[1]);
 
     return 0;
 }
 
-    long *read_array(const int n)
-    {
-        auto array = (long*) malloc(n * sizeof(long));
-        for (int i = 0; i < n && scanf("%ld", &array[i]); ++i);
-        return array;
+void read_numbers(long numbers[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%ld", &numbers[i]);
+}
+
+void calc_min_max_sum(const long numbers[], int n, long min_max_sum[])
+{
+    long sum, min, max;
+    sum = min = max = numbers[0];
+
+    for (int i = 1; i < n; ++i) {
+        sum += numbers[i];
+        if (numbers[i] < min)
+            min = numbers[i];
+        if (numbers[i] > max)
+            max = numbers[i];
     }
 
-    int compare(const void *a, const void *b)
-    {
-        return *(long *) a - *(long *) b;
-    }
-
-    long *mini_max_sum(const long array[], const int n)
-    {
-        long sum = 0;
-        for (int i = 0; i < n; sum += array[i], ++i);
-        long min_sum = sum - array[n - 1];
-        long max_sum = sum - array[0];
-
-        constexpr int n_result = 2;
-        long temp_result[] = {min_sum, max_sum};
-        return wrap_result(temp_result, n_result);
-    }
-
-        long *wrap_result(const long array[], const int n)
-        {
-            auto result = (long*) malloc(n * sizeof(long));
-            memcpy(result, array, n * sizeof(long));
-            return result;
-        }
+    min_max_sum[0] = sum - max;
+    min_max_sum[1] = sum - min;
+}
