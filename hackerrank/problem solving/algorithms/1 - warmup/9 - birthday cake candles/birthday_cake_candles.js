@@ -9,43 +9,33 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let array = readIntArray();
-    console.log(birthdayCakeCandles(array));
+  readLine();
+  const candles = readNumbers();
+  console.log(birthdayCakeCandles(candles));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function birthdayCakeCandles(candles) {
-        let maxCount = 0;
-        let maxElement = 0;
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        for (let x of candles)
-            if (x > maxElement) {
-                maxElement = x;
-                maxCount = 1;
-            }
-            else if (x === maxElement)
-                ++maxCount;
-
-        return maxCount;
-    }
+function birthdayCakeCandles(candles) {
+  const max = Math.max(...candles);
+  return candles.filter((x) => x === max).length;
+}

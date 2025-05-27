@@ -1,34 +1,22 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int n = int.Parse(ReadLine());
-        List<int> array = ReadIntArray();
-        WriteLine(BirthdayCakeCandles(array));
+        Console.ReadLine();
+        int[] candles = ReadNumbers();
+        Console.WriteLine(BirthdayCakeCandles(candles));
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine().Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
 
-        static int BirthdayCakeCandles(List<int> candles)
-        {
-            int maxCount = 0;
-            int maxElement = 0;
-
-            foreach (int x in candles)
-                if (x > maxElement) {
-                    maxElement = x;
-                    maxCount = 1;
-                }
-                else if (x == maxElement)
-                    ++maxCount;
-
-            return maxCount;
-        }
+    private static int BirthdayCakeCandles(int[] candles)
+    {
+        int max = candles.Max();
+        return candles.Count(x => x == max);
+    }
 }

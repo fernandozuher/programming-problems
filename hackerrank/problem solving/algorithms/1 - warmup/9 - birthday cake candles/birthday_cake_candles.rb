@@ -1,25 +1,17 @@
 # https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
 def main
-  _n = gets.to_i
-  array = gets.split.map(&:to_i)
-  p birthday_cake_candles(array)
+  gets
+  candles = read_numbers
+  puts birthday_cake_candles(candles)
 end
 
-  def birthday_cake_candles(candles)
-    max_count = 0
-    max_element = 0
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-    candles.each do |x|
-      if x > max_element
-        max_element = x
-        max_count = 1
-      elsif x == max_element
-        max_count += 1
-      end
-    end
-
-    max_count
-  end
+def birthday_cake_candles(candles)
+  candles.count(candles.max)
+end
 
 main

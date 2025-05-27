@@ -1,29 +1,38 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
-// From Go 1.22
+// Go 1.22
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "slices"
+)
 
 func main() {
     var n int
     fmt.Scan(&n)
-    fmt.Print(birthdayCakeCandles(n))
+    candles := readNumbers(n)
+    fmt.Println(birthdayCakeCandles(candles))
 }
 
-func birthdayCakeCandles(n int) int {
-    maxElement, maxCount := 0, 0
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range n {
+        fmt.Scan(&numbers[i])
+    }
+    return numbers
+}
 
-    for range n {
-        var x int
-        fmt.Scan(&x)
-        if x > maxElement {
-            maxElement = x
-            maxCount = 1
-        } else if x == maxElement {
-            maxCount++
+func birthdayCakeCandles(candles []int) int {
+    return count(candles, slices.Max(candles))
+}
+
+func count(numbers []int, value int) int {
+    count := 0
+    for _, x := range numbers {
+        if x == value {
+            count++
         }
     }
-
-    return maxCount
+    return count
 }

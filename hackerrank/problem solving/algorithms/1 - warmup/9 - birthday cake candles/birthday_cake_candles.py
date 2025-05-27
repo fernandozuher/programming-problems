@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
 def main():
-    _ = int(input())
-    array = read_int_array()
-    print(birthday_cake_candles(array))
+    input()
+    candles = read_numbers()
+    print(birthday_cake_candles(candles))
 
 
-def read_int_array():
+def read_numbers():
     return list(map(int, input().split()))
 
 

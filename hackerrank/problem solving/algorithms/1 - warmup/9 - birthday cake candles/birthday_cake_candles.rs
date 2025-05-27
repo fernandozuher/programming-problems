@@ -4,22 +4,15 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    print!("{}", birthday_cake_candles(n));
+    let candles: Vec<i32> = read_numbers(n);
+    println!("{}", birthday_cake_candles(candles));
 }
 
-fn birthday_cake_candles(n: usize) -> i32 {
-    let mut max_element: i32 = 0;
-    let mut max_count: i32 = 0;
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
 
-    for _ in 0..n {
-        let x: i32 = read!();
-        if x > max_element {
-            max_element = x;
-            max_count = 1;
-        } else if x == max_element {
-            max_count += 1;
-        }
-    }
-
-    return max_count;
+fn birthday_cake_candles(candles: Vec<i32>) -> usize {
+    let max = candles.iter().max().unwrap();
+    candles.iter().filter(|&x| x == max).count()
 }
