@@ -25,14 +25,11 @@ func gradeStudents(grades []int) []int {
     const minGrade = 38
 
     for i, grade := range grades {
-        if grade < minGrade || isZeroRemainder(grade) {
+        if grade < minGrade {
             roundedGrades[i] = grade
         } else {
-            quotient := grade / 5
-            nextMultiple5 := (quotient + 1) * 5
-            difference := nextMultiple5 - grade
-
-            if difference < 3 {
+            nextMultiple5 := (grade/5 + 1) * 5
+            if nextMultiple5-grade < 3 {
                 roundedGrades[i] = nextMultiple5
             } else {
                 roundedGrades[i] = grade
@@ -41,10 +38,6 @@ func gradeStudents(grades []int) []int {
     }
 
     return roundedGrades
-}
-
-func isZeroRemainder(grade int) bool {
-    return grade%5 == 0
 }
 
 func printNumbers(numbers []int) {

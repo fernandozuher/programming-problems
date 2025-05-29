@@ -1,34 +1,29 @@
 # https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
+
 def main():
     n = int(input())
-    array = read_int_array(n)
-    print(*grading_students(array), sep='\n')
+    grades = read_numbers(n)
+    rounded_grades = grade_students(grades)
+    print(*rounded_grades, sep='\n')
 
 
-def read_int_array(n):
+def read_numbers(n):
     return [int(input()) for _ in range(n)]
 
 
-def grading_students(grades):
-    n = len(grades)
-    new_grades = [None] * n
+def grade_students(grades):
     MIN_GRADE = 38
+    rounded_grades = [0] * len(grades)
 
-    for i in range(n):
-        if grades[i] < MIN_GRADE or is_zero_remainder(grades[i]):
-            new_grades[i] = grades[i]
+    for i, grade in enumerate(grades):
+        if grade < MIN_GRADE:
+            rounded_grades[i] = grade
         else:
-            quotient = int(grades[i] / 5)
-            next_multiple5 = (quotient + 1) * 5
-            difference = next_multiple5 - grades[i]
-            new_grades[i] = next_multiple5 if difference < 3 else grades[i]
+            next_multiple_5 = (int(grade / 5) + 1) * 5
+            rounded_grades[i] = next_multiple_5 if (next_multiple_5 - grade < 3) else grade
 
-    return new_grades
-
-
-def is_zero_remainder(grade):
-    return grade % 5 == 0
+    return rounded_grades
 
 
 if __name__ == '__main__':

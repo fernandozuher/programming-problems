@@ -1,47 +1,29 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int n = int.Parse(ReadLine());
-        List<int> array = ReadIntArray(n);
-        GradingStudents(array).ForEach(WriteLine);
+        int n = int.Parse(Console.ReadLine());
+        List<int> grades = ReadNumbers(n);
+        List<int> roundedGrades = GradeStudents(grades);
+        roundedGrades.ForEach(Console.WriteLine);
     }
 
-        static List<int> ReadIntArray(int n)
+    private static List<int> ReadNumbers(int n)
+    {
+        return Enumerable.Range(0, n).Select(_ => int.Parse(Console.ReadLine())).ToList();
+    }
+
+    private static List<int> GradeStudents(List<int> grades)
+    {
+        const int minGrade = 38;
+        return grades.Select(grade =>
         {
-            var array = new List<int>(new int[n]);
-            for (int i = 0; i < n; ++i)
-                array[i] = int.Parse(ReadLine());
-            return array;
-        }
-
-        static List<int> GradingStudents(List<int> grades)
-        {
-            int n = grades.Count;
-            var newGrades = new List<int>(new int[n]);
-
-            for (int i = 0, minGrade = 38; i < n; ++i)
-            {
-                if (grades[i] < minGrade || IsZeroRemainder(grades[i]))
-                    newGrades[i] = grades[i];
-                else
-                {
-                    int quotient = grades[i] / 5;
-                    int nextMultiple5 = (quotient + 1) * 5;
-                    int difference = nextMultiple5 - grades[i];
-                    newGrades[i] = difference < 3 ? nextMultiple5 : grades[i];
-                }
-            }
-
-            return newGrades;
-        }
-
-            static bool IsZeroRemainder(int grade)
-            {
-                return grade % 5 == 0;
-            }
+            if (grade < minGrade)
+                return grade;
+            int nextMultiple5 = (grade / 5 + 1) * 5;
+            return nextMultiple5 - grade < 3 ? nextMultiple5 : grade;
+        }).ToList();
+    }
 }

@@ -1,11 +1,9 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
-// C23
 
 #include <stdio.h>
 
 void read_numbers(int numbers[], int n);
 void grade_students(const int grades[], int n, int rounded_grades[]);
-bool is_zero_remainder(int grade);
 void print_numbers(const int numbers[], int n);
 
 int main()
@@ -31,19 +29,12 @@ void read_numbers(int numbers[], int n)
 void grade_students(const int grades[], int n, int rounded_grades[])
 {
     for (int i = 0, min_grade = 38; i < n; ++i)
-        if (grades[i] < min_grade || is_zero_remainder(grades[i]))
+        if (grades[i] < min_grade)
             rounded_grades[i] = grades[i];
         else {
-            int quotient = grades[i] / 5;
-            int next_multiple_5 = (quotient + 1) * 5;
-            int difference = next_multiple_5 - grades[i];
-            rounded_grades[i] = difference < 3 ? next_multiple_5 : grades[i];
+            int next_multiple_5 = (grades[i] / 5 + 1) * 5;
+            rounded_grades[i] = next_multiple_5 - grades[i] < 3 ? next_multiple_5 : grades[i];
         }
-}
-
-bool is_zero_remainder(int grade)
-{
-    return grade % 5 == 0;
 }
 
 void print_numbers(const int numbers[], int n)

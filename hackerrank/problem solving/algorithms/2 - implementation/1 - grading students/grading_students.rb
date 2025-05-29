@@ -2,34 +2,25 @@
 
 def main
   n = gets.to_i
-  array = read_int_array(n)
-  puts grading_students(array)
+  grades = read_numbers(n)
+  rounded_grades = grade_students(grades)
+  puts rounded_grades
 end
 
-  def read_int_array(n)
-    Array.new(n) { gets.to_i }
-  end
+def read_numbers(n)
+  Array.new(n) { gets.to_i }
+end
 
-  def grading_students(grades)
-    new_grades = Array.new(grades.length)
-    min_grade = 38
-
-    grades.each_with_index { |grade, i|
-      if grade < min_grade or is_zero_remainder(grade)
-        new_grades[i] = grade
-      else
-        quotient = (grade / 5).to_i
-        next_multiple5 = (quotient + 1) * 5
-        difference = next_multiple5 - grade
-        new_grades[i] = difference < 3 ? next_multiple5 : grade
-      end
-    }
-
-    new_grades
-  end
-
-    def is_zero_remainder(grade)
-      grade % 5 == 0
+def grade_students(grades)
+  min_grade = 38
+  grades.map do |grade|
+    if grade < min_grade
+      grade
+    else
+      next_multiple5 = (grade / 5 + 1) * 5
+      (next_multiple5 - grade < 3) ? next_multiple5 : grade
     end
+  end
+end
 
 main

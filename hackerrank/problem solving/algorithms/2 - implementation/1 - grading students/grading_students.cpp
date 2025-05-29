@@ -9,7 +9,6 @@ using namespace std;
 
 vector<int> read_numbers();
 vector<int> grade_students(const vector<int>& grades);
-bool is_zero_remainder(int grade);
 void print_numbers(const vector<int>& numbers);
 
 int main()
@@ -29,25 +28,14 @@ vector<int> read_numbers()
 
 vector<int> grade_students(const vector<int>& grades)
 {
-    vector<int> rounded_grades(grades.size());
-
-    for (constexpr int min_grade{38}; const auto &[grade, rounded_grade] : views::zip(grades, rounded_grades))
-
-        if (grade < min_grade || is_zero_remainder(grade))
-            rounded_grade = grade;
-        else {
-            int quotient{grade / 5};
-            int next_multiple_5{(quotient + 1) * 5};
-            int difference{next_multiple_5 - grade};
-            rounded_grade = difference < 3 ? next_multiple_5 : grade;
-        }
-
-    return rounded_grades;
-}
-
-bool is_zero_remainder(int grade)
-{
-    return grade % 5 == 0;
+    constexpr int min_grade{38};
+    return grades | views::transform([](int grade) {
+               if (grade < min_grade)
+                   return grade;
+               int next_multiple_5{(grade / 5 + 1) * 5};
+               return next_multiple_5 - grade < 3 ? next_multiple_5 : grade;
+           })
+           | ranges::to<vector>();
 }
 
 void print_numbers(const vector<int>& numbers)

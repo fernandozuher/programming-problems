@@ -19,10 +19,10 @@ fn grade_students(grades: Vec<i32>) -> Vec<i32> {
     grades
         .into_iter()
         .map(|grade| {
-            if grade < MIN_GRADE || is_zero_remainder(grade) {
+            if grade < MIN_GRADE {
                 grade
             } else {
-                let next_multiple_5 = ((grade / 5) + 1) * 5;
+                let next_multiple_5: i32 = (grade / 5 + 1) * 5;
                 if next_multiple_5 - grade < 3 {
                     next_multiple_5
                 } else {
@@ -31,10 +31,6 @@ fn grade_students(grades: Vec<i32>) -> Vec<i32> {
             }
         })
         .collect()
-}
-
-fn is_zero_remainder(grade: i32) -> bool {
-    grade % 5 == 0
 }
 
 fn print_numbers(numbers: &[i32]) {

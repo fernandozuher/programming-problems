@@ -9,50 +9,40 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let array = readIntArray(n);
-    gradingStudents(array).forEach(x => console.log(x));
+  const n = +readLine();
+  const grades = readNumbers(n);
+  const roundedGrades = gradeStudents(grades);
+  console.log(roundedGrades.join('\n'));
 }
 
-    function readIntArray(n) {
-        return Array(n).fill(0).map(_ => +readLine());
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function gradingStudents(grades) {
-        let newGrades = Array(grades.length).fill(0);
+function readNumbers(n) {
+  return Array(n)
+    .fill(0)
+    .map((_) => +readLine());
+}
 
-        for (let i = 0, minGrade = 38; i < grades.length; ++i) {
-
-            if (grades[i] < minGrade || isZeroRemainder(grades[i]))
-                newGrades[i] = grades[i];
-            else {
-                let quotient = Math.floor((grades[i] / 5));
-                let nextMultiple5 = (quotient + 1) * 5;
-                let difference = nextMultiple5 - grades[i];
-                newGrades[i] = difference < 3 ? nextMultiple5 : grades[i];
-            }
-        }
-
-        return newGrades;
-    }
-
-        function isZeroRemainder(grade) {
-            return grade % 5 === 0;
-        }
+function gradeStudents(grades) {
+  const minGrade = 38;
+  return grades.map((grade) => {
+    if (grade < minGrade) return grade;
+    const nextMultiple5 = Math.trunc(grade / 5 + 1) * 5;
+    return nextMultiple5 - grade < 3 ? nextMultiple5 : grade;
+  });
+}
