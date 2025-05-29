@@ -4,42 +4,39 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let array: Vec<i32> = read_int_array(n);
-    print_int_array(&grading_students(&array));
+    let grades: Vec<i32> = read_numbers(n);
+    let rounded_grades: Vec<i32> = grade_students(grades);
+    print_numbers(&rounded_grades);
 }
 
-    fn read_int_array(n: usize) -> Vec<i32> {
-        return (0..n).map(|_| read!()).collect();
-    }
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
 
-    fn grading_students(grades: &[i32]) -> Vec<i32> {
-        let n: usize = grades.len();
-        let mut new_grades: Vec<i32> = vec![0; n];
-        let min_grade: i32 = 38;
+fn grade_students(grades: Vec<i32>) -> Vec<i32> {
+    const MIN_GRADE: i32 = 38;
 
-        for i in 0..n {
-            if grades[i] < min_grade || is_zero_remainder(grades[i]) {
-                new_grades[i] = grades[i];
+    grades
+        .into_iter()
+        .map(|grade| {
+            if grade < MIN_GRADE || is_zero_remainder(grade) {
+                grade
             } else {
-                let quotient: i32 = grades[i] / 5;
-                let next_multiple_5: i32 = (quotient + 1) * 5;
-                let difference: i32 = next_multiple_5 - grades[i];
-
-                new_grades[i] = if difference < 3 {
+                let next_multiple_5 = ((grade / 5) + 1) * 5;
+                if next_multiple_5 - grade < 3 {
                     next_multiple_5
                 } else {
-                    grades[i]
+                    grade
                 }
             }
-        }
+        })
+        .collect()
+}
 
-        return new_grades;
-    }
+fn is_zero_remainder(grade: i32) -> bool {
+    grade % 5 == 0
+}
 
-        fn is_zero_remainder(grade: i32) -> bool {
-            return grade % 5 == 0;
-        }
-
-    fn print_int_array(array: &[i32]) {
-        array.iter().for_each(|x| println!("{}", x));
-    }
+fn print_numbers(numbers: &[i32]) {
+    numbers.iter().for_each(|x| println!("{}", x));
+}
