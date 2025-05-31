@@ -3,66 +3,64 @@
 use text_io::read;
 
 fn main() {
-    let input: AppleAndOrange = read_input();
-    count_apples_and_oranges(&input);
+    let (house, apples, oranges) = read_input();
+    println!("{}", count_fruits_on_house(&apples, &house));
+    println!("{}", count_fruits_on_house(&oranges, &house));
 }
 
-    struct AppleAndOrange {
-        starting_sam: i32,
-        ending_sam: i32,
-        apple_tree_location: i32,
-        orange_tree_location: i32,
-        n_apples: usize,
-        n_oranges: usize,
-        apples_distance_from_tree: Vec<i32>,
-        oranges_distance_from_tree: Vec<i32>,
+struct House {
+    start: i32,
+    end: i32,
+}
+
+impl House {
+    fn contains(&self, position: i32) -> bool {
+        self.start <= position && position <= self.end
     }
+}
 
-    fn read_input() -> AppleAndOrange {
-        let mut input: AppleAndOrange = AppleAndOrange {
-            starting_sam: read!(),
-            ending_sam: read!(),
-            apple_tree_location: read!(),
-            orange_tree_location: read!(),
-            n_apples: read!(),
-            n_oranges: read!(),
-            apples_distance_from_tree: vec![],
-            oranges_distance_from_tree: vec![],
-        };
-        input.apples_distance_from_tree = read_int_array(input.n_apples);
-        input.oranges_distance_from_tree = read_int_array(input.n_oranges);
-        return input;
-    }
+struct TreeFruits {
+    tree_location: i32,
+    fruit_distances: Vec<i32>,
+}
 
-        fn read_int_array(n: usize) -> Vec<i32> {
-            return (0..n).map(|_| read!()).collect();
-        }
+fn read_input() -> (House, TreeFruits, TreeFruits) {
+    let house_start: i32 = read!();
+    let house_end: i32 = read!();
+    let apple_tree_location: i32 = read!();
+    let orange_tree_location: i32 = read!();
+    let n_apples: usize = read!();
+    let n_oranges: usize = read!();
+    let apple_distances: Vec<i32> = read_numbers(n_apples);
+    let orange_distances: Vec<i32> = read_numbers(n_oranges);
 
-    fn count_apples_and_oranges(input: &AppleAndOrange) {
-        let apples_on_house = count_fruits_on_house(&input, "apple".to_string());
-        let oranges_on_house = count_fruits_on_house(&input, "orange".to_string());
-        print!("{}\n{}", apples_on_house, oranges_on_house);
-    }
+    let house = House {
+        start: house_start,
+        end: house_end,
+    };
 
-        fn count_fruits_on_house(input: &AppleAndOrange, fruit: String) -> i32 {
-            let (tree_location, fruits): (i32, Vec<i32>) = filter_input(input, fruit);
-            let verify_fruit_location =
-                |input: &AppleAndOrange, tree_location: i32, partial_location: i32| -> bool {
-                    let location = tree_location + partial_location;
-                    return location >= input.starting_sam && location <= input.ending_sam;
-                };
+    let apple = TreeFruits {
+        tree_location: apple_tree_location,
+        fruit_distances: apple_distances,
+    };
 
-            let filtered_fruits_iterator = fruits
-                .iter()
-                .filter(|&&partial_location| verify_fruit_location(input, tree_location, partial_location));
-            let filtered_fruits_container = filtered_fruits_iterator.cloned().collect::<Vec<i32>>();
+    let orange = TreeFruits {
+        tree_location: orange_tree_location,
+        fruit_distances: orange_distances,
+    };
 
-            return filtered_fruits_container.len() as i32;
-        }
+    (house, apple, orange)
+}
 
-            fn filter_input(input: &AppleAndOrange, fruit: String) -> (i32, Vec<i32>) {
-                if fruit == "apple" {
-                    return (input.apple_tree_location, input.apples_distance_from_tree.clone());
-                }
-                return (input.orange_tree_location, input.oranges_distance_from_tree.clone());
-            }
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+fn count_fruits_on_house(fruit: &TreeFruits, house: &House) -> usize {
+    fruit
+        .fruit_distances
+        .iter()
+        .map(|&distance| fruit.tree_location + distance)
+        .filter(|&position| house.contains(position))
+        .count()
+}

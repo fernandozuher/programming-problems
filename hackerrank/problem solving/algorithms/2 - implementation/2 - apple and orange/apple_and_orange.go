@@ -5,59 +5,71 @@ package main
 import "fmt"
 
 func main() {
-    var input AppleAndOrange = readInput()
-    countApplesAndOranges(input)
+    house, apple, orange := readInput()
+    fmt.Println(countFruitsOnHouse(apple, house))
+    fmt.Println(countFruitsOnHouse(orange, house))
 }
 
-type AppleAndOrange struct {
-    startingSam, endingSam                int
-    appleTreeLocation, orangeTreeLocation int
-    nApples, nOranges                     int
-    applesDistanceFromTree                []int
-    orangesDistanceFromTree               []int
+type House struct {
+    start, end int
 }
 
-func readInput() AppleAndOrange {
-    var input AppleAndOrange
-    fmt.Scan(&input.startingSam, &input.endingSam)
-    fmt.Scan(&input.appleTreeLocation, &input.orangeTreeLocation)
-    fmt.Scan(&input.nApples, &input.nOranges)
-    input.applesDistanceFromTree = readIntArray(input.nApples)
-    input.orangesDistanceFromTree = readIntArray(input.nOranges)
-    return input
+func (h House) contains(position int) bool {
+    return h.start <= position && position <= h.end
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+type TreeFruits struct {
+    treeLocation   int
+    fruitDistances []int
+}
+
+func readInput() (House, TreeFruits, TreeFruits) {
+    var houseStart int
+    var houseEnd int
+    var appleTreeLocation int
+    var orangeTreeLocation int
+    var nApples int
+    var nOranges int
+
+    fmt.Scan(&houseStart)
+    fmt.Scan(&houseEnd)
+    fmt.Scan(&appleTreeLocation)
+    fmt.Scan(&orangeTreeLocation)
+    fmt.Scan(&nApples)
+    fmt.Scan(&nOranges)
+    appleDistances := readNumbers(nApples)
+    orangeDistances := readNumbers(nOranges)
+
+    house := House{houseStart, houseEnd}
+
+    apple := TreeFruits{
+        appleTreeLocation,
+        appleDistances,
     }
-    return array
+
+    orange := TreeFruits{
+        orangeTreeLocation,
+        orangeDistances,
+    }
+
+    return house, apple, orange
 }
 
-func countApplesAndOranges(input AppleAndOrange) {
-    var applesOnHouse int = countFruitsOnHouse(input, "apple")
-    var orangesOnHouse int = countFruitsOnHouse(input, "orange")
-    fmt.Printf("%d\n%d", applesOnHouse, orangesOnHouse)
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
+    }
+    return numbers
 }
 
-func countFruitsOnHouse(input AppleAndOrange, fruit string) int {
-    treeLocation, fruits := filterInput(input, fruit)
-    fruitsOnHouse := 0
-
-    for _, partialLocation := range fruits {
-        location := treeLocation + partialLocation
-        if location >= input.startingSam && location <= input.endingSam {
-            fruitsOnHouse += 1
+func countFruitsOnHouse(fruit TreeFruits, house House) int {
+    count := 0
+    for _, distance := range fruit.fruitDistances {
+        position := fruit.treeLocation + distance
+        if house.contains(position) {
+            count++
         }
     }
-
-    return fruitsOnHouse
-}
-
-func filterInput(input AppleAndOrange, fruit string) (int, []int) {
-    if fruit == "apple" {
-        return input.appleTreeLocation, input.applesDistanceFromTree
-    }
-    return input.orangeTreeLocation, input.orangesDistanceFromTree
+    return count
 }
