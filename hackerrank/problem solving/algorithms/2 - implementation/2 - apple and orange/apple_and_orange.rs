@@ -19,12 +19,12 @@ impl House {
     }
 }
 
-struct TreeFruits {
+struct FruitTree {
     tree_location: i32,
     fruit_distances: Vec<i32>,
 }
 
-fn read_input() -> (House, TreeFruits, TreeFruits) {
+fn read_input() -> (House, FruitTree, FruitTree) {
     let house_start: i32 = read!();
     let house_end: i32 = read!();
     let apple_tree_location: i32 = read!();
@@ -39,12 +39,12 @@ fn read_input() -> (House, TreeFruits, TreeFruits) {
         end: house_end,
     };
 
-    let apple = TreeFruits {
+    let apple = FruitTree {
         tree_location: apple_tree_location,
         fruit_distances: apple_distances,
     };
 
-    let orange = TreeFruits {
+    let orange = FruitTree {
         tree_location: orange_tree_location,
         fruit_distances: orange_distances,
     };
@@ -56,7 +56,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-fn count_fruits_on_house(fruit: &TreeFruits, house: &House) -> usize {
+fn count_fruits_on_house(fruit: &FruitTree, house: &House) -> usize {
     fruit
         .fruit_distances
         .iter()

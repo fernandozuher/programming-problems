@@ -18,12 +18,12 @@ func (h House) contains(position int) bool {
     return h.start <= position && position <= h.end
 }
 
-type TreeFruits struct {
+type FruitTree struct {
     treeLocation   int
     fruitDistances []int
 }
 
-func readInput() (House, TreeFruits, TreeFruits) {
+func readInput() (House, FruitTree, FruitTree) {
     var houseStart int
     var houseEnd int
     var appleTreeLocation int
@@ -42,12 +42,12 @@ func readInput() (House, TreeFruits, TreeFruits) {
 
     house := House{houseStart, houseEnd}
 
-    apple := TreeFruits{
+    apple := FruitTree{
         appleTreeLocation,
         appleDistances,
     }
 
-    orange := TreeFruits{
+    orange := FruitTree{
         orangeTreeLocation,
         orangeDistances,
     }
@@ -63,7 +63,7 @@ func readNumbers(n int) []int {
     return numbers
 }
 
-func countFruitsOnHouse(fruit TreeFruits, house House) int {
+func countFruitsOnHouse(fruit FruitTree, house House) int {
     count := 0
     for _, distance := range fruit.fruitDistances {
         position := fruit.treeLocation + distance
