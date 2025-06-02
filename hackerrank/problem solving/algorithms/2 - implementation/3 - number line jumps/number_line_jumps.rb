@@ -1,27 +1,22 @@
 # https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 def main
-  array = read_int_array
-  puts kangaroo(array)
+  positions_and_velocities = read_numbers
+  puts kangaroo(positions_and_velocities) ? "YES" : "NO"
 end
 
-  def read_int_array
-    gets.split.map(&:to_i)
-  end
-  
-  def kangaroo(array)
-    x1, v1, x2, v2 = array
-  
-    if v2 >= v1
-      return 'NO'
-    end
-  
-    while x1 < x2
-      x1 += v1
-      x2 += v2
-    end
-  
-    x1 == x2 ? 'YES' : 'NO'
-  end
+def read_numbers
+  gets.split.map(&:to_i)
+end
+
+def kangaroo(positions_and_velocities)
+  x1, v1, x2, v2 = positions_and_velocities
+
+  return x1 == x2 if v1 == v2
+
+  distance_diff = x2 - x1
+  velocity_diff = v1 - v2
+  distance_diff * velocity_diff >= 0 && distance_diff % velocity_diff == 0
+end
 
 main

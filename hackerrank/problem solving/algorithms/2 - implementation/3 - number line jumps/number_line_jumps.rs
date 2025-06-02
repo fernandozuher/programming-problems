@@ -4,32 +4,29 @@ use text_io::read;
 
 fn main() {
     const N: usize = 4;
-    let array: Vec<i32> = read_int_array(N);
-    println!("{}", kangaroo(array));
+    let positions_and_velocities: Vec<i32> = read_numbers(N);
+    if kangaroo(&positions_and_velocities) {
+        println!("YES");
+    } else {
+        println!("NO");
+    }
 }
 
-    fn read_int_array(n: usize) -> Vec<i32> {
-        return (0..n).map(|_| read!()).collect();
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+fn kangaroo(positions_and_velocities: &[i32]) -> bool {
+    let x1: i32 = positions_and_velocities[0];
+    let v1: i32 = positions_and_velocities[1];
+    let x2: i32 = positions_and_velocities[2];
+    let v2: i32 = positions_and_velocities[3];
+
+    if v1 == v2 {
+        return x1 == x2;
     }
 
-    fn kangaroo(array: Vec<i32>) -> &'static str {
-        let mut x1: i32 = array[0];
-        let v1: i32 = array[1];
-        let mut x2: i32 = array[2];
-        let v2: i32 = array[3];
-
-        if v2 >= v1 {
-            return "NO";
-        }
-
-        while x1 < x2 {
-            x1 += v1;
-            x2 += v2;
-        }
-
-        if x1 == x2 {
-            "YES"
-        } else {
-            "NO"
-        }
-    }
+    let distance_diff = x2 - x1;
+    let velocity_diff = v1 - v2;
+    distance_diff * velocity_diff >= 0 && distance_diff % velocity_diff == 0
+}

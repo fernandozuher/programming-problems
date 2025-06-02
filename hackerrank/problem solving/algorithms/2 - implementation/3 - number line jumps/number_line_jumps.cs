@@ -1,30 +1,30 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        List<int> array = ReadIntArray();
-        WriteLine(Kangaroo(array));
+        int[] positionsAndVelocities = ReadNumbers();
+        Console.WriteLine(Kangaroo(positionsAndVelocities) ? "YES" : "NO");
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine().Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
 
-        static string Kangaroo(List<int> array)
-        {
-            int x1 = array.First();
-            int v1 = array[1];
-            int x2 = array[2];
-            int v2 = array.Last();
+    private static bool Kangaroo(int[] positionsAndVelocities)
+    {
+        int x1 = positionsAndVelocities[0];
+        int v1 = positionsAndVelocities[1];
+        int x2 = positionsAndVelocities[2];
+        int v2 = positionsAndVelocities[3];
 
-            if (v2 >= v1)
-                return "NO";
-            for (; x1 < x2; x1 += v1, x2 += v2);
-            return x1 == x2 ? "YES" : "NO";
-        }
+        if (v1 == v2)
+            return x1 == x2;
+
+        int distanceDiff = x2 - x1;
+        int velocityDiff = v1 - v2;
+        return distanceDiff * velocityDiff >= 0 && distanceDiff % velocityDiff == 0;
+    }
 }

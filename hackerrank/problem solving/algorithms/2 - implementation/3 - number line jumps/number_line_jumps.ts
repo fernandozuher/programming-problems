@@ -9,35 +9,37 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let array: number[] = readIntArray();
-    console.log(kangaroo(array));
+  let positionsAndVelocities: number[] = readNumbers();
+  console.log(kangaroo(positionsAndVelocities) ? 'YES' : 'NO');
 }
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
-    
-    function kangaroo(array: number[]): string {
-        let [x1, v1, x2, v2]: number[] = [...array];
-        if (v2 >= v1)
-            return 'NO';
-        for (; x1 < x2; x1 += v1, x2 += v2);
-        return x1 === x2 ? 'YES' : 'NO';
-    }
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
+
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
+function kangaroo(positionsAndVelocities: number[]): boolean {
+  const [x1, v1, x2, v2]: number[] = [...positionsAndVelocities];
+
+  if (v1 === v2) return x1 === x2;
+
+  const distanceDiff = x2 - x1;
+  const velocityDiff = v1 - v2;
+  return distanceDiff * velocityDiff >= 0 && distanceDiff % velocityDiff === 0;
+}

@@ -6,36 +6,33 @@ import "fmt"
 
 func main() {
     const N = 4
-    var array []int = readIntArray(N)
-    fmt.Println(kangaroo(array))
-}
-
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
-    }
-    return array
-}
-
-func kangaroo(array []int) string {
-    var x1 int = array[0]
-    var v1 int = array[1]
-    var x2 int = array[2]
-    var v2 int = array[3]
-
-    if v2 >= v1 {
-        return "NO"
-    }
-
-    for x1 < x2 {
-        x1 += v1
-        x2 += v2
-    }
-
-    if x1 == x2 {
-        return "YES"
+    positionsAndVelocities := readNumbers(N)
+    if kangaroo(positionsAndVelocities) {
+        fmt.Println("YES")
     } else {
-        return "NO"
+        fmt.Println("NO")
     }
+}
+
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
+    }
+    return numbers
+}
+
+func kangaroo(positionsAndVelocities []int) bool {
+    x1 := positionsAndVelocities[0]
+    v1 := positionsAndVelocities[1]
+    x2 := positionsAndVelocities[2]
+    v2 := positionsAndVelocities[3]
+
+    if v1 == v2 {
+        return x1 == x2
+    }
+
+    distanceDiff := x2 - x1
+    velocityDiff := v1 - v2
+    return distanceDiff*velocityDiff >= 0 && distanceDiff%velocityDiff == 0
 }
