@@ -5,9 +5,9 @@ package main
 import "fmt"
 
 func main() {
-    house, apple, orange := readInput()
-    fmt.Println(countFruitsOnHouse(apple, house))
-    fmt.Println(countFruitsOnHouse(orange, house))
+    house, appleTree, orangeTree := readInput()
+    fmt.Println(countFruitsOnHouse(appleTree, house))
+    fmt.Println(countFruitsOnHouse(orangeTree, house))
 }
 
 type House struct {
@@ -42,17 +42,17 @@ func readInput() (House, FruitTree, FruitTree) {
 
     house := House{houseStart, houseEnd}
 
-    apple := FruitTree{
+    appleTree := FruitTree{
         appleTreeLocation,
         appleDistances,
     }
 
-    orange := FruitTree{
+    orangeTree := FruitTree{
         orangeTreeLocation,
         orangeDistances,
     }
 
-    return house, apple, orange
+    return house, appleTree, orangeTree
 }
 
 func readNumbers(n int) []int {
@@ -63,10 +63,10 @@ func readNumbers(n int) []int {
     return numbers
 }
 
-func countFruitsOnHouse(fruit FruitTree, house House) int {
+func countFruitsOnHouse(fruitTree FruitTree, house House) int {
     count := 0
-    for _, distance := range fruit.fruitDistances {
-        position := fruit.treeLocation + distance
+    for _, distance := range fruitTree.fruitDistances {
+        position := fruitTree.treeLocation + distance
         if house.contains(position) {
             count++
         }

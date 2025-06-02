@@ -1,65 +1,46 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-using static System.Console;
-
-struct AppleAndOrange
+public class Solution
 {
-    public int StartingSam, EndingSam;
-    public int AppleTreeLocation, OrangeTreeLocation;
-    public List<int> ApplesDistanceFromTree, OrangesDistanceFromTree;
-}
-
-class Solution
-{
-    static void Main()
+    public static void Main()
     {
-        AppleAndOrange input = ReadInput();
-        CountApplesAndOranges(input);
+        var (house, appleTree, orangeTree) = ReadInput();
+        Console.WriteLine(CountFruitsOnHouse(appleTree, house));
+        Console.WriteLine(CountFruitsOnHouse(orangeTree, house));
     }
 
-        static AppleAndOrange ReadInput()
-        {
-            var input = new AppleAndOrange();
-            var temp = ReadIntArray();
-            input.StartingSam = temp.First();
-            input.EndingSam = temp.Last();
+    private static (House, FruitTree, FruitTree) ReadInput()
+    {
+        var numbers = ReadNumbers();
+        var house = new House(numbers[0], numbers[1]);
 
-            temp = ReadIntArray();
-            input.AppleTreeLocation = temp.First();
-            input.OrangeTreeLocation = temp.Last();
-            ReadLine(); // Discard sizes of arrays
-            input.ApplesDistanceFromTree = ReadIntArray();
-            input.OrangesDistanceFromTree = ReadIntArray();
+        numbers = ReadNumbers();
+        Console.ReadLine(); // Discard sizes of arrays
+        var appleTree = new FruitTree(numbers[0], ReadNumbers());
+        var orangeTree = new FruitTree(numbers[1], ReadNumbers());
 
-            return input;
-        }
+        return (house, appleTree, orangeTree);
+    }
 
-            static List<int> ReadIntArray()
-            {
-                return ReadLine().Split().Select(int.Parse).ToList();
-            }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
 
-        static void CountApplesAndOranges(AppleAndOrange input)
-        {
-            int applesOnHouse = CountFruitsOnHouse(input, "apple");
-            int orangesOnHouse = CountFruitsOnHouse(input, "orange");
-            WriteLine("{0}\n{1}", applesOnHouse, orangesOnHouse);
-        }
-
-            static int CountFruitsOnHouse(AppleAndOrange input, string fruit)
-            {
-                var (treeLocation, fruits) = FilterInput(input, fruit);
-                return fruits.Count(partialLocation =>
-                {
-                    int location = treeLocation + partialLocation;
-                    return location >= input.StartingSam && location <= input.EndingSam;
-                });
-            }
-
-                static (int, List<int>) FilterInput(AppleAndOrange input, string fruit)
-                {
-                    return fruit == "apple"
-                        ? (input.AppleTreeLocation, input.ApplesDistanceFromTree)
-                        : (input.OrangeTreeLocation, input.OrangesDistanceFromTree);
-                }
+    private static int CountFruitsOnHouse(FruitTree fruitTree, House house)
+    {
+        return fruitTree.FruitDistances
+                        .Select(distance => fruitTree.TreeLocation + distance)
+                        .Count(position => house.Contains(position));
+    }
 }
+
+public record House(int Start, int End)
+{
+    public bool Contains(int position)
+    {
+        return Start <= position && position <= End;
+    }
+}
+
+public record FruitTree(int TreeLocation, int[] FruitDistances);

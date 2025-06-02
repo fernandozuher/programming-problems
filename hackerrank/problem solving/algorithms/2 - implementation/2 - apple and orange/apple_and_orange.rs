@@ -3,9 +3,9 @@
 use text_io::read;
 
 fn main() {
-    let (house, apples, oranges) = read_input();
-    println!("{}", count_fruits_on_house(&apples, &house));
-    println!("{}", count_fruits_on_house(&oranges, &house));
+    let (house, apple_tree, orange_tree) = read_input();
+    println!("{}", count_fruits_on_house(&apple_tree, &house));
+    println!("{}", count_fruits_on_house(&orange_tree, &house));
 }
 
 struct House {
@@ -39,28 +39,28 @@ fn read_input() -> (House, FruitTree, FruitTree) {
         end: house_end,
     };
 
-    let apple = FruitTree {
+    let apple_tree = FruitTree {
         tree_location: apple_tree_location,
         fruit_distances: apple_distances,
     };
 
-    let orange = FruitTree {
+    let orange_tree = FruitTree {
         tree_location: orange_tree_location,
         fruit_distances: orange_distances,
     };
 
-    (house, apple, orange)
+    (house, apple_tree, orange_tree)
 }
 
 fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-fn count_fruits_on_house(fruit: &FruitTree, house: &House) -> usize {
-    fruit
+fn count_fruits_on_house(fruit_tree: &FruitTree, house: &House) -> usize {
+    fruit_tree
         .fruit_distances
         .iter()
-        .map(|&distance| fruit.tree_location + distance)
+        .map(|&distance| fruit_tree.tree_location + distance)
         .filter(|&position| house.contains(position))
         .count()
 }

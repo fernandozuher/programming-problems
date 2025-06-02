@@ -1,55 +1,55 @@
 # https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
+from dataclasses import dataclass
+
+
 def main():
-    data = read_data()
-    count_apples_and_oranges(data)
+    house, apple_tree, orange_tree = read_input()
+    print(count_fruits_on_house(apple_tree, house))
+    print(count_fruits_on_house(orange_tree, house))
 
 
-def read_data():
-    data = AppleAndOrange()
-    data.starting_sam, data.ending_sam = read_int_array()
-    data.apple_tree_location, data.orange_tree_location = read_int_array()
-    read_int_array()  # Discard sizes of arrays
-    data.apples_distance_from_tree = read_int_array()
-    data.oranges_distance_from_tree = read_int_array()
-    return data
+def read_input():
+    house_start, house_end = read_numbers()
+    house = House(house_start, house_end)
+
+    apple_tree_location, orange_tree_location = read_numbers()
+    input()  # Discard array sizes
+    apple_distances = read_numbers()
+    orange_distances = read_numbers()
+
+    apple_tree = FruitTree(apple_tree_location, apple_distances)
+    orange_tree = FruitTree(orange_tree_location, orange_distances)
+
+    return [house, apple_tree, orange_tree]
 
 
-class AppleAndOrange:
-    starting_sam = 0
-    ending_sam = 0
-    apple_tree_location = 0
-    orange_tree_location = 0
-    apples_distance_from_tree = []
-    oranges_distance_from_tree = []
+@dataclass
+class House:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    def contains(self, position):
+        return self.start <= position <= self.end
 
 
-def read_int_array():
+@dataclass
+class FruitTree:
+    def __init__(self, tree_location, fruit_distances):
+        self.tree_location = tree_location
+        self.fruit_distances = fruit_distances
+
+
+def read_numbers():
     return list(map(int, input().split()))
 
 
-def count_apples_and_oranges(data):
-    apples_on_house = count_fruits_on_house(data, 'apple')
-    oranges_on_house = count_fruits_on_house(data, 'orange')
-    print(f"{apples_on_house}\n{oranges_on_house}")
-
-
-def count_fruits_on_house(data, fruit):
-    tree_location, fruits = filter_data(data, fruit)
-    fruits_on_house = 0
-
-    for partial_location in fruits:
-        location = tree_location + partial_location
-        if data.starting_sam <= location <= data.ending_sam:
-            fruits_on_house += 1
-
-    return fruits_on_house
-
-
-def filter_data(data, fruit):
-    if fruit == 'apple':
-        return data.apple_tree_location, data.apples_distance_from_tree
-    return data.orange_tree_location, data.oranges_distance_from_tree
+def count_fruits_on_house(fruit_tree, house):
+    return sum(
+        house.contains(fruit_tree.tree_location + distance)
+        for distance in fruit_tree.fruit_distances
+    )
 
 
 if __name__ == '__main__':

@@ -18,14 +18,14 @@ struct house_t {
     }
 };
 
-struct fruit_tree {
+struct fruit_tree_t {
     int tree_location{};
     vector<int> fruit_distances;
 };
 
-tuple<house_t, fruit_tree, fruit_tree> read_input();
+tuple<house_t, fruit_tree_t, fruit_tree_t> read_input();
 vector<int> read_numbers(int n);
-int count_fruits_on_house(const fruit_tree& fruit, const house_t& house);
+int count_fruits_on_house(const fruit_tree_t& fruit_tree, const house_t& house);
 
 int main()
 {
@@ -35,12 +35,12 @@ int main()
     return 0;
 }
 
-tuple<house_t, fruit_tree, fruit_tree> read_input()
+tuple<house_t, fruit_tree_t, fruit_tree_t> read_input()
 {
     house_t house;
     cin >> house.start >> house.end;
 
-    fruit_tree apple_tree, orange_tree;
+    fruit_tree_t apple_tree, orange_tree;
     cin >> apple_tree.tree_location >> orange_tree.tree_location;
 
     int n_apples, n_oranges;
@@ -61,9 +61,9 @@ vector<int> read_numbers(int n)
     }) | ranges::to<vector>();
 }
 
-int count_fruits_on_house(const fruit_tree& fruit, const house_t& house)
+int count_fruits_on_house(const fruit_tree_t& fruit_tree, const house_t& house)
 {
-    return ranges::count_if(fruit.fruit_distances, [&fruit, &house](auto distance) {
-        return house.contains(fruit.tree_location + distance);
+    return ranges::count_if(fruit_tree.fruit_distances, [&fruit_tree, &house](auto distance) {
+        return house.contains(fruit_tree.tree_location + distance);
     });
 }
