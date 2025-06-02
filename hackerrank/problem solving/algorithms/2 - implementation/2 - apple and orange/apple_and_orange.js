@@ -32,15 +32,15 @@ function main() {
 }
 
 function readInput() {
-  let house = new House(...readNumbers());
+  const house = new House(...readNumbers());
 
-  let [appleTreeLocation, orangeTreeLocation] = [...readNumbers()];
+  const [appleTreeLocation, orangeTreeLocation] = [...readNumbers()];
   readLine(); // Discard sizes of arrays
-  let appleDistances = readNumbers();
-  let orangeDistances = readNumbers();
+  const appleDistances = readNumbers();
+  const orangeDistances = readNumbers();
 
-  let appleTree = new FruitTree(appleTreeLocation, appleDistances);
-  let orangeTree = new FruitTree(orangeTreeLocation, orangeDistances);
+  const appleTree = new FruitTree(appleTreeLocation, appleDistances);
+  const orangeTree = new FruitTree(orangeTreeLocation, orangeDistances);
 
   return [house, appleTree, orangeTree];
 }
