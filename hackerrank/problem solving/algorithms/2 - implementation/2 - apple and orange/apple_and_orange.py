@@ -24,6 +24,10 @@ def read_input():
     return [house, apple_tree, orange_tree]
 
 
+def read_numbers():
+    return list(map(int, input().split()))
+
+
 @dataclass
 class House:
     def __init__(self, start, end):
@@ -39,10 +43,6 @@ class FruitTree:
     def __init__(self, tree_location, fruit_distances):
         self.tree_location = tree_location
         self.fruit_distances = fruit_distances
-
-
-def read_numbers():
-    return list(map(int, input().split()))
 
 
 def count_fruits_on_house(fruit_tree, house):

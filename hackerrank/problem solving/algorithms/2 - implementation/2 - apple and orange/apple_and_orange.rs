@@ -8,22 +8,6 @@ fn main() {
     println!("{}", count_fruits_on_house(&orange_tree, &house));
 }
 
-struct House {
-    start: i32,
-    end: i32,
-}
-
-impl House {
-    fn contains(&self, position: i32) -> bool {
-        self.start <= position && position <= self.end
-    }
-}
-
-struct FruitTree {
-    tree_location: i32,
-    fruit_distances: Vec<i32>,
-}
-
 fn read_input() -> (House, FruitTree, FruitTree) {
     let house_start: i32 = read!();
     let house_end: i32 = read!();
@@ -54,6 +38,22 @@ fn read_input() -> (House, FruitTree, FruitTree) {
 
 fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
+}
+
+struct House {
+    start: i32,
+    end: i32,
+}
+
+impl House {
+    fn contains(&self, position: i32) -> bool {
+        self.start <= position && position <= self.end
+    }
+}
+
+struct FruitTree {
+    tree_location: i32,
+    fruit_distances: Vec<i32>,
 }
 
 fn count_fruits_on_house(fruit_tree: &FruitTree, house: &House) -> usize {

@@ -19,10 +19,6 @@ process.stdin.on('end', function () {
   main();
 });
 
-function readLine() {
-  return inputLines[currentLine++];
-}
-
 //////////////////////////////////////////////////
 
 function main() {
@@ -45,6 +41,14 @@ function readInput() {
   return [house, appleTree, orangeTree];
 }
 
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
+
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 class House {
   constructor(start, end) {
     this.start = start;
@@ -61,10 +65,6 @@ class FruitTree {
     this.treeLocation = treeLocation;
     this.fruitDistances = fruitDistances;
   }
-}
-
-function readNumbers() {
-  return readLine().split(' ').map(Number);
 }
 
 function countFruitsOnHouse(fruitTree, house) {

@@ -21,6 +21,10 @@ def read_input
   [house, apple_tree, orange_tree]
 end
 
+def read_numbers
+  gets.split.map(&:to_i)
+end
+
 Struct.new("House", :house_start, :house_end) do
   def contains(position)
     house_start <= position && position <= house_end
@@ -28,10 +32,6 @@ Struct.new("House", :house_start, :house_end) do
 end
 
 Struct.new("FruitTree", :tree_location, :fruit_distances)
-
-def read_numbers
-  gets.split.map(&:to_i)
-end
 
 def count_fruits_on_house(fruit_tree, house)
   fruit_tree.fruit_distances.count do |distance|

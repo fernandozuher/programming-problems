@@ -10,19 +10,6 @@ func main() {
     fmt.Println(countFruitsOnHouse(orangeTree, house))
 }
 
-type House struct {
-    start, end int
-}
-
-func (h House) contains(position int) bool {
-    return h.start <= position && position <= h.end
-}
-
-type FruitTree struct {
-    treeLocation   int
-    fruitDistances []int
-}
-
 func readInput() (House, FruitTree, FruitTree) {
     var houseStart int
     var houseEnd int
@@ -61,6 +48,19 @@ func readNumbers(n int) []int {
         fmt.Scan(&numbers[i])
     }
     return numbers
+}
+
+type House struct {
+    start, end int
+}
+
+func (h House) contains(position int) bool {
+    return h.start <= position && position <= h.end
+}
+
+type FruitTree struct {
+    treeLocation   int
+    fruitDistances []int
 }
 
 func countFruitsOnHouse(fruitTree FruitTree, house House) int {
