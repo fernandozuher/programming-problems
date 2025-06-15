@@ -2,72 +2,57 @@
 
 package main
 
-import (
-    "fmt"
-    "sort"
-)
+import "fmt"
 
 func main() {
     var n1, n2 int
     fmt.Scan(&n1, &n2)
-    setA := readIntArray(n1)
-    setB := readIntArray(n2)
+    numbers1 := readNumbers(n1)
+    numbers2 := readNumbers(n2)
 
-    sort.Ints(setA)
-    sort.Ints(setB)
-    fmt.Print(findTotalFactors(setA, setB))
-}
+    lcmOfNumbers1 := lcmArray(numbers1)
+    gcdOfNumbers2 := gcdArray(numbers2)
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
-    }
-    return array
-}
-
-func findTotalFactors(setA []int, setB []int) int {
-    var potentialFactors []int
-    findNumbersDivisibleBySetA(&potentialFactors, setA, setB[0])
-    findFactorsOfSetB(potentialFactors, setB)
-    return countFactors(potentialFactors)
-}
-
-func findNumbersDivisibleBySetA(potentialFactors *[]int, setA []int, firstElementOfSetB int) {
-    var last_element_set_a int = setA[len(setA)-1]
-
-    for potentialFactor := last_element_set_a; potentialFactor <= firstElementOfSetB; potentialFactor += last_element_set_a {
-        isARealPotentialFactor := true
-
-        for _, x := range setA {
-            if potentialFactor%x != 0 {
-                isARealPotentialFactor = false
-                break
-            }
-        }
-
-        if isARealPotentialFactor {
-            *potentialFactors = append(*potentialFactors, potentialFactor)
+    count := 0
+    for i := lcmOfNumbers1; i <= gcdOfNumbers2; i += lcmOfNumbers1 {
+        if gcdOfNumbers2%i == 0 {
+            count++
         }
     }
+    fmt.Println(count)
 }
 
-func findFactorsOfSetB(potentialFactors []int, setB []int) {
-    for _, x := range setB {
-        for i, potentialFactor := range potentialFactors {
-            if potentialFactor != 0 && x%potentialFactor != 0 {
-                potentialFactors[i] = 0
-            }
-        }
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
+    return numbers
 }
 
-func countFactors(potentialFactors []int) int {
-    nFactors := 0
-    for _, x := range potentialFactors {
-        if x != 0 {
-            nFactors++
-        }
+func lcmArray(numbers []int) int {
+    result := numbers[0]
+    for _, x := range numbers[1:] {
+        result = lcm(result, x)
     }
-    return nFactors
+    return result
+}
+
+func lcm(a, b int) int {
+    return (a * b) / gcd(a, b)
+}
+
+func gcdArray(numbers []int) int {
+    result := numbers[0]
+    for _, x := range numbers[1:] {
+        result = gcd(result, x)
+    }
+    return result
+}
+
+func gcd(a, b int) int {
+    for b != 0 {
+        a, b = b, a%b
+    }
+    return a
 }
