@@ -2,28 +2,28 @@
 
 def main():
     input()
-    array = read_int_array()
-    most_points_records, least_points_records = breaking_records(array)
-    print(most_points_records, least_points_records)
+    scores = read_numbers()
+    most_record_breaks, least_record_breaks = breaking_records(scores)
+    print(most_record_breaks, least_record_breaks)
 
 
-def read_int_array():
+def read_numbers():
     return list(map(int, input().split()))
 
 
 def breaking_records(scores):
     most_points, least_points = scores[0], scores[0]
-    breaking_most_points_records, breaking_least_points_records = 0, 0
+    most_record_breaks, least_record_breaks = 0, 0
 
-    for score in scores:
+    for score in scores[1:]:
         if score > most_points:
             most_points = score
-            breaking_most_points_records += 1
+            most_record_breaks += 1
         elif score < least_points:
             least_points = score
-            breaking_least_points_records += 1
+            least_record_breaks += 1
 
-    return breaking_most_points_records, breaking_least_points_records
+    return most_record_breaks, least_record_breaks
 
 
 if __name__ == '__main__':

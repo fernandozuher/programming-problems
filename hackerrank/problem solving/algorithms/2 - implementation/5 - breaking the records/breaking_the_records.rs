@@ -4,27 +4,27 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let array: Vec<i32> = read_int_array(n);
-    let (breaking_most_points_records, breaking_least_points_records) = breaking_records(&array);
-    println!("{} {}", breaking_most_points_records, breaking_least_points_records);
+    let scores: Vec<i32> = read_numbers(n);
+    let (most_record_breaks, least_record_breaks) = breaking_records(&scores);
+    println!("{} {}", most_record_breaks, least_record_breaks);
 }
-    fn read_int_array(n: usize) -> Vec<i32> {
-        return (0..n).map(|_| read!()).collect();
-    }
-    
-    fn breaking_records(scores: &[i32]) -> (i32, i32) {
-        let (mut most_points, mut breaking_most_points_records) = (scores[0], 0);
-        let (mut least_points, mut breaking_least_points_records) = (scores[0], 0);
-    
-        for score in scores {
-            if *score > most_points {
-                most_points = *score;
-                breaking_most_points_records += 1;
-            } else if *score < least_points {
-                least_points = *score;
-                breaking_least_points_records += 1;
-            }
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+fn breaking_records(scores: &[i32]) -> (i32, i32) {
+    let (mut most_points, mut least_points) = (scores[0], scores[0]);
+    let (mut most_record_breaks, mut least_record_breaks) = (0, 0);
+
+    for &score in &scores[1..] {
+        if score > most_points {
+            most_points = score;
+            most_record_breaks += 1;
+        } else if score < least_points {
+            least_points = score;
+            least_record_breaks += 1;
         }
-    
-        return (breaking_most_points_records, breaking_least_points_records);
     }
+
+    (most_record_breaks, least_record_breaks)
+}

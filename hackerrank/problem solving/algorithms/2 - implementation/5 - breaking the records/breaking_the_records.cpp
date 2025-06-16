@@ -1,46 +1,44 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
-// From C++20
+// C++23
 
-#include <algorithm>
 #include <iostream>
-#include <iterator>
+#include <ranges>
 #include <vector>
 
 using namespace std;
 
-template<class T = int>
-vector<T> read(int n);
-vector<int> breaking_records(const vector<int>& scores);
+vector<int> read_numbers(int n);
+pair<int, int> breaking_records(const vector<int>& scores);
 
 int main()
 {
     int n;
     cin >> n;
-    ranges::copy(breaking_records(read(n)), ostream_iterator<int>(cout, " "));
+    auto scores{read_numbers(n)};
+    auto [most_record_breaks, least_record_breaks]{breaking_records(scores)};
+    cout << most_record_breaks << ' ' << least_record_breaks << '\n';
     return 0;
 }
 
-    template<class T>
-    vector<T> read(const int n)
-    {
-        vector<T> array(n);
-        copy_n(istream_iterator<T>(cin), n, array.begin());
-        return array;
-    }
+vector<int> read_numbers(int n)
+{
+    return views::iota(0, n)
+           | views::transform([](auto) {int x; cin >> x; return x;})
+           | ranges::to<vector>();
+}
 
-    vector<int> breaking_records(const vector<int>& scores)
-    {
-        int breaking_most_points_records{}, breaking_least_points_records{};
+pair<int, int> breaking_records(const vector<int>& scores)
+{
+    int most_record_breaks{}, least_record_breaks{};
 
-        for (int most_points{scores.front()}, least_points{scores.front()}; const int score : scores)
-            if (score > most_points) {
-                most_points = score;
-                ++breaking_most_points_records;
-            }
-            else if (score < least_points) {
-                least_points = score;
-                ++breaking_least_points_records;
-            }
+    for (int most_points{scores.front()}, least_points{scores.front()}; int score: scores | views::drop(1))
+        if (score > most_points) {
+            most_points = score;
+            ++most_record_breaks;
+        } else if (score < least_points) {
+            least_points = score;
+            ++least_record_breaks;
+        }
 
-        return {breaking_most_points_records, breaking_least_points_records};
-    }
+    return {most_record_breaks, least_record_breaks};
+}

@@ -7,32 +7,32 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = readIntArray(n)
-    var breakingMostPointsRecords, breakingLeastPointsRecords int = breakingRecords(array)
-    fmt.Print(breakingMostPointsRecords, breakingLeastPointsRecords)
+    scores := readNumbers(n)
+    mostRecordBreaks, leastRecordBreaks := breakingRecords(scores)
+    fmt.Println(mostRecordBreaks, leastRecordBreaks)
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
-    return array
+    return numbers
 }
 
 func breakingRecords(scores []int) (int, int) {
-    mostPoints, breakingMostPointsRecords := scores[0], 0
-    leastPoints, breakingLeastPointsRecords := scores[0], 0
+    mostPoints, leastPoints := scores[0], scores[0]
+    mostRecordBreaks, leastRecordBreaks := 0, 0
 
-    for _, score := range scores {
+    for _, score := range scores[1:] {
         if score > mostPoints {
             mostPoints = score
-            breakingMostPointsRecords++
+            mostRecordBreaks++
         } else if score < leastPoints {
             leastPoints = score
-            breakingLeastPointsRecords++
+            leastRecordBreaks++
         }
     }
 
-    return breakingMostPointsRecords, breakingLeastPointsRecords
+    return mostRecordBreaks, leastRecordBreaks
 }

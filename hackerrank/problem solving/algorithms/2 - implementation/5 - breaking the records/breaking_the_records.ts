@@ -10,46 +10,47 @@ let inputLines: string[] = [];
 let currentLine: number = 0;
 
 process.stdin.on('data', function (inputStdin: string): void {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function (): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    +readLine();
-    let array: number[] = readIntArray();
-    let [mostPointsRecords, leastPointsRecords]: number[] = breakingRecords(array);
-    console.log(`${mostPointsRecords} ${leastPointsRecords}`);
+  readLine();
+  const scores: number[] = readNumbers();
+  const [mostRecordBreaks, leastRecordBreaks]: number[] =
+    breakingRecords(scores);
+  console.log(`${mostRecordBreaks} ${leastRecordBreaks}`);
 }
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
+
+function breakingRecords(scores: number[]): number[] {
+  let mostPoints: number = scores[0];
+  let leastPoints: number = scores[0];
+  let mostRecordBreaks: number = 0;
+  let leastRecordBreaks: number = 0;
+
+  for (const score of scores)
+    if (score > mostPoints) {
+      mostPoints = score;
+      mostRecordBreaks++;
+    } else if (score < leastPoints) {
+      leastPoints = score;
+      leastRecordBreaks++;
     }
-    
-    function breakingRecords(scores: number[]): number[] {
-        let mostPoints: number = scores[0];
-        let leastPoints: number = scores[0];
-        let breakingMostPointsRecords: number = 0;
-        let breakingLeastPointsRecords: number = 0;
-    
-        for (const score of scores)
-            if (score > mostPoints) {
-                mostPoints = score;
-                ++breakingMostPointsRecords;
-            } else if (score < leastPoints) {
-                leastPoints = score;
-                ++breakingLeastPointsRecords;
-            }
-    
-        return [breakingMostPointsRecords, breakingLeastPointsRecords];
-    }
+
+  return [mostRecordBreaks, leastRecordBreaks];
+}

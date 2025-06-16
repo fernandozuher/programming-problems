@@ -1,39 +1,37 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        ReadIntArray();
-        List<int> array = ReadIntArray();
-        var (mostPointsRecords, leastPointsRecords) = BreakingRecords(array);
-        Console.WriteLine("{0} {1}", mostPointsRecords, leastPointsRecords);
+        Console.ReadLine();
+        int[] scores = ReadNumbers();
+        var (mostRecordBreaks, leastRecordBreaks) = BreakingRecords(scores);
+        Console.WriteLine($"{mostRecordBreaks} {leastRecordBreaks}");
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine()!.Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
 
-        static (int, int) BreakingRecords(List<int> scores)
-        {
-            int mostPoints = scores.First(), leastPoints = scores.First();
-            int breakingMostPointsRecords = 0, breakingLeastPointsRecords = 0;
+    private static (int, int) BreakingRecords(int[] scores)
+    {
+        int mostPoints = scores[0], leastPoints = scores[0];
+        int mostRecordBreaks = 0, leastRecordBreaks = 0;
 
-            foreach (var score in scores)
-                if (score > mostPoints)
-                {
-                    mostPoints = score;
-                    ++breakingMostPointsRecords;
-                }
-                else if (score < leastPoints)
-                {
-                    leastPoints = score;
-                    ++breakingLeastPointsRecords;
-                }
+        foreach (int score in scores.Skip(1))
+            if (score > mostPoints)
+            {
+                mostPoints = score;
+                mostRecordBreaks++;
+            }
+            else if (score < leastPoints)
+            {
+                leastPoints = score;
+                leastRecordBreaks++;
+            }
 
-            return (breakingMostPointsRecords, breakingLeastPointsRecords);
-        }
+        return (mostRecordBreaks, leastRecordBreaks);
+    }
 }
