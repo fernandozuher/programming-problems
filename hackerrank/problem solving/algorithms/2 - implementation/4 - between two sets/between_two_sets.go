@@ -7,19 +7,9 @@ import "fmt"
 func main() {
     var n1, n2 int
     fmt.Scan(&n1, &n2)
-    numbers1 := readNumbers(n1)
-    numbers2 := readNumbers(n2)
-
-    lcmOfNumbers1 := lcmArray(numbers1)
-    gcdOfNumbers2 := gcdArray(numbers2)
-
-    count := 0
-    for i := lcmOfNumbers1; i <= gcdOfNumbers2; i += lcmOfNumbers1 {
-        if gcdOfNumbers2%i == 0 {
-            count++
-        }
-    }
-    fmt.Println(count)
+    numbersA := readNumbers(n1)
+    numbersB := readNumbers(n2)
+    fmt.Println(betweenTwoSets(numbersA, numbersB))
 }
 
 func readNumbers(n int) []int {
@@ -28,6 +18,19 @@ func readNumbers(n int) []int {
         fmt.Scan(&numbers[i])
     }
     return numbers
+}
+
+func betweenTwoSets(a []int, b []int) int {
+    lcmOfA := lcmArray(a)
+    gcdOfB := gcdArray(b)
+
+    count := 0
+    for i := lcmOfA; i <= gcdOfB; i += lcmOfA {
+        if gcdOfB%i == 0 {
+            count++
+        }
+    }
+    return count
 }
 
 func lcmArray(numbers []int) int {

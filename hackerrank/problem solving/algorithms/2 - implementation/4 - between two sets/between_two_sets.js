@@ -10,78 +10,60 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    readIntArray();
-    let setA = readIntArray();
-    let setB = readIntArray();
-    let obj = new BetweenTwoSets(setA, setB);
-    obj.findFactors();
-    console.log(obj.totalFactors());
+  readLine();
+  const numbersA = readNumbers();
+  const numbersB = readNumbers();
+  console.log(betweenTwoSets(numbersA, numbersB));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    class BetweenTwoSets {
-        #setA;
-        #setB;
-        #potentialFactors;
-        #factors;
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        constructor(setA, setB) {
-            this.#setA = setA;
-            this.#setB = setB;
-            this.#potentialFactors = [];
-            this.#factors = 0;
-        }
+function betweenTwoSets(a, b) {
+  const lcmOfA = lcmArray(a);
+  const gcdOfB = gcdArray(b);
 
-        findFactors() {
-            this.#findNumbersDivisibleBySetA();
-            this.#findFactorsOfSetB();
-            this.#countFactors();
-        }
+  let count = 0;
+  for (let i = lcmOfA; i <= gcdOfB; i += lcmOfA) {
+    if (gcdOfB % i === 0) count++;
+  }
+  return count;
+}
 
-            #findNumbersDivisibleBySetA() {
-                for (let potentialFactor = this.#setA.at(-1); potentialFactor <= this.#setB[0]; potentialFactor += this.#setA.at(-1)) {
-                    let isARealPotentialFactor = true;
+function lcmArray(numbers) {
+  return numbers.slice(1).reduce(lcm, numbers[0]);
+}
 
-                    for (let elementA of this.#setA) if (potentialFactor % elementA) {
-                        isARealPotentialFactor = false;
-                        break;
-                    }
+function lcm(a, b) {
+  return (a * b) / gcd(a, b);
+}
 
-                    if (isARealPotentialFactor) this.#potentialFactors.push(potentialFactor);
-                }
-            }
+function gcdArray(numbers) {
+  return numbers.slice(1).reduce(gcd, numbers[0]);
+}
 
-            #findFactorsOfSetB() {
-                for (let x of this.#setB)
-                    for (let [i, potentialFactor] of this.#potentialFactors.entries())
-                        if (potentialFactor && x % potentialFactor)
-                            this.#potentialFactors[i] = 0;
-            }
-
-            #countFactors() {
-                this.#factors = this.#potentialFactors.filter(x => x).length;
-            }
-
-        totalFactors() {
-            return this.#factors;
-        }
-    }
+function gcd(a, b) {
+  while (b !== 0) {
+    const t = b;
+    b = a % b;
+    a = t;
+  }
+  return a;
+}

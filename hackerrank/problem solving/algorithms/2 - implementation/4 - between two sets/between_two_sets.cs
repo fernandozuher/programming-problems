@@ -1,69 +1,55 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        ReadIntArray();
-        List<int> setA = ReadIntArray();
-        List<int> setB = ReadIntArray();
-
-        setA.Sort();
-        setB.Sort();
-        
-        var obj = new BetweenTwoSets(setA, setB);
-        obj.FindFactors();
-        WriteLine(obj.TotalFactors);
+        Console.ReadLine();
+        int[] numbersA = ReadNumbers();
+        int[] numbersB = ReadNumbers();
+        Console.WriteLine(BetweenTwoSets(numbersA, numbersB));
     }
 
-    static List<int> ReadIntArray()
+    private static int[] ReadNumbers()
     {
-        return ReadLine()!.Split().Select(int.Parse).ToList();
+        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+    }
+
+    private static int BetweenTwoSets(int[] a, int[] b)
+    {
+        int lcmOfA = LcmArray(a);
+        int gcdOfB = GcdArray(b);
+
+        int count = 0;
+        for (int i = lcmOfA; i <= gcdOfB; i += lcmOfA)
+            if (gcdOfB % i == 0)
+                count++;
+        return count;
+    }
+
+    private static int LcmArray(int[] numbers)
+    {
+        return numbers.Skip(1).Aggregate(numbers[0], (a, b) => Lcm(a, b));
+    }
+
+    private static int Lcm(int a, int b)
+    {
+        return a * b / Gcd(a, b);
+    }
+
+    private static int GcdArray(int[] numbers)
+    {
+        return numbers.Skip(1).Aggregate(numbers[0], (a, b) => Gcd(a, b));
+    }
+
+    private static int Gcd(int a, int b)
+    {
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 }
-
-    class BetweenTwoSets(List<int> setA, List<int> setB)
-    {
-        private readonly List<int> _potentialFactors = [];
-        public int TotalFactors { get; private set; }
-
-        public void FindFactors()
-        {
-            _findNumbersDivisibleBySetA();
-            _findFactorsOfSetB();
-            _countFactors();
-        }
-
-            private void _findNumbersDivisibleBySetA()
-            {
-                for (int potentialFactor = setA.Last(); potentialFactor <= setB.First(); potentialFactor += setA.Last())
-                {
-                    bool isARealPotentialFactor = true;
-
-                    foreach (int x in setA)
-                        if (potentialFactor % x != 0)
-                        {
-                            isARealPotentialFactor = false;
-                            break;
-                        }
-
-                    if (isARealPotentialFactor)
-                        _potentialFactors.Add(potentialFactor);
-                }
-            }
-
-            private void _findFactorsOfSetB()
-            {
-                foreach (int x in setB)
-                foreach (int i in Enumerable.Range(0, _potentialFactors.Count))
-                    if (_potentialFactors[i] != 0 && x % _potentialFactors[i] != 0)
-                        _potentialFactors[i] = 0;
-            }
-
-            private void _countFactors()
-            {
-                TotalFactors = _potentialFactors.Count(x => x != 0);
-            }
-    }

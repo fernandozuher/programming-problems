@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 void read_numbers(int numbers[], int n);
+int between_two_sets(const int a[], int n_a, const int b[], int n_b);
 int lcm_array(const int numbers[], int n);
 int lcm(int a, int b);
 int gcd_array(const int numbers[], int n);
@@ -10,23 +11,12 @@ int gcd(int a, int b);
 
 int main()
 {
-    int n1, n2;
-    scanf("%d %d", &n1, &n2);
-
-    int numbers1[n1], numbers2[n2];
-    read_numbers(numbers1, n1);
-    read_numbers(numbers2, n2);
-
-    int lcm_of_numbers1 = lcm_array(numbers1, n1);
-    int gcd_of_numbers2 = gcd_array(numbers2, n2);
-
-    int count = 0;
-    for (int i = lcm_of_numbers1; i <= gcd_of_numbers2; i += lcm_of_numbers1)
-        if (gcd_of_numbers2 % i == 0)
-            ++count;
-
-    printf("%d\n", count);
-
+    int n_a, n_b;
+    scanf("%d %d", &n_a, &n_b);
+    int numbers_a[n_a], numbers_b[n_b];
+    read_numbers(numbers_a, n_a);
+    read_numbers(numbers_b, n_b);
+    printf("%d\n", between_two_sets(numbers_a, n_a, numbers_b, n_b));
     return 0;
 }
 
@@ -34,6 +24,18 @@ void read_numbers(int numbers[], int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &numbers[i]);
+}
+
+int between_two_sets(const int a[], int n_a, const int b[], int n_b)
+{
+    int lcm_of_a = lcm_array(a, n_a);
+    int gcd_of_b = gcd_array(b, n_b);
+
+    int count = 0;
+    for (int i = lcm_of_a; i <= gcd_of_b; i += lcm_of_a)
+        if (gcd_of_b % i == 0)
+            ++count;
+    return count;
 }
 
 int lcm_array(const int numbers[], int n)
