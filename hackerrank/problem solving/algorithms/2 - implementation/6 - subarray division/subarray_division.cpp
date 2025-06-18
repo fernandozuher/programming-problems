@@ -1,48 +1,49 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
-// From C++23 onwards
+// C++23
 
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <ranges>
 #include <vector>
 
 using namespace std;
 
-template<class T = int>
-vector<T> read(int n);
+vector<int> read_numbers(int n);
 int birthday(const vector<int>& chocolate_squares, const vector<int>& day_month);
 
 int main()
 {
     int n;
     cin >> n;
-    vector chocolate_squares{read(n)};
+    vector chocolate_squares{read_numbers(n)};
     constexpr int n_day_month{2};
-    vector day_month{read(n_day_month)};
+    vector day_month{read_numbers(n_day_month)};
     cout << birthday(chocolate_squares, day_month);
     return 0;
 }
 
-template<class T>
-vector<T> read(const int n)
+vector<int> read_numbers(int n)
 {
-    vector<T> array(n);
-    copy_n(istream_iterator<T>(cin), n, array.begin());
-    return array;
+    return views::repeat(0, n)
+           | views::transform([](auto) {int x; cin >> x; return x;})
+           | ranges::to<vector>();
 }
 
 int birthday(const vector<int>& chocolate_squares, const vector<int>& day_month)
 {
-    int ways_bar_can_be_divided{};
-    int day{day_month.front()};
-    int month{day_month.back()};
+    int day{day_month[0]};
+    int month{day_month[1]};
+    if (month > chocolate_squares.size())
+        return 0;
 
-    for (const int i : views::iota(0, static_cast<int>(chocolate_squares.size() - month + 1)))
-        if (const int sum{
-            *ranges::fold_left_first(chocolate_squares | views::drop(i) | views::take(month), plus())
-        }; sum == day)
+    int sum{*ranges::fold_left_first(chocolate_squares.begin(), chocolate_squares.begin() + month, plus{})};
+    int ways_bar_can_be_divided{sum == day};
+
+    for (int n{static_cast<int>(chocolate_squares.size())}; auto i : views::iota(month, n)) {
+        sum += chocolate_squares[i] - chocolate_squares[i - month];
+        if (sum == day)
             ++ways_bar_can_be_divided;
+    }
 
     return ways_bar_can_be_divided;
 }

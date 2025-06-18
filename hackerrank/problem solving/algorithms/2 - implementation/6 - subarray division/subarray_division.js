@@ -10,41 +10,44 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    readLine();
-    let chocolateSquares = readIntArray();
-    let dayMonth = readIntArray();
-    console.log(birthday(chocolateSquares, dayMonth));
+  readLine();
+  const chocolateSquares = readNumbers();
+  const dayMonth = readNumbers();
+  console.log(birthday(chocolateSquares, dayMonth));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function birthday(chocolateSquares, dayMonth) {
-        let waysBarCanBeDivided = 0;
-        let [day, month] = dayMonth;
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        for (let i = 0, n = chocolateSquares.length - month + 1; i < n; ++i) {
-            let sum = chocolateSquares.slice(i, i + month).reduce((a, b) => a + b, 0);
-            if (sum === day)
-                ++waysBarCanBeDivided;
-        }
+function birthday(chocolateSquares, dayMonth) {
+  const [day, month] = dayMonth;
 
-        return waysBarCanBeDivided;
-    }
+  if (month > chocolateSquares.length) return 0;
+
+  let sum = chocolateSquares.slice(0, month).reduce((a, b) => a + b, 0);
+  let waysBarCanBeDivided = Number(sum === day);
+
+  for (let i = month; i < chocolateSquares.length; i++) {
+    sum += chocolateSquares[i] - chocolateSquares[i - month];
+    if (sum === day) waysBarCanBeDivided++;
+  }
+
+  return waysBarCanBeDivided;
+}

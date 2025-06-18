@@ -2,26 +2,30 @@
 
 def main
   gets
-  chocolate_squares = read_int_array
-  day_month = read_int_array
-  p birthday(chocolate_squares, day_month)
+  chocolate_squares = read_numbers
+  day_month = read_numbers
+  puts birthday(chocolate_squares, day_month)
 end
 
-  def read_int_array
-    gets.split.map(&:to_i)
+def read_numbers
+  gets.split.map(&:to_i)
+end
+
+def birthday(chocolate_squares, day_month)
+  day, month = day_month
+  return 0 if month > chocolate_squares.size
+
+  sum = chocolate_squares[...month].sum
+  ways_bar_can_be_divided = sum == day ? 1 : 0
+
+  (month...chocolate_squares.size).each do |i|
+    sum += chocolate_squares[i] - chocolate_squares[i - month]
+    if sum == day
+      ways_bar_can_be_divided += 1
+    end
   end
 
-  def birthday(chocolate_squares, day_month)
-    ways_bar_can_be_divided = 0
-    day, month = day_month
-
-    (chocolate_squares.size - month + 1).times { |i|
-      if chocolate_squares[i...i + month].sum == day
-        ways_bar_can_be_divided += 1
-      end
-    }
-
-    ways_bar_can_be_divided
-  end
+  ways_bar_can_be_divided
+end
 
 main

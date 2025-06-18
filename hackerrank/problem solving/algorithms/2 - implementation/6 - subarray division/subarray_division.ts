@@ -10,41 +10,43 @@ let inputLines: string[] = [];
 let currentLine: number = 0;
 
 process.stdin.on('data', function (inputStdin: string): void {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function (): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    readLine();
-    let chocolateSquares: number[] = readIntArray();
-    let dayMonth: number[] = readIntArray();
-    console.log(birthday(chocolateSquares, dayMonth));
+  readLine();
+  const chocolateSquares: number[] = readNumbers();
+  const dayMonth: number[] = readNumbers();
+  console.log(birthday(chocolateSquares, dayMonth));
 }
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
-    
-    function birthday(chocolateSquares: number[], dayMonth: number[]): number {
-        let waysBarCanBeDivided = 0;
-        let [day, month]: number[] = dayMonth;
-    
-        for (let i = 0, n = chocolateSquares.length - month + 1; i < n; ++i) {
-            let sum: number = chocolateSquares.slice(i, i + month).reduce((a, b) => a + b, 0);
-            if (sum === day)
-                ++waysBarCanBeDivided;
-        }
-    
-        return waysBarCanBeDivided;
-    }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
+
+function birthday(chocolateSquares: number[], dayMonth: number[]): number {
+  const [day, month]: number[] = dayMonth;
+  if (month > chocolateSquares.length) return 0;
+
+  let sum: number = chocolateSquares.slice(0, month).reduce((a, b) => a + b, 0);
+  let waysBarCanBeDivided: number = Number(sum === day);
+
+  for (let i = month; i < chocolateSquares.length; i++) {
+    sum += chocolateSquares[i] - chocolateSquares[i - month];
+    if (sum === day) waysBarCanBeDivided++;
+  }
+
+  return waysBarCanBeDivided;
+}

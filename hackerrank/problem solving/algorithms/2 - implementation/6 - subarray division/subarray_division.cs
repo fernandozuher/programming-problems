@@ -1,32 +1,38 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        ReadLine();
-        List<int> chocolateSquares = ReadIntArray();
-        List<int> dayMonth = ReadIntArray();
-        WriteLine(Birthday(chocolateSquares, dayMonth));
+        Console.ReadLine();
+        int[] chocolateSquares = ReadNumbers();
+        int[] dayMonth = ReadNumbers();
+        Console.WriteLine(Birthday(chocolateSquares, dayMonth));
     }
 
-        static List<int> ReadIntArray()
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
+
+    private static int Birthday(int[] chocolateSquares, int[] dayMonth)
+    {
+        int day = dayMonth[0];
+        int month = dayMonth[1];
+
+        if (month > chocolateSquares.Length)
+            return 0;
+
+        int sum = chocolateSquares.Take(month).Sum();
+        int waysBarCanBeDivided = sum == day ? 1 : 0;
+
+        foreach (var i in Enumerable.Range(month, chocolateSquares.Length - month))
         {
-            return ReadLine()!.Split().Select(int.Parse).ToList();
+            sum += chocolateSquares[i] - chocolateSquares[i - month];
+            if (sum == day)
+                waysBarCanBeDivided++;
         }
 
-        static int Birthday(List<int> chocolateSquares, List<int> dayMonth)
-        {
-            int waysBarCanBeDivided = 0;
-            int day = dayMonth.First();
-            int month = dayMonth.Last();
-
-            foreach (int i in Enumerable.Range(0, chocolateSquares.Count - month + 1))
-                if (chocolateSquares[i..(i + month)].Sum() is var sum && sum == day)
-                    ++waysBarCanBeDivided;
-
-            return waysBarCanBeDivided;
-        }
+        return waysBarCanBeDivided;
+    }
 }

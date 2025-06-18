@@ -2,21 +2,27 @@
 
 def main():
     input()
-    chocolate_squares = read_int_array()
-    day_month = read_int_array()
+    chocolate_squares = read_numbers()
+    day_month = read_numbers()
     print(birthday(chocolate_squares, day_month))
 
 
-def read_int_array():
+def read_numbers():
     return list(map(int, input().split()))
 
 
 def birthday(chocolate_squares, day_month):
-    ways_bar_can_be_divided = 0
     day, month = day_month
 
-    for i in range(0, len(chocolate_squares) - month + 1):
-        if sum(chocolate_squares[i:i + month]) == day:
+    if month > len(chocolate_squares):
+        return 0
+
+    current_sum = sum(chocolate_squares[:month])
+    ways_bar_can_be_divided = int(current_sum == day)
+
+    for i in range(month, len(chocolate_squares)):
+        current_sum += chocolate_squares[i] - chocolate_squares[i - month]
+        if current_sum == day:
             ways_bar_can_be_divided += 1
 
     return ways_bar_can_be_divided

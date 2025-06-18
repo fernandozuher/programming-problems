@@ -1,5 +1,4 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
-// From Go 1.22
 
 package main
 
@@ -8,13 +7,13 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var chocolateSquares []int = readIntArray(n)
+    chocolateSquares := readNumbers(n)
     const nDayMonth int = 2
-    var dayMonth []int = readIntArray(nDayMonth)
-    fmt.Print(birthday(chocolateSquares, dayMonth))
+    dayMonth := readNumbers(nDayMonth)
+    fmt.Println(birthday(chocolateSquares, dayMonth))
 }
 
-func readIntArray(n int) []int {
+func readNumbers(n int) []int {
     array := make([]int, n)
     for i := range array {
         fmt.Scan(&array[i])
@@ -23,15 +22,25 @@ func readIntArray(n int) []int {
 }
 
 func birthday(chocolateSquares []int, dayMonth []int) int {
-    waysBarCanBeDivided := 0
     day := dayMonth[0]
     month := dayMonth[1]
 
-    for i := range len(chocolateSquares) - month + 1 {
-        sum := 0
-        for j := range month {
-            sum += chocolateSquares[j+i]
-        }
+    if month > len(chocolateSquares) {
+        return 0
+    }
+
+    sum := 0
+    for _, x := range chocolateSquares[:month] {
+        sum += x
+    }
+
+    waysBarCanBeDivided := 0
+    if sum == day {
+        waysBarCanBeDivided++
+    }
+
+    for i := month; i < len(chocolateSquares); i++ {
+        sum += chocolateSquares[i] - chocolateSquares[i-month]
         if sum == day {
             waysBarCanBeDivided++
         }
