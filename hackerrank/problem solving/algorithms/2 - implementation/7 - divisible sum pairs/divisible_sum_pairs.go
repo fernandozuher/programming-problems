@@ -1,38 +1,58 @@
-// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=truehttps://www.hackerrank.com/challenges/the-divisibleSumPairs-bar/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 package main
 
-import (
-    "fmt"
-    "sort"
-)
+import "fmt"
 
 func main() {
     var n, k int
     fmt.Scan(&n, &k)
-    var array []int = readIntArray(n)
-    sort.Ints(array)
-    fmt.Print(divisibleSumPairs(array, k))
+    numbers := readNumbers(n)
+    fmt.Println(divisibleSumPairs(numbers, k))
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
-    return array
+    return numbers
 }
 
-func divisibleSumPairs(array []int, k int) int {
-    nDivisibleSumPairs := 0
+func divisibleSumPairs(numbers []int, k int) int {
+    frequency := initRemainderFrequency(numbers, k)
+    return countPairsWithRemainder0(frequency) + countComplementaryRemainderPairs(frequency) + countPairsWithRemainderKHalf(frequency)
+}
 
-    for i, num1 := range array[:len(array)-1] {
-        for _, num2 := range array[i+1:] {
-            if num1 <= num2 && ((num1+num2)%k == 0) {
-                nDivisibleSumPairs++
-            }
-        }
+func initRemainderFrequency(numbers []int, k int) []int {
+    frequency := make([]int, k)
+    for _, x := range numbers {
+        frequency[x%k]++
     }
+    return frequency
+}
 
-    return nDivisibleSumPairs
+func countPairsWithRemainder0(frequency []int) int {
+    return pairCount(frequency[0])
+}
+
+func pairCount(n int) int {
+    return n * (n - 1) / 2
+}
+
+func countComplementaryRemainderPairs(frequency []int) int {
+    count := 0
+    k := len(frequency)
+    for i, n := 1, (k+1)/2; i < n; i++ {
+        count += frequency[i] * frequency[k-i]
+    }
+    return count
+}
+
+func countPairsWithRemainderKHalf(frequency []int) int {
+    k := len(frequency)
+    if k%2 == 0 {
+        return pairCount(frequency[k/2])
+    }
+    return 0
 }

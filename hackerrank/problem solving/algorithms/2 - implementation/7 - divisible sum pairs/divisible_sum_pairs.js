@@ -10,39 +10,63 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let [, k] = [...readIntArray()];
-    let array = readIntArray();
-    array.sort((a, b) => a - b);
-    console.log(divisibleSumPairs(array, k));
+  const [, k] = readNumbers();
+  const numbers = readNumbers();
+  console.log(divisibleSumPairs(numbers, k));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
-    
-    function divisibleSumPairs(array, k) {
-        let nDivisibleSumPairs = 0;
-    
-        for (let i = 0, n = array.length - 1; i < n; ++i)
-            for (let j = i + 1; j < array.length; ++j)
-                if (array[i] <= array[j] && !((array[i] + array[j]) % k))
-                    ++nDivisibleSumPairs;
-    
-        return nDivisibleSumPairs;
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
+
+function readLine() {
+  return inputLines[currentLine++];
+}
+
+function divisibleSumPairs(numbers, k) {
+  const frequency = initRemainderFrequency(numbers, k);
+  return (
+    countPairsWithRemainder0(frequency) +
+    countComplementaryRemainderPairs(frequency) +
+    countPairsWithRemainderKHalf(frequency)
+  );
+}
+
+function initRemainderFrequency(numbers, k) {
+  const frequency = new Array(k).fill(0);
+  for (const x of numbers) frequency[x % k]++;
+  return frequency;
+}
+
+function countPairsWithRemainder0(frequency) {
+  return pairCount(frequency[0]);
+}
+
+function pairCount(n) {
+  return (n * (n - 1)) / 2;
+}
+
+function countComplementaryRemainderPairs(frequency) {
+  let count = 0;
+  const k = frequency.length;
+  for (let i = 1, n = Math.trunc((k + 1) / 2); i < n; i++)
+    count += frequency[i] * frequency[k - i];
+  return count;
+}
+
+function countPairsWithRemainderKHalf(frequency) {
+  const k = frequency.length;
+  return k % 2 === 0 ? pairCount(frequency[k / 2]) : 0;
+}

@@ -1,28 +1,48 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        List<int> array = ReadIntArray();
-        int k = array.Last();
-        array = ReadIntArray();
-        array.Sort();
-        WriteLine(DivisibleSumPairs(array, k));
+        int[] numbers = ReadNumbers();
+        int k = numbers[1];
+        numbers = ReadNumbers();
+        Console.WriteLine(DivisibleSumPairs(numbers, k));
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine()!.Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
 
-        static int DivisibleSumPairs(List<int> array, int k)
-        {
-            return (from i in Enumerable.Range(0, array.Count - 1)
-                from num2 in array[(i + 1)..]
-                where array[i] <= num2 && (array[i] + num2) % k == 0
-                select i).Count();
-        }
+    private static int DivisibleSumPairs(int[] numbers, int k)
+    {
+        int[] frequency = InitRemainderFrequency(numbers, k);
+        return CountPairsWithRemainder0(frequency) + CountComplementaryRemainderPairs(frequency)
+               + CountPairsWithRemainderKHalf(frequency);
+    }
+
+    private static int[] InitRemainderFrequency(int[] numbers, int k)
+    {
+        int[] frequency = new int[k];
+        foreach (int x in numbers)
+            frequency[x % k]++;
+        return frequency;
+    }
+
+    private static int CountPairsWithRemainder0(int[] frequency) => PairCount(frequency[0]);
+
+    private static int PairCount(int n) => n * (n - 1) / 2;
+
+    private static int CountComplementaryRemainderPairs(int[] frequency)
+    {
+        int k = frequency.Length;
+        return Enumerable.Range(1, (k + 1) / 2 - 1).Sum(i => frequency[i] * frequency[k - i]);
+    }
+
+    private static int CountPairsWithRemainderKHalf(int[] frequency)
+    {
+        int k = frequency.Length;
+        return k % 2 == 0 ? PairCount(frequency[k / 2]) : 0;
+    }
 }

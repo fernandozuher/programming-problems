@@ -1,44 +1,66 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
-// From C23
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-int *read_int_array(int n);
-int divisible_sum_pairs(const int array[], int n, int k);
-int compare(const void *a, const void *b);
+void read_numbers(int numbers[], int n);
+int divisible_sum_pairs(const int numbers[], int n, int k);
+void init_remainder_frequency(int frequency[], int k, const int numbers[], int n);
+int count_pairs_with_remainder_0(const int frequency[]);
+int pair_count(int n);
+int count_complementary_remainder_pairs(const int frequency[], int k);
+int count_pairs_with_remainder_k_half(const int frequency[], int k);
 
 int main()
 {
     int n, k;
     scanf("%d %d", &n, &k);
-    int *array = read_int_array(n);
-    qsort(array, n, sizeof(int), compare);
-    printf("%d\n", divisible_sum_pairs(array, n, k));
+    int numbers[n];
+    read_numbers(numbers, n);
+    printf("%d\n", divisible_sum_pairs(numbers, n, k));
     return 0;
 }
 
-    int *read_int_array(const int n)
-    {
-        auto array = (int*) malloc(n * sizeof(int));
-        for (int i = 0; i < n; ++i)
-            scanf("%d", &array[i]);
-        return array;
-    }
+void read_numbers(int numbers[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &numbers[i]);
+}
 
-    int compare(const void *a, const void *b)
-    {
-        return *(int*) a - *(int*) b;
-    }
+int divisible_sum_pairs(const int numbers[], int n, int k)
+{
+    int frequency[k];
+    memset(frequency, 0, sizeof(frequency));
+    init_remainder_frequency(frequency, k, numbers, n);
+    return count_pairs_with_remainder_0(frequency) + count_complementary_remainder_pairs(frequency, k) +
+           count_pairs_with_remainder_k_half(frequency, k);
+}
 
-    int divisible_sum_pairs(const int array[], const int n, const int k)
-    {
-        int n_divisible_sum_pairs = 0;
+void init_remainder_frequency(int frequency[], int k, const int numbers[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        ++frequency[numbers[i] % k];
+}
 
-        for (int i = 0, n2 = n - 1; i < n2; ++i)
-            for (int j = i + 1; j < n; ++j)
-                if (array[i] <= array[j] && !((array[i] + array[j]) % k))
-                    ++n_divisible_sum_pairs;
+int count_pairs_with_remainder_0(const int frequency[])
+{
+    return pair_count(frequency[0]);
+}
 
-        return n_divisible_sum_pairs;
-    }
+int pair_count(int n)
+{
+    return n * (n - 1) / 2;
+}
+
+int count_complementary_remainder_pairs(const int frequency[], int k)
+{
+    int count = 0;
+    for (int i = 1, max_pair_index = (k + 1) / 2; i < max_pair_index; ++i)
+        count += frequency[i] * frequency[k - i];
+    return count;
+}
+
+int count_pairs_with_remainder_k_half(const int frequency[], int k)
+{
+    return k % 2 == 0 ? pair_count(frequency[k / 2]) : 0;
+}
