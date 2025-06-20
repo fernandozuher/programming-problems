@@ -27,7 +27,7 @@ int main()
 vector<int> read_numbers(size_t n)
 {
     vector<int> v(n);
-    for (int &x : v)
+    for (int& x : v)
         cin >> x;
     return v;
 }
