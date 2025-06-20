@@ -2,45 +2,36 @@
 
 package main
 
-import (
-    "fmt"
-    "sort"
-)
+import "fmt"
 
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = readIntArray(n)
-    sort.Ints(array)
-    fmt.Println(findMostSpottedBird(array))
+    birds := readNumbers(n)
+    fmt.Println(findMostSpottedBird(birds))
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
-    return array
+    return numbers
 }
 
-func findMostSpottedBird(birdSightings []int) int {
-    var mostSpottedBird int = birdSightings[0]
-    countMostSpottedBird := 1
-    tempCountMostSpottedBird := 1
-    n := len(birdSightings)
+func findMostSpottedBird(birds []int) int {
+    birdCount := map[int]int{}
+    for _, bird := range birds {
+        birdCount[bird]++
+    }
 
-    for i := 1; i < n; i++ {
-        if birdSightings[i] == birdSightings[i-1] {
-            tempCountMostSpottedBird++
-        } else if tempCountMostSpottedBird > countMostSpottedBird {
-            mostSpottedBird = birdSightings[i-1]
-            countMostSpottedBird = tempCountMostSpottedBird
-            tempCountMostSpottedBird = 1
+    mostSpottedBird := 0
+    maxCount := 0
+    for bird, count := range birdCount {
+        if count > maxCount || (count == maxCount && bird < mostSpottedBird) {
+            mostSpottedBird = bird
+            maxCount = count
         }
-    }
-
-    if tempCountMostSpottedBird > countMostSpottedBird {
-        mostSpottedBird = birdSightings[n-1]
     }
 
     return mostSpottedBird

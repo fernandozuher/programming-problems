@@ -1,43 +1,25 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int unused = int.Parse(ReadLine()!);
-        List<int> array = ReadIntArray();
-        array.Sort();
-        Console.WriteLine(FindMostSpottedBird(array));
+        Console.ReadLine();
+        int[] birds = ReadNumbers();
+        Console.WriteLine(FindMostSpottedBird(birds));
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine()!.Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
 
-        static int FindMostSpottedBird(List<int> birdSightings)
-        {
-            int mostSpottedBird = birdSightings.First();
-            int countMostSpottedBird = 1;
-            int tempCountMostSpottedBird = 1;
-
-            for (int i = 1; i < birdSightings.Count; ++i)
-            {
-                if (birdSightings[i] == birdSightings[i - 1])
-                    ++tempCountMostSpottedBird;
-                else if (tempCountMostSpottedBird > countMostSpottedBird)
-                {
-                    mostSpottedBird = birdSightings[i - 1];
-                    countMostSpottedBird = tempCountMostSpottedBird;
-                    tempCountMostSpottedBird = 1;
-                }
-            }
-
-            if (tempCountMostSpottedBird > countMostSpottedBird)
-                mostSpottedBird = birdSightings.Last();
-
-            return mostSpottedBird;
-        }
+    private static int FindMostSpottedBird(int[] birds)
+    {
+        return birds.GroupBy(bird => bird)
+                    .OrderByDescending(group => group.Count())
+                    .ThenBy(group => group.Key)
+                    .First()
+                    .Key;
+    }
 }
