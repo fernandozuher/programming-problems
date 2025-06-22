@@ -7,19 +7,26 @@
 
 using namespace std;
 
-int find_most_spotted_bird(int n);
+map<int, int> count_numbers_into_map(int n);
+int find_most_spotted_bird(const map<int, int>& bird_count);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << find_most_spotted_bird(n);
+    auto bird_count{count_numbers_into_map(n)};
+    cout << find_most_spotted_bird(bird_count);
     return 0;
 }
 
-int find_most_spotted_bird(int n)
+map<int, int> count_numbers_into_map(int n)
 {
-    map<int, int> bird_count;
-    for (int bird; n-- && cin >> bird; ++bird_count[bird]);
+    map<int, int> birds;
+    for (int bird; n-- && cin >> bird; ++birds[bird]);
+    return birds;
+}
+
+int find_most_spotted_bird(const map<int, int>& bird_count)
+{
     return ranges::max_element(bird_count, {}, &pair<const int, int>::second)->first;
 }
