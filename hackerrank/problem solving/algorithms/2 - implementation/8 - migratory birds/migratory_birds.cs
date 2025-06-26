@@ -14,9 +14,9 @@ public class Solution
         return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
     }
 
-    private static int FindMostSpottedBird(int[] birdCount)
+    private static int FindMostSpottedBird(int[] birdCounts)
     {
-        return birdCount.GroupBy(bird => bird)
+        return birdCounts.GroupBy(bird => bird)
                     .OrderByDescending(group => group.Count())
                     .ThenBy(group => group.Key)
                     .First()
