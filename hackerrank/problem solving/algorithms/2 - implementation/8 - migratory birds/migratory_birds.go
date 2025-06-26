@@ -7,32 +7,28 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    birds := readNumbers(n)
-    fmt.Println(findMostSpottedBird(birds))
+    birdCounts := countNumbersIntoMap(n)
+    fmt.Println(findMostSpottedBird(birdCounts))
 }
 
-func readNumbers(n int) []int {
-    numbers := make([]int, n)
-    for i := range numbers {
-        fmt.Scan(&numbers[i])
+func countNumbersIntoMap(n int) map[int]int {
+    numberCounts := map[int]int{}
+    for range n {
+        var x int
+        fmt.Scan(&x)
+        numberCounts[x]++
     }
-    return numbers
+    return numberCounts
 }
 
-func findMostSpottedBird(birds []int) int {
-    birdCount := map[int]int{}
-    for _, bird := range birds {
-        birdCount[bird]++
-    }
-
+func findMostSpottedBird(birdCounts map[int]int) int {
     mostSpottedBird := 0
     maxCount := 0
-    for bird, count := range birdCount {
+    for bird, count := range birdCounts {
         if count > maxCount || (count == maxCount && bird < mostSpottedBird) {
             mostSpottedBird = bird
             maxCount = count
         }
     }
-
     return mostSpottedBird
 }

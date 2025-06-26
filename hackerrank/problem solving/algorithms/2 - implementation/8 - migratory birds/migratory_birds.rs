@@ -1,27 +1,28 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
+use std::cmp::Reverse;
 use std::collections::HashMap;
 use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let birds = read_numbers(n);
-    println!("{}", find_most_spotted_bird(&birds));
+    let bird_counts = count_numbers_into_hash_map(n);
+    println!("{}", find_most_spotted_bird(&bird_counts));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
-}
-
-fn find_most_spotted_bird(birds: &[i32]) -> i32 {
-    let mut bird_count = HashMap::new();
-    for &bird in birds {
-        *bird_count.entry(bird).or_insert(0) += 1;
+fn count_numbers_into_hash_map(n: usize) -> HashMap<i32, i32> {
+    let mut number_counts = HashMap::new();
+    for _ in 0..n {
+        let id: i32 = read!();
+        *number_counts.entry(id).or_insert(0) += 1;
     }
+    number_counts
+}
 
-    *bird_count
+fn find_most_spotted_bird(bird_counts: &HashMap<i32, i32>) -> i32 {
+    bird_counts
         .iter()
-        .max_by_key(|(&id, &count)| (count, (count, std::cmp::Reverse(id))))
+        .max_by_key(|(&id, &count)| (count, Reverse(id)))
+        .map(|(&id, _)| id)
         .unwrap()
-        .0
 }

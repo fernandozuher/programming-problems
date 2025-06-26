@@ -23,32 +23,33 @@ process.stdin.on('end', function () {
 
 function main() {
   readLine();
-  const birds = readNumbers();
-  console.log(findMostSpottedBird(birds));
+  const birdCounts = countNumbersIntoMap();
+  console.log(findMostSpottedBird(birdCounts));
 }
 
 function readLine() {
   return inputLines[currentLine++];
 }
 
-function readNumbers() {
-  return readLine().split(' ').map(Number);
+function countNumbersIntoMap() {
+  const numberCounts = new Map();
+  readLine()
+    .split(' ')
+    .forEach((x) => {
+      x = +x;
+      numberCounts.set(x, (numberCounts.get(x) ?? 0) + 1);
+    });
+  return numberCounts;
 }
 
-function findMostSpottedBird(birds) {
-  const birdCount = {};
-  for (const bird of birds) {
-    birdCount[bird] = (birdCount[bird] || 0) + 1;
-  }
-
+function findMostSpottedBird(birdCounts) {
   let mostSpottedBird = 0;
   let maxCount = 0;
-  for (const [bird, count] of Object.entries(birdCount)) {
-    if (count > maxCount || (count === maxCount && +bird < mostSpottedBird)) {
-      mostSpottedBird = +bird;
+  for (const [bird, count] of birdCounts.entries()) {
+    if (count > maxCount || (count === maxCount && bird < mostSpottedBird)) {
+      mostSpottedBird = bird;
       maxCount = count;
     }
   }
-
   return mostSpottedBird;
 }

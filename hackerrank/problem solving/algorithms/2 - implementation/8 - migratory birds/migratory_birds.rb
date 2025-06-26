@@ -2,18 +2,17 @@
 
 def main
   gets
-  birds = read_numbers
-  puts find_most_spotted_bird(birds)
+  bird_counts = count_numbers_into_hash
+  puts find_most_spotted_bird(bird_counts)
 end
 
-def read_numbers
-  gets.split.map(&:to_i)
+def count_numbers_into_hash
+  gets.split.each_with_object(Hash.new(0)) { |x, numberCounts| numberCounts[x.to_i] += 1 }
 end
 
-def find_most_spotted_bird(birds)
-  bird_count = birds.each_with_object(Hash.new(0)) { |bird, counts| counts[bird] += 1 }
-  max_count = bird_count.values.max
-  bird_count.select { |_bird, count| count == max_count }.keys.min
+def find_most_spotted_bird(bird_counts)
+  max_count = bird_counts.values.max
+  bird_counts.select { |_bird, count| count == max_count }.keys.min
 end
 
 main

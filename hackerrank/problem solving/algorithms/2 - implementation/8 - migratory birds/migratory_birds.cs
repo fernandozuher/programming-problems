@@ -5,8 +5,8 @@ public class Solution
     public static void Main()
     {
         Console.ReadLine();
-        int[] birds = ReadNumbers();
-        Console.WriteLine(FindMostSpottedBird(birds));
+        int[] birdCounts = ReadNumbers();
+        Console.WriteLine(FindMostSpottedBird(birdCounts));
     }
 
     private static int[] ReadNumbers()
@@ -14,9 +14,9 @@ public class Solution
         return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
     }
 
-    private static int FindMostSpottedBird(int[] birds)
+    private static int FindMostSpottedBird(int[] birdCount)
     {
-        return birds.GroupBy(bird => bird)
+        return birdCount.GroupBy(bird => bird)
                     .OrderByDescending(group => group.Count())
                     .ThenBy(group => group.Key)
                     .First()

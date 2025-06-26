@@ -4,19 +4,18 @@ from collections import Counter
 
 
 def main():
-    int(input())
-    birds = read_numbers()
-    print(find_most_spotted_bird(birds))
+    input()
+    bird_counts = count_numbers_into_counter()
+    print(find_most_spotted_bird(bird_counts))
 
 
-def read_numbers():
-    return list(map(int, input().split()))
+def count_numbers_into_counter():
+    return Counter(map(int, input().split()))
 
 
-def find_most_spotted_bird(birds):
-    bird_count = Counter(birds)
-    max_count = max(bird_count.values())
-    return min(bird for bird, count in bird_count.items() if count == max_count)
+def find_most_spotted_bird(bird_counts):
+    max_count = max(bird_counts.values())
+    return min(bird for bird, count in bird_counts.items() if count == max_count)
 
 
 if __name__ == '__main__':
