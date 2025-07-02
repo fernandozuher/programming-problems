@@ -48,7 +48,7 @@ function isLeapYear(year: number): boolean {
 }
 
 function isLeapJulianYear(year: number): boolean {
-    return !(year % 4);
+    return year % 4 === 0;
 }
 
 function isLeapGregorianYear(year: number): boolean {
