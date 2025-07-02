@@ -7,41 +7,40 @@ import (
     "strconv"
 )
 
-const TransitionYear int = 1918
+const transitionYear = 1918
 
 func main() {
     var year int
     fmt.Scan(&year)
-    fmt.Print(calculateDateOf256thDay(year))
+    fmt.Println(calculateDateOf256thDay(year))
 }
 
 func calculateDateOf256thDay(year int) string {
-    var date string
-    if year != TransitionYear {
-        if isLeapYear(year) {
-            date = "12.09."
-        } else {
-            date = "13.09."
-        }
+    var day string
+    if year == transitionYear {
+        day = "26"
+    } else if isLeapYear(year) {
+        day = "12"
     } else {
-        date = "26.09."
+        day = "13"
     }
-    date += strconv.Itoa(year)
-    return date
+    return day + ".09." + strconv.Itoa(year)
 }
 
 func isLeapYear(year int) bool {
-    if year > TransitionYear {
-        return isLeapGregorianYear(year)
-    } else {
+    if year < transitionYear {
         return isLeapJulianYear(year)
     }
-}
-
-func isLeapGregorianYear(year int) bool {
-    return year%400 == 0 || (year%4 == 0 && year%100 != 0)
+    if year > transitionYear {
+        return isLeapGregorianYear(year)
+    }
+    return false
 }
 
 func isLeapJulianYear(year int) bool {
     return year%4 == 0
+}
+
+func isLeapGregorianYear(year int) bool {
+    return year%400 == 0 || (year%4 == 0 && year%100 != 0)
 }
