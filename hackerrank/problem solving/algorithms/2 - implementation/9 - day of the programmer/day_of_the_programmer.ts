@@ -19,50 +19,38 @@ process.stdin.on('end', function (): void {
     main();
 });
 
+//////////////////////////////////////////////////
+
+const TRANSITION_YEAR: number = 1918;
+
+function main() {
+    let year: number = +readLine();
+    console.log(calculateDateOf256thDay(year));
+}
+
 function readLine(): string {
     return inputLines[currentLine++];
 }
 
-//////////////////////////////////////////////////
-
-function main() {
-    let year: number = +readLine();
-    let obj = new DayOfTheProgrammer(year);
-    obj.calculateDateOf256thDay();
-    console.log(obj.date());
+function calculateDateOf256thDay(year: number): string {
+    let day;
+    if (year === TRANSITION_YEAR) day = '26';
+    else day = isLeapYear(year) ? '12' : '13';
+    return day + '.09.' + year.toString();
 }
 
-    class DayOfTheProgrammer {
-        static TRANSITION_YEAR: number = 1918;
-        private readonly year: number;
-        private dateOf256thDay: string;
+function isLeapYear(year: number): boolean {
+    if (year < TRANSITION_YEAR)
+      return isLeapJulianYear(year);
+    if (year > TRANSITION_YEAR)
+      return isLeapGregorianYear(year);
+    return false;
+}
 
-        public constructor(year: number) {
-            this.year = year;
-            this.dateOf256thDay = '';
-        }
+function isLeapJulianYear(year: number): boolean {
+    return !(year % 4);
+}
 
-        public calculateDateOf256thDay() {
-            if (this.year != DayOfTheProgrammer.TRANSITION_YEAR)
-                this.dateOf256thDay = this.isLeapYear() ? "12.09." : "13.09.";
-            else
-                this.dateOf256thDay = "26.09.";
-            this.dateOf256thDay += this.year.toString();
-        }
-
-            private isLeapYear(): boolean {
-                return this.year > DayOfTheProgrammer.TRANSITION_YEAR ? this.isLeapGregorianYear() : this.isLeapJulianYear();
-            }
-            
-                private isLeapGregorianYear(): boolean {
-                    return !(this.year % 400) || (!(this.year % 4) && (this.year % 100) !== 0);
-                }
-            
-                private isLeapJulianYear(): boolean {
-                    return !(this.year % 4);
-                }
-
-        public date(): string {
-            return this.dateOf256thDay;
-        }
-    }
+function isLeapGregorianYear(year: number): boolean {
+    return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
+}

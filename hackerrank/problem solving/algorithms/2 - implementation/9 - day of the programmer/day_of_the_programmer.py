@@ -1,37 +1,35 @@
 # https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
+TRANSITION_YEAR = 1918
+
+
 def main():
     year = int(input())
-    obj = DayOfTheProgrammer(year)
-    obj.calculate_date_of_256th_day()
-    print(obj.date())
+    print(calculate_date_of_256th_day(year))
 
 
-class DayOfTheProgrammer:
-    _TRANSITION_YEAR = 1918
+def calculate_date_of_256th_day(year):
+    if year == TRANSITION_YEAR:
+        day = '26'
+    else:
+        day = '12' if is_leap_year(year) else '13'
+    return day + ".09." + str(year)
 
-    def __init__(self, year):
-        self._year = year
-        self._date = ''
 
-    def calculate_date_of_256th_day(self):
-        if self._year != self._TRANSITION_YEAR:
-            self._date = "12.09." if self._is_leap_year() else "13.09."
-        else:
-            self._date = "26.09."
-        self._date += str(self._year)
+def is_leap_year(year):
+    if year < TRANSITION_YEAR:
+        return is_leap_julian_year(year)
+    if year > TRANSITION_YEAR:
+        return is_leap_gregorian_year(year)
+    return False
 
-    def _is_leap_year(self):
-        return self._is_leap_gregorian_year() if self._year > self._TRANSITION_YEAR else self._is_leap_julian_year()
 
-    def _is_leap_gregorian_year(self):
-        return (not (self._year % 400)) or (not (self._year % 4) and self._year % 100)
+def is_leap_julian_year(year):
+    return not (year % 4)
 
-    def _is_leap_julian_year(self):
-        return not (self._year % 4)
 
-    def date(self):
-        return self._date
+def is_leap_gregorian_year(year):
+    return (not (year % 400)) or (not (year % 4) and year % 100)
 
 
 if __name__ == '__main__':

@@ -1,45 +1,38 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
-using static System.Console;
-
 class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int year = int.Parse(ReadLine()!);
-        var obj = new DayOfTheProgrammer(year);
-        obj.calculateDateOf256thDay();
-        WriteLine(obj.Date);
+        int year = int.Parse(Console.ReadLine()!);
+        Console.WriteLine(DayOfTheProgrammer.CalculateDateOf256thDay(year));
     }
 }
 
-    class DayOfTheProgrammer(int year)
+class DayOfTheProgrammer
+{
+    private const int TransitionYear = 1918;
+
+    public static string CalculateDateOf256thDay(int year)
     {
-        private const int TransitionYear = 1918;
-        private readonly int _year = year;
-        public string Date { get; private set; } = "";
-
-        public void calculateDateOf256thDay()
-        {
-            if (_year != TransitionYear)
-                Date = _isLeapYear() ? "12.09." : "13.09.";
-            else
-                Date = "26.09.";
-            Date += _year.ToString();
-        }
-
-            private bool _isLeapYear()
-            {
-                return _year > TransitionYear ? _isLeapGregorianYear() : _isLeapJulianYear();
-            }
-
-                private bool _isLeapGregorianYear()
-                {
-                    return _year % 400 == 0 || (_year % 4 == 0 && _year % 100 != 0);
-                }
-
-                private bool _isLeapJulianYear()
-                {
-                    return _year % 4 == 0;
-                }
+        string day;
+        if (year == TransitionYear)
+            day = "26";
+        else
+            day = IsLeapYear(year) ? "12" : "13";
+        return day + ".09." + year.ToString();
     }
+
+    private static bool IsLeapYear(int year)
+    {
+        if (year < TransitionYear)
+            return IsLeapJulianYear(year);
+        if (year > TransitionYear)
+            return IsLeapGregorianYear(year);
+        return false;
+    }
+
+    private static bool IsLeapJulianYear(int year) => year % 4 == 0;
+
+    private static bool IsLeapGregorianYear(int year) => year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+}
