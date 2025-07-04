@@ -1,67 +1,69 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
-// From C23
+// C23
 
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct {
-    int n, item_anna_didnt_consume;
-    int *cost_of_each_meal;
-    int brian_charged_anna;
+    int n, item_not_eaten;
+    int *meal_costs;
+    int amount_charged;
 } input;
 
-int *read_int_array(int n);
+input read_input();
+int *read_numbers(int n);
 int bon_appetit(const input *data);
-    int calculate_anna_cost(const input *data);
-    int how_much_brian_overcharged_anna(int brian_charged_anna, int anna_cost);
+int compute_actual_share(const input *data);
+int calculate_overcharge(int amount_charged, int individual_share);
 void print_output(int charged);
 
 int main()
 {
-    int n, item_anna_didnt_consume;
-    scanf("%d %d", &n, &item_anna_didnt_consume);
-    int *cost_of_each_meal = read_int_array(n);
-
-    int brian_charged_anna;
-    scanf("%d", &brian_charged_anna);
-
-    input data = {n, item_anna_didnt_consume, cost_of_each_meal, brian_charged_anna};
-    int brian_overcharged_anna = bon_appetit(&data);
-    print_output(brian_overcharged_anna);
-
-    free(cost_of_each_meal);
-
+    input data = read_input();
+    print_output(bon_appetit(&data));
+    free(data.meal_costs);
     return 0;
 }
 
-    int *read_int_array(const int n)
-    {
-        auto array = (int*) malloc(n * sizeof(int));
-        for (int i = 0; i < n; ++i)
-            scanf("%d", &array[i]);
-        return array;
-    }
+input read_input()
+{
+    int n, item_not_eaten;
+    scanf("%d %d", &n, &item_not_eaten);
+    int *meal_costs = read_numbers(n);
+    int amount_charged;
+    scanf("%d", &amount_charged);
+    return (input){n, item_not_eaten, meal_costs, amount_charged};
+}
 
-    int bon_appetit(const input *data)
-    {
-        int anna_cost = calculate_anna_cost(data);
-        return how_much_brian_overcharged_anna(data->brian_charged_anna, anna_cost);
-    }
+int *read_numbers(int n)
+{
+    auto array = (int *) malloc(n * sizeof(int));
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &array[i]);
+    return array;
+}
 
-        int calculate_anna_cost(const input *data)
-        {
-            int sum = 0;
-            for (int i = 0; i < data->n; ++i)
-                sum += data->cost_of_each_meal[i];
-            return (sum - data->cost_of_each_meal[data->item_anna_didnt_consume]) / 2;
-        }
+int bon_appetit(const input *data)
+{
+    int individual_share = compute_actual_share(data);
+    return calculate_overcharge(data->amount_charged, individual_share);
+}
 
-        int how_much_brian_overcharged_anna(const int brian_charged_anna, const int anna_cost)
-        {
-            return anna_cost != brian_charged_anna ? brian_charged_anna - anna_cost : 0;
-        }
+int compute_actual_share(const input *data)
+{
+    int sum = 0;
+    for (int i = 0; i < data->n; ++i)
+        sum += data->meal_costs[i];
+    int splitting_cost_between_two_people = (sum - data->meal_costs[data->item_not_eaten]) / 2;
+    return splitting_cost_between_two_people;
+}
 
-    void print_output(const int charged)
-    {
-        charged ? printf("%d", charged) : puts("Bon Appetit");
-    }
+int calculate_overcharge(int amount_charged, int individual_share)
+{
+    return individual_share != amount_charged ? amount_charged - individual_share : 0;
+}
+
+void print_output(int charged)
+{
+    charged ? printf("%d\n", charged) : puts("Bon Appetit");
+}
