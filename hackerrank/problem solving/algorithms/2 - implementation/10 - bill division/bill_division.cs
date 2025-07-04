@@ -1,64 +1,51 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        Input data = default;
-        List<int> list = _readIntArray();
-
-        int n = list.First();
-        data.ItemAnnaDidntConsume = list.Last();
-        data.CostOfEachMeal = _readIntArray();
-        data.BrianChargedAnna = int.Parse(ReadLine()!);
-
-        var obj = new BillDivision(data);
-        obj.BonAppetit();
-        _printOutput(obj.BrianOverchargedAnna);
+        Input data = readInput();
+        PrintOutput(new BillDivision(data).BonAppetit());
     }
 
-        private static List<int> _readIntArray()
-        {
-            return ReadLine()!.Split().Select(int.Parse).ToList();
-        }
+    private static Input readInput()
+    {
+        int[] numbers = ReadNumbers();
+        return new Input(
+            numbers[1],
+            ReadNumbers(),
+            int.Parse(Console.ReadLine()!)
+        );
+    }
 
-        private static void _printOutput(int charged)
-        {
-            Console.WriteLine(charged > 0 ? charged : "Bon Appetit");
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
+
+    private static void PrintOutput(int charged)
+    {
+        Console.WriteLine(charged > 0 ? charged : "Bon Appetit");
+    }
 }
 
-    struct Input
+public record Input(int ItemNotEaten, int[] MealCosts, int AmountCharged);
+
+public class BillDivision(Input data)
+{
+    private readonly int _itemNotEaten = data.ItemNotEaten;
+    private readonly int[] _mealCosts = data.MealCosts;
+    private readonly int _amountCharged = data.AmountCharged;
+
+    public int BonAppetit()
     {
-        public int ItemAnnaDidntConsume { get; set; }
-        public List<int> CostOfEachMeal { get; set; }
-        public int BrianChargedAnna { get; set; }
+        return _amountCharged - ComputeActualShare();
     }
 
-    class BillDivision(Input data)
+    private int ComputeActualShare()
     {
-        private readonly int _itemAnnaDidntConsume = data.ItemAnnaDidntConsume;
-        private readonly List<int> _costOfEachMeal = data.CostOfEachMeal;
-        private readonly int _brianChargedAnna = data.BrianChargedAnna;
-        public int BrianOverchargedAnna { get; private set; }
-
-        public void BonAppetit()
-        {
-            int annaCost = _calculateAnnaCost();
-            _howMuchBrianOverchargedAnna(annaCost);
-        }
-
-            private int _calculateAnnaCost()
-            {
-                int sum = _costOfEachMeal.Sum();
-                return (sum - _costOfEachMeal[_itemAnnaDidntConsume]) / 2;
-            }
-
-            private void _howMuchBrianOverchargedAnna(int annaCost)
-            {
-                if (annaCost != _brianChargedAnna)
-                    BrianOverchargedAnna = _brianChargedAnna - annaCost;
-            }
+        int totalCost = _mealCosts.Sum();
+        int totalSharedCost = totalCost - _mealCosts[_itemNotEaten];
+        return totalSharedCost / 2;
     }
+}

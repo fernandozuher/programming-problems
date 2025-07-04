@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -10,75 +8,66 @@ let inputLines: string[] = [];
 let currentLine: number = 0;
 
 process.stdin.on('data', function (inputStdin: string): void {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function (): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let [, itemAnnaDidntConsume]: number[] = readIntArray();
-    let costOfEachMeal: number[] = readIntArray();
-    let brianChargedAnna: number = +readLine();
-    let data: Input = {itemAnnaDidntConsume, costOfEachMeal, brianChargedAnna};
-
-    let obj = new BillDivision(data);
-    obj.bonAppetit();
-    printOutput(obj.brianOverchargedAnna());
+  const data: Input = readInput();
+  printOutput(new BillDivision(data).bonAppetit());
 }
 
-    interface Input {
-        itemAnnaDidntConsume: number;
-        costOfEachMeal: number[];
-        brianChargedAnna: number;
-    }
+function readInput(): Input {
+  const [, itemNotEaten]: number[] = readNumbers();
+  const mealCosts: number[] = readNumbers();
+  const amountCharged: number = +readLine();
+  return { itemNotEaten, mealCosts, amountCharged };
+}
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
+interface Input {
+  itemNotEaten: number;
+  mealCosts: number[];
+  amountCharged: number;
+}
 
-    class BillDivision {
-        private readonly itemAnnaDidntConsume: number;
-        private readonly costOfEachMeal: number[];
-        private readonly brianChargedAnna: number;
-        private brianOvercharged: number;
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
 
-        constructor(data: Input) {
-            this.itemAnnaDidntConsume = data.itemAnnaDidntConsume;
-            this.costOfEachMeal = data.costOfEachMeal;
-            this.brianChargedAnna = data.brianChargedAnna;
-            this.brianOvercharged = 0;
-        }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
-        bonAppetit() {
-            let annaCost: number = this.calculateAnnaCost();
-            this.howMuchBrianOverchargedAnna(annaCost);
-        }
+class BillDivision {
+  private readonly itemNotEaten: number;
+  private readonly mealCosts: number[];
+  private readonly amountCharged: number;
 
-            private calculateAnnaCost(): number {
-                let sum: number = this.costOfEachMeal.reduce((a, b) => a + b, 0);
-                return (sum - this.costOfEachMeal[this.itemAnnaDidntConsume]) / 2;
-            }
+  constructor(data: Input) {
+    this.itemNotEaten = data.itemNotEaten;
+    this.mealCosts = data.mealCosts;
+    this.amountCharged = data.amountCharged;
+  }
 
-            private howMuchBrianOverchargedAnna(annaCost: number) {
-                if (annaCost !== this.brianChargedAnna)
-                    this.brianOvercharged = this.brianChargedAnna - annaCost;
-            }
+  public bonAppetit(): number {
+    return this.amountCharged - this.computeActualShare();
+  }
 
-        brianOverchargedAnna(): number {
-            return this.brianOvercharged;
-        }
-    }
+  private computeActualShare(): number {
+    const totalCost: number = this.mealCosts.reduce((a, b) => a + b, 0);
+    const totalSharedCost: number =
+      totalCost - this.mealCosts[this.itemNotEaten];
+    return totalSharedCost / 2;
+  }
+}
 
-    function printOutput(charged: number) {
-        console.log(charged || "Bon Appetit");
-    }
+function printOutput(charged: number) {
+  console.log(charged || 'Bon Appetit');
+}

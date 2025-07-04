@@ -24,7 +24,6 @@ private:
     int amount_charged;
 
     int compute_actual_share() const;
-    int calculate_overcharge(int individual_share) const;
 };
 
 Bill_Division::Bill_Division(const input& data): item_not_eaten{data.item_not_eaten},
@@ -36,20 +35,14 @@ Bill_Division::Bill_Division(const input& data): item_not_eaten{data.item_not_ea
 
 int Bill_Division::bon_appetit() const
 {
-    int individual_share{compute_actual_share()};
-    return calculate_overcharge(individual_share);
+    return amount_charged - compute_actual_share();
 }
 
 int Bill_Division::compute_actual_share() const
 {
-    int sum{*ranges::fold_left_first(meal_costs, plus())};
-    int splitting_cost_between_two_people{(sum - meal_costs.at(item_not_eaten)) / 2};
-    return splitting_cost_between_two_people;
-}
-
-int Bill_Division::calculate_overcharge(int individual_share) const
-{
-    return individual_share != amount_charged ? amount_charged - individual_share : 0;
+    int total_cost{*ranges::fold_left_first(meal_costs, plus())};
+    int total_shared_cost{total_cost - meal_costs.at(item_not_eaten)};
+    return total_shared_cost / 2;
 }
 
 //////////////////////////////////////////////////
