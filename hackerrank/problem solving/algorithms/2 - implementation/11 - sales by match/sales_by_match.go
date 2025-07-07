@@ -7,28 +7,24 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = readIntArray(n)
-    fmt.Println(sockMerchant(array))
+    sockCounts := readNumbersIntoMap(n)
+    fmt.Println(sockMerchant(sockCounts))
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbersIntoMap(n int) map[int]int {
+    numberCounts := map[int]int{}
+    for range n {
+        var x int
+        fmt.Scan(&x)
+        numberCounts[x]++
     }
-    return array
+    return numberCounts
 }
 
-func sockMerchant(socks []int) int {
+func sockMerchant(sockCounts map[int]int) int {
     pairs := 0
-    socksPairing := make(map[int]bool)
-
-    for _, sock := range socks {
-        if socksPairing[sock] {
-            pairs++
-        }
-        socksPairing[sock] = !socksPairing[sock]
+    for _, n := range sockCounts {
+        pairs += n / 2
     }
-
     return pairs
 }

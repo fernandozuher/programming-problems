@@ -1,41 +1,38 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
-// From C23
+// C23
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int *read_int_array(int n);
+void read_numbers(int numbers[], int n);
 int sock_merchant(const int socks[], int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int *array = read_int_array(n);
-    printf("%d\n", sock_merchant(array, n));
-
+    int socks[n];
+    read_numbers(socks, n);
+    printf("%d\n", sock_merchant(socks, n));
     return 0;
 }
 
-    int *read_int_array(const int n)
-    {
-        auto array = (int*) malloc(n * sizeof(int));
-        for (int i = 0; i < n; ++i)
-            scanf("%d", &array[i]);
-        return array;
+void read_numbers(int numbers[], int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &numbers[i]);
+}
+
+int sock_merchant(const int socks[], int n)
+{
+    int pairs = 0;
+    constexpr static int socks_pairing_limit = 101;
+    bool socks_pairing[socks_pairing_limit] = {0}; // https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2900.htm
+
+    for (int i = 0; i < n; ++i) {
+        if (socks_pairing[socks[i]])
+            ++pairs;
+        socks_pairing[socks[i]] = !socks_pairing[socks[i]];
     }
 
-    int sock_merchant(const int socks[], const int n)
-    {
-        int pairs = 0;
-        constexpr static int socks_pairing_limit = 100;
-        auto socks_pairing = (bool*) calloc(socks_pairing_limit, sizeof(bool));
-
-        for (int i = 0; i < n; ++i) {
-            if (socks_pairing[socks[i]])
-                ++pairs;
-            socks_pairing[socks[i]] = !socks_pairing[socks[i]];
-        }
-
-        return pairs;
-    }
+    return pairs;
+}

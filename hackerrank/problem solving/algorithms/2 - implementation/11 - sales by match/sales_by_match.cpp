@@ -1,40 +1,33 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+// C++23
 
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <unordered_map>
-#include <vector>
 
 using namespace std;
 
-template<class T = int>
-vector<T> read(int n);
-int sock_merchant(const vector<int>& socks);
+unordered_map<int, int> read_numbers_into_map(int n);
+int sock_merchant(const unordered_map<int, int>& sock_counts);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << sock_merchant(read(n));
+    auto sock_counts{read_numbers_into_map(n)};
+    cout << sock_merchant(sock_counts) << '\n';
     return 0;
 }
 
-template<class T>
-vector<T> read(const int n)
+unordered_map<int, int> read_numbers_into_map(int n)
 {
-    vector<T> array(n);
-    copy_n(istream_iterator<T>(cin), n, array.begin());
-    return array;
+    unordered_map<int, int> number_counts;
+    for (int x; n-- && cin >> x;)
+        ++number_counts[x];
+    return number_counts;
 }
 
-int sock_merchant(const vector<int>& socks)
+int sock_merchant(const unordered_map<int, int>& sock_counts)
 {
-    int pairs{};
-    for (unordered_map<int, bool> socks_pairing; const int sock : socks) {
-        if (socks_pairing[sock])
-            ++pairs;
-        socks_pairing[sock] = !socks_pairing[sock];
-    }
-    return pairs;
+    return ranges::fold_left(sock_counts, 0, [](int pairs, const auto& x) { return pairs + x.second / 2; });
 }
