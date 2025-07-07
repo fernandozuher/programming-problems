@@ -1,33 +1,24 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int _ = int.Parse(ReadLine()!);
-        List<int> array = _readIntArray();
-        WriteLine(_sockMerchant(array));
+        Console.ReadLine();
+        Dictionary<int, int> sockCounts = ReadNumbersIntoMap();
+        Console.WriteLine(SockMerchant(sockCounts));
     }
 
-        private static List<int> _readIntArray()
+    private static Dictionary<int, int> ReadNumbersIntoMap()
+    {
+        var numberCounts = new Dictionary<int, int>();
+        foreach (var x in Console.ReadLine()!.Split().Select(int.Parse))
         {
-            return ReadLine()!.Split().Select(int.Parse).ToList();
+            numberCounts.TryGetValue(x, out int count);
+            numberCounts[x] = ++count;
         }
+        return numberCounts;
+    }
 
-        private static int _sockMerchant(List<int> socks)
-        {
-            int pairs = 0;
-            var socksPairing = new Dictionary<int, bool>();
-
-            foreach (int sock in socks)
-            {
-                if (socksPairing.TryGetValue(sock, out var value) && value)
-                    ++pairs;
-                socksPairing[sock] = !value;
-            }
-
-            return pairs;
-        }
+    private static int SockMerchant(Dictionary<int, int> sockCounts) => sockCounts.Values.Sum(count => count / 2);
 }

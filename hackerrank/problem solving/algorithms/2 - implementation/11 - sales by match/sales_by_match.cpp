@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <ranges>
 #include <unordered_map>
 
 using namespace std;
@@ -29,5 +30,5 @@ unordered_map<int, int> read_numbers_into_map(int n)
 
 int sock_merchant(const unordered_map<int, int>& sock_counts)
 {
-    return ranges::fold_left(sock_counts, 0, [](int pairs, const auto& x) { return pairs + x.second / 2; });
+    return ranges::fold_left(views::values(sock_counts), 0, [](int pairs, int count) { return pairs + count / 2; });
 }

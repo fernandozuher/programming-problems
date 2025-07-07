@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -10,40 +8,39 @@ let inputLines: string[] = [];
 let currentLine: number = 0;
 
 process.stdin.on('data', function (inputStdin: string): void {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function (): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    readLine();
-    let array: number[] = readIntArray();
-    console.log(sockMerchant(array));
+  readLine();
+  const sockCounts: Map<number, number> = readNumbersIntoMap();
+  console.log(sockMerchant(sockCounts));
 }
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
-    function sockMerchant(socks: number[]): number {
-        let pairs = 0;
-        let socksPairing = new Map<number, boolean>();
+function readNumbersIntoMap(): Map<number, number> {
+  const numberCounts = new Map<number, number>();
+  readLine()
+    .split(' ')
+    .map(Number)
+    .forEach((x) => numberCounts.set(x, (numberCounts.get(x) || 0) + 1));
+  return numberCounts;
+}
 
-        for (const sock of socks) {
-            if (socksPairing.get(sock))
-                ++pairs;
-            socksPairing.set(sock, !socksPairing.get(sock));
-        }
-
-        return pairs;
-    }
+function sockMerchant(sockCounts: Map<number, number>): number {
+  return Array.from(sockCounts.values()).reduce(
+    (pairs, count) => pairs + Math.trunc(count / 2),
+    0,
+  );
+}

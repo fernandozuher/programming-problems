@@ -1,25 +1,20 @@
 # https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
+from collections import Counter
+
+
 def main():
-    _n = int(input())
-    array = read_int_array()
-    print(sock_merchant(array))
+    input()
+    sock_counts = read_numbers_into_map()
+    print(sock_merchant(sock_counts))
 
 
-def read_int_array():
-    return list(map(int, input().split()))
+def read_numbers_into_map():
+    return Counter(map(int, input().split()))
 
 
-def sock_merchant(socks):
-    pairs = 0
-    socks_pairing = {}
-
-    for sock in socks:
-        if socks_pairing.get(sock):
-            pairs += 1
-        socks_pairing[sock] = not socks_pairing[sock] if socks_pairing.get(sock) is not None else True
-
-    return pairs
+def sock_merchant(sock_counts):
+    return sum(count // 2 for count in sock_counts.values())
 
 
 if __name__ == '__main__':

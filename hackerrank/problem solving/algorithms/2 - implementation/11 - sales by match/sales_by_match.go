@@ -23,8 +23,8 @@ func readNumbersIntoMap(n int) map[int]int {
 
 func sockMerchant(sockCounts map[int]int) int {
     pairs := 0
-    for _, n := range sockCounts {
-        pairs += n / 2
+    for _, count := range sockCounts {
+        pairs += count / 2
     }
     return pairs
 }

@@ -5,24 +5,19 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let array: Vec<i32> = read_int_array(n);
-    println!("{}", sock_merchant(&array));
+    let sock_counts: HashMap<i32, i32> = read_numbers_into_map(n);
+    println!("{}", sock_merchant(&sock_counts));
 }
-    
-    fn read_int_array(n: usize) -> Vec<i32> {
-        return (0..n).map(|_| read!()).collect();
+
+fn read_numbers_into_map(n: usize) -> HashMap<i32, i32> {
+    let mut number_counts = HashMap::new();
+    for _ in 0..n {
+        let x: i32 = read!();
+        *number_counts.entry(x).or_insert(0) += 1;
     }
-    
-    fn sock_merchant(socks: &[i32]) -> i32 {
-        let mut pairs = 0;
-        let mut socks_pairing = HashMap::new();
-    
-        for sock in socks {
-            if *socks_pairing.entry(sock).or_insert(false) {
-                pairs += 1;
-            }
-            socks_pairing.insert(sock, !socks_pairing.get(sock).copied().unwrap());
-        }
-    
-        return pairs;
-    }
+    number_counts
+}
+
+fn sock_merchant(sock_counts: &HashMap<i32, i32>) -> i32 {
+    sock_counts.values().fold(0, |pairs, count| pairs + count / 2)
+}
