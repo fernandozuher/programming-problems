@@ -1,38 +1,25 @@
 # https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
 def main
-    n = gets.to_i
-    array = gets
-    obj = Count_valleys.new(array)
-    puts obj.traversed_valleys
+  gets
+  steps = gets
+  puts counting_valleys(steps)
 end
 
-    class Count_valleys
+def counting_valleys(steps)
+  valleys = 0
+  current_altitude = 0
 
-        attr_reader :traversed_valleys
-
-        def initialize(steps)
-            @steps = steps
-            @traversed_valleys = 0
-            counting_valleys
-        end
-
-            private def counting_valleys
-                current_altitude = 0
-
-                for step in @steps.split('')
-                    was_travessing_a_valley = current_altitude < 0
-                    current_altitude += step == 'D' ? -1 : 1
-                    
-                    if is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude)
-                        @traversed_valleys += 1
-                    end
-                end
-            end
-
-            private def is_in_sea_level_from_valley(was_travessing_a_valley, current_altitude)
-                was_travessing_a_valley && current_altitude == 0
-            end
+  steps.each_char do |step|
+    was_below_sea_level = current_altitude < 0
+    current_altitude += step == 'D' ? -1 : 1
+    is_in_sea_level_from_valley = was_below_sea_level && current_altitude == 0
+    if is_in_sea_level_from_valley
+      valleys += 1
     end
+  end
+
+  valleys
+end
 
 main

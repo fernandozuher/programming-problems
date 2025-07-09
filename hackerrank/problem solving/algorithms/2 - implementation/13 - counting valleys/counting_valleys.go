@@ -7,32 +7,26 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    var array string
-    fmt.Scan(&array)
-    fmt.Println(countingValleys(array))
+    var steps string
+    fmt.Scan(&steps)
+    fmt.Println(countingValleys(steps))
 }
 
-    func countingValleys(steps string) int {
-        var currentAltitude int = 0
-        var traversedValleys int = 0
+func countingValleys(steps string) int {
+    valleys := 0
+    currentAltitude := 0
 
-        for _, step := range steps {
-            wasTravessingAValley := currentAltitude < 0
-
-            if step == 'D' {
-                currentAltitude--
-            } else {
-                currentAltitude++
-            }
-
-            if isInSeaLevelFromValley(wasTravessingAValley, currentAltitude) {
-                traversedValleys++
-            }
+    for _, step := range steps {
+        wasBelowSeaLevel := currentAltitude < 0
+        if step == 'D' {
+            currentAltitude--
+        } else {
+            currentAltitude++
         }
-
-        return traversedValleys
+        if isInSeaLevelFromValley := wasBelowSeaLevel && currentAltitude == 0; isInSeaLevelFromValley {
+            valleys++
+        }
     }
 
-        func isInSeaLevelFromValley(wasTravessingAValley bool, currentAltitude int) bool {
-            return wasTravessingAValley && currentAltitude == 0
-        }
+    return valleys
+}
