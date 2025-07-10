@@ -1,75 +1,45 @@
 # https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 def main():
-
-    budget, n_keyboard_costs, n_usb_drive_costs = read_int_array()
-    keyboard_costs = read_int_array()
-    usb_drive_costs = read_int_array()
-
-    keyboard_costs.sort()
-    usb_drive_costs.sort()
-
-    obj = ElectronicsShop(keyboard_costs, usb_drive_costs, budget)
-    print(obj.money_that_can_be_spent())
+    budget = read_numbers()[0]
+    keyboards = sorted(set(read_numbers()))
+    usb_drives = sorted(set(read_numbers()))
+    print(calculate_money_spent(keyboards, usb_drives, budget))
 
 
-def read_int_array():
-
+def read_numbers():
     return list(map(int, input().split()))
 
 
-class ElectronicsShop:
+def calculate_money_spent(keyboards, usb_drives, budget):
+    max_spent = -1
 
-    def __init__(self, keyboard_costs, usb_drive_costs, budget):
+    for keyboard in keyboards:
+        if keyboard > budget:
+            break
+        remaining = budget - keyboard
+        max_spent = max(max_usb_price_within_budget(usb_drives, remaining, keyboard), max_spent)
 
-        self._keyboard_costs = keyboard_costs
-        self._usb_drive_costs = usb_drive_costs
-        self._budget = budget
-        self._money_that_can_be_spent = 0
-        self._calculate_money_spent()
-
-
-    def _calculate_money_spent(self):
-
-        for i in range(len(self._keyboard_costs)):
-
-            if self._is_next_cost_equal_to_current_one(self._keyboard_costs, i):
-                continue
-
-            for j in range(len(self._usb_drive_costs)):
-
-                if self._is_next_cost_equal_to_current_one(self._usb_drive_costs, j):
-                    continue
-
-                sum = self._keyboard_costs[i] + self._usb_drive_costs[j]
-
-                if self._is_sum_affordable_by_budget(sum):
-                    self._money_that_can_be_spent = self._update_cost(sum)
-                else:
-                    break
-
-        self._money_that_can_be_spent = self._money_that_can_be_spent if self._money_that_can_be_spent else -1
+    return max_spent
 
 
-    def _is_next_cost_equal_to_current_one(self, device_costs, i):
+def max_usb_price_within_budget(usb_drives, remaining, keyboard):
+    left = 0
+    right = len(usb_drives) - 1
+    max_spent = -1
 
-        return i < len(device_costs) - 1 and device_costs[i] == device_costs[i + 1]
+    while left <= right:
+        mid = (left + right) // 2
+        if usb_drives[mid] == remaining:
+            return max([max_spent, keyboard + usb_drives[mid]])
+        elif usb_drives[mid] < remaining:
+            max_spent = max(max_spent, keyboard + usb_drives[mid])
+            left = mid + 1
+        else:
+            right = mid - 1
 
-
-    def _is_sum_affordable_by_budget(self, sum):
-
-        return sum <= self._budget
-
-
-    def _update_cost(self, sum):
-
-        return max(sum, self._money_that_can_be_spent)
-
-
-    def money_that_can_be_spent(self):
-
-        return self._money_that_can_be_spent
+    return max_spent
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

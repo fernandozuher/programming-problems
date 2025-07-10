@@ -1,70 +1,44 @@
 # https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 def main
-
-    budget, n_keyboard_costs, n_usb_drive_costs = read_int_array
-    keyboard_costs = read_int_array
-    usb_drive_costs = read_int_array
-
-    keyboard_costs.sort!
-    usb_drive_costs.sort!
-
-    obj = Electronics_shop.new(keyboard_costs, usb_drive_costs, budget)
-    puts obj.money_that_can_be_spent
+  budget = read_numbers.first
+  keyboards = read_numbers.uniq.sort
+  usb_drives = read_numbers.uniq.sort
+  puts calculate_money_spent(keyboards, usb_drives, budget)
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
+def read_numbers
+  gets.split.map(&:to_i)
+end
+
+def calculate_money_spent(keyboards, usb_drives, budget)
+  max_spent = -1
+  keyboards.each do |keyboard|
+    break if keyboard > budget
+    remaining = budget - keyboard
+    max_spent = [max_usb_price_within_budget(usb_drives, remaining, keyboard), max_spent].max
+  end
+  max_spent
+end
+
+def max_usb_price_within_budget(usb_drives, remaining, keyboard)
+  left = 0
+  right = usb_drives.length - 1
+  max_spent = -1
+
+  while left <= right
+    mid = (left + right) / 2
+    if usb_drives[mid] == remaining
+      return [max_spent, keyboard + usb_drives[mid]].max
+    elsif usb_drives[mid] < remaining
+      max_spent = [max_spent, keyboard + usb_drives[mid]].max
+      left = mid + 1
+    else
+      right = mid - 1
     end
+  end
 
-    class Electronics_shop
-        attr_reader :money_that_can_be_spent
-
-        def initialize(keyboard_costs, usb_drive_costs, budget)
-            @keyboard_costs = keyboard_costs
-            @usb_drive_costs = usb_drive_costs
-            @budget = budget
-            @money_that_can_be_spent = 0
-            calculate_money_spent
-        end
-
-            private def calculate_money_spent
-                @keyboard_costs.each_index { |i|
-
-                    if is_next_cost_equal_to_current_one(@keyboard_costs, i)
-                        next
-                    end
-
-                    @usb_drive_costs.each_index { |j|
-
-                        if is_next_cost_equal_to_current_one(@usb_drive_costs, j)
-                            next
-                        end
-
-                        sum = @keyboard_costs[i] + @usb_drive_costs[j]
-
-                        if is_sum_affordable_by_budget(sum)
-                            @money_that_can_be_spent = update_cost(sum)
-                        else
-                            break
-                        end
-                    }
-
-                    @money_that_can_be_spent = @money_that_can_be_spent > 0 ? @money_that_can_be_spent : -1
-                }
-            end
-
-                private def is_next_cost_equal_to_current_one(device_costs, i)
-                    i < device_costs.size - 1 && device_costs[i] == device_costs[i + 1]
-                end
-
-                private def is_sum_affordable_by_budget(sum)
-                    sum <= @budget
-                end
-
-                private def update_cost(sum)
-                    [sum, @money_that_can_be_spent].max
-                end
-    end
+  max_spent
+end
 
 main
