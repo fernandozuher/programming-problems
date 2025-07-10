@@ -1,49 +1,64 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+// C++20
 
+#include <algorithm>
 #include <iostream>
-#include <set>
+#include <vector>
 
 using namespace std;
 
-set<int> custom_read(int n, int budget);
-int calculate_money_spent(const set<int>& keyboard_costs, const set<int>& usb_drive_costs, int budget);
-int look_for_max_complement(const set<int>& usb_drive_costs, int limit);
+vector<int> read_numbers(int n);
+int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget);
 
 int main()
 {
-    int budget, n_keyboard_costs, n_usb_drive_costs;
-    cin >> budget >> n_keyboard_costs >> n_usb_drive_costs;
-    const set<int> keyboard_costs{custom_read(n_keyboard_costs, budget)};
-    const set<int> usb_drive_costs{custom_read(n_usb_drive_costs, budget)};
-    cout << calculate_money_spent(keyboard_costs, usb_drive_costs, budget);
+    int budget, n_keyboards, n_usb_drives;
+    cin >> budget >> n_keyboards >> n_usb_drives;
+
+    vector<int> keyboards = read_numbers(n_keyboards);
+    vector<int> usb_drives = read_numbers(n_usb_drives);
+    ranges::sort(keyboards);
+    ranges::sort(usb_drives);
+
+    auto x = ranges::unique(keyboards);
+    auto y = ranges::unique(usb_drives);
+    keyboards.erase(x.begin(), x.end());
+    usb_drives.erase(y.begin(), y.end());
+
+    cout << calculate_money_spent(keyboards, usb_drives, budget);
+
     return 0;
 }
 
-set<int> custom_read(int n, const int budget)
+vector<int> read_numbers(int n)
 {
-    set<int> elements; // Because it stores unique values in a sorted way
-    for (int x; n-- && cin >> x;)
-        if (x < budget) // No include more than or equal to budget because it is useless to compare to it
-            elements.insert(x);
-    return elements;
+    vector<int> numbers(n);
+    for (auto& x: numbers)
+        cin >> x;
+    return numbers;
 }
 
-int calculate_money_spent(const set<int>& keyboard_costs, const set<int>& usb_drive_costs, const int budget)
+int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget)
 {
-    int money_can_be_spent{-1};
-    for (const auto keyboard_cost : keyboard_costs) {
-        int limit{budget - keyboard_cost};
-        if (int max_complement = look_for_max_complement(usb_drive_costs, limit); max_complement) {
-            max_complement += keyboard_cost;
-            money_can_be_spent = max(max_complement, money_can_be_spent);
+    int max_spent{-1};
+
+    // Cryptic, but really efficient ;-)
+    for (auto end_usb{usb_drives.end()}; int keyboard : keyboards) {
+        if (keyboard >= budget)
+            break;
+
+        int max_usb{budget - keyboard};
+        auto it{upper_bound(usb_drives.begin(), end_usb, max_usb)};
+
+        if (it != usb_drives.begin()) {
+            int usb{*(--it)};
+            int sum{keyboard + usb};
+            if (sum > max_spent)
+                max_spent = sum;
         }
-    }
-    return money_can_be_spent;
-}
 
-int look_for_max_complement(const set<int>& usb_drive_costs, const int limit)
-{
-    if (const auto usb_cost{usb_drive_costs.upper_bound(limit)}; usb_cost != usb_drive_costs.begin())
-        return *prev(usb_cost, 1);
-    return 0;
+        end_usb = ++it;
+    }
+
+    return max_spent;
 }
