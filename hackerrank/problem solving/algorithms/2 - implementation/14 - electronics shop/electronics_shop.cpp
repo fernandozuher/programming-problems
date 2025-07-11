@@ -33,7 +33,7 @@ int main()
 vector<int> read_numbers(int n)
 {
     vector<int> numbers(n);
-    for (auto& x: numbers)
+    for (auto& x : numbers)
         cin >> x;
     return numbers;
 }
@@ -49,14 +49,13 @@ int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_d
 
         int max_usb{budget - keyboard};
         auto it{upper_bound(usb_drives.begin(), end_usb, max_usb)};
+        if (it == usb_drives.begin())
+            break;
 
-        if (it != usb_drives.begin()) {
-            int usb{*(--it)};
-            int sum{keyboard + usb};
-            if (sum > max_spent)
-                max_spent = sum;
-        }
-
+        int usb{*(--it)};
+        int sum{keyboard + usb};
+        if (sum > max_spent)
+            max_spent = sum;
         end_usb = ++it;
     }
 

@@ -13,30 +13,22 @@ def read_numbers():
 
 def calculate_money_spent(keyboards, usb_drives, budget):
     max_spent = -1
+    i = 0
+    j = len(usb_drives) - 1
 
-    for keyboard in keyboards:
-        if keyboard > budget:
+    while i < len(keyboards) and j >= 0:
+        if keyboards[i] >= budget:
             break
-        remaining = budget - keyboard
-        max_spent = max(max_usb_price_within_budget(usb_drives, remaining, keyboard), max_spent)
 
-    return max_spent
-
-
-def max_usb_price_within_budget(usb_drives, remaining, keyboard):
-    left = 0
-    right = len(usb_drives) - 1
-    max_spent = -1
-
-    while left <= right:
-        mid = (left + right) // 2
-        if usb_drives[mid] == remaining:
-            return max([max_spent, keyboard + usb_drives[mid]])
-        elif usb_drives[mid] < remaining:
-            max_spent = max(max_spent, keyboard + usb_drives[mid])
-            left = mid + 1
+        current_sum = keyboards[i] + usb_drives[j]
+        if current_sum > budget:
+            j -= 1
+        elif current_sum == budget:
+            return budget
         else:
-            right = mid - 1
+            if current_sum > max_spent:
+                max_spent = current_sum
+            i += 1
 
     return max_spent
 

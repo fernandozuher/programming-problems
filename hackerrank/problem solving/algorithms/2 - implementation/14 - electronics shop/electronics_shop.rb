@@ -13,28 +13,21 @@ end
 
 def calculate_money_spent(keyboards, usb_drives, budget)
   max_spent = -1
-  keyboards.each do |keyboard|
-    break if keyboard > budget
-    remaining = budget - keyboard
-    max_spent = [max_usb_price_within_budget(usb_drives, remaining, keyboard), max_spent].max
-  end
-  max_spent
-end
+  i = 0
+  j = usb_drives.length - 1
 
-def max_usb_price_within_budget(usb_drives, remaining, keyboard)
-  left = 0
-  right = usb_drives.length - 1
-  max_spent = -1
+  while i < keyboards.length && j >= 0
+    break if keyboards[i] >= budget
 
-  while left <= right
-    mid = (left + right) / 2
-    if usb_drives[mid] == remaining
-      return [max_spent, keyboard + usb_drives[mid]].max
-    elsif usb_drives[mid] < remaining
-      max_spent = [max_spent, keyboard + usb_drives[mid]].max
-      left = mid + 1
+    sum = keyboards[i] + usb_drives[j]
+
+    if sum > budget
+      j -= 1
+    elsif sum == budget
+      return budget
     else
-      right = mid - 1
+      max_spent = sum if sum > max_spent
+      i += 1
     end
   end
 

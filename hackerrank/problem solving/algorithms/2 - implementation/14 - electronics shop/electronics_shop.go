@@ -4,71 +4,51 @@ package main
 
 import (
     "fmt"
-    "math"
+    "slices"
     "sort"
 )
 
 func main() {
-    var budget, nKeyboardCosts, nUsbDriveCosts int
-    fmt.Scanf("%d %d %d", &budget, &nKeyboardCosts, &nUsbDriveCosts)
-
-    var keyboardCosts []int = readIntArray(nKeyboardCosts)
-    var usbDriveCosts []int = readIntArray(nUsbDriveCosts)
-
-    sort.Ints(keyboardCosts)
-    sort.Ints(usbDriveCosts)
-
-    fmt.Println(calculateMoneySpent(keyboardCosts, usbDriveCosts, budget))
+    var budget, nKeyboards, nUsbDrives int
+    fmt.Scanf("%d %d %d", &budget, &nKeyboards, &nUsbDrives)
+    keyboards := readNumbers(nKeyboards)
+    usbDrives := readNumbers(nUsbDrives)
+    sort.Ints(keyboards)
+    sort.Ints(usbDrives)
+    keyboards = slices.Compact(keyboards)
+    usbDrives = slices.Compact(usbDrives)
+    fmt.Println(calculateMoneySpent(keyboards, usbDrives, budget))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scanf("%d", &numbers[i])
     }
+    return numbers
+}
 
-    func calculateMoneySpent(keyboardCosts []int, usbDriveCosts []int, budget int) int {
-        var moneyThatCanBeSpent int = 0
+func calculateMoneySpent(keyboards []int, usbDrives []int, budget int) int {
+    maxSpent := -1
+    i := 0
+    j := len(usbDrives) - 1
 
-        for i := 0; i < len(keyboardCosts); i++ {
-
-            if isNextCostEqualToCurrentOne(keyboardCosts, i) {
-                continue
-            }
-
-            for j := 0; j < len(usbDriveCosts); j++ {
-
-                if isNextCostEqualToCurrentOne(usbDriveCosts, j) {
-                    continue
-                }
-
-                var sum int = keyboardCosts[i] + usbDriveCosts[j]
-
-                if isSumAffordableByBudget(sum, budget) {
-                    moneyThatCanBeSpent = updateCost(sum, moneyThatCanBeSpent)
-                } else {
-                    break
-                }
-            }
+    for i < len(keyboards) && j >= 0 {
+        if keyboards[i] >= budget {
+            break
         }
-
-        if moneyThatCanBeSpent > 0 {
-            return moneyThatCanBeSpent
+        sum := keyboards[i] + usbDrives[j]
+        if sum > budget {
+            j--
+        } else if sum == budget {
+            return budget
         } else {
-            return -1
+            if sum > maxSpent {
+                maxSpent = sum
+            }
+            i++
         }
     }
 
-        func isNextCostEqualToCurrentOne(deviceCosts []int, i int) bool {
-            return i < len(deviceCosts)-1 && deviceCosts[i] == deviceCosts[i+1]
-        }
-
-        func isSumAffordableByBudget(sum int, budget int) bool {
-            return sum <= budget
-        }
-
-        func updateCost(sum int, moneyThatCanBeSpent int) int {
-            return int(math.Max(float64(sum), float64(moneyThatCanBeSpent)))
-        }
+    return maxSpent
+}
