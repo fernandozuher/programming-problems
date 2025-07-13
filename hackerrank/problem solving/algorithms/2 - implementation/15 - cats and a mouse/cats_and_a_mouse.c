@@ -1,46 +1,59 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
+// C23
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-using namespace std;
+#define NUM_POSITIONS 3
+#define RESULT_SIZE 10
 
-vector<int> read_numbers(int n);
-string find_nearest_cat_or_not(const vector<int>& positions);
+void read_numbers(int numbers[], int n);
+char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS]);
 
 int main()
 {
     int n;
-    cin >> n;
-    vector<string> nearest_cat_or_not(n);
-    for (auto& x : nearest_cat_or_not)
-        x = find_nearest_cat_or_not(read_numbers(3));
-    for (auto& x : nearest_cat_or_not)
-        cout << x << '\n';
+    scanf("%d", &n);
+
+    int positions[NUM_POSITIONS];
+    auto nearest_cat_or_not = (char **) malloc(n * sizeof(char *));
+    for (int i = 0; i < n; ++i) {
+        read_numbers(positions, 3);
+        nearest_cat_or_not[i] = find_nearest_cat_or_not(positions);
+    }
+    for (int i = 0; i < n; ++i)
+        puts(nearest_cat_or_not[i]);
+
+    for (int i = 0; i < n; ++i)
+        free(nearest_cat_or_not[i]);
+    free(nearest_cat_or_not);
 
     return 0;
 }
 
-vector<int> read_numbers(int n)
+void read_numbers(int numbers[], int n)
 {
-    vector<int> numbers(n);
-    for (auto& x : numbers)
-        cin >> x;
-    return numbers;
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &numbers[i]);
 }
 
-string find_nearest_cat_or_not(const vector<int>& positions)
+char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS])
 {
-    int cat_a{positions.at(0)};
-    int cat_b{positions.at(1)};
-    int mouse{positions.at(2)};
-    int cat_a_from_mouse{abs(cat_a - mouse)};
-    int cat_b_from_mouse{abs(cat_b - mouse)};
+    int cat_a = positions[0];
+    int cat_b = positions[1];
+    int mouse = positions[2];
+    int cat_a_from_mouse = abs(cat_a - mouse);
+    int cat_b_from_mouse = abs(cat_b - mouse);
+
+    auto result = (char *) malloc(RESULT_SIZE * sizeof(char));
 
     if (cat_a_from_mouse < cat_b_from_mouse)
-        return "Cat A";
-    if (cat_a_from_mouse > cat_b_from_mouse)
-        return "Cat B";
-    return "Mouse C";
+        strcpy(result, "Cat A");
+    else if (cat_a_from_mouse > cat_b_from_mouse)
+        strcpy(result, "Cat B");
+    else
+        strcpy(result, "Mouse C");
+
+    return result;
 }
