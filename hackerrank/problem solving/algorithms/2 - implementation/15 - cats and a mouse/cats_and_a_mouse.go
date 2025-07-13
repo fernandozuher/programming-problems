@@ -1,4 +1,4 @@
-// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
 
 package main
 
@@ -10,39 +10,33 @@ import (
 func main() {
     var n int
     fmt.Scan(&n)
-    nearestCatsOrNot := make([]string, n)
-
-    for i, animals := 0, 3; i < n; i++ {
-        var positions []int = readIntArray(animals)
-        nearestCatsOrNot[i] = findNearestCatOrNot(positions)
+    nearestCatOrNot := make([]string, n)
+    for i := range nearestCatOrNot {
+        nearestCatOrNot[i] = findNearestCatOrNot(readNumbers(3))
     }
-
-    for _, closestCatOrNot := range nearestCatsOrNot {
-        fmt.Println(closestCatOrNot)
+    for _, x := range nearestCatOrNot {
+        fmt.Println(x)
     }
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
+    return numbers
+}
 
-    func findNearestCatOrNot(catsAndMousePositions []int) string {
-        var catAPosition int = catsAndMousePositions[0]
-        var catBPosition int = catsAndMousePositions[1]
-        var mousePosition int = catsAndMousePositions[2]
+func findNearestCatOrNot(positions []int) string {
+    catA, catB, mouse := positions[0], positions[1], positions[2]
+    catAFromMouse := math.Abs(float64(catA - mouse))
+    catBFromMouse := math.Abs(float64(catB - mouse))
 
-        var catAPositionFromMouse int = int(math.Abs(float64(catAPosition) - float64(mousePosition)))
-        var catBPositionFromMouse int = int(math.Abs(float64(catBPosition) - float64(mousePosition)))
-
-        if catAPositionFromMouse < catBPositionFromMouse {
-            return "Cat A"
-        } else if catAPositionFromMouse > catBPositionFromMouse {
-            return "Cat B"
-        } else {
-            return "Mouse C"
-        }
+    if catAFromMouse < catBFromMouse {
+        return "Cat A"
     }
+    if catAFromMouse > catBFromMouse {
+        return "Cat B"
+    }
+    return "Mouse C"
+}

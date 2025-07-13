@@ -1,46 +1,46 @@
-// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
 
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <vector>
 
 using namespace std;
 
-struct positions {
-    int cat_a_position;
-    int cat_b_position;
-    int mouse_position;
-};
-
-positions read_animals_positions();
-string find_nearest_cat_or_not(const positions& animals_positions);
+vector<int> read_numbers(int n);
+string find_nearest_cat_or_not(const vector<int>& positions);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<string> nearest_cats_or_not(n);
-    ranges::generate(nearest_cats_or_not, [] { return find_nearest_cat_or_not(read_animals_positions()); });
-    ranges::copy(nearest_cats_or_not, ostream_iterator<string>(cout, "\n"));
+    vector<string> nearest_cat_or_not(n);
+    for (auto& x : nearest_cat_or_not)
+        x = find_nearest_cat_or_not(read_numbers(3));
+    for (auto& x : nearest_cat_or_not)
+        cout << x << '\n';
+
     return 0;
 }
 
-positions read_animals_positions()
+vector<int> read_numbers(int n)
 {
-    int a, b, c;
-    cin >> a >> b >> c;
-    return {a, b, c};
+    vector<int> numbers(n);
+    for (auto& x : numbers)
+        cin >> x;
+    return numbers;
 }
 
-string find_nearest_cat_or_not(const positions& animals_positions)
+string find_nearest_cat_or_not(const vector<int>& positions)
 {
-    int cat_a_position_from_mouse{abs(animals_positions.cat_a_position - animals_positions.mouse_position)};
-    int cat_b_position_from_mouse{abs(animals_positions.cat_b_position - animals_positions.mouse_position)};
+    int cat_a{positions.at(0)};
+    int cat_b{positions.at(1)};
+    int mouse{positions.at(2)};
+    int cat_a_from_mouse{abs(cat_a - mouse)};
+    int cat_b_from_mouse{abs(cat_b - mouse)};
 
-    if (cat_a_position_from_mouse < cat_b_position_from_mouse)
+    if (cat_a_from_mouse < cat_b_from_mouse)
         return "Cat A";
-    if (cat_a_position_from_mouse > cat_b_position_from_mouse)
+    if (cat_a_from_mouse > cat_b_from_mouse)
         return "Cat B";
     return "Mouse C";
 }
