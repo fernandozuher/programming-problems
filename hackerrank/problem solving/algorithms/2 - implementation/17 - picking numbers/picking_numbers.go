@@ -2,75 +2,33 @@
 
 package main
 
-import (
-    "fmt"
-    "math"
-    "sort"
-)
+import "fmt"
 
 func main() {
     var n int
     fmt.Scan(&n)
-    var array []int = readIntArray(n)
-    sort.Ints(array)
-    fmt.Println(pickingNumbers(array))
+    fmt.Println(pickingNumbers(readNumbers(n)))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
+    }
+    return numbers
+}
+
+func pickingNumbers(numbers []int) int {
+    counter := make(map[int]int)
+    for _, num := range numbers {
+        counter[num]++
     }
 
-    func pickingNumbers(numbers []int) int {
-        var subarrayBiggestSize int = 0
-        var firstReferenceNumberIndex int = 0
-        var secondReferenceNumberIndex int = 0
-        var subarrayCurrentSize int = 1
-
-        for i, n := 1, len(numbers); i < n; i++ {
-            var difference int = numbers[i] - numbers[firstReferenceNumberIndex]
-
-            switch difference {
-            case 0:
-                subarrayCurrentSize++
-
-            case 1:
-                subarrayCurrentSize++
-                if numbers[secondReferenceNumberIndex] != numbers[i] {
-                    secondReferenceNumberIndex = i
-                }
-
-            default:
-                subarrayBiggestSize = updateSubarrayBiggestSize(subarrayBiggestSize, subarrayCurrentSize)
-
-                var update []int = updateFirstReferenceNumberIndexAndSubarrayCurrentSize(numbers, i, secondReferenceNumberIndex)
-
-                firstReferenceNumberIndex = update[0]
-                secondReferenceNumberIndex = i
-                subarrayCurrentSize = update[1]
-            }
-        }
-
-        return updateSubarrayBiggestSize(subarrayBiggestSize, subarrayCurrentSize)
+    maxLen := 0
+    for num, count := range counter {
+        current := count + counter[num+1]
+        maxLen = max(maxLen, current)
     }
 
-        func updateSubarrayBiggestSize(subarrayBiggestSize int, subarrayCurrentSize int) int {
-            return int(math.Max(float64(subarrayBiggestSize), float64(subarrayCurrentSize)))
-        }
-
-        func updateFirstReferenceNumberIndexAndSubarrayCurrentSize(numbers []int, i int, secondReferenceNumberIndex int) []int {
-            var firstReferenceNumberIndex, subarrayCurrentSize int
-
-            if numbers[i]-numbers[secondReferenceNumberIndex] == 1 {
-                firstReferenceNumberIndex = secondReferenceNumberIndex
-                subarrayCurrentSize = i - secondReferenceNumberIndex + 1
-            } else {
-                firstReferenceNumberIndex = i
-                subarrayCurrentSize = 1
-            }
-
-            return []int{firstReferenceNumberIndex, subarrayCurrentSize}
-        }
+    return maxLen
+}
