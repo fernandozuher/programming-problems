@@ -2,72 +2,57 @@
 
 package main
 
-import "fmt"
+import (
+    "bufio"
+    "fmt"
+    "os"
+    "strconv"
+    "strings"
+)
 
 func main() {
-    var n int
+    reader := bufio.NewReader(os.Stdin)
 
-    fmt.Scan(&n)
-    var ranked []int = readIntArray(n)
-    ranked = removeDuplicates(ranked)
+    n := readNumbers(reader, 1)[0]
+    ranked := removeDuplicates(readNumbers(reader, n))
+    n = readNumbers(reader, 1)[0]
+    player := readNumbers(reader, n)
 
-    fmt.Scan(&n)
-    var player []int = readIntArray(n)
-
-    printArray(climbingLeaderboard(ranked, player))
+    for _, x := range climbingLeaderboard(ranked, player) {
+        fmt.Println(x)
+    }
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(reader *bufio.Reader, n int) []int {
+    line, _ := reader.ReadString('\n')
+    tokens := strings.Fields(line)
+    numbers := make([]int, n)
+    for i, token := range tokens {
+        numbers[i], _ = strconv.Atoi(token)
     }
+    return numbers
+}
 
-    func removeDuplicates(array []int) []int {
-        var newSize int = 0
-
-        for i := 0; i < len(array)-1; i++ {
-            if array[i] != array[i+1] {
-                array[newSize] = array[i]
-                newSize++
-            }
-        }
-
-        array[newSize] = array[len(array)-1]
-        newSize++
-        return array[:newSize]
-    }
-
-    func climbingLeaderboard(ranked []int, player []int) []int {
-        var playerRank []int = make([]int, len(player))
-
-        for i, lastIndex, n := 0, len(ranked)-1, len(player); i < n; i++ {
-            var index int = binarySearchDescendingOrder(ranked, 0, lastIndex, player[i])
-            playerRank[i] = index + 1
-        }
-
-        return playerRank
-    }
-
-        func binarySearchDescendingOrder(array []int, low int, high int, key int) int {
-            if high >= low {
-                var middle int = low + (high-low)/2
-
-                if key == array[middle] {
-                    return middle
-                } else if key > array[middle] {
-                    return binarySearchDescendingOrder(array, low, middle-1, key)
-                } else {
-                    return binarySearchDescendingOrder(array, middle+1, high, key)
-                }
-            }
-            return low
-        }
-
-    func printArray(array []int) {
-        for _, element := range array {
-            fmt.Println(element)
+func removeDuplicates(numbers []int) []int {
+    deduplicated := []int{numbers[0]}
+    for i := 1; i < len(numbers); i++ {
+        if numbers[i] != numbers[i-1] {
+            deduplicated = append(deduplicated, numbers[i])
         }
     }
+    return deduplicated
+}
+
+func climbingLeaderboard(ranked []int, player []int) []int {
+    playerRanks := make([]int, len(player))
+    i := len(ranked) - 1
+
+    for j, score := range player {
+        for i >= 0 && score >= ranked[i] {
+            i -= 1
+        }
+        playerRanks[j] = i + 2
+    }
+
+    return playerRanks
+}

@@ -1,63 +1,32 @@
 # https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
 def main():
-
-    n = int(input())
-    ranked = read_int_array()
-    ranked = remove_duplicates(ranked)
-
-    n = read_int_array()
-    player = read_int_array()
-
-    obj = ClimbingTheLeaderboard(ranked, player)
-    print(*obj.player_rank(), sep='\n')
+    input()
+    ranked = remove_duplicates(read_numbers())
+    input()
+    player = read_numbers()
+    print(*climbing_leaderboard(ranked, player), sep='\n')
 
 
-def read_int_array():
-
+def read_numbers():
     return list(map(int, input().split()))
 
 
-def remove_duplicates(array):
-
-    return list(dict.fromkeys(array))
-
-
-def binary_search_descending_order(array, low, high, key):
-
-    if high >= low:
-        middle = low + int((high - low) / 2)
-
-        if key == array[middle]:
-            return middle
-        elif key > array[middle]:
-            return binary_search_descending_order(array, low, middle - 1, key)
-        else:
-            return binary_search_descending_order(array, middle + 1, high, key)
-    return low
+def remove_duplicates(numbers):
+    return list(dict.fromkeys(numbers))
 
 
-class ClimbingTheLeaderboard:
+def climbing_leaderboard(ranked, player):
+    player_ranks = [None] * len(player)
+    i = len(ranked) - 1
 
-    def __init__(self, ranked, player):
+    for j, score in enumerate(player):
+        while i >= 0 and score >= ranked[i]:
+            i -= 1
+        player_ranks[j] = i + 2
 
-        self._ranked = ranked
-        self._player = player
-        self._player_rank = [None] * len(player)
-        self._climbing_leaderboard()
-
-
-    def _climbing_leaderboard(self):
-
-        for i, player_score in enumerate(self._player):
-            index = binary_search_descending_order(self._ranked, 0, len(self._ranked) - 1, player_score)
-            self._player_rank[i] = index + 1
+    return player_ranks
 
 
-    def player_rank(self):
-
-        return self._player_rank
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
