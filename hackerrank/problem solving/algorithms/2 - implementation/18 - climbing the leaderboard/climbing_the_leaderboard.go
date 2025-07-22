@@ -43,13 +43,13 @@ func removeDuplicates(numbers []int) []int {
     return deduplicated
 }
 
-func climbingLeaderboard(ranked []int, player []int) []int {
+func climbingLeaderboard(ranked, player []int) []int {
     playerRanks := make([]int, len(player))
     i := len(ranked) - 1
 
     for j, score := range player {
         for i >= 0 && score >= ranked[i] {
-            i -= 1
+            i--
         }
         playerRanks[j] = i + 2
     }

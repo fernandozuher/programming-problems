@@ -1,83 +1,38 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 public class Solution
 {
     public static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-
-        List<int> ranked = _readIntArray();
-        ranked = _removeDuplicates<int>(ranked);
-
-        n = int.Parse(Console.ReadLine());
-        List<int> player = _readIntArray();
-
-        var obj = new ClimbingTheLeaderboard(ranked, player);
-        PrintArray<int>(obj.PlayerRank);
+        Console.ReadLine();
+        List<int> ranked = RemoveDuplicates(ReadNumbers());
+        Console.ReadLine();
+        List<int> player = ReadNumbers();
+        ClimbingLeaderboard(ranked, player).ForEach(Console.WriteLine);
     }
 
-        private static List<int> _readIntArray()
-        {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
-        }
-
-        private static List<T> _removeDuplicates<T>(List<T> array)
-        {
-            return array.Distinct().ToList();
-        }
-
-    public static int BinarySearchDescendingOrder(List<int> array, int low, int high, int key)
+    private static List<int> ReadNumbers()
     {
-        if (high >= low)
-        {
-            int middle = low + (high - low) / 2;
-
-            if (key == array[middle])
-                return middle;
-            else if (key > array[middle])
-                return Solution.BinarySearchDescendingOrder(array, low, middle - 1, key);
-            else
-                return Solution.BinarySearchDescendingOrder(array, middle + 1, high, key);
-        }
-        return low;
+        return Console.ReadLine()!.Split().Select(int.Parse).ToList();
     }
 
-        public static void PrintArray<T>(List<T> array)
+    private static List<int> RemoveDuplicates(List<int> numbers)
+    {
+        return numbers.Distinct().ToList();
+    }
+
+    private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
+    {
+        List<int> playerRanks = new List<int>(new int[player.Count]);
+        int i = ranked.Count - 1;
+
+        for (int j = 0; j < player.Count; j++)
         {
-            foreach (T element in array)
-                Console.WriteLine(element);
+            while (i >= 0 && player[j] >= ranked[i])
+                i--;
+            playerRanks[j] = i + 2;
         }
+
+        return playerRanks;
+    }
 }
-
-    public class ClimbingTheLeaderboard
-    {
-        private List<int> _ranked;
-        private List<int> _player;
-        private List<int> _playerRank;
-
-        public ClimbingTheLeaderboard(List<int> ranked, List<int> player)
-        {
-            _ranked = ranked;
-            _player = player;
-            _playerRank = new List<int>(new int[_player.Count]);
-            _climbingLeaderboard();
-        }
-
-        private void _climbingLeaderboard()
-        {
-            for (int i = 0, lastIndex = _ranked.Count - 1, n = _player.Count; i < n; ++i)
-            {
-                int index = Solution.BinarySearchDescendingOrder(_ranked, 0, lastIndex, _player[i]);
-                _playerRank[i] = ++index;
-            }
-        }
-
-        public List<int> PlayerRank
-        {
-            get { return _playerRank; }
-        }
-    }

@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,76 +7,46 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 ////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let ranked = readIntArray();
-    ranked = removeDuplicates(ranked);
-
-    n = +readLine();
-    let player = readIntArray();
-
-    let obj = new ClimbingTheLeaderboard(ranked, player);
-    obj.playerRank().forEach(x => console.log(x));
+  readLine();
+  const ranked = removeDuplicates(readNumbers());
+  readLine();
+  const player = readNumbers();
+  console.log(climbingLeaderboard(ranked, player).join('\n'));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    function removeDuplicates(array) {
-        return [...new Set(array)];
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-    function binarySearchDescendingOrder(array, low, high, key) {
-        if (high >= low) {
-            let middle = low + Math.trunc((high - low) / 2);
+function removeDuplicates(numbers) {
+  return [...new Set(numbers)];
+}
 
-            if (key === array[middle])
-                return middle;
-            else if (key > array[middle])
-                return binarySearchDescendingOrder(array, low, middle - 1, key);
-            else
-                return binarySearchDescendingOrder(array, middle + 1, high, key);
-        }
-        return low;
-    }
+function climbingLeaderboard(ranked, player) {
+  const playerRanks = Array(player.length).fill(0);
+  let i = ranked.length - 1;
 
-    class ClimbingTheLeaderboard {
-        #ranked;
-        #player;
-        #playerRank;
+  for (let j in player) {
+    while (i >= 0 && player[j] >= ranked[i]) i--;
+    playerRanks[j] = i + 2;
+  }
 
-        constructor(ranked, player) {
-            this.#ranked = ranked;
-            this.#player = player;
-            this.#playerRank = [];
-            this.#climbingLeaderboard();
-        }
-
-            #climbingLeaderboard() {
-                for (const [i, playerScore] of this.#player.entries()) {
-                    let index = binarySearchDescendingOrder(this.#ranked, 0, this.#ranked.length - 1, playerScore);
-                    this.#playerRank[i] = ++index;
-                }
-            }
-
-        playerRank() {
-            return this.#playerRank;
-        }
-    }
+  return playerRanks;
+}
