@@ -2,39 +2,26 @@
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "slices"
+)
 
 func main() {
-    var n, maximumHeightCanJump int
-    fmt.Scan(&n, &maximumHeightCanJump)
-    var hurdlesHeights []int = readIntArray(n)
-    fmt.Println(hurdleRace(hurdlesHeights, maximumHeightCanJump))
+    var n, maxJump int
+    fmt.Scan(&n, &maxJump)
+    hurdles := readNumbers(n)
+    fmt.Println(hurdleRace(hurdles, maxJump))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    numbers := make([]int, n)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
+    return numbers
+}
 
-    func hurdleRace(hurdlesHeights []int, maximumHeightCanJump int) int {
-        var highestHurdle int = max(hurdlesHeights)
-
-        if highestHurdle > maximumHeightCanJump {
-            return highestHurdle - maximumHeightCanJump
-        } else {
-            return 0
-        }
-    }
-
-        func max(array []int) int {
-            var max int = 0
-            for _, element := range array {
-                if max < element {
-                    max = element
-                }
-            }
-            return max
-        }
+func hurdleRace(hurdles []int, maxJump int) int {
+    return max(0, slices.Max(hurdles) - maxJump)
+}

@@ -1,34 +1,33 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
-// From C++20 onwards
+// C++20
 
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <vector>
 
 using namespace std;
 
-template <class T = int>
-vector<T> read(int n);
-int hurdle_race(const vector<int>& hurdles_heights, int maximum_height_can_jump);
+vector<int> read_numbers(int n);
+int hurdle_race(const vector<int>& hurdles, int max_jump);
 
 int main()
 {
-    int n, maximum_height_can_jump;
-    cin >> n >> maximum_height_can_jump;
-    cout << hurdle_race(read(n), maximum_height_can_jump);
+    int n, max_jump;
+    cin >> n >> max_jump;
+    vector hurdles{read_numbers(n)};
+    cout << hurdle_race(hurdles, max_jump);
     return 0;
 }
 
-template <class T>
-vector<T> read(const int n)
+vector<int> read_numbers(int n)
 {
-    vector<T> array(n);
-    copy_n(istream_iterator<T>(cin), n, array.begin());
-    return array;
+    vector<int> numbers(n);
+    for (auto& x : numbers)
+        cin >> x;
+    return numbers;
 }
 
-int hurdle_race(const vector<int>& hurdles_heights, const int maximum_height_can_jump)
+int hurdle_race(const vector<int>& hurdles, int max_jump)
 {
-    return max(*ranges::max_element(hurdles_heights) - maximum_height_can_jump, 0);
+    return max(0, *ranges::max_element(hurdles) - max_jump);
 }

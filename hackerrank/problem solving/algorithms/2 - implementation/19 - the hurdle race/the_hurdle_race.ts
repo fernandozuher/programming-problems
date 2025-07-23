@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,51 +7,32 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 ////////////////////////////////////////////////
 
 function main() {
-    let [n, maximumHeightCanJump]: number[] = readIntArray();
-    let hurdlesHeights: number[] = readIntArray();
-    let obj = new HurdleRace(hurdlesHeights, maximumHeightCanJump);
-    console.log(obj.doses());
+  const maxJump: number = readNumbers()[1];
+  const hurdles: number[] = readNumbers();
+  console.log(hurdleRace(hurdles, maxJump));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
-    class HurdleRace {
-        private hurdlesHeights: number[];
-        private maximumHeightCanJump: number;
-        private nDoses: number;
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
 
-        constructor(hurdlesHeights: number[], maximumHeightCanJump: number) {
-            this.hurdlesHeights = hurdlesHeights;
-            this.maximumHeightCanJump = maximumHeightCanJump;
-            this.nDoses = 0;
-            this.hurdleRace();
-        }
-
-            private hurdleRace() {
-                let highestHurdle: number = Math.max(...this.hurdlesHeights)
-                this.nDoses = highestHurdle > this.maximumHeightCanJump ? highestHurdle - this.maximumHeightCanJump : 0;
-            }
-
-        public doses(): number {
-            return this.nDoses;
-        }
-    }
+function hurdleRace(hurdles: number[], maxJump: number): number {
+  return Math.max(0, Math.max(...hurdles) - maxJump);
+}
