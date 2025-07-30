@@ -7,28 +7,24 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    fmt.Println(pickingNumbers(readNumbers(n)))
+    fmt.Println(pickingNumbers(readNumbersIntoMap(n)))
 }
 
-func readNumbers(n int) []int {
-    numbers := make([]int, n)
-    for i := range numbers {
-        fmt.Scan(&numbers[i])
-    }
-    return numbers
-}
-
-func pickingNumbers(numbers []int) int {
+func readNumbersIntoMap(n int) map[int]int {
     counter := make(map[int]int)
-    for _, num := range numbers {
-        counter[num]++
+    for range n {
+        var x int
+        fmt.Scan(&x)
+        counter[x]++
     }
+    return counter
+}
 
+func pickingNumbers(counter map[int]int) int {
     maxLen := 0
     for num, count := range counter {
         current := count + counter[num+1]
         maxLen = max(maxLen, current)
     }
-
     return maxLen
 }

@@ -7,14 +7,12 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    scores := readNumbers(n)
-    mostRecordBreaks, leastRecordBreaks := breakingRecords(scores)
-    fmt.Println(mostRecordBreaks, leastRecordBreaks)
+    fmt.Println(breakingRecords(readNumbers(n)))
 }
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers

@@ -14,13 +14,13 @@ func main() {
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers
 }
 
-func betweenTwoSets(a []int, b []int) int {
+func betweenTwoSets(a, b []int) int {
     lcmOfA := lcmArray(a)
     gcdOfB := gcdArray(b)
 

@@ -6,8 +6,7 @@ import "fmt"
 
 func main() {
     const N = 4
-    positionsAndVelocities := readNumbers(N)
-    if kangaroo(positionsAndVelocities) {
+    if kangaroo(readNumbers(N)) {
         fmt.Println("YES")
     } else {
         fmt.Println("NO")
@@ -16,7 +15,7 @@ func main() {
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers

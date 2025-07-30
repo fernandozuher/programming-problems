@@ -5,14 +5,7 @@ package main
 import "fmt"
 
 func main() {
-    data := readInput()
-    printOutput(bonAppetit(data))
-}
-
-type Input struct {
-    itemNotEaten  int
-    mealCosts     []int
-    amountCharged int
+    printOutput(bonAppetit(readInput()))
 }
 
 func readInput() Input {
@@ -24,9 +17,15 @@ func readInput() Input {
     return data
 }
 
+type Input struct {
+    itemNotEaten  int
+    mealCosts     []int
+    amountCharged int
+}
+
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers

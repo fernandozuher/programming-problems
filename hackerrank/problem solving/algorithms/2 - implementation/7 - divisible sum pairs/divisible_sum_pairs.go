@@ -7,13 +7,12 @@ import "fmt"
 func main() {
     var n, k int
     fmt.Scan(&n, &k)
-    numbers := readNumbers(n)
-    fmt.Println(divisibleSumPairs(numbers, k))
+    fmt.Println(divisibleSumPairs(readNumbers(n), k))
 }
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers

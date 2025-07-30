@@ -44,7 +44,7 @@ func readInput() (House, FruitTree, FruitTree) {
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers

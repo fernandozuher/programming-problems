@@ -7,14 +7,14 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    grades := readNumbers(n)
-    roundedGrades := gradeStudents(grades)
-    printNumbers(roundedGrades)
+    for _, x := range gradeStudents(readNumbers(n)) {
+        fmt.Println(x)
+    }
 }
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
+    for i := range n {
         fmt.Scan(&numbers[i])
     }
     return numbers
@@ -22,26 +22,20 @@ func readNumbers(n int) []int {
 
 func gradeStudents(grades []int) []int {
     roundedGrades := make([]int, len(grades))
-    const minGrade = 38
-
     for i, grade := range grades {
-        if grade < minGrade {
-            roundedGrades[i] = grade
-        } else {
-            nextMultiple5 := (grade/5 + 1) * 5
-            if nextMultiple5-grade < 3 {
-                roundedGrades[i] = nextMultiple5
-            } else {
-                roundedGrades[i] = grade
-            }
-        }
+        roundedGrades[i] = roundGrade(grade)
     }
-
     return roundedGrades
 }
 
-func printNumbers(numbers []int) {
-    for _, x := range numbers {
-        fmt.Println(x)
+func roundGrade(grade int) int {
+    const minGrade = 38
+    if grade < minGrade {
+        return grade
     }
+    remainder := grade % 5
+    if remainder >= 3 {
+        grade += 5 - remainder
+    }
+    return grade
 }

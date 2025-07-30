@@ -10,14 +10,12 @@ func main() {
     fmt.Println(viralAdvertising(days))
 }
 
-    func viralAdvertising(days int) int {
-        var shared, liked, cumulative int = 5, 0, 0
-
-        for ; days > 0; days-- {
-            liked = shared / 2
-            cumulative += liked
-            shared = liked * 3
-        }
-
-        return cumulative
+func viralAdvertising(days int) int {
+    cumulative := 0
+    for shared, liked := 5, 0; days > 0; days-- {
+        liked = shared / 2
+        cumulative += liked
+        shared = liked * 3
     }
+    return cumulative
+}

@@ -10,25 +10,27 @@ import (
 
 func main() {
     var budget, nKeyboards, nUsbDrives int
-    fmt.Scanf("%d %d %d", &budget, &nKeyboards, &nUsbDrives)
+    fmt.Scan(&budget, &nKeyboards, &nUsbDrives)
+
     keyboards := readNumbers(nKeyboards)
     usbDrives := readNumbers(nUsbDrives)
     sort.Ints(keyboards)
     sort.Ints(usbDrives)
     keyboards = slices.Compact(keyboards)
     usbDrives = slices.Compact(usbDrives)
+
     fmt.Println(calculateMoneySpent(keyboards, usbDrives, budget))
 }
 
 func readNumbers(n int) []int {
     numbers := make([]int, n)
-    for i := range numbers {
-        fmt.Scanf("%d", &numbers[i])
+    for i := range n {
+        fmt.Scan(&numbers[i])
     }
     return numbers
 }
 
-func calculateMoneySpent(keyboards []int, usbDrives []int, budget int) int {
+func calculateMoneySpent(keyboards, usbDrives []int, budget int) int {
     maxSpent := -1
     i := 0
     j := len(usbDrives) - 1

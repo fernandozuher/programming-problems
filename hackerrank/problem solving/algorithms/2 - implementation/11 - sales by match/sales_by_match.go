@@ -7,18 +7,17 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    sockCounts := readNumbersIntoMap(n)
-    fmt.Println(sockMerchant(sockCounts))
+    fmt.Println(sockMerchant(readNumbersIntoMap(n)))
 }
 
 func readNumbersIntoMap(n int) map[int]int {
-    numberCounts := map[int]int{}
+    counter := map[int]int{}
     for range n {
         var x int
         fmt.Scan(&x)
-        numberCounts[x]++
+        counter[x]++
     }
-    return numberCounts
+    return counter
 }
 
 func sockMerchant(sockCounts map[int]int) int {
