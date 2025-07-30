@@ -2,51 +2,30 @@
 
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-    "strconv"
-    "strings"
-)
+import "fmt"
 
 func main() {
-    scanner := bufio.NewScanner(os.Stdin)
-
-    var lettersHeights []int = readIntArray(scanner)
-    scanner.Scan()
-    var word string = scanner.Text()
-
+    lettersHeights := readInput()
+    var word string
+    fmt.Scan(&word)
     fmt.Println(designerPdfViewer(lettersHeights, word))
 }
 
-    func readIntArray(scanner *bufio.Scanner) []int {
-        if scanner.Scan() {
-            lineArray := strings.Split(scanner.Text(), " ")
-            intArray := make([]int, len(lineArray))
-
-            for i, element := range lineArray {
-                intArray[i], _ = strconv.Atoi(element)
-            }
-
-            return intArray
-        }
-
-        return []int{}
+func readInput() []int {
+    numbers := make([]int, 26)
+    for i := range numbers {
+        fmt.Scan(&numbers[i])
     }
+    return numbers
+}
 
-    func designerPdfViewer(lettersHeights []int, word string) int {
-        maxHeight := 0
-
-        for _, letter := range word {
-            var letterIndex int = int(letter) - int('a')
-            var letterHeight int = lettersHeights[letterIndex]
-
-            if maxHeight < letterHeight {
-                maxHeight = letterHeight
-            }
+func designerPdfViewer(lettersHeights []int, word string) int {
+    maxHeight := 0
+    for _, letter := range word {
+        index := int(letter) - int('a')
+        if maxHeight < lettersHeights[index] {
+            maxHeight = lettersHeights[index]
         }
-
-        var area int = maxHeight * len(word)
-        return area
     }
+    return maxHeight * len(word)
+}

@@ -1,37 +1,20 @@
 # https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 def main
-    letters_heights = read_int_array
-    word = gets
-    obj = DesignerPdfViewer.new(letters_heights, word)
-    puts obj.area
+  letters_heights = read_numbers
+  word = gets
+  puts designer_pdf_viewer(letters_heights, word)
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
-    end
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-    class DesignerPdfViewer
-        attr_reader :area
+def designer_pdf_viewer(letters_heights, word)
+  max_height = word.chars.inject(0) do |max_height, letter|
+    [max_height, letters_heights[letter.ord - 'a'.ord]].max
+  end
+  max_height * word.length
+end
 
-        def initialize(letters_heights, word)
-            @letters_heights = letters_heights
-            @word = word
-            @area = 0
-            calculate_area
-        end
-
-            private def calculate_area
-                max_height = 0
-
-                @word.chars.each do |letter|
-                    letter_index = letter.ord - 'a'.ord
-                    letter_height = @letters_heights[letter_index]
-                    max_height = [max_height, letter_height].max
-                end
-
-                @area = max_height * @word.size
-            end
-    end
-
-main
+main if $PROGRAM_NAME == __FILE__

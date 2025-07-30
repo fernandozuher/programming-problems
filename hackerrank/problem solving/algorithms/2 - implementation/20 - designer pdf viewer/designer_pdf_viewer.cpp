@@ -2,44 +2,36 @@
 
 #include <algorithm>
 #include <iostream>
-#include <sstream>
 #include <string_view>
 #include <vector>
 
 using namespace std;
 
-template <class T = int>
-vector<T> read();
-int area(const vector<int>& letters_heights, string_view word);
+vector<int> read_numbers(int n);
+int designer_pdf_viewer(const vector<int>& letters_heights, const string_view& word);
 
 int main()
 {
-    vector<int> letters_heights{read()};
+    constexpr int n{26};
+    vector letters_heights{read_numbers(n)};
     string word;
     cin >> word;
-    cout << area(letters_heights, word);
+    cout << designer_pdf_viewer(letters_heights, word);
     return 0;
 }
 
-template <class T>
-vector<T> read()
+vector<int> read_numbers(int n)
 {
-    string line;
-    getline(cin, line);
-    istringstream is{line};
-    vector<T> array;
-    for (T value; is >> value;)
-        array.push_back(value);
-    return array;
+    vector<int> numbers(n);
+    for (auto& x : numbers)
+        cin >> x;
+    return numbers;
 }
 
-int area(const vector<int>& letters_heights, const string_view word)
+int designer_pdf_viewer(const vector<int>& letters_heights, const string_view& word)
 {
     int max_height{};
-    for (const char letter : word) {
-        int letter_index{letter - 'a'};
-        int letter_height{letters_heights[letter_index]};
-        max_height = max(max_height, letter_height);
-    }
+    for (auto letter: word)
+        max_height = max(max_height, letters_heights[letter - 'a']);
     return max_height * word.size();
 }

@@ -1,44 +1,19 @@
 # https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 def main():
-
-    letters_heights = read_int_array()
+    letters_heights = read_numbers()
     word = input()
-    obj = DesignerPdfViewer(letters_heights, word)
-    print(obj.area())
+    print(designer_pdf_viewer(letters_heights, word))
 
 
-def read_int_array():
-
+def read_numbers():
     return list(map(int, input().split()))
 
 
-class DesignerPdfViewer:
-
-    def __init__(self, letters_heights, word):
-
-        self._letters_heights = letters_heights
-        self._word = word
-        self._area = 0
-        self._calculate_area()
+def designer_pdf_viewer(letters_heights, word):
+    max_height = max(letters_heights[ord(letter) - ord('a')] for letter in word)
+    return max_height * len(word)
 
 
-    def _calculate_area(self):
-
-        max_height = 0
-
-        for letter in self._word:
-            letter_index = ord(letter) - ord('a')
-            letter_height = self._letters_heights[letter_index]
-            max_height = max(max_height, letter_height)
-
-        self._area = max_height * len(self._word)
-
-
-    def area(self):
-
-        return self._area
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
