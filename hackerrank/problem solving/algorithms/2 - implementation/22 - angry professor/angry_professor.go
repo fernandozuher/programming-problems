@@ -10,13 +10,19 @@ func main() {
     cancelledClasses := make([]bool, n)
 
     for i := range cancelledClasses {
-        var nStudentsArrivalTime, cancellationThreshold int
-        fmt.Scan(&nStudentsArrivalTime, &cancellationThreshold)
-        studentsArrivalTime := readNumbers(nStudentsArrivalTime)
-        cancelledClasses[i] = angryProfessor(studentsArrivalTime, cancellationThreshold)
+        var n, threshold int
+        fmt.Scan(&n, &threshold)
+        arrivalTimes := readNumbers(n)
+        cancelledClasses[i] = angryProfessor(arrivalTimes, threshold)
     }
 
-    printFormattedOutput(cancelledClasses)
+    for _, cancelled := range cancelledClasses {
+        if cancelled {
+            fmt.Println("YES")
+        } else {
+            fmt.Println("NO")
+        }
+    }
 }
 
 func readNumbers(n int) []int {
@@ -27,26 +33,12 @@ func readNumbers(n int) []int {
     return numbers
 }
 
-func angryProfessor(studentsArrivalTime []int, cancellationThreshold int) bool {
-    return countEarlyArrivalTime(studentsArrivalTime) < cancellationThreshold
-}
-
-func countEarlyArrivalTime(studentsArrivalTime []int) int {
-    earlyArrivalTimeCount := 0
-    for _, arrivalTime := range studentsArrivalTime {
-        if arrivalTime <= 0 {
-            earlyArrivalTimeCount++
+func angryProfessor(arrivalTimes []int, threshold int) bool {
+    count := 0
+    for _, t := range arrivalTimes {
+        if t <= 0 {
+            count++
         }
     }
-    return earlyArrivalTimeCount
-}
-
-func printFormattedOutput(data []bool) {
-    for _, x := range data {
-        if x {
-            fmt.Println("YES")
-        } else {
-            fmt.Println("NO")
-        }
-    }
+    return count < threshold
 }

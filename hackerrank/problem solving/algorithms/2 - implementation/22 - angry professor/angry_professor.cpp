@@ -1,58 +1,46 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
-// From C++20 onwards
+// C++23
 
 #include <algorithm>
 #include <iostream>
-#include <iterator>
+#include <ranges>
 #include <vector>
 
 using namespace std;
 
-struct input {
-    int n_students_arrival_time{}, cancellation_threshold{};
-    vector<int> students_arrival_time;
-};
-
-input read_input();
-template <class T = int>
-vector<T> read(int n);
-bool is_class_cancelled(const input& data);
-void print_output(const vector<bool>& array);
+vector<int> read_numbers(int n);
+bool angry_professor(const vector<int>& arrival_times, int threshold);
 
 int main()
 {
     int n;
     cin >> n;
     vector<bool> cancelled_classes(n);
-    ranges::generate(cancelled_classes, [] { return is_class_cancelled(read_input()); });
-    print_output(cancelled_classes);
+
+    for (auto&& cancelled : cancelled_classes) {
+        int n, threshold;
+        cin >> n >> threshold;
+        vector arrival_times{read_numbers(n)};
+        cancelled = angry_professor(arrival_times, threshold);
+    }
+
+    for (auto cancelled : cancelled_classes)
+        puts(cancelled ? "YES" : "NO");
+
     return 0;
 }
 
-input read_input()
+vector<int> read_numbers(int n)
 {
-    input data;
-    cin >> data.n_students_arrival_time >> data.cancellation_threshold;
-    data.students_arrival_time = read(data.n_students_arrival_time);
-    return data;
+    return views::repeat(0, n) | views::transform([](auto) {
+        int x;
+        cin >> x;
+        return x;
+    }) | ranges::to<vector>();
 }
 
-template <class T>
-vector<T> read(const int n)
+bool angry_professor(const vector<int>& arrival_times, int threshold)
 {
-    vector<T> array(n);
-    copy_n(istream_iterator<T>(cin), n, array.begin());
-    return array;
-}
-
-bool is_class_cancelled(const input& data)
-{
-    int count_early_arrival_time = ranges::count_if(data.students_arrival_time, [](const auto x) { return x <= 0; });
-    return count_early_arrival_time < data.cancellation_threshold;
-}
-
-void print_output(const vector<bool>& array)
-{
-    auto yes_or_no{[](const auto x) { return x ? "YES"s : "NO"s; }};
-    ranges::transform(array, ostream_iterator<string>(cout, "\n"), yes_or_no);
+    int count = ranges::count_if(arrival_times, [](auto t) { return t <= 0; });
+    return count < threshold;
 }

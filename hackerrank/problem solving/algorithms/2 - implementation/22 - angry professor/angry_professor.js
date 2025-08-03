@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,68 +7,40 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine() {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let cancelledClasses = Array(n).fill(false);
+  const n = +readLine();
 
-    for (const i in cancelledClasses) {
-        let [nStudentsArrivalTime, cancellationThreshold] = readIntArray();
-        let studentsArrivalTime = readIntArray();
-        let obj = new AngryProfessor(studentsArrivalTime, cancellationThreshold);
-        cancelledClasses[i] = obj.cancelledClass();
-    }
-
-    for (const cancelled of cancelledClasses)
-        console.log(cancelled ? 'YES' : 'NO');
+  Array(n)
+    .fill('')
+    .map((_) => {
+      const threshold = readNumbers()[1];
+      const arrivalTimes = readNumbers();
+      return angryProfessor(arrivalTimes, threshold);
+    })
+    .forEach((cancelled) => console.log(cancelled ? 'YES' : 'NO'));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readLine() {
+  return inputLines[currentLine++];
+}
 
-    class AngryProfessor {
-        #studentsArrivalTime;
-        #cancellationThreshold;
-        #cancelledClass;
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        constructor(studentsArrivalTime, cancellationThreshold) {
-            this.#studentsArrivalTime = studentsArrivalTime;
-            this.#cancellationThreshold = cancellationThreshold;
-            this.#cancelledClass = false;
-            this.#checkIfClassIsCancelled();
-        }
-
-            #checkIfClassIsCancelled() {
-                this.#cancelledClass = this.#countEarlyArrivalTime() < this.#cancellationThreshold;
-            }
-
-                #countEarlyArrivalTime() {
-                    let earlyArrivalTimeCount = 0;
-
-                    for (const arrivalTime of this.#studentsArrivalTime)
-                        if (arrivalTime <= 0)
-                            ++earlyArrivalTimeCount;
-
-                    return earlyArrivalTimeCount;
-                }
-
-        cancelledClass() {
-            return this.#cancelledClass;
-        }
-    }
+function angryProfessor(arrivalTimes, threshold) {
+  const count = arrivalTimes.filter((t) => t <= 0).length;
+  return count < threshold;
+}
