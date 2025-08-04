@@ -2,42 +2,36 @@
 
 package main
 
-import (
-    "fmt"
-)
+import "fmt"
 
 func main() {
-    var startingDayNumber, endingDayNumber, divisor int
-    fmt.Scan(&startingDayNumber, &endingDayNumber, &divisor)
-    fmt.Println(beautifulDays(startingDayNumber, endingDayNumber, divisor))
+    var startDay, endDay, divisor int
+    fmt.Scan(&startDay, &endDay, &divisor)
+    fmt.Println(beautifulDays(startDay, endDay, divisor))
 }
 
-func beautifulDays(startingDayNumber, endingDayNumber, divisor int) int {
-    nBeautifulDays := 0
-    for number := startingDayNumber; number <= endingDayNumber; number++ {
-        reverseNumber := generateReverseNumber(number)
-        if isDayBeautiful(number, reverseNumber, divisor) {
-            nBeautifulDays++
+func beautifulDays(startDay, endDay, divisor int) int {
+    count := 0
+    for day := startDay; day <= endDay; day++ {
+        if isDayBeautiful(day, divisor) {
+            count++
         }
     }
-    return nBeautifulDays
+    return count
 }
 
-func generateReverseNumber(number int) int {
-    reverseNumber := 0
+func isDayBeautiful(day, divisor int) bool {
+    n := day - reverseNumber(day)
+    if n < 0 {
+        n = -n
+    }
+    return n%divisor == 0
+}
+
+func reverseNumber(number int) int {
+    reversedNumber := 0
     for ; number > 0; number /= 10 {
-        reverseNumber = (reverseNumber * 10) + (number % 10)
+        reversedNumber = (reversedNumber * 10) + (number % 10)
     }
-    return reverseNumber
-}
-
-func isDayBeautiful(number, reverseNumber, divisor int) bool {
-    return absInt(number-reverseNumber)%divisor == 0
-}
-
-func absInt(number int) int {
-    if number < 0 {
-        return -number
-    }
-    return number
+    return reversedNumber
 }

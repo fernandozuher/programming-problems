@@ -1,55 +1,27 @@
 # https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 def main():
-
-    starting_day_number, ending_day_number, divisor = read_int_array()
-    obj = BeautifulDays(starting_day_number, ending_day_number, divisor)
-    print(obj.n_beautiful_days())
+    start_day, end_day, divisor = read_numbers()
+    print(beautiful_days(start_day, end_day, divisor))
 
 
-def read_int_array():
-
-    return list(map(int, input().split()))
-
-
-class BeautifulDays:
-
-    def __init__(self, starting_day_number, ending_day_number, divisor):
-
-        self._starting_day_number = starting_day_number
-        self._ending_day_number = ending_day_number
-        self._divisor = divisor
-        self._n_beautiful_days = 0
-        self._calculate_beautiful_days_quantity()
+def read_numbers():
+    return map(int, input().split())
 
 
-    def _calculate_beautiful_days_quantity(self):
-
-        for number in range(self._starting_day_number, self._ending_day_number + 1):
-            reverse_number = self._generate_reverse_number(number)
-            if self._is_day_beautiful(number, reverse_number):
-                self._n_beautiful_days += 1
-
-
-    def _generate_reverse_number(self, number):
-
-        reverse_number = 0
-
-        while number > 0:
-            reverse_number = (reverse_number * 10) + (number % 10)
-            number = int(number / 10)
-
-        return reverse_number
+def beautiful_days(start_day, end_day, divisor):
+    return sum(
+        1 for day in range(start_day, end_day + 1)
+        if is_day_beautiful(day, divisor)
+    )
 
 
-    def _is_day_beautiful(self, number, reverse_number):
+def is_day_beautiful(day, divisor):
+    return abs(day - reverse_number(day)) % divisor == 0
 
-        return abs(number - reverse_number) % self._divisor == 0
 
-
-    def n_beautiful_days(self):
-
-        return self._n_beautiful_days
+def reverse_number(number):
+    return int(str(number)[::-1])
 
 
 if __name__ == '__main__':

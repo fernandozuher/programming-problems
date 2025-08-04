@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,66 +7,46 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
 
 //////////////////////////////////////////////////
 
 function main() {
-    let [startingDayNumber, endingDayNumber, divisor]: number[] = readIntArray();
-    let obj = new BeautifulDays(startingDayNumber, endingDayNumber, divisor);
-    console.log(obj.nBeautifulDays());
+  const [startDay, endDay, divisor]: number[] = readNumbers();
+  console.log(beautifulDays(startDay, endDay, divisor));
 }
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
-    class BeautifulDays {
-        private startingDayNumber: number;
-        private endingDayNumber: number;
-        private divisor: number;
-        private beautifulDaysQuantity: number;
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
 
-        constructor(startingDayNumber: number, endingDayNumber: number, divisor: number) {
-            this.startingDayNumber = startingDayNumber;
-            this.endingDayNumber = endingDayNumber;
-            this.divisor = divisor;
-            this.beautifulDaysQuantity = 0;
-            this.calculateBeautifulDaysQuantity();
-        }
+function beautifulDays(
+  startDay: number,
+  endDay: number,
+  divisor: number,
+): number {
+  let count = 0;
+  for (let day = startDay; day <= endDay; day++)
+    count += isDayBeautiful(day, divisor) ? 1 : 0;
+  return count;
+}
 
-            private calculateBeautifulDaysQuantity() {
-                for (let number = this.startingDayNumber; number <= this.endingDayNumber; ++number) {
-                    let reverseNumber: number = this.generateReverseNumber(number);
-                    if (this.isDayBeautiful(number, reverseNumber))
-                        ++this.beautifulDaysQuantity;
-                }
-            }
+function isDayBeautiful(day: number, divisor: number): boolean {
+  return Math.abs(day - reverseNumber(day)) % divisor === 0;
+}
 
-                private generateReverseNumber(number: number): number {
-                    let reverseNumber = 0;
-                    for (; number > 0; number = Math.trunc(number / 10))
-                        reverseNumber = (reverseNumber * 10) + (number % 10);
-                    return reverseNumber;
-                }
-
-                private isDayBeautiful(number: number, reverseNumber: number): boolean {
-                    return Math.abs(number - reverseNumber) % this.divisor == 0;
-                }
-
-        public nBeautifulDays(): number {
-            return this.beautifulDaysQuantity;
-        }
-    }
+function reverseNumber(number: number): number {
+  return +String(number).split('').reverse().join('');
+}

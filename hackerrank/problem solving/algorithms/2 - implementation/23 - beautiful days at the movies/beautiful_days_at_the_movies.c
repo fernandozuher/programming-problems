@@ -1,44 +1,38 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+// C23
 
+#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 
-int beautiful_days(const int starting_day_number, const int ending_day_number, const int divisor);
-    int generate_reverse_number(int number);
-    bool is_day_beautiful(const int number, const int reverse_number, const int divisor);
+int beautiful_days(int startDay, int endDay, int divisor);
+bool is_day_beautiful(int day, int divisor);
+int reverse_number(int number);
 
 int main()
 {
-    int starting_day_number, ending_day_number, divisor;
-    scanf("%d %d %d", &starting_day_number, &ending_day_number, &divisor);
-    printf("%d\n", beautiful_days(starting_day_number, ending_day_number, divisor));
-
+    int startDay, endDay, divisor;
+    scanf("%d %d %d", &startDay, &endDay, &divisor);
+    printf("%d\n", beautiful_days(startDay, endDay, divisor));
     return 0;
 }
 
-    int beautiful_days(const int starting_day_number, const int ending_day_number, const int divisor)
-    {
-        int n_beautiful_days = 0;
+int beautiful_days(int startDay, int endDay, int divisor)
+{
+    int count = 0;
+    for (int day = startDay; day <= endDay; ++day)
+        count += is_day_beautiful(day, divisor);
+    return count;
+}
 
-        for (int number = starting_day_number; number <= ending_day_number; ++number) {
-            int reverse_number = generate_reverse_number(number);
-            if (is_day_beautiful(number, reverse_number, divisor))
-                ++n_beautiful_days;
-        }
+bool is_day_beautiful(int day, int divisor)
+{
+    return abs(day - reverse_number(day)) % divisor == 0;
+}
 
-        return n_beautiful_days;
-    }
-
-        int generate_reverse_number(int number)
-        {
-            int reverse_number = 0;
-            for (; number > 0; number /= 10)
-                reverse_number = (reverse_number * 10) + (number % 10);
-            return reverse_number;
-        }
-
-        bool is_day_beautiful(const int number, const int reverse_number, const int divisor)
-        {
-            return abs(number - reverse_number) % divisor == 0;
-        }
+int reverse_number(int number)
+{
+    int reversed_number = 0;
+    for (; number > 0; number = number / 10)
+        reversed_number = (reversed_number * 10) + (number % 10);
+    return reversed_number;
+}
