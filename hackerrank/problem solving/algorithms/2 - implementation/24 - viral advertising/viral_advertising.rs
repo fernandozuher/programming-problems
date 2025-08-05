@@ -8,13 +8,10 @@ fn main() {
 }
 
 fn viral_advertising(days: i32) -> i32 {
-    let (mut shared, mut liked, mut cumulative) = (5, 0, 0);
-
-    for _ in 0..days {
-        liked = shared / 2;
-        cumulative += liked;
+    let mut shared = 5;
+    (0..days).fold(0, |cumulative, _| {
+        let liked = shared / 2;
         shared = liked * 3;
-    }
-
-    return cumulative;
+        cumulative + liked
+    })
 }

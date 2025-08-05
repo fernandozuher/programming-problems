@@ -12,10 +12,12 @@ func main() {
 
 func viralAdvertising(days int) int {
     cumulative := 0
-    for shared, liked := 5, 0; days > 0; days-- {
-        liked = shared / 2
+
+    for shared := 5; days > 0; days-- {
+        liked := shared / 2
         cumulative += liked
         shared = liked * 3
     }
+
     return cumulative
 }

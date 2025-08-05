@@ -1,27 +1,28 @@
 // https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+// C++23
 
+#include <algorithm>
 #include <iostream>
+#include <ranges>
 
 using namespace std;
 
-int viral_advertising(const int days);
+int viral_advertising(int days);
 
-int main() {
+int main()
+{
     int days;
     cin >> days;
     cout << viral_advertising(days) << '\n';
-
     return 0;
 }
 
-    int viral_advertising(int days) {
-        int shared{5}, liked{}, cumulative{};
-
-        while (days--) {
-            liked = shared / 2;
-            cumulative += liked;
-            shared = liked * 3;
-        }
-
-        return cumulative;
-    }
+int viral_advertising(int days)
+{
+    int shared{5};
+    return ranges::fold_left(views::iota(0, days), 0, [&shared](auto cumulative, auto) {
+        int liked{shared / 2};
+        shared = liked * 3;
+        return cumulative + liked;
+    });
+}
