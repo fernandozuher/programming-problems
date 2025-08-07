@@ -7,33 +7,19 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    prisonersChairNumberToWarn := make([]int, n)
+    results := make([]int, n)
 
-    for i := 0; i < n; i++ {
-        var prisoners, sweets, chairNumberToBegin int
-        fmt.Scanf("%d %d %d", &prisoners, &sweets, &chairNumberToBegin)
-        prisonersChairNumberToWarn[i] = saveThePrisoner(prisoners, sweets, chairNumberToBegin)
+    for i := range n {
+        var prisoners, sweets, startChair int
+        fmt.Scan(&prisoners, &sweets, &startChair)
+        results[i] = saveThePrisoner(prisoners, sweets, startChair)
     }
 
-    printArray(prisonersChairNumberToWarn)
+    for _, x := range results {
+        fmt.Println(x)
+    }
 }
 
-    func saveThePrisoner(prisoners int, sweets int, chairNumberToBegin int) int {
-        var prisonerChairNumberToWarn int = chairNumberToBegin + (sweets - 1)
-        x := prisonerChairNumberToWarn
-
-        if x > prisoners {
-            x %= prisoners
-            if x == 0 {
-                x = prisoners
-            }
-        }
-
-        return x
-    }
-
-    func printArray(array []int) {
-        for _, x := range array {
-            fmt.Println(x)
-        }
-    }
+func saveThePrisoner(prisoners, sweets, startChair int) int {
+    return ((startChair - 1 + sweets - 1) % prisoners) + 1
+}

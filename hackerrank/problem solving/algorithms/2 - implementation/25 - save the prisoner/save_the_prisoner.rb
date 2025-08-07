@@ -1,33 +1,19 @@
 # https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
 def main
-    n = gets.to_i
-    prisoners_chair_number_to_warn = Array.new(n)
-
-    n.times do |i|
-        prisoners, sweets, chair_number_to_begin = read_int_array
-        prisoners_chair_number_to_warn[i] = save_the_prisoner(prisoners, sweets, chair_number_to_begin)
-    end
-
-    puts prisoners_chair_number_to_warn
+  n = gets.to_i
+  (0...n).map do
+    prisoners, sweets, start_chair = read_numbers
+    save_the_prisoner(prisoners, sweets, start_chair)
+  end.each { |x| puts x }
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
-    end
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-    def save_the_prisoner(prisoners, sweets, chair_number_to_begin)
-        prisoner_chair_number_to_warn = chair_number_to_begin + (sweets - 1)
-        x = prisoner_chair_number_to_warn
+def save_the_prisoner(prisoners, sweets, start_chair)
+  ((start_chair - 1 + sweets - 1) % prisoners) + 1
+end
 
-        if x > prisoners
-            x %= prisoners
-            if x == 0
-                x = prisoners
-            end
-        end
-
-        x
-    end
-
-main
+main if __FILE__ == $PROGRAM_NAME

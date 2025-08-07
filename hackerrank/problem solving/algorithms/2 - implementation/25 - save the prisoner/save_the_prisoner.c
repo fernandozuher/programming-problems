@@ -2,41 +2,25 @@
 
 #include <stdio.h>
 
-int save_the_prisoner(const int prisoners, const int sweets, const int chair_number_to_begin);
-void print_array(const int* const array, const int n);
+int save_the_prisoner(int prisoners, int sweets, int start_chair);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int prisoners_chair_number_to_warn[n];
+    int results[n];
 
     for (int i = 0; i < n; ++i) {
-        int prisoners, sweets, chair_number_to_begin;
-        scanf("%d %d %d", &prisoners, &sweets, &chair_number_to_begin);
-        prisoners_chair_number_to_warn[i] = save_the_prisoner(prisoners, sweets, chair_number_to_begin);
+        int prisoners, sweets, start_chair;
+        scanf("%d %d %d", &prisoners, &sweets, &start_chair);
+        results[i] = save_the_prisoner(prisoners, sweets, start_chair);
     }
 
-    print_array(prisoners_chair_number_to_warn, n);
-
-    return 0;
+    for (int i = 0; i < n; ++i)
+        printf("%d\n", results[i]);
 }
 
-    int save_the_prisoner(const int prisoners, const int sweets, const int chair_number_to_begin)
-    {
-        int prisoner_chair_number_to_warn = chair_number_to_begin + (sweets - 1);
-        int x = prisoner_chair_number_to_warn;
-
-        if (x > prisoners) {
-            x %= prisoners;
-            if (x == 0)
-                x = prisoners;
-        }
-
-        return x;
-    }
-
-    void print_array(const int* const array, const int n)
-    {
-        for (int i = 0; i < n; printf("%d\n", array[i++]));
-    }
+int save_the_prisoner(int prisoners, int sweets, int start_chair)
+{
+    return ((start_chair - 1 + sweets - 1) % prisoners) + 1;
+}

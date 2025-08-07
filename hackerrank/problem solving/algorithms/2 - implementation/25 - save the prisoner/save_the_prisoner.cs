@@ -1,45 +1,26 @@
 // https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 public class Solution
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        int n = int.Parse(Console.ReadLine());
-        var prisonersChairNumberToWarn = new List<int>(new int[n]);
-
-        for (int i = 0; i < n; ++i)
+        int n = ReadNumbers()[0];
+        Enumerable.Range(0, n).Select(_ =>
         {
-            List<int> testCase = _readIntArray();
-            int prisoners = testCase.First();
-            int sweets = testCase[1];
-            int chairNumberToBegin = testCase.Last();
-            prisonersChairNumberToWarn[i] = _saveThePrisoner(prisoners, sweets, chairNumberToBegin);
-        }
-
-        prisonersChairNumberToWarn.ForEach(Console.WriteLine);
+            var line = ReadNumbers();
+            int prisoners = line[0], sweets = line[1], startChair = line[2];
+            return SaveThePrisoner(prisoners, sweets, startChair);
+        })
+        .ToList().ForEach(Console.WriteLine);
     }
 
-        private static List<int> _readIntArray()
-        {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split(' ').Select(int.Parse).ToArray();
+    }
 
-        private static int _saveThePrisoner(int prisoners, int sweets, int chairNumberToBegin)
-        {
-            int prisonerChairNumberToWarn = chairNumberToBegin + (sweets - 1);
-            int x = prisonerChairNumberToWarn;
-
-            if (x > prisoners)
-            {
-                x %= prisoners;
-                if (x == 0)
-                    x = prisoners;
-            }
-
-            return x;
-        }
+    private static int SaveThePrisoner(int prisoners, int sweets, int startChair)
+    {
+        return ((startChair - 1 + sweets - 1) % prisoners) + 1;
+    }
 }
