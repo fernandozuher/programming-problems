@@ -1,49 +1,37 @@
 // https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
-// From C++20
 
-#include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <vector>
 
 using namespace std;
 
-template <class T = int>
-vector<T> read(int n);
-int reduce_rotations(int n, int rotation_count);
-void print_array_according_to_index_from_another_array(const vector<int>& array1, const vector<int>& array2);
+vector<int> read_numbers(int n);
+void print_queries(const vector<int>& arr, const vector<int>& queries, int n_rotation);
 
 int main()
 {
-    int n, rotation_count, n_queries;
-    cin >> n >> rotation_count >> n_queries;
-    vector array{read(n)};
-    vector queries{read(n_queries)};
-
-    rotation_count = reduce_rotations(array.size(), rotation_count);
-    ranges::rotate(array, array.end() - rotation_count);
-    print_array_according_to_index_from_another_array(array, queries);
-
+    int n, n_rotation, n_queries;
+    cin >> n >> n_rotation >> n_queries;
+    vector arr{read_numbers(n)};
+    vector queries{read_numbers(n_queries)};
+    print_queries(arr, queries, n_rotation);
     return 0;
 }
 
-    template<class T>
-    vector<T> read(const int n)
-    {
-        vector<T> array(n);
-        copy_n(istream_iterator<T>(cin), n, array.begin());
-        return array;
-    }
+vector<int> read_numbers(int n)
+{
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
+}
 
-    int reduce_rotations(const int n, const int rotation_count)
-    {
-        if (n > 1)
-            return rotation_count >= n ? rotation_count % n : rotation_count;
-        return 0;
+void print_queries(const vector<int>& arr, const vector<int>& queries, int n_rotation)
+{
+    int n = arr.size();
+    int r{n_rotation % n};
+    for (auto q : queries) {
+        int idx{(q + n - r) % n};
+        cout << arr[idx] << '\n';
     }
-
-    void print_array_according_to_index_from_another_array(const vector<int>& array1, const vector<int>& array2)
-    {
-        for (const int i : array2)
-            cout << array1.at(i) << '\n';
-    }
+}

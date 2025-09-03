@@ -5,19 +5,11 @@ package main
 import "fmt"
 
 func main() {
-    var n, n_rotation, nQueries int
-    _, _ = fmt.Scan(&n, &n_rotation, &nQueries)
+    var n, nRotation, nQueries int
+    _, _ = fmt.Scan(&n, &nRotation, &nQueries)
     arr := readNumbers(n)
     queries := readNumbers(nQueries)
-
-    r := n_rotation % n
-    for _, q := range queries {
-        index := q - r
-        if index < 0 {
-            index = n + index
-        }
-        fmt.Println(arr[index])
-    }
+    printQueries(arr, queries, nRotation)
 }
 
 func readNumbers(n int) []int {
@@ -26,4 +18,13 @@ func readNumbers(n int) []int {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr
+}
+
+func printQueries(arr, queries []int, nRotation int) {
+    n := len(arr)
+    r := nRotation % n
+    for _, q := range queries {
+        idx := (q + n - r) % n
+        fmt.Println(arr[idx])
+    }
 }
