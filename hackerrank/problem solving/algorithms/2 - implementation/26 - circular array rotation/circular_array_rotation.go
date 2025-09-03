@@ -5,44 +5,25 @@ package main
 import "fmt"
 
 func main() {
-    var n, rotationCount, nQueries int
-    fmt.Scan(&n, &rotationCount, &nQueries)
-    var array []int = readIntArray(n)
-    var queries []int = readIntArray(nQueries)
+    var n, n_rotation, nQueries int
+    _, _ = fmt.Scan(&n, &n_rotation, &nQueries)
+    arr := readNumbers(n)
+    queries := readNumbers(nQueries)
 
-    rotationCount = reduceRotations(n, rotationCount)
-    var rotatedArray []int = rotateArray(array, rotationCount)
-    printArrayAccordingToIndexFromAnotherArray(rotatedArray, queries)
+    r := n_rotation % n
+    for _, q := range queries {
+        index := q - r
+        if index < 0 {
+            index = n + index
+        }
+        fmt.Println(arr[index])
+    }
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
-
-    func reduceRotations(n int, rotationCount int) int {
-        if n > 1 {
-            if rotationCount >= n {
-                return rotationCount % n
-            } else {
-                return rotationCount
-            }
-        } else {
-            return 0
-        }
-    }
-
-    func rotateArray(array []int, rotationCount int) []int {
-        var firstPartNewArray []int = array[len(array)-rotationCount:]
-        var secondPartNewArray []int = array[:len(array)-rotationCount]
-        return append(firstPartNewArray, secondPartNewArray...)
-    }
-
-    func printArrayAccordingToIndexFromAnotherArray(array1 []int, array2 []int) {
-        for _, i := range array2 {
-            fmt.Println(array1[i])
-        }
-    }
+    return arr
+}
