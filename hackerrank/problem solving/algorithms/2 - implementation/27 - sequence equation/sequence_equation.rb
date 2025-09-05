@@ -1,38 +1,19 @@
 # https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 
 def main
-    n = gets.to_i
-    array = read_int_array
-    obj = Sequence_equation.new(array)
-    puts obj.permutated_array
+  gets
+  arr = read_numbers
+  puts sequence_equation(arr)
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
-    end
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-    class Sequence_equation
-        attr_reader :permutated_array
+def sequence_equation(arr)
+  values_to_index = Array.new(arr.size)
+  arr.each_with_index { |val, i| values_to_index[val - 1] = i }
+  values_to_index.map { |val| values_to_index[val] + 1 }
+end
 
-        def initialize array
-            @array = array
-            @elements_positions_array = Array.new(array.size)
-            @permutated_array = Array.new(array.size)
-            generate_elements_positions_array
-            generate_permutated_array
-        end
-
-            def generate_elements_positions_array
-                @array.each_with_index { |element, i|
-                    @elements_positions_array[element-1] = i
-                }
-            end
-
-            def generate_permutated_array
-                @elements_positions_array.each_with_index { |element, i|
-                    @permutated_array[i] = @elements_positions_array[element] + 1
-                }
-            end
-    end
-
-main
+main if __FILE__ == $PROGRAM_NAME

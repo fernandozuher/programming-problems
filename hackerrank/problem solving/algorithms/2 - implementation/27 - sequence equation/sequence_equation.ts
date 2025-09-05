@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -26,42 +24,25 @@ function readLine(): string {
 //////////////////////////////////////////////////
 
 function main() {
-    let n: number = +readLine();
-    let array: number[] = readIntArray();
-    let obj = new SequenceEquation(array);
-    obj.permutatedArray().forEach(x => console.log(x));
+  readLine();
+  const arr: number[] = readNumbers();
+  sequenceEquation(arr).forEach((val) => console.log(val));
 }
 
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
+}
 
-    class SequenceEquation {
-        private array: number[];
-        private elementsPositionsArray: number[];
-        private permutArray: number[];
+function sequenceEquation(arr: number[]): number[] {
+  const valuesToIndex: number[] = Array(arr.length).fill(0);
+  let i = 0;
+  for (const val of arr) valuesToIndex[val - 1] = i++;
 
-        constructor(array: number[]) {
-            this.array = array;
-            this.elementsPositionsArray = Array(array.length).fill(0);
-            this.permutArray = Array(array.length).fill(0);
-            this.generateElementsPositionsArray();
-            this.generatePermutatedArray();
-        }
+  const res: number[] = Array(arr.length).fill(0);
+  i = 0;
+  for (const val of valuesToIndex) {
+    res[i++] = valuesToIndex[val] + 1;
+  }
 
-            private generateElementsPositionsArray() {
-                this.array.forEach((element, i) => {
-                    this.elementsPositionsArray[element-1] = i;
-                });
-            }
-
-            private generatePermutatedArray() {
-                this.elementsPositionsArray.forEach((element, i) => {
-                    this.permutArray[i] = this.elementsPositionsArray[element] + 1;
-                });
-            }
-
-        public permutatedArray(): number[] {
-            return this.permutArray;
-        }
-    }
+  return res;
+}

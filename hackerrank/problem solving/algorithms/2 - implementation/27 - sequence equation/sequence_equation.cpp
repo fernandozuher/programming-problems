@@ -1,83 +1,44 @@
 // https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
 #include <iostream>
+#include <ranges>
 #include <vector>
 
 using namespace std;
 
-class Sequence_Equation {
-
-public:
-    Sequence_Equation(const vector<int>& array);
-    vector<int> permutated_array() const;
-
-private:
-    vector<int> array;
-    vector<int> elements_positions_array;
-    vector<int> permut_array;
-
-    void generate_elements_positions_array();
-    void generate_permutated_array();
-};
-
-    Sequence_Equation::Sequence_Equation(const vector<int>& array)
-        : array{array}, elements_positions_array{vector<int>(array.size())},
-          permut_array{vector<int>(array.size())}
-    {
-        generate_elements_positions_array();
-        generate_permutated_array();
-    }
-
-        void Sequence_Equation::generate_elements_positions_array()
-        {
-            for (int i{}; const auto x : array)
-                elements_positions_array.at(x - 1) = i++;
-        }
-
-        void Sequence_Equation::generate_permutated_array()
-        {
-            for (int i{}; const auto x : elements_positions_array)
-                permut_array.at(i++) = elements_positions_array[x] + 1;
-        }
-
-    vector<int> Sequence_Equation::permutated_array() const
-    {
-        return permut_array;
-    }
-
-//////////////////////////////////////////////////
-
-template<class T = int>
-vector<T> read(const int n);
-
-template<class T = int>
-void print_array(const vector<T>& array);
+vector<int> read_numbers(int n);
+vector<int> sequence_equation(const vector<int>& arr);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<int> array {read(n)};
+    vector arr{read_numbers(n)};
 
-    Sequence_Equation obj{array};
-    print_array(obj.permutated_array());
+    for (auto val : sequence_equation(arr))
+        cout << val << '\n';
 
     return 0;
 }
 
-    template<class T = int>
-    vector<T> read(const int n)
-    {
-        vector<T> array(n);
-        auto read = []{T x; cin >> x; return x;};
-        ranges::generate(array, read);
-        return array;
-    }
+vector<int> read_numbers(int n)
+{
+    vector<int> arr(n);
+    for (auto& val : arr)
+        cin >> val;
+    return arr;
+}
 
-    template<class T = int>
-    void print_array(const vector<T>& array)
-    {
-        auto println = [](auto x) {cout << x << '\n';};
-        ranges::for_each(array, println);
-    }
+vector<int> sequence_equation(const vector<int>& arr)
+{
+    vector<int> values_to_index(arr.size());
+    for (auto [i, val] : views::enumerate(arr))
+        values_to_index.at(val - 1) = i;
+
+    vector<int> res(arr.size());
+    for (auto [i, val] : views::enumerate(values_to_index))
+        res.at(i) = values_to_index.at(val) + 1;
+
+    return res;
+}
