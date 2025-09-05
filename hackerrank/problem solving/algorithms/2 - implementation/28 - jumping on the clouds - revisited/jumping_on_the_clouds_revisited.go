@@ -6,45 +6,33 @@ import "fmt"
 
 func main() {
     var n, jumpLength int
-    fmt.Scan(&n, &jumpLength)
-    var array []int = readIntArray(n)
-    fmt.Println(jumpingOnClouds(array, jumpLength))
+    _, _ = fmt.Scan(&n, &jumpLength)
+    arr := readNumbers(n)
+    fmt.Println(jumpingOnTheClouds(arr, jumpLength))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := 0; i < n; i++ {
-            fmt.Scanf("%d", &array[i])
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range arr {
+        _, _ = fmt.Scan(&arr[i])
+    }
+    return arr
+}
+
+func jumpingOnTheClouds(clouds []int, jumpLength int) int {
+    energy := 100
+    cloudIndex := 0
+
+    for {
+        energy -= 1
+        if clouds[cloudIndex] != 0 {
+            energy -= 2
         }
-        return array
+        cloudIndex = (cloudIndex + jumpLength) % len(clouds)
+        if cloudIndex == 0 {
+            break
+        }
     }
 
-    func jumpingOnClouds(clouds []int, jumpLength int) int {
-        var energy int = 100
-
-        for cloudIndex := 0; true; {
-            energy -= spentEnergyAccordingToTypeOfCloud(clouds[cloudIndex])
-            cloudIndex = generateNewCloudIndex(cloudIndex, len(clouds), jumpLength)
-            if isCloudIndexBackToFirstCloud(cloudIndex) {
-                break
-            }
-        }
-
-        return energy
-    }
-
-        func spentEnergyAccordingToTypeOfCloud(cloudType int) int {
-            if cloudType == 0 {
-                return 1
-            } else {
-                return 3
-            }
-        }
-
-        func generateNewCloudIndex(cloudIndex int, n int, jumpLength int) int {
-            return (cloudIndex + jumpLength) % n
-        }
-
-        func isCloudIndexBackToFirstCloud(cloudIndex int) bool {
-            return cloudIndex == 0
-        }
+    return energy
+}

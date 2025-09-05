@@ -1,56 +1,26 @@
 # https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 def main():
-
-    n, jump_length = read_int_array()
-    array = read_int_array()
-    obj = JumpingOnTheClouds(array, jump_length)
-    print(obj.remaining_energy())
+    n, jump_length = read_numbers()
+    arr = read_numbers()
+    print(jumping_on_the_clouds(arr, jump_length))
 
 
-def read_int_array():
-
+def read_numbers():
     return list(map(int, input().split()))
 
 
-class JumpingOnTheClouds:
+def jumping_on_the_clouds(clouds, jump_length):
+    energy = 100
+    cloud_index = 0
 
-    def __init__(self, clouds, jump_length):
+    while True:
+        energy -= 3 if clouds[cloud_index] else 1
+        cloud_index = (cloud_index + jump_length) % len(clouds)
+        if cloud_index == 0:
+            break
 
-        self.clouds = clouds
-        self._jump_length = jump_length
-        self._energy = 100
-        self._calculate_remaining_energy()
-
-
-    def _calculate_remaining_energy(self):
-
-        cloud_index = 0
-        while True:
-            self._energy -= self._spent_energy_according_to_type_of_cloud(self.clouds[cloud_index])
-            cloud_index = self._generate_new_cloud_index(cloud_index)
-            if self._is_cloud_index_back_to_first_cloud(cloud_index):
-                break
-
-
-    def _spent_energy_according_to_type_of_cloud(self, cloud_type):
-
-        return 1 if cloud_type == 0 else 3
-
-
-    def _generate_new_cloud_index(self, cloud_index):
-
-        return (cloud_index + self._jump_length) % len(self.clouds)
-
-
-    def _is_cloud_index_back_to_first_cloud(self, cloud_index):
-
-        return cloud_index == 0
-
-
-    def remaining_energy(self):
-
-        return self._energy
+    return energy
 
 
 if __name__ == '__main__':

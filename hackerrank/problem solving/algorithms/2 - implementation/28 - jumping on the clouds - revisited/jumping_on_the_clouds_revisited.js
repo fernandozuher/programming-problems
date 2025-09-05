@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,68 +7,40 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 function main() {
-    let [n, jumpLength] = readIntArray();
-    let array = readIntArray();
-    let obj = new JumpingOnTheClouds(array, jumpLength);
-    console.log(obj.remainingEnergy());
+  const [_, jumpLength] = readNumbers();
+  const arr = readNumbers();
+  console.log(jumpingOnTheClouds(arr, jumpLength));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-    class JumpingOnTheClouds {
-        #clouds;
-        #jumpLength;
-        #energy;
+function jumpingOnTheClouds(clouds, jumpLength) {
+  let energy = 100;
+  let cloudIndex = 0;
 
-        constructor(clouds, jumpLength) {
-            this.#clouds = clouds;
-            this.#jumpLength = jumpLength;
-            this.#energy = 100;
-            this.#calculateRemainingEnergy();
-        }
+  do {
+    energy -= clouds[cloudIndex] === 0 ? 1 : 3;
+    cloudIndex = (cloudIndex + jumpLength) % clouds.length;
+  } while (cloudIndex !== 0);
 
-            #calculateRemainingEnergy() {
-                for (let cloudIndex = 0; true;) {
-                    this.#energy -= this.#spentEnergyAccordingToTypeOfCloud(this.#clouds[cloudIndex]);
-                    cloudIndex = this.#generateNewCloudIndex(cloudIndex);
-                    if (this.#isCloudIndexBackToFirstCloud(cloudIndex)) {
-                        break;
-                    }
-                }
-            }
-
-                #spentEnergyAccordingToTypeOfCloud(cloudType) {
-                    return cloudType == 0 ? 1 : 3;
-                }
-
-                #generateNewCloudIndex(cloudIndex) {
-                    return (cloudIndex + this.#jumpLength) % this.#clouds.length;
-                }
-
-                #isCloudIndexBackToFirstCloud(cloudIndex) {
-                    return cloudIndex == 0;
-                }
-
-        remainingEnergy() {
-            return this.#energy;
-        }
-    }
+  return energy;
+}
