@@ -6,45 +6,26 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    nNumberDivisors := make([]int, n)
-
-    for i := 0; i < n; i++ {
+    _, _ = fmt.Scan(&n)
+    res := make([]int, n)
+    for i := range res {
         var number int
-        fmt.Scanf("%d", &number)
-        nNumberDivisors[i] = findNumberDivisorsQuantity(number)
+        _, _ = fmt.Scan(&number)
+        res[i] = findDigits(number)
     }
-
-    printArray(nNumberDivisors)
+    for _, val := range res {
+        fmt.Println(val)
+    }
 }
 
-    func findNumberDivisorsQuantity(number int) int {
-        var divisors int = 0
-
-        for currentNumber := number; currentNumber != 0; currentNumber = removeLastDigitOfNumber(currentNumber) {
-            var divisor int = getLastDigitOfNumber(currentNumber)
-            if isNumberEvenlyDividedByDivisor(number, divisor) {
-                divisors++
-            }
-        }
-
-        return divisors
-    }
-
-        func getLastDigitOfNumber(number int) int {
-            return number % 10
-        }
-
-        func isNumberEvenlyDividedByDivisor(number int, divisor int) bool {
-            return divisor != 0 && number%divisor == 0
-        }
-
-        func removeLastDigitOfNumber(number int) int {
-            return number / 10
-        }
-
-    func printArray(array []int) {
-        for _, x := range array {
-            fmt.Println(x)
+func findDigits(n int) int {
+    divisors := 0
+    originalNumber := n
+    for ; n != 0; n /= 10 {
+        divisor := n % 10
+        if divisor != 0 && originalNumber%divisor == 0 {
+            divisors++
         }
     }
+    return divisors
+}
