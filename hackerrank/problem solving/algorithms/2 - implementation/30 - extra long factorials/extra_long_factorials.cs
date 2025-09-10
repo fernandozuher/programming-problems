@@ -1,22 +1,17 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
-using System;
 using System.Numerics;
 
 public class Solution
 {
     public static void Main()
     {
-        int number = int.Parse(Console.ReadLine());
-        BigInteger factorial = _calculateFactorialOf(number);
-        Console.WriteLine(factorial);
+        int n = int.Parse(Console.ReadLine()!);
+        Console.WriteLine(Factorial(n));
     }
 
-        private static BigInteger _calculateFactorialOf(int number)
-        {
-            BigInteger factorial = BigInteger.One;
-            for (int currentNumber = 2; currentNumber <= number; ++currentNumber)
-                factorial = BigInteger.Multiply(factorial, new BigInteger(currentNumber));
-            return factorial;
-        }
+    private static BigInteger Factorial(int n)
+    {
+        return Enumerable.Range(1, n).Aggregate(BigInteger.One, (acc, x) => acc * x);
+    }
 }

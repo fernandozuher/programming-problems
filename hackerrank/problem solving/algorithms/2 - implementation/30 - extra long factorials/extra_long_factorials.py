@@ -1,18 +1,15 @@
 # https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
 def main():
-
-    number = int(input())
-    factorial = calculate_factorial_of(number)
-    print(factorial)
+    n = int(input())
+    print(factorial(n))
 
 
-def calculate_factorial_of(number):
-
-    factorial = 1
-    for current_number in range(2, number+1):
-        factorial *= current_number
-    return factorial
+def factorial(n):
+    res = 1
+    for i in range(2, n + 1):
+        res *= i
+    return res
 
 
 if __name__ == '__main__':

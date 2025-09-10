@@ -8,16 +8,15 @@ import (
 )
 
 func main() {
-    var number int
-    fmt.Scan(&number)
-    var factorial *big.Int = calculateFactorialOf(number)
-    fmt.Println(factorial)
+    var n int
+    _, _ = fmt.Scan(&n)
+    fmt.Println(factorial(n))
 }
 
-    func calculateFactorialOf(number int) *big.Int {
-        var factorial *big.Int = big.NewInt(1)
-        for currentNumber := 2; currentNumber <= number; currentNumber++ {
-            factorial.Mul(factorial, big.NewInt(int64(currentNumber)))
-        }
-        return factorial
+func factorial(n int) *big.Int {
+    res := big.NewInt(1)
+    for i := 2; i <= n; i++ {
+        res.Mul(res, big.NewInt(int64(i)))
     }
+    return res
+}
