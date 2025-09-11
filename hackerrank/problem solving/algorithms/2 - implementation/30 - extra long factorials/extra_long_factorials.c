@@ -1,78 +1,56 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int calculate_factorial(int* factorial, const int number);
-    int multiply_array_with_number(int *array, int n, const int number);
-        int get_last_digit_of_number(const int number);
-        int remove_last_digit_of_number(const int number);
-        int add_remaining_carry_to_array(int carry, int *array, int n);
+#define MAX_DIGITS_OF_FACTORIAL_100 158
+
+void factorial(int n, int *res, int *size);
+void multiply_array_with_number(int *arr, int *size, int number);
+void add_remaining_carry_to_array(int carry, int *arr, int *size);
 void print_factorial(const int *array, int n);
 
 int main()
 {
-    int number;
-    scanf("%d", &number);
-    const int max_digits_of_factorial_100 = 158;
-    int *factorial = (int*) calloc(max_digits_of_factorial_100, sizeof(int));
+    int n;
+    scanf("%d", &n);
+    int res[MAX_DIGITS_OF_FACTORIAL_100];
+    int size = 0;
 
-    int n = calculate_factorial(factorial, number);
-    print_factorial(factorial, n);
-
-    free(factorial);
-    factorial = NULL;
+    factorial(n, res, &size);
+    print_factorial(res, size);
 
     return 0;
 }
 
-    int calculate_factorial(int* factorial, const int number)
-    {
-        factorial[0] = 1;
-        int n = 1;
+void factorial(int n, int *res, int *size)
+{
+    res[0] = 1;
+    *size = 1;
+    for (int i = 2; i <= n; ++i)
+        multiply_array_with_number(res, size, i);
+}
 
-        for (int current_number = 2; current_number <= number; ++current_number)
-            n = multiply_array_with_number(factorial, n, current_number);
-
-        return n;
+void multiply_array_with_number(int *arr, int *size, int number)
+{
+    int carry = 0;
+    for (int i = 0; i < *size; ++i) {
+        int product = arr[i] * number + carry;
+        arr[i] = product % 10;
+        carry = product / 10;
     }
 
-        int multiply_array_with_number(int *array, int n, const int number)
-        {
-            int carry = 0;
+    add_remaining_carry_to_array(carry, arr, size);
+}
 
-            for (int i = 0; i < n; ++i) {
-                int product = array[i] * number + carry;
-                array[i] = get_last_digit_of_number(product);
-                carry = remove_last_digit_of_number(product);
-            }
+void add_remaining_carry_to_array(int carry, int *arr, int *size)
+{
+    for (; carry; carry /= 10)
+        arr[(*size)++] = carry % 10;
+}
 
-            n = add_remaining_carry_to_array(carry, array, n);
-            return n;
-        }
-
-            int get_last_digit_of_number(const int number)
-            {
-                return number % 10;
-            }
-
-            int remove_last_digit_of_number(const int number)
-            {
-                return number / 10;
-            }
-
-            int add_remaining_carry_to_array(int carry, int *array, int n)
-            {
-                for (; carry; ++n) {
-                    array[n] = get_last_digit_of_number(carry);
-                    carry = remove_last_digit_of_number(carry);
-                }
-                return n;
-            }
-
-    void print_factorial(const int *array, int n)
-    {
-        while (n--)
-            printf("%d", array[n]);
-        puts("");
-    }
+void print_factorial(const int *array, int n)
+{
+    while (n--)
+        printf("%d", array[n]);
+    puts("");
+}

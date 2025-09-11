@@ -6,7 +6,7 @@ def main
 end
 
 def factorial(n)
-  (2..n).inject(1) { |acc, x| acc * x }
+  (1..n).inject(1) { |acc, x| acc * x }
 end
 
 main if __FILE__ == $PROGRAM_NAME

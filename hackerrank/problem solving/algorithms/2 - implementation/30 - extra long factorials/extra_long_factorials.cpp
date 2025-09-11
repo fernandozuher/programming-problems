@@ -1,75 +1,54 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
-#include <algorithm>
 #include <iostream>
 #include <ranges>
 #include <vector>
 
 using namespace std;
 
-vector<int> calculate_factorial_of(const int number);
-    vector<int> multiply_array_with_number(vector<int>& array, const int number);
-        int get_last_digit_of_number(const int number);
-        int remove_last_digit_of_number(const int number);
-        vector<int> add_remaining_carry_to_array(int carry, vector<int>& array);
-void print_factorial(const vector<int>& array);
+vector<int> factorial(int n);
+void multiply_array_with_number(vector<int>& arr, int number);
+void add_carry_to(int carry, vector<int>& arr);
+void print_factorial(const vector<int>& arr);
 
 int main()
 {
     int number;
     cin >> number;
-    vector<int> factorial {calculate_factorial_of(number)};
-    print_factorial(factorial);
-
+    print_factorial(factorial(number));
     return 0;
 }
 
-    vector<int> calculate_factorial_of(const int number)
-    {
-        vector<int> factorial{1};
+vector<int> factorial(int n)
+{
+    vector<int> factorial{1};
+    for (int i{2}; i <= n; ++i)
+        multiply_array_with_number(factorial, i);
+    return factorial;
+}
 
-        for (int current_number{2}; current_number <= number; ++current_number)
-            factorial = multiply_array_with_number(factorial, current_number);
+void multiply_array_with_number(vector<int>& arr, int number)
+{
+    int carry{};
 
-        return factorial;
+    for (auto& last_digit : arr) {
+        int product{last_digit * number + carry};
+        last_digit = product % 10;
+        carry = product / 10;
     }
 
-        vector<int> multiply_array_with_number(vector<int>& array, const int number)
-        {
-            int carry{};
+    add_carry_to(carry, arr);
+}
 
-            for (auto &digit : array) {
-                int product {digit * number + carry};
-                digit = get_last_digit_of_number(product);
-                carry = remove_last_digit_of_number(product);
-            }
+void add_carry_to(int carry, vector<int>& arr)
+{
+    for (; carry; carry /= 10)
+        arr.push_back(carry % 10);
+}
 
-            array = add_remaining_carry_to_array(carry, array);
-            return array;
-        }
-
-            int get_last_digit_of_number(const int number)
-            {
-                return number % 10;
-            }
-
-            int remove_last_digit_of_number(const int number)
-            {
-                return number / 10;
-            }
-
-            vector<int> add_remaining_carry_to_array(int carry, vector<int>& array)
-            {
-                while (carry) {
-                    array.push_back(get_last_digit_of_number(carry));
-                    carry = remove_last_digit_of_number(carry);
-                }
-                return array;
-            }
-
-    void print_factorial(const vector<int>& array)
-    {
-        for (const auto digit : views::reverse(array))
-            cout << digit;
-        cout << '\n';
-    }
+void print_factorial(const vector<int>& arr)
+{
+    for (auto x : views::reverse(arr))
+        cout << x;
+    cout << '\n';
+}
