@@ -2,57 +2,32 @@
 
 package main
 
-import (
-    "fmt"
-    "math"
-)
+import "fmt"
 
 func main() {
     var initialString, finalString string
-    var operations int
-    fmt.Scan(&initialString, &finalString, &operations)
-
-    if appendAndDelete(initialString, finalString, operations) == true {
+    var nOperations int
+    _, _ = fmt.Scan(&initialString, &finalString, &nOperations)
+    if appendAndDelete(initialString, finalString, nOperations) {
         fmt.Println("Yes")
     } else {
         fmt.Println("No")
     }
 }
 
-    func appendAndDelete(initialString string, finalString string, operations int) bool {
-        var commonPrefixSizeBetweenStrings int = findCommonPrefixSizeBetweenStrings(initialString, finalString)
+func appendAndDelete(s1 string, s2 string, nOps int) bool {
+    prefixLen := commonPrefixLength(s1, s2)
+    totalOpsNeeded := (len(s1) - prefixLen) + (len(s2) - prefixLen)
+    canRemoveAll := nOps >= len(s1)+len(s2)
+    return canRemoveAll || (nOps >= totalOpsNeeded && (nOps-totalOpsNeeded)%2 == 0)
+}
 
-        var sizeOfDifferentCharactersFromInitialString int = len(initialString) - commonPrefixSizeBetweenStrings
-        var sizeOfDifferentCharactersFromfinalString int = len(finalString) - commonPrefixSizeBetweenStrings
-
-        var minimalQuantityOfOperationsToReplaceString int = sizeOfDifferentCharactersFromInitialString + sizeOfDifferentCharactersFromfinalString
-        operations -= minimalQuantityOfOperationsToReplaceString
-
-        return areOperationsSuitableToReplaceString(operations, commonPrefixSizeBetweenStrings)
+func commonPrefixLength(s1 string, s2 string) int {
+    minLen := min(len(s1), len(s2))
+    for i := range minLen {
+        if s1[i] != s2[i] {
+            return i
+        }
     }
-
-        func findCommonPrefixSizeBetweenStrings(initialString string, finalString string) int {
-            var size int = 0
-            n := int(math.Min(float64(len(initialString)), float64(len(finalString))))
-            for ; n > 0 && initialString[size] == finalString[size]; n-- {
-                size++
-            }
-            return size
-        }
-
-        func areOperationsSuitableToReplaceString(operations int, commonPrefixSizeBetweenStrings int) bool {
-            if operations < 0 ||
-                (areOperationsBiggerThanZeroAndOdd(operations) &&
-                    areNotOperationsEnoughToRemoveAndReplaceCommonPrefix(operations, commonPrefixSizeBetweenStrings)) {
-                return false
-            }
-            return true
-        }
-
-            func areOperationsBiggerThanZeroAndOdd(operations int) bool {
-                return operations > 0 && operations%2 == 1
-            }
-
-            func areNotOperationsEnoughToRemoveAndReplaceCommonPrefix(operations int, commonPrefixSizeBetweenStrings int) bool {
-                return operations < commonPrefixSizeBetweenStrings*2
-            }
+    return minLen
+}
