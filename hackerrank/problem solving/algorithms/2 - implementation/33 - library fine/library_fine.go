@@ -14,46 +14,32 @@ const (
 )
 
 func main() {
-    var returnDate time.Time = readADate()
-    var dueDate time.Time = readADate()
+    returnDate := readDate()
+    dueDate := readDate()
     fmt.Println(calculateFine(returnDate, dueDate))
 }
 
-    func readADate() time.Time {
-        var day, month, year int
-        fmt.Scan(&day, &month, &year)
-        return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+func readDate() time.Time {
+    var day, month, year int
+    _, _ = fmt.Scan(&day, &month, &year)
+    return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+}
+
+func calculateFine(returnDate, dueDate time.Time) int {
+    if returnedOnTime(returnDate, dueDate) {
+        return 0
     }
-
-    func calculateFine(returnDate time.Time, dueDate time.Time) int {
-        var fine int
-
-        if wereBooksReturnedInTime(returnDate, dueDate) {
-            fine = 0
-        } else if isReturnDateLateInMoreThanOrEqualToOneYear(returnDate.Year(), dueDate.Year()) {
-            fine = HackosYearsFine
-        } else if isReturnDateLateInMoreThanOrEqualToOneMonth(int(returnDate.Month()), int(dueDate.Month())) {
-            fine = (int(returnDate.Month()) - int(dueDate.Month())) * HackosMonthsFine
-        } else {
-            fine = (returnDate.Day() - dueDate.Day()) * HackosDaysFine
-        }
-
-        return fine
+    if returnDate.Year() > dueDate.Year() {
+        return HackosYearsFine
     }
+    if returnDate.Month() > dueDate.Month() {
+        return (int(returnDate.Month()) - int(dueDate.Month())) * HackosMonthsFine
+    }
+    return (returnDate.Day() - dueDate.Day()) * HackosDaysFine
+}
 
-        func wereBooksReturnedInTime(returnDate time.Time, dueDate time.Time) bool {
-            if (returnDate.Year() < dueDate.Year()) ||
-                ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) < int(dueDate.Month()))) ||
-                ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) == int(dueDate.Month())) && (returnDate.Day() <= dueDate.Day())) {
-                return true
-            }
-            return false
-        }
-
-        func isReturnDateLateInMoreThanOrEqualToOneYear(returnDateYear int, dueDateYear int) bool {
-            return returnDateYear > dueDateYear
-        }
-
-        func isReturnDateLateInMoreThanOrEqualToOneMonth(returnDateMonth int, dueDateMonth int) bool {
-            return returnDateMonth > dueDateMonth
-        }
+func returnedOnTime(returnDate, dueDate time.Time) bool {
+    return (returnDate.Year() < dueDate.Year()) ||
+        ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) < int(dueDate.Month()))) ||
+        ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) == int(dueDate.Month())) && (returnDate.Day() <= dueDate.Day()))
+}

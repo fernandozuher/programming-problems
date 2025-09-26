@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,105 +7,55 @@ let inputString: string = '';
 let inputLines: string[] = [];
 let currentLine: number = 0;
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin: string): void {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function (): void {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine(): string {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
+type DateTriple = { day: number; month: number; year: number };
+
 const HackosFine = Object.freeze({
-    HackosDaysFine: 15,
-    HackosMonthsFine: 500,
-    HackosYearsFine: 10000
-})
-
-class DateThatWorks {
-    private dayValue: number;
-    private monthValue: number;
-    private yearValue: number;
-
-    constructor(day: number, month: number, year: number) {
-        this.dayValue = day;
-        this.monthValue = month;
-        this.yearValue = year;
-    }
-
-    day(): number {
-        return this.dayValue;
-    }
-
-    month(): number {
-        return this.monthValue;
-    }
-
-    year(): number {
-        return this.yearValue;
-    }
-}
+  DaysFine: 15,
+  MonthsFine: 500,
+  YearsFine: 10000,
+});
 
 function main() {
-    let returnDate: DateThatWorks = readADate();
-    let dueDate: DateThatWorks = readADate();
-    let obj = new LibraryFine(returnDate, dueDate);
-    console.log(obj.fine());
+  const returnDate: DateTriple = readDate();
+  const dueDate: DateTriple = readDate();
+  console.log(calculateFine(returnDate, dueDate));
 }
 
-    function readADate(): DateThatWorks {
-        let [day, month, year]: number[] = readLine().split(' ').map(Number);
-        return new DateThatWorks(day, month, year);
-    }
+function readDate(): DateTriple {
+  const [day, month, year]: number[] = readLine().split(' ').map(Number);
+  return { day, month, year };
+}
 
-    class LibraryFine {
-        private returnDate: DateThatWorks;
-        private dueDate: DateThatWorks;
-        private fineAmount: number;
+function calculateFine(returnDate: DateTriple, dueDate: DateTriple) {
+  if (returnedOnTime(returnDate, dueDate)) return 0;
+  if (returnDate.year > dueDate.year) return HackosFine.YearsFine;
+  if (returnDate.month > dueDate.month)
+    return (returnDate.month - dueDate.month) * HackosFine.MonthsFine;
+  return (returnDate.day - dueDate.day) * HackosFine.DaysFine;
+}
 
-        constructor(returnDate: DateThatWorks, dueDate: DateThatWorks) {
-            this.returnDate = returnDate;
-            this.dueDate = dueDate;
-            this.fineAmount = 0;
-            this.calculateFine();
-        }
-
-            private calculateFine() {
-                if (this.wereBooksReturnedInTime())
-                    this.fineAmount = 0;
-                else if (this.isReturnDateLateInMoreThanOrEqualToOneYear())
-                    this.fineAmount = HackosFine.HackosYearsFine;
-                else if (this.isReturnDateLateInMoreThanOrEqualToOneMonth())
-                    this.fineAmount = (this.returnDate.month() - this.dueDate.month()) * HackosFine.HackosMonthsFine;
-                else
-                    this.fineAmount = (this.returnDate.day() - this.dueDate.day()) * HackosFine.HackosDaysFine;
-            }
-
-                private wereBooksReturnedInTime(): boolean {
-                    if ((this.returnDate.year() < this.dueDate.year()) ||
-                            ((this.returnDate.year() === this.dueDate.year()) && (this.returnDate.month() < this.dueDate.month())) ||
-                            ((this.returnDate.year() === this.dueDate.year()) && (this.returnDate.month() === this.dueDate.month()) && (this.returnDate.day() <= this.dueDate.day()))
-                       )
-                        return true;
-                    return false;
-                }
-
-                private isReturnDateLateInMoreThanOrEqualToOneYear(): boolean {
-                    return this.returnDate.year() > this.dueDate.year();
-                }
-
-                private isReturnDateLateInMoreThanOrEqualToOneMonth(): boolean {
-                    return this.returnDate.month() > this.dueDate.month();
-                }
-
-        public fine(): number {
-            return this.fineAmount;
-        }
-    }
+function returnedOnTime(returnDate: DateTriple, dueDate: DateTriple): boolean {
+  return (
+    returnDate.year < dueDate.year ||
+    (returnDate.year === dueDate.year && returnDate.month < dueDate.month) ||
+    (returnDate.year === dueDate.year &&
+      returnDate.month === dueDate.month &&
+      returnDate.day <= dueDate.day)
+  );
+}

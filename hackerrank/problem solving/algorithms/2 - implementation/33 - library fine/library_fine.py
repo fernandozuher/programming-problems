@@ -1,73 +1,38 @@
 # https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
-from enum import Enum
 from datetime import datetime
 
+HACKOS_DAYS_FINE = 15
+HACKOS_MONTHS_FINE = 500
+HACKOS_YEARS_FINE = 10000
+
+
 def main():
-
-    return_date = read_a_date()
-    due_date = read_a_date()
-    obj = LibrayFine(return_date, due_date)
-    print(obj.fine())
+    return_date = read_date()
+    due_date = read_date()
+    print(calculate_fine(return_date, due_date))
 
 
-def read_a_date():
-
+def read_date():
     day, month, year = map(int, input().split())
     return datetime(year, month, day)
 
 
-class LibrayFine:
-    
-    def __init__(self, return_date, due_date):
-
-        self._return_date = return_date
-        self._due_date = due_date
-        self._fine = 0
-        self._calculate_fine()
-
-
-    def _calculate_fine(self):
-
-        if self._were_books_returned_in_time():
-            self._fine = 0
-        elif self._is_return_date_late_in_more_than_or_equal_to_one_year():
-            self._fine = HackosFine.hackos_years_fine.value
-        elif self._is_return_date_late_in_more_than_or_equal_to_one_month():
-            self._fine = (self._return_date.month - self._due_date.month) * HackosFine.hackos_months_fine.value
-        else:
-            self._fine = (self._return_date.day - self._due_date.day) * HackosFine.hackos_days_fine.value
+def calculate_fine(return_date, due_date):
+    if returned_on_time(return_date, due_date):
+        return 0
+    if return_date.year > due_date.year:
+        return HACKOS_YEARS_FINE
+    if return_date.year == due_date.year and return_date.month > due_date.month:
+        return (return_date.month - due_date.month) * HACKOS_MONTHS_FINE
+    return (return_date.day - due_date.day) * HACKOS_DAYS_FINE
 
 
-    def _were_books_returned_in_time(self):
-
-        if (self._return_date.year < self._due_date.year) or \
-            ((self._return_date.year == self._due_date.year) and (self._return_date.month < self._due_date.month)) or \
-            ((self._return_date.year == self._due_date.year) and (self._return_date.month == self._due_date.month) and (self._return_date.day <= self._due_date.day)):
-            return True
-        return False
-
-
-    def _is_return_date_late_in_more_than_or_equal_to_one_year(self):
-
-        return self._return_date.year > self._due_date.year
-
-
-    def _is_return_date_late_in_more_than_or_equal_to_one_month(self):
-
-        return self._return_date.month > self._due_date.month
-
-
-    def fine(self):
-
-        return self._fine
-
-
-class HackosFine(Enum):
-
-    hackos_days_fine = 15
-    hackos_months_fine = 500
-    hackos_years_fine = 10000
+def returned_on_time(return_date, due_date):
+    return (return_date.year < due_date.year) or \
+        ((return_date.year == due_date.year) and (return_date.month < due_date.month)) or \
+        ((return_date.year == due_date.year) and (return_date.month == due_date.month) and (
+                return_date.day <= due_date.day))
 
 
 if __name__ == '__main__':

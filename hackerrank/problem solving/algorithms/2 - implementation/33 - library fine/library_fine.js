@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,105 +7,78 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 const HackosFine = Object.freeze({
-    HackosDaysFine: 15,
-    HackosMonthsFine: 500,
-    HackosYearsFine: 10000
-})
+  DaysFine: 15,
+  MonthsFine: 500,
+  YearsFine: 10000,
+});
 
 class DateThatWorks {
-    #day;
-    #month;
-    #year;
+  #day;
+  #month;
+  #year;
 
-    constructor(day, month, year) {
-        this.#day = day;
-        this.#month = month;
-        this.#year = year;
-    }
+  constructor(day, month, year) {
+    this.#day = day;
+    this.#month = month;
+    this.#year = year;
+  }
 
-    day() {
-        return this.#day;
-    }
+  day() {
+    return this.#day;
+  }
 
-    month() {
-        return this.#month;
-    }
+  month() {
+    return this.#month;
+  }
 
-    year() {
-        return this.#year;
-    }
+  year() {
+    return this.#year;
+  }
 }
 
 function main() {
-    let returnDate = readADate();
-    let dueDate = readADate();
-    let obj = new LibraryFine(returnDate, dueDate);
-    console.log(obj.fine());
+  const returnDate = readDate();
+  const dueDate = readDate();
+  console.log(calculateFine(returnDate, dueDate));
 }
 
-    function readADate() {
-        let [day, month, year] = readLine().split(' ').map(Number);
-        return new DateThatWorks(day, month, year);
-    }
+function readDate() {
+  const [day, month, year] = readLine().split(' ').map(Number);
+  return new DateThatWorks(day, month, year);
+}
 
-    class LibraryFine {
-        #returnDate;
-        #dueDate;
-        #fine;
+function calculateFine(returnDate, dueDate) {
+  if (returnedOnTime(returnDate, dueDate)) return 0;
+  if (returnDate.year() > dueDate.year()) return HackosFine.YearsFine;
+  if (returnDate.month() > dueDate.month())
+    return (returnDate.month() - dueDate.month()) * HackosFine.MonthsFine;
+  return (returnDate.day() - dueDate.day()) * HackosFine.DaysFine;
+}
 
-        constructor(returnDate, dueDate) {
-            this.#returnDate = returnDate;
-            this.#dueDate = dueDate;
-            this.#fine = 0;
-            this.#calculateFine();
-        }
-
-            #calculateFine() {
-                if (this.#wereBooksReturnedInTime())
-                    this.#fine = 0;
-                else if (this.#isReturnDateLateInMoreThanOrEqualToOneYear())
-                    this.#fine = HackosFine.HackosYearsFine;
-                else if (this.#isReturnDateLateInMoreThanOrEqualToOneMonth())
-                    this.#fine = (this.#returnDate.month() - this.#dueDate.month()) * HackosFine.HackosMonthsFine;
-                else
-                    this.#fine = (this.#returnDate.day() - this.#dueDate.day()) * HackosFine.HackosDaysFine;
-            }
-
-                #wereBooksReturnedInTime() {
-                    if ((this.#returnDate.year() < this.#dueDate.year()) ||
-                            ((this.#returnDate.year() === this.#dueDate.year()) && (this.#returnDate.month() < this.#dueDate.month())) ||
-                            ((this.#returnDate.year() === this.#dueDate.year()) && (this.#returnDate.month() === this.#dueDate.month()) && (this.#returnDate.day() <= this.#dueDate.day()))
-                       )
-                        return true;
-                    return false;
-                }
-
-                #isReturnDateLateInMoreThanOrEqualToOneYear() {
-                    return this.#returnDate.year() > this.#dueDate.year();
-                }
-
-                #isReturnDateLateInMoreThanOrEqualToOneMonth() {
-                    return this.#returnDate.month() > this.#dueDate.month();
-                }
-
-        fine() {
-            return this.#fine;
-        }
-    }
+function returnedOnTime(returnDate, dueDate) {
+  return (
+    returnDate.year() < dueDate.year() ||
+    (returnDate.year() === dueDate.year() &&
+      returnDate.month() < dueDate.month()) ||
+    (returnDate.year() === dueDate.year() &&
+      returnDate.month() === dueDate.month() &&
+      returnDate.day() <= dueDate.day())
+  );
+}
