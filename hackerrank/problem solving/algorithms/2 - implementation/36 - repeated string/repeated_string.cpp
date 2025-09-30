@@ -1,34 +1,31 @@
 // https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
-import <algorithm>;
-import <iostream>;
-import <string_view>;
+#include <algorithm>;
+#include <iostream>;
+#include <string_view>;
 
 using namespace std;
 
-long count_in_repeated_string(const string_view input_string, const char letter, const long n_characteres);
+long count_in_repeated_string(const string_view& input_string, char letter, long n_characters);
 
 int main()
 {
     string input_string;
-    cin >> input_string;
-    long n_characteres;
-    cin >> n_characteres;
+    long n_characters;
+    cin >> input_string >> n_characters;
 
-    constexpr char letter {'a'};
-    cout << count_in_repeated_string(input_string, letter, n_characteres) << '\n';
+    constexpr char letter{'a'};
+    cout << count_in_repeated_string(input_string, letter, n_characters) << '\n';
 
     return 0;
 }
 
-    long count_in_repeated_string(const string_view input_string, const char letter, const long n_characteres)
-    {
-        auto [repeated_entire_string, n_substring] {div(n_characteres, input_string.length())};
-        string_view substring {input_string.begin(), input_string.begin() + n_substring};
+long count_in_repeated_string(const string_view& input_string, char letter, long n_characters)
+{
+    auto [full_repeats, n_substring]{div(n_characters, input_string.length())};
+    string_view substring{input_string.begin(), input_string.begin() + n_substring};
 
-        long quantity {ranges::count(input_string, letter)};
-        quantity *= repeated_entire_string;
-        quantity += ranges::count(substring, letter);
-
-        return quantity;
-    }
+    long quantity{ranges::count(input_string, letter)};
+    quantity *= full_repeats;
+    return quantity + ranges::count(substring, letter);
+}

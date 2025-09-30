@@ -5,26 +5,23 @@ use text_io::read;
 
 fn main() {
     let string: String = read!();
-    let n_characters: i64 = read!();
-    const letter: char = 'a';
+    let n_characters: usize = read!();
+    const LETTER: char = 'a';
     println!(
         "{}",
-        count_in_repeated_string(string.as_str(), letter, n_characters)
+        count_in_repeated_string(string.as_str(), LETTER, n_characters)
     );
 }
 
-fn count_in_repeated_string(string: &str, letter: char, n_characters: i64) -> i64 {
-    let (repeated_entire_string, n_substring): (usize, usize) =
-        div_rem(n_characters as usize, string.len());
+fn count_in_repeated_string(string: &str, letter: char, n_characters: usize) -> usize {
+    let (full_repeats, n_substring): (usize, usize) = div_rem(n_characters, string.len());
     let substring = &string[..n_substring];
 
-    let mut quantity: i64 = count(string, letter);
-    quantity *= repeated_entire_string as i64;
-    quantity += count(substring, letter);
-
-    return quantity;
+    let mut quantity: usize = count(string, letter);
+    quantity *= full_repeats;
+    quantity + count(substring, letter)
 }
 
-fn count(string: &str, letter: char) -> i64 {
-    return string.matches(letter).count() as i64;
+fn count(string: &str, letter: char) -> usize {
+    string.chars().filter(|&c| c == letter).count()
 }
