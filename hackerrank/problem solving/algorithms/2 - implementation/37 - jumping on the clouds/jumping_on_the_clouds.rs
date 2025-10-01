@@ -4,12 +4,14 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let mut clouds: Vec<i32> = vec![0; n];
-    clouds.fill_with(|| read!());
-    println!("{}", minimum_number_of_jumps(&clouds));
+    println!("{}", minimum_number_of_jumps(&read_numbers(n)));
 }
 
-fn minimum_number_of_jumps(clouds: &Vec<i32>) -> i32 {
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+fn minimum_number_of_jumps(clouds: &[i32]) -> i32 {
     let mut i: usize = 0;
     let n: usize = clouds.len() - 1;
     let mut jumps: i32 = 0;
@@ -18,10 +20,10 @@ fn minimum_number_of_jumps(clouds: &Vec<i32>) -> i32 {
         i += next_jump(i, clouds);
         jumps += 1;
     }
-    return jumps;
+    jumps
 }
 
-fn next_jump(index: usize, clouds: &Vec<i32>) -> usize {
+fn next_jump(index: usize, clouds: &[i32]) -> usize {
     let mut is_next_second_cloud_cumulus = false;
     if index + 2 < clouds.len() {
         is_next_second_cloud_cumulus = clouds[index + 2] == 0;

@@ -1,14 +1,15 @@
 # https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem?isFullScreen=true
 
 def main():
+    input()
+    print(minimum_number_of_jumps(read_numbers()))
 
-    n = int(input())
-    clouds = list(map(int, input().split()))
-    print(minimum_number_of_jumps(clouds))
+
+def read_numbers():
+    return list(map(int, input().split()))
 
 
 def minimum_number_of_jumps(clouds):
-
     i = 0
     n = len(clouds) - 1
     jumps = 0
@@ -20,7 +21,6 @@ def minimum_number_of_jumps(clouds):
 
 
 def next_jump(index, clouds):
-
     if index + 2 < len(clouds):
         if is_next_second_cloud_cumulus := clouds[index + 2] == 0:
             return 2
