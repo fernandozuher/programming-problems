@@ -10,9 +10,7 @@ def read_numbers
 end
 
 def equalize_array(arr)
-  counter = arr.tally
-  max_frequency = counter.values.max
-  arr.length - max_frequency
+  arr.length - arr.tally.values.max
 end
 
 main if __FILE__ == $PROGRAM_NAME

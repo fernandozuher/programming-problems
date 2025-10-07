@@ -14,8 +14,8 @@ def read_numbers():
 
 def equalize_array(arr):
     counter = Counter(arr)
-    max_frequency = max(counter.values())
-    return len(arr) - max_frequency
+    max_count = max(counter.values())
+    return len(arr) - max_count
 
 
 if __name__ == '__main__':
