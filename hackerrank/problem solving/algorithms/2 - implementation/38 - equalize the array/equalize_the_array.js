@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -9,32 +7,41 @@ let inputString = '';
 let inputLines = [];
 let currentLine = 0;
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
+process.stdin.on('data', function (inputStdin) {
+  inputString += inputStdin;
 });
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+process.stdin.on('end', function () {
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let array = readLine().split(' ').map(Number);
-    let frequency = {};
-    array.forEach(x => {frequency[x] = (frequency[x] ?? 0) + 1;});
-    console.log(equalizeArray(frequency, n));
+  const n = +readLine();
+  console.log(equalizeArray(readNumbers(), n));
 }
 
-    function equalizeArray(map, n) {
-        let maximumQuantityOfEqualElement = Math.max(...Object.values(map));
-        let minimumNumberRequiredDeletions = n - maximumQuantityOfEqualElement;
-        return minimumNumberRequiredDeletions;
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
+
+function equalizeArray(arr) {
+  const counts = counter(arr);
+  const maxCount = Math.max(...Object.values(counts));
+  return arr.length - maxCount;
+}
+
+function counter(arr) {
+  let counter = {};
+  arr.forEach((x) => {
+    counter[x] = (counter[x] ?? 0) + 1;
+  });
+  return counter;
+}

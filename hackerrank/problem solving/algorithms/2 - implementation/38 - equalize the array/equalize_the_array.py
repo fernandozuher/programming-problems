@@ -1,22 +1,21 @@
 # https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-from collections import defaultdict
+from collections import Counter
+
 
 def main():
-
-    n = int(input())
-    array = list(map(int, input().split()))
-    frequency = defaultdict(int)
-    for x in array:
-        frequency[x] += 1
-    print(equalize_array(frequency, n))
+    input()
+    print(equalize_array(read_numbers()))
 
 
-def equalize_array(map, n):
+def read_numbers():
+    return list(map(int, input().split()))
 
-    maximum_quantity_of_equal_element = max(map.values())
-    minimum_number_required_deletions = n - maximum_quantity_of_equal_element
-    return minimum_number_required_deletions
+
+def equalize_array(arr):
+    counter = Counter(arr)
+    max_frequency = max(counter.values())
+    return len(arr) - max_frequency
 
 
 if __name__ == '__main__':

@@ -1,26 +1,23 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-use std::collections::HashMap;
+use counter_fpy::Counter;
 use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let frequency: HashMap<i32, i32> = read_array_into_map(n);
-    println!("{}", equalize_array(&frequency, n));
+    println!("{}", equalize_array(read_numbers(n)));
 }
 
-fn read_array_into_map(n: usize) -> HashMap<i32, i32> {
-    let mut map: HashMap<i32, i32> = HashMap::new();
-    for _i in 0..n {
-        let x: i32 = read!();
-        *map.entry(x.to_owned()).or_default() += 1;
-    }
-    return map;
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
 }
 
-fn equalize_array(array: &HashMap<i32, i32>, n: usize) -> i32 {
-    let maximum_quantity_of_equal_element: i32 =
-        *array.iter().max_by(|x, y| x.1.cmp(y.1)).unwrap().1;
-    let minimum_number_required_deletions: i32 = n as i32 - maximum_quantity_of_equal_element;
-    return minimum_number_required_deletions;
+fn equalize_array(arr: Vec<i32>) -> usize {
+    let collection = Counter::from(Counter::new(), arr.clone());
+    let max_count = collection
+        .iter()
+        .max_by_key(|(_k, v)| *v)
+        .unwrap_or((&0, &0))
+        .1;
+    arr.len() - max_count
 }

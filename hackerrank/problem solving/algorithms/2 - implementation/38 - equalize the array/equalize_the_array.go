@@ -2,40 +2,30 @@
 
 package main
 
-import (
-    "fmt"
-    "math"
-)
+import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    var frequency map[int]int = readArrayIntoMap(n)
-    fmt.Println(equalizeArray(frequency, n))
+    _, _ = fmt.Scan(&n)
+    fmt.Println(equalizeArray(counter(n), n))
 }
 
-    func readArrayIntoMap(n int) map[int]int {
-        arrayMap := make(map[int]int)
-        for ; n > 0; n-- {
-            var x int
-            fmt.Scanf("%d", &x)
-            arrayMap[x]++
-        }
-        return arrayMap
+func counter(n int) map[int]int {
+    count := make(map[int]int)
+    for range n {
+        var x int
+        _, _ = fmt.Scan(&x)
+        count[x]++
     }
+    return count
+}
 
-    func equalizeArray(arrayMap map[int]int, n int) int {
-        var maximumQuantityOfEqualElement int = maxValue(arrayMap)
-        var minimumNumberRequiredDeletions int = n - maximumQuantityOfEqualElement
-        return minimumNumberRequiredDeletions
-    }
-
-        func maxValue(arrayMap map[int]int) int {
-            max := math.MinInt
-            for _, v := range arrayMap {
-                if v > max {
-                    max = v
-                }
-            }
-            return max
+func equalizeArray(counter map[int]int, n int) int {
+    maxCount := 0
+    for _, count := range counter {
+        if count > maxCount {
+            maxCount = count
         }
+    }
+    return n - maxCount
+}

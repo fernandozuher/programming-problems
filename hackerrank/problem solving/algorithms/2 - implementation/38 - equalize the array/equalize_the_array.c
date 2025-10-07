@@ -3,46 +3,51 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cmp(const void* const a, const void* const b);
-int equalize_array(const int* const array, const int n);
-    int find_maximum_quantity_of_equal_element(const int* const array, const int n);
+void read_numbers(int *arr, int n);
+int cmp(const void *a, const void *b);
+int equalize_array(const int *array, int n);
+int max_count(const int *array, int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int array[n];
-    for (int i = 0; i < n; scanf("%d", &array[i++]));
-    qsort(array, n, sizeof(int), cmp);
-    printf("%d\n", equalize_array(array, n));
+    int arr[n];
+    read_numbers(arr, n);
+    qsort(arr, n, sizeof(int), cmp);
+
+    printf("%d\n", equalize_array(arr, n));
 
     return 0;
 }
 
-    int cmp(const void* const a, const void* const b)
-    {
-        return (*(int*) a - *(int*) b);
-    }
+void read_numbers(int *arr, int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &arr[i]);
+}
 
-    int equalize_array(const int* const array, const int n)
-    {
-        int maximum_quantity_of_equal_element = find_maximum_quantity_of_equal_element(array, n);
-        int minimum_number_required_deletions = n - maximum_quantity_of_equal_element;
-        return minimum_number_required_deletions;
-    }
+int cmp(const void *a, const void *b)
+{
+    return *(int *) a - *(int *) b;
+}
 
-        int find_maximum_quantity_of_equal_element(const int* const array, const int n)
-        {
-            int maximum_quantity_of_equal_element = 1;
+int equalize_array(const int *array, int n)
+{
+    return n - max_count(array, n);
+}
 
-            for (int i = 1, temp_max = 1; i < n; ++i)
-                if (array[i - 1] == array[i]) {
-                    ++temp_max;
-                    if (temp_max > maximum_quantity_of_equal_element)
-                        maximum_quantity_of_equal_element = temp_max;
-                }
-                else
-                    temp_max = 1;
+int max_count(const int *array, int n)
+{
+    int max_count = 1;
 
-            return maximum_quantity_of_equal_element;
-        }
+    for (int i = 1, temp_max = 1; i < n; ++i)
+        if (array[i - 1] == array[i]) {
+            ++temp_max;
+            if (temp_max > max_count)
+                max_count = temp_max;
+        } else
+            temp_max = 1;
+
+    return max_count;
+}

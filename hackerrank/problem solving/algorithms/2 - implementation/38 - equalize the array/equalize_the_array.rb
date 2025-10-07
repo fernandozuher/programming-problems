@@ -1,18 +1,18 @@
 # https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
 def main
-    n = gets.to_i
-    array = gets.split
-    frequency = Hash.new(0)
-    array.each do |x|
-        frequency[x] += 1
-    end
-    p equalize_array(frequency, n)
+  gets
+  puts equalize_array(read_numbers)
 end
 
-    def equalize_array(map, n)
-        maximum_quantity_of_equal_element = map.values.max
-        minimum_number_required_deletions = n - maximum_quantity_of_equal_element
-    end
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-main
+def equalize_array(arr)
+  counter = arr.tally
+  max_frequency = counter.values.max
+  arr.length - max_frequency
+end
+
+main if __FILE__ == $PROGRAM_NAME
