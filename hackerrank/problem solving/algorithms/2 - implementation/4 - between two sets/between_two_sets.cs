@@ -5,14 +5,14 @@ public class Solution
     public static void Main()
     {
         Console.ReadLine();
-        int[] numbersA = ReadNumbers();
-        int[] numbersB = ReadNumbers();
-        Console.WriteLine(BetweenTwoSets(numbersA, numbersB));
+        int[] a = ReadNumbers();
+        int[] b = ReadNumbers();
+        Console.WriteLine(BetweenTwoSets(a, b));
     }
 
     private static int[] ReadNumbers()
     {
-        return Console.ReadLine().Split().Select(int.Parse).ToArray();
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
     }
 
     private static int BetweenTwoSets(int[] a, int[] b)
@@ -27,9 +27,9 @@ public class Solution
         return count;
     }
 
-    private static int LcmArray(int[] numbers)
+    private static int LcmArray(int[] arr)
     {
-        return numbers.Skip(1).Aggregate(numbers[0], (a, b) => Lcm(a, b));
+        return arr.Aggregate(Lcm);
     }
 
     private static int Lcm(int a, int b)
@@ -37,9 +37,9 @@ public class Solution
         return a * b / Gcd(a, b);
     }
 
-    private static int GcdArray(int[] numbers)
+    private static int GcdArray(int[] arr)
     {
-        return numbers.Skip(1).Aggregate(numbers[0], (a, b) => Gcd(a, b));
+        return arr.Aggregate(Gcd);
     }
 
     private static int Gcd(int a, int b)

@@ -11,16 +11,16 @@ using namespace std;
 
 vector<int> read_numbers(int n);
 int between_two_sets(const vector<int>& a, const vector<int>& b);
-int lcm_array(const vector<int>& numbers);
-int gcd_array(const vector<int>& numbers);
+int lcm_array(const vector<int>& arr);
+int gcd_array(const vector<int>& arr);
 
 int main()
 {
     int n1, n2;
     cin >> n1 >> n2;
-    vector numbers_a{read_numbers(n1)};
-    vector numbers_b{read_numbers(n2)};
-    cout << between_two_sets(numbers_a, numbers_b) << '\n';
+    vector a{read_numbers(n1)};
+    vector b{read_numbers(n2)};
+    cout << between_two_sets(a, b) << '\n';
     return 0;
 }
 
@@ -46,12 +46,12 @@ int between_two_sets(const vector<int>& a, const vector<int>& b)
     return static_cast<int>(ranges::distance(rng));
 }
 
-int lcm_array(const vector<int>& numbers)
+int lcm_array(const vector<int>& arr)
 {
-    return ranges::fold_left(numbers | views::drop(1), numbers.front(), [](int a, int b) { return lcm(a, b); });
+    return *ranges::fold_left_first(arr, lcm<int, int>);
 }
 
-int gcd_array(const vector<int>& numbers)
+int gcd_array(const vector<int>& arr)
 {
-    return ranges::fold_left(numbers | views::drop(1), numbers.front(), [](int a, int b) { return gcd(a, b); });
+    return *ranges::fold_left_first(arr, gcd<int, int>);
 }

@@ -1,10 +1,10 @@
-# https://www.hackerrank.com/challenges/between-two-sets/problem?is_full_screen=true
+# https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
 def main
   gets
-  numbers_a = read_numbers
-  numbers_b = read_numbers
-  print(between_two_sets(numbers_a, numbers_b))
+  a = read_numbers
+  b = read_numbers
+  print(between_two_sets(a, b))
 end
 
 def read_numbers
@@ -12,20 +12,9 @@ def read_numbers
 end
 
 def between_two_sets(a, b)
-  lcm_of_a = lcm_array(a)
-  gcd_of_b = gcd_array(b)
-
-  (lcm_of_a..gcd_of_b).step(lcm_of_a).filter do |i|
-    gcd_of_b % i == 0
-  end.count
+  lcm_of_a = a.reduce(:lcm)
+  gcd_of_b = b.reduce(:gcd)
+  (lcm_of_a..gcd_of_b).step(lcm_of_a).count { |i| gcd_of_b % i == 0 }
 end
 
-def lcm_array(numbers)
-  numbers[1..].reduce(numbers[0], :lcm)
-end
-
-def gcd_array(numbers)
-  numbers[1..].reduce(numbers[0], :gcd)
-end
-
-main
+main if __FILE__ == $PROGRAM_NAME

@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -19,17 +17,17 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
   readLine();
-  const numbersA = readNumbers();
-  const numbersB = readNumbers();
-  console.log(betweenTwoSets(numbersA, numbersB));
-}
-
-function readLine() {
-  return inputLines[currentLine++];
+  const a = readNumbers();
+  const b = readNumbers();
+  console.log(betweenTwoSets(a, b));
 }
 
 function readNumbers() {
@@ -47,16 +45,16 @@ function betweenTwoSets(a, b) {
   return count;
 }
 
-function lcmArray(numbers) {
-  return numbers.slice(1).reduce(lcm, numbers[0]);
+function lcmArray(arr) {
+  return arr.reduce(lcm);
 }
 
 function lcm(a, b) {
   return (a * b) / gcd(a, b);
 }
 
-function gcdArray(numbers) {
-  return numbers.slice(1).reduce(gcd, numbers[0]);
+function gcdArray(arr) {
+  return arr.reduce(gcd);
 }
 
 function gcd(a, b) {
