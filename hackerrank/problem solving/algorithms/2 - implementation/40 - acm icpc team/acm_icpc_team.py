@@ -1,66 +1,40 @@
 # https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
-from bitarray import bitarray
+from itertools import combinations
+
 
 def main():
-
-    attendees, topics = read_int_array()
+    attendees, _ = read_numbers()
     binaries = read_binaries(attendees)
-    obj = ACM_ICPC_TEAM(binaries)
-    obj.find_maximum_subjects_and_teams_that_know_them()
-    print(f"{obj.maximum_subjects_known_by_teams()} \n{obj.teams_that_know_maximum_subjects()}")
+    print(*acm_team(binaries), sep='\n')
 
 
-def read_int_array():
-
+def read_numbers():
     return list(map(int, input().split()))
 
 
 def read_binaries(n):
-
-    return [bitarray(input()) for _ in range(n)]
-
-
-class ACM_ICPC_TEAM:
-
-    def __init__(self, binaries):
-
-        self._binaries = binaries
-        self._maximum_subjects_known_by_teams = 0
-        self._teams_that_know_maximum_subjects = 0
+    return [input().strip() for _ in range(n)]
 
 
-    def find_maximum_subjects_and_teams_that_know_them(self):
+def acm_team(binaries):
+    max_subjects = 0
+    teams_with_max = 0
 
-        for i, previous in enumerate(self._binaries[:-1]):
-            for current in self._binaries[i + 1:]:
-                subjects_known_by_2_teams = self._count_subjects_known_by_2_teams(previous, current)
-                self._update_maximum_subjects_and_teams_that_know_them(subjects_known_by_2_teams)
+    for i, j in combinations(range(len(binaries)), 2):
+        known_subjects = count_subjects_known_by_2_teams(binaries[i], binaries[j])
 
+        if known_subjects > max_subjects:
+            max_subjects = known_subjects
+            teams_with_max = 1
+        elif known_subjects == max_subjects:
+            teams_with_max += 1
 
-    def _count_subjects_known_by_2_teams(self, binary1, binary2):
-
-        return (binary1 | binary2).count(1)
-
-
-    def _update_maximum_subjects_and_teams_that_know_them(self, subjects_known_by_2_teams):
-
-        if subjects_known_by_2_teams > self._maximum_subjects_known_by_teams:
-            self._maximum_subjects_known_by_teams = subjects_known_by_2_teams
-            self._teams_that_know_maximum_subjects = 1
-
-        elif subjects_known_by_2_teams == self._maximum_subjects_known_by_teams:
-            self._teams_that_know_maximum_subjects += 1
+    return max_subjects, teams_with_max
 
 
-    def maximum_subjects_known_by_teams(self):
-
-        return self._maximum_subjects_known_by_teams
-
-
-    def teams_that_know_maximum_subjects(self):
-
-        return self._teams_that_know_maximum_subjects
+def count_subjects_known_by_2_teams(a, b):
+    return (int(a, 2) | int(b, 2)).bit_count()
 
 
 if __name__ == '__main__':
