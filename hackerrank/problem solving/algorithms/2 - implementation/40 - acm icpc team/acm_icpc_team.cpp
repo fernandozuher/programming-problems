@@ -11,7 +11,7 @@ using namespace std;
 
 constexpr int n_bitset{500};
 
-tuple<int, int> acm_team(const vector<bitset<n_bitset>> &binaries);
+tuple<int, int> acm_team(const vector<bitset<n_bitset>>& binaries);
 int count_subjects_known_by_2_teams(const bitset<n_bitset>& a, const bitset<n_bitset>& b);
 
 
@@ -29,7 +29,7 @@ int main()
     return 0;
 }
 
-tuple<int, int> acm_team(const vector<bitset<n_bitset>> &binaries)
+tuple<int, int> acm_team(const vector<bitset<n_bitset>>& binaries)
 {
     int max_subjects{};
     int teams_with_max{};
