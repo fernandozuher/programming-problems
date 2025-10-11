@@ -1,83 +1,37 @@
 // https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
-using static System.Console;
 
-namespace ProgrammingProblem
-{
 record struct Gifts(long nBlackGifts, long nWhiteGifts, long blackGiftCost,
                     long whiteGiftCost, long costToConvertBetweenGifts);
 
 class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int n = int.Parse(ReadLine());
-        var output = new List<long>(new long[n]).Select(x =>
+        int n = int.Parse(Console.ReadLine()!);
+        for (int i = 0; i < n; i++)
         {
-            var obj = new TaumAndBday(ReadTestCase());
-            obj.CalculateMinimumCostOfBuyingGifts();
-            return obj.MinimumCostOfBuyingGifts;
-        }).ToList();
-
-        output.ForEach(WriteLine);
+            var testCase = ReadTestCase();
+            Console.WriteLine(MinCostOfBuyingGifts(testCase));
+        }
     }
 
-        static Gifts ReadTestCase()
-        {
-            var line1 = ReadLongArray();
-            var line2 = ReadLongArray();
-            return new Gifts(line1.First(), line1.Last(), line2.First(), line2[1], line2.Last());
-        }
-
-            static List<long> ReadLongArray()
-            {
-                return ReadLine().Split().Select(long.Parse).ToList();
-            }
-}
-
-    class TaumAndBday
+    private static Gifts ReadTestCase()
     {
-        private Gifts _gifts;
-        private long _costToConvertFromBlackToWhite, _costToConvertFromWhiteToBlack;
-        private long _minimumCostOfBuyingGifts;
+        var line1 = ReadNumbers();
+        var line2 = ReadNumbers();
+        return new Gifts(line1[0], line1[1], line2[0], line2[1], line2[2]);
+    }
 
-        public TaumAndBday(Gifts gifts) {
-            _gifts = gifts;
-            _costToConvertFromBlackToWhite = _gifts.blackGiftCost + _gifts.costToConvertBetweenGifts;
-            _costToConvertFromWhiteToBlack = _gifts.whiteGiftCost + _gifts.costToConvertBetweenGifts;
-            _minimumCostOfBuyingGifts = 0;
-        }
+    private static long[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(long.Parse).ToArray();
+    }
 
-        public void CalculateMinimumCostOfBuyingGifts()
-        {
-            _minimumCostOfBuyingGifts = _areOriginalCostsCheaperOrEqualThanConversionBetweenGifts() ?
-                                        _calculateMinimumStandardCost() : _calculateMinimumCostInConvertingGifts();
-        }
-
-            private bool _areOriginalCostsCheaperOrEqualThanConversionBetweenGifts()
-            {
-                return _gifts.whiteGiftCost <= _costToConvertFromBlackToWhite
-                       && _gifts.blackGiftCost <= _costToConvertFromWhiteToBlack;
-            }
-
-            private long _calculateMinimumStandardCost()
-            {
-                return _gifts.nBlackGifts * _gifts.blackGiftCost + _gifts.nWhiteGifts * _gifts.whiteGiftCost;
-            }
-
-            private long _calculateMinimumCostInConvertingGifts()
-            {
-                long totalGifts = _gifts.nBlackGifts + _gifts.nWhiteGifts;
-
-                if (_gifts.whiteGiftCost > _costToConvertFromBlackToWhite)
-                    return totalGifts * _gifts.blackGiftCost + _gifts.nWhiteGifts * _gifts.costToConvertBetweenGifts;
-
-                return totalGifts * _gifts.whiteGiftCost + _gifts.nBlackGifts * _gifts.costToConvertBetweenGifts;
-            }
-
-        public long MinimumCostOfBuyingGifts
-        {
-            get => _minimumCostOfBuyingGifts;
-        }
+    private static long MinCostOfBuyingGifts(Gifts gifts)
+    {
+        long blackCost = Math.Min(gifts.blackGiftCost, gifts.whiteGiftCost + gifts.costToConvertBetweenGifts);
+        long whiteCost = Math.Min(gifts.whiteGiftCost, gifts.blackGiftCost + gifts.costToConvertBetweenGifts);
+        return gifts.nBlackGifts * blackCost + gifts.nWhiteGifts * whiteCost;
     }
 }
