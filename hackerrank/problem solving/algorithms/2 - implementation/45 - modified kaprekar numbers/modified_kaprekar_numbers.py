@@ -1,11 +1,11 @@
 # https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
 
 def main():
-    lower_limit = int(input())
-    upper_limit = int(input())
+    lower = int(input())
+    upper = int(input())
     valid_range = False
 
-    for number in range(lower_limit, upper_limit + 1):
+    for number in range(lower, upper + 1):
         if is_number_kaprekar(number):
             print(number, end=' ')
             valid_range = True
@@ -22,14 +22,7 @@ def is_number_kaprekar(number):
 
 
 def number_digits(n):
-    if n < 10: return 1
-    if n < 100: return 2
-    if n < 1000: return 3
-    if n < 10000: return 4
-    if n < 100000: return 5
-    if n < 1000000: return 6
-    if n < 10000000: return 7
-    return 8
+    return len(str(n))
 
 
 if __name__ == '__main__':

@@ -1,49 +1,40 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
 
-#include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <ranges>
 
 using namespace std;
-using namespace views;
 
-void print_if_number_is_kaprekar(int number, bool& valid_range);
-    int number_digits(long n);
+bool is_number_kaprekar(int number);
+int number_digits(long n);
 
 int main()
 {
-    int lower_limit, upper_limit;
-    cin >> lower_limit >> upper_limit;
-    bool valid_range {};
-    auto print_kaprekar_numbers = [&valid_range](const int x){print_if_number_is_kaprekar(x, valid_range);};
+    int lower, upper;
+    cin >> lower >> upper;
+    bool valid_range{};
 
-    ranges::for_each(iota(lower_limit, upper_limit + 1), print_kaprekar_numbers);
+    for (int number{lower}; number <= upper; ++number)
+        if (is_number_kaprekar(number)) {
+            cout << number << " ";
+            valid_range = true;
+        }
+
     if (!valid_range)
-        cout << "INVALID_RANGE\n";
+        puts("INVALID RANGE");
 
     return 0;
 }
 
-    void print_if_number_is_kaprekar(const int number, bool& valid_range)
-    {
-        auto square_number {pow(number, 2)};
-        auto divisor {pow(10, number_digits(number))};
-        auto [left_number, right_number] {ldiv(square_number, divisor)};
-        if (number == left_number + right_number) {
-            cout << number << ' ';
-            valid_range = true;
-        }
-    }
+bool is_number_kaprekar(int number)
+{
+    auto square_number{pow(number, 2)};
+    auto divisor{pow(10, number_digits(number))};
+    auto [left_number, right_number]{ldiv(square_number, divisor)};
+    return number == left_number + right_number;
+}
 
-        int number_digits(const long n)
-        {
-            if (n < 10) return 1;
-            if (n < 100) return 2;
-            if (n < 1000) return 3;
-            if (n < 10000) return 4;
-            if (n < 100000) return 5;
-            if (n < 1000000) return 6;
-            if (n < 10000000) return 7;
-            return 8;
-        }
+int number_digits(long n)
+{
+    return static_cast<int>(log10(n)) + 1;
+}
