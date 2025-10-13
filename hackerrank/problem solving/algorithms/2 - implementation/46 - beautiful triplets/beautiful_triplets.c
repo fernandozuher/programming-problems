@@ -1,44 +1,48 @@
 // https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
+// C23
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int find_beautiful_triplets(const int array[], const int n, const int beautiful_difference);
+void read_numbers(int *arr, int n);
+int find_beautiful_triplets(const int *arr, int n, int beautiful_difference);
+int compare(const void *a, const void *b);
 
-int main() {
+int main()
+{
     int n, beautiful_difference;
     scanf("%d %d", &n, &beautiful_difference);
-    int array[n];
-    for (int i = 0; i < n; ++i)
-        scanf("%d", &array[i]);
-
-    printf("%d\n", find_beautiful_triplets(array, n, beautiful_difference));
+    int arr[n];
+    read_numbers(arr, n);
+    printf("%d\n", find_beautiful_triplets(arr, n, beautiful_difference));
 
     return 0;
 }
 
-    int find_beautiful_triplets(const int array[], const int n, const int beautiful_difference)
-    {
-        int n_beautiful_triplets = 0;
+void read_numbers(int *arr, int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &arr[i]);
+}
 
-        if (n > 2)
-            for (int i = 0; i < n - 2; ++i)
-                for (int j = i + 1; j < n - 1; ++j) {
-                    int first_difference = array[j] - array[i];
+int find_beautiful_triplets(const int *arr, int n, int beautiful_difference)
+{
+    int count = 0;
+    for (int i = 0; i < n - 2; ++i) {
+        int first = arr[i] + beautiful_difference;
+        int second = arr[i] + 2 * beautiful_difference;
 
-                    if (first_difference < beautiful_difference)
-                        continue;
-                    else if (first_difference > beautiful_difference)
-                        break;
-
-                    for (int k = j + 1; k < n; ++k) {
-                        int second_difference = array[k] - array[j];
-
-                        if (second_difference == beautiful_difference)
-                            ++n_beautiful_triplets;
-                        else if (second_difference > beautiful_difference)
-                            break;
-                    }
-                }
-
-        return n_beautiful_triplets;
+        void *found_first = bsearch(&first, arr + i + 1, n - i - 1, sizeof(int), compare);
+        if (found_first) {
+            int found_index = ((int *) found_first) - arr;
+            auto found_second = bsearch(&second, arr + found_index + 1, n - found_index - 1, sizeof(int), compare);
+            count += found_second ? 1 : 0;
+        }
     }
+    return count;
+}
+
+int compare(const void *a, const void *b)
+{
+    return *(int *) a - *(int *) b;
+}
