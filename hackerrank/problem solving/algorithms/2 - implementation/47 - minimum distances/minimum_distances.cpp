@@ -1,39 +1,47 @@
 // https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
+// C++23
 
 #include <iostream>
-#include <map>
-#include <numeric>
+#include <ranges>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
-constexpr int no_index {-1};
-
-int find_minimum_distance_while_read_input(int n);
+vector<int> read_numbers(int n);
+int min_distance(const vector<int>& arr);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << find_minimum_distance_while_read_input(n) << '\n';
-
+    vector arr{read_numbers(n)};
+    cout << min_distance(arr) << '\n';
     return 0;
 }
 
-    int find_minimum_distance_while_read_input(const int n)
-    {
-        int minimum_distance {numeric_limits<int>::max()};
-        map<int, pair<int, int>> first_indexes_of_elements;
+vector<int> read_numbers(int n)
+{
+    vector<int> arr(n);
+    for (auto& x: arr)
+        cin >> x;
+    return arr;
+}
 
-        for (int i{}, element; i < n && cin >> element; ++i)
-            if (first_indexes_of_elements.contains(element)) {
-                if (auto [first_index, second_index] {first_indexes_of_elements[element]}; second_index == no_index) {
-                    first_indexes_of_elements[element].second = second_index = i;
-                    int minimum_distance_of_current_element {second_index - first_index};
-                    minimum_distance = min(minimum_distance, minimum_distance_of_current_element);
-                }
+int min_distance(const vector<int>& arr)
+{
+    unordered_map<int, int> last_seen;
+    int min_dist{-1};
+
+    for (auto [i, x] : arr | views::enumerate) {
+        if (last_seen.contains(x))
+            if (int dist = i - last_seen[x]; min_dist == -1 || dist < min_dist) {
+                min_dist = dist;
+                if (min_dist == 1)
+                    return 1;
             }
-            else
-                first_indexes_of_elements[element] = {i, no_index};
-
-        return minimum_distance != numeric_limits<int>::max() ? minimum_distance : no_index;
+        last_seen[x] = i;
     }
+
+    return min_dist;
+}

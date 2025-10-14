@@ -2,51 +2,39 @@
 
 package main
 
-import (
-    "fmt"
-    "math"
-)
-
-const NoIndex int = -1
+import "fmt"
 
 func main() {
     var n int
-    _, err := fmt.Scan(&n)
-    if err != nil {
-        return
-    }
-    fmt.Println(findMinimumDistanceWhileReadElements(n))
+    _, _ = fmt.Scan(&n)
+    arr := readNumbers(n)
+    fmt.Println(minDistance(arr))
 }
 
-func findMinimumDistanceWhileReadElements(n int) int {
-    var minimumDistance = math.MaxInt
-    firstIndexesOfElements := map[int][2]int{}
-
+func readNumbers(n int) []int {
+    arr := make([]int, n)
     for i := range n {
-        var element int
-        _, err := fmt.Scan(&element)
-        if err != nil {
-            return 0
-        }
-
-        if indexes, ok := firstIndexesOfElements[element]; ok {
-            if firstIndex, secondIndex := indexes[0], indexes[1]; secondIndex == NoIndex {
-                secondIndex = i
-                indexes[1] = secondIndex
-                minimumDistanceOfCurrentElement := secondIndex - firstIndex
-                minimumDistance = min(minimumDistance, minimumDistanceOfCurrentElement)
-            }
-        } else {
-            firstIndexesOfElements[element] = [2]int{i, NoIndex}
-        }
+        _, _ = fmt.Scan(&arr[i])
     }
-
-    return minimumDistanceOrNoIndex(minimumDistance)
+    return arr
 }
 
-func minimumDistanceOrNoIndex(minimumDistance int) int {
-    if minimumDistance != math.MaxInt {
-        return minimumDistance
+func minDistance(arr []int) int {
+    lastSeen := map[int]int{}
+    minDist := -1
+
+    for i, x := range arr {
+        if _, ok := lastSeen[x]; ok {
+            dist := i - lastSeen[x]
+            if minDist == -1 || dist < minDist {
+                minDist = dist
+                if minDist == 1 {
+                    return 1
+                }
+            }
+        }
+        lastSeen[x] = i
     }
-    return NoIndex
+
+    return minDist
 }

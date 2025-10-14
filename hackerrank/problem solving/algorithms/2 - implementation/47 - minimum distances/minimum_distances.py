@@ -1,37 +1,30 @@
 # https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
-import sys
-
-NO_INDEX = -1
-
-
 def main():
-    _ = input()
-    array = read_int_array()
-    print(find_minimum_distance(array))
+    input()
+    arr = read_numbers()
+    print(min_distance(arr))
 
 
-def read_int_array():
+def read_numbers():
     return list(map(int, input().split()))
 
 
-def find_minimum_distance(array):
-    minimum_distance = sys.maxsize
-    first_indexes_of_elements = {}
+def min_distance(arr):
+    last_seen = {}
+    min_dist = None
 
-    for i, element in enumerate(array):
-        if element in first_indexes_of_elements:
-            first_index, second_index = first_indexes_of_elements[element]
+    for i, x in enumerate(arr):
+        if x in last_seen:
+            dist = i - last_seen[x]
+            if min_dist is None or dist < min_dist:
+                min_dist = dist
+                if min_dist == 1:
+                    return 1
 
-            if second_index == NO_INDEX:
-                second_index = i
-                first_indexes_of_elements[element] = (first_index, second_index)
-                minimum_distance_of_current_element = second_index - first_index
-                minimum_distance = min(minimum_distance, minimum_distance_of_current_element)
-        else:
-            first_indexes_of_elements[element] = (i, NO_INDEX)
+        last_seen[x] = i
 
-    return minimum_distance if minimum_distance != sys.maxsize else NO_INDEX
+    return -1 if min_dist is None else min_dist
 
 
 if __name__ == '__main__':

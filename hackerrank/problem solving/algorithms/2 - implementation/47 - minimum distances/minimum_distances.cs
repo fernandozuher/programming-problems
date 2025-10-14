@@ -1,46 +1,40 @@
 // https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
-using static System.Console;
-
 public class Solution
 {
-    private static int NO_INDEX = -1;
-
-    static void Main()
+    private static void Main()
     {
-        int _ = int.Parse(ReadLine());
-        List<int> array = ReadIntArray();
-        WriteLine(FindMinimumDistance(array));
+        Console.ReadLine();
+        int[] arr = ReadNumbers();
+        Console.WriteLine(MinDistance(arr));
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine().Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
 
-        static int FindMinimumDistance(List<int> array)
-        {
-            int minimumDistance = Int32.MaxValue;
-            var firstIndexesOfElements = new Dictionary<int, (int firstIndex, int secondIndex)>();
+    private static int MinDistance(int[] arr)
+    {
+        var lastSeen = new Dictionary<int, int>();
+        int minDist = -1;
 
-            foreach (int i in Enumerable.Range(0, array.Count))
+        for (int i = 0; i < arr.Length; i++)
+        {
+            int x = arr[i];
+            if (lastSeen.ContainsKey(x))
             {
-                int element = array[i];
-                if (firstIndexesOfElements.ContainsKey(element))
+                int dist = i - lastSeen[x];
+                if (minDist == -1 || dist < minDist)
                 {
-                    var (firstIndex, secondIndex) = firstIndexesOfElements[element];
-                    if (secondIndex == NO_INDEX)
-                    {
-                        secondIndex = i;
-                        firstIndexesOfElements[element] = (firstIndex, secondIndex);
-                        int minimumDistanceOfCurrentElement = secondIndex - firstIndex;
-                        minimumDistance = Math.Min(minimumDistance, minimumDistanceOfCurrentElement);
-                    }
+                    minDist = dist;
+                    if (minDist == 1)
+                        return 1;
                 }
-                else
-                    firstIndexesOfElements.Add(element, (i, NO_INDEX));
             }
-
-            return minimumDistance != Int32.MaxValue ? minimumDistance : NO_INDEX;
+            lastSeen[x] = i;
         }
+
+        return minDist;
+    }
 }

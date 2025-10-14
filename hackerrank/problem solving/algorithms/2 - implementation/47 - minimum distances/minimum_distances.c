@@ -1,62 +1,50 @@
 // https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
+// C23
 
 #include <stdio.h>
-#include <limits.h>
 
-#define NO_INDEX -1
-
-typedef struct {
-    int first_index;
-    int second_index;
-} first_indexes_of_element;
-
-int find_minimum_distance_while_read_elements(const int n);
-    void initialize_array(first_indexes_of_element *first_indexes_of_elements, const int n);
-    int min(const int num1, const int num2);
+void read_numbers(int *arr, int n);
+int min_distance(const int *arr, int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    printf("%d\n", find_minimum_distance_while_read_elements(n));
-
+    int arr[n];
+    read_numbers(arr, n);
+    printf("%d\n", min_distance(arr, n));
     return 0;
 }
 
-    int find_minimum_distance_while_read_elements(const int n)
-    {
-        int minimum_distance = INT_MAX;
-        const int limit_value = 100001;
-        first_indexes_of_element first_indexes_of_elements[limit_value];
+void read_numbers(int *arr, int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &arr[i]);
+}
 
-        initialize_array(first_indexes_of_elements, limit_value);
+int min_distance(const int *arr, int n)
+{
+    constexpr int limit = 100000;
+    int last_seen[limit];
+    for (int i = 0; i < limit; ++i)
+        last_seen[i] = -1;
 
-        for (int i = 0, element; i < n && scanf("%d", &element); ++i) {
-            int first_index = first_indexes_of_elements[element].first_index;
+    int min_dist = -1;
 
-            if (first_index != NO_INDEX) {
-                int second_index = first_indexes_of_elements[element].second_index;
+    for (int i = 0; i < n; ++i) {
+        int x = arr[i];
 
-                if (second_index == NO_INDEX) {
-                    first_indexes_of_elements[element].second_index = second_index = i;
-                    int minimum_distance_of_current_element = second_index - first_index;
-                    minimum_distance = min(minimum_distance, minimum_distance_of_current_element);
+        if (last_seen[x] != -1) {
+            int dist = i - last_seen[x];
+            if (min_dist == -1 || dist < min_dist) {
+                min_dist = dist;
+                if (min_dist == 1) {
+                    return 1;
                 }
             }
-            else
-                first_indexes_of_elements[element].first_index = i;
         }
-
-        return minimum_distance != INT_MAX ? minimum_distance : NO_INDEX;
+        last_seen[x] = i;
     }
 
-        void initialize_array(first_indexes_of_element *first_indexes_of_elements, const int n)
-        {
-            for (int i = 0; i < n; ++i)
-                first_indexes_of_elements[i].first_index = first_indexes_of_elements[i].second_index = NO_INDEX;
-        }
-
-        int min(const int num1, const int num2)
-        {
-            return num1 <= num2 ? num1 : num2;
-        }
+    return min_dist;
+}
