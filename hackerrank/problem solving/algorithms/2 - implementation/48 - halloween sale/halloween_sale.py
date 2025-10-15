@@ -1,25 +1,21 @@
 # https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
 def main():
-    game_default_price, discount, minimum_price_game, budget = read_int_array()
-    print(how_many_games_can_be_bought(game_default_price, discount, minimum_price_game, budget))
+    price, discount, min_price, budget = read_numbers()
+    print(how_many_games_can_be_bought(price, discount, min_price, budget))
 
 
-def read_int_array():
+def read_numbers():
     return list(map(int, input().split()))
 
 
-def how_many_games_can_be_bought(default_price_game, discount, minimum_price_game, budget):
-    games_can_be_bought_quantity = 0
-    current_price_game = default_price_game
-    current_budget = budget - default_price_game
-
-    while current_budget >= 0:
-        games_can_be_bought_quantity += 1
-        current_price_game -= discount
-        current_budget -= max(current_price_game, minimum_price_game)
-
-    return games_can_be_bought_quantity
+def how_many_games_can_be_bought(price, discount, min_price, budget):
+    count = 0
+    while budget >= price:
+        count += 1
+        budget -= price
+        price = max(price - discount, min_price)
+    return count
 
 
 if __name__ == '__main__':

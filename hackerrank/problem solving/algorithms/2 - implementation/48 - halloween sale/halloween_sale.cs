@@ -1,35 +1,31 @@
 // https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        List<int> array = ReadIntArray();
-        int defaultPriceGame = array.First();
-        int discount = array[1];
-        int minimumPriceGame = array[2];
-        int budget = array.Last();
-        WriteLine(HowManyGamesCanBeBought(defaultPriceGame, discount, minimumPriceGame, budget));
+        int[] arr = ReadNumbers();
+        int price = arr[0];
+        int discount = arr[1];
+        int minPrice = arr[2];
+        int budget = arr[3];
+        Console.WriteLine(HowManyGamesCanBeBought(price, discount, minPrice, budget));
     }
 
-        static List<int> ReadIntArray()
+    private static int[] ReadNumbers()
+    {
+        return Array.ConvertAll(Console.ReadLine()!.Split(' '), int.Parse);
+    }
+
+    private static int HowManyGamesCanBeBought(int price, int discount, int minPrice, int budget)
+    {
+        int count = 0;
+        while (budget >= price)
         {
-            return ReadLine().Split().Select(int.Parse).ToList();
+            count++;
+            budget -= price;
+            price = Math.Max(price - discount, minPrice);
         }
-
-        static int HowManyGamesCanBeBought(int defaultPriceGame, int discount, int minimumPriceGame, int budget)
-        {
-            int gamesCanBeBoughtQuantity = 0;
-
-            for (int currentPriceGame = defaultPriceGame, currentBudget = budget - defaultPriceGame; currentBudget >= 0;)
-            {
-                ++gamesCanBeBoughtQuantity;
-                currentPriceGame -= discount;
-                currentBudget -= Math.Max(currentPriceGame, minimumPriceGame);
-            }
-
-            return gamesCanBeBoughtQuantity;
-        }
+        return count;
+    }
 }

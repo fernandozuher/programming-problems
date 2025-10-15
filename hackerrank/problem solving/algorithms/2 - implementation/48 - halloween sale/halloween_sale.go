@@ -2,28 +2,20 @@
 
 package main
 
-import (
-    "fmt"
-    "math"
-)
+import "fmt"
 
 func main() {
-    var defaultPriceGame, discount, minimumPriceGame, budget int
-    _, err := fmt.Scan(&defaultPriceGame, &discount, &minimumPriceGame, &budget)
-    if err != nil {
-        return
-    }
-    fmt.Println(howManyGamesCanBeBought(defaultPriceGame, discount, minimumPriceGame, budget))
+    var price, discount, minPrice, budget int
+    _, _ = fmt.Scan(&price, &discount, &minPrice, &budget)
+    fmt.Println(howManyGamesCanBeBought(price, discount, minPrice, budget))
 }
 
-    func howManyGamesCanBeBought(defaultPriceGame int, discount int, minimumPriceGame int, budget int) int {
-        gamesCanBeBoughtQuantity := 0
-
-        for currentPriceGame, currentBudget := defaultPriceGame, budget-defaultPriceGame; currentBudget >= 0; {
-            gamesCanBeBoughtQuantity++
-            currentPriceGame -= discount
-            currentBudget -= int(math.Max(float64(currentPriceGame), float64(minimumPriceGame)))
-        }
-
-        return gamesCanBeBoughtQuantity
+func howManyGamesCanBeBought(price, discount, minPrice, budget int) int {
+    count := 0
+    for budget >= price {
+        count++
+        budget -= price
+        price = max(price-discount, minPrice)
     }
+    return count
+}
