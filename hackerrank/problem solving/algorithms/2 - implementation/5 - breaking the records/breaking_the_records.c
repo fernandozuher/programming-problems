@@ -7,8 +7,8 @@ typedef struct {
     int least_record_breaks;
 } records_t;
 
-void read_numbers(int numbers[], int n);
-records_t breaking_records(const int scores[], int n);
+void read_numbers(int *numbers, int n);
+records_t breaking_records(const int *scores, int n);
 
 int main()
 {
@@ -23,13 +23,13 @@ int main()
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
-records_t breaking_records(const int scores[], int n)
+records_t breaking_records(const int *scores, int n)
 {
     int most_record_breaks = 0, least_record_breaks = 0;
 

@@ -11,11 +11,11 @@ func main() {
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func breakingRecords(scores []int) (int, int) {

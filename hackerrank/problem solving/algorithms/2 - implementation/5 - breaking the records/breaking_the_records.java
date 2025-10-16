@@ -1,18 +1,18 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
-// Java 22
+// Java 25
 
+import java.lang.IO;
 import java.util.*;
 import java.util.stream.IntStream;
 
 class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            scan.nextLine();
-            int[] scores = readNumbers(scan, n);
-            int[] records = breakingRecords(scores);
-            System.out.print(records[0] + " " + records[1]);
-        }
+    void main() {
+        var scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        scan.nextLine();
+        int[] scores = readNumbers(scan, n);
+        int[] records = breakingRecords(scores);
+        IO.println(records[0] + " " + records[1]);
     }
 
     private static int[] readNumbers(Scanner scan, int n) {

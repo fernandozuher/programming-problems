@@ -12,7 +12,7 @@ public class Solution
 
     private static int[] ReadNumbers()
     {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
     }
 
     private static (int, int) BreakingRecords(int[] scores)

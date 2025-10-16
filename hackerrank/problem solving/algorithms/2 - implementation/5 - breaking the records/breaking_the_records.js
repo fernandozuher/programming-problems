@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -19,6 +17,10 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -26,10 +28,6 @@ function main() {
   const scores = readNumbers();
   const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(scores);
   console.log(`${mostRecordBreaks} ${leastRecordBreaks}`);
-}
-
-function readLine() {
-  return inputLines[currentLine++];
 }
 
 function readNumbers() {

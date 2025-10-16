@@ -1,5 +1,4 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
-// C++23
 
 #include <iostream>
 #include <ranges>
@@ -22,16 +21,17 @@ int main()
 
 vector<int> read_numbers(int n)
 {
-    return views::iota(0, n)
-           | views::transform([](auto) {int x; cin >> x; return x;})
-           | ranges::to<vector>();
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
 }
 
 pair<int, int> breaking_records(const vector<int>& scores)
 {
     int most_record_breaks{}, least_record_breaks{};
 
-    for (int most_points{scores.front()}, least_points{scores.front()}; int score: scores | views::drop(1))
+    for (int most_points{scores.front()}, least_points{scores.front()}; int score : scores | views::drop(1))
         if (score > most_points) {
             most_points = score;
             ++most_record_breaks;

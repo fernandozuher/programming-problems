@@ -28,4 +28,4 @@ def breaking_records(scores)
   [most_record_breaks, least_record_breaks]
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME
