@@ -4,37 +4,27 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let mut output: Vec<i32> = Vec::new();
 
-    output.resize_with(n, || {
-        let amount_of_money: i32 = read!();
-        let chocolate_bar_cost: i32 = read!();
-        let n_wrappers_to_turn_in_bar: i32 = read!();
-
-        return how_many_chocolates_can_be_eaten(
-            amount_of_money,
-            chocolate_bar_cost,
-            n_wrappers_to_turn_in_bar,
+    for _ in 0..n {
+        let money: i32 = read!();
+        let cost: i32 = read!();
+        let wrappers_needed: i32 = read!();
+        println!(
+            "{}",
+            how_many_chocolates_can_be_eaten(money, cost, wrappers_needed)
         );
-    });
-
-    output.iter().for_each(|x| println!("{}", x));
+    }
 }
 
-fn how_many_chocolates_can_be_eaten(
-    amount_of_money: i32,
-    chocolate_bar_cost: i32,
-    n_wrappers_to_turn_in_bar: i32,
-) -> i32 {
-    let mut eaten_chocolates: i32 = amount_of_money / chocolate_bar_cost;
-    let mut available_wrappers: i32 = eaten_chocolates;
+fn how_many_chocolates_can_be_eaten(money: i32, cost: i32, wrappers_needed: i32) -> i32 {
+    let mut chocolates: i32 = money / cost;
+    let mut wrappers: i32 = chocolates;
 
-    while available_wrappers >= n_wrappers_to_turn_in_bar {
-        let chocolates_for_free: i32 = available_wrappers / n_wrappers_to_turn_in_bar;
-        available_wrappers = available_wrappers - chocolates_for_free * n_wrappers_to_turn_in_bar
-            + chocolates_for_free;
-        eaten_chocolates += chocolates_for_free;
+    while wrappers >= wrappers_needed {
+        let free_chocolates: i32 = wrappers / wrappers_needed;
+        wrappers = wrappers % wrappers_needed + free_chocolates;
+        chocolates += free_chocolates;
     }
 
-    return eaten_chocolates;
+    chocolates
 }

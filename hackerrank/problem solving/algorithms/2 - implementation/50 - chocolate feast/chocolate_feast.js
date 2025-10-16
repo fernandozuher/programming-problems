@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -10,39 +8,41 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 function main() {
-    let n = +readLine();
-    let output = Array(n).fill(0).map(_ => {
-        const [amountOfMoney, chocolateBarCost, nWrappersToTurnInBar] = readLine().split(' ').map(Number);
-        return howManyChocolatesCanBeEaten(amountOfMoney, chocolateBarCost, nWrappersToTurnInBar);
-    });
-
-    output.forEach(x => console.log(x));
+  const n = +readLine();
+  for (let i = 0; i < n; i++) {
+    const [money, cost, wrappersNeeded] = readNumbers();
+    console.log(howManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
+  }
 }
 
-    function howManyChocolatesCanBeEaten(amountOfMoney, chocolateBarCost, nWrappersToTurnInBar) {
-        let eatenChocolates = Math.trunc(amountOfMoney / chocolateBarCost);
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        for (let availableWrappers = eatenChocolates; availableWrappers >= nWrappersToTurnInBar;) {
-            const chocolatesForFree = Math.trunc(availableWrappers / nWrappersToTurnInBar);
-            availableWrappers = availableWrappers - (chocolatesForFree * nWrappersToTurnInBar) + chocolatesForFree;
-            eatenChocolates += chocolatesForFree;
-        }
+function howManyChocolatesCanBeEaten(money, cost, wrappersNeeded) {
+  let chocolates = Math.trunc(money / cost);
 
-        return eatenChocolates;
-    }
+  for (let wrappers = chocolates; wrappers >= wrappersNeeded; ) {
+    const freeChocolates = Math.trunc(wrappers / wrappersNeeded);
+    wrappers = (wrappers % wrappersNeeded) + freeChocolates;
+    chocolates += freeChocolates;
+  }
+
+  return chocolates;
+}

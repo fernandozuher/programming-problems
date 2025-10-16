@@ -1,35 +1,36 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int n = int.Parse(ReadLine());
-        var output = new List<int>(new int[n]).Select(_ =>
+        int n = int.Parse(Console.ReadLine()!);
+        for (int i = 0; i < n; i++)
         {
-            var list = ReadLine().Split().Select(int.Parse).ToList();
-            int amountOfMoney = list.First();
-            int chocolateBarCost = list[1];
-            int nWrappersToTurnInBar = list.Last();
-            return HowManyChocolatesCanBeEaten(amountOfMoney, chocolateBarCost, nWrappersToTurnInBar);
-        }).ToList();
-
-        output.ForEach(WriteLine);
+            var list = ReadNumbers();
+            int money = list[0];
+            int cost = list[1];
+            int wrappersNeeded = list[2];
+            Console.WriteLine(HowManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
+        }
     }
 
-        static int HowManyChocolatesCanBeEaten(int amountOfMoney, int chocolateBarCost, int nWrappersToTurnInBar)
+    private static int[] ReadNumbers()
+    {
+        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    }
+
+    private static int HowManyChocolatesCanBeEaten(int money, int cost, int wrappersNeeded)
+    {
+        int chocolates = money / cost;
+
+        for (int wrappers = chocolates; wrappers >= wrappersNeeded;)
         {
-            int eatenChocolates = amountOfMoney / chocolateBarCost;
-
-            for (int availableWrappers = eatenChocolates; availableWrappers >= nWrappersToTurnInBar;)
-            {
-                int chocolatesForFree = availableWrappers / nWrappersToTurnInBar;
-                availableWrappers = availableWrappers - (chocolatesForFree * nWrappersToTurnInBar) + chocolatesForFree;
-                eatenChocolates += chocolatesForFree;
-            }
-
-            return eatenChocolates;
+            int freeChocolates = wrappers / wrappersNeeded;
+            wrappers = wrappers % wrappersNeeded + freeChocolates;
+            chocolates += freeChocolates;
         }
+
+        return chocolates;
+    }
 }

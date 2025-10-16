@@ -6,34 +6,26 @@ import "fmt"
 
 func main() {
     var n int
-    _, err := fmt.Scan(&n)
-    if err != nil {
-        return
-    }
-    output := make([]int, n)
-
-    for i := 0; i < n; i++ {
-        var amountOfMoney, chocolateBarCost, nWrappersToTurnInBar int
-        _, err := fmt.Scan(&amountOfMoney, &chocolateBarCost, &nWrappersToTurnInBar)
-        if err != nil {
-            return
-        }
-        output[i] = howManyChocolatesCanBeEaten(amountOfMoney, chocolateBarCost, nWrappersToTurnInBar)
-    }
-
-    for _, x := range output {
-        fmt.Println(x)
+    _, _ = fmt.Scan(&n)
+    for range n {
+        fmt.Println(howManyChocolatesCanBeEaten(readInput()))
     }
 }
 
-    func howManyChocolatesCanBeEaten(amountOfMoney int, chocolateBarCost int, nWrappersToTurnInBar int) int {
-        eatenChocolates := amountOfMoney / chocolateBarCost
+func readInput() (int, int, int) {
+    var money, cost, wrappersNeeded int
+    _, _ = fmt.Scan(&money, &cost, &wrappersNeeded)
+    return money, cost, wrappersNeeded
+}
 
-        for availableWrappers := eatenChocolates; availableWrappers >= nWrappersToTurnInBar; {
-            chocolatesForFree := availableWrappers / nWrappersToTurnInBar
-            availableWrappers = availableWrappers - (chocolatesForFree * nWrappersToTurnInBar) + chocolatesForFree
-            eatenChocolates += chocolatesForFree
-        }
+func howManyChocolatesCanBeEaten(money, cost, wrappersNeeded int) int {
+    chocolates := money / cost
 
-        return eatenChocolates
+    for wrappers := chocolates; wrappers >= wrappersNeeded; {
+        freeChocolates := wrappers / wrappersNeeded
+        wrappers = wrappers%wrappersNeeded + freeChocolates
+        chocolates += freeChocolates
     }
+
+    return chocolates
+}
