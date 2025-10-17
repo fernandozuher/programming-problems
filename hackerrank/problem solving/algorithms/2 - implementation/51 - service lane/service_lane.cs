@@ -1,30 +1,26 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        List<int> inputLine = ReadIntArray();
-        int _ = inputLine.First();
-        int n = inputLine.Last();
-        FindMaximumAffordableWidthsVehiclesWhileReadTestCases(n, ReadIntArray()).ForEach(WriteLine);
+        int[] line = ReadNumbers();
+        int _ = line[0];
+        int nPoints = line[1];
+        int[] widths = ReadNumbers();
+
+        for (int i = 0; i < nPoints; i++)
+            Console.WriteLine(MaxAffordableWidthVehicleInRange(widths, ReadNumbers()));
     }
 
-        static List<int> ReadIntArray()
-        {
-            return ReadLine().Split().Select(int.Parse).ToList();
-        }
+    private static int[] ReadNumbers()
+    {
+        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    }
 
-        static List<int> FindMaximumAffordableWidthsVehiclesWhileReadTestCases(int n, List<int> widthMeasurements)
-        {
-            return new List<int>(new int[n]).Select(_ => MaximumAffordableWidthVehicleInRange(widthMeasurements, ReadIntArray())).ToList();
-        }
-
-            static int MaximumAffordableWidthVehicleInRange(List<int> widthMeasurements, List<int> point)
-            {
-                int nElements = point.Last() - point.First() + 1;
-                return (widthMeasurements.GetRange(point.First(), nElements)).Min();
-            }
+    private static int MaxAffordableWidthVehicleInRange(int[] widths, int[] point)
+    {
+        int nElements = point[1] - point[0] + 1;
+        return widths.Skip(point[0]).Take(nElements).Min();
+    }
 }

@@ -8,30 +8,24 @@ import (
 )
 
 func main() {
-    var nWidthMeasurements, n int
-    fmt.Scan(&nWidthMeasurements, &n)
-    for _, x := range findMaximumAffordableWidthsVehiclesWhileReadTestCases(n, readIntArray(nWidthMeasurements)) {
-        fmt.Println(x)
+    var nWidths, nPoints int
+    _, _ = fmt.Scan(&nWidths, &nPoints)
+    widths := readNumbers(nWidths)
+    for range nPoints {
+        fmt.Println(maxAffordableWidthVehicleInRange(widths, readNumbers(2)))
     }
 }
 
-func readIntArray(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
-    return array
+    return arr
 }
 
-func findMaximumAffordableWidthsVehiclesWhileReadTestCases(n int, widthMeasurements []int) []int {
-    maximumAffordableWidthsVehicles := make([]int, n)
-    const TestCaseSize = 2
-    for i := range maximumAffordableWidthsVehicles {
-        maximumAffordableWidthsVehicles[i] = maximumAffordableWidthVehicleInRange(widthMeasurements, readIntArray(TestCaseSize))
-    }
-    return maximumAffordableWidthsVehicles
-}
-
-func maximumAffordableWidthVehicleInRange(widthMeasurements []int, point []int) int {
-    return slices.Min(widthMeasurements[point[0] : point[1]+1])
+func maxAffordableWidthVehicleInRange(widths, point []int) int {
+    start := point[0]
+    finish := point[1]
+    return slices.Min(widths[start : finish+1])
 }

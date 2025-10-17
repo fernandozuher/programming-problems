@@ -1,20 +1,18 @@
 # https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
 def main
-  _, n = read_int_array
-  puts find_maximum_affordable_widths_vehicles_while_read_test_cases(n, read_int_array)
+  _, n = read_numbers
+  widths = read_numbers
+  n.times { puts max_affordable_width_vehicle_in_range(widths, read_numbers) }
 end
 
-  def read_int_array
-    gets.split.map(&:to_i)
-  end
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-  def find_maximum_affordable_widths_vehicles_while_read_test_cases(n, width_measurements)
-    Array.new(n).map!{maximum_affordable_width_vehicle_in_range(width_measurements, read_int_array)}
-  end
+def max_affordable_width_vehicle_in_range(widths, point)
+  start, finish = point
+  widths[start..finish].min
+end
 
-    def maximum_affordable_width_vehicle_in_range(width_measurements, point)
-      (width_measurements[point[0]..point[1]]).min
-    end
-
-main
+main if __FILE__ == $PROGRAM_NAME

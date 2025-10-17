@@ -1,20 +1,19 @@
 # https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
 def main():
-    _, n = read_int_array()
-    print(*find_maximum_affordable_widths_vehicles_while_read_test_cases(n, read_int_array()), sep='\n')
+    _, n = read_numbers()
+    widths = read_numbers()
+    for _ in range(n):
+        print(max_affordable_width_vehicle_in_range(widths, read_numbers()))
 
 
-def read_int_array():
+def read_numbers():
     return list(map(int, input().split()))
 
 
-def find_maximum_affordable_widths_vehicles_while_read_test_cases(n, width_measurements):
-    return [maximum_affordable_width_vehicle_in_range(width_measurements, read_int_array()) for _ in range(n)]
-
-
-def maximum_affordable_width_vehicle_in_range(width_measurements, point):
-    return min(width_measurements[point[0]:point[1] + 1])
+def max_affordable_width_vehicle_in_range(widths, point):
+    start, finish = point
+    return min(widths[start:finish + 1])
 
 
 if __name__ == '__main__':

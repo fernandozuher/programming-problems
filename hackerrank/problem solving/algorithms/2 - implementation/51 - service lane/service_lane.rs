@@ -3,45 +3,23 @@
 use text_io::read;
 
 fn main() {
-    let n_width_measurements: usize = read!();
-    let n: usize = read!();
-    find_maximum_affordable_widths_vehicles_while_read_test_cases(
-        n,
-        read_int_array(n_width_measurements),
-    )
-    .iter()
-    .for_each(|x| println!("{}", x));
-}
-
-fn read_int_array(n: usize) -> Vec<i32> {
-    let mut array: Vec<i32> = Vec::new();
-    array.resize_with(n, || read!());
-    return array;
-}
-
-fn find_maximum_affordable_widths_vehicles_while_read_test_cases(
-    n: usize,
-    width_measurements: Vec<i32>,
-) -> Vec<i32> {
-    let mut maximum_affordable_widths_vehicles: Vec<i32> = Vec::new();
-    const TEST_CASE_SIZE: usize = 2;
-
-    maximum_affordable_widths_vehicles.resize_with(n, || {
-        maximum_affordable_width_vehicle_in_range(
-            &width_measurements,
-            read_int_array(TEST_CASE_SIZE),
+    let n_widths: i32 = read!();
+    let n_points: i32 = read!();
+    let widths: Vec<i32> = read_numbers(n_widths);
+    for _ in 0..n_points {
+        println!(
+            "{}",
+            max_affordable_width_vehicle_in_range(&widths, &read_numbers(2))
         )
-    });
-
-    return maximum_affordable_widths_vehicles;
+    }
 }
 
-fn maximum_affordable_width_vehicle_in_range(
-    width_measurements: &Vec<i32>,
-    point: Vec<i32>,
-) -> i32 {
-    return *(&width_measurements[point[0] as usize..=point[1] as usize])
-        .iter()
-        .min()
-        .unwrap();
+fn read_numbers(n: i32) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+fn max_affordable_width_vehicle_in_range(widths: &[i32], point: &[i32]) -> i32 {
+    let start: usize = point[0] as usize;
+    let finish: usize = point[1] as usize;
+    *widths[start..=finish].iter().min().unwrap()
 }

@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -10,34 +8,32 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 function main() {
-    const [_, n] = readIntArray();
-    findMaximumAffordableWidthsVehiclesWhileReadTestCases(n, readIntArray()).forEach(x => console.log(x));
+  const [_, nPoints] = readNumbers();
+  const widths = readNumbers();
+  for (let i = 0; i < nPoints; i++)
+    console.log(maxAffordableWidthVehicleInRange(widths, readNumbers()));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-    function findMaximumAffordableWidthsVehiclesWhileReadTestCases(n, widthMeasurements) {
-        return Array(n).fill(0).map(_ => maximumAffordableWidthVehicleInRange(widthMeasurements, readIntArray()));
-    }
-
-        function maximumAffordableWidthVehicleInRange(widthMeasurements, point) {
-            return Math.min(...(widthMeasurements.slice(point[0], point[1] + 1)));
-        }
+function maxAffordableWidthVehicleInRange(widths, point) {
+  return Math.min(...widths.slice(point[0], point[1] + 1));
+}
