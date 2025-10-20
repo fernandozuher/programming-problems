@@ -1,27 +1,30 @@
-# https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
-# From Python 3.8
+# https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
 def main():
-    int(input())
-    n_loaves_of_each_person = list(map(int, input().split()))
-    if (min_loaves := find_min_loaves_to_satisfy_rules(n_loaves_of_each_person)) == - 1:
+    input()
+    people_loaf_counts = read_numbers()
+    if (min_loaves := min_loaves_to_satisfy_rules(people_loaf_counts)) == - 1:
         print("NO")
     else:
         print(min_loaves)
 
 
-def find_min_loaves_to_satisfy_rules(n_loaves_of_each_person):
-    min_loaves_to_satisfy_rules = 0
-    loaves = n_loaves_of_each_person[0]
+def read_numbers():
+    return list(map(int, input().split()))
 
-    for x in n_loaves_of_each_person[1:]:
-        if is_odd(loaves):
-            loaves = x + 1
-            min_loaves_to_satisfy_rules += 2
+
+def min_loaves_to_satisfy_rules(people_loaf_counts):
+    loaves_given = 0
+    counts = people_loaf_counts[0]
+
+    for x in people_loaf_counts[1:]:
+        if is_odd(counts):
+            loaves_given += 2
+            counts = x + 1
         else:
-            loaves = x
+            counts = x
 
-    return -1 if is_odd(loaves) else min_loaves_to_satisfy_rules
+    return -1 if is_odd(counts) else loaves_given
 
 
 def is_odd(n):

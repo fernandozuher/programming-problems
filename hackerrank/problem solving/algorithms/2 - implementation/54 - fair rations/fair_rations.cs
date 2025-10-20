@@ -1,42 +1,48 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
-// From C# 8.0
+// Java 25
 
-using static System.Console;
-using System.Linq;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        int n = int.Parse(ReadLine());
-        List<int> nLoavesOfEachPerson = ReadLine().Split().Select(int.Parse).ToList();
-        if (FindMinLoavesToSatisfyRules(nLoavesOfEachPerson) is var minLoaves && minLoaves == -1)
-            WriteLine("NO");
-        else
-            WriteLine(minLoaves);
+        Console.ReadLine();
+        int[] peopleLoafCounts = ReadNumbers();
+        int minLoaves = MinLoavesToSatisfyRules(peopleLoafCounts);
+        Console.WriteLine(minLoaves == -1 ? "NO" : minLoaves);
     }
 
-        static int FindMinLoavesToSatisfyRules(List<int> nLoavesOfEachPerson)
+    private static int[] ReadNumbers()
+    {
+        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    }
+
+    private static int MinLoavesToSatisfyRules(int[] peopleLoafCounts)
+    {
+        int loavesGiven = 0;
+        int counts = peopleLoafCounts[0];
+
+        foreach (var x in peopleLoafCounts.Skip(1))
         {
-            int minLoavesToSatisfyRules = 0;
-            int loaves = nLoavesOfEachPerson.First();
-
-            foreach (int x in nLoavesOfEachPerson.Skip(1))
+            if (IsOdd(counts))
             {
-                if (IsOdd(loaves))
-                {
-                    loaves = x + 1;
-                    minLoavesToSatisfyRules += 2;
-                }
-                else
-                    loaves = x;
+                loavesGiven += 2;
+                counts = x + 1;
             }
-
-            return IsOdd(loaves) ? -1 : minLoavesToSatisfyRules;
+            else
+            {
+                counts = x;
+            }
         }
 
-            static bool IsOdd(int n)
-            {
-                return n % 2 == 1;
-            }
+        if (IsOdd(counts))
+        {
+            return -1;
+        }
+        return loavesGiven;
+    }
+
+    private static bool IsOdd(int n)
+    {
+        return n % 2 == 1;
+    }
 }

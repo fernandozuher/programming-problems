@@ -1,35 +1,42 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
-use num::Integer;
 use text_io::read;
 
 fn main() {
-    let n: i32 = read!();
-    let min_loaves = find_min_loaves_to_satisfy_rules(n);
-    if min_loaves != -1 {
-        println!("{}", min_loaves);
-    } else {
+    let n: usize = read!();
+    let people_loaf_counts: Vec<i32> = read_numbers(n);
+    let min_loaves: i32 = min_loaves_to_satisfy_rules(&people_loaf_counts);
+    if min_loaves == -1 {
         println!("NO");
+    } else {
+        println!("{}", min_loaves);
     }
 }
 
-fn find_min_loaves_to_satisfy_rules(n: i32) -> i32 {
-    let mut min_loaves_to_satisfy_rules: i32 = 0;
-    let mut loaves: i32 = read!();
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
 
-    for _i in 1..n {
-        if loaves.is_odd() {
-            loaves = read!();
-            loaves += 1;
-            min_loaves_to_satisfy_rules += 2;
+fn min_loaves_to_satisfy_rules(people_loaf_counts: &[i32]) -> i32 {
+    let mut loaves_given: i32 = 0;
+    let mut counts: i32 = people_loaf_counts[0];
+
+    people_loaf_counts.iter().skip(1).for_each(|&x| {
+        if is_odd(counts) {
+            loaves_given += 2;
+            counts = x + 1;
         } else {
-            loaves = read!();
+            counts = x;
         }
-    }
+    });
 
-    return if loaves.is_odd() {
+    if is_odd(counts) {
         -1
     } else {
-        min_loaves_to_satisfy_rules
-    };
+        loaves_given
+    }
+}
+
+fn is_odd(n: i32) -> bool {
+    n % 2 == 1
 }

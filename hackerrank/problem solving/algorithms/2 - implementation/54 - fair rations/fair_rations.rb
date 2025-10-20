@@ -1,29 +1,30 @@
-# https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
+# https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
 def main
-  _ = gets
-  n_loaves_of_each_person = gets.split.map(&:to_i)
-  if (min_loaves = find_min_loaves_to_satisfy_rules(n_loaves_of_each_person)) == -1
-    puts "NO"
-  else
-    p min_loaves
-  end
+  gets
+  people_loaf_counts = read_numbers
+  min_loaves = min_loaves_to_satisfy_rules(people_loaf_counts)
+  puts min_loaves == -1 ? 'NO' : min_loaves
 end
 
-  def find_min_loaves_to_satisfy_rules(n_loaves_of_each_person)
-    min_loaves_to_satisfy_rules = 0
-    loaves = n_loaves_of_each_person.first
+def read_numbers
+  gets.split.map(&:to_i)
+end
 
-    n_loaves_of_each_person.drop(1).each { |x|
-      if loaves.odd?
-        loaves = x + 1
-        min_loaves_to_satisfy_rules += 2
-      else
-        loaves = x
-      end
-    }
+def min_loaves_to_satisfy_rules(people_loaf_counts)
+  loaves_given = 0
+  counts = people_loaf_counts[0]
 
-    loaves.odd? ? -1 : min_loaves_to_satisfy_rules
+  people_loaf_counts[1..].each do |x|
+    if counts.odd?
+      loaves_given += 2
+      counts = x + 1
+    else
+      counts = x
+    end
   end
 
-main
+  counts.odd? ? -1 : loaves_given
+end
+
+main if __FILE__ == $PROGRAM_NAME

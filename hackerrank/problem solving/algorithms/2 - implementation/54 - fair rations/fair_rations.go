@@ -1,5 +1,4 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
-// From Go 1.22
 
 package main
 
@@ -7,36 +6,42 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    if minLoaves := findMinLoavesToSatisfyRules(n); minLoaves == -1 {
+    _, _ = fmt.Scan(&n)
+    peopleLoafCounts := readNumbers(n)
+    if minLoaves := minLoavesToSatisfyRules(peopleLoafCounts); minLoaves == -1 {
         fmt.Println("NO")
     } else {
         fmt.Println(minLoaves)
     }
 }
 
-func findMinLoavesToSatisfyRules(n int) int {
-    minLoavesToSatisfyRules := 0
-    var loaves int
-    fmt.Scan(&loaves)
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
+    }
+    return arr
+}
 
-    for range n - 1 {
-        if isOdd(loaves) {
-            fmt.Scan(&loaves)
-            loaves++
-            minLoavesToSatisfyRules += 2
+func minLoavesToSatisfyRules(peopleLoafCounts []int) int {
+    loavesGiven := 0
+    counts := peopleLoafCounts[0]
+
+    for _, x := range peopleLoafCounts[1:] {
+        if isOdd(counts) {
+            loavesGiven += 2
+            counts = x + 1
         } else {
-            fmt.Scan(&loaves)
+            counts = x
         }
     }
 
-    if isOdd(loaves) {
+    if isOdd(counts) {
         return -1
-    } else {
-        return minLoavesToSatisfyRules
     }
+    return loavesGiven
 }
 
 func isOdd(n int) bool {
-    return n&1 == 1
+    return n % 2 == 1
 }

@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -10,44 +8,45 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 function main() {
-    +readLine();
-    let nLoavesOfEachPerson = readLine().split(' ').map(Number);
-    let minLoaves = findMinLoavesToSatisfyRules(nLoavesOfEachPerson);
-    if (minLoaves === -1) console.log("NO"); else console.log(minLoaves);
+  readLine();
+  const peopleLoafCounts = readNumbers();
+  const minLoaves = minLoavesToSatisfyRules(peopleLoafCounts);
+  console.log(minLoaves === -1 ? 'NO' : minLoaves);
 }
 
-    function findMinLoavesToSatisfyRules(nLoavesOfEachPerson) {
-        let minLoavesToSatisfyRules = 0;
-        let loaves = nLoavesOfEachPerson[0];
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-        for (let x of nLoavesOfEachPerson.slice(1)) {
-            if (isOdd(loaves)) {
-                loaves = x + 1;
-                minLoavesToSatisfyRules += 2;
-            }
-            else
-                loaves = x;
-        }
+function minLoavesToSatisfyRules(peopleLoafCounts) {
+  let loavesGiven = 0;
+  let counts = peopleLoafCounts[0];
 
-        return isOdd(loaves) ? -1 : minLoavesToSatisfyRules;
-    }
+  for (let i = 1; i < peopleLoafCounts.length; i++)
+    if (isOdd(counts)) {
+      loavesGiven += 2;
+      counts = peopleLoafCounts[i] + 1;
+    } else counts = peopleLoafCounts[i];
 
-        function isOdd(n) {
-            return n & 1;
-        }
+  return isOdd(counts) ? -1 : loavesGiven;
+}
+
+function isOdd(n) {
+  return (n & 1) === 1;
+}

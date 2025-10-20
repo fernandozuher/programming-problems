@@ -1,39 +1,47 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
-// From C23
+// C23
 
 #include <stdio.h>
 
-int find_min_loaves_to_satisfy_rules(int n);
-    bool is_odd(int n);
+void read_numbers(int *arr, int n);
+int min_loaves_to_satisfy_rules(const int *people_loaf_counts, int n);
+bool is_odd(int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int min_loaves = find_min_loaves_to_satisfy_rules(n);
-    min_loaves == -1 ? puts("NO") : printf("%d", min_loaves);
+    int people_loaf_counts[n];
+    read_numbers(people_loaf_counts, n);
+
+    int min_loaves = min_loaves_to_satisfy_rules(people_loaf_counts, n);
+    min_loaves == -1 ? puts("NO") : printf("%d\n", min_loaves);
 
     return 0;
 }
 
-    int find_min_loaves_to_satisfy_rules(int n)
-    {
-        int min_loaves_to_satisfy_rules = 0;
-        int loaves;
-        scanf("%d", &loaves);
+void read_numbers(int *arr, int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &arr[i]);
+}
 
-        while (--n)
-            if (is_odd(loaves)) {
-                scanf("%d", &loaves);
-                ++loaves;
-                min_loaves_to_satisfy_rules += 2;
-            } else
-                scanf("%d", &loaves);
+int min_loaves_to_satisfy_rules(const int *people_loaf_counts, int n)
+{
+    int loaves_given = 0;
+    int counts = people_loaf_counts[0];
 
-        return is_odd(loaves) ? -1 : min_loaves_to_satisfy_rules;
-    }
+    for (int i = 1; i < n; ++i)
+        if (is_odd(counts)) {
+            loaves_given += 2;
+            counts = people_loaf_counts[i] + 1;
+        } else
+            counts = people_loaf_counts[i];
 
-        bool is_odd(const int n)
-        {
-            return n & 1;
-        }
+    return is_odd(counts) ? -1 : loaves_given;
+}
+
+bool is_odd(int n)
+{
+    return n & 1;
+}
