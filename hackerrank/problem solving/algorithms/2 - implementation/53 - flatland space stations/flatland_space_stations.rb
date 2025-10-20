@@ -1,31 +1,26 @@
 # https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
 def main
-  n_cities, _ = read_int_array
-  cities_with_space_station = read_int_array
-  cities_with_space_station.sort!
-  p find_max_distance_from_space_station(n_cities, cities_with_space_station)
+  n_cities, _ = read_numbers
+  cities_with_space_station = read_numbers.sort
+  puts max_distance_from_space_station(n_cities, cities_with_space_station)
 end
 
-  def read_int_array
-    gets.split.map(&:to_i)
+def read_numbers
+  gets.split.map(&:to_i)
+end
+
+def max_distance_from_space_station(n_cities, stations)
+  max_dist = stations[0]
+
+  stations.each_cons(2) do |prev, curr|
+    gap = (curr - prev).div(2)
+    max_dist = [max_dist, gap].max
   end
 
-  def find_max_distance_from_space_station(n_cities, cities_with_space_station)
-    max_distance_from_space_station = previous_city = cities_with_space_station.first
+  last_city = n_cities - 1
+  [max_dist, last_city - stations[-1]].max
 
-    cities_with_space_station[1..].each { |city_with_space_station|
-      distance_between_cities = ((city_with_space_station - previous_city) / 2).truncate
-      max_distance_from_space_station = [max_distance_from_space_station, distance_between_cities].max
-      previous_city = city_with_space_station
-    }
+end
 
-    unless (has_last_city_space_station = n_cities - 1 == cities_with_space_station.last)
-      distance_of_last_city = n_cities - 1 - cities_with_space_station.last
-      max_distance_from_space_station = [max_distance_from_space_station, distance_of_last_city].max
-    end
-
-    max_distance_from_space_station
-  end
-
-main
+main if __FILE__ == $PROGRAM_NAME

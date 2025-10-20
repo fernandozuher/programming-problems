@@ -1,41 +1,31 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
-// From C# 8.0
 
-using static System.Console;
-
-class Solution
+public class Solution
 {
-    static void Main()
+    public static void Main()
     {
-        List<int> inputLine = ReadIntArray();
-        int nCities = inputLine.First(), _ = inputLine.Last();
-        List<int> citiesWithSpaceStation = ReadIntArray();
-        citiesWithSpaceStation.Sort();
-        WriteLine(FindMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
+        int nCities = ReadNumbers()[0];
+        int[] stations = ReadNumbers();
+        Array.Sort(stations);
+        Console.WriteLine(MaxDistanceFromSpaceStation(nCities, stations));
     }
 
-        static List<int> ReadIntArray()
+    private static int[] ReadNumbers()
+    {
+        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    }
+
+    private static int MaxDistanceFromSpaceStation(int nCities, int[] stations)
+    {
+        int maxDist = stations[0];
+
+        for (int i = 1; i < stations.Length; i++)
         {
-            return ReadLine().Split().Select(int.Parse).ToList();
+            int gap = (stations[i] - stations[i-1]) / 2;
+            maxDist = Math.Max(maxDist, gap);
         }
 
-        static int FindMaxDistanceFromSpaceStation(int nCities, List<int> citiesWithSpaceStation)
-        {
-            int maxDistanceFromSpaceStation, previousCity;
-            maxDistanceFromSpaceStation = previousCity = citiesWithSpaceStation.First();
-            foreach (int cityWithSpaceStation in citiesWithSpaceStation.Skip(1))
-            {
-                int distanceBetweenCities = (cityWithSpaceStation - previousCity) / 2;
-                maxDistanceFromSpaceStation = Math.Max(maxDistanceFromSpaceStation, distanceBetweenCities);
-                previousCity = cityWithSpaceStation;
-            }
-
-            if ((nCities - 1 == citiesWithSpaceStation.Last()) is var hasLastCitySpaceStation && !hasLastCitySpaceStation)
-            {
-                int distanceOfLastCity = nCities - 1 - citiesWithSpaceStation.Last();
-                maxDistanceFromSpaceStation = Math.Max(maxDistanceFromSpaceStation, distanceOfLastCity);
-            }
-
-            return maxDistanceFromSpaceStation;
-        }
+        int lastCity = nCities - 1;
+        return Math.Max(maxDist, lastCity - stations[^1]);
+    }
 }

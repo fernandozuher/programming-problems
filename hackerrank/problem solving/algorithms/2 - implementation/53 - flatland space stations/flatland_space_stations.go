@@ -4,42 +4,33 @@ package main
 
 import (
     "fmt"
-    "math"
-    "sort"
+    "slices"
 )
 
 func main() {
-    var nCities, nCitiesWithSpaceStation int
-    fmt.Scan(&nCities, &nCitiesWithSpaceStation)
-    var citiesWithSpaceStation []int = readIntArray(nCitiesWithSpaceStation)
-    sort.Ints(citiesWithSpaceStation)
-    fmt.Println(findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation))
+    var nCities, nStations int
+    _, _ = fmt.Scan(&nCities, &nStations)
+    stations := readNumbers(nStations)
+    slices.Sort(stations)
+    fmt.Println(maxDistanceFromSpaceStation(nCities, stations))
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := 0; i < n; i++ {
-            fmt.Scan(&array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
+    }
+    return arr
+}
+
+func maxDistanceFromSpaceStation(nCities int, stations []int) int {
+    maxDist := stations[0]
+
+    for i := 1; i < len(stations); i++ {
+        gap := (stations[i] - stations[i-1]) / 2
+        maxDist = max(maxDist, gap)
     }
 
-    func findMaxDistanceFromSpaceStation(nCities int, citiesWithSpaceStation []int) int {
-        var maxDistance int = citiesWithSpaceStation[0]
-        n := len(citiesWithSpaceStation)
-
-        for i, previousCity := 1, citiesWithSpaceStation[0]; i < n; i++ {
-            var distanceBetweenCities int = (citiesWithSpaceStation[i] - previousCity) / 2
-            maxDistance = int(math.Max(float64(maxDistance), float64(distanceBetweenCities)))
-            previousCity = citiesWithSpaceStation[i]
-        }
-
-        var lastCity int = nCities - 1
-        var lastCityWithSpaceStation int = citiesWithSpaceStation[n-1]
-        if hasLastCitySpaceStation := lastCity == lastCityWithSpaceStation; !hasLastCitySpaceStation {
-            var distanceOfLastCity int = lastCity - lastCityWithSpaceStation
-            maxDistance = int(math.Max(float64(maxDistance), float64(distanceOfLastCity)))
-        }
-
-        return maxDistance
-    }
+    lastCity := nCities - 1
+    return max(maxDist, lastCity - stations[len(stations)-1])
+}

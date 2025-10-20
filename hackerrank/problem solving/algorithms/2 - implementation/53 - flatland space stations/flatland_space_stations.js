@@ -1,7 +1,4 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
-// From ES2022
-
-'use strict';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
@@ -11,46 +8,39 @@ let inputLines = [];
 let currentLine = 0;
 
 process.stdin.on('data', function (inputStdin) {
-    inputString += inputStdin;
+  inputString += inputStdin;
 });
 
 process.stdin.on('end', function () {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
+  inputLines = inputString.split('\n');
+  inputString = '';
+  main();
 });
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines[currentLine++];
 }
 
 //////////////////////////////////////////////////
 
 function main() {
-    const [nCities, _] = readIntArray();
-    let citiesWithSpaceStation = readIntArray().sort((a, b) => a - b);
-    console.log(findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation));
+  const [nCities, _] = readNumbers();
+  let stations = readNumbers().sort((a, b) => a - b);
+  console.log(maxDistanceFromSpaceStation(nCities, stations));
 }
 
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
+function readNumbers() {
+  return readLine().split(' ').map(Number);
+}
 
-    function findMaxDistanceFromSpaceStation(nCities, citiesWithSpaceStation) {
-        let maxDistanceFromSpaceStation, previousCity;
-        maxDistanceFromSpaceStation = previousCity = citiesWithSpaceStation[0];
+function maxDistanceFromSpaceStation(nCities, stations) {
+  let maxDist = stations[0];
 
-        citiesWithSpaceStation.slice(1).forEach(cityWithSpaceStation => {
-            let distanceBetweenCities = Math.trunc((cityWithSpaceStation - previousCity) / 2);
-            maxDistanceFromSpaceStation = Math.max(maxDistanceFromSpaceStation, distanceBetweenCities);
-            previousCity = cityWithSpaceStation;
-        });
+  for (let i = 1; i < stations.length; i++) {
+    const gap = Math.trunc((stations[i] - stations[i - 1]) / 2);
+    maxDist = Math.max(maxDist, gap);
+  }
 
-        let hasLastCitySpaceStation = nCities - 1 === citiesWithSpaceStation.at(-1);
-        if (!hasLastCitySpaceStation) {
-            let distanceOfLastCity = nCities - 1 - citiesWithSpaceStation.at(-1);
-            maxDistanceFromSpaceStation = Math.max(maxDistanceFromSpaceStation, distanceOfLastCity);
-        }
-
-        return maxDistanceFromSpaceStation;
-    }
+  const lastCity = nCities - 1;
+  return Math.max(maxDist, lastCity - stations[stations.length - 1]);
+}
