@@ -1,43 +1,33 @@
 // https://www.hackerrank.com/challenges/cavity-map/problem?isFullScreen=true
-// From C# 8.0
 
-using static System.Console;
-
-class CavityMap
+public class CavityMap
 {
-    static void Main()
+    public static void Main()
     {
-        int nRowsColumns = int.Parse(Console.ReadLine());
-        var matrix = new List<string>(new string[nRowsColumns]).Select(_ => ReadLine()).ToList();
+        int n = int.Parse(Console.ReadLine()!);
+        char[][] matrix = ReadMatrix(n);
         ChangeMatrixToCavityMap(matrix);
-        matrix.ForEach(WriteLine);
+        Array.ForEach(matrix, row => Console.WriteLine(new string(row)));
     }
 
-        static void ChangeMatrixToCavityMap(List<string> matrix)
-        {
-            if (3 is var minInputToLookForCavity && matrix.Count < minInputToLookForCavity)
-                return;
+    private static char[][] ReadMatrix(int n)
+    {
+        return Enumerable.Range(0, n).Select(_ => Console.ReadLine()!.ToCharArray()).ToArray();
+    }
 
-            var range = Enumerable.Range(1, matrix.Count - 2);
-            foreach (int i in range)
-                foreach (int j in range)
-                    if (IsCellCavity(matrix, i, j))
-                        matrix[i] = GenerateStringWithCavity(matrix[i], j);
-        }
+    private static void ChangeMatrixToCavityMap(char[][] matrix)
+    {
+        for (int i = 1, n = matrix.Length - 1; i < n; i++)
+            for (int j = 1; j < n; j++)
+                if (IsCellCavity(matrix, i, j))
+                    matrix[i][j] = 'X';
+    }
 
-            static bool IsCellCavity(List<string> matrix, int i, int j)
-            {
-                return matrix[i - 1][j] < matrix[i][j]
-                    && matrix[i][j - 1] < matrix[i][j]
-                    && matrix[i + 1][j] < matrix[i][j]
-                    && matrix[i][j + 1] < matrix[i][j];
-            }
-
-            static string GenerateStringWithCavity(string line, int i)
-            {
-                const char cavity = 'X';
-                char[] stringToChar = line.ToCharArray();
-                stringToChar[i] = cavity;
-                return new string(stringToChar);
-            }
+    private static bool IsCellCavity(char[][] matrix, int i, int j)
+    {
+        return matrix[i - 1][j] < matrix[i][j]
+            && matrix[i][j - 1] < matrix[i][j]
+            && matrix[i + 1][j] < matrix[i][j]
+            && matrix[i][j + 1] < matrix[i][j];
+    }
 }
