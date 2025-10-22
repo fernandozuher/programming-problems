@@ -6,7 +6,7 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     chocolateSquares := readNumbers(n)
     const nDayMonth int = 2
     dayMonth := readNumbers(nDayMonth)
@@ -14,11 +14,11 @@ func main() {
 }
 
 func readNumbers(n int) []int {
-    array := make([]int, n)
-    for i := range array {
-        fmt.Scan(&array[i])
+    arr := make([]int, n)
+    for i := range arr {
+        _, _ = fmt.Scan(&arr[i])
     }
-    return array
+    return arr
 }
 
 func birthday(chocolateSquares []int, dayMonth []int) int {

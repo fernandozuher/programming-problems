@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -19,6 +17,10 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -28,17 +30,12 @@ function main() {
   console.log(birthday(chocolateSquares, dayMonth));
 }
 
-function readLine() {
-  return inputLines[currentLine++];
-}
-
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
 function birthday(chocolateSquares, dayMonth) {
   const [day, month] = dayMonth;
-
   if (month > chocolateSquares.length) return 0;
 
   let sum = chocolateSquares.slice(0, month).reduce((a, b) => a + b, 0);

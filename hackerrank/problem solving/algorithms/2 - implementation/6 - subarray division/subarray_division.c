@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int numbers[], int n);
-int birthday(const int chocolate_squares[], int n, const int day_month[]);
+void read_numbers(int *arr, int n);
+int birthday(const int *chocolate_squares, int n, const int *day_month);
 
 int main()
 {
@@ -22,13 +22,13 @@ int main()
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
-int birthday(const int chocolate_squares[], int n, const int day_month[])
+int birthday(const int *chocolate_squares, int n, const int *day_month)
 {
     int day = day_month[0];
     int month = day_month[1];
