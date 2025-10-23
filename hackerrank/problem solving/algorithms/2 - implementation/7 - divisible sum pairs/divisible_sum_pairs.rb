@@ -41,4 +41,4 @@ def count_pairs_with_remainder_k_half(frequency)
   k.even? ? pair_count(frequency[k / 2]) : 0
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

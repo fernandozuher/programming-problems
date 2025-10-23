@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+// C++23
 
 #include <algorithm>
 #include <iostream>
@@ -7,9 +8,9 @@
 
 using namespace std;
 
-vector<int> read_numbers(size_t n);
-int divisible_sum_pairs(const vector<int>& numbers, size_t k);
-vector<int> init_remainder_frequency(const vector<int>& numbers, size_t k);
+vector<int> read_numbers(int n);
+int divisible_sum_pairs(const vector<int>& numbers, int k);
+vector<int> init_remainder_frequency(const vector<int>& numbers, int k);
 int count_pairs_with_remainder_0(const vector<int>& frequency);
 int pair_count(int n);
 int count_complementary_remainder_pairs(const vector<int>& frequency);
@@ -17,29 +18,29 @@ int count_pairs_with_remainder_k_half(const vector<int>& frequency);
 
 int main()
 {
-    size_t n, k;
+    int n, k;
     cin >> n >> k;
     vector numbers{read_numbers(n)};
     cout << divisible_sum_pairs(numbers, k);
     return 0;
 }
 
-vector<int> read_numbers(size_t n)
+vector<int> read_numbers(int n)
 {
-    vector<int> v(n);
-    for (int& x : v)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return v;
+    return arr;
 }
 
-int divisible_sum_pairs(const vector<int>& numbers, size_t k)
+int divisible_sum_pairs(const vector<int>& numbers, int k)
 {
     vector frequency{init_remainder_frequency(numbers, k)};
     return count_pairs_with_remainder_0(frequency) + count_complementary_remainder_pairs(frequency) +
            count_pairs_with_remainder_k_half(frequency);
 }
 
-vector<int> init_remainder_frequency(const vector<int>& numbers, size_t k)
+vector<int> init_remainder_frequency(const vector<int>& numbers, int k)
 {
     vector<int> frequency(k);
     for (int x : numbers)

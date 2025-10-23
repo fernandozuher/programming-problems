@@ -4,15 +4,14 @@ public class Solution
 {
     public static void Main()
     {
+        int k = ReadNumbers()[1];
         int[] numbers = ReadNumbers();
-        int k = numbers[1];
-        numbers = ReadNumbers();
         Console.WriteLine(DivisibleSumPairs(numbers, k));
     }
 
     private static int[] ReadNumbers()
     {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
     }
 
     private static int DivisibleSumPairs(int[] numbers, int k)

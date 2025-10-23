@@ -1,8 +1,7 @@
 # https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-
 def main():
-    n, k = read_numbers()
+    _, k = read_numbers()
     numbers = read_numbers()
     print(divisible_sum_pairs(numbers, k))
 

@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -19,6 +17,10 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -29,10 +31,6 @@ function main() {
 
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
 }
 
 function divisibleSumPairs(numbers: number[], k: number): number {

@@ -1,22 +1,20 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
-// Java 22
+// Java 25
 
+import java.lang.IO;
 import java.util.*;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            int k = scan.nextInt();
-            scan.nextLine();
-            int[] numbers = readNumbers(scan, n);
-            System.out.println(divisibleSumPairs(numbers, k));
-        }
+    void main() {
+        int k = readNumbers()[1];
+        int[] numbers = readNumbers();
+        IO.println(divisibleSumPairs(numbers, k));
     }
 
-    private static int[] readNumbers(Scanner scan, int n) {
-        return IntStream.range(0, n).map(_ -> scan.nextInt()).toArray();
+    private static int[] readNumbers() {
+        return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
     }
 
     private static int divisibleSumPairs(int[] numbers, int k) {
