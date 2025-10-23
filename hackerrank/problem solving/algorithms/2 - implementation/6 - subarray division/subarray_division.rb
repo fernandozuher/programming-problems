@@ -28,4 +28,4 @@ def birthday(chocolate_squares, day_month)
   ways_bar_can_be_divided
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME
