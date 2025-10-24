@@ -1,23 +1,22 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
+// Java 25
 
+import java.lang.IO;
 import java.util.*;
+import java.util.stream.Stream;
 
 class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            scan.nextLine();
-            Map<Integer, Integer> birdCounts = countNumbersIntoHash(scan, n);
-            System.out.println(findMostSpottedBird(birdCounts));
-        }
+    void main() {
+        IO.readln();
+        Map<Integer, Integer> birdCounts = countNumbersIntoHash();
+        IO.println(findMostSpottedBird(birdCounts));
     }
 
-    private static Map<Integer, Integer> countNumbersIntoHash(Scanner scan, int n) {
+    private static Map<Integer, Integer> countNumbersIntoHash() {
         Map<Integer, Integer> numberCounts = new HashMap<>();
-        while (n-- > 0) {
-            int x = scan.nextInt();
-            numberCounts.put(x, numberCounts.getOrDefault(x, 0) + 1);
-        }
+        Stream.of(IO.readln().split(" ")).map(Integer::parseInt).forEach(x ->
+                numberCounts.put(x, numberCounts.getOrDefault(x, 0) + 1)
+        );
         return numberCounts;
     }
 

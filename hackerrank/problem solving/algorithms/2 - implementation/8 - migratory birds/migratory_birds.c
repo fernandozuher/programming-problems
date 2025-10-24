@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void read_numbers(int numbers[], int n);
+void read_numbers(int *arr, int n);
 int compare(const void *a, const void *b);
-int find_most_spotted_bird(int birds[], int n);
+int find_most_spotted_bird(const int *birds, int n);
 
 int main()
 {
@@ -18,18 +18,18 @@ int main()
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
 int compare(const void *a, const void *b)
 {
-    return *(int*) a - *(int*) b;
+    return *(int *) a - *(int *) b;
 }
 
-int find_most_spotted_bird(int birds[], int n)
+int find_most_spotted_bird(const int *birds, int n)
 {
     int most_spotted_bird = birds[0];
     int max_count = 1;
