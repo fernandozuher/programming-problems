@@ -1,38 +1,28 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
-class Solution
+const int TransitionYear = 1918;
+int year = int.Parse(Console.ReadLine()!);
+Console.WriteLine(CalculateDateOf256thDay(year));
+
+string CalculateDateOf256thDay(int year)
 {
-    public static void Main()
-    {
-        int year = int.Parse(Console.ReadLine()!);
-        Console.WriteLine(DayOfTheProgrammer.CalculateDateOf256thDay(year));
-    }
+    int day;
+    if (year == TransitionYear)
+        day = 26;
+    else
+        day = IsLeapYear(year) ? 12 : 13;
+    return day + ".09." + year;
 }
 
-class DayOfTheProgrammer
+bool IsLeapYear(int year)
 {
-    private const int TransitionYear = 1918;
-
-    public static string CalculateDateOf256thDay(int year)
-    {
-        string day;
-        if (year == TransitionYear)
-            day = "26";
-        else
-            day = IsLeapYear(year) ? "12" : "13";
-        return day + ".09." + year.ToString();
-    }
-
-    private static bool IsLeapYear(int year)
-    {
-        if (year < TransitionYear)
-            return IsLeapJulianYear(year);
-        if (year > TransitionYear)
-            return IsLeapGregorianYear(year);
-        return false;
-    }
-
-    private static bool IsLeapJulianYear(int year) => year % 4 == 0;
-
-    private static bool IsLeapGregorianYear(int year) => year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+    if (year < TransitionYear)
+        return IsLeapJulianYear(year);
+    if (year > TransitionYear)
+        return IsLeapGregorianYear(year);
+    return false;
 }
+
+bool IsLeapJulianYear(int year) => year % 4 == 0;
+
+bool IsLeapGregorianYear(int year) => year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);

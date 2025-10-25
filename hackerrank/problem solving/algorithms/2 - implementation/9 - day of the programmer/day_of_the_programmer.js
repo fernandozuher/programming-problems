@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -34,9 +32,9 @@ function readLine() {
 
 function calculateDateOf256thDay(year) {
   let day;
-  if (year === TRANSITION_YEAR) day = '26';
-  else day = isLeapYear(year) ? '12' : '13';
-  return day + '.09.' + year.toString();
+  if (year === TRANSITION_YEAR) day = 26;
+  else day = isLeapYear(year) ? 12 : 13;
+  return day + '.09.' + year;
 }
 
 function isLeapYear(year) {

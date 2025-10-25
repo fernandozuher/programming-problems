@@ -30,7 +30,7 @@ char *calculate_date_of_256th_day(int year)
     else
         day = is_leap_year(year) ? 12 : 13;
 
-    char *date = malloc(DATE_BUF_SIZE * sizeof(char));
+    auto date = (char *) malloc(DATE_BUF_SIZE * sizeof(char));
     snprintf(date, DATE_BUF_SIZE, "%02d.09.%d", day, year);
     return date;
 }

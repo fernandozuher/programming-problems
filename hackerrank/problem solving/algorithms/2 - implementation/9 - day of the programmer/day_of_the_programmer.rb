@@ -13,7 +13,7 @@ def calculate_date_of_256th_day(year)
   else
     day = leap_year?(year) ? '12' : '13'
   end
-  day + ".09." + year.to_s
+  day + '.09.' + year.to_s
 end
 
 def leap_year?(year)
