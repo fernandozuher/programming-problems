@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 

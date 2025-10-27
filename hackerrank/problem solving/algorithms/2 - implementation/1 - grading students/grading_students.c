@@ -4,7 +4,6 @@
 
 void read_numbers(int numbers[], int n);
 void grade_students(const int grades[], int n, int rounded_grades[]);
-void print_numbers(const int numbers[], int n);
 
 int main()
 {
@@ -15,7 +14,8 @@ int main()
 
     int rounded_grades[n];
     grade_students(grades, n, rounded_grades);
-    print_numbers(rounded_grades, n);
+    for (int i = 0; i < n; ++i)
+        printf("%d\n", rounded_grades[i]);
 
     return 0;
 }
@@ -35,10 +35,4 @@ void grade_students(const int grades[], int n, int rounded_grades[])
             int next_multiple_5 = (grades[i] / 5 + 1) * 5;
             rounded_grades[i] = next_multiple_5 - grades[i] < 3 ? next_multiple_5 : grades[i];
         }
-}
-
-void print_numbers(const int numbers[], int n)
-{
-    for (int i = 0; i < n; ++i)
-        printf("%d\n", numbers[i]);
 }

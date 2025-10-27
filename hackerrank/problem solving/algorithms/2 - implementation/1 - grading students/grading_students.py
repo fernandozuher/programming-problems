@@ -1,6 +1,5 @@
 # https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-
 def main():
     n = int(input())
     grades = read_numbers(n)
@@ -20,7 +19,7 @@ def grade_students(grades):
         if grade < MIN_GRADE:
             rounded_grades[i] = grade
         else:
-            next_multiple_5 = (int(grade / 5) + 1) * 5
+            next_multiple_5 = (grade // 5 + 1) * 5
             rounded_grades[i] = next_multiple_5 if (next_multiple_5 - grade < 3) else grade
 
     return rounded_grades
