@@ -30,7 +30,7 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-vector<int> grade_students(const vector<int> &grades)
+vector<int> grade_students(const vector<int>& grades)
 {
     constexpr int min_grade{38};
     return grades
