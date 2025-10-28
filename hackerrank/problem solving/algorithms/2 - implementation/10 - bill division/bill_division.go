@@ -5,15 +5,20 @@ package main
 import "fmt"
 
 func main() {
-    printOutput(bonAppetit(readInput()))
+    data := readInput()
+    if charged := bonAppetit(data); charged > 0 {
+        fmt.Println(charged)
+    } else {
+        fmt.Println("Bon Appetit")
+    }
 }
 
 func readInput() Input {
     var data Input
     var n int
-    fmt.Scan(&n, &data.itemNotEaten)
+    _, _ = fmt.Scan(&n, &data.itemNotEaten)
     data.mealCosts = readNumbers(n)
-    fmt.Scan(&data.amountCharged)
+    _, _ = fmt.Scan(&data.amountCharged)
     return data
 }
 
@@ -24,30 +29,19 @@ type Input struct {
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        _, _ = fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func bonAppetit(data Input) int {
-    return data.amountCharged - computeActualShare(data.mealCosts, data.itemNotEaten)
-}
-
-func computeActualShare(mealCosts []int, itemNotEaten int) int {
     totalCost := 0
-    for _, x := range mealCosts {
+    for _, x := range data.mealCosts {
         totalCost += x
     }
-    totalSharedCost := totalCost - mealCosts[itemNotEaten]
-    return totalSharedCost / 2
-}
-
-func printOutput(charged int) {
-    if charged > 0 {
-        fmt.Println(charged)
-    } else {
-        fmt.Println("Bon Appetit")
-    }
+    totalSharedCost := totalCost - data.mealCosts[data.itemNotEaten]
+    totalSharedCost /= 2
+    return data.amountCharged - totalSharedCost
 }

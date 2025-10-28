@@ -5,7 +5,8 @@ from dataclasses import dataclass
 
 def main():
     data = read_input()
-    print_output(BillDivision(data).bon_appetit())
+    charged = bon_appetit(data)
+    print(charged if charged else "Bon Appetit")
 
 
 def read_input():
@@ -26,23 +27,10 @@ class Input:
     amount_charged: int
 
 
-class BillDivision:
-
-    def __init__(self, data):
-        self.__item_not_eaten = data.item_not_eaten
-        self.__meal_costs = data.meal_costs
-        self.__amount_charged = data.amount_charged
-
-    def bon_appetit(self):
-        return self.__amount_charged - self.__compute_actual_share()
-
-    def __compute_actual_share(self):
-        total_shared_cost = sum(self.__meal_costs) - self.__meal_costs[self.__item_not_eaten]
-        return int(total_shared_cost / 2)
-
-
-def print_output(charged):
-    print(charged if charged else "Bon Appetit")
+def bon_appetit(data):
+    total_shared_cost = sum(data.meal_costs) - data.meal_costs[data.item_not_eaten]
+    total_shared_cost //= 2
+    return data.amount_charged - total_shared_cost
 
 
 if __name__ == '__main__':

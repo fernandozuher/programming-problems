@@ -4,7 +4,12 @@ use text_io::read;
 
 fn main() {
     let data: Input = read_input();
-    print_output(bon_appetit(&data));
+    let charged = bon_appetit(&data);
+    if charged > 0 {
+        println!("{}", charged);
+    } else {
+        println!("Bon Appetit");
+    }
 }
 
 struct Input {
@@ -27,19 +32,8 @@ fn read_numbers(n: usize) -> Vec<i32> {
 }
 
 fn bon_appetit(data: &Input) -> i32 {
-    return data.amount_charged - compute_actual_share(&data.meal_costs, data.item_not_eaten);
-}
-
-fn compute_actual_share(meal_costs: &[i32], item_not_eaten: usize) -> i32 {
-    let total_cost: i32 = meal_costs.iter().sum();
-    let total_shared_cost = total_cost - meal_costs[item_not_eaten];
-    total_shared_cost / 2
-}
-
-fn print_output(charged: i32) {
-    if charged > 0 {
-        println!("{}", charged);
-    } else {
-        println!("Bon Appetit");
-    }
+    let mut total_shared_cost =
+        data.meal_costs.iter().sum::<i32>() - data.meal_costs[data.item_not_eaten];
+    total_shared_cost /= 2;
+    data.amount_charged - total_shared_cost
 }

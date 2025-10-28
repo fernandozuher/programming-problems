@@ -17,11 +17,16 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
   const data = readInput();
-  printOutput(new BillDivision(data).bonAppetit());
+  const charged = bonAppetit(data);
+  console.log(charged || 'Bon Appetit');
 }
 
 function readInput() {
@@ -35,32 +40,9 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-function readLine() {
-  return inputLines[currentLine++];
-}
-
-class BillDivision {
-  #itemNotEaten;
-  #mealCosts;
-  #amountCharged;
-
-  constructor(data) {
-    this.#itemNotEaten = data.itemNotEaten;
-    this.#mealCosts = data.mealCosts;
-    this.#amountCharged = data.amountCharged;
-  }
-
-  bonAppetit() {
-    return this.#amountCharged - this.#computeActualShare();
-  }
-
-  #computeActualShare() {
-    const totalCost = this.#mealCosts.reduce((a, b) => a + b, 0);
-    const totalSharedCost = totalCost - this.#mealCosts[this.#itemNotEaten];
-    return totalSharedCost / 2;
-  }
-}
-
-function printOutput(charged) {
-  console.log(charged || 'Bon Appetit');
+function bonAppetit(data) {
+  const totalCost = data.mealCosts.reduce((a, b) => a + b, 0);
+  let totalSharedCost = totalCost - data.mealCosts[data.itemNotEaten];
+  totalSharedCost /= 2;
+  return data.amountCharged - totalSharedCost;
 }

@@ -13,48 +13,18 @@ struct input {
     int amount_charged{};
 };
 
-class Bill_Division {
-public:
-    explicit Bill_Division(const input& data);
-    int bon_appetit() const;
-
-private:
-    int item_not_eaten;
-    vector<int> meal_costs;
-    int amount_charged;
-
-    int compute_actual_share() const;
-};
-
-Bill_Division::Bill_Division(const input& data): item_not_eaten{data.item_not_eaten},
-                                                 meal_costs{data.meal_costs},
-                                                 amount_charged{data.amount_charged}
-{
-}
-
-
-int Bill_Division::bon_appetit() const
-{
-    return amount_charged - compute_actual_share();
-}
-
-int Bill_Division::compute_actual_share() const
-{
-    int total_cost{*ranges::fold_left_first(meal_costs, plus())};
-    int total_shared_cost{total_cost - meal_costs.at(item_not_eaten)};
-    return total_shared_cost / 2;
-}
-
-//////////////////////////////////////////////////
-
 input read_input();
 vector<int> read_numbers(int n);
-void print_output(int charged);
+int bon_appetit(const input& data);
 
 int main()
 {
     input data{read_input()};
-    print_output(Bill_Division{data}.bon_appetit());
+    if (int charged{bon_appetit(data)}; charged)
+        cout << charged << '\n';
+    else
+        cout << "Bon Appetit\n";
+
     return 0;
 }
 
@@ -62,7 +32,7 @@ input read_input()
 {
     int n, item_not_eaten;
     cin >> n >> item_not_eaten;
-    vector<int> meal_costs = read_numbers(n);
+    vector<int> meal_costs{read_numbers(n)};
     int amount_charged;
     cin >> amount_charged;
     return {item_not_eaten, meal_costs, amount_charged};
@@ -70,16 +40,16 @@ input read_input()
 
 vector<int> read_numbers(int n)
 {
-    vector<int> numbers(n);
-    for (auto& x : numbers)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return numbers;
+    return arr;
 }
 
-void print_output(int charged)
+int bon_appetit(const input& data)
 {
-    if (charged)
-        cout << charged << '\n';
-    else
-        cout << "Bon Appetit\n";
+    int total_cost{*ranges::fold_left_first(data.meal_costs, plus())};
+    int total_shared_cost{total_cost - data.meal_costs.at(data.item_not_eaten)};
+    total_shared_cost /= 2;
+    return data.amount_charged - total_shared_cost;
 }
