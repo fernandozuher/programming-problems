@@ -1,27 +1,22 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+// Java 25
 
+import java.lang.IO;
 import java.util.*;
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            scan.nextLine();
-            Map<Integer, Integer> sockCounts = readNumbersIntoMap(scan, n);
-            System.out.println(sockMerchant(sockCounts));
-        }
-    }
+void main() {
+    IO.readln();
+    Map<Integer, Integer> sockCounts = readNumbersIntoMap();
+    IO.println(sockMerchant(sockCounts));
+}
 
-    private static Map<Integer, Integer> readNumbersIntoMap(Scanner scan, int n) {
-        var numberCounts = new HashMap<Integer, Integer>();
-        for (int i = 0; i < n; i++) {
-            int x = scan.nextInt();
-            numberCounts.merge(x, 1, Integer::sum);
-        }
-        return numberCounts;
-    }
+Map<Integer, Integer> readNumbersIntoMap() {
+    var counter = new HashMap<Integer, Integer>();
+    for (int x : Stream.of(IO.readln().split(" ")).map(Integer::parseInt).toList())
+        counter.merge(x, 1, Integer::sum);
+    return counter;
+}
 
-    private static int sockMerchant(Map<Integer, Integer> sockCounts) {
-        return sockCounts.values().stream().reduce(0, (pairs, count) -> pairs + count / 2);
-    }
+int sockMerchant(Map<Integer, Integer> sockCounts) {
+    return sockCounts.values().stream().reduce(0, (pairs, count) -> pairs + count / 2);
 }

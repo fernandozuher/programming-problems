@@ -22,10 +22,10 @@ int main()
 
 unordered_map<int, int> read_numbers_into_map(int n)
 {
-    unordered_map<int, int> number_counts;
+    unordered_map<int, int> counter;
     for (int x; n-- && cin >> x;)
-        ++number_counts[x];
-    return number_counts;
+        ++counter[x];
+    return counter;
 }
 
 int sock_merchant(const unordered_map<int, int>& sock_counts)

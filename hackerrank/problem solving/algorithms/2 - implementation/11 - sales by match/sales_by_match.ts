@@ -17,6 +17,10 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -25,17 +29,13 @@ function main() {
   console.log(sockMerchant(sockCounts));
 }
 
-function readLine(): string {
-  return inputLines[currentLine++];
-}
-
 function readNumbersIntoMap(): Map<number, number> {
-  const numberCounts = new Map<number, number>();
+  const counter = new Map<number, number>();
   readLine()
     .split(' ')
     .map(Number)
-    .forEach((x) => numberCounts.set(x, (numberCounts.get(x) || 0) + 1));
-  return numberCounts;
+    .forEach((x) => counter.set(x, (counter.get(x) || 0) + 1));
+  return counter;
 }
 
 function sockMerchant(sockCounts: Map<number, number>): number {

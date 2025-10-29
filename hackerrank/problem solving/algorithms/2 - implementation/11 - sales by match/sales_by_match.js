@@ -17,6 +17,10 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -25,19 +29,15 @@ function main() {
   console.log(sockMerchant(sockCounts));
 }
 
-function readLine() {
-  return inputLines[currentLine++];
-}
-
 function readNumbersIntoMap() {
-  const numberCounts = {};
+  const counter = {};
   readLine()
     .split(' ')
     .map(Number)
     .forEach((x) => {
-      numberCounts[x] = (numberCounts[x] || 0) + 1;
+      counter[x] = (counter[x] || 0) + 1;
     });
-  return numberCounts;
+  return counter;
 }
 
 function sockMerchant(sockCounts) {
