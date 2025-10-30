@@ -6,7 +6,7 @@ import "fmt"
 
 func main() {
     var n, page int
-    fmt.Scan(&n, &page)
+    _, _ = fmt.Scan(&n, &page)
     fmt.Println(pageCount(n, page))
 }
 

@@ -1,19 +1,16 @@
 // https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
+// Java 25
 
-import java.util.Scanner;
+import java.lang.IO;
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            int page = scan.nextInt();
-            System.out.println(pageCount(n, page));
-        }
-    }
+void main() {
+    int n = Integer.parseInt(IO.readln());
+    int page = Integer.parseInt(IO.readln());
+    IO.println(pageCount(n, page));
+}
 
-    private static int pageCount(int n, int page) {
-        int fromFront = page / 2;
-        int fromBack = n / 2 - fromFront;
-        return Math.min(fromFront, fromBack);
-    }
+int pageCount(int n, int page) {
+    int fromFront = page / 2;
+    int fromBack = n / 2 - fromFront;
+    return Math.min(fromFront, fromBack);
 }

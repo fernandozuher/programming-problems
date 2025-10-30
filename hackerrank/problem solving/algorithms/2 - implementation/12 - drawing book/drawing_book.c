@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 int page_count(int n, int page);
-int min(int a, int b);
 
 int main()
 {
@@ -17,10 +16,5 @@ int page_count(int n, int page)
 {
     int from_front = page / 2;
     int from_back = n / 2 - from_front;
-    return min(from_front, from_back);
-}
-
-int min(int a, int b)
-{
-    return a < b ? a : b;
+    return from_front < from_back ? from_front : from_back;
 }

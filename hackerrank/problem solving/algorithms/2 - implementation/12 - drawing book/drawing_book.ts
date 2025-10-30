@@ -17,16 +17,16 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 ////////////////////////////////////////////////
 
 function main() {
   const n: number = +readLine();
   const page: number = +readLine();
   console.log(pageCount(n, page));
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
 }
 
 function pageCount(n: number, page: number): number {
