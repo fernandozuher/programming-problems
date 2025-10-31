@@ -19,5 +19,5 @@ def counting_valleys(steps):
     return valleys
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

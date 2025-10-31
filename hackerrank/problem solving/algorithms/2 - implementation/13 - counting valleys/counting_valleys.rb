@@ -22,4 +22,4 @@ def counting_valleys(steps)
   valleys
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

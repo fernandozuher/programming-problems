@@ -18,11 +18,13 @@ int main()
 int counting_valleys(string_view steps)
 {
     int valleys{};
+
     for (int current_altitude{}; auto step : steps) {
         bool was_below_sea_level{current_altitude < 0};
         current_altitude += step == 'D' ? -1 : 1;
         if (bool is_in_sea_level_from_valley{was_below_sea_level && current_altitude == 0}; is_in_sea_level_from_valley)
             ++valleys;
     }
+
     return valleys;
 }

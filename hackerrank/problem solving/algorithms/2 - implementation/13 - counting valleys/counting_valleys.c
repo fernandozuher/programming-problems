@@ -18,6 +18,7 @@ int main()
 int counting_valleys(const char steps[], int n)
 {
     int valleys = 0;
+
     for (int i = 0, current_altitude = 0; i < n; ++i) {
         bool was_below_sea_level = current_altitude < 0;
         current_altitude += steps[i] == 'D' ? -1 : 1;
@@ -25,5 +26,6 @@ int counting_valleys(const char steps[], int n)
         if (is_in_sea_level_from_valley)
             ++valleys;
     }
+
     return valleys;
 }

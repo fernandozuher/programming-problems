@@ -17,16 +17,16 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 ////////////////////////////////////////////////
 
 function main() {
   readLine();
   const steps = readLine();
   console.log(countingValleys(steps));
-}
-
-function readLine() {
-  return inputLines[currentLine++];
 }
 
 function countingValleys(steps) {
