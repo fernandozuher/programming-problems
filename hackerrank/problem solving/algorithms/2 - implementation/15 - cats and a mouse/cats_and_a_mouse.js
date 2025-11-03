@@ -17,17 +17,16 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 ////////////////////////////////////////////////
 
 function main() {
   const n = +readLine();
-  Array.from({ length: n }, () => findNearestCatOrNot(readNumbers())).forEach(
-    (x) => console.log(x),
-  );
-}
-
-function readLine() {
-  return inputLines[currentLine++];
+  for (let i = 0; i < n; i++)
+    console.log(findNearestCatOrNot(readNumbers()));
 }
 
 function readNumbers() {

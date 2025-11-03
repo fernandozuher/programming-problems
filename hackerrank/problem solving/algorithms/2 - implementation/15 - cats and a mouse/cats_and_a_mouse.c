@@ -15,27 +15,18 @@ int main()
 {
     int n;
     scanf("%d", &n);
-
-    int positions[NUM_POSITIONS];
-    auto nearest_cat_or_not = (char **) malloc(n * sizeof(char *));
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0, positions[NUM_POSITIONS]; i < n; ++i) {
         read_numbers(positions, 3);
-        nearest_cat_or_not[i] = find_nearest_cat_or_not(positions);
+        puts(find_nearest_cat_or_not(positions));
     }
-    for (int i = 0; i < n; ++i)
-        puts(nearest_cat_or_not[i]);
-
-    for (int i = 0; i < n; ++i)
-        free(nearest_cat_or_not[i]);
-    free(nearest_cat_or_not);
 
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int arr[], int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
 char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS])
@@ -46,14 +37,14 @@ char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS])
     int cat_a_from_mouse = abs(cat_a - mouse);
     int cat_b_from_mouse = abs(cat_b - mouse);
 
-    auto result = (char *) malloc(RESULT_SIZE * sizeof(char));
+    auto res = (char *) malloc(RESULT_SIZE * sizeof(char));
 
     if (cat_a_from_mouse < cat_b_from_mouse)
-        strcpy(result, "Cat A");
+        strcpy(res, "Cat A");
     else if (cat_a_from_mouse > cat_b_from_mouse)
-        strcpy(result, "Cat B");
+        strcpy(res, "Cat B");
     else
-        strcpy(result, "Mouse C");
+        strcpy(res, "Mouse C");
 
-    return result;
+    return res;
 }

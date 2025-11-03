@@ -2,7 +2,7 @@
 
 def main
   n = gets.to_i
-  puts n.times.map { find_nearest_cat_or_not(read_numbers) }
+  n.times { puts find_nearest_cat_or_not(read_numbers) }
 end
 
 def read_numbers
@@ -19,4 +19,4 @@ def find_nearest_cat_or_not(positions)
   'Mouse C'
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

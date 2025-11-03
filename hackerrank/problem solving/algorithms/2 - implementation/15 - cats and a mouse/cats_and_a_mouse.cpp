@@ -1,6 +1,5 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
 
-#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -13,21 +12,18 @@ int main()
 {
     int n;
     cin >> n;
-    vector<string> nearest_cat_or_not(n);
-    for (auto& x : nearest_cat_or_not)
-        x = find_nearest_cat_or_not(read_numbers(3));
-    for (auto& x : nearest_cat_or_not)
-        cout << x << '\n';
+    for (int i{}; i < n; ++i)
+        cout << find_nearest_cat_or_not(read_numbers(3)) << '\n';
 
     return 0;
 }
 
 vector<int> read_numbers(int n)
 {
-    vector<int> numbers(n);
-    for (auto& x : numbers)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return numbers;
+    return arr;
 }
 
 string find_nearest_cat_or_not(const vector<int>& positions)

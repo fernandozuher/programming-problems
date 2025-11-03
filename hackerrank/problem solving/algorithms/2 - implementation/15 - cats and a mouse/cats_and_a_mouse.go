@@ -7,21 +7,17 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    nearestCatOrNot := make([]string, n)
-    for i := range n {
-        nearestCatOrNot[i] = findNearestCatOrNot(readNumbers(3))
-    }
-    for _, x := range nearestCatOrNot {
-        fmt.Println(x)
+    for range n {
+        fmt.Println(findNearestCatOrNot(readNumbers(3)))
     }
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func findNearestCatOrNot(positions []int) string {

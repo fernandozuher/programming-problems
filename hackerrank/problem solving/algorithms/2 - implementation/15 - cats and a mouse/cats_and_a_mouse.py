@@ -2,8 +2,8 @@
 
 def main():
     n = int(input())
-    nearest_cats_or_not = [find_nearest_cat_or_not(read_numbers()) for _ in range(n)]
-    print(*nearest_cats_or_not, sep='\n')
+    for _ in range(n):
+        print(find_nearest_cat_or_not(read_numbers()))
 
 
 def read_numbers():
