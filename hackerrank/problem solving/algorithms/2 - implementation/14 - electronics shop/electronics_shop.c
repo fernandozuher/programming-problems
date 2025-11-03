@@ -36,11 +36,7 @@ int *read_numbers(int n)
 
 int compare(const void *a, const void *b)
 {
-    if (*(int *) a < *(int *) b)
-        return -1;
-    if (*(int *) a > *(int *) b)
-        return 1;
-    return 0;
+    return *(int *)a - *(int *)b;
 }
 
 int calculate_money_spent(int keyboards[], int n_keyboards, int usb_drives[], int n_usb_drives, int budget)

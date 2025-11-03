@@ -34,4 +34,4 @@ def calculate_money_spent(keyboards, usb_drives, budget)
   max_spent
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

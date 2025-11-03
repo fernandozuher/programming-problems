@@ -32,10 +32,10 @@ int main()
 
 vector<int> read_numbers(int n)
 {
-    vector<int> numbers(n);
-    for (auto& x : numbers)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return numbers;
+    return arr;
 }
 
 int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget)

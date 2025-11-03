@@ -17,6 +17,10 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 ////////////////////////////////////////////////
 
 function main() {
@@ -26,10 +30,6 @@ function main() {
   keyboards.sort((a, b) => a - b);
   usbDrives.sort((a, b) => a - b);
   console.log(calculateMoneySpent(keyboards, usbDrives, budget));
-}
-
-function readLine() {
-  return inputLines[currentLine++];
 }
 
 function readNumbers() {
