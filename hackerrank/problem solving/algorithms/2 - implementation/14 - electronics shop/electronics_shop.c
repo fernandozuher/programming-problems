@@ -6,7 +6,7 @@
 
 int *read_numbers(int n);
 int compare(const void *a, const void *b);
-int calculate_money_spent(int keyboards[], int n_keyboards, int usb_drives[], int n_usb_drives, int budget);
+int calculate_money_spent(const int keyboards[], int n_keyboards, const int usb_drives[], int n_usb_drives, int budget);
 
 int main()
 {
@@ -36,10 +36,10 @@ int *read_numbers(int n)
 
 int compare(const void *a, const void *b)
 {
-    return *(int *)a - *(int *)b;
+    return *(int *) a - *(int *) b;
 }
 
-int calculate_money_spent(int keyboards[], int n_keyboards, int usb_drives[], int n_usb_drives, int budget)
+int calculate_money_spent(const int keyboards[], int n_keyboards, const int usb_drives[], int n_usb_drives, int budget)
 {
     int max_spent = -1, i = 0, j = n_usb_drives - 1;
 
