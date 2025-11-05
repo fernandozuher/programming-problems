@@ -21,27 +21,26 @@ process.stdin.on('end', function () {
 
 function main() {
   readLine();
-  console.log(pickingNumbers(readNumbers()));
+  console.log(pickingNumbers(readNumbersIntoMap()));
 }
 
 function readLine() {
   return inputLines[currentLine++];
 }
 
-function readNumbers() {
-  return readLine().split(' ').map(Number);
+function readNumbersIntoMap() {
+  const arr = readLine().split(' ').map(Number);
+  const counter = new Map();
+  for (const num of arr)
+    counter.set(num, (counter.get(num) || 0) + 1);
+  return counter;
 }
 
-function pickingNumbers(numbers) {
-  const counter = new Map();
-  for (const num of numbers)
-    counter.set(num, (counter.get(num) || 0) + 1);
-
+function pickingNumbers(counter) {
   let maxLen = 0;
   for (const [num, count] of counter) {
     const current = count + (counter.get(num + 1) || 0);
     maxLen = Math.max(maxLen, current);
   }
-
   return maxLen;
 }

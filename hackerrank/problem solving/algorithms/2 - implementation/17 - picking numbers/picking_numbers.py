@@ -5,15 +5,14 @@ from collections import Counter
 
 def main():
     input()
-    print(picking_numbers(read_numbers()))
+    print(picking_numbers(read_numbers_into_map()))
 
 
-def read_numbers():
-    return list(map(int, input().split()))
+def read_numbers_into_map():
+    return Counter(map(int, input().split()))
 
 
-def picking_numbers(numbers):
-    counter = Counter(numbers)
+def picking_numbers(counter):
     max_len = 0
     for num in counter:
         max_len = max(max_len, counter[num] + counter.get(num + 1, 0))

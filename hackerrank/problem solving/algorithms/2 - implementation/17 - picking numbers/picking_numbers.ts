@@ -17,31 +17,30 @@ process.stdin.on('end', function (): void {
   main();
 });
 
-////////////////////////////////////////////////
-
-function main() {
-  readLine();
-  console.log(pickingNumbers(readNumbers()));
-}
-
 function readLine(): string {
   return inputLines[currentLine++];
 }
 
-function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+////////////////////////////////////////////////
+
+function main() {
+  readLine();
+  console.log(pickingNumbers(readNumbersIntoMap()));
 }
 
-function pickingNumbers(numbers: number[]): number {
+function readNumbersIntoMap(): Map<number, number> {
+  const arr: number[] = readLine().split(' ').map(Number);
   const counter = new Map<number, number>();
-  for (const num of numbers)
+  for (const num of arr)
     counter.set(num, (counter.get(num) || 0) + 1);
+  return counter;
+}
 
+function pickingNumbers(counter: Map<number, number>): number {
   let maxLen = 0;
   for (const [num, count] of counter) {
     const current: number = count + (counter.get(num + 1) || 0);
     maxLen = Math.max(maxLen, current);
   }
-
   return maxLen;
 }

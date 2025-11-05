@@ -1,30 +1,24 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
-public class Solution
+Console.ReadLine();
+Console.WriteLine(PickingNumbers(ReadNumbersIntoMap()));
+
+Dictionary<int, int> ReadNumbersIntoMap()
 {
-    public static void Main()
+    return Console.ReadLine()!
+                  .Split()
+                  .Select(int.Parse)
+                  .GroupBy(num => num)
+                  .ToDictionary(g => g.Key, g => g.Count());
+}
+
+int PickingNumbers(Dictionary<int, int> counter)
+{
+    int maxLen = 0;
+    foreach (int num in counter.Keys)
     {
-        Console.ReadLine();
-        Console.WriteLine(PickingNumbers(ReadNumbers()));
+        int current = counter[num] + (counter.ContainsKey(num + 1) ? counter[num + 1] : 0);
+        maxLen = Math.Max(maxLen, current);
     }
-
-    private static int[] ReadNumbers()
-    {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
-    }
-
-    private static int PickingNumbers(int[] numbers)
-    {
-        Dictionary<int, int> counter = numbers.GroupBy(num => num)
-                                              .ToDictionary(g => g.Key, g => g.Count());
-
-        int maxLen = 0;
-        foreach (int num in counter.Keys)
-        {
-            int current = counter[num] + (counter.ContainsKey(num + 1) ? counter[num + 1] : 0);
-            maxLen = Math.Max(maxLen, current);
-        }
-
-        return maxLen;
-    }
+    return maxLen;
 }

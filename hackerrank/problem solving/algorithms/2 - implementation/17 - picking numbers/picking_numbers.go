@@ -23,8 +23,7 @@ func readNumbersIntoMap(n int) map[int]int {
 func pickingNumbers(counter map[int]int) int {
     maxLen := 0
     for num, count := range counter {
-        current := count + counter[num+1]
-        maxLen = max(maxLen, current)
+        maxLen = max(maxLen, count + counter[num+1])
     }
     return maxLen
 }
