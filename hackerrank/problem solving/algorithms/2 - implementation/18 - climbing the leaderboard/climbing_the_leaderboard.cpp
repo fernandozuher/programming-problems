@@ -10,7 +10,7 @@
 using namespace std;
 
 vector<int> read_numbers(int n);
-void remove_duplicates(vector<int>& numbers);
+void remove_duplicates(vector<int>& arr);
 vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& player);
 
 using namespace std;
@@ -23,30 +23,36 @@ int main()
     remove_duplicates(ranked);
     cin >> n;
     vector player{read_numbers(n)};
-    ranges::copy(climbing_leaderboard(ranked, player), ostream_iterator<int>(cout, "\n"));
+    for (auto x : climbing_leaderboard(ranked, player))
+        cout << x << '\n';
+
     return 0;
 }
 
 vector<int> read_numbers(int n)
 {
-    vector<int> numbers(n);
-    for (auto& x: numbers)
+    vector<int> arr(n);
+    for (auto& x: arr)
         cin >> x;
-    return numbers;
+    return arr;
 }
 
-void remove_duplicates(vector<int>& numbers)
+void remove_duplicates(vector<int>& arr)
 {
-    auto [first, last]{ranges::unique(numbers)};
-    numbers.erase(first, last);
+    auto [first, last]{ranges::unique(arr)};
+    arr.erase(first, last);
 }
 
 vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& player)
 {
+    vector<int> playerRanks(player.size());
     int i = ranked.size() - 1;
-    return player | views::transform([&i, &ranked](auto score) {
-        while (i >= 0 && score >= ranked[i])
+
+    for (auto [j, x] : views::enumerate(player)) {
+        while (i >= 0 && x >= ranked[i])
             --i;
-        return i + 2;
-    }) | ranges::to<vector>();
+        playerRanks[j] = i + 2;
+    }
+
+    return playerRanks;
 }

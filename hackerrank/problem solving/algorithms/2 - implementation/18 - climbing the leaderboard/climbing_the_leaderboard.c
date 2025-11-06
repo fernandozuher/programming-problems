@@ -12,7 +12,7 @@ int main()
 {
     int n;
     scanf("%d", &n);
-    auto ranked = read_numbers(n);
+    int *ranked = read_numbers(n);
     n = remove_duplicates(ranked, n);
     ranked = realloc(ranked, n * sizeof(int));
 

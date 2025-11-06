@@ -12,8 +12,8 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-def remove_duplicates(numbers):
-    return list(dict.fromkeys(numbers))
+def remove_duplicates(arr):
+    return list(dict.fromkeys(arr))
 
 
 def climbing_leaderboard(ranked, player):

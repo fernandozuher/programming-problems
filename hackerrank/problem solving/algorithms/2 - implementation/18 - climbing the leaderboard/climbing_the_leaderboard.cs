@@ -1,38 +1,32 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
-public class Solution
+Console.ReadLine();
+int[] ranked = RemoveDuplicates(ReadNumbers());
+Console.ReadLine();
+int[] player = ReadNumbers();
+Array.ForEach(ClimbingLeaderboard(ranked, player), Console.WriteLine);
+
+int[] ReadNumbers()
 {
-    public static void Main()
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+}
+
+int[] RemoveDuplicates(int[] arr)
+{
+    return arr.Distinct().ToArray();
+}
+
+int[] ClimbingLeaderboard(int[] ranked, int[] player)
+{
+    int[] playerRanks = new int[player.Length];
+    int i = ranked.Length - 1;
+
+    for (int j = 0; j < player.Length; j++)
     {
-        Console.ReadLine();
-        List<int> ranked = RemoveDuplicates(ReadNumbers());
-        Console.ReadLine();
-        List<int> player = ReadNumbers();
-        ClimbingLeaderboard(ranked, player).ForEach(Console.WriteLine);
+        while (i >= 0 && player[j] >= ranked[i])
+            i--;
+        playerRanks[j] = i + 2;
     }
 
-    private static List<int> ReadNumbers()
-    {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToList();
-    }
-
-    private static List<int> RemoveDuplicates(List<int> numbers)
-    {
-        return numbers.Distinct().ToList();
-    }
-
-    private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
-    {
-        List<int> playerRanks = new List<int>(new int[player.Count]);
-        int i = ranked.Count - 1;
-
-        for (int j = 0; j < player.Count; j++)
-        {
-            while (i >= 0 && player[j] >= ranked[i])
-                i--;
-            playerRanks[j] = i + 2;
-        }
-
-        return playerRanks;
-    }
+    return playerRanks;
 }

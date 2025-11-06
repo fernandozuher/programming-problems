@@ -17,6 +17,10 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 ////////////////////////////////////////////////
 
 function main() {
@@ -25,10 +29,6 @@ function main() {
   readLine();
   const player: number[] = readNumbers();
   console.log(climbingLeaderboard(ranked, player).join('\n'));
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
 }
 
 function readNumbers(): number[] {

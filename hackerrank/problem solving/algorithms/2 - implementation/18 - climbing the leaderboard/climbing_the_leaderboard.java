@@ -1,37 +1,34 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
-// Java 16
+// Java 25
 
-import java.util.*;
+import java.lang.IO;
 import java.util.stream.Stream;
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            scan.nextLine();
-            List<Integer> ranked = removeDuplicates(readNumbers(scan));
-            scan.nextLine();
-            List<Integer> player = readNumbers(scan);
-            climbingLeaderboard(ranked, player).forEach(System.out::println);
-        }
+void main() {
+    IO.readln();
+    int[] ranked = removeDuplicates(readNumbers());
+    IO.readln();
+    int[] player = readNumbers();
+    for (var x : climbingLeaderboard(ranked, player))
+        IO.println(x);
+}
+
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
+
+int[] removeDuplicates(int[] arr) {
+    return Arrays.stream(arr).distinct().toArray();
+}
+
+int[] climbingLeaderboard(int[] ranked, int[] player) {
+    int[] playerRanks = new int[player.length];
+    int i = ranked.length - 1;
+
+    for (int j = 0; j < player.length; j++) {
+        while (i >= 0 && player[j] >= ranked[i]) i--;
+        playerRanks[j] = i + 2;
     }
 
-    private static List<Integer> readNumbers(Scanner scan) {
-        return Stream.of(scan.nextLine().split(" ")).map(Integer::parseInt).toList();
-    }
-
-    private static List<Integer> removeDuplicates(List<Integer> numbers) {
-        return numbers.stream().distinct().toList();
-    }
-
-    private static List<Integer> climbingLeaderboard(List<Integer> ranked, List<Integer> player) {
-        List<Integer> playerRanks = Arrays.asList(new Integer[player.size()]);
-        int i = ranked.size() - 1;
-
-        for (int j = 0; j < player.size(); j++) {
-            while (i >= 0 && player.get(j) >= ranked.get(i)) i--;
-            playerRanks.set(j, i + 2);
-        }
-
-        return playerRanks;
-    }
+    return playerRanks;
 }
