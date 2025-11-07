@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
+// Java 25
 
 import java.lang.IO;
 import java.util.*;
