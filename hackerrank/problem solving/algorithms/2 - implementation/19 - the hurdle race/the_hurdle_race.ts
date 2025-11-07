@@ -17,16 +17,16 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 ////////////////////////////////////////////////
 
 function main() {
   const maxJump: number = readNumbers()[1];
   const hurdles: number[] = readNumbers();
   console.log(hurdleRace(hurdles, maxJump));
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
 }
 
 function readNumbers(): number[] {

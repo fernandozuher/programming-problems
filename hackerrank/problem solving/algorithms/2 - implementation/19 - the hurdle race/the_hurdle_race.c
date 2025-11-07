@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int numbers[], int n);
+void read_numbers(int arr[], int n);
 int hurdle_race(const int hurdles[], int n, int max_jump);
 
 int main()
@@ -17,10 +17,10 @@ int main()
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int arr[], int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
 int hurdle_race(const int hurdles[], int n, int max_jump)

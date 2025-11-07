@@ -21,10 +21,10 @@ int main()
 
 vector<int> read_numbers(int n)
 {
-    vector<int> numbers(n);
-    for (auto& x : numbers)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return numbers;
+    return arr;
 }
 
 int hurdle_race(const vector<int>& hurdles, int max_jump)

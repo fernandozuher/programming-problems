@@ -14,4 +14,4 @@ def hurdle_race(hurdles, max_jump)
   [0, hurdles.max - max_jump].max
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME
