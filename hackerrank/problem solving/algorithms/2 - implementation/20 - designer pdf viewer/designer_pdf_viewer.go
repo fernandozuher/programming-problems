@@ -12,11 +12,11 @@ func main() {
 }
 
 func readInput() []int {
-    numbers := make([]int, 26)
-    for i := range numbers {
-        fmt.Scan(&numbers[i])
+    arr := make([]int, 26)
+    for i := range arr {
+        fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func designerPdfViewer(lettersHeights []int, word string) int {

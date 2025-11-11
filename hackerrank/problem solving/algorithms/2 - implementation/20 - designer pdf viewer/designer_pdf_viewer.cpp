@@ -22,16 +22,16 @@ int main()
 
 vector<int> read_numbers(int n)
 {
-    vector<int> numbers(n);
-    for (auto& x : numbers)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return numbers;
+    return arr;
 }
 
 int designer_pdf_viewer(const vector<int>& letters_heights, const string_view& word)
 {
     int max_height{};
-    for (auto letter: word)
+    for (auto letter : word)
         max_height = max(max_height, letters_heights[letter - 'a']);
     return max_height * word.size();
 }

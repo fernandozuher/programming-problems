@@ -17,16 +17,16 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
   const lettersHeights: number[] = readNumbers();
   const word: string = readLine();
   console.log(designerPdfViewer(lettersHeights, word));
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
 }
 
 function readNumbers(): number[] {

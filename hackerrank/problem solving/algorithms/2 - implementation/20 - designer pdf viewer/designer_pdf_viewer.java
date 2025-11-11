@@ -1,25 +1,19 @@
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// Java 25
 
-import java.util.*;
+import java.lang.IO;
 import java.util.stream.Stream;
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int[] lettersHeights = readNumbers(scan);
-            String word = scan.nextLine();
-            System.out.println(designerPdfViewer(lettersHeights, word));
-        }
-    }
+void main() {
+    int[] lettersHeights = readNumbers();
+    String word = IO.readln();
+    IO.println(designerPdfViewer(lettersHeights, word));
+}
 
-    private static int[] readNumbers(Scanner scan) {
-        return Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-    }
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
 
-    private static int designerPdfViewer(int[] lettersHeights, String word) {
-        return word.chars()
-                .map(letter -> lettersHeights[letter - 'a'])
-                .max()
-                .orElse(0) * word.length();
-    }
+int designerPdfViewer(int[] lettersHeights, String word) {
+    return word.chars().map(letter -> lettersHeights[letter - 'a']).max().orElse(0) * word.length();
 }

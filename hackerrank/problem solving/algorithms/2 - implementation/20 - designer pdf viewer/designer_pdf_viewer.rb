@@ -11,9 +11,9 @@ def read_numbers
 end
 
 def designer_pdf_viewer(letters_heights, word)
-  max_height = word.chars.inject(0) do |max_height, letter|
+  max_height = word.chars.inject(0) { |max_height, letter|
     [max_height, letters_heights[letter.ord - 'a'.ord]].max
-  end
+  }
   max_height * word.length
 end
 
