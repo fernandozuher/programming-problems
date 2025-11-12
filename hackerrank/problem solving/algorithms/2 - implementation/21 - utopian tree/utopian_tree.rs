@@ -4,21 +4,13 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let test_cases: Vec<i32> = read_numbers(n);
-    for x in utopian_tree(&test_cases) {
-        println!("{}", x);
+    for x in 0..n {
+        let cycles: i32 = read!();
+        println!("{}", utopian_tree(cycles));
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
-}
-
-fn utopian_tree(test_cases: &[i32]) -> Vec<i32> {
-    test_cases.iter().map(calculate_height).collect()
-}
-
-fn calculate_height(cycles: &i32) -> i32 {
+fn utopian_tree(cycles: i32) -> i32 {
     (1..cycles + 1).fold(1, |height, cycle| {
         if is_cycle_happening_during_spring(cycle) {
             height * 2

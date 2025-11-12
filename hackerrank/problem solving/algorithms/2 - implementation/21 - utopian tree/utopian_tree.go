@@ -7,28 +7,14 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    for _, x := range utopianTree(readNumbers(n)) {
-        fmt.Println(x)
+    for range n {
+        var cycles int
+        fmt.Scan(&cycles)
+        fmt.Println(utopianTree(cycles))
     }
 }
 
-func readNumbers(n int) []int {
-    numbers := make([]int, n)
-    for i := range n {
-        fmt.Scan(&numbers[i])
-    }
-    return numbers
-}
-
-func utopianTree(testCases []int) []int {
-    treesHeights := make([]int, len(testCases))
-    for i := range treesHeights {
-        treesHeights[i] = calculateHeight(testCases[i])
-    }
-    return treesHeights
-}
-
-func calculateHeight(cycles int) int {
+func utopianTree(cycles int) int {
     height := 1
 
     for cycle := 1; cycle <= cycles; cycle++ {

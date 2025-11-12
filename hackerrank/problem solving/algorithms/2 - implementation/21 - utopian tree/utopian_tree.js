@@ -17,28 +17,21 @@ process.stdin.on('end', function () {
   main();
 });
 
-//////////////////////////////////////////////////
-
-function main() {
-  const n = +readLine();
-  utopianTree(readNumbers(n)).forEach((x) => console.log(x));
-}
-
 function readLine() {
   return inputLines[currentLine++];
 }
 
-function readNumbers(n) {
-  return Array(n)
-    .fill(0)
-    .map((_) => +readLine());
+//////////////////////////////////////////////////
+
+function main() {
+  const n = +readLine();
+  for (let i = 0; i < n; i++) {
+    const cycles = +readLine();
+    console.log(utopianTree(cycles));
+  }
 }
 
-function utopianTree(testCases) {
-  return testCases.map(calculateHeight);
-}
-
-function calculateHeight(cycles) {
+function utopianTree(cycles) {
   let height = 1;
   for (let cycle = 1; cycle <= cycles; cycle++)
     height = isCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1;

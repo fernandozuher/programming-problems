@@ -1,33 +1,19 @@
 // https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
-public class Solution
+int n = int.Parse(Console.ReadLine()!);
+for (int i = 0; i < n; i++)
 {
-    public static void Main()
-    {
-        int n = int.Parse(Console.ReadLine()!);
-        Array.ForEach(UtopianTree(ReadNumbers(n)), Console.WriteLine);
-    }
+    int cycles = int.Parse(Console.ReadLine()!);
+    Console.WriteLine(UtopianTree(cycles));
+}
 
-    private static int[] ReadNumbers(int n)
-    {
-        return Enumerable.Range(0, n).Select(_ => int.Parse(Console.ReadLine()!)).ToArray();
-    }
+int UtopianTree(int cycles)
+{
+    return Enumerable.Range(1, cycles)
+                     .Aggregate(1, (height, cycle) => IsCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1);
+}
 
-    private static int[] UtopianTree(int[] testCases)
-    {
-        return testCases.Select(CalculateHeight).ToArray();
-    }
-
-    private static int CalculateHeight(int cycles)
-    {
-        return Enumerable.Range(1, cycles)
-            .Aggregate(1, (height, cycle) =>
-            IsCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1
-        );
-    }
-
-    private static bool IsCycleHappeningDuringSpring(int cycle)
-    {
-        return (cycle & 1) == 1;
-    }
+bool IsCycleHappeningDuringSpring(int cycle)
+{
+    return (cycle & 1) == 1;
 }
