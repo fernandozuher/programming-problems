@@ -17,7 +17,7 @@ int main()
     for (int i{}; i < n; ++i) {
         int cycles;
         cin >> cycles;
-        cout << utopian_tree(cycles);
+        cout << utopian_tree(cycles) << '\n';
     }
     return 0;
 }
