@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
-// C++23
 
 #include <algorithm>
 #include <iostream>
-#include <ranges>
 #include <vector>
 
 using namespace std;
@@ -15,28 +13,23 @@ int main()
 {
     int n;
     cin >> n;
-    vector<bool> cancelled_classes(n);
 
-    for (auto&& cancelled : cancelled_classes) {
-        int n, threshold;
-        cin >> n >> threshold;
-        vector arrival_times{read_numbers(n)};
-        cancelled = angry_professor(arrival_times, threshold);
+    for (int i{}; i < n; ++i) {
+        int size, threshold;
+        cin >> size >> threshold;
+        vector arrival_times{read_numbers(size)};
+        puts(angry_professor(arrival_times, threshold) ? "YES" : "NO");
     }
-
-    for (auto cancelled : cancelled_classes)
-        puts(cancelled ? "YES" : "NO");
 
     return 0;
 }
 
 vector<int> read_numbers(int n)
 {
-    return views::repeat(0, n) | views::transform([](auto) {
-        int x;
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-        return x;
-    }) | ranges::to<vector>();
+    return arr;
 }
 
 bool angry_professor(const vector<int>& arrival_times, int threshold)

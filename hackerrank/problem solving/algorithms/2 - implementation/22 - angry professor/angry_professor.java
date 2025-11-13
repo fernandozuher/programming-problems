@@ -1,31 +1,23 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
-// Java 22
+// Java 25
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.lang.IO;
 import java.util.stream.Stream;
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-
-            IntStream.range(0, n).mapToObj(_ -> {
-                int _ = scan.nextInt();
-                int threshold = scan.nextInt();
-                scan.nextLine();
-                int[] arrivalTimes = readNumbers(scan);
-                return angryProfessor(arrivalTimes, threshold);
-            }).forEach(cancelled -> System.out.println(cancelled ? "YES" : "NO"));
-        }
+void main() {
+    int n = Integer.parseInt(IO.readln());
+    for (int i = 0; i < n; i++) {
+        int threshold = readNumbers()[1];
+        int[] arrivalTimes = readNumbers();
+        IO.println(angryProfessor(arrivalTimes, threshold) ? "YES" : "NO");
     }
+}
 
-    private static int[] readNumbers(Scanner scan) {
-        return Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-    }
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
 
-    private static boolean angryProfessor(int[] arrivalTimes, int threshold) {
-        long count = Arrays.stream(arrivalTimes).filter(t -> t <= 0).count();
-        return count < threshold;
-    }
+boolean angryProfessor(int[] arrivalTimes, int threshold) {
+    long count = Arrays.stream(arrivalTimes).filter(t -> t <= 0).count();
+    return count < threshold;
 }

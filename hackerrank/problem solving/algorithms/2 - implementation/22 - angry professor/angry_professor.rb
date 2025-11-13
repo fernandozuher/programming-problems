@@ -2,12 +2,11 @@
 
 def main
   n = gets.to_i
-
-  n.times.map do
+  n.times do
     _, threshold = read_numbers
     students_arrival_times = read_numbers
-    angry_professor(students_arrival_times, threshold)
-  end.each { |cancelled| puts cancelled ? "YES" : "NO" }
+    puts angry_professor(students_arrival_times, threshold) ? "YES" : "NO"
+  end
 end
 
 def read_numbers

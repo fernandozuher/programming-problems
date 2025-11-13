@@ -5,20 +5,17 @@ use text_io::read;
 fn main() {
     let n: usize = read!();
 
-    (0..n)
-        .map(|_| {
-            let n: usize = read!();
-            let threshold: i32 = read!();
-            let students_arrival_times: Vec<i32> = read_numbers(n);
-            angry_professor(&students_arrival_times, threshold)
-        })
-        .for_each(|cancelled| {
-            if cancelled {
-                println!("YES")
-            } else {
-                println!("NO")
-            }
-        })
+    for _ in 0..n {
+        let n: usize = read!();
+        let threshold: i32 = read!();
+        let students_arrival_times: Vec<i32> = read_numbers(n);
+
+        if angry_professor(&students_arrival_times, threshold) {
+            println!("YES")
+        } else {
+            println!("NO")
+        }
+    }
 }
 
 fn read_numbers(n: usize) -> Vec<i32> {

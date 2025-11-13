@@ -17,23 +17,19 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
   const n = +readLine();
-
-  Array(n)
-    .fill('')
-    .map((_) => {
-      const threshold: number = readNumbers()[1];
-      const arrivalTimes: number[] = readNumbers();
-      return angryProfessor(arrivalTimes, threshold);
-    })
-    .forEach((cancelled) => console.log(cancelled ? 'YES' : 'NO'));
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
+  for (let i = 0; i < n; i++) {
+    const threshold: number = readNumbers()[1];
+    const arrivalTimes: number[] = readNumbers();
+    console.log(angryProfessor(arrivalTimes, threshold) ? 'YES' : 'NO');
+  }
 }
 
 function readNumbers(): number[] {

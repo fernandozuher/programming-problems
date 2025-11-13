@@ -2,15 +2,10 @@
 
 def main():
     n = int(input())
-    cancelled_classes = [None] * n
-
     for i in range(n):
         _, threshold = read_numbers()
         students_arrival_times = read_numbers()
-        cancelled_classes[i] = angry_professor(students_arrival_times, threshold)
-
-    for cancelled in cancelled_classes:
-        print("YES" if cancelled else "NO")
+        print("YES" if angry_professor(students_arrival_times, threshold) else "NO")        
 
 
 def read_numbers():

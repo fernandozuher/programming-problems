@@ -7,17 +7,13 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    cancelledClasses := make([]bool, n)
 
-    for i := range cancelledClasses {
-        var n, threshold int
-        fmt.Scan(&n, &threshold)
-        arrivalTimes := readNumbers(n)
-        cancelledClasses[i] = angryProfessor(arrivalTimes, threshold)
-    }
+    for range n {
+        var size, threshold int
+        fmt.Scan(&size, &threshold)
+        arrivalTimes := readNumbers(size)
 
-    for _, cancelled := range cancelledClasses {
-        if cancelled {
+        if angryProfessor(arrivalTimes, threshold) {
             fmt.Println("YES")
         } else {
             fmt.Println("NO")
@@ -26,11 +22,11 @@ func main() {
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func angryProfessor(arrivalTimes []int, threshold int) bool {
