@@ -17,15 +17,15 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
   const [startDay, endDay, divisor] = readNumbers();
   console.log(beautifulDays(startDay, endDay, divisor));
-}
-
-function readLine() {
-  return inputLines[currentLine++];
 }
 
 function readNumbers() {
