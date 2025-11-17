@@ -5,6 +5,9 @@ def main():
     print(viral_advertising(days))
 
 
+# n = days = length of the iteration
+# T = O(n)
+# S = O(1)
 def viral_advertising(days):
     shared, cumulative = 5, 0
 

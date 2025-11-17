@@ -7,6 +7,9 @@ fn main() {
     println!("{}", viral_advertising(days));
 }
 
+// n = days = length of the iteration
+// T = O(n)
+// S = O(1)
 fn viral_advertising(days: i32) -> i32 {
     let mut shared = 5;
     (0..days).fold(0, |cumulative, _| {

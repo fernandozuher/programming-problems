@@ -1,24 +1,24 @@
 // https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+// Java 25
 
-import java.util.Scanner;
+import java.lang.IO;
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int days = scan.nextInt();
-            System.out.println(viralAdvertising(days));
-        }
+void main() {
+    int days = Integer.parseInt(IO.readln());
+    IO.println(viralAdvertising(days));
+}
+
+// n = days = length of the iteration
+// T = O(n)
+// S = O(1)
+int viralAdvertising(int days) {
+    int cumulative = 0;
+
+    for (int shared = 5; days > 0; days--) {
+        int liked = shared / 2;
+        cumulative += liked;
+        shared = liked * 3;
     }
 
-    private static int viralAdvertising(int days) {
-        int cumulative = 0;
-
-        for (int shared = 5; days > 0; days--) {
-            int liked = shared / 2;
-            cumulative += liked;
-            shared = liked * 3;
-        }
-
-        return cumulative;
-    }
+    return cumulative;
 }

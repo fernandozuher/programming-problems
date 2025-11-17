@@ -17,6 +17,10 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -24,10 +28,9 @@ function main() {
   console.log(viralAdvertising(days));
 }
 
-function readLine(): string {
-  return inputLines[currentLine++];
-}
-
+// n = days = length of the iteration
+// T = O(n)
+// S = O(1)
 function viralAdvertising(days: number): number {
   let cumulative = 0;
 

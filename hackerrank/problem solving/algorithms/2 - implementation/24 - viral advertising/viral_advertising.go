@@ -10,6 +10,9 @@ func main() {
     fmt.Println(viralAdvertising(days))
 }
 
+// n = days = length of the iteration
+// T = O(n)
+// S = O(1)
 func viralAdvertising(days int) int {
     cumulative := 0
 

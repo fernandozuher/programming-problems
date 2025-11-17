@@ -5,6 +5,9 @@ def main
   puts viral_advertising(days)
 end
 
+# n = days = length of the iteration
+# T = O(n)
+# S = O(1)
 def viral_advertising(days)
   shared = 5
   days.times.inject(0) do |cumulative, _|

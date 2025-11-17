@@ -12,6 +12,9 @@ int main()
     return 0;
 }
 
+// n = days = length of the iteration
+// T = O(n)
+// S = O(1)
 int viral_advertising(int days)
 {
     int cumulative = 0;
