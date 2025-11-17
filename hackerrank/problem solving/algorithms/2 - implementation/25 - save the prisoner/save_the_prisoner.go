@@ -4,22 +4,22 @@ package main
 
 import "fmt"
 
+// n = test cases
+// T = O(n)
+// S = O(1)
 func main() {
     var n int
     fmt.Scan(&n)
-    results := make([]int, n)
 
-    for i := range n {
+    for range n {
         var prisoners, sweets, startChair int
         fmt.Scan(&prisoners, &sweets, &startChair)
-        results[i] = saveThePrisoner(prisoners, sweets, startChair)
-    }
-
-    for _, x := range results {
-        fmt.Println(x)
+        fmt.Println(saveThePrisoner(prisoners, sweets, startChair))
     }
 }
 
+// T = O(1)
+// S = O(1)
 func saveThePrisoner(prisoners, sweets, startChair int) int {
     return ((startChair - 1 + sweets - 1) % prisoners) + 1
 }

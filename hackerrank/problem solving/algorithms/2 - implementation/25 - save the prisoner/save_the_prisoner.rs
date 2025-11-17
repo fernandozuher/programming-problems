@@ -2,17 +2,20 @@
 
 use text_io::{read, scan};
 
+// n = test cases
+// T = O(n)
+// S = O(1)
 fn main() {
     let n: usize = read!();
-    (0..n)
-        .map(|_| {
-            let (prisoners, sweets, start_chair): (i32, i32, i32);
-            scan!("{} {} {}", prisoners, sweets, start_chair);
-            save_the_prisoner(prisoners, sweets, start_chair)
-        })
-        .for_each(|x| println!("{}", x))
+    for _ in 0..n {
+        let (prisoners, sweets, start_chair): (i32, i32, i32);
+        scan!("{} {} {}", prisoners, sweets, start_chair);
+        println!("{}", save_the_prisoner(prisoners, sweets, start_chair));
+    }
 }
 
+// T = O(1)
+// S = O(1)
 fn save_the_prisoner(prisoners: i32, sweets: i32, start_chair: i32) -> i32 {
     ((start_chair - 1 + sweets - 1) % prisoners) + 1
 }

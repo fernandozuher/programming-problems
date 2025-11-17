@@ -17,26 +17,32 @@ process.stdin.on('end', function (): void {
   main();
 });
 
-//////////////////////////////////////////////////
-
-function main() {
-  const n: number = +readLine();
-  Array.from({ length: n })
-    .map((_) => {
-      const [prisoners, sweets, startChair] = readNumbers();
-      return saveThePrisoner(prisoners, sweets, startChair);
-    })
-    .forEach((x) => console.log(x));
-}
-
 function readLine(): string {
   return inputLines[currentLine++];
 }
 
+//////////////////////////////////////////////////
+
+// n = test cases
+// T = O(n)
+// S = O(1)
+function main() {
+  const n: number = +readLine();
+  for (let i = 0; i < n; i++) {
+    const [prisoners, sweets, startChair] = readNumbers();
+    console.log(saveThePrisoner(prisoners, sweets, startChair));
+  }
+}
+
+// n = size of elements to be read
+// T = O(n)
+// S = O(n)
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// T = O(1)
+// S = O(1)
 function saveThePrisoner(
   prisoners: number,
   sweets: number,
