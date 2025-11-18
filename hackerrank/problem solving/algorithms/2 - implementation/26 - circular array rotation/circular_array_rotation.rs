@@ -7,19 +7,19 @@ fn main() {
     let n_rotation: usize = read!();
     let n_queries: usize = read!();
     let arr: Vec<i32> = read_numbers(n);
-    let queries: Vec<i32> = read_numbers(n_queries);
-    print_queries(&arr, &queries, n_rotation);
+    print_queries(&arr, n_rotation, n_queries);
 }
 
 fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-fn print_queries(arr: &[i32], queries: &[i32], n_rotation: usize) {
+fn print_queries(arr: &[i32], n_rotation: usize, n_queries: usize) {
     let n = arr.len();
     let r = n_rotation % n;
-    for &q in queries {
-        let idx = (q as usize + n - r) % n;
+    for _ in 0..n_queries {
+        let query: i32 = read!();
+        let idx = (query as usize + n - r) % n;
         println!("{}", arr[idx]);
     }
 }

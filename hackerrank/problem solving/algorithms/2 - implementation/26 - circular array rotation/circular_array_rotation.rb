@@ -3,17 +3,19 @@
 def main
   _, n_rotation, n_queries = read_numbers
   arr = read_numbers
-  queries = n_queries.times.map { gets.to_i }
-  print_queries(arr, queries, n_rotation)
+  print_queries(arr, n_rotation, n_queries)
 end
 
 def read_numbers
   gets.split.map(&:to_i)
 end
 
-def print_queries(arr, queries, n_rotation)
+def print_queries(arr, n_rotation, n_queries)
   r = n_rotation % arr.size
-  puts queries.map! { |q| arr[q - r] }
+  n_queries.times do
+    query = gets.to_i
+    puts arr[query - r]
+  end
 end
 
 main if __FILE__ == $PROGRAM_NAME

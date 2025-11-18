@@ -3,16 +3,15 @@
 #include <stdio.h>
 
 void read_numbers(int *arr, int n);
-void print_queries(const int *arr, const int *queries, int n, int n_queries, int n_rotation);
+void print_queries(const int *arr, int n, int n_rotation, int n_queries);
 
 int main()
 {
     int n, n_rotation, n_queries;
     scanf("%d %d %d", &n, &n_rotation, &n_queries);
-    int arr[n], queries[n_queries];
+    int arr[n];
     read_numbers(arr, n);
-    read_numbers(queries, n_queries);
-    print_queries(arr, queries, n, n_queries, n_rotation);
+    print_queries(arr, n, n_rotation, n_queries);
     return 0;
 }
 
@@ -22,11 +21,13 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-void print_queries(const int *arr, const int *queries, int n, int n_queries, int n_rotation)
+void print_queries(const int *arr, int n, int n_rotation, int n_queries)
 {
     int r = n_rotation % n;
     for (int i = 0; i < n_queries; ++i) {
-        int idx = (queries[i] + n - r) % n;
+        int query;
+        scanf("%d", &query);
+        int idx = (query + n - r) % n;
         printf("%d\n", arr[idx]);
     }
 }

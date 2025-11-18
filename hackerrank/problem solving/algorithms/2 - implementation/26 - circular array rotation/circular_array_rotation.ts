@@ -26,22 +26,19 @@ function readLine(): string {
 function main() {
   const [_, nRotation, nQueries]: number[] = readNumbers();
   const arr: number[] = readNumbers();
-  const queries: number[] = Array.from(
-    { length: nQueries },
-    (_) => readNumbers()[0],
-  );
-  printQueries(arr, queries, nRotation);
+  printQueries(arr, nRotation, nQueries);
 }
 
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-function printQueries(arr: number[], queries: number[], nRotation: number) {
+function printQueries(arr: number[], nRotation: number, nQueries: number) {
   const n: number = arr.length;
   const r: number = nRotation % n;
-  for (const q of queries) {
-    const idx: number = (q + n - r) % n;
+  for (let i = 0; i < nQueries; i++) {
+    const query = +readLine();
+    const idx: number = (query + n - r) % n;
     console.log(arr[idx]);
   }
 }

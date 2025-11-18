@@ -1,31 +1,24 @@
 // https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
-// Java 22
+// Java 25
 
-import java.util.*;
-import java.util.stream.IntStream;
+void main() {
+    int[] line = readNumbers();
+    int nRotation = line[1];
+    int nQueries = line[2];
+    int[] arr = readNumbers();
+    printQueries(arr, nRotation, nQueries);
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            int nRotation = scan.nextInt();
-            int nQueries = scan.nextInt();
-            int[] arr = readNumbers(scan, n);
-            int[] queries = readNumbers(scan, nQueries);
-            printQueries(arr, queries, nRotation);
-        }
-    }
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
 
-    private static int[] readNumbers(Scanner scan, int n) {
-        return IntStream.range(0, n).map(_ -> scan.nextInt()).toArray();
-    }
-
-    private static void printQueries(int[] arr, int[] queries, int nRotation) {
-        int n = arr.length;
-        int r = nRotation % n;
-        for (var q : queries) {
-            int idx = (q + n - r) % n;
-            System.out.println(arr[idx]);
-        }
+void printQueries(int[] arr, int nRotation, int nQueries) {
+    int n = arr.length;
+    int r = nRotation % n;
+    for (int i = 0; i < nQueries; i++) {
+        int query = Integer.parseInt(IO.readln());
+        int idx = (query + n - r) % n;
+        IO.println(arr[idx]);
     }
 }

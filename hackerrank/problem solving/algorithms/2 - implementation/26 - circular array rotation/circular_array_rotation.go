@@ -8,8 +8,7 @@ func main() {
     var n, nRotation, nQueries int
     _, _ = fmt.Scan(&n, &nRotation, &nQueries)
     arr := readNumbers(n)
-    queries := readNumbers(nQueries)
-    printQueries(arr, queries, nRotation)
+    printQueries(arr, nRotation, nQueries)
 }
 
 func readNumbers(n int) []int {
@@ -20,11 +19,13 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func printQueries(arr, queries []int, nRotation int) {
+func printQueries(arr []int, nRotation, nQueries int) {
     n := len(arr)
     r := nRotation % n
-    for _, q := range queries {
-        idx := (q + n - r) % n
+    for range nQueries {
+        var query int
+        fmt.Scan(&query)
+        idx := (query + n - r) % n
         fmt.Println(arr[idx])
     }
 }

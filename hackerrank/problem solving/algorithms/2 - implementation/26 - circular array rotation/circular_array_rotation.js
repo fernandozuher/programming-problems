@@ -26,19 +26,19 @@ function readLine() {
 function main() {
   const [_, nRotation, nQueries] = readNumbers();
   const arr = readNumbers();
-  const queries = Array.from({ length: nQueries }, (_) => readNumbers()[0]);
-  printQueries(arr, queries, nRotation);
+  printQueries(arr, nRotation, nQueries);
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-function printQueries(arr, queries, nRotation) {
+function printQueries(arr, nRotation, nQueries) {
   const n = arr.length;
   const r = nRotation % n;
-  for (const q of queries) {
-    const idx = (q + n - r) % n;
+  for (let i = 0; i < nQueries; i++) {
+    const query = +readLine();
+    const idx = (query + n - r) % n;
     console.log(arr[idx]);
   }
 }
