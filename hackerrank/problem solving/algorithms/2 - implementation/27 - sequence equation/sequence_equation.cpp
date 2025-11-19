@@ -16,8 +16,8 @@ int main()
     cin >> n;
     vector arr{read_numbers(n)};
 
-    for (auto val : sequence_equation(arr))
-        cout << val << '\n';
+    for (auto x : sequence_equation(arr))
+        cout << x << '\n';
 
     return 0;
 }
@@ -25,8 +25,8 @@ int main()
 vector<int> read_numbers(int n)
 {
     vector<int> arr(n);
-    for (auto& val : arr)
-        cin >> val;
+    for (auto& x : arr)
+        cin >> x;
     return arr;
 }
 

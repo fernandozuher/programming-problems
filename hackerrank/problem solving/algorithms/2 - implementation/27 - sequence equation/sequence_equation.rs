@@ -5,9 +5,9 @@ use text_io::read;
 fn main() {
     let n: usize = read!();
     let arr: Vec<usize> = read_numbers(n);
-    sequence_equation(&arr)
-        .iter()
-        .for_each(|x| println!("{}", x))
+    for x in sequence_equation(&arr) {
+        println!("{}", x)
+    }
 }
 
 fn read_numbers(n: usize) -> Vec<usize> {

@@ -1,27 +1,21 @@
 // https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 
-public class Solution
+Console.ReadLine();
+int[] arr = ReadNumbers();
+Array.ForEach(SequenceEquation(arr), Console.WriteLine);
+
+int[] ReadNumbers()
 {
-    public static void Main()
-    {
-        Console.ReadLine();
-        int[] arr = ReadNumbers();
-        SequenceEquation(arr).ForEach(Console.WriteLine);
-    }
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+}
 
-    private static int[] ReadNumbers()
+int[] SequenceEquation(int[] arr)
+{
+    int[] valuesToIndex = new int[arr.Length];
+    int i = 0;
+    foreach (int val in arr)
     {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+        valuesToIndex[val - 1] = i++;
     }
-
-    private static List<int> SequenceEquation(int[] arr)
-    {
-        int[] valuesToIndex = new int[arr.Length];
-        int i = 0;
-        foreach (int val in arr)
-        {
-            valuesToIndex[val - 1] = i++;
-        }
-        return valuesToIndex.Select(val => valuesToIndex[val] + 1).ToList();
-    }
+    return valuesToIndex.Select(val => valuesToIndex[val] + 1).ToArray();
 }

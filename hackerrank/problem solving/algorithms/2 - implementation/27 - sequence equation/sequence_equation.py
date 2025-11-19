@@ -15,11 +15,7 @@ def sequence_equation(arr):
     for i, val in enumerate(arr):
         values_to_index[val - 1] = i
 
-    res = [0] * len(arr)
-    for i, val in enumerate(values_to_index):
-        res[i] = values_to_index[val] + 1
-
-    return res
+    return [values_to_index[v] + 1 for v in values_to_index]
 
 
 if __name__ == '__main__':

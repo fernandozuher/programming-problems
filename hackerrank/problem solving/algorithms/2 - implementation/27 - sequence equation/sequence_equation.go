@@ -8,8 +8,8 @@ func main() {
     var n int
     _, _ = fmt.Scan(&n)
     arr := readNumbers(n)
-    for _, val := range sequenceEquation(arr) {
-        fmt.Println(val)
+    for _, x := range sequenceEquation(arr) {
+        fmt.Println(x)
     }
 }
 

@@ -26,7 +26,9 @@ function readLine() {
 function main() {
   readLine();
   const arr = readNumbers();
-  sequenceEquation(arr).forEach((val) => console.log(val));
+  for (const x of sequenceEquation(arr)) {
+    console.log(x);
+  }
 }
 
 function readNumbers() {
@@ -36,7 +38,9 @@ function readNumbers() {
 function sequenceEquation(arr) {
   const valuesToIndex = Array(arr.length).fill(0);
   let i = 0;
-  for (const val of arr) valuesToIndex[val - 1] = i++;
+  for (const val of arr) {
+    valuesToIndex[val - 1] = i++;
+  }
 
   const res = Array(arr.length).fill(0);
   i = 0;
