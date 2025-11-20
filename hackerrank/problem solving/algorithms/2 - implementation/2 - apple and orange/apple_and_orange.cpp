@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <iostream>
-#include <ranges>
 #include <tuple>
 #include <vector>
 
@@ -12,7 +11,7 @@ using namespace std;
 struct house_t {
     int start{}, end{};
 
-    bool contains(int position) const
+    [[nodiscard]] bool contains(int position) const
     {
         return start <= position && position <= end;
     }
@@ -54,11 +53,10 @@ tuple<house_t, fruit_tree_t, fruit_tree_t> read_input()
 
 vector<int> read_numbers(int n)
 {
-    return views::iota(0, n) | views::transform([](auto) {
-        int x;
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-        return x;
-    }) | ranges::to<vector>();
+    return arr;
 }
 
 int count_fruits_on_house(const fruit_tree_t& fruit_tree, const house_t& house)

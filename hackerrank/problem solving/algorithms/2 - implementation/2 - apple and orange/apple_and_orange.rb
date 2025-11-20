@@ -34,9 +34,9 @@ end
 Struct.new("FruitTree", :tree_location, :fruit_distances)
 
 def count_fruits_on_house(fruit_tree, house)
-  fruit_tree.fruit_distances.count do |distance|
+  fruit_tree.fruit_distances.count { |distance|
     house.contains(fruit_tree.tree_location + distance)
-  end
+  }
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

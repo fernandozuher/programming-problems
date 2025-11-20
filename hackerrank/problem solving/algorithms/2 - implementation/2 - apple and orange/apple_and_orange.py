@@ -30,9 +30,8 @@ def read_numbers():
 
 @dataclass
 class House:
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
+    start: int
+    end: int
 
     def contains(self, position):
         return self.start <= position <= self.end
@@ -40,9 +39,8 @@ class House:
 
 @dataclass
 class FruitTree:
-    def __init__(self, tree_location, fruit_distances):
-        self.tree_location = tree_location
-        self.fruit_distances = fruit_distances
+    tree_location: int
+    fruit_distances: list[int]
 
 
 def count_fruits_on_house(fruit_tree, house):

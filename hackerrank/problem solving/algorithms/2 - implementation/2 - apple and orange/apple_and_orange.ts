@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -18,6 +16,10 @@ process.stdin.on('end', function (): void {
   inputString = '';
   main();
 });
+
+function readLine(): string {
+  return inputLines[currentLine++];
+}
 
 //////////////////////////////////////////////////
 
@@ -50,10 +52,6 @@ function readInput(): [House, FruitTree, FruitTree] {
 
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
 }
 
 class House {

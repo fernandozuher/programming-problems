@@ -18,12 +18,9 @@ func readInput() (House, FruitTree, FruitTree) {
     var nApples int
     var nOranges int
 
-    fmt.Scan(&houseStart)
-    fmt.Scan(&houseEnd)
-    fmt.Scan(&appleTreeLocation)
-    fmt.Scan(&orangeTreeLocation)
-    fmt.Scan(&nApples)
-    fmt.Scan(&nOranges)
+    _, _ = fmt.Scan(&houseStart, &houseEnd)
+    _, _ = fmt.Scan(&appleTreeLocation, &orangeTreeLocation)
+    _, _ = fmt.Scan(&nApples, &nOranges)
     appleDistances := readNumbers(nApples)
     orangeDistances := readNumbers(nOranges)
 
@@ -43,11 +40,11 @@ func readInput() (House, FruitTree, FruitTree) {
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        _, _ = fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 type House struct {

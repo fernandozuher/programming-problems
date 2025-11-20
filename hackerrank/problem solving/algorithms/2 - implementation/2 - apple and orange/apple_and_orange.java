@@ -1,47 +1,41 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
-// Java 16
+// Java 25
 
-import java.util.*;
+void main() {
+    var input = readInput();
+    House house = input.house();
+    FruitTree appleTree = input.appleTree();
+    FruitTree orangeTree = input.orangeTree();
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            var input = readInput(scan);
+    IO.println(countFruitsOnHouse(appleTree, house));
+    IO.println(countFruitsOnHouse(orangeTree, house));
+}
 
-            House house = input.house();
-            FruitTree appleTree = input.appleTree();
-            FruitTree orangeTree = input.orangeTree();
+Input readInput() {
+    var arr = readNumbers();
+    var house = new House(arr[0], arr[1]);
 
-            System.out.println(countFruitsOnHouse(appleTree, house));
-            System.out.println(countFruitsOnHouse(orangeTree, house));
-        }
-    }
+    arr = readNumbers();
+    var appleTreeLocation = arr[0];
+    var orangeTreeLocation = arr[1];
 
-    private static Input readInput(Scanner scan) {
-        var house = new House(scan.nextInt(), scan.nextInt());
-        var appleTreeLocation = scan.nextInt();
-        var orangeTreeLocation = scan.nextInt();
+    readNumbers(); // Discard sizes of arrays
 
-        var appleCount = scan.nextInt();
-        var orangeCount = scan.nextInt();
-        scan.nextLine(); // Discard new line
+    var appleTree = new FruitTree(appleTreeLocation, readNumbers());
+    var orangeTree = new FruitTree(orangeTreeLocation, readNumbers());
 
-        var appleTree = new FruitTree(appleTreeLocation, readNumbers(scan));
-        var orangeTree = new FruitTree(orangeTreeLocation, readNumbers(scan));
+    return new Input(house, appleTree, orangeTree);
+}
 
-        return new Input(house, appleTree, orangeTree);
-    }
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
 
-    private static int[] readNumbers(Scanner scan) {
-        return Arrays.stream(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-    }
-
-    private static int countFruitsOnHouse(FruitTree fruitTree, House house) {
-        return (int) Arrays.stream(fruitTree.fruitDistances())
-                .map(distance -> fruitTree.treeLocation() + distance)
-                .filter(house::contains)
-                .count();
-    }
+int countFruitsOnHouse(FruitTree fruitTree, House house) {
+    return (int) Arrays.stream(fruitTree.fruitDistances())
+            .map(distance -> fruitTree.treeLocation() + distance)
+            .filter(house::contains)
+            .count();
 }
 
 record House(int start, int end) {

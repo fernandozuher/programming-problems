@@ -45,10 +45,10 @@ void read_input(house_t *house, fruit_tree_t *apple_tree, fruit_tree_t *orange_t
 
 int *read_numbers(int n)
 {
-    auto array = (int *) malloc(n * sizeof(int));
+    auto arr = (int *) malloc(n * sizeof(int));
     for (int i = 0; i < n; ++i)
-        scanf("%d", &array[i]);
-    return array;
+        scanf("%d", &arr[i]);
+    return arr;
 }
 
 int count_fruits_on_house(const fruit_tree_t *fruit_tree, const house_t *house)
