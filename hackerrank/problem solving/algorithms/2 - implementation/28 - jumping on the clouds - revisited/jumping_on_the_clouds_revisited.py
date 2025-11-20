@@ -1,7 +1,7 @@
 # https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 def main():
-    n, jump_length = read_numbers()
+    _, jump_length = read_numbers()
     arr = read_numbers()
     print(jumping_on_the_clouds(arr, jump_length))
 

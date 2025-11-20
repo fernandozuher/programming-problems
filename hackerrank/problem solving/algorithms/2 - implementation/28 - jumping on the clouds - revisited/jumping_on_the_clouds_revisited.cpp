@@ -20,8 +20,8 @@ int main()
 vector<int> read_numbers(int n)
 {
     vector<int> arr(n);
-    for (auto& val : arr)
-        cin >> val;
+    for (auto& x : arr)
+        cin >> x;
     return arr;
 }
 
