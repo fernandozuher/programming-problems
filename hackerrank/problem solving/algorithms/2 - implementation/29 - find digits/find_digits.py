@@ -2,8 +2,8 @@
 
 def main():
     n = int(input())
-    res = [find_digits(int(input())) for _ in range(n)]
-    print(*res, sep='\n')
+    for _ in range(n):
+        print(find_digits(int(input())))
 
 
 def find_digits(n):

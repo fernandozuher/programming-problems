@@ -4,12 +4,9 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    (0..n)
-        .map(|_| {
-            let number: i32 = read!();
-            find_digits(number)
-        })
-        .for_each(|x| println!("{}", x))
+    for _ in 0..n {
+        println!("{}", find_digits(read!()));
+    }
 }
 
 fn find_digits(n: i32) -> usize {

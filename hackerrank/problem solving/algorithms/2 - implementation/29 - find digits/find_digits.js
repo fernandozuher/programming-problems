@@ -25,10 +25,9 @@ function readLine() {
 
 function main() {
   const n = +readLine();
-  Array(n)
-    .fill(0)
-    .map(() => findDigits(+readLine()))
-    .forEach((x) => console.log(x));
+  for (let i = 0; i < n; i++) {
+    console.log(findDigits(+readLine()));
+  }
 }
 
 function findDigits(n) {

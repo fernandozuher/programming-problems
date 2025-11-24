@@ -1,23 +1,15 @@
 // https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
 
-public class Solution
+int n = ReadNumber();
+for (int i = 0; i < n; i++)
+    Console.WriteLine(FindDigits(ReadNumber()));
+
+int ReadNumber()
 {
-    public static void Main()
-    {
-        int n = ReadNumber();
-        Enumerable.Range(0, n)
-        .Select(_ => FindDigits(ReadNumber()))
-        .ToList()
-        .ForEach(Console.WriteLine);
-    }
+    return int.Parse(Console.ReadLine()!);
+}
 
-    private static int ReadNumber()
-    {
-        return int.Parse(Console.ReadLine()!);
-    }
-
-    private static int FindDigits(int n)
-    {
-        return n.ToString().ToCharArray().Select(c => c - '0').Count(d => d != 0 && n % d == 0);
-    }
+int FindDigits(int n)
+{
+    return n.ToString().ToCharArray().Select(c => c - '0').Count(d => d != 0 && n % d == 0);
 }

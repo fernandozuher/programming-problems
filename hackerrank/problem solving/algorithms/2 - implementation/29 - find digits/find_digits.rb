@@ -2,7 +2,7 @@
 
 def main
   n = gets.to_i
-  puts n.times.map { find_digits(gets.to_i) }
+  n.times { puts find_digits(gets.to_i) }
 end
 
 def find_digits(n)
