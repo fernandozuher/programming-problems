@@ -4,9 +4,6 @@
 
 int find_digits(int n);
 
-// n: number of test cases
-// T: O(n)
-// S: O(1)
 int main()
 {
     int n;
@@ -18,9 +15,6 @@ int main()
     return 0;
 }
 
-// d: quantity of digits of parameter n
-// T: O(d)
-// S: O(1)
 int find_digits(int n)
 {
     int divisors = 0;
