@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-'use strict';
-
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -19,6 +17,10 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
@@ -28,10 +30,6 @@ function main() {
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
-}
-
-function readLine() {
-  return inputLines[currentLine++];
 }
 
 function kangaroo(positionsAndVelocities) {
