@@ -7,7 +7,7 @@
 void factorial(int n, int *res, int *size);
 void multiply_array_with_number(int *arr, int *size, int number);
 void add_remaining_carry_to_array(int carry, int *arr, int *size);
-void print_factorial(const int *array, int n);
+void print_factorial(const int *arr, int n);
 
 int main()
 {
@@ -48,9 +48,9 @@ void add_remaining_carry_to_array(int carry, int *arr, int *size)
         arr[(*size)++] = carry % 10;
 }
 
-void print_factorial(const int *array, int n)
+void print_factorial(const int *arr, int n)
 {
-    while (n--)
-        printf("%d", array[n]);
+    for (int i = n - 1; i >= 0; --i)
+        printf("%d", arr[i]);
     puts("");
 }

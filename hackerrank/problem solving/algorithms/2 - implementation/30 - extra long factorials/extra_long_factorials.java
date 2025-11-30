@@ -1,20 +1,11 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
+// Java 25
 
-import java.math.BigInteger;
-import java.util.Scanner;
+void main() {
+    int n = Integer.parseInt(IO.readln());
+    IO.println(factorial(n));
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            System.out.println(factorial(n));
-        }
-    }
-
-    private static BigInteger factorial(int n) {
-        BigInteger res = BigInteger.ONE;
-        for (int i = 2; i <= n; i++)
-            res = res.multiply(BigInteger.valueOf(i));
-        return res;
-    }
+BigInteger factorial(int n) {
+    return IntStream.range(1, n + 1).mapToObj(BigInteger::valueOf).reduce(BigInteger.ONE, BigInteger::multiply);
 }

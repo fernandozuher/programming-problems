@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
+// C++26
 
-#include <iostream>
-#include <ranges>
-#include <vector>
-
+import std;
 using namespace std;
 
 vector<int> factorial(int n);
@@ -21,8 +19,8 @@ int main()
 
 vector<int> factorial(int n)
 {
-    vector<int> factorial{1};
-    for (int i{2}; i <= n; ++i)
+    vector<int> factorial{ 1 };
+    for (int i{ 2 }; i <= n; ++i)
         multiply_array_with_number(factorial, i);
     return factorial;
 }
@@ -32,7 +30,7 @@ void multiply_array_with_number(vector<int>& arr, int number)
     int carry{};
 
     for (auto& last_digit : arr) {
-        int product{last_digit * number + carry};
+        int product{ last_digit * number + carry };
         last_digit = product % 10;
         carry = product / 10;
     }
@@ -50,5 +48,5 @@ void print_factorial(const vector<int>& arr)
 {
     for (auto x : views::reverse(arr))
         cout << x;
-    cout << '\n';
+    println();
 }
