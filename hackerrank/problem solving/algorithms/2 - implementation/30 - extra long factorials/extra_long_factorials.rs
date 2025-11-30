@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
-use num_bigint::{BigUint, ToBigUint};
+use num::BigUint;
 use text_io::read;
 
 fn main() {
@@ -9,5 +9,5 @@ fn main() {
 }
 
 fn factorial(n: u32) -> BigUint {
-    (1..=n).fold(1u32.to_biguint().unwrap(), |acc, x| acc * x)
+    (1..=n).product()
 }
