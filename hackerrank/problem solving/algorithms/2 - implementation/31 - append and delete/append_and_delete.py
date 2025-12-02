@@ -16,12 +16,13 @@ def append_and_delete(s1, s2, n_ops):
 
 def common_prefix_length(s1, s2):
     min_len = min(len(s1), len(s2))
-    for i in range(min_len):
-        if s1[i] != s2[i]:
+    i = 0
+    for x, y in zip(s1, s2):
+        if x != y:
             return i
+        i += 1
     return min_len
 
 
 if __name__ == '__main__':
     main()
-  

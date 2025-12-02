@@ -16,9 +16,7 @@ end
 
 def common_prefix_length(s1, s2)
   min_len = [s1.length, s2.length].min
-  min_len.times do |i|
-    return i if s1[i] != s2[i]
-  end
+  min_len.times { |i| return i if s1[i] != s2[i] }
   min_len
 end
 
