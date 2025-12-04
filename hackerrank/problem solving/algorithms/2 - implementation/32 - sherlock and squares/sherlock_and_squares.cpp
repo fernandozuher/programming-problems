@@ -1,8 +1,7 @@
 // https://www.hackerrank.com/challenges/sherlock-and-squares/problem?isFullScreen=true
+// C++23
 
-#include <cmath>
-#include <iostream>
-
+import std;
 using namespace std;
 
 int squares(int start_num, int end_num);
@@ -14,7 +13,7 @@ int main()
     for (int i{}; i < n; ++i) {
         int a, b;
         cin >> a >> b;
-        cout << squares(a, b) << '\n';
+        println("{}", squares(a, b));
     }
 }
 

@@ -17,7 +17,7 @@ func main() {
     }
 }
 
-func squares(startNum int, endNum int) int {
+func squares(startNum, endNum int) int {
     maxSquare := int(math.Floor(math.Sqrt(float64(endNum))))
     minSquare := int(math.Ceil(math.Sqrt(float64(startNum))))
     return maxSquare - minSquare + 1

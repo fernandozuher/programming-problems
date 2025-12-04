@@ -26,9 +26,13 @@ function readLine(): string {
 function main() {
   const n = +readLine();
   for (let i = 0; i < n; i++) {
-    const [a, b]: number[] = readLine().split(' ').map(Number);
+    const [a, b]: number[] = readNumbers();
     console.log(squares(a, b));
   }
+}
+
+function readNumbers(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 function squares(startNum: number, endNum: number): number {

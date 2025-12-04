@@ -1,23 +1,20 @@
 // https://www.hackerrank.com/challenges/sherlock-and-squares/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.*;
-
-class Solution {
-    void main() {
-        var scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        for (int i = 0; i < n; i++) {
-            int a = scan.nextInt();
-            int b = scan.nextInt();
-            IO.println(squares(a, b));
-        }
+void main() {
+    int n = readNumbers()[0];
+    for (int i = 0; i < n; i++) {
+        var range = readNumbers();
+        IO.println(squares(range[0], range[1]));
     }
+}
 
-    private static int squares(int startNum, int endNum) {
-        int maxSquare = (int) Math.floor(Math.sqrt(endNum));
-        int minSquare = (int) Math.ceil(Math.sqrt(startNum));
-        return maxSquare - minSquare + 1;
-    }
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
+
+int squares(int startNum, int endNum) {
+    int maxSquare = (int) Math.floor(Math.sqrt(endNum));
+    int minSquare = (int) Math.ceil(Math.sqrt(startNum));
+    return maxSquare - minSquare + 1;
 }

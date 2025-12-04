@@ -1,28 +1,20 @@
 // https://www.hackerrank.com/challenges/sherlock-and-squares/problem?isFullScreen=true
 
-public class Solution
+int n = ReadNumbers()[0];
+for (int i = 0; i < n; i++)
 {
-    public static void Main()
-    {
-        int n = ReadNumbers()[0];
-        for (int i = 0; i < n; i++)
-        {
-            var range = ReadNumbers();
-            int a = range[0];
-            int b = range[1];
-            Console.WriteLine(Squares(a, b));
-        }
-    }
+    var range = ReadNumbers();
+    Console.WriteLine(Squares(range[0], range[1]));
+}
 
-    private static int[] ReadNumbers()
-    {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
-    }
+int[] ReadNumbers()
+{
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+}
 
-    private static int Squares(int startNum, int endNum)
-    {
-        int maxSquare = (int)Math.Floor(Math.Sqrt(endNum));
-        int minSquare = (int)Math.Ceiling(Math.Sqrt(startNum));
-        return maxSquare - minSquare + 1;
-    }
+int Squares(int startNum, int endNum)
+{
+    int maxSquare = (int)Math.Floor(Math.Sqrt(endNum));
+    int minSquare = (int)Math.Ceiling(Math.Sqrt(startNum));
+    return maxSquare - minSquare + 1;
 }
