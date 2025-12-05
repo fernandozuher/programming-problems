@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
+// C++23
 
-#include <iostream>
-
+import std;
 using namespace std;
 
 enum hackos_fine {
@@ -14,16 +14,14 @@ using date = struct {
     int day{}, month{}, year{};
 };
 
-//////////////////////////////////////////////////
-
 date read_date();
 int calculate_fine(const date& return_date, const date& due_date);
 bool returned_on_time(const date& return_date, const date& due_date);
 
 int main()
 {
-    date return_date{read_date()};
-    date due_date{read_date()};
+    date return_date{ read_date() };
+    date due_date{ read_date() };
     cout << calculate_fine(return_date, due_date);
     return 0;
 }
@@ -49,7 +47,7 @@ int calculate_fine(const date& return_date, const date& due_date)
 bool returned_on_time(const date& return_date, const date& due_date)
 {
     return (return_date.year < due_date.year) ||
-           ((return_date.year == due_date.year) && (return_date.month < due_date.month)) ||
-           ((return_date.year == due_date.year) && (return_date.month == due_date.month) && (
-                return_date.day <= due_date.day));
+        ((return_date.year == due_date.year) && (return_date.month < due_date.month)) ||
+        ((return_date.year == due_date.year) && (return_date.month == due_date.month) && (
+            return_date.day <= due_date.day));
 }
