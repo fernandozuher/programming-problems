@@ -6,9 +6,7 @@ fn main() {
     let n: usize = read!();
     let mut arr: Vec<usize> = read_numbers(n);
     arr.sort();
-    for x in cut_the_sticks(&arr) {
-        println!("{}", x);
-    }
+    cut_the_sticks(&arr).iter().for_each(|x| println!("{}", x));
 }
 
 fn read_numbers(n: usize) -> Vec<usize> {

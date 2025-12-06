@@ -4,14 +4,14 @@ package main
 
 import (
     "fmt"
-    "sort"
+    "slices"
 )
 
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
     arr := readNumbers(n)
-    sort.Ints(arr)
+    slices.Sort(arr)
     for _, x := range cutTheSticks(arr) {
         fmt.Println(x)
     }

@@ -33,7 +33,7 @@ void read_numbers(int *arr, int n)
 
 int compare_function(const void *a, const void *b)
 {
-    return (*(int *) a - *(int *) b);
+    return *(int *) a - *(int *) b;
 }
 
 void cut_the_sticks(const int *arr, int n, int *res, int *n2)
