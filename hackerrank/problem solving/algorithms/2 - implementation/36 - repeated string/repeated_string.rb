@@ -16,4 +16,4 @@ def count_in_repeated_string(string, letter, n_characters)
   quantity + substring.count(letter)
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME
