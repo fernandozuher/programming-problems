@@ -30,4 +30,4 @@ def next_jump(index, clouds)
   1
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

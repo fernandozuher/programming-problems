@@ -1,8 +1,7 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem?isFullScreen=true
+// C++23
 
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
@@ -36,7 +35,7 @@ int minimum_number_of_jumps(const vector<int>& clouds)
 int next_jump(int index, const vector<int>& clouds)
 {
     if (index + 2 < clouds.size())
-        if (bool is_next_second_cloud_cumulus{clouds[index + 2] == 0})
+        if (bool is_next_second_cloud_cumulus{ clouds[index + 2] == 0 })
             return 2;
     return 1;
 }

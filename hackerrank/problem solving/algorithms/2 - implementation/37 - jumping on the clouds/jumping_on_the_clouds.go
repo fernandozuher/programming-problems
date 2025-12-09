@@ -6,16 +6,16 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     fmt.Println(minimumNumberOfJumps(readNumbers(n)))
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        _, _ = fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func minimumNumberOfJumps(clouds []int) int {
