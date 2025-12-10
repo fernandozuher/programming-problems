@@ -33,8 +33,7 @@ function readNumbers(): number[] {
 }
 
 function equalizeArray(arr: number[]): number {
-  const counts = counter(arr);
-  const maxCount = Math.max(...Object.values(counts));
+  const maxCount = Math.max(...Object.values(counter(arr)));
   return arr.length - maxCount;
 }
 

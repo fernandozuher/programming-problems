@@ -5,8 +5,8 @@
 
 void read_numbers(int *arr, int n);
 int cmp(const void *a, const void *b);
-int equalize_array(const int *array, int n);
-int max_count(const int *array, int n);
+int equalize_array(const int *arr, int n);
+int max_count(const int *arr, int n);
 
 int main()
 {
@@ -32,17 +32,17 @@ int cmp(const void *a, const void *b)
     return *(int *) a - *(int *) b;
 }
 
-int equalize_array(const int *array, int n)
+int equalize_array(const int *arr, int n)
 {
-    return n - max_count(array, n);
+    return n - max_count(arr, n);
 }
 
-int max_count(const int *array, int n)
+int max_count(const int *arr, int n)
 {
     int max_count = 1;
 
     for (int i = 1, temp_max = 1; i < n; ++i)
-        if (array[i - 1] == array[i]) {
+        if (arr[i - 1] == arr[i]) {
             ++temp_max;
             if (temp_max > max_count)
                 max_count = temp_max;

@@ -13,8 +13,7 @@ def read_numbers():
 
 
 def equalize_array(arr):
-    counter = Counter(arr)
-    max_count = max(counter.values())
+    max_count = max(Counter(arr).values())
     return len(arr) - max_count
 
 

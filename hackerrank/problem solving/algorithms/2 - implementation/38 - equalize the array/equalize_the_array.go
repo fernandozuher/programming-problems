@@ -7,25 +7,31 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    fmt.Println(equalizeArray(counter(n), n))
+    fmt.Println(equalizeArray(readNumbers(n)))
 }
 
-func counter(n int) map[int]int {
-    count := make(map[int]int)
-    for range n {
-        var x int
-        _, _ = fmt.Scan(&x)
-        count[x]++
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
-    return count
+    return arr
 }
 
-func equalizeArray(counter map[int]int, n int) int {
+func equalizeArray(arr []int) int {
     maxCount := 0
-    for _, count := range counter {
+    for _, count := range counter(arr) {
         if count > maxCount {
             maxCount = count
         }
     }
-    return n - maxCount
+    return len(arr) - maxCount
+}
+
+func counter(arr []int) map[int]int {
+    counter := make(map[int]int)
+    for _, x := range arr {
+        counter[x]++
+    }
+    return counter
 }

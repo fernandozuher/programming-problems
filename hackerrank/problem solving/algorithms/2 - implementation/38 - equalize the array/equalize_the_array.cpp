@@ -1,33 +1,40 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <map>
-#include <ranges>
-
+import std;
 using namespace std;
 
-map<int, int> counter(int n);
-int equalize_array(const map<int, int>& counter, int n);
+vector<int> read_numbers(int n);
+int equalize_array(const vector<int>& arr);
+map<int, int> counter(const vector<int>& arr);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << equalize_array(counter(n), n) << '\n';
+    cout << equalize_array(read_numbers(n)) << '\n';
     return 0;
 }
 
-map<int, int> counter(int n)
+vector<int> read_numbers(int n)
 {
-    map<int, int> counter;
-    for (int i{}, x; i < n && cin >> x; ++i)
-        ++counter[x];
-    return counter;
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
 }
 
-int equalize_array(const map<int, int>& counter, int n)
+int equalize_array(const vector<int>& arr)
 {
-    int max_count{*ranges::max_element(views::values(counter))};
-    return n - max_count;
+    auto counts{ counter(arr) };
+    int max_count{ *ranges::max_element(views::values(counts)) };
+    return arr.size() - max_count;
+}
+
+map<int, int> counter(const vector<int>& arr)
+{
+    map<int, int> counter;
+    for (auto x : arr)
+        ++counter[x];
+    return counter;
 }

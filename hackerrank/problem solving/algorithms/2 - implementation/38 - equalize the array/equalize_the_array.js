@@ -24,8 +24,8 @@ function readLine() {
 //////////////////////////////////////////////////
 
 function main() {
-  const n = +readLine();
-  console.log(equalizeArray(readNumbers(), n));
+  readLine();
+  console.log(equalizeArray(readNumbers()));
 }
 
 function readNumbers() {
@@ -33,8 +33,7 @@ function readNumbers() {
 }
 
 function equalizeArray(arr) {
-  const counts = counter(arr);
-  const maxCount = Math.max(...Object.values(counts));
+  const maxCount = Math.max(...Object.values(counter(arr)));
   return arr.length - maxCount;
 }
 
