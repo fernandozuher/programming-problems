@@ -26,5 +26,5 @@ def between_two_sets(a, b):
     return count
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

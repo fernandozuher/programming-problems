@@ -1,55 +1,49 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
-public class Solution
+Console.ReadLine();
+int[] a = ReadNumbers();
+int[] b = ReadNumbers();
+Console.WriteLine(BetweenTwoSets(a, b));
+
+int[] ReadNumbers()
 {
-    public static void Main()
-    {
-        Console.ReadLine();
-        int[] a = ReadNumbers();
-        int[] b = ReadNumbers();
-        Console.WriteLine(BetweenTwoSets(a, b));
-    }
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+}
 
-    private static int[] ReadNumbers()
-    {
-        return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
-    }
+int BetweenTwoSets(int[] a, int[] b)
+{
+    int lcmOfA = LcmArray(a);
+    int gcdOfB = GcdArray(b);
 
-    private static int BetweenTwoSets(int[] a, int[] b)
-    {
-        int lcmOfA = LcmArray(a);
-        int gcdOfB = GcdArray(b);
+    int count = 0;
+    for (int i = lcmOfA; i <= gcdOfB; i += lcmOfA)
+        if (gcdOfB % i == 0)
+            count++;
+    return count;
+}
 
-        int count = 0;
-        for (int i = lcmOfA; i <= gcdOfB; i += lcmOfA)
-            if (gcdOfB % i == 0)
-                count++;
-        return count;
-    }
+int LcmArray(int[] arr)
+{
+    return arr.Aggregate(Lcm);
+}
 
-    private static int LcmArray(int[] arr)
-    {
-        return arr.Aggregate(Lcm);
-    }
+int Lcm(int a, int b)
+{
+    return a * b / Gcd(a, b);
+}
 
-    private static int Lcm(int a, int b)
-    {
-        return a * b / Gcd(a, b);
-    }
+int GcdArray(int[] arr)
+{
+    return arr.Aggregate(Gcd);
+}
 
-    private static int GcdArray(int[] arr)
+int Gcd(int a, int b)
+{
+    while (b != 0)
     {
-        return arr.Aggregate(Gcd);
+        int temp = b;
+        b = a % b;
+        a = temp;
     }
-
-    private static int Gcd(int a, int b)
-    {
-        while (b != 0)
-        {
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
-    }
+    return a;
 }
