@@ -1,32 +1,33 @@
 // https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
+use combinations::Combinations;
 use text_io::read;
 
 fn main() {
     let attendees: usize = read!();
     let _: usize = read!();
     let binaries: Vec<String> = read_binaries(attendees);
-    acm_team(&binaries).iter().for_each(|x| println!("{}", x));
+    for x in acm_team(binaries) {
+        println!("{}", x);
+    }
 }
 
 fn read_binaries(n: usize) -> Vec<String> {
     (0..n).map(|_| read!()).collect()
 }
 
-fn acm_team(binaries: &[String]) -> [usize; 2] {
+fn acm_team(binaries: Vec<String>) -> [usize; 2] {
     let mut max_subjects: usize = 0;
     let mut teams_with_max: usize = 0;
 
-    for (i, b1) in binaries[..binaries.len() - 1].iter().enumerate() {
-        for b2 in &binaries[i + 1..] {
-            let known_subjects: usize = count_subjects_known_by_2_teams(b1, b2);
+    for c in Combinations::new(binaries, 2).collect::<Vec<_>>() {
+        let known_subjects: usize = count_subjects_known_by_2_teams(&c[0], &c[1]);
 
-            if known_subjects > max_subjects {
-                max_subjects = known_subjects;
-                teams_with_max = 1;
-            } else if known_subjects == max_subjects {
-                teams_with_max += 1;
-            }
+        if known_subjects > max_subjects {
+            max_subjects = known_subjects;
+            teams_with_max = 1;
+        } else if known_subjects == max_subjects {
+            teams_with_max += 1;
         }
     }
 

@@ -18,8 +18,8 @@ def acm_team(binaries)
   max_subjects = 0
   teams_with_max = 0
 
-  binaries.combination(2).each do |b1, b2|
-    known_subjects = count_subjects_known_by_2_teams(b1, b2)
+  binaries.combination(2).each do |a, b|
+    known_subjects = count_subjects_known_by_2_teams(a, b)
 
     if known_subjects > max_subjects
       max_subjects = known_subjects
@@ -28,6 +28,7 @@ def acm_team(binaries)
       teams_with_max += 1
     end
   end
+
   [max_subjects, teams_with_max]
 end
 

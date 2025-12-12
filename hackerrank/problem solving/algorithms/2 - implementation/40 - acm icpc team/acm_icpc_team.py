@@ -21,8 +21,8 @@ def acm_team(binaries):
     max_subjects = 0
     teams_with_max = 0
 
-    for i, j in combinations(range(len(binaries)), 2):
-        known_subjects = count_subjects_known_by_2_teams(binaries[i], binaries[j])
+    for a, b in combinations(binaries, 2):
+        known_subjects = count_subjects_known_by_2_teams(a, b)
 
         if known_subjects > max_subjects:
             max_subjects = known_subjects

@@ -25,9 +25,9 @@ func acmTeam(binaries []string) (int, int) {
     maxSubjects := 0
     teamsWithMax := 0
 
-    for i, b1 := range binaries[:len(binaries)-1] {
-        for _, b2 := range binaries[i+1:] {
-            knownSubjects := countSubjectsKnownBy2Teams(b1, b2)
+    for i, a := range binaries[:len(binaries)-1] {
+        for _, b := range binaries[i+1:] {
+            knownSubjects := countSubjectsKnownBy2Teams(a, b)
 
             if knownSubjects > maxSubjects {
                 maxSubjects = knownSubjects

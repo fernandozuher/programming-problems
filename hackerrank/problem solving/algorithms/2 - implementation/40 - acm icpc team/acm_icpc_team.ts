@@ -26,7 +26,8 @@ function readLine(): string {
 function main() {
   const [attendees, _] = readNumbers();
   const binaries: string[] = readBinaries(attendees);
-  acmTeam(binaries).forEach((x) => console.log(x));
+  for (const x of acmTeam(binaries))
+    console.log(x);
 }
 
 function readNumbers(): number[] {
@@ -41,9 +42,9 @@ function acmTeam(binaries: string[]): number[] {
   let maxSubjects = 0;
   let teamsWithMax = 0;
 
-  for (const [i, b1] of binaries.slice(0, -1).entries())
-    for (const b2 of binaries.slice(i + 1)) {
-      const knownSubjects = countSubjectsKnownBy2Teams(b1, b2);
+  for (const [i, a] of binaries.slice(0, -1).entries())
+    for (const b of binaries.slice(i + 1)) {
+      const knownSubjects = countSubjectsKnownBy2Teams(a, b);
 
       if (knownSubjects > maxSubjects) {
         maxSubjects = knownSubjects;
