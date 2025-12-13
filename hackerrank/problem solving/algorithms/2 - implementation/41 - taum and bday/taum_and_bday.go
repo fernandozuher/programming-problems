@@ -16,8 +16,7 @@ func main() {
     var n int
     _, _ = fmt.Scan(&n)
     for range n {
-        testCase := readTestCase()
-        fmt.Println(minCostOfBuyingGifts(testCase))
+        fmt.Println(minCostOfBuyingGifts(readTestCase()))
     }
 }
 
@@ -27,8 +26,8 @@ func readTestCase() Gifts {
     return x
 }
 
-func minCostOfBuyingGifts(gifts Gifts) int {
-    blackCost := min(gifts.blackGiftCost, gifts.whiteGiftCost+gifts.costToConvertBetweenGifts)
-    whiteCost := min(gifts.whiteGiftCost, gifts.blackGiftCost+gifts.costToConvertBetweenGifts)
-    return gifts.nBlackGifts*blackCost + gifts.nWhiteGifts*whiteCost
+func minCostOfBuyingGifts(x Gifts) int {
+    blackCost := min(x.blackGiftCost, x.whiteGiftCost+x.costToConvertBetweenGifts)
+    whiteCost := min(x.whiteGiftCost, x.blackGiftCost+x.costToConvertBetweenGifts)
+    return x.nBlackGifts*blackCost + x.nWhiteGifts*whiteCost
 }

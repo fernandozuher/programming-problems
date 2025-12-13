@@ -1,37 +1,26 @@
 // https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
+int n = int.Parse(Console.ReadLine()!);
+for (int i = 0; i < n; i++)
+    Console.WriteLine(MinCostOfBuyingGifts(ReadTestCase()));
 
-record struct Gifts(long nBlackGifts, long nWhiteGifts, long blackGiftCost,
-                    long whiteGiftCost, long costToConvertBetweenGifts);
-
-class Solution
+Gifts ReadTestCase()
 {
-    public static void Main()
-    {
-        int n = int.Parse(Console.ReadLine()!);
-        for (int i = 0; i < n; i++)
-        {
-            var testCase = ReadTestCase();
-            Console.WriteLine(MinCostOfBuyingGifts(testCase));
-        }
-    }
-
-    private static Gifts ReadTestCase()
-    {
-        var line1 = ReadNumbers();
-        var line2 = ReadNumbers();
-        return new Gifts(line1[0], line1[1], line2[0], line2[1], line2[2]);
-    }
-
-    private static long[] ReadNumbers()
-    {
-        return Console.ReadLine()!.Split().Select(long.Parse).ToArray();
-    }
-
-    private static long MinCostOfBuyingGifts(Gifts gifts)
-    {
-        long blackCost = Math.Min(gifts.blackGiftCost, gifts.whiteGiftCost + gifts.costToConvertBetweenGifts);
-        long whiteCost = Math.Min(gifts.whiteGiftCost, gifts.blackGiftCost + gifts.costToConvertBetweenGifts);
-        return gifts.nBlackGifts * blackCost + gifts.nWhiteGifts * whiteCost;
-    }
+    var arr1 = ReadNumbers();
+    var arr2 = ReadNumbers();
+    return new Gifts(arr1[0], arr1[1], arr2[0], arr2[1], arr2[2]);
 }
+
+long[] ReadNumbers()
+{
+    return Console.ReadLine()!.Split().Select(long.Parse).ToArray();
+}
+
+long MinCostOfBuyingGifts(Gifts x)
+{
+    long blackCost = Math.Min(x.BlackGiftCost, x.WhiteGiftCost + x.CostToConvertBetweenGifts);
+    long whiteCost = Math.Min(x.WhiteGiftCost, x.BlackGiftCost + x.CostToConvertBetweenGifts);
+    return x.NBlackGifts * blackCost + x.NWhiteGifts * whiteCost;
+}
+
+record struct Gifts(long NBlackGifts, long NWhiteGifts, long BlackGiftCost, long WhiteGiftCost, long CostToConvertBetweenGifts);

@@ -17,12 +17,10 @@ int main()
 {
     int n;
     scanf("%d", &n);
-
     for (int i = 0; i < n; ++i) {
         gifts test_case = read_test_case();
         printf("%ld\n", min_cost_of_buying_gifts(&test_case));
     }
-
     return 0;
 }
 

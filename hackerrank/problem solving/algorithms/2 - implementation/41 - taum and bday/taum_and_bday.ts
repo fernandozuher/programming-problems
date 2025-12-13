@@ -33,28 +33,19 @@ interface Gifts {
 
 function main() {
   const n: number = +readLine();
-  for (let i = 0; i < n; i++) {
-    const testCase = readTestCase();
-    console.log(minCostOfBuyingGifts(testCase).toString());
-  }
+  for (let i = 0; i < n; i++)
+    console.log(minCostOfBuyingGifts(readTestCase()).toString());
 }
 
 function readTestCase(): Gifts {
-  const array = readNumbers();
-  array.push(...readNumbers());
-  const [
-    nBlackGifts,
-    nWhiteGifts,
-    blackGiftCost,
-    whiteGiftCost,
-    costToConvertBetweenGifts,
-  ]: bigint[] = array;
+  const arr: bigint[] = readNumbers();
+  arr.push(...readNumbers());
   return {
-    nBlackGifts,
-    nWhiteGifts,
-    blackGiftCost,
-    whiteGiftCost,
-    costToConvertBetweenGifts,
+    nBlackGifts: arr[0],
+    nWhiteGifts: arr[1],
+    blackGiftCost: arr[2],
+    whiteGiftCost: arr[3],
+    costToConvertBetweenGifts: arr[4],
   };
 }
 
@@ -62,16 +53,16 @@ function readNumbers(): bigint[] {
   return readLine().split(' ').map(BigInt);
 }
 
-function minCostOfBuyingGifts(gifts: Gifts): bigint {
+function minCostOfBuyingGifts(x: Gifts): bigint {
   const blackCost: bigint =
-    gifts.blackGiftCost < gifts.whiteGiftCost + gifts.costToConvertBetweenGifts
-      ? gifts.blackGiftCost
-      : gifts.whiteGiftCost + gifts.costToConvertBetweenGifts;
+    x.blackGiftCost < x.whiteGiftCost + x.costToConvertBetweenGifts
+      ? x.blackGiftCost
+      : x.whiteGiftCost + x.costToConvertBetweenGifts;
 
   const whiteCost: bigint =
-    gifts.whiteGiftCost < gifts.blackGiftCost + gifts.costToConvertBetweenGifts
-      ? gifts.whiteGiftCost
-      : gifts.blackGiftCost + gifts.costToConvertBetweenGifts;
+    x.whiteGiftCost < x.blackGiftCost + x.costToConvertBetweenGifts
+      ? x.whiteGiftCost
+      : x.blackGiftCost + x.costToConvertBetweenGifts;
 
-  return gifts.nBlackGifts * blackCost + gifts.nWhiteGifts * whiteCost;
+  return x.nBlackGifts * blackCost + x.nWhiteGifts * whiteCost;
 }

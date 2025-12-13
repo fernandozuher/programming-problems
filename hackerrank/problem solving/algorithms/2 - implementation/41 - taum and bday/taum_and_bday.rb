@@ -12,19 +12,19 @@ def main
 end
 
 def read_test_case
-  array = read_numbers
-  array += read_numbers
-  Gifts.new(*array)
+  arr = read_numbers
+  arr += read_numbers
+  Gifts.new(*arr)
 end
 
 def read_numbers
   gets.split.map(&:to_i)
 end
 
-def min_cost_of_buying_gifts(gifts)
-  black_cost = [gifts.black_gift_cost, gifts.white_gift_cost + gifts.cost_to_convert_between_gifts].min
-  white_cost = [gifts.white_gift_cost, gifts.black_gift_cost + gifts.cost_to_convert_between_gifts].min
-  gifts.n_black_gifts * black_cost + gifts.n_white_gifts * white_cost
+def min_cost_of_buying_gifts(x)
+  black_cost = [x.black_gift_cost, x.white_gift_cost + x.cost_to_convert_between_gifts].min
+  white_cost = [x.white_gift_cost, x.black_gift_cost + x.cost_to_convert_between_gifts].min
+  x.n_black_gifts * black_cost + x.n_white_gifts * white_cost
 end
 
 main if __FILE__ == $PROGRAM_NAME

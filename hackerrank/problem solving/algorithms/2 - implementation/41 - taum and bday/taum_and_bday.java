@@ -1,41 +1,28 @@
 // https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.*;
-import java.util.stream.IntStream;
-
-class Gifts {
-    public long nBlackGifts;
-    public long nWhiteGifts;
-    public long blackGiftCost;
-    public long whiteGiftCost;
-    public long costToConvertBetweenGifts;
+record Gifts(long nBlackGifts, long nWhiteGifts, long blackGiftCost, long whiteGiftCost,
+             long costToConvertBetweenGifts) {
 }
 
-class Solution {
-    void main() {
-        var scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        IntStream.range(0, n).forEach(_ -> {
-            Gifts testCase = readTestCase(scan);
-            IO.println(minCostOfBuyingGifts(testCase));
-        });
-    }
+void main() {
+    int n = (int) readNumbers()[0];
+    for (int i = 0; i < n; i++)
+        IO.println(minCostOfBuyingGifts(readTestCase()));
+}
 
-    private static Gifts readTestCase(Scanner scan) {
-        var x = new Gifts();
-        x.nBlackGifts = scan.nextLong();
-        x.nWhiteGifts = scan.nextLong();
-        x.blackGiftCost = scan.nextLong();
-        x.whiteGiftCost = scan.nextLong();
-        x.costToConvertBetweenGifts = scan.nextLong();
-        return x;
-    }
+Gifts readTestCase() {
+    var arr1 = readNumbers();
+    var arr2 = readNumbers();
+    return new Gifts(arr1[0], arr1[1], arr2[0], arr2[1], arr2[2]);
+}
 
-    private static long minCostOfBuyingGifts(Gifts gifts) {
-        long blackCost = Math.min(gifts.blackGiftCost, gifts.whiteGiftCost + gifts.costToConvertBetweenGifts);
-        long whiteCost = Math.min(gifts.whiteGiftCost, gifts.blackGiftCost + gifts.costToConvertBetweenGifts);
-        return gifts.nBlackGifts * blackCost + gifts.nWhiteGifts * whiteCost;
-    }
+long[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToLong(Long::parseLong).toArray();
+}
+
+long minCostOfBuyingGifts(Gifts x) {
+    long blackCost = Math.min(x.blackGiftCost, x.whiteGiftCost + x.costToConvertBetweenGifts);
+    long whiteCost = Math.min(x.whiteGiftCost, x.blackGiftCost + x.costToConvertBetweenGifts);
+    return x.nBlackGifts * blackCost + x.nWhiteGifts * whiteCost;
 }
