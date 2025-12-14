@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool is_number_kaprekar(int number);
-int number_digits(long n);
+bool is_number_kaprekar(int n);
+int number_digits(int n);
 
 int main()
 {
@@ -14,9 +14,9 @@ int main()
     scanf("%d %d", &lower, &upper);
     bool valid_range = false;
 
-    for (int number = lower; number <= upper; ++number)
-        if (is_number_kaprekar(number)) {
-            printf("%d ", number);
+    for (int num = lower; num <= upper; ++num)
+        if (is_number_kaprekar(num)) {
+            printf("%d ", num);
             valid_range = true;
         }
 
@@ -26,19 +26,19 @@ int main()
     return 0;
 }
 
-bool is_number_kaprekar(int number)
+bool is_number_kaprekar(int n)
 {
-    long square_number = powl(number, 2);
-    long divisor = powl(10, number_digits(number));
+    auto square_number = (long long) powl(n, 2);
+    auto divisor = (long long) powl(10, number_digits(n));
 
-    ldiv_t x = ldiv(square_number, divisor);
-    int left_number = x.quot;
-    int right_number = x.rem;
+    lldiv_t x = lldiv(square_number, divisor);
+    auto left_number = x.quot;
+    auto right_number = x.rem;
 
-    return number == left_number + right_number;
+    return n == left_number + right_number;
 }
 
-int number_digits(long n)
+int number_digits(int n)
 {
     return (int) log10(n) + 1;
 }

@@ -1,12 +1,11 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
+// C++23
 
-#include <cmath>
-#include <iostream>
-
+import std;
 using namespace std;
 
-bool is_number_kaprekar(int number);
-int number_digits(long n);
+bool is_number_kaprekar(int n);
+int number_digits(int n);
 
 int main()
 {
@@ -14,7 +13,7 @@ int main()
     cin >> lower >> upper;
     bool valid_range{};
 
-    for (int number{lower}; number <= upper; ++number)
+    for (int number{ lower }; number <= upper; ++number)
         if (is_number_kaprekar(number)) {
             cout << number << " ";
             valid_range = true;
@@ -26,15 +25,15 @@ int main()
     return 0;
 }
 
-bool is_number_kaprekar(int number)
+bool is_number_kaprekar(int n)
 {
-    auto square_number{pow(number, 2)};
-    auto divisor{pow(10, number_digits(number))};
-    auto [left_number, right_number]{ldiv(square_number, divisor)};
-    return number == left_number + right_number;
+    auto square_number{ static_cast<long long>(pow(n, 2)) };
+    auto divisor{ static_cast<long long>(pow(10, number_digits(n))) };
+    auto [left_number, right_number] {lldiv(square_number, divisor)};
+    return n == left_number + right_number;
 }
 
-int number_digits(long n)
+int number_digits(int n)
 {
     return static_cast<int>(log10(n)) + 1;
 }

@@ -14,9 +14,9 @@ func main() {
     _, _ = fmt.Scan(&lower, &upper)
 
     validRange := false
-    for number := lower; number <= upper; number++ {
-        if isNumberKaprekar(number) {
-            fmt.Print(number, " ")
+    for num := lower; num <= upper; num++ {
+        if isNumberKaprekar(num) {
+            fmt.Print(num, " ")
             validRange = true
         }
     }
@@ -26,11 +26,11 @@ func main() {
     }
 }
 
-func isNumberKaprekar(number uint64) bool {
-    squareNumber := uint64(math.Pow(float64(number), float64(2)))
-    divisor := uint64(math.Pow(float64(10), float64(numberDigits(number))))
+func isNumberKaprekar(n uint64) bool {
+    squareNumber := uint64(math.Pow(float64(n), 2.0))
+    divisor := uint64(math.Pow(10.0, float64(numberDigits(n))))
     leftNumber, rightNumber := bits.Div64(0, squareNumber, divisor)
-    return number == leftNumber+rightNumber
+    return n == leftNumber+rightNumber
 }
 
 func numberDigits(n uint64) int {

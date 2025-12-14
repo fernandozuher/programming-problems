@@ -7,23 +7,23 @@ fn main() {
     let upper: usize = read!();
     let mut valid_range: bool = false;
 
-    (lower..=upper).for_each(|x| {
-        if is_number_kaprekar(x) {
-            print!("{} ", x);
+    for num in lower..=upper {
+        if is_number_kaprekar(num) {
+            print!("{} ", num);
             valid_range = true;
         }
-    });
+    }
 
     if !valid_range {
         println!("INVALID RANGE");
     }
 }
 
-fn is_number_kaprekar(number: usize) -> bool {
-    let square_number: usize = number.pow(2);
-    let divisor: usize = 10_usize.pow(number_digits(number));
+fn is_number_kaprekar(n: usize) -> bool {
+    let square_number: usize = n.pow(2);
+    let divisor: usize = 10_usize.pow(number_digits(n));
     let (left_number, right_number) = (square_number / divisor, square_number % divisor);
-    number == left_number + right_number
+    n == left_number + right_number
 }
 
 fn number_digits(n: usize) -> u32 {
