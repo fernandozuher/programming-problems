@@ -13,9 +13,9 @@ int main()
     cin >> lower >> upper;
     bool valid_range{};
 
-    for (int number{ lower }; number <= upper; ++number)
-        if (is_number_kaprekar(number)) {
-            cout << number << " ";
+    for (int num{ lower }; num <= upper; ++num)
+        if (is_number_kaprekar(num)) {
+            cout << num << " ";
             valid_range = true;
         }
 
