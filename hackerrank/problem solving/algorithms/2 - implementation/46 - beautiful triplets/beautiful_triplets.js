@@ -35,9 +35,11 @@ function readNumbers() {
 
 function findBeautifulTriplets(arr, beautifulDifference) {
   const values = new Set(arr);
+  const doubleBD = 2 * beautifulDifference;
+
   return arr.filter(
     (x) =>
       values.has(x + beautifulDifference) &&
-      values.has(x + 2 * beautifulDifference),
+      values.has(x + doubleBD),
   ).length;
 }

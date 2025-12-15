@@ -12,8 +12,9 @@ end
 
 def find_beautiful_triplets(arr, beautiful_difference)
   values = arr.to_set
+  double_bd = 2 * beautiful_difference
   arr.count do |x|
-    values.include?(x + beautiful_difference) && values.include?(x + 2 * beautiful_difference)
+    values.include?(x + beautiful_difference) && values.include?(x + double_bd)
   end
 end
 

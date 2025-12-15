@@ -16,10 +16,11 @@ fn read_numbers(n: usize) -> Vec<i32> {
 
 fn find_beautiful_triplets(arr: &[i32], beautiful_difference: i32) -> usize {
     let values: HashSet<_> = arr.iter().cloned().collect();
+    let double_bd: i32 = 2 * beautiful_difference;
     arr.iter()
         .filter(|&x| {
             values.contains(&(x + beautiful_difference))
-                && values.contains(&(x + 2 * beautiful_difference))
+                && values.contains(&(x + double_bd))
         })
         .count()
 }

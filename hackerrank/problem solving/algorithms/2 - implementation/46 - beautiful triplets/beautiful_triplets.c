@@ -28,9 +28,9 @@ void read_numbers(int *arr, int n)
 int find_beautiful_triplets(const int *arr, int n, int beautiful_difference)
 {
     int count = 0;
-    for (int i = 0; i < n - 2; ++i) {
+    for (int i = 0, double_bd = 2 * beautiful_difference; i < n - 2; ++i) {
         int first = arr[i] + beautiful_difference;
-        int second = arr[i] + 2 * beautiful_difference;
+        int second = arr[i] + double_bd;
 
         void *found_first = bsearch(&first, arr + i + 1, n - i - 1, sizeof(int), compare);
         if (found_first) {

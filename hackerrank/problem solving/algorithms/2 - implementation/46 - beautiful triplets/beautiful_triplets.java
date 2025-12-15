@@ -1,28 +1,20 @@
 // https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.*;
-import java.util.stream.IntStream;
+void main() {
+    int beautifulDifference = readNumbers().get(1);
+    List<Integer> arr = readNumbers();
+    IO.println(findBeautifulTriplets(arr, beautifulDifference));
+}
 
-class Solution {
-    void main() {
-        var scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        int beautifulDifference = scan.nextInt();
-        scan.nextLine();
-        List<Integer> arr = readNumbers(scan, n);
-        IO.println(findBeautifulTriplets(arr, beautifulDifference));
-    }
+List<Integer> readNumbers() {
+    return Stream.of(IO.readln().split(" ")).map(Integer::parseInt).toList();
+}
 
-    private static List<Integer> readNumbers(Scanner scan, int n) {
-        return IntStream.range(0, n).mapToObj(_ -> scan.nextInt()).toList();
-    }
-
-    private static int findBeautifulTriplets(List<Integer> arr, int beautifulDifference) {
-        var values = new HashSet<>(arr);
-        return (int) arr.stream()
-                .filter(x -> values.contains(x + beautifulDifference) && values.contains(x + 2 * beautifulDifference))
-                .count();
-    }
+int findBeautifulTriplets(List<Integer> arr, int beautifulDifference) {
+    var values = new HashSet<>(arr);
+    int doubleBD = 2 * beautifulDifference;
+    return (int) arr.stream()
+            .filter(x -> values.contains(x + beautifulDifference) && values.contains(x + doubleBD))
+            .count();
 }

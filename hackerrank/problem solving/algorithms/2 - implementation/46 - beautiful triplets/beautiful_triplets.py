@@ -12,7 +12,8 @@ def read_numbers():
 
 def find_beautiful_triplets(arr, beautiful_difference):
     values = set(arr)
-    return sum(1 for x in arr if (x + beautiful_difference) in values and (x + 2 * beautiful_difference) in values)
+    double_bd = 2 * beautiful_difference
+    return sum(1 for x in arr if (x + beautiful_difference) in values and (x + double_bd) in values)
 
 
 if __name__ == '__main__':

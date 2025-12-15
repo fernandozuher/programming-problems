@@ -7,7 +7,8 @@ import "fmt"
 func main() {
     var n, beautifulDifference int
     _, _ = fmt.Scan(&n, &beautifulDifference)
-    fmt.Println(findBeautifulTriplets(readNumbers(n), beautifulDifference))
+    arr := readNumbers(n)
+    fmt.Println(findBeautifulTriplets(arr, beautifulDifference))
 }
 
 func readNumbers(n int) []int {
@@ -25,8 +26,9 @@ func findBeautifulTriplets(arr []int, beautifulDifference int) int {
     }
 
     count := 0
+    doubleBD := 2*beautifulDifference
     for _, x := range arr {
-        if values[x+beautifulDifference] && values[x+2*beautifulDifference] {
+        if values[x+beautifulDifference] && values[x+doubleBD] {
             count++
         }
     }
