@@ -25,7 +25,7 @@ def min_distance(arr)
     last_seen[x] = i
   end
 
-  min_dist ? min_dist : -1
+  min_dist || -1
 end
 
 main if __FILE__ == $PROGRAM_NAME
