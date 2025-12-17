@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
+// C++23
 
-#include <iostream>
-
+import std;
 using namespace std;
 
 int how_many_games_can_be_bought(int price, int discount, int min_price, int budget);
