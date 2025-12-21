@@ -6,14 +6,14 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     fmt.Println(breakingRecords(readNumbers(n)))
 }
 
 func readNumbers(n int) []int {
     arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&arr[i])
+        _, _ = fmt.Scan(&arr[i])
     }
     return arr
 }

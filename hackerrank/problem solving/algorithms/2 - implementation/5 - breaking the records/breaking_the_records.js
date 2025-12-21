@@ -25,8 +25,7 @@ function readLine() {
 
 function main() {
   readLine();
-  const scores = readNumbers();
-  const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(scores);
+  const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(readNumbers());
   console.log(`${mostRecordBreaks} ${leastRecordBreaks}`);
 }
 

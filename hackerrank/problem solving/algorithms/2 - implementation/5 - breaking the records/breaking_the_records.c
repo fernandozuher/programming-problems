@@ -7,7 +7,7 @@ typedef struct {
     int least_record_breaks;
 } records_t;
 
-void read_numbers(int *numbers, int n);
+void read_numbers(int *arr, int n);
 records_t breaking_records(const int *scores, int n);
 
 int main()

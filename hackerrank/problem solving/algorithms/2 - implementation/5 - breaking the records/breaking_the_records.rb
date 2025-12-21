@@ -2,9 +2,7 @@
 
 def main
   gets
-  scores = read_numbers
-  most_record_breaks, least_record_breaks = breaking_records(scores)
-  puts "#{most_record_breaks} #{least_record_breaks}"
+  puts breaking_records(read_numbers).join(' ')
 end
 
 def read_numbers

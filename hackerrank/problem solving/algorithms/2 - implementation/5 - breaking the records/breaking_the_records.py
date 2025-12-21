@@ -2,9 +2,7 @@
 
 def main():
     input()
-    scores = read_numbers()
-    most_record_breaks, least_record_breaks = breaking_records(scores)
-    print(most_record_breaks, least_record_breaks)
+    print(*breaking_records(read_numbers()))
 
 
 def read_numbers():

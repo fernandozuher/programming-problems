@@ -4,10 +4,10 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let scores: Vec<i32> = read_numbers(n);
-    let (most_record_breaks, least_record_breaks) = breaking_records(&scores);
+    let (most_record_breaks, least_record_breaks) = breaking_records(&read_numbers(n));
     println!("{} {}", most_record_breaks, least_record_breaks);
 }
+
 fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
