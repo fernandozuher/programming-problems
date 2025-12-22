@@ -24,8 +24,7 @@ function readLine() {
 //////////////////////////////////////////////////
 
 function main() {
-  const n = +readLine();
-  for (let i = 0; i < n; i++) {
+  for (let i = 0, n = +readLine(); i < n; i++) {
     const [money, cost, wrappersNeeded] = readNumbers();
     console.log(howManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
   }

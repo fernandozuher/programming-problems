@@ -4,7 +4,6 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-
     for _ in 0..n {
         let money: i32 = read!();
         let cost: i32 = read!();

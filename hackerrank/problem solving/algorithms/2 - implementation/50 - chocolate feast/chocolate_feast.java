@@ -1,29 +1,28 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 // Java 25
 
-import java.lang.*;
-import java.util.*;
+void main() {
+    for (int i = 0, n = readNumbers()[0]; i < n; i++) {
+        var arr = readNumbers();
+        int money = arr[0];
+        int cost = arr[1];
+        int wrappersNeeded = arr[2];
+        IO.println(howManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
+    }
+}
 
-class Solution {
-    void main() {
-        var scan = new Scanner(System.in);
-        for (int i = 0, n = scan.nextInt(); i < n; i++) {
-            int money = scan.nextInt();
-            int cost = scan.nextInt();
-            int wrappersNeeded = scan.nextInt();
-            IO.println(howManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
-        }
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
+
+int howManyChocolatesCanBeEaten(int money, int cost, int wrappersNeeded) {
+    int chocolates = money / cost;
+
+    for (int wrappers = chocolates; wrappers >= wrappersNeeded; ) {
+        int freeChocolates = wrappers / wrappersNeeded;
+        wrappers = wrappers % wrappersNeeded + freeChocolates;
+        chocolates += freeChocolates;
     }
 
-    private static int howManyChocolatesCanBeEaten(int money, int cost, int wrappersNeeded) {
-        int chocolates = money / cost;
-
-        for (int wrappers = chocolates; wrappers >= wrappersNeeded; ) {
-            int freeChocolates = wrappers / wrappersNeeded;
-            wrappers = wrappers % wrappersNeeded + freeChocolates;
-            chocolates += freeChocolates;
-        }
-
-        return chocolates;
-    }
+    return chocolates;
 }
