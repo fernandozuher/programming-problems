@@ -1,30 +1,39 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
-int max_affordable_width_vehicle_in_range(const vector<int>& width_measurements, const pair<int, int>& point);
+vector<int> read_numbers(unsigned n);
+int min_width_in_segment(const vector<int>& width_measurements, const pair<int, int>& segment);
 
+// n: len array widths
+// t: number test cases
+// k_i: len of i-th queried segment = segment.second - segment.first + 1
+// avg_k: avg len segments over all test cases
+
+// T:
+  // Total: O(n + E k_i) = O(n + t * avg_k)
+  // Worst-case: O(n + t * n) = O(t * n)
+// S: O(n)
 int main()
 {
-    int n_widths, n_points;
-    cin >> n_widths >> n_points;
-    vector widths{read_numbers(n_widths)};
+    unsigned n, t;
+    cin >> n >> t;
+    vector widths{ read_numbers(n) };
 
-    for (int i{}; i < n_points; ++i) {
-        pair<int, int> point;
-        cin >> point.first >> point.second;
-        cout << max_affordable_width_vehicle_in_range(widths, point) << '\n';
+    while (t--) {
+        pair<int, int> segment;
+        cin >> segment.first >> segment.second;
+        println("{}", min_width_in_segment(widths, segment));
     }
 
     return 0;
 }
 
-vector<int> read_numbers(int n)
+// n: len arr
+// T O(n), S O(n)
+vector<int> read_numbers(unsigned n)
 {
     vector<int> arr(n);
     for (auto& x : arr)
@@ -32,7 +41,9 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-int max_affordable_width_vehicle_in_range(const vector<int>& width_measurements, const pair<int, int>& point)
+// k: len segment = segment.second - segment.first + 1
+// T O(k), S O(1)
+int min_width_in_segment(const vector<int>& width_measurements, const pair<int, int>& segment)
 {
-    return *min_element(width_measurements.begin() + point.first, width_measurements.begin() + point.second + 1);
+    return *min_element(width_measurements.begin() + segment.first, width_measurements.begin() + segment.second + 1);
 }
