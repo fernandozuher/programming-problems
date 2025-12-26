@@ -8,11 +8,11 @@ import (
 )
 
 func main() {
-    var nWidths, nPoints int
-    _, _ = fmt.Scan(&nWidths, &nPoints)
-    widths := readNumbers(nWidths)
-    for range nPoints {
-        fmt.Println(maxAffordableWidthVehicleInRange(widths, readNumbers(2)))
+    var n, t int
+    _, _ = fmt.Scan(&n, &t)
+    widths := readNumbers(n)
+    for range t {
+        fmt.Println(minWidthInSegment(widths, readNumbers(2)))
     }
 }
 
@@ -24,8 +24,6 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func maxAffordableWidthVehicleInRange(widths, point []int) int {
-    start := point[0]
-    finish := point[1]
-    return slices.Min(widths[start : finish+1])
+func minWidthInSegment(widths, segment []int) int {
+    return slices.Min(widths[segment[0] : segment[1]+1])
 }

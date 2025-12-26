@@ -5,37 +5,37 @@
 typedef struct {
     int entry;
     int exit;
-} point_pair;
+} segment_pair;
 
-void read_numbers(int *arr, int n);
-int max_affordable_width_vehicle_in_range(const int *width_measurements, const point_pair *point);
+void read_numbers(int *arr, unsigned n);
+int min_width_in_segment(const int *width_measurements, const segment_pair *segment);
 
 int main()
 {
-    int n_widths, n_points;
-    scanf("%d %d", &n_widths, &n_points);
-    int widths[n_widths];
-    read_numbers(widths, n_widths);
+    unsigned n, t;
+    scanf("%u %u", &n, &t);
+    int widths[n];
+    read_numbers(widths, n);
 
-    for (int i = 0; i < n_points; ++i) {
-        point_pair point;
-        scanf("%d %d", &point.entry, &point.exit);
-        printf("%d\n", max_affordable_width_vehicle_in_range(widths, &point));
+    while (t--) {
+        segment_pair segment;
+        scanf("%d %d", &segment.entry, &segment.exit);
+        printf("%d\n", min_width_in_segment(widths, &segment));
     }
 
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_numbers(int *arr, unsigned n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
-int max_affordable_width_vehicle_in_range(const int *width_measurements, const point_pair *point)
+int min_width_in_segment(const int *width_measurements, const segment_pair *segment)
 {
-    int min = width_measurements[point->entry];
-    for (int i = point->entry; i <= point->exit; ++i)
+    int min = width_measurements[segment->entry];
+    for (int i = segment->entry; i <= segment->exit; ++i)
         min = min < width_measurements[i] ? min : width_measurements[i];
     return min;
 }

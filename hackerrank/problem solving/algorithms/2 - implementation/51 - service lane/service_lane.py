@@ -1,19 +1,22 @@
 # https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
+from itertools import islice
+
+
 def main():
-    _, n = read_numbers()
+    _, t = read_numbers()
     widths = read_numbers()
-    for _ in range(n):
-        print(max_affordable_width_vehicle_in_range(widths, read_numbers()))
+    for _ in range(t):
+        print(min_width_in_segment(widths, read_numbers()))
 
 
 def read_numbers():
     return list(map(int, input().split()))
 
 
-def max_affordable_width_vehicle_in_range(widths, point):
-    start, finish = point
-    return min(widths[start:finish + 1])
+def min_width_in_segment(widths, segment):
+    start, finish = segment
+    return min(islice(widths, start, finish + 1))
 
 
 if __name__ == '__main__':

@@ -24,19 +24,19 @@ function readLine(): string {
 //////////////////////////////////////////////////
 
 function main() {
-  const [_, nPoints]: number[] = readNumbers();
+  const [_, t]: number[] = readNumbers();
   const widths = readNumbers();
-  for (let i = 0; i < nPoints; i++)
-    console.log(maxAffordableWidthVehicleInRange(widths, readNumbers()));
+  for (let i = 0; i < t; i++)
+    console.log(minWidthInSegment(widths, readNumbers()));
 }
 
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-function maxAffordableWidthVehicleInRange(
+function minWidthInSegment(
   widths: number[],
-  point: number[],
+  segment: number[],
 ): number {
-  return Math.min(...widths.slice(point[0], point[1] + 1));
+  return Math.min(...widths.slice(segment[0], segment[1] + 1));
 }

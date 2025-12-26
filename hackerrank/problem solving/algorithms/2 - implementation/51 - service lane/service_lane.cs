@@ -1,26 +1,17 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
-public class Solution
+int t = ReadNumbers()[1];
+int[] widths = ReadNumbers();
+for (int i = 0; i < t; i++)
+    Console.WriteLine(minWidthInSegment(widths, ReadNumbers()));
+
+int[] ReadNumbers()
 {
-    public static void Main()
-    {
-        int[] line = ReadNumbers();
-        int _ = line[0];
-        int nPoints = line[1];
-        int[] widths = ReadNumbers();
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+}
 
-        for (int i = 0; i < nPoints; i++)
-            Console.WriteLine(MaxAffordableWidthVehicleInRange(widths, ReadNumbers()));
-    }
-
-    private static int[] ReadNumbers()
-    {
-        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-    }
-
-    private static int MaxAffordableWidthVehicleInRange(int[] widths, int[] point)
-    {
-        int nElements = point[1] - point[0] + 1;
-        return widths.Skip(point[0]).Take(nElements).Min();
-    }
+int minWidthInSegment(int[] widths, int[] segment)
+{
+    int nElements = segment[1] - segment[0] + 1;
+    return widths.Skip(segment[0]).Take(nElements).Min();
 }
