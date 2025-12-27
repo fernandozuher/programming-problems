@@ -10,9 +10,10 @@ import (
 func main() {
     var nCities, nStations int
     _, _ = fmt.Scan(&nCities, &nStations)
+    lastCity := nCities - 1
     stations := readNumbers(nStations)
     slices.Sort(stations)
-    fmt.Println(maxDistanceFromSpaceStation(nCities, stations))
+    fmt.Println(maxDistanceFromSpaceStation(lastCity, stations))
 }
 
 func readNumbers(n int) []int {
@@ -23,7 +24,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func maxDistanceFromSpaceStation(nCities int, stations []int) int {
+func maxDistanceFromSpaceStation(lastCity int, stations []int) int {
     maxDist := stations[0]
 
     for i := 1; i < len(stations); i++ {
@@ -31,6 +32,5 @@ func maxDistanceFromSpaceStation(nCities int, stations []int) int {
         maxDist = max(maxDist, gap)
     }
 
-    lastCity := nCities - 1
     return max(maxDist, lastCity - stations[len(stations)-1])
 }

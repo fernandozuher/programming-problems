@@ -25,15 +25,16 @@ function readLine() {
 
 function main() {
   const [nCities, _] = readNumbers();
+  const lastCity = nCities - 1;
   let stations = readNumbers().sort((a, b) => a - b);
-  console.log(maxDistanceFromSpaceStation(nCities, stations));
+  console.log(maxDistanceFromSpaceStation(lastCity, stations));
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-function maxDistanceFromSpaceStation(nCities, stations) {
+function maxDistanceFromSpaceStation(lastCity, stations) {
   let maxDist = stations[0];
 
   for (let i = 1; i < stations.length; i++) {
@@ -41,6 +42,5 @@ function maxDistanceFromSpaceStation(nCities, stations) {
     maxDist = Math.max(maxDist, gap);
   }
 
-  const lastCity = nCities - 1;
   return Math.max(maxDist, lastCity - stations[stations.length - 1]);
 }
