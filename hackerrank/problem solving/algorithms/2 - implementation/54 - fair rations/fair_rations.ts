@@ -30,7 +30,7 @@ function main() {
   console.log(minLoaves === -1 ? 'NO' : minLoaves);
 }
 
-function readNumbers() {
+function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
