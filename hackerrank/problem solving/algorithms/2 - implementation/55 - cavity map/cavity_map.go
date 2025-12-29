@@ -10,29 +10,31 @@ func main() {
     matrix := readMatrix(n)
     changeMatrixToCavityMap(matrix)
     for _, x := range matrix {
-        fmt.Println(x)
+        fmt.Println(string(x))
     }
 }
 
-func readMatrix(n int) []string {
-    matrix := make([]string, n)
+func readMatrix(n int) [][]byte {
+    matrix := make([][]byte, n)
     for i := range n {
-        _, _ = fmt.Scan(&matrix[i])
+        var x string
+        _, _ = fmt.Scan(&x)
+        matrix[i] = []byte(x)
     }
     return matrix
 }
 
-func changeMatrixToCavityMap(matrix []string) {
+func changeMatrixToCavityMap(matrix [][]byte) {
     for i, n := 1, len(matrix)-1; i < n; i++ {
         for j := 1; j < n; j++ {
             if isCellCavity(matrix, i, j) {
-                matrix[i] = matrix[i][:j] + string('X') + matrix[i][j+1:]
+                matrix[i][j] = 'X'
             }
         }
     }
 }
 
-func isCellCavity(matrix []string, i, j int) bool {
+func isCellCavity(matrix [][]byte, i, j int) bool {
     return matrix[i-1][j] < matrix[i][j] &&
         matrix[i][j-1] < matrix[i][j] &&
         matrix[i+1][j] < matrix[i][j] &&

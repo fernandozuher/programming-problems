@@ -27,7 +27,8 @@ function main() {
   const n = +readLine();
   const matrix = readMatrix(n);
   changeMatrixToCavityMap(matrix);
-  matrix.forEach((x) => console.log(x.join('')));
+  for (const x of matrix)
+    console.log(x.join(''));
 }
 
 function readMatrix(n) {
