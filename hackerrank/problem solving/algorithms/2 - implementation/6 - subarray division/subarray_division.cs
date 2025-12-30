@@ -1,38 +1,32 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
-public class Solution
+Console.ReadLine();
+int[] chocolateSquares = ReadNumbers();
+int[] dayMonth = ReadNumbers();
+Console.WriteLine(Birthday(chocolateSquares, dayMonth));
+
+int[] ReadNumbers()
 {
-    public static void Main()
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+}
+
+int Birthday(int[] chocolateSquares, int[] dayMonth)
+{
+    int day = dayMonth[0];
+    int month = dayMonth[1];
+
+    if (month > chocolateSquares.Length)
+        return 0;
+
+    int sum = chocolateSquares.Take(month).Sum();
+    int waysBarCanBeDivided = sum == day ? 1 : 0;
+
+    foreach (var i in Enumerable.Range(month, chocolateSquares.Length - month))
     {
-        Console.ReadLine();
-        int[] chocolateSquares = ReadNumbers();
-        int[] dayMonth = ReadNumbers();
-        Console.WriteLine(Birthday(chocolateSquares, dayMonth));
+        sum += chocolateSquares[i] - chocolateSquares[i - month];
+        if (sum == day)
+            waysBarCanBeDivided++;
     }
 
-    private static int[] ReadNumbers()
-    {
-        return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-    }
-
-    private static int Birthday(int[] chocolateSquares, int[] dayMonth)
-    {
-        int day = dayMonth[0];
-        int month = dayMonth[1];
-
-        if (month > chocolateSquares.Length)
-            return 0;
-
-        int sum = chocolateSquares.Take(month).Sum();
-        int waysBarCanBeDivided = sum == day ? 1 : 0;
-
-        foreach (var i in Enumerable.Range(month, chocolateSquares.Length - month))
-        {
-            sum += chocolateSquares[i] - chocolateSquares[i - month];
-            if (sum == day)
-                waysBarCanBeDivided++;
-        }
-
-        return waysBarCanBeDivided;
-    }
+    return waysBarCanBeDivided;
 }
