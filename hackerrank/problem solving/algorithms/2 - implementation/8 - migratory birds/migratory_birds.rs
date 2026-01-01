@@ -6,11 +6,11 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let bird_counts = count_numbers_into_hash_map(n);
+    let bird_counts = counter(n);
     println!("{}", find_most_spotted_bird(&bird_counts));
 }
 
-fn count_numbers_into_hash_map(n: usize) -> HashMap<i32, i32> {
+fn counter(n: usize) -> HashMap<i32, i32> {
     let mut number_counts = HashMap::new();
     for _ in 0..n {
         let id: i32 = read!();

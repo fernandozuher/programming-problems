@@ -25,11 +25,11 @@ function readLine(): string {
 
 function main() {
   readLine();
-  const birdCounts: Map<number, number> = countNumbersIntoMap();
+  const birdCounts: Map<number, number> = counter();
   console.log(findMostSpottedBird(birdCounts));
 }
 
-function countNumbersIntoMap(): Map<number, number> {
+function counter(): Map<number, number> {
   const numberCounts = new Map<number, number>();
   readLine()
     .split(' ')

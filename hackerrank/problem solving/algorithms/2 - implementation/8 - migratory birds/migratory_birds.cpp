@@ -1,25 +1,22 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <map>
-#include <ranges>
-
+import std;
 using namespace std;
 
-map<int, int> count_numbers_into_map(int n);
+map<int, int> counter(int n);
 int find_most_spotted_bird(const map<int, int>& bird_counts);
 
 int main()
 {
     int n;
     cin >> n;
-    auto bird_counts{count_numbers_into_map(n)};
+    auto bird_counts{ counter(n) };
     cout << find_most_spotted_bird(bird_counts);
     return 0;
 }
 
-map<int, int> count_numbers_into_map(int n)
+map<int, int> counter(int n)
 {
     map<int, int> number_counts;
     for (int bird; n-- && cin >> bird; ++number_counts[bird]);

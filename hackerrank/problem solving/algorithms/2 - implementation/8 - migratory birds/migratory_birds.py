@@ -5,11 +5,11 @@ from collections import Counter
 
 def main():
     input()
-    bird_counts = count_numbers_into_counter()
+    bird_counts = counter()
     print(find_most_spotted_bird(bird_counts))
 
 
-def count_numbers_into_counter():
+def counter():
     return Counter(map(int, input().split()))
 
 

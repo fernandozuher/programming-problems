@@ -7,10 +7,11 @@ import "fmt"
 func main() {
     var n int
     fmt.Scan(&n)
-    fmt.Println(findMostSpottedBird(countNumbersIntoMap(n)))
+    birdCounts := counter(n)
+    fmt.Println(findMostSpottedBird(birdCounts))
 }
 
-func countNumbersIntoMap(n int) map[int]int {
+func counter(n int) map[int]int {
     numberCounts := map[int]int{}
     for range n {
         var x int
