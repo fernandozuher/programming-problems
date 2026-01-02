@@ -17,17 +17,17 @@ process.stdin.on('end', function () {
   main();
 });
 
+function readLine() {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 const TRANSITION_YEAR = 1918;
 
 function main() {
-  let year = +readLine();
+  const year = +readLine();
   console.log(calculateDateOf256thDay(year));
-}
-
-function readLine() {
-  return inputLines[currentLine++];
 }
 
 function calculateDateOf256thDay(year) {

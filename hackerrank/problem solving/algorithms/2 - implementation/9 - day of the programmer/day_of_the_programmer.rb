@@ -30,4 +30,4 @@ def leap_gregorian_year?(year)
   year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)
 end
 
-main
+main if __FILE__ == $PROGRAM_NAME

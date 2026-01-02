@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define TRANSITION_YEAR 1918
-#define DATE_BUF_SIZE 12 // "dd.mm.yyyy" + '\0'
+#define DATE_BUF_SIZE 11 // "dd.mm.yyyy" + '\0'
 
 char *calculate_date_of_256th_day(int year);
 bool is_leap_year(int year);

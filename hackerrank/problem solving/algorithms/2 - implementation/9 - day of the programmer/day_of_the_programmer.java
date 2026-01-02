@@ -1,8 +1,6 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-
 final int TRANSITION_YEAR = 1918;
 
 void main() {

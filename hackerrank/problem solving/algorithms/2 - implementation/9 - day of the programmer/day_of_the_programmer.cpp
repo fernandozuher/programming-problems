@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
+// C++23
 
-#include <iostream>
-
+import std;
 using namespace std;
 
-constexpr int TRANSITION_YEAR{1918};
+constexpr int TRANSITION_YEAR{ 1918 };
 
 string calculate_date_of_256th_day(int year);
 bool is_leap_year(int year);
