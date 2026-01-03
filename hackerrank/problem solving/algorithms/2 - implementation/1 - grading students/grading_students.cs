@@ -2,22 +2,26 @@
 
 int n = ReadNumbers(1)[0];
 int[] grades = ReadNumbers(n);
-int[] roundedGrades = GradeStudents(grades);
-Array.ForEach(roundedGrades, Console.WriteLine);
+Array.ForEach(GradingStudents(grades), Console.WriteLine);
 
 int[] ReadNumbers(int n)
 {
     return Enumerable.Range(0, n).Select(_ => int.Parse(Console.ReadLine()!)).ToArray();
 }
 
-int[] GradeStudents(int[] grades)
+// n: length of array grades
+// T: O(n)
+// S: O(1) extra space
+int[] GradingStudents(int[] grades)
 {
-    const int minGrade = 38;
-    return grades.Select(grade =>
+    for (int i = 0, minGrade = 38; i < grades.Length; i++)
     {
-        if (grade < minGrade)
-            return grade;
-        int nextMultiple5 = (grade / 5 + 1) * 5;
-        return nextMultiple5 - grade < 3 ? nextMultiple5 : grade;
-    }).ToArray();
+        if (grades[i] >= minGrade)
+        {
+            int nextMultiple5 = (grades[i] / 5 + 1) * 5;
+            if (nextMultiple5 - grades[i] < 3)
+                grades[i] = nextMultiple5;
+        }
+    }
+    return grades;
 }

@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int numbers[], int n);
-void grade_students(const int grades[], int n, int rounded_grades[]);
+void read_numbers(int arr[], int n);
+int *grading_students(int *grades, int n);
 
 int main()
 {
@@ -12,27 +12,29 @@ int main()
     int grades[n];
     read_numbers(grades, n);
 
-    int rounded_grades[n];
-    grade_students(grades, n, rounded_grades);
+    grading_students(grades, n);
     for (int i = 0; i < n; ++i)
-        printf("%d\n", rounded_grades[i]);
+        printf("%d\n", grades[i]);
 
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int arr[], int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
-void grade_students(const int grades[], int n, int rounded_grades[])
+// n: length of array grades
+// T: O(n)
+// S: O(1) extra space
+int *grading_students(int *grades, int n)
 {
     for (int i = 0, min_grade = 38; i < n; ++i)
-        if (grades[i] < min_grade)
-            rounded_grades[i] = grades[i];
-        else {
+        if (grades[i] >= min_grade) {
             int next_multiple_5 = (grades[i] / 5 + 1) * 5;
-            rounded_grades[i] = next_multiple_5 - grades[i] < 3 ? next_multiple_5 : grades[i];
+            if (next_multiple_5 - grades[i] < 3)
+                grades[i] = next_multiple_5;
         }
+    return grades;
 }

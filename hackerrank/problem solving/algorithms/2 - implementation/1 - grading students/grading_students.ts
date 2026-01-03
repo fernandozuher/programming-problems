@@ -17,17 +17,16 @@ process.stdin.on('end', function (): void {
   main();
 });
 
+function readLine(): string {
+  return inputLines[currentLine++];
+}
+
 //////////////////////////////////////////////////
 
 function main() {
   const n: number = +readLine();
   const grades: number[] = readNumbers(n);
-  const roundedGrades: number[] = gradeStudents(grades);
-  console.log(roundedGrades.join('\n'));
-}
-
-function readLine(): string {
-  return inputLines[currentLine++];
+  console.log(gradingStudents(grades).join('\n'));
 }
 
 function readNumbers(n: number): number[] {
@@ -36,11 +35,15 @@ function readNumbers(n: number): number[] {
     .map((_) => +readLine());
 }
 
-function gradeStudents(grades: number[]): number[] {
-  const minGrade = 38;
-  return grades.map((grade) => {
-    if (grade < minGrade) return grade;
-    const nextMultiple5 = Math.trunc(grade / 5 + 1) * 5;
-    return nextMultiple5 - grade < 3 ? nextMultiple5 : grade;
-  });
+// n: length of array grades
+// T: O(n)
+// S: O(1) extra space
+function gradingStudents(grades: number[]): number[] {
+  for (let i = 0, minGrade = 38; i < grades.length; i++) {
+    if (grades[i] >= minGrade) {
+      const nextMultiple5 = Math.trunc(grades[i] / 5 + 1) * 5;
+      if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
+    }
+  }
+  return grades;
 }

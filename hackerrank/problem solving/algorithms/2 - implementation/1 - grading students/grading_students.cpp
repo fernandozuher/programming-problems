@@ -1,24 +1,19 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 // C++23
 
-#include <iostream>
-#include <ranges>
-#include <vector>
-
+import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
-vector<int> grade_students(const vector<int>& grades);
+vector<int>& grading_students(vector<int>& grades);
 
 int main()
 {
     int n;
     cin >> n;
-    vector grades{read_numbers(n)};
-    vector rounded_grades{grade_students(grades)};
-    for (auto x : rounded_grades)
-        cout << x << '\n';
-
+    vector grades{ read_numbers(n) };
+    for (auto x : grading_students(grades))
+        println("{}", x);
     return 0;
 }
 
@@ -30,15 +25,17 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-vector<int> grade_students(const vector<int>& grades)
+// n: length of grades
+// T: O(n)
+// S: O(1) extra space
+vector<int>& grading_students(vector<int>& grades)
 {
-    constexpr int min_grade{38};
-    return grades
-           | views::transform([](int grade) {
-               if (grade < min_grade)
-                   return grade;
-               int next_multiple_5{(grade / 5 + 1) * 5};
-               return next_multiple_5 - grade < 3 ? next_multiple_5 : grade;
-           })
-           | ranges::to<vector>();
+    for (constexpr int min_grade{ 38 }; auto& grade : grades) {
+        if (grade >= min_grade) {
+            int next_multiple_5{ (grade / 5 + 1) * 5 };
+            if (next_multiple_5 - grade < 3)
+                grade = next_multiple_5;
+        }
+    }
+    return grades;
 }
