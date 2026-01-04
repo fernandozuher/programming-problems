@@ -1,8 +1,8 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.*;
+record Input(int itemNotEaten, int[] mealCosts, int amountCharged) {
+}
 
 void main() {
     Input data = readInput();
@@ -21,9 +21,9 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-record Input(int itemNotEaten, int[] mealCosts, int amountCharged) {
-}
-
+// n: length of array data.mealCosts
+// T: O(n)
+// S: O(1) extra space
 int bonAppetit(Input data) {
     int totalSharedCost = Arrays.stream(data.mealCosts).sum() - data.mealCosts[data.itemNotEaten];
     totalSharedCost /= 2;

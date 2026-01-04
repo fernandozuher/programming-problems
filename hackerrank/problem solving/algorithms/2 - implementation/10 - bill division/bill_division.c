@@ -41,6 +41,9 @@ int *read_numbers(int n)
     return arr;
 }
 
+// n: length of array data->meal_costs
+// T: O(n)
+// S: O(1) extra space
 int bon_appetit(const input *data)
 {
     int total_cost = 0;

@@ -3,10 +3,19 @@
 from dataclasses import dataclass
 
 
+@dataclass
+class Input:
+    item_not_eaten: int
+    meal_costs: list[int]
+    amount_charged: int
+
+
 def main():
     data = read_input()
-    charged = bon_appetit(data)
-    print(charged if charged else "Bon Appetit")
+    if charged := bon_appetit(data):
+        print(charged)
+    else:
+        print("Bon Appetit")
 
 
 def read_input():
@@ -20,13 +29,9 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-@dataclass
-class Input:
-    item_not_eaten: int
-    meal_costs: list[int]
-    amount_charged: int
-
-
+# n: length of array data.meal_costs
+# T: O(n)
+# S: O(1) extra space
 def bon_appetit(data):
     total_shared_cost = sum(data.meal_costs) - data.meal_costs[data.item_not_eaten]
     total_shared_cost //= 2

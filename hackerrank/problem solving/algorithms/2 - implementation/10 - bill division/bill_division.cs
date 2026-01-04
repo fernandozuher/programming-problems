@@ -17,6 +17,9 @@ int[] ReadNumbers()
     return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 }
 
+// n: length of array data.MealCosts
+// T: O(n)
+// S: O(1) extra space
 int BonAppetit(Input data)
 {
     int totalSharedCost = data.MealCosts.Sum() - data.MealCosts[data.ItemNotEaten];

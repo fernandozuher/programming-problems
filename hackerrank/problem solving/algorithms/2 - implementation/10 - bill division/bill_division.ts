@@ -23,10 +23,15 @@ function readLine(): string {
 
 //////////////////////////////////////////////////
 
+interface Input {
+  itemNotEaten: number;
+  mealCosts: number[];
+  amountCharged: number;
+}
+
 function main() {
   const data: Input = readInput();
-  const charged: number = bonAppetit(data);
-  console.log(charged || 'Bon Appetit');
+  console.log(bonAppetit(data) || 'Bon Appetit');
 }
 
 function readInput(): Input {
@@ -36,16 +41,13 @@ function readInput(): Input {
   return { itemNotEaten, mealCosts, amountCharged };
 }
 
-interface Input {
-  itemNotEaten: number;
-  mealCosts: number[];
-  amountCharged: number;
-}
-
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array data.mealCosts
+// T: O(n)
+// S: O(1) extra space
 function bonAppetit(data: Input): number {
   const totalCost: number = data.mealCosts.reduce((a, b) => a + b, 0);
   let totalSharedCost: number = totalCost - data.mealCosts[data.itemNotEaten];

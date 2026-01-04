@@ -4,7 +4,7 @@ use text_io::read;
 
 fn main() {
     let data: Input = read_input();
-    let charged = bon_appetit(&data);
+    let charged: i32 = bon_appetit(&data);
     if charged > 0 {
         println!("{}", charged);
     } else {
@@ -31,6 +31,9 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n: length of array data.meal_costs
+// T: O(n)
+// S: O(1) extra space
 fn bon_appetit(data: &Input) -> i32 {
     let mut total_shared_cost =
         data.meal_costs.iter().sum::<i32>() - data.meal_costs[data.item_not_eaten];

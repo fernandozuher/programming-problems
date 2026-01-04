@@ -4,6 +4,12 @@ package main
 
 import "fmt"
 
+type Input struct {
+    itemNotEaten  int
+    mealCosts     []int
+    amountCharged int
+}
+
 func main() {
     data := readInput()
     if charged := bonAppetit(data); charged > 0 {
@@ -22,12 +28,6 @@ func readInput() Input {
     return data
 }
 
-type Input struct {
-    itemNotEaten  int
-    mealCosts     []int
-    amountCharged int
-}
-
 func readNumbers(n int) []int {
     arr := make([]int, n)
     for i := range n {
@@ -36,6 +36,9 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array data.mealCosts
+// T: O(n)
+// S: O(1) extra space
 func bonAppetit(data Input) int {
     totalCost := 0
     for _, x := range data.mealCosts {
