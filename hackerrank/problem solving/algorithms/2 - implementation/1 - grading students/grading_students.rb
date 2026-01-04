@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
 def main
-  n = gets.to_i
+  n = gets&.to_i
   grades = read_numbers(n)
   puts grading_students!(grades)
 end
 
 def read_numbers(n)
-  Array.new(n) { gets.to_i }
+  Array.new(n) { gets&.to_i }
 end
 
 # n: length of array grades
@@ -25,4 +25,4 @@ def grading_students!(grades)
   end
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
