@@ -2,16 +2,19 @@
 
 def main
   gets
-  sock_counts = read_numbers_into_map
+  sock_counts = counter
   puts sock_merchant(sock_counts)
 end
 
-def read_numbers_into_map
-  gets.split.map(&:to_i).tally
+def counter
+  gets&.split&.map!(&:to_i)&.tally
 end
 
+# n: quantity of entries in sock_counts
+# T: O(n)
+# S: O(1) extra space
 def sock_merchant(sock_counts)
-  sock_counts.values.sum { |count| count / 2 }
+  sock_counts.each_value.sum { |count| count / 2 }
 end
 
-main
+main if __FILE__ == $0

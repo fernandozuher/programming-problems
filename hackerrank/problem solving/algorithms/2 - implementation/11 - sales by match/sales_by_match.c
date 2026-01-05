@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int arr[], int n);
-int sock_merchant(const int socks[], int n);
+void read_numbers(int *arr, int n);
+int sock_merchant(const int *socks, int n);
 
 int main()
 {
@@ -16,13 +16,16 @@ int main()
     return 0;
 }
 
-void read_numbers(int arr[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
-int sock_merchant(const int socks[], int n)
+// n: length of array socks
+// T: O(n) => O(100) => O(1)
+// S: O(101) => O(1) extra space
+int sock_merchant(const int *socks, int n)
 {
     int pairs = 0;
     constexpr static int socks_pairing_limit = 101;

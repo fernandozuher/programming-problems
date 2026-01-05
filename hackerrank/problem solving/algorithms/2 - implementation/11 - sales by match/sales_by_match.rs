@@ -5,11 +5,11 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let sock_counts: HashMap<i32, i32> = read_numbers_into_map(n);
+    let sock_counts: HashMap<i32, i32> = counter(n);
     println!("{}", sock_merchant(&sock_counts));
 }
 
-fn read_numbers_into_map(n: usize) -> HashMap<i32, i32> {
+fn counter(n: usize) -> HashMap<i32, i32> {
     let mut counter = HashMap::new();
     for _ in 0..n {
         let x: i32 = read!();
@@ -18,6 +18,9 @@ fn read_numbers_into_map(n: usize) -> HashMap<i32, i32> {
     counter
 }
 
+// n: quantity of entries in sock_counts
+// T: O(n)
+// S: O(1) extra space
 fn sock_merchant(sock_counts: &HashMap<i32, i32>) -> i32 {
     sock_counts
         .values()

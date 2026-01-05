@@ -6,20 +6,24 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    fmt.Println(sockMerchant(readNumbersIntoMap(n)))
+    _, _ = fmt.Scan(&n)
+    sockCounts := counter(n)
+    fmt.Println(sockMerchant(sockCounts))
 }
 
-func readNumbersIntoMap(n int) map[int]int {
+func counter(n int) map[int]int {
     counter := map[int]int{}
     for range n {
         var x int
-        fmt.Scan(&x)
+        _, _ = fmt.Scan(&x)
         counter[x]++
     }
     return counter
 }
 
+// n: quantity of entries in sockCounts
+// T: O(n)
+// S: O(1) extra space
 func sockMerchant(sockCounts map[int]int) int {
     pairs := 0
     for _, count := range sockCounts {

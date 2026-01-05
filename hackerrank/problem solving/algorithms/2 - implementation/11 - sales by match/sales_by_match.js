@@ -25,24 +25,28 @@ function readLine() {
 
 function main() {
   readLine();
-  const sockCounts = readNumbersIntoMap();
+  const sockCounts = counter();
   console.log(sockMerchant(sockCounts));
 }
 
-function readNumbersIntoMap() {
+function counter() {
   const counter = {};
   readLine()
     .split(' ')
-    .map(Number)
-    .forEach((x) => {
+    .forEach((s) => {
+      const x = Number(s);
       counter[x] = (counter[x] || 0) + 1;
     });
   return counter;
 }
 
+// n: quantity of entries in sockCounts
+// T: O(n)
+// S: O(1) extra space
 function sockMerchant(sockCounts) {
-  return Object.values(sockCounts).reduce(
-    (pairs, count) => pairs + Math.trunc(count / 2),
-    0,
-  );
+  let pairs = 0;
+  for (const key in sockCounts) {
+    pairs += Math.trunc(sockCounts[key] / 2);
+  }
+  return pairs;
 }
