@@ -11,7 +11,7 @@ func main() {
 }
 
 // T: O(1)
-// S: O(1)
+// S: O(1) extra space
 func pageCount(n, page int) int {
     fromFront := page / 2
     fromBack := n/2 - fromFront

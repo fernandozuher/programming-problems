@@ -30,7 +30,7 @@ function main() {
 }
 
 // T: O(1)
-// S: O(1)
+// S: O(1) extra space
 function pageCount(n, page) {
   const fromFront = Math.trunc(page / 2);
   const fromBack = Math.trunc(n / 2) - fromFront;

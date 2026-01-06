@@ -8,7 +8,7 @@ void main() {
 }
 
 // T: O(1)
-// S: O(1)
+// S: O(1) extra space
 int pageCount(int n, int page) {
     int fromFront = page / 2;
     int fromBack = n / 2 - fromFront;

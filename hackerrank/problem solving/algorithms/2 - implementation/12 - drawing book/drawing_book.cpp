@@ -15,7 +15,7 @@ int main()
 }
 
 // T: O(1)
-// S: O(1)
+// S: O(1) extra space
 int page_count(int n, int page)
 {
     int from_front{ page / 2 };

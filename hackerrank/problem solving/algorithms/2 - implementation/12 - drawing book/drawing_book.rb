@@ -7,7 +7,7 @@ def main
 end
 
 # T: O(1)
-# S: O(1)
+# S: O(1) extra space
 def count_page(n, page)
   from_front = page / 2
   from_back = n / 2 - from_front
