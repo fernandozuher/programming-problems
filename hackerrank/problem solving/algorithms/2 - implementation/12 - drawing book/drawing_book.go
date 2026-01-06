@@ -10,7 +10,9 @@ func main() {
     fmt.Println(pageCount(n, page))
 }
 
-func pageCount(n int, page int) int {
+// T: O(1)
+// S: O(1)
+func pageCount(n, page int) int {
     fromFront := page / 2
     fromBack := n/2 - fromFront
     return min(fromFront, fromBack)

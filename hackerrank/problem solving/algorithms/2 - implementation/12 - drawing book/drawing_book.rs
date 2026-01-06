@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
-use text_io::{read, scan};
+use text_io::read;
 
 fn main() {
     let n: usize = read!();
@@ -8,6 +8,8 @@ fn main() {
     println!("{}", page_count(n, page));
 }
 
+// T: O(1)
+// S: O(1)
 fn page_count(n: usize, page: usize) -> usize {
     let from_front: usize = page / 2;
     let from_back: usize = n / 2 - from_front;

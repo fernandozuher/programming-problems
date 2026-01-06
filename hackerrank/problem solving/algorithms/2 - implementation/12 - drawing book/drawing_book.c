@@ -12,6 +12,8 @@ int main()
     return 0;
 }
 
+// T: O(1)
+// S: O(1)
 int page_count(int n, int page)
 {
     int from_front = page / 2;

@@ -29,6 +29,8 @@ function main() {
   console.log(pageCount(n, page));
 }
 
+// T: O(1)
+// S: O(1)
 function pageCount(n: number, page: number): number {
   const fromFront: number = Math.trunc(page / 2);
   const fromBack: number = Math.trunc(n / 2) - fromFront;
