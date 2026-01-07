@@ -12,6 +12,9 @@ func main() {
     fmt.Println(countingValleys(steps))
 }
 
+// n: length of steps
+// T: O(n)
+// S: O(1) extra space
 func countingValleys(steps string) int {
     valleys := 0
     currentAltitude := 0

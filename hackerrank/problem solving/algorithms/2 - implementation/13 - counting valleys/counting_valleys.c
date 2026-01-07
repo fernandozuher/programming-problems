@@ -15,6 +15,9 @@ int main()
     return 0;
 }
 
+// n: length of steps
+// T: O(n)
+// S: O(1) extra space
 int counting_valleys(const char steps[], int n)
 {
     int valleys = 0;

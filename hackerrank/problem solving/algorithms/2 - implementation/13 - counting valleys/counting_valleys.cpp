@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+// C++23
 
-#include <iostream>
-
+import std;
 using namespace std;
 
 int counting_valleys(string_view steps);
@@ -15,14 +15,17 @@ int main()
     return 0;
 }
 
+// n: length of steps
+// T: O(n)
+// S: O(1) extra space
 int counting_valleys(string_view steps)
 {
     int valleys{};
 
     for (int current_altitude{}; auto step : steps) {
-        bool was_below_sea_level{current_altitude < 0};
+        bool was_below_sea_level{ current_altitude < 0 };
         current_altitude += step == 'D' ? -1 : 1;
-        if (bool is_in_sea_level_from_valley{was_below_sea_level && current_altitude == 0}; is_in_sea_level_from_valley)
+        if (bool is_in_sea_level_from_valley{ was_below_sea_level && current_altitude == 0 }; is_in_sea_level_from_valley)
             ++valleys;
     }
 
