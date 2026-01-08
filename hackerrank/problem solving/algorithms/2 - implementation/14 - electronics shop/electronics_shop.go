@@ -5,50 +5,63 @@ package main
 import (
     "fmt"
     "slices"
-    "sort"
 )
 
 func main() {
     var budget, nKeyboards, nUsbDrives int
-    fmt.Scan(&budget, &nKeyboards, &nUsbDrives)
-
-    keyboards := readNumbers(nKeyboards)
-    usbDrives := readNumbers(nUsbDrives)
-    sort.Ints(keyboards)
-    sort.Ints(usbDrives)
-    keyboards = slices.Compact(keyboards)
-    usbDrives = slices.Compact(usbDrives)
-
+    _, _ = fmt.Scan(&budget, &nKeyboards, &nUsbDrives)
+    keyboards := preProcessInput(readNumbers(nKeyboards))
+    usbDrives := preProcessInput(readNumbers(nUsbDrives))
     fmt.Println(calculateMoneySpent(keyboards, usbDrives, budget))
 }
 
 func readNumbers(n int) []int {
     arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&arr[i])
+        _, _ = fmt.Scan(&arr[i])
     }
     return arr
 }
 
-func calculateMoneySpent(keyboards, usbDrives []int, budget int) int {
-    maxSpent := -1
-    i := 0
-    j := len(usbDrives) - 1
+func preProcessInput(arr []int) []int {
+    data := map[int]bool{}
+    var out []int
 
-    for i < len(keyboards) && j >= 0 {
-        if keyboards[i] >= budget {
+    for _, x := range arr {
+        if _, ok := data[x]; !ok {
+            data[x] = true
+            out = append(out, x)
+        }
+    }
+
+    slices.Sort(out)
+    return out
+}
+
+// n: length of array keyboards
+// m: length of array usbDrives
+// T: O(n + m)
+// S: O(1) extra space
+func calculateMoneySpent(keyboards, usbDrives []int, budget int) int {
+    if keyboards[0] >= budget || usbDrives[0] >= budget {
+        return -1
+    }
+
+    maxSpent := -1
+    for idxK, idxUD := 0, len(usbDrives)-1; idxK < len(keyboards) && idxUD >= 0; {
+        if keyboards[idxK] >= budget {
             break
         }
-        sum := keyboards[i] + usbDrives[j]
-        if sum > budget {
-            j--
-        } else if sum == budget {
+
+        currentSum := keyboards[idxK] + usbDrives[idxUD]
+        if currentSum == budget {
             return budget
+        }
+        if currentSum > budget {
+            idxUD -= 1
         } else {
-            if sum > maxSpent {
-                maxSpent = sum
-            }
-            i++
+            maxSpent = max(maxSpent, currentSum)
+            idxK += 1
         }
     }
 

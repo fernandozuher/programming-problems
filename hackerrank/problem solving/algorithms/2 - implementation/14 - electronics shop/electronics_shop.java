@@ -1,16 +1,10 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.*;
-import java.util.stream.IntStream;
-
 void main() {
     int budget = readNumbers()[0];
-    int[] keyboards = IntStream.of(readNumbers()).distinct().toArray();
-    int[] usbDrives = IntStream.of(readNumbers()).distinct().toArray();
-    Arrays.sort(keyboards);
-    Arrays.sort(usbDrives);
+    int[] keyboards = preProcessInput(readNumbers());
+    int[] usbDrives = preProcessInput(readNumbers());
     IO.println(calculateMoneySpent(keyboards, usbDrives, budget));
 }
 
@@ -18,18 +12,27 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+int[] preProcessInput(int[] arr) {
+    return IntStream.of(arr).distinct().sorted().toArray();
+}
+
+// n: length of array keyboards
+// m: length of array usbDrives
+// T: O(n + m)
+// S: O(1) extra space
 int calculateMoneySpent(int[] keyboards, int[] usbDrives, int budget) {
-    int maxSpent = -1, i = 0, j = usbDrives.length - 1;
+    if (keyboards[0] >= budget || usbDrives[0] >= budget) return -1;
 
-    while (i < keyboards.length && j >= 0) {
-        if (keyboards[i] >= budget) break;
+    int maxSpent = -1;
+    for (int idxK = 0, idxUD = usbDrives.length - 1; idxK < keyboards.length && idxUD >= 0; ) {
+        if (keyboards[idxK] >= budget) break;
 
-        int sum = keyboards[i] + usbDrives[j];
-        if (sum > budget) j--;
-        else if (sum == budget) return budget;
+        int currentSum = keyboards[idxK] + usbDrives[idxUD];
+        if (currentSum == budget) return budget;
+        if (currentSum > budget) idxUD--;
         else {
-            if (sum > maxSpent) maxSpent = sum;
-            i++;
+            maxSpent = Math.max(maxSpent, currentSum);
+            idxK++;
         }
     }
 

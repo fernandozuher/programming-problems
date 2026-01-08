@@ -25,10 +25,8 @@ function readLine() {
 
 function main() {
   const budget = readNumbers()[0];
-  const keyboards = [...new Set(readNumbers())];
-  const usbDrives = [...new Set(readNumbers())];
-  keyboards.sort((a, b) => a - b);
-  usbDrives.sort((a, b) => a - b);
+  const keyboards = preProcessInput(readNumbers());
+  const usbDrives = preProcessInput(readNumbers());
   console.log(calculateMoneySpent(keyboards, usbDrives, budget));
 }
 
@@ -36,20 +34,28 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+function preProcessInput(arr) {
+  arr = [...new Set(arr)];
+  return arr.sort((a, b) => a - b);
+}
+
+// n: length of array keyboards
+// m: length of array usbDrives
+// T: O(n + m)
+// S: O(1) extra space
 function calculateMoneySpent(keyboards, usbDrives, budget) {
-  let maxSpent = -1,
-    i = 0,
-    j = usbDrives.length - 1;
+  if (keyboards[0] >= budget || usbDrives[0] >= budget) return -1;
 
-  while (i < keyboards.length && j >= 0) {
-    if (keyboards[i] >= budget) break;
+  let maxSpent = -1;
+  for (let idxK = 0, idxUD = usbDrives.length - 1; idxK < keyboards.length && idxUD >= 0;) {
+    if (keyboards[idxK] >= budget) break;
 
-    const sum = keyboards[i] + usbDrives[j];
-    if (sum > budget) j--;
-    else if (sum == budget) return budget;
+    const currentSum = keyboards[idxK] + usbDrives[idxUD];
+    if (currentSum === budget) return budget;
+    if (currentSum > budget) idxUD--;
     else {
-      if (sum > maxSpent) maxSpent = sum;
-      i++;
+      maxSpent = Math.max(maxSpent, currentSum);
+      idxK++;
     }
   }
 

@@ -1,37 +1,47 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
-// C23
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int *read_numbers(int n);
+void read_numbers(int *arr, int n);
+int pre_process_input(int *arr, int n);
+void sort(int *arr, int n);
 int compare(const void *a, const void *b);
-int calculate_money_spent(const int keyboards[], int n_keyboards, const int usb_drives[], int n_usb_drives, int budget);
+int remove_duplicate(int *arr, int n);
+int calculate_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget);
 
 int main()
 {
     int budget, n_keyboards, n_usb_drives;
     scanf("%d %d %d", &budget, &n_keyboards, &n_usb_drives);
 
-    int *keyboards = read_numbers(n_keyboards);
-    int *usb_drives = read_numbers(n_usb_drives);
-    qsort(keyboards, n_keyboards, sizeof(int), compare);
-    qsort(usb_drives, n_usb_drives, sizeof(int), compare);
+    int keyboards[n_keyboards], usb_drives[n_usb_drives];
+    read_numbers(keyboards, n_keyboards);
+    read_numbers(usb_drives, n_usb_drives);
+    int n1 = pre_process_input(keyboards, n_keyboards);
+    int n2 = pre_process_input(usb_drives, n_usb_drives);
 
-    printf("%d\n", calculate_money_spent(keyboards, n_keyboards, usb_drives, n_usb_drives, budget));
-
-    free(keyboards);
-    free(usb_drives);
+    printf("%d\n", calculate_money_spent(keyboards, n1, usb_drives, n2, budget));
 
     return 0;
 }
 
-int *read_numbers(int n)
+void read_numbers(int *arr, int n)
 {
-    auto numbers = (int *) malloc(n * sizeof(int));
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
-    return numbers;
+        scanf("%d", &arr[i]);
+}
+
+int pre_process_input(int *arr, int n)
+{
+    sort(arr, n);
+    int new_size = remove_duplicate(arr, n);
+    return new_size;
+}
+
+void sort(int *arr, int n)
+{
+    qsort(arr, n, sizeof(int), compare);
 }
 
 int compare(const void *a, const void *b)
@@ -39,23 +49,42 @@ int compare(const void *a, const void *b)
     return *(int *) a - *(int *) b;
 }
 
-int calculate_money_spent(const int keyboards[], int n_keyboards, const int usb_drives[], int n_usb_drives, int budget)
+int remove_duplicate(int *arr, int n)
 {
-    int max_spent = -1, i = 0, j = n_usb_drives - 1;
+    int w = 0;
+    for (int s = 0; s < n; ++s) {
+        if (s != 0 && arr[s] == arr[s - 1])
+            continue;
+        arr[w] = arr[s];
+        ++w;
+    }
+    return w;
+}
 
-    while (i < n_keyboards && j >= 0) {
-        if (keyboards[i] >= budget)
+// n: n_keyboards
+// m: n_usb_drives
+// T: O(n + m)
+// S: O(1) extra space
+int calculate_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget)
+{
+    if (keyboards[0] >= budget || usb_drives[0] >= budget)
+        return -1;
+
+    int max_spent = -1;
+    for (int idx_k = 0, idx_ud = n_usb_drives - 1; idx_k < n_keyboards && idx_ud >= 0;) {
+        if (keyboards[idx_k] >= budget)
             break;
 
-        int sum = keyboards[i] + usb_drives[j];
-        if (sum > budget)
-            --j;
-        else if (sum == budget)
+        int current_sum = keyboards[idx_k] + usb_drives[idx_ud];
+        if (current_sum == budget)
             return budget;
+
+        if (current_sum > budget)
+            --idx_ud;
         else {
-            if (sum > max_spent)
-                max_spent = sum;
-            ++i;
+            if (current_sum > max_spent)
+                max_spent = current_sum;
+            ++idx_k;
         }
     }
 

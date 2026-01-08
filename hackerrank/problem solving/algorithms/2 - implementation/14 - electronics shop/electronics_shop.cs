@@ -1,36 +1,45 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 int budget = ReadNumbers()[0];
-int[] keyboards = ReadNumbers().Distinct().ToArray();
-int[] usbDrives = ReadNumbers().Distinct().ToArray();
-Array.Sort(keyboards);
-Array.Sort(usbDrives);
+int[] keyboards = PreProcessInput(ReadNumbers());
+int[] usbDrives = PreProcessInput(ReadNumbers());
 Console.WriteLine(CalculateMoneySpent(keyboards, usbDrives, budget));
 
 int[] ReadNumbers()
 {
-    return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 }
 
+int[] PreProcessInput(int[] arr)
+{
+    return arr.Distinct().OrderBy(x => x).ToArray();
+}
+
+// n: length of array keyboards
+// m: length of array usbDrives
+// T: O(n + m)
+// S: O(1) extra space
 int CalculateMoneySpent(int[] keyboards, int[] usbDrives, int budget)
 {
-    int maxSpent = -1, i = 0, j = usbDrives.Length - 1;
+    if (keyboards[0] >= budget || usbDrives[0] >= budget)
+        return -1;
 
-    while (i < keyboards.Length && j >= 0)
+    int maxSpent = -1;
+    for (int idxK = 0, idxUD = usbDrives.Length - 1; idxK < keyboards.Length && idxUD >= 0;)
     {
-        if (keyboards[i] >= budget)
+        if (keyboards[idxK] >= budget)
             break;
 
-        int sum = keyboards[i] + usbDrives[j];
-        if (sum > budget)
-            j--;
-        else if (sum == budget)
+        int currentSum = keyboards[idxK] + usbDrives[idxUD];
+        if (currentSum == budget)
             return budget;
+
+        if (currentSum > budget)
+            idxUD--;
         else
         {
-            if (sum > maxSpent)
-                maxSpent = sum;
-            i++;
+            maxSpent = Math.Max(maxSpent, currentSum);
+            idxK++;
         }
     }
 
