@@ -1,35 +1,39 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
-// C23
 
+#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define NUM_POSITIONS 3
 #define RESULT_SIZE 10
 
-void read_numbers(int numbers[], int n);
-char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS]);
+void read_positions(int *arr);
+void find_nearest_cat_or_not(const int positions[NUM_POSITIONS], char *out);
 
 int main()
 {
     int n;
     scanf("%d", &n);
+    char out[RESULT_SIZE];
+
     for (int i = 0, positions[NUM_POSITIONS]; i < n; ++i) {
-        read_numbers(positions, 3);
-        puts(find_nearest_cat_or_not(positions));
+        read_positions(positions);
+        find_nearest_cat_or_not(positions, out);
+        puts(out);
     }
 
     return 0;
 }
 
-void read_numbers(int arr[], int n)
+void read_positions(int *arr)
 {
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < NUM_POSITIONS; ++i)
         scanf("%d", &arr[i]);
 }
 
-char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS])
+// T: O(1)
+// S: O(1) extra space
+void find_nearest_cat_or_not(const int positions[NUM_POSITIONS], char *out)
 {
     int cat_a = positions[0];
     int cat_b = positions[1];
@@ -37,14 +41,10 @@ char *find_nearest_cat_or_not(const int positions[NUM_POSITIONS])
     int cat_a_from_mouse = abs(cat_a - mouse);
     int cat_b_from_mouse = abs(cat_b - mouse);
 
-    auto res = (char *) malloc(RESULT_SIZE * sizeof(char));
-
     if (cat_a_from_mouse < cat_b_from_mouse)
-        strcpy(res, "Cat A");
+        strcpy(out, "Cat A");
     else if (cat_a_from_mouse > cat_b_from_mouse)
-        strcpy(res, "Cat B");
+        strcpy(out, "Cat B");
     else
-        strcpy(res, "Mouse C");
-
-    return res;
+        strcpy(out, "Mouse C");
 }

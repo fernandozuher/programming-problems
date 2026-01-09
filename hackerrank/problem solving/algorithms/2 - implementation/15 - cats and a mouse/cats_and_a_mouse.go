@@ -6,7 +6,7 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     for range n {
         fmt.Println(findNearestCatOrNot(readNumbers(3)))
     }
@@ -15,11 +15,13 @@ func main() {
 func readNumbers(n int) []int {
     arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&arr[i])
+        _, _ = fmt.Scan(&arr[i])
     }
     return arr
 }
 
+// T: O(1)
+// S: O(1) extra space
 func findNearestCatOrNot(positions []int) string {
     catA, catB, mouse := positions[0], positions[1], positions[2]
     catAFromMouse := absInt(catA - mouse)

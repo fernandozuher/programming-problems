@@ -1,38 +1,35 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
+// C++23
 
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
-string find_nearest_cat_or_not(const vector<int>& positions);
+tuple<int, int, int> read_positions();
+string find_nearest_cat_or_not(const tuple<int, int, int>& positions);
 
 int main()
 {
     int n;
     cin >> n;
     for (int i{}; i < n; ++i)
-        cout << find_nearest_cat_or_not(read_numbers(3)) << '\n';
-
+        println("{}", find_nearest_cat_or_not(read_positions()));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+tuple<int, int, int> read_positions()
 {
-    vector<int> arr(n);
-    for (auto& x : arr)
-        cin >> x;
-    return arr;
+    int cat_a, cat_b, mouse;
+    cin >> cat_a >> cat_b >> mouse;
+    return { cat_a, cat_b, mouse };
 }
 
-string find_nearest_cat_or_not(const vector<int>& positions)
+// T: O(1)
+// S: O(1) extra space
+string find_nearest_cat_or_not(const tuple<int, int, int>& positions)
 {
-    int cat_a{positions.at(0)};
-    int cat_b{positions.at(1)};
-    int mouse{positions.at(2)};
-    int cat_a_from_mouse{abs(cat_a - mouse)};
-    int cat_b_from_mouse{abs(cat_b - mouse)};
+    auto [cat_a, cat_b, mouse] = positions;
+    int cat_a_from_mouse{ abs(cat_a - mouse) };
+    int cat_b_from_mouse{ abs(cat_b - mouse) };
 
     if (cat_a_from_mouse < cat_b_from_mouse)
         return "Cat A";

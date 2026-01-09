@@ -33,6 +33,8 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// T: O(1)
+// S: O(1) extra space
 function findNearestCatOrNot(positions) {
   const [catA, catB, mouse] = positions;
   const catAFromMouse = Math.abs(catA - mouse);

@@ -2,18 +2,24 @@
 
 int n = ReadNumbers()[0];
 for (int i = 0; i < n; i++)
-    Console.WriteLine(FindNearestCatOrNot(ReadNumbers()));
+    Console.WriteLine(FindNearestCatOrNot(ReadPositions()));
 
 int[] ReadNumbers()
 {
     return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 }
 
-string FindNearestCatOrNot(int[] positions)
+(int, int, int) ReadPositions()
 {
-    int catA = positions[0];
-    int catB = positions[1];
-    int mouse = positions[2];
+    var nums = Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    return (nums[0], nums[1], nums[2]);
+}
+
+// T: O(1)
+// S: O(1) extra space
+string FindNearestCatOrNot((int, int, int) positions)
+{
+    var (catA, catB, mouse) = positions;
     int catAFromMouse = Math.Abs(catA - mouse);
     int catBFromMouse = Math.Abs(catB - mouse);
 

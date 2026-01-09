@@ -10,6 +10,8 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# T: O(1)
+# S: O(1) extra space
 def find_nearest_cat_or_not(positions):
     cat_a, cat_b, mouse = positions
     cat_a_from_mouse = abs(cat_a - mouse)
