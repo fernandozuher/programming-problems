@@ -1,8 +1,8 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 int budget = ReadNumbers()[0];
-int[] keyboards = PreProcessInput(ReadNumbers());
-int[] usbDrives = PreProcessInput(ReadNumbers());
+int[] keyboards = PreprocessInput(ReadNumbers());
+int[] usbDrives = PreprocessInput(ReadNumbers());
 Console.WriteLine(CalculateMoneySpent(keyboards, usbDrives, budget));
 
 int[] ReadNumbers()
@@ -10,7 +10,7 @@ int[] ReadNumbers()
     return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 }
 
-int[] PreProcessInput(int[] arr)
+int[] PreprocessInput(int[] arr)
 {
     return arr.Distinct().OrderBy(x => x).ToArray();
 }

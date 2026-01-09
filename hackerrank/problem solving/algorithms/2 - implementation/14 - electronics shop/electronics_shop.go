@@ -10,8 +10,8 @@ import (
 func main() {
     var budget, nKeyboards, nUsbDrives int
     _, _ = fmt.Scan(&budget, &nKeyboards, &nUsbDrives)
-    keyboards := preProcessInput(readNumbers(nKeyboards))
-    usbDrives := preProcessInput(readNumbers(nUsbDrives))
+    keyboards := preprocessInput(readNumbers(nKeyboards))
+    usbDrives := preprocessInput(readNumbers(nUsbDrives))
     fmt.Println(calculateMoneySpent(keyboards, usbDrives, budget))
 }
 
@@ -23,7 +23,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func preProcessInput(arr []int) []int {
+func preprocessInput(arr []int) []int {
     data := map[int]bool{}
     var out []int
 

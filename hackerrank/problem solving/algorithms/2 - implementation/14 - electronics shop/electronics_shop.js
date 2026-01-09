@@ -25,8 +25,8 @@ function readLine() {
 
 function main() {
   const budget = readNumbers()[0];
-  const keyboards = preProcessInput(readNumbers());
-  const usbDrives = preProcessInput(readNumbers());
+  const keyboards = preprocessInput(readNumbers());
+  const usbDrives = preprocessInput(readNumbers());
   console.log(calculateMoneySpent(keyboards, usbDrives, budget));
 }
 
@@ -34,7 +34,7 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-function preProcessInput(arr) {
+function preprocessInput(arr) {
   arr = [...new Set(arr)];
   return arr.sort((a, b) => a - b);
 }

@@ -2,8 +2,8 @@
 
 def main():
     budget = read_numbers()[0]
-    keyboards = pre_process_input(read_numbers())
-    usb_drives = pre_process_input(read_numbers())
+    keyboards = preprocess_input(read_numbers())
+    usb_drives = preprocess_input(read_numbers())
     print(calculate_money_spent(keyboards, usb_drives, budget))
 
 
@@ -11,7 +11,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-def pre_process_input(arr):
+def preprocess_input(arr):
     arr = list(set(arr))
     arr.sort()
     return arr

@@ -3,8 +3,8 @@
 
 void main() {
     int budget = readNumbers()[0];
-    int[] keyboards = preProcessInput(readNumbers());
-    int[] usbDrives = preProcessInput(readNumbers());
+    int[] keyboards = preprocessInput(readNumbers());
+    int[] usbDrives = preprocessInput(readNumbers());
     IO.println(calculateMoneySpent(keyboards, usbDrives, budget));
 }
 
@@ -12,7 +12,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-int[] preProcessInput(int[] arr) {
+int[] preprocessInput(int[] arr) {
     return IntStream.of(arr).distinct().sorted().toArray();
 }
 

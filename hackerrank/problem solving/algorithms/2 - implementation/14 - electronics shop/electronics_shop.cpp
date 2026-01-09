@@ -5,7 +5,7 @@ import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
-void pre_process_input(vector<int>& arr);
+void preprocess_input(vector<int>& arr);
 int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget);
 
 int main()
@@ -15,8 +15,8 @@ int main()
 
     vector keyboards{ read_numbers(n_keyboards) };
     vector usb_drives{ read_numbers(n_usb_drives) };
-    pre_process_input(keyboards);
-    pre_process_input(usb_drives);
+    preprocess_input(keyboards);
+    preprocess_input(usb_drives);
 
     cout << calculate_money_spent(keyboards, usb_drives, budget);
 
@@ -31,7 +31,7 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-void pre_process_input(vector<int>& arr)
+void preprocess_input(vector<int>& arr)
 {
     ranges::sort(arr);
     auto x{ ranges::unique(arr) };

@@ -2,8 +2,8 @@
 
 def main
   budget = read_numbers.first
-  keyboards = pre_process_input(read_numbers)
-  usb_drives = pre_process_input(read_numbers)
+  keyboards = preprocess_input(read_numbers)
+  usb_drives = preprocess_input(read_numbers)
   puts calculate_money_spent(keyboards, usb_drives, budget)
 end
 
@@ -11,7 +11,7 @@ def read_numbers
   gets&.split&.map!(&:to_i)
 end
 
-def pre_process_input(arr)
+def preprocess_input(arr)
   arr.uniq!
   arr.sort!
 end

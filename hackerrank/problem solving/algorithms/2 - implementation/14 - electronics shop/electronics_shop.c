@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 void read_numbers(int *arr, int n);
-int pre_process_input(int *arr, int n);
+int preprocess_input(int *arr, int n);
 void sort(int *arr, int n);
 int compare(const void *a, const void *b);
 int remove_duplicate(int *arr, int n);
@@ -18,8 +18,8 @@ int main()
     int keyboards[n_keyboards], usb_drives[n_usb_drives];
     read_numbers(keyboards, n_keyboards);
     read_numbers(usb_drives, n_usb_drives);
-    int n1 = pre_process_input(keyboards, n_keyboards);
-    int n2 = pre_process_input(usb_drives, n_usb_drives);
+    int n1 = preprocess_input(keyboards, n_keyboards);
+    int n2 = preprocess_input(usb_drives, n_usb_drives);
 
     printf("%d\n", calculate_money_spent(keyboards, n1, usb_drives, n2, budget));
 
@@ -32,7 +32,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-int pre_process_input(int *arr, int n)
+int preprocess_input(int *arr, int n)
 {
     sort(arr, n);
     int new_size = remove_duplicate(arr, n);
