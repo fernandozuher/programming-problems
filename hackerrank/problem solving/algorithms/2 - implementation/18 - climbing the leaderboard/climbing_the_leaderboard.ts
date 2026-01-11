@@ -28,7 +28,7 @@ function main() {
   const ranked: number[] = removeDuplicates(readNumbers());
   readLine();
   const player: number[] = readNumbers();
-  console.log(climbingLeaderboard(ranked, player).join('\n'));
+  for (const x of climbingLeaderboard(ranked, player)) console.log(x);
 }
 
 function readNumbers(): number[] {
@@ -39,14 +39,14 @@ function removeDuplicates(numbers: number[]): number[] {
   return [...new Set(numbers)];
 }
 
+// n: length of array player and returned output array
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
 function climbingLeaderboard(ranked: number[], player: number[]): number[] {
-  const playerRanks: number[] = Array(player.length).fill(0);
   let i: number = ranked.length - 1;
-
-  for (let j in player) {
-    while (i >= 0 && player[j] >= ranked[i]) i--;
-    playerRanks[j] = i + 2;
-  }
-
-  return playerRanks;
+  return player.map((score) => {
+    while (i >= 0 && score >= ranked[i]) i--;
+    return i + 2;
+  });
 }

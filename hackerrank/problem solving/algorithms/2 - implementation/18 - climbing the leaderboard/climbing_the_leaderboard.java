@@ -1,9 +1,6 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.stream.Stream;
-
 void main() {
     IO.readln();
     int[] ranked = removeDuplicates(readNumbers());
@@ -21,13 +18,17 @@ int[] removeDuplicates(int[] arr) {
     return Arrays.stream(arr).distinct().toArray();
 }
 
+// n: length of array player|playerRanks
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
 int[] climbingLeaderboard(int[] ranked, int[] player) {
     int[] playerRanks = new int[player.length];
-    int i = ranked.length - 1;
+    int seeker = ranked.length - 1;
 
-    for (int j = 0; j < player.length; j++) {
-        while (i >= 0 && player[j] >= ranked[i]) i--;
-        playerRanks[j] = i + 2;
+    for (int writer = 0; writer < player.length; writer++) {
+        while (seeker >= 0 && player[writer] >= ranked[seeker]) seeker--;
+        playerRanks[writer] = seeker + 2;
     }
 
     return playerRanks;

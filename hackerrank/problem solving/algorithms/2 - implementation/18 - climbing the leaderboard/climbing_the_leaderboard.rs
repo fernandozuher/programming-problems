@@ -10,25 +10,28 @@ fn main() {
     n = read!();
     let player: Vec<i32> = read_numbers(n);
 
-    climbing_leaderboard(&ranked, &player)
-        .iter()
-        .for_each(|x| println!("{}", x));
+    for x in climbing_leaderboard(&ranked, &player) {
+        println!("{}", x);
+    }
 }
 
 fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n: length of array player and returned output array
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
 fn climbing_leaderboard(ranked: &[i32], player: &[i32]) -> Vec<i32> {
-    let mut player_ranks: Vec<i32> = vec![0; player.len()];
     let mut i: i32 = ranked.len() as i32 - 1;
-
-    for (j, &score) in player.iter().enumerate() {
-        while i >= 0 && score >= ranked[i as usize] {
-            i -= 1
-        }
-        player_ranks[j] = i + 2;
-    }
-
-    player_ranks
+    player
+        .iter()
+        .map(|&score| {
+            while i >= 0 && score >= ranked[i as usize] {
+                i -= 1;
+            }
+            i + 2
+        })
+        .collect()
 }

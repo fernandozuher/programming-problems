@@ -1,62 +1,62 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
-// C23
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int *read_numbers(int n);
-int remove_duplicates(int numbers[], int n);
-int *climbing_leaderboard(const int ranked[], int n, const int player[], int n2);
+void read_numbers(int *arr, int n);
+int remove_duplicates(int *arr, int n);
+int *climbing_leaderboard(const int *ranked, int n, const int *player, int n2, int *player_ranks);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int *ranked = read_numbers(n);
+    int ranked[n];
+    read_numbers(ranked, n);
     n = remove_duplicates(ranked, n);
-    ranked = realloc(ranked, n * sizeof(int));
 
     int n2;
     scanf("%d", &n2);
-    int *player = read_numbers(n2);
+    int player[n2];
+    read_numbers(player, n2);
 
-    int *player_ranks = climbing_leaderboard(ranked, n, player, n2);
+    int player_ranks[n2];
+    climbing_leaderboard(ranked, n, player, n2, player_ranks);
     for (int i = 0; i < n2; ++i)
         printf("%d\n", player_ranks[i]);
-
-    free(ranked);
-    free(player);
-    free(player_ranks);
 
     return 0;
 }
 
-int *read_numbers(int n)
+void read_numbers(int *arr, int n)
 {
-    auto numbers = (int *) malloc(n * sizeof(int));
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
-    return numbers;
+        scanf("%d", &arr[i]);
 }
 
-int remove_duplicates(int numbers[], int n)
+int remove_duplicates(int *arr, int n)
 {
-    int j = 0;
-    for (int i = 1; i < n; ++i)
-        if (numbers[i] != numbers[j])
-            numbers[++j] = numbers[i];
-    return j + 1;
+    int writer = 0;
+    for (int seeker = 1; seeker < n; ++seeker) {
+        if (arr[seeker] == arr[writer])
+            continue;
+        ++writer;
+        arr[writer] = arr[seeker];
+    }
+    return writer + 1;
 }
 
-int *climbing_leaderboard(const int ranked[], int n, const int player[], int n2)
+// n: length of array player|player_ranks
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
+int *climbing_leaderboard(const int *ranked, int n, const int *player, int n2, int *player_ranks)
 {
-    auto player_ranks = (int *) malloc(n2 * sizeof(int));
-    int i = n - 1;
+    int seeker = n - 1;
 
-    for (int j = 0; j < n2; ++j) {
-        while (i >= 0 && player[j] >= ranked[i])
-            --i;
-        player_ranks[j] = i + 2;
+    for (int writer = 0; writer < n2; ++writer) {
+        while (seeker >= 0 && player[writer] >= ranked[seeker])
+            --seeker;
+        player_ranks[writer] = seeker + 2;
     }
 
     return player_ranks;

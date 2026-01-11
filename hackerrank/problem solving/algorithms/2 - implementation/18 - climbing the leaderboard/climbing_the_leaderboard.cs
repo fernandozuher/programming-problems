@@ -16,17 +16,17 @@ int[] RemoveDuplicates(int[] arr)
     return arr.Distinct().ToArray();
 }
 
+// n: length of array player and returned output array
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
 int[] ClimbingLeaderboard(int[] ranked, int[] player)
 {
-    int[] playerRanks = new int[player.Length];
     int i = ranked.Length - 1;
-
-    for (int j = 0; j < player.Length; j++)
+    return player.Select(score =>
     {
-        while (i >= 0 && player[j] >= ranked[i])
+        while (i >= 0 && score >= ranked[i])
             i--;
-        playerRanks[j] = i + 2;
-    }
-
-    return playerRanks;
+        return i + 2;
+    }).ToArray();
 }

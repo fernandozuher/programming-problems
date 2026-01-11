@@ -6,6 +6,7 @@ import (
     "bufio"
     "fmt"
     "os"
+    "slices"
     "strconv"
     "strings"
 )
@@ -14,7 +15,7 @@ func main() {
     reader := bufio.NewReader(os.Stdin)
 
     n := readNumbers(reader, 1)[0]
-    ranked := removeDuplicates(readNumbers(reader, n))
+    ranked := slices.Compact(readNumbers(reader, n))
     n = readNumbers(reader, 1)[0]
     player := readNumbers(reader, n)
 
@@ -33,25 +34,19 @@ func readNumbers(reader *bufio.Reader, n int) []int {
     return numbers
 }
 
-func removeDuplicates(numbers []int) []int {
-    deduplicated := []int{numbers[0]}
-    for i := 1; i < len(numbers); i++ {
-        if numbers[i] != numbers[i-1] {
-            deduplicated = append(deduplicated, numbers[i])
-        }
-    }
-    return deduplicated
-}
-
+// n: length of array player|playerRanks
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
 func climbingLeaderboard(ranked, player []int) []int {
     playerRanks := make([]int, len(player))
-    i := len(ranked) - 1
+    seeker := len(ranked) - 1
 
-    for j, score := range player {
-        for i >= 0 && score >= ranked[i] {
-            i--
+    for writer, score := range player {
+        for seeker >= 0 && score >= ranked[seeker] {
+            seeker--
         }
-        playerRanks[j] = i + 2
+        playerRanks[writer] = seeker + 2
     }
 
     return playerRanks

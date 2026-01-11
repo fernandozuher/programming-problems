@@ -39,14 +39,14 @@ function removeDuplicates(numbers) {
   return [...new Set(numbers)];
 }
 
+// n: length of array player and returned output array
+// m: length of array ranked
+// T: O(n + m)
+// S: O(n) extra space
 function climbingLeaderboard(ranked, player) {
-  const playerRanks = Array(player.length).fill(0);
   let i = ranked.length - 1;
-
-  for (let j in player) {
-    while (i >= 0 && player[j] >= ranked[i]) i--;
-    playerRanks[j] = i + 2;
-  }
-
-  return playerRanks;
+  return player.map((score) => {
+    while (i >= 0 && score >= ranked[i]) i--;
+    return i + 2;
+  });
 }

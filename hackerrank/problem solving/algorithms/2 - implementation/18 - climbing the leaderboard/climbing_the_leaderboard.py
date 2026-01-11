@@ -16,14 +16,18 @@ def remove_duplicates(arr):
     return list(dict.fromkeys(arr))
 
 
+# n: length of array player|player_ranks
+# m: length of array ranked
+# T: O(n + m)
+# S: O(n) extra space
 def climbing_leaderboard(ranked, player):
-    player_ranks = [None] * len(player)
-    i = len(ranked) - 1
+    player_ranks = [0] * len(player)
+    seeker = len(ranked) - 1
 
-    for j, score in enumerate(player):
-        while i >= 0 and score >= ranked[i]:
-            i -= 1
-        player_ranks[j] = i + 2
+    for writer, score in enumerate(player):
+        while seeker >= 0 and score >= ranked[seeker]:
+            seeker -= 1
+        player_ranks[writer] = seeker + 2
 
     return player_ranks
 
