@@ -2,28 +2,31 @@
 
 #include <stdio.h>
 
-void read_numbers(int arr[], int n);
-int hurdle_race(const int hurdles[], int n, int max_jump);
+void read_numbers(int *arr, int n);
+int hurdle_race(const int *hurdles, int n, int max_jump);
 
 int main()
 {
     int n, max_jump;
     scanf("%d %d", &n, &max_jump);
-
     int hurdles[n];
     read_numbers(hurdles, n);
+
     printf("%d\n", hurdle_race(hurdles, n, max_jump));
 
     return 0;
 }
 
-void read_numbers(int arr[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
-int hurdle_race(const int hurdles[], int n, int max_jump)
+// n: length of array hurdles
+// T: O(n)
+// S: O(1) extra space
+int hurdle_race(const int *hurdles, int n, int max_jump)
 {
     int highest = hurdles[0];
     for (int i = 1; i < n; ++i)

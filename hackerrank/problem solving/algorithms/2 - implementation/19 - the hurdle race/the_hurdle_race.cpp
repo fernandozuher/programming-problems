@@ -1,10 +1,7 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
-// C++20
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
@@ -14,7 +11,7 @@ int main()
 {
     int n, max_jump;
     cin >> n >> max_jump;
-    vector hurdles{read_numbers(n)};
+    vector hurdles{ read_numbers(n) };
     cout << hurdle_race(hurdles, max_jump);
     return 0;
 }
@@ -27,6 +24,9 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array hurdles
+// T: O(n)
+// S: O(1) extra space
 int hurdle_race(const vector<int>& hurdles, int max_jump)
 {
     return max(0, *ranges::max_element(hurdles) - max_jump);

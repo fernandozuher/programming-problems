@@ -7,11 +7,14 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
+# n: length of array hurdles
+# T: O(n)
+# S: O(1) extra space
 def hurdle_race(hurdles, max_jump)
   [0, hurdles.max - max_jump].max
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

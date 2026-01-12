@@ -33,6 +33,9 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array hurdles
+// T: O(n)
+// S: O(1) extra space
 function hurdleRace(hurdles, maxJump) {
   return Math.max(0, Math.max(...hurdles) - maxJump);
 }

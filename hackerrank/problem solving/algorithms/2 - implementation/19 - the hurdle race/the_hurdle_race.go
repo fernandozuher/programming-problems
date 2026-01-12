@@ -9,19 +9,22 @@ import (
 
 func main() {
     var n, maxJump int
-    fmt.Scan(&n, &maxJump)
+    _, _ = fmt.Scan(&n, &maxJump)
     hurdles := readNumbers(n)
     fmt.Println(hurdleRace(hurdles, maxJump))
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
-    for i := range numbers {
-        fmt.Scan(&numbers[i])
+    arr := make([]int, n)
+    for i := range arr {
+        _, _ = fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
+// n: length of array hurdles
+// T: O(n)
+// S: O(1) extra space
 func hurdleRace(hurdles []int, maxJump int) int {
     return max(0, slices.Max(hurdles) - maxJump)
 }
