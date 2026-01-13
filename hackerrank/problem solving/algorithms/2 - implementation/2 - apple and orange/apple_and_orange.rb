@@ -1,5 +1,13 @@
 # https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
+Struct.new("House", :house_start, :house_end) do
+  def contains(position)
+    house_start <= position && position <= house_end
+  end
+end
+
+Struct.new("FruitTree", :tree_location, :fruit_distances)
+
 def main
   house, apple_tree, orange_tree = read_input
   puts count_fruits_on_house(apple_tree, house)
@@ -22,21 +30,16 @@ def read_input
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
-Struct.new("House", :house_start, :house_end) do
-  def contains(position)
-    house_start <= position && position <= house_end
-  end
-end
-
-Struct.new("FruitTree", :tree_location, :fruit_distances)
-
+# n: length of array fruit_tree.fruit_distances
+# T: O(n)
+# S: O(1) extra space
 def count_fruits_on_house(fruit_tree, house)
   fruit_tree.fruit_distances.count { |distance|
     house.contains(fruit_tree.tree_location + distance)
   }
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

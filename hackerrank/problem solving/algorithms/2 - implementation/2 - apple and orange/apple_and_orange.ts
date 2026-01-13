@@ -23,6 +23,25 @@ function readLine(): string {
 
 //////////////////////////////////////////////////
 
+class House {
+  private readonly start: number;
+  private readonly end: number;
+
+  constructor(start: number, end: number) {
+    this.start = start;
+    this.end = end;
+  }
+
+  contains(position: number): boolean {
+    return this.start <= position && position <= this.end;
+  }
+}
+
+type FruitTree = {
+  treeLocation: number;
+  fruitDistances: number[];
+};
+
 function main() {
   const [house, appleTree, orangeTree] = readInput();
   console.log(countFruitsOnHouse(appleTree, house));
@@ -54,27 +73,11 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-class House {
-  private readonly start: number;
-  private readonly end: number;
-
-  constructor(start: number, end: number) {
-    this.start = start;
-    this.end = end;
-  }
-
-  contains(position: number): boolean {
-    return this.start <= position && position <= this.end;
-  }
-}
-
-type FruitTree = {
-  treeLocation: number;
-  fruitDistances: number[];
-};
-
+// n: length of array fruitTree.fruitDistances
+// T: O(n)
+// S: O(1) extra space
 function countFruitsOnHouse(fruitTree: FruitTree, house: House): number {
-  return fruitTree.fruitDistances
-    .map((distance) => fruitTree.treeLocation + distance)
-    .filter((position) => house.contains(position)).length;
+  return fruitTree.fruitDistances.filter((distance) =>
+    house.contains(fruitTree.treeLocation + distance),
+  ).length;
 }

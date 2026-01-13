@@ -4,6 +4,19 @@ package main
 
 import "fmt"
 
+type House struct {
+    start, end int
+}
+
+func (h House) contains(position int) bool {
+    return h.start <= position && position <= h.end
+}
+
+type FruitTree struct {
+    treeLocation   int
+    fruitDistances []int
+}
+
 func main() {
     house, appleTree, orangeTree := readInput()
     fmt.Println(countFruitsOnHouse(appleTree, house))
@@ -47,24 +60,13 @@ func readNumbers(n int) []int {
     return arr
 }
 
-type House struct {
-    start, end int
-}
-
-func (h House) contains(position int) bool {
-    return h.start <= position && position <= h.end
-}
-
-type FruitTree struct {
-    treeLocation   int
-    fruitDistances []int
-}
-
+// n: length of array fruitTree.fruitDistances
+// T: O(n)
+// S: O(1) extra space
 func countFruitsOnHouse(fruitTree FruitTree, house House) int {
     count := 0
     for _, distance := range fruitTree.fruitDistances {
-        position := fruitTree.treeLocation + distance
-        if house.contains(position) {
+        if house.contains(fruitTree.treeLocation + distance) {
             count++
         }
     }

@@ -26,11 +26,13 @@ int[] ReadNumbers()
     return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 }
 
+// n: length of array fruitTree.fruitDistances
+// T: O(n)
+// S: O(1) extra space
 int CountFruitsOnHouse(FruitTree fruitTree, House house)
 {
     return fruitTree.FruitDistances
-                    .Select(distance => fruitTree.TreeLocation + distance)
-                    .Count(position => house.Contains(position));
+                    .Count(distance => house.Contains(fruitTree.TreeLocation + distance));
 }
 
 record House(int Start, int End)

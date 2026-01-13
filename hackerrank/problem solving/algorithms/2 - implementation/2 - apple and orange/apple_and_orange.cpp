@@ -1,11 +1,7 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 // C++23
 
-#include <algorithm>
-#include <iostream>
-#include <tuple>
-#include <vector>
-
+import std;
 using namespace std;
 
 struct house_t {
@@ -28,9 +24,9 @@ int count_fruits_on_house(const fruit_tree_t& fruit_tree, const house_t& house);
 
 int main()
 {
-    auto [house, apple_tree, orange_tree]{read_input()};
-    cout << count_fruits_on_house(apple_tree, house) << '\n';
-    cout << count_fruits_on_house(orange_tree, house) << '\n';
+    auto [house, apple_tree, orange_tree] { read_input() };
+    println("{}", count_fruits_on_house(apple_tree, house));
+    println("{}", count_fruits_on_house(orange_tree, house));
     return 0;
 }
 
@@ -48,7 +44,7 @@ tuple<house_t, fruit_tree_t, fruit_tree_t> read_input()
     apple_tree.fruit_distances = read_numbers(n_apples);
     orange_tree.fruit_distances = read_numbers(n_oranges);
 
-    return {house, apple_tree, orange_tree};
+    return { house, apple_tree, orange_tree };
 }
 
 vector<int> read_numbers(int n)
@@ -59,9 +55,12 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array fruit_tree.fruit_distances
+// T: O(n)
+// S: O(1) extra space
 int count_fruits_on_house(const fruit_tree_t& fruit_tree, const house_t& house)
 {
     return ranges::count_if(fruit_tree.fruit_distances, [&fruit_tree, &house](auto distance) {
         return house.contains(fruit_tree.tree_location + distance);
-    });
+        });
 }
