@@ -9,7 +9,10 @@ int[] ReadNumbers()
     return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 }
 
+// n_w: length of string word, no more than 10 letters
+// T = O(10) = O(1)
+// S = O(1) extra space
 int DesignerPdfViewer(int[] lettersHeights, string word)
 {
-    return word.Max(letter => lettersHeights[letter - 'a']) * word.Length;
+    return word.Max(ch => lettersHeights[ch - 'a']) * word.Length;
 }

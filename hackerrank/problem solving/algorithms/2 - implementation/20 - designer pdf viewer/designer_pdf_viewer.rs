@@ -1,22 +1,26 @@
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
-use std::cmp;
 use text_io::read;
 
+const ALPHABET_SIZE: usize = 26;
+
 fn main() {
-    const N: usize = 26;
-    let letters_heights: Vec<usize> = read_numbers(N);
+    let letters_heights: [usize; ALPHABET_SIZE] = read_input();
     let word: String = read!();
     println!("{}", designer_pdf_viewer(&letters_heights, &word));
 }
 
-fn read_numbers(n: usize) -> Vec<usize> {
-    (0..n).map(|_| read!()).collect()
+fn read_input() -> [usize; ALPHABET_SIZE] {
+    core::array::from_fn(|_| read!())
 }
 
+// n_w: length of string word, no more than 10 letters
+// T = O(10) = O(1)
+// S = O(1) extra space
 fn designer_pdf_viewer(letters_heights: &[usize], word: &str) -> usize {
     word.chars()
-        .map(|c| letters_heights[(c as usize) - ('a' as usize)])
+        .map(|ch| letters_heights[(ch as usize) - ('a' as usize)])
         .max()
-        .unwrap_or(0) * word.len()
+        .unwrap_or(0)
+        * word.len()
 }

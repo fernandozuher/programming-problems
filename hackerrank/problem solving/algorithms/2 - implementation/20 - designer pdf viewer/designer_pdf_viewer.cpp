@@ -1,37 +1,36 @@
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <string_view>
-#include <vector>
-
+import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
-int designer_pdf_viewer(const vector<int>& letters_heights, const string_view& word);
+constexpr int alphabet_size{ 26 };
+
+array<int, alphabet_size> read_input();
+int designer_pdf_viewer(const array<int, alphabet_size>& letters_heights, string_view word);
 
 int main()
 {
-    constexpr int n{26};
-    vector letters_heights{read_numbers(n)};
+    array letters_heights{ read_input() };
     string word;
     cin >> word;
     cout << designer_pdf_viewer(letters_heights, word);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+array<int, alphabet_size> read_input()
 {
-    vector<int> arr(n);
+    array<int, alphabet_size> arr{};
     for (auto& x : arr)
         cin >> x;
     return arr;
 }
 
-int designer_pdf_viewer(const vector<int>& letters_heights, const string_view& word)
+// n_w: length of string word, no more than 10 letters
+// T = O(10) = O(1)
+// S = O(1) extra space
+int designer_pdf_viewer(const array<int, alphabet_size>& letters_heights, string_view word)
 {
-    int max_height{};
-    for (auto letter : word)
-        max_height = max(max_height, letters_heights[letter - 'a']);
-    return max_height * word.size();
+    return ranges::max(word | views::transform([&letters_heights](char ch) { return letters_heights[ch - 'a']; })) *
+        word.size();
 }

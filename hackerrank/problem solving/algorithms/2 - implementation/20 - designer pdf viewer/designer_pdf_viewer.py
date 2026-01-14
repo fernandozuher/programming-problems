@@ -10,8 +10,11 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# n_w: length of string word, no more than 10 letters
+# T = O(10) = O(1)
+# S = O(1) extra space
 def designer_pdf_viewer(letters_heights, word):
-    max_height = max(letters_heights[ord(letter) - ord('a')] for letter in word)
+    max_height = max(letters_heights[ord(ch) - ord('a')] for ch in word)
     return max_height * len(word)
 
 

@@ -7,14 +7,16 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
+# n_w: length of string word, no more than 10 letters
+# T = O(10) = O(1)
+# S = O(1) extra space
 def designer_pdf_viewer(letters_heights, word)
-  max_height = word.chars.inject(0) { |max_height, letter|
-    [max_height, letters_heights[letter.ord - 'a'.ord]].max
-  }
+  ch = word.each_char.max_by { |ch| letters_heights[ch.ord - 'a'.ord] }
+  max_height = letters_heights[ch.ord - 'a'.ord]
   max_height * word.length
 end
 
-main if $PROGRAM_NAME == __FILE__
+main if __FILE__ == $0
