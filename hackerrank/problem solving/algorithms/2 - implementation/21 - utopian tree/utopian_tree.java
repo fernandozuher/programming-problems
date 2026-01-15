@@ -17,11 +17,7 @@ int[] generateHeightsUtopianTree() {
     int[] heights = new int[maxCycles + 1];
 
     for (int cycle = 0, n = maxCycles + 1, height = 0; cycle < n; cycle++) {
-        if (isCycleHappeningDuringSpring(cycle)) {
-            height *= 2;
-        } else {
-            height += 1;
-        }
+        height += isCycleHappeningDuringSpring(cycle) ? height : 1;
         heights[cycle] = height;
     }
 

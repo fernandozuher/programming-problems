@@ -18,11 +18,7 @@ fn generate_heights_utopian_tree() -> Vec<i32> {
     let mut height = 0;
     (0..=MAX_CYCLES)
         .map(|cycle| {
-            height += if is_cycle_happening_during_spring(cycle) {
-                height
-            } else {
-                1
-            };
+            height += if is_cycle_happening_during_spring(cycle) { height } else { 1 };
             height
         })
         .collect()
