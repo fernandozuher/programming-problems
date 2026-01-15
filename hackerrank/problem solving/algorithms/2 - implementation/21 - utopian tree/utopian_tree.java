@@ -1,20 +1,31 @@
 // https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.stream.IntStream;
-
 void main() {
     int n = Integer.parseInt(IO.readln());
+    int[] utopianTree = generateHeightsUtopianTree();
     for (int i = 0; i < n; i++) {
         int cycles = Integer.parseInt(IO.readln());
-        IO.println(utopianTree(cycles));
+        IO.println(utopianTree[cycles]);
     }
 }
 
-int utopianTree(int cycles) {
-    return IntStream.range(1, cycles + 1)
-            .reduce(1, (height, cycle) -> isCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1);
+// k: length of output array heights = 61
+// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+int[] generateHeightsUtopianTree() {
+    final int maxCycles = 60;
+    int[] heights = new int[maxCycles + 1];
+
+    for (int cycle = 0, n = maxCycles + 1, height = 0; cycle < n; cycle++) {
+        if (isCycleHappeningDuringSpring(cycle)) {
+            height *= 2;
+        } else {
+            height += 1;
+        }
+        heights[cycle] = height;
+    }
+
+    return heights;
 }
 
 boolean isCycleHappeningDuringSpring(int cycle) {

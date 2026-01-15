@@ -25,17 +25,24 @@ function readLine(): string {
 
 function main() {
   const n: number = +readLine();
+  const utopianTree: number[] = generateHeightsUtopianTree();
   for (let i = 0; i < n; i++) {
     const cycles: number = +readLine();
-    console.log(utopianTree(cycles));
+    console.log(utopianTree[cycles]);
   }
 }
 
-function utopianTree(cycles: number): number {
-  let height = 1;
-  for (let cycle = 1; cycle <= cycles; cycle++)
-    height = isCycleHappeningDuringSpring(cycle) ? height * 2 : height + 1;
-  return height;
+// k: length of output array = 61
+// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+function generateHeightsUtopianTree(): number[] {
+  const maxCycles = 60;
+  let height = 0;
+  return Array(maxCycles + 1)
+    .fill(0)
+    .map(
+      (_, cycle) =>
+        (height += isCycleHappeningDuringSpring(cycle) ? height : 1),
+    );
 }
 
 function isCycleHappeningDuringSpring(cycle: number): boolean {

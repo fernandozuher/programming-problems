@@ -6,26 +6,32 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
+    utopianTree := generateHeightsUtopianTree()
     for range n {
         var cycles int
-        fmt.Scan(&cycles)
-        fmt.Println(utopianTree(cycles))
+        _, _ = fmt.Scan(&cycles)
+        fmt.Println(utopianTree[cycles])
     }
 }
 
-func utopianTree(cycles int) int {
-    height := 1
+// k: length of output array heights = 61
+// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+func generateHeightsUtopianTree() []int {
+    const maxCycles = 60
+    heights := make([]int, maxCycles+1)
+    height := 0
 
-    for cycle := 1; cycle <= cycles; cycle++ {
+    for cycle := range maxCycles + 1 {
         if isCycleHappeningDuringSpring(cycle) {
-            height = height * 2
+            height *= 2
         } else {
-            height++
+            height += 1
         }
+        heights[cycle] = height
     }
 
-    return height
+    return heights
 }
 
 func isCycleHappeningDuringSpring(cycle int) bool {
