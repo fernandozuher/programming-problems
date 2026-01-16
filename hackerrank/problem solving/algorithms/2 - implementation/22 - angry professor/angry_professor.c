@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int arr[], int n);
-bool angry_professor(const int arrival_times[], int n, int threshold);
+void read_numbers(int *arr, int n);
+bool angry_professor(const int *arrival_times, int n, int threshold);
 
 int main()
 {
@@ -22,17 +22,20 @@ int main()
     return 0;
 }
 
-void read_numbers(int arr[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
-bool angry_professor(const int arrival_times[], int n, int threshold)
+// k: length of array arrival_times
+// T: O(k)
+// S: O(1) extra space
+bool angry_professor(const int *arrival_times, int n, int threshold)
 {
-    int count = 0;
+    int on_time = 0;
     for (int i = 0; i < n; ++i)
         if (arrival_times[i] <= 0)
-            ++count;
-    return count < threshold;
+            ++on_time;
+    return on_time < threshold;
 }

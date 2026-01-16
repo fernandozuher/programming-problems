@@ -36,7 +36,13 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// k: length of array arrivalTimes
+// T: O(k)
+// S: O(1) extra space
 function angryProfessor(arrivalTimes: number[], threshold: number): boolean {
-  const count: number = arrivalTimes.filter((t) => t <= 0).length;
-  return count < threshold;
+  const onTime: number = arrivalTimes.reduce(
+    (count, t) => (t <= 0 ? count + 1 : count),
+    0,
+  );
+  return onTime < threshold;
 }

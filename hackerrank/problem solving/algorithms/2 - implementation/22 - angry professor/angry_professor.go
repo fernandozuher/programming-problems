@@ -6,11 +6,11 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
 
     for range n {
         var size, threshold int
-        fmt.Scan(&size, &threshold)
+        _, _ = fmt.Scan(&size, &threshold)
         arrivalTimes := readNumbers(size)
 
         if angryProfessor(arrivalTimes, threshold) {
@@ -24,17 +24,20 @@ func main() {
 func readNumbers(n int) []int {
     arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&arr[i])
+        _, _ = fmt.Scan(&arr[i])
     }
     return arr
 }
 
+// k: length of array arrivalTimes
+// T: O(k)
+// S: O(1) extra space
 func angryProfessor(arrivalTimes []int, threshold int) bool {
-    count := 0
+    onTime := 0
     for _, t := range arrivalTimes {
         if t <= 0 {
-            count++
+            onTime++
         }
     }
-    return count < threshold
+    return onTime < threshold
 }

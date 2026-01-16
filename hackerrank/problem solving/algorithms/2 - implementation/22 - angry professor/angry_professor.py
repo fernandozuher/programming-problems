@@ -2,18 +2,21 @@
 
 def main():
     n = int(input())
-    for i in range(n):
+    for _ in range(n):
         _, threshold = read_numbers()
-        students_arrival_times = read_numbers()
-        print("YES" if angry_professor(students_arrival_times, threshold) else "NO")        
+        arrival_times = read_numbers()
+        print("YES" if angry_professor(arrival_times, threshold) else "NO")
 
 
 def read_numbers():
     return list(map(int, input().split()))
 
 
+# k: length of array arrival_times
+# T: O(k)
+# S: O(1) extra space
 def angry_professor(arrival_times, threshold):
-    on_time = sum(1 for t in arrival_times if t <= 0)
+    on_time = sum(t <= 0 for t in arrival_times)
     return on_time < threshold
 
 
