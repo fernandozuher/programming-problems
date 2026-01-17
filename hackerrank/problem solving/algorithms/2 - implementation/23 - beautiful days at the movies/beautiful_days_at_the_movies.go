@@ -6,10 +6,14 @@ import "fmt"
 
 func main() {
     var startDay, endDay, divisor int
-    fmt.Scan(&startDay, &endDay, &divisor)
+    _, _ = fmt.Scan(&startDay, &endDay, &divisor)
     fmt.Println(beautifulDays(startDay, endDay, divisor))
 }
 
+// n: range (endDay - startDay + 1)
+// d: number of digits of the largest day
+// T: O(n * d)
+// S: O(1) extra space
 func beautifulDays(startDay, endDay, divisor int) int {
     count := 0
     for day := startDay; day <= endDay; day++ {
@@ -21,11 +25,7 @@ func beautifulDays(startDay, endDay, divisor int) int {
 }
 
 func isDayBeautiful(day, divisor int) bool {
-    n := day - reverseNumber(day)
-    if n < 0 {
-        n = -n
-    }
-    return n%divisor == 0
+    return (day-reverseNumber(day))%divisor == 0
 }
 
 func reverseNumber(number int) int {

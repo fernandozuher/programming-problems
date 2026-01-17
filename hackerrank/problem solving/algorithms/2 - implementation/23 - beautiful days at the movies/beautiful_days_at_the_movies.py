@@ -9,15 +9,16 @@ def read_numbers():
     return map(int, input().split())
 
 
+# n: range (end_day - start_day + 1)
+# d: number of digits of the largest day
+# T: O(n * d)
+# S: O(d) extra space
 def beautiful_days(start_day, end_day, divisor):
-    return sum(
-        1 for day in range(start_day, end_day + 1)
-        if is_day_beautiful(day, divisor)
-    )
+    return sum(is_day_beautiful(day, divisor) for day in range(start_day, end_day + 1))
 
 
 def is_day_beautiful(day, divisor):
-    return abs(day - reverse_number(day)) % divisor == 0
+    return (day - reverse_number(day)) % divisor == 0
 
 
 def reverse_number(number):

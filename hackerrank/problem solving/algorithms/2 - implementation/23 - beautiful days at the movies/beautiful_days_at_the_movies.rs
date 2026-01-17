@@ -8,6 +8,10 @@ fn main() {
     println!("{}", beautiful_days(start_day, end_day, divisor));
 }
 
+// n: range (end_day - start_day + 1)
+// d: number of digits of the largest day
+// T: O(n * d)
+// S: O(d) extra space
 fn beautiful_days(start_day: i32, end_day: i32, divisor: i32) -> i32 {
     (start_day..=end_day)
         .filter(|&day| is_day_beautiful(day, divisor))
@@ -15,7 +19,7 @@ fn beautiful_days(start_day: i32, end_day: i32, divisor: i32) -> i32 {
 }
 
 fn is_day_beautiful(day: i32, divisor: i32) -> bool {
-    (day - reverse_number(day)).abs() % divisor == 0
+    (day - reverse_number(day)) % divisor == 0
 }
 
 fn reverse_number(number: i32) -> i32 {

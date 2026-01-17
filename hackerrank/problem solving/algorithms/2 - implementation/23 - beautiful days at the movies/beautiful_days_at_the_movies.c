@@ -16,6 +16,10 @@ int main()
     return 0;
 }
 
+// n: range (end_day - start_day + 1)
+// d: number of digits of the largest day
+// T: O(n * d)
+// S: O(1) extra space
 int beautiful_days(int startDay, int endDay, int divisor)
 {
     int count = 0;
@@ -26,7 +30,7 @@ int beautiful_days(int startDay, int endDay, int divisor)
 
 bool is_day_beautiful(int day, int divisor)
 {
-    return abs(day - reverse_number(day)) % divisor == 0;
+    return (day - reverse_number(day)) % divisor == 0;
 }
 
 int reverse_number(int number)

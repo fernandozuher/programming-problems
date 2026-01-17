@@ -32,15 +32,19 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: range (endDay - startDay + 1)
+// d: number of digits of the largest day
+// T: O(n * d)
+// S: O(d) extra space
 function beautifulDays(startDay, endDay, divisor) {
   let count = 0;
   for (let day = startDay; day <= endDay; day++)
-    count += isDayBeautiful(day, divisor);
+    if (isDayBeautiful(day, divisor)) count++;
   return count;
 }
 
 function isDayBeautiful(day, divisor) {
-  return Math.abs(day - reverseNumber(day)) % divisor === 0;
+  return (day - reverseNumber(day)) % divisor === 0;
 }
 
 function reverseNumber(number) {

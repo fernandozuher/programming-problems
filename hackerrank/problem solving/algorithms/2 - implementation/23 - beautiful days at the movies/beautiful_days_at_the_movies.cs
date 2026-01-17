@@ -1,16 +1,18 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
-var arr = ReadNumbers();
-int startDay = arr[0];
-int endDay = arr[1];
-int divisor = arr[2];
+var (startDay, endDay, divisor) = ReadInput();
 Console.WriteLine(BeautifulDays(startDay, endDay, divisor));
 
-int[] ReadNumbers()
+(int, int, int) ReadInput()
 {
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    var values = Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    return (values[0], values[1], values[2]);
 }
 
+// n: range (endDay - startDay + 1)
+// d: number of digits of the largest day
+// T: O(n * d)
+// S: O(d) extra space
 int BeautifulDays(int startDay, int endDay, int divisor)
 {
     return Enumerable.Range(startDay, endDay - startDay + 1).Count(day => IsDayBeautiful(day, divisor));
@@ -18,7 +20,7 @@ int BeautifulDays(int startDay, int endDay, int divisor)
 
 bool IsDayBeautiful(int day, int divisor)
 {
-    return Math.Abs(day - ReverseNumber(day)) % divisor == 0;
+    return (day - ReverseNumber(day)) % divisor == 0;
 }
 
 int ReverseNumber(int number)
