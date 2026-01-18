@@ -3,9 +3,9 @@
 int days = int.Parse(Console.ReadLine()!);
 Console.WriteLine(ViralAdvertising(days));
 
-// n = days = length of the iteration
-// T = O(n)
-// S = O(1)
+// n: days
+// T: O(n)
+// S: O(1) extra space
 int ViralAdvertising(int days)
 {
     int shared = 5;

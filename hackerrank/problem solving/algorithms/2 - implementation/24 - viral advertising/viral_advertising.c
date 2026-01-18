@@ -12,18 +12,16 @@ int main()
     return 0;
 }
 
-// n = days = length of the iteration
-// T = O(n)
-// S = O(1)
+// n: days
+// T: O(n)
+// S: O(1) extra space
 int viral_advertising(int days)
 {
     int cumulative = 0;
-
     for (int shared = 5; days > 0; --days) {
         int liked = shared / 2;
-        cumulative += liked;
         shared = liked * 3;
+        cumulative += liked;
     }
-
     return cumulative;
 }

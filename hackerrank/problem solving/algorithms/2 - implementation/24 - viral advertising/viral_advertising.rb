@@ -5,16 +5,16 @@ def main
   puts viral_advertising(days)
 end
 
-# n = days = length of the iteration
-# T = O(n)
-# S = O(1)
+# n: days
+# T: O(n)
+# S: O(1) extra space
 def viral_advertising(days)
   shared = 5
-  days.times.inject(0) do |cumulative, _|
+  days.times.sum do
     liked = shared.div(2)
     shared = liked * 3
-    cumulative + liked
+    liked
   end
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

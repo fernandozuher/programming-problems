@@ -28,17 +28,15 @@ function main() {
   console.log(viralAdvertising(days));
 }
 
-// n = days = length of the iteration
-// T = O(n)
-// S = O(1)
+// n: days
+// T: O(n)
+// S: O(1) extra space
 function viralAdvertising(days) {
   let cumulative = 0;
-
   for (let shared = 5; days > 0; days--) {
     const liked = Math.trunc(shared / 2);
-    cumulative += liked;
     shared = liked * 3;
+    cumulative += liked;
   }
-
   return cumulative;
 }
