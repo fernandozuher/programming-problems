@@ -2,9 +2,6 @@
 
 use text_io::{read, scan};
 
-// n = test cases
-// T = O(n)
-// S = O(1)
 fn main() {
     let n: usize = read!();
     for _ in 0..n {
@@ -14,8 +11,8 @@ fn main() {
     }
 }
 
-// T = O(1)
-// S = O(1)
+// T: O(1)
+// S: O(1) extra space
 fn save_the_prisoner(prisoners: i32, sweets: i32, start_chair: i32) -> i32 {
     ((start_chair - 1 + sweets - 1) % prisoners) + 1
 }

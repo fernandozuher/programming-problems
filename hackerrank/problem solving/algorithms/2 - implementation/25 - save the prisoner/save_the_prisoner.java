@@ -1,12 +1,6 @@
 // https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 // Java 25
 
-import java.lang.IO;
-import java.util.stream.Stream;
-
-// n = test cases
-// T = O(n)
-// S = O(1)
 void main() {
     int n = readNumbers()[0];
     for (int i = 0; i < n; i++) {
@@ -18,15 +12,12 @@ void main() {
     }
 }
 
-// n = size of elements to be read
-// T = O(n)
-// S = O(n)
 int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// T = O(1)
-// S = O(1)
+// T: O(1)
+// S: O(1) extra space
 int saveThePrisoner(int prisoners, int sweets, int startChair) {
     return ((startChair - 1 + sweets - 1) % prisoners) + 1;
 }

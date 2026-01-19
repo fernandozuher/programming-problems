@@ -1,8 +1,5 @@
 // https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
-// n = test cases
-// T = O(n)
-// S = O(1)
 int n = ReadNumbers()[0];
 for (int i = 0; i < n; i++)
 {
@@ -11,16 +8,13 @@ for (int i = 0; i < n; i++)
     Console.WriteLine(SaveThePrisoner(prisoners, sweets, startChair));
 }
 
-// n = size of elements to be read
-// T = O(n)
-// S = O(n)
 int[] ReadNumbers()
 {
     return Array.ConvertAll(Console.ReadLine()!.Split(' '), int.Parse);
 }
 
-// T = O(1)
-// S = O(1)
+// T: O(1)
+// S: O(1) extra space
 int SaveThePrisoner(int prisoners, int sweets, int startChair)
 {
     return ((startChair - 1 + sweets - 1) % prisoners) + 1;

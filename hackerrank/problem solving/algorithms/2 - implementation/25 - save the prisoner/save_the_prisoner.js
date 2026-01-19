@@ -23,9 +23,6 @@ function readLine() {
 
 //////////////////////////////////////////////////
 
-// n = test cases
-// T = O(n)
-// S = O(1)
 function main() {
   const n = +readLine();
   for (let i = 0; i < n; i++) {
@@ -34,15 +31,12 @@ function main() {
   }
 }
 
-// n = size of elements to be read
-// T = O(n)
-// S = O(n)
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-// T = O(1)
-// S = O(1)
+// T: O(1)
+// S: O(1) extra space
 function saveThePrisoner(prisoners, sweets, startChair) {
   return ((startChair - 1 + sweets - 1) % prisoners) + 1;
 }

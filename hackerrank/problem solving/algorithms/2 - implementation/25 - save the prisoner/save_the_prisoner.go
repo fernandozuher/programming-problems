@@ -4,13 +4,9 @@ package main
 
 import "fmt"
 
-// n = test cases
-// T = O(n)
-// S = O(1)
 func main() {
     var n int
     fmt.Scan(&n)
-
     for range n {
         var prisoners, sweets, startChair int
         fmt.Scan(&prisoners, &sweets, &startChair)
@@ -18,8 +14,8 @@ func main() {
     }
 }
 
-// T = O(1)
-// S = O(1)
+// T: O(1)
+// S: O(1) extra space
 func saveThePrisoner(prisoners, sweets, startChair int) int {
     return ((startChair - 1 + sweets - 1) % prisoners) + 1
 }

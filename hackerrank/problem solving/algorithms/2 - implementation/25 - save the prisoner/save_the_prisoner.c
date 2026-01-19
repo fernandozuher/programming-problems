@@ -4,9 +4,6 @@
 
 int save_the_prisoner(int prisoners, int sweets, int start_chair);
 
-// n = test cases
-// T = O(n)
-// S = O(1)
 int main()
 {
     int n;
@@ -19,8 +16,8 @@ int main()
     }
 }
 
-// T = O(1)
-// S = O(1)
+// T: O(1)
+// S: O(1) extra space
 int save_the_prisoner(int prisoners, int sweets, int start_chair)
 {
     return ((start_chair - 1 + sweets - 1) % prisoners) + 1;
