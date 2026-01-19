@@ -6,10 +6,10 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     for range n {
         var prisoners, sweets, startChair int
-        fmt.Scan(&prisoners, &sweets, &startChair)
+        _, _ = fmt.Scan(&prisoners, &sweets, &startChair)
         fmt.Println(saveThePrisoner(prisoners, sweets, startChair))
     }
 }
