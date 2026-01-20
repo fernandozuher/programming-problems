@@ -7,15 +7,17 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
+# T: O(n_queries)
+# S: O(1) extra space
 def print_queries(arr, n_rotation, n_queries)
-  r = n_rotation % arr.size
+  offset = n_rotation % arr.size
   n_queries.times do
     query = gets.to_i
-    puts arr[query - r]
+    puts arr[query - offset]
   end
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

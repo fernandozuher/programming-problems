@@ -19,13 +19,15 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// T: O(nQueries)
+// S: O(1) extra space
 func printQueries(arr []int, nRotation, nQueries int) {
     n := len(arr)
-    r := nRotation % n
+    offset := n - nRotation % n
     for range nQueries {
         var query int
-        fmt.Scan(&query)
-        idx := (query + n - r) % n
+        _, _ = fmt.Scan(&query)
+        idx := (query + offset) % n
         fmt.Println(arr[idx])
     }
 }

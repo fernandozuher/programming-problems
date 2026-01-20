@@ -10,11 +10,13 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# T: O(n_queries)
+# S: O(1) extra space
 def print_queries(arr, n_rotation, n_queries):
-    r = n_rotation % len(arr)
+    offset = n_rotation % len(arr)
     for _ in range(n_queries):
         query = int(input())
-        print(arr[query - r])
+        print(arr[query - offset])
 
 
 if __name__ == '__main__':

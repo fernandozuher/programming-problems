@@ -14,12 +14,14 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// T: O(n_queries)
+// S: O(1) extra space
 fn print_queries(arr: &[i32], n_rotation: usize, n_queries: usize) {
-    let n = arr.len();
-    let r = n_rotation % n;
+    let n: usize = arr.len();
+    let offset: usize = n - n_rotation % n;
     for _ in 0..n_queries {
-        let query: i32 = read!();
-        let idx = (query as usize + n - r) % n;
+        let query: usize = read!();
+        let idx = (query + offset) % n;
         println!("{}", arr[idx]);
     }
 }

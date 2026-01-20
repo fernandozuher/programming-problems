@@ -21,13 +21,15 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
+// T: O(n_queries)
+// S: O(1) extra space
 void print_queries(const int *arr, int n, int n_rotation, int n_queries)
 {
-    int r = n_rotation % n;
+    int offset = n - n_rotation % n;
     for (int i = 0; i < n_queries; ++i) {
         int query;
         scanf("%d", &query);
-        int idx = (query + n - r) % n;
+        int idx = (query + offset) % n;
         printf("%d\n", arr[idx]);
     }
 }

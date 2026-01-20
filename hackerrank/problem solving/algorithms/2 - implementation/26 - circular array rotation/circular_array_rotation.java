@@ -13,12 +13,14 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// T: O(nQueries)
+// S: O(1) extra space
 void printQueries(int[] arr, int nRotation, int nQueries) {
     int n = arr.length;
-    int r = nRotation % n;
+    int offset = n - nRotation % n;
     for (int i = 0; i < nQueries; i++) {
         int query = Integer.parseInt(IO.readln());
-        int idx = (query + n - r) % n;
+        int idx = (query + offset) % n;
         IO.println(arr[idx]);
     }
 }

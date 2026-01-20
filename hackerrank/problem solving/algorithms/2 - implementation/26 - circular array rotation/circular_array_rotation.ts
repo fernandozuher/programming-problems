@@ -33,12 +33,14 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// T: O(nQueries)
+// S: O(1) extra space
 function printQueries(arr: number[], nRotation: number, nQueries: number) {
   const n: number = arr.length;
-  const r: number = nRotation % n;
+  const offset: number = n - nRotation % n;
   for (let i = 0; i < nQueries; i++) {
     const query = +readLine();
-    const idx: number = (query + n - r) % n;
+    const idx: number = (query + offset) % n;
     console.log(arr[idx]);
   }
 }

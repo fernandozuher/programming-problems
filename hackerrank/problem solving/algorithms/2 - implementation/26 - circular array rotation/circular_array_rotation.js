@@ -33,12 +33,14 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// T: O(nQueries)
+// S: O(1) extra space
 function printQueries(arr, nRotation, nQueries) {
   const n = arr.length;
-  const r = nRotation % n;
+  const offset = n - nRotation % n;
   for (let i = 0; i < nQueries; i++) {
     const query = +readLine();
-    const idx = (query + n - r) % n;
+    const idx = (query + offset) % n;
     console.log(arr[idx]);
   }
 }
