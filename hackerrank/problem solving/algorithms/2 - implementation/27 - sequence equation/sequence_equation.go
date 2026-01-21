@@ -21,6 +21,9 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array arr/output
+// T: O(n)
+// S: O(n) extra space
 func sequenceEquation(arr []int) []int {
     valuesToIndex := make([]int, len(arr))
     for i, val := range arr {

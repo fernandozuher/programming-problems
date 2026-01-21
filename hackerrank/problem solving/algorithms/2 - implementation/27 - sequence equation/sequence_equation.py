@@ -10,6 +10,9 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# n: length of array arr/output
+# T: O(n)
+# S: O(n) extra space
 def sequence_equation(arr):
     values_to_index = [0] * len(arr)
     for i, val in enumerate(arr):

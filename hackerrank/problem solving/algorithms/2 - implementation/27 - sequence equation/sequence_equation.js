@@ -26,27 +26,19 @@ function readLine() {
 function main() {
   readLine();
   const arr = readNumbers();
-  for (const x of sequenceEquation(arr)) {
-    console.log(x);
-  }
+  for (const x of sequenceEquation(arr)) console.log(x);
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array arr/output
+// T: O(n)
+// S: O(n) extra space
 function sequenceEquation(arr) {
   const valuesToIndex = Array(arr.length).fill(0);
   let i = 0;
-  for (const val of arr) {
-    valuesToIndex[val - 1] = i++;
-  }
-
-  const res = Array(arr.length).fill(0);
-  i = 0;
-  for (const val of valuesToIndex) {
-    res[i++] = valuesToIndex[val] + 1;
-  }
-
-  return res;
+  for (const val of arr) valuesToIndex[val - 1] = i++;
+  return valuesToIndex.map(val => valuesToIndex[val] + 1);
 }

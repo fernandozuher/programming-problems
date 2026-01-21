@@ -1,10 +1,7 @@
 // https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 // C++23
 
-#include <iostream>
-#include <ranges>
-#include <vector>
-
+import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
@@ -14,11 +11,9 @@ int main()
 {
     int n;
     cin >> n;
-    vector arr{read_numbers(n)};
-
+    vector arr{ read_numbers(n) };
     for (auto x : sequence_equation(arr))
-        cout << x << '\n';
-
+        println("{}", x);
     return 0;
 }
 
@@ -30,15 +25,15 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array arr/output
+// T: O(n)
+// S: O(n) extra space
 vector<int> sequence_equation(const vector<int>& arr)
 {
     vector<int> values_to_index(arr.size());
     for (auto [i, val] : views::enumerate(arr))
         values_to_index.at(val - 1) = i;
-
-    vector<int> res(arr.size());
-    for (auto [i, val] : views::enumerate(values_to_index))
-        res.at(i) = values_to_index.at(val) + 1;
-
-    return res;
+    return values_to_index 
+        | views::transform([&values_to_index](auto val) {return values_to_index.at(val) + 1; }) 
+        | ranges::to<vector>();
 }
