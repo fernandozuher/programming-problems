@@ -33,6 +33,12 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array clouds; 2 to 25
+// k (jumpLength): 1 <= k <= n
+// n % k = 0
+// c[i] = 0 or 1
+// T: O(n) = O(25) = O(1)
+// S: O(1) extra space
 function jumpingOnTheClouds(clouds, jumpLength) {
   let energy = 100;
   let cloudIndex = 0;

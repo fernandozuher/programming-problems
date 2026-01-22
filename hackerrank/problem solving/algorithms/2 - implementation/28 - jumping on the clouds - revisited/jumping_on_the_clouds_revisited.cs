@@ -4,11 +4,14 @@ int jumpLength = ReadNumbers()[1];
 int[] arr = ReadNumbers();
 Console.WriteLine(JumpingOnTheClouds(arr, jumpLength));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 
+// n: length of array clouds; 2 to 25
+// k (jumpLength): 1 <= k <= n
+// n % k = 0
+// c[i] = 0 or 1
+// T: O(n) = O(25) = O(1)
+// S: O(1) extra space
 int JumpingOnTheClouds(int[] clouds, int jumpLength)
 {
     int energy = 100;

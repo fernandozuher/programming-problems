@@ -7,9 +7,15 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
+# n: length of array clouds; 2 to 25
+# k (jump_length): 1 <= k <= n
+# n % k = 0
+# c[i] = 0 or 1
+# T: O(n) = O(25) = O(1)
+# S: O(1) extra space
 def jumping_on_the_clouds(clouds, jump_length)
   energy = 100
   cloud_index = 0
@@ -23,4 +29,4 @@ def jumping_on_the_clouds(clouds, jump_length)
   energy
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

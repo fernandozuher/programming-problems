@@ -19,6 +19,12 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array clouds; 2 to 25
+// k (jumpLength): 1 <= k <= n
+// n % k = 0
+// c[i] = 0 or 1
+// T: O(n) = O(25) = O(1)
+// S: O(1) extra space
 func jumpingOnTheClouds(clouds []int, jumpLength int) int {
     energy := 100
     cloudIndex := 0
