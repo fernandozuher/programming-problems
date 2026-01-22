@@ -33,7 +33,7 @@ vector<int> sequence_equation(const vector<int>& arr)
     vector<int> values_to_index(arr.size());
     for (auto [i, val] : views::enumerate(arr))
         values_to_index.at(val - 1) = i;
-    return values_to_index 
-        | views::transform([&values_to_index](auto val) {return values_to_index.at(val) + 1; }) 
+    return values_to_index
+        | views::transform([&values_to_index](auto val) { return values_to_index.at(val) + 1; })
         | ranges::to<vector>();
 }
