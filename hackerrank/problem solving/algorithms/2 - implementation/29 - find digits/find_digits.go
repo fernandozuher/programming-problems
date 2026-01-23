@@ -8,18 +8,21 @@ func main() {
     var n int
     _, _ = fmt.Scan(&n)
     for range n {
-        var number int
-        _, _ = fmt.Scan(&number)
-        fmt.Println(findDigits(number))
+        var num int
+        _, _ = fmt.Scan(&num)
+        fmt.Println(findDigits(num))
     }
 }
 
-func findDigits(n int) int {
+// k: quantity of digits of num = log num
+// 0 < num < 10^9
+// T: O(k) = O(9) = O(1)
+// S: O(1) extra space
+func findDigits(num int) int {
     divisors := 0
-    originalNumber := n
-
-    for ; n != 0; n /= 10 {
-        divisor := n % 10
+    
+    for originalNumber := num; num != 0; num /= 10 {
+        divisor := num % 10
         if divisor != 0 && originalNumber%divisor == 0 {
             divisors++
         }

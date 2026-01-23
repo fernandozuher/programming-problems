@@ -26,14 +26,19 @@ function readLine() {
 function main() {
   const n = +readLine();
   for (let i = 0; i < n; i++) {
-    console.log(findDigits(+readLine()));
+    const num = +readLine();
+    console.log(findDigits(num));
   }
 }
 
-function findDigits(n) {
-  return n
+// k: quantity of digits of num = log num
+// 0 < num < 10^9
+// T: O(k) = O(9) = O(1)
+// S: O(k) = O(9) = O(1) extra space
+function findDigits(num) {
+  return num
     .toString()
     .split('')
     .map(Number)
-    .filter((d) => d !== 0 && n % d === 0).length;
+    .filter((d) => d !== 0 && num % d === 0).length;
 }
