@@ -1,16 +1,18 @@
 # https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 def main():
-    positions_and_velocities = read_numbers()
-    print("YES" if kangaroo(positions_and_velocities) else "NO")
+    initial_state = read_numbers()
+    print("YES" if kangaroo(initial_state) else "NO")
 
 
 def read_numbers():
     return list(map(int, input().split()))
 
 
-def kangaroo(positions_and_velocities):
-    x1, v1, x2, v2 = positions_and_velocities
+# T: O(1)
+# S: O(1) extra space
+def kangaroo(initial_state):
+    x1, v1, x2, v2 = initial_state
 
     if v1 == v2:
         return x1 == x2

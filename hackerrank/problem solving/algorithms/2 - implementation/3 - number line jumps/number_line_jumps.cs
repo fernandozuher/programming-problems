@@ -1,19 +1,19 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-int[] positionsAndVelocities = ReadNumbers();
-Console.WriteLine(Kangaroo(positionsAndVelocities) ? "YES" : "NO");
+(int, int, int, int) initialState = ReadInput();
+Console.WriteLine(Kangaroo(initialState) ? "YES" : "NO");
 
-int[] ReadNumbers()
+(int, int, int, int) ReadInput()
 {
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    var arr = Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    return (arr[0], arr[1], arr[2], arr[3]);
 }
 
-bool Kangaroo(int[] positionsAndVelocities)
+// T: O(1)
+// S: O(1) extra space
+bool Kangaroo((int, int, int, int) initialState)
 {
-    int x1 = positionsAndVelocities[0];
-    int v1 = positionsAndVelocities[1];
-    int x2 = positionsAndVelocities[2];
-    int v2 = positionsAndVelocities[3];
+    var (x1, v1, x2, v2) = initialState;
 
     if (v1 == v2)
         return x1 == x2;

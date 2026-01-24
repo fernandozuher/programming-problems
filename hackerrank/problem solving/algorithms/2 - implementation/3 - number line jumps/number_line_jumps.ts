@@ -24,16 +24,18 @@ function readLine(): string {
 //////////////////////////////////////////////////
 
 function main() {
-  const positionsAndVelocities: number[] = readNumbers();
-  console.log(kangaroo(positionsAndVelocities) ? 'YES' : 'NO');
+  const initialState: number[] = readNumbers();
+  console.log(kangaroo(initialState) ? 'YES' : 'NO');
 }
 
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-function kangaroo(positionsAndVelocities: number[]): boolean {
-  const [x1, v1, x2, v2]: number[] = [...positionsAndVelocities];
+// T: O(1)
+// S: O(1) extra space
+function kangaroo(initialState: number[]): boolean {
+  const [x1, v1, x2, v2]: number[] = initialState;
 
   if (v1 === v2) return x1 === x2;
 

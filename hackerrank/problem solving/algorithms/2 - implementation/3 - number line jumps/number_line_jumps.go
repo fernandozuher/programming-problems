@@ -4,34 +4,33 @@ package main
 
 import "fmt"
 
+type State struct {
+    x1, v1, x2, v2 int
+}
+
 func main() {
-    const N = 4
-    if kangaroo(readNumbers(N)) {
+    initialState := readInput()
+    if kangaroo(initialState) {
         fmt.Println("YES")
     } else {
         fmt.Println("NO")
     }
 }
 
-func readNumbers(n int) []int {
-    arr := make([]int, n)
-    for i := range n {
-        _, _ = fmt.Scan(&arr[i])
-    }
-    return arr
+func readInput() State {
+    var s State
+    _, _ = fmt.Scan(&s.x1, &s.v1, &s.x2, &s.v2)
+    return s
 }
 
-func kangaroo(positionsAndVelocities []int) bool {
-    x1 := positionsAndVelocities[0]
-    v1 := positionsAndVelocities[1]
-    x2 := positionsAndVelocities[2]
-    v2 := positionsAndVelocities[3]
-
-    if v1 == v2 {
-        return x1 == x2
+// T: O(1)
+// S: O(1) extra space
+func kangaroo(s State) bool {
+    if s.v1 == s.v2 {
+        return s.x1 == s.x2
     }
 
-    distanceDiff := x2 - x1
-    velocityDiff := v1 - v2
+    distanceDiff := s.x2 - s.x1
+    velocityDiff := s.v1 - s.v2
     return distanceDiff*velocityDiff >= 0 && distanceDiff%velocityDiff == 0
 }

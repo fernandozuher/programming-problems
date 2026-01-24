@@ -4,30 +4,28 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
-bool kangaroo(const vector<int>& positions_and_velocities);
+tuple<int, int, int, int> read_input();
+bool kangaroo(const tuple<int, int, int, int>& initial_state);
 
 int main()
 {
-    constexpr int input_size{ 4 };
-    cout << (kangaroo(read_numbers(input_size)) ? "YES"s : "NO"s);
+    auto initial_state{ read_input() };
+    cout << (kangaroo(initial_state) ? "YES"s : "NO"s);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+tuple<int, int, int, int> read_input()
 {
-    vector<int> arr(n);
-    for (auto& x : arr)
-        cin >> x;
-    return arr;
+    int x1, v1, x2, v2;
+    cin >> x1 >> v1 >> x2 >> v2;
+    return { x1, v1, x2, v2 };
 }
 
-bool kangaroo(const vector<int>& positions_and_velocities)
+// T: O(1)
+// S: O(1) extra space
+bool kangaroo(const tuple<int, int, int, int>& initial_state)
 {
-    int x1{positions_and_velocities[0]};
-    int v1{positions_and_velocities[1]};
-    int x2{positions_and_velocities[2]};
-    int v2{positions_and_velocities[3]};
+    auto [x1, v1, x2, v2] { initial_state };
 
     if (v1 == v2)
         return x1 == x2;
