@@ -17,10 +17,12 @@ int main()
     return 0;
 }
 
+// T: O(n)
+// S: O(1) extra space (excluding the size of the resulting integer)
 vector<int> factorial(int n)
 {
     vector<int> factorial{ 1 };
-    for (int i{ 2 }; i <= n; ++i)
+    for (int i{ 1 }; i <= n; ++i)
         multiply_array_with_number(factorial, i);
     return factorial;
 }

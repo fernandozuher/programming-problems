@@ -9,6 +9,8 @@ def main():
     print(factorial(n))
 
 
+# T: O(n)
+# S: O(1) extra space (excluding the size of the resulting integer)
 def factorial(n):
     return reduce(operator.mul, range(1, n + 1))
 

@@ -8,6 +8,8 @@ fn main() {
     println!("{}", factorial(n));
 }
 
+// T: O(n)
+// S: O(1) extra space (excluding the size of the resulting integer)
 fn factorial(n: u32) -> BigUint {
     (1..=n).product()
 }

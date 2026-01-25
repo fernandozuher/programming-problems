@@ -5,7 +5,6 @@ using System.Numerics;
 int n = int.Parse(Console.ReadLine()!);
 Console.WriteLine(Factorial(n));
 
-BigInteger Factorial(int n)
-{
-    return Enumerable.Range(1, n).Select(x => (BigInteger)x).Aggregate(BigInteger.Multiply);
-}
+// T: O(n)
+// S: O(1) extra space (excluding the size of the resulting integer)
+BigInteger Factorial(int n) => Enumerable.Range(1, n).Select(x => (BigInteger)x).Aggregate(BigInteger.Multiply);

@@ -5,8 +5,10 @@ def main
   puts factorial(n)
 end
 
+# T: O(n)
+# S: O(1) extra space (excluding the size of the resulting integer)
 def factorial(n)
   (1..n).reduce(:*)
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
