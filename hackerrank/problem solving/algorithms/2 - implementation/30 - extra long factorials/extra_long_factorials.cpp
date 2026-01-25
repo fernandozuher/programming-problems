@@ -18,7 +18,7 @@ int main()
 }
 
 // T: O(n)
-// S: O(1) extra space (excluding the size of the resulting integer)
+// S: O(1) extra space (excluding the size of the output vector)
 vector<int> factorial(int n)
 {
     vector<int> factorial{ 1 };
