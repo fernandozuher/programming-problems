@@ -24,28 +24,26 @@ function readLine(): string {
 //////////////////////////////////////////////////
 
 function main() {
-  const initialString: string = readLine();
-  const finalString: string = readLine();
-  const nOperations: number = +readLine();
-  console.log(
-    appendAndDelete(initialString, finalString, nOperations) ? 'Yes' : 'No',
-  );
+  const s1: string = readLine();
+  const s2: string = readLine();
+  const nOps: number = +readLine();
+  console.log(appendAndDelete(s1, s2, nOps) ? 'Yes' : 'No');
 }
 
+// n1: length of string s1
+// n2: length of string s2
+// T: O(min(n1, n2))
+// S: O(1) extra space
 function appendAndDelete(s1: string, s2: string, nOps: number): boolean {
-  const prefixLen: number = commonPrefixLength(s1, s2);
-  const totalOpsNeeded: number =
-    s1.length - prefixLen + (s2.length - prefixLen);
-  const canRemoveAll: boolean = nOps >= s1.length + s2.length;
-  return (
-    canRemoveAll ||
-    (nOps >= totalOpsNeeded && (nOps - totalOpsNeeded) % 2 === 0)
-  );
+  const prefixLen = commonPrefixLength(s1, s2);
+  const opsNeeded = s1.length - prefixLen + (s2.length - prefixLen);
+  if (nOps < opsNeeded) return false;
+  if (nOps >= s1.length + s2.length) return true;
+  return (nOps - opsNeeded) % 2 === 0;
 }
 
 function commonPrefixLength(s1: string, s2: string): number {
   const minLen: number = Math.min(s1.length, s2.length);
-  for (let i = 0; i < minLen; i++)
-    if (s1[i] !== s2[i]) return i;
+  for (let i = 0; i < minLen; i++) if (s1[i] !== s2[i]) return i;
   return minLen;
 }

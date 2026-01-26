@@ -2,17 +2,22 @@
 // Java 25
 
 void main() {
-    String initialString = IO.readln();
-    String finalString = IO.readln();
-    int nOperations = Integer.parseInt(IO.readln());
-    IO.println(appendAndDelete(initialString, finalString, nOperations) ? "Yes" : "No");
+    String s1 = IO.readln();
+    String s2 = IO.readln();
+    int nOps = Integer.parseInt(IO.readln());
+    IO.println(appendAndDelete(s1, s2, nOps) ? "Yes" : "No");
 }
 
+// n1: length of string s1
+// n2: length of string s2
+// T: O(min(n1, n2))
+// S: O(1) extra space
 boolean appendAndDelete(String s1, String s2, int nOps) {
     int prefixLen = commonPrefixLength(s1, s2);
-    int totalOpsNeeded = (s1.length() - prefixLen) + (s2.length() - prefixLen);
-    boolean canRemoveAll = nOps >= s1.length() + s2.length();
-    return canRemoveAll || (nOps >= totalOpsNeeded && (nOps - totalOpsNeeded) % 2 == 0);
+    int opsNeeded = (s1.length() - prefixLen) + (s2.length() - prefixLen);
+    if (nOps < opsNeeded) return false;
+    if (nOps >= s1.length() + s2.length()) return true;
+    return (nOps - opsNeeded) % 2 == 0;
 }
 
 int commonPrefixLength(String s1, String s2) {

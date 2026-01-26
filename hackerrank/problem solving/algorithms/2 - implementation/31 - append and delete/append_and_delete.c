@@ -10,25 +10,33 @@ int common_prefix_length(const char *s1, int n1, const char *s2, int n2);
 int main()
 {
     constexpr int max_size = 101;
-    char initial_string[max_size], final_string[max_size];
-    scanf("%s %s", initial_string, final_string);
-    int n1 = strlen(initial_string);
-    int n2 = strlen(final_string);
+    char s1[max_size], s2[max_size];
+    scanf("%s %s", s1, s2);
+    int n1 = strlen(s1);
+    int n2 = strlen(s2);
+    int n_ops;
+    scanf("%d", &n_ops);
 
-    int n_operations;
-    scanf("%d", &n_operations);
-
-    append_and_delete(initial_string, n1, final_string, n2, n_operations) ? puts("Yes") : puts("No");
+    puts(append_and_delete(s1, n1, s2, n2, n_ops) ? "Yes" : "No");
 
     return 0;
 }
 
+// n1: length of string s1
+// n2: length of string s2
+// T: O(min(n1, n2))
+// S: O(1) extra space
 bool append_and_delete(const char *s1, int n1, const char *s2, int n2, int n_ops)
 {
     int prefix_len = common_prefix_length(s1, n1, s2, n2);
-    int total_ops_needed = (n1 - prefix_len) + (n2 - prefix_len);
-    bool can_remove_all = n_ops >= n1 + n2;
-    return can_remove_all || (n_ops >= total_ops_needed && (n_ops - total_ops_needed) % 2 == 0);
+    int ops_needed = (n1 - prefix_len) + (n2 - prefix_len);
+    if (n_ops < ops_needed)
+        return false;
+
+    if (n_ops >= n1 + n2)
+        return true;
+
+    return (n_ops - ops_needed) % 2 == 0;
 }
 
 int common_prefix_length(const char *s1, int n1, const char *s2, int n2)

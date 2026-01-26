@@ -4,29 +4,39 @@
 import std;
 using namespace std;
 
-bool append_and_delete(const string& s1, const string& s2, int n_ops);
-int common_prefix_length(const string& s1, const string& s2);
+bool append_and_delete(string_view s1, string_view s2, int n_ops);
+int common_prefix_length(string_view s1, string_view s2);
 
 int main()
 {
-    string initial_string, final_string;
-    int n_operations;
-    cin >> initial_string >> final_string >> n_operations;
-    cout << (append_and_delete(initial_string, final_string, n_operations) ? "Yes" : "No");
+    string s1, s2;
+    int n_ops;
+    cin >> s1 >> s2 >> n_ops;
+    cout << (append_and_delete(s1, s2, n_ops) ? "Yes" : "No");
     return 0;
 }
 
-bool append_and_delete(const string& s1, const string& s2, int n_ops)
+// n1: length of string s1
+// n2: length of string s2
+// T: O(min(n1, n2))
+// S: O(1) extra space
+bool append_and_delete(string_view s1, string_view s2, int n_ops)
 {
     int prefix_len{ common_prefix_length(s1, s2) };
-    int total_ops_needed = (s1.size() - prefix_len) + (s2.size() - prefix_len);
-    bool can_remove_all{ n_ops >= s1.size() + s2.size() };
-    return can_remove_all || (n_ops >= total_ops_needed && (n_ops - total_ops_needed) % 2 == 0);
+    int ops_needed = (s1.size() - prefix_len) + (s2.size() - prefix_len);
+    if (n_ops < ops_needed)
+        return false;
+
+    if (n_ops >= s1.size() + s2.size())
+        return true;
+
+    return (n_ops - ops_needed) % 2 == 0;
 }
 
-int common_prefix_length(const string& s1, const string& s2)
+int common_prefix_length(string_view s1, string_view s2)
 {
-    int min_len = min(s1.size(), s2.size());
-    int i{ -1 };
-    return ranges::any_of(views::zip(s1, s2), [&i](auto x) {++i; return get<0>(x) != get<1>(x); }) ? i : min_len;
+    for (auto [i, t] : views::zip(s1, s2) | views::enumerate)
+        if (auto [x, y] = t; x != y)
+            return i;
+    return min(s1.size(), s2.size());
 }
