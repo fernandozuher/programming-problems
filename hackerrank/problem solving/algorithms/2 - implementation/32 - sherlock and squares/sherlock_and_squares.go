@@ -17,6 +17,8 @@ func main() {
     }
 }
 
+// T: O(1)
+// S: O(1) extra space
 func squares(startNum, endNum int) int {
     maxSquare := int(math.Floor(math.Sqrt(float64(endNum))))
     minSquare := int(math.Ceil(math.Sqrt(float64(startNum))))

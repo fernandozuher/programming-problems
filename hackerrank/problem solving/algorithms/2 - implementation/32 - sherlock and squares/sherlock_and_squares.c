@@ -16,6 +16,8 @@ int main()
     }
 }
 
+// T: O(1)
+// S: O(1) extra space
 int squares(int start_num, int end_num)
 {
     int max_square = floor(sqrt(end_num));

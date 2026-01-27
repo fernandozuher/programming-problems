@@ -35,6 +35,8 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// T: O(1)
+// S: O(1) extra space
 function squares(startNum: number, endNum: number): number {
   const minSquare: number = Math.ceil(Math.sqrt(startNum));
   const maxSquare: number = Math.floor(Math.sqrt(endNum));

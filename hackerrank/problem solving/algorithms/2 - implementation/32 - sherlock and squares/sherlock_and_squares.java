@@ -13,6 +13,8 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// T: O(1)
+// S: O(1) extra space
 int squares(int startNum, int endNum) {
     int maxSquare = (int) Math.floor(Math.sqrt(endNum));
     int minSquare = (int) Math.ceil(Math.sqrt(startNum));

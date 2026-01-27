@@ -14,6 +14,8 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# T: O(1)
+# S: O(1) extra space
 def squares(start_num, end_num):
     max_square = int(math.floor(math.sqrt(end_num)))
     min_square = int(math.ceil(math.sqrt(start_num)))

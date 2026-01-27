@@ -11,6 +11,8 @@ fn main() {
     }
 }
 
+// T: O(1)
+// S: O(1) extra space
 fn squares(start_num: usize, end_num: usize) -> usize {
     let max_square = (end_num as f64).sqrt().floor() as usize;
     let min_square = (start_num as f64).sqrt().ceil() as usize;
