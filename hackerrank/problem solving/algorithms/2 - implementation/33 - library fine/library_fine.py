@@ -18,21 +18,28 @@ def read_date():
     return datetime(year, month, day)
 
 
+# T: O(1)
+# S: O(1) extra space
 def calculate_fine(return_date, due_date):
-    if returned_on_time(return_date, due_date):
-        return 0
-    if return_date.year > due_date.year:
+    if is_year_late(return_date, due_date):
         return HACKOS_YEARS_FINE
-    if return_date.year == due_date.year and return_date.month > due_date.month:
+    if is_month_late(return_date, due_date):
         return (return_date.month - due_date.month) * HACKOS_MONTHS_FINE
-    return (return_date.day - due_date.day) * HACKOS_DAYS_FINE
+    if is_day_late(return_date, due_date):
+        return (return_date.day - due_date.day) * HACKOS_DAYS_FINE
+    return 0
 
 
-def returned_on_time(return_date, due_date):
-    return (return_date.year < due_date.year) or \
-        ((return_date.year == due_date.year) and (return_date.month < due_date.month)) or \
-        ((return_date.year == due_date.year) and (return_date.month == due_date.month) and (
-                return_date.day <= due_date.day))
+def is_year_late(return_date, due_date):
+    return return_date.year > due_date.year
+
+
+def is_month_late(return_date, due_date):
+    return return_date.year == due_date.year and return_date.month > due_date.month
+
+
+def is_day_late(return_date, due_date):
+    return return_date.year == due_date.year and return_date.month == due_date.month and return_date.day > due_date.day
 
 
 if __name__ == '__main__':

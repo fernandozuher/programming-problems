@@ -22,22 +22,30 @@ fn read_date() -> NaiveDate {
     NaiveDate::from_ymd_opt(year, month, day).unwrap()
 }
 
+// T: O(1)
+// S: O(1) extra space
 fn calculate_fine(return_date: &NaiveDate, due_date: &NaiveDate) -> u32 {
-    if returned_on_time(return_date, due_date) {
-        0
-    } else if return_date.year() > due_date.year() {
+    if is_year_late(return_date, due_date) {
         HackosFine::HackosYearsFine as u32
-    } else if return_date.month() > due_date.month() {
+    } else if is_month_late(return_date, due_date) {
         (return_date.month() - due_date.month()) * HackosFine::HackosMonthsFine as u32
-    } else {
+    } else if is_day_late(return_date, due_date) {
         (return_date.day() - due_date.day()) * HackosFine::HackosDaysFine as u32
+    } else {
+        0
     }
 }
 
-fn returned_on_time(return_date: &NaiveDate, due_date: &NaiveDate) -> bool {
-    (return_date.year() < due_date.year())
-        || ((return_date.year() == due_date.year()) && (return_date.month() < due_date.month()))
-        || ((return_date.year() == due_date.year())
-            && (return_date.month() == due_date.month())
-            && (return_date.day() <= due_date.day()))
+fn is_year_late(return_date: &NaiveDate, due_date: &NaiveDate) -> bool {
+    return_date.year() > due_date.year()
+}
+
+fn is_month_late(return_date: &NaiveDate, due_date: &NaiveDate) -> bool {
+    return_date.year() == due_date.year() && return_date.month() > due_date.month()
+}
+
+fn is_day_late(return_date: &NaiveDate, due_date: &NaiveDate) -> bool {
+    return_date.year() == due_date.year()
+        && return_date.month() == due_date.month()
+        && return_date.day() > due_date.day()
 }

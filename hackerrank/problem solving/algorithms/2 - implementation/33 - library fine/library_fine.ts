@@ -23,13 +23,13 @@ function readLine(): string {
 
 //////////////////////////////////////////////////
 
-type DateTriple = { day: number; month: number; year: number };
-
 const HackosFine = Object.freeze({
   DaysFine: 15,
   MonthsFine: 500,
   YearsFine: 10000,
 });
+
+type DateTriple = { day: number; month: number; year: number };
 
 function main() {
   const returnDate: DateTriple = readDate();
@@ -42,20 +42,29 @@ function readDate(): DateTriple {
   return { day, month, year };
 }
 
-function calculateFine(returnDate: DateTriple, dueDate: DateTriple) {
-  if (returnedOnTime(returnDate, dueDate)) return 0;
-  if (returnDate.year > dueDate.year) return HackosFine.YearsFine;
-  if (returnDate.month > dueDate.month)
+// T: O(1)
+// S: O(1) extra space
+function calculateFine(returnDate: DateTriple, dueDate: DateTriple): number {
+  if (isYearLate(returnDate, dueDate)) return HackosFine.YearsFine;
+  if (isMonthLate(returnDate, dueDate))
     return (returnDate.month - dueDate.month) * HackosFine.MonthsFine;
-  return (returnDate.day - dueDate.day) * HackosFine.DaysFine;
+  if (isDayLate(returnDate, dueDate))
+    return (returnDate.day - dueDate.day) * HackosFine.DaysFine;
+  return 0;
 }
 
-function returnedOnTime(returnDate: DateTriple, dueDate: DateTriple): boolean {
+function isYearLate(returnDate: DateTriple, dueDate: DateTriple): boolean {
+  return returnDate.year > dueDate.year;
+}
+
+function isMonthLate(returnDate: DateTriple, dueDate: DateTriple): boolean {
+  return returnDate.year === dueDate.year && returnDate.month > dueDate.month;
+}
+
+function isDayLate(returnDate: DateTriple, dueDate: DateTriple): boolean {
   return (
-    returnDate.year < dueDate.year ||
-    (returnDate.year === dueDate.year && returnDate.month < dueDate.month) ||
-    (returnDate.year === dueDate.year &&
-      returnDate.month === dueDate.month &&
-      returnDate.day <= dueDate.day)
+    returnDate.year === dueDate.year &&
+    returnDate.month === dueDate.month &&
+    returnDate.day > dueDate.day
   );
 }

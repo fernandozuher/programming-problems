@@ -6,29 +6,39 @@ Console.WriteLine(CalculateFine(returnDate, dueDate));
 
 DateTime ReadDate()
 {
-    var nums = Console.ReadLine()!.Split().Select(int.Parse).ToArray();
-    int day = nums[0];
-    int month = nums[1];
-    int year = nums[2];
+    var arr = Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    int day = arr[0];
+    int month = arr[1];
+    int year = arr[2];
     return new DateTime(year, month, day);
 }
 
+// T: O(1)
+// S: O(1) extra space
 int CalculateFine(DateTime returnDate, DateTime dueDate)
 {
-    if (ReturnedOnTime(returnDate, dueDate))
-        return 0;
-    if (returnDate.Year > dueDate.Year)
+    if (IsYearLate(returnDate, dueDate))
         return (int)HackosFine.YearsFine;
-    if (returnDate.Month > dueDate.Month)
+    if (IsMonthLate(returnDate, dueDate))
         return (returnDate.Month - dueDate.Month) * (int)HackosFine.MonthsFine;
-    return (returnDate.Day - dueDate.Day) * (int)HackosFine.DaysFine;
+    if (IsDayLate(returnDate, dueDate))
+        return (returnDate.Day - dueDate.Day) * (int)HackosFine.DaysFine;
+    return 0;
 }
 
-bool ReturnedOnTime(DateTime returnDate, DateTime dueDate)
+bool IsYearLate(DateTime returnDate, DateTime dueDate)
 {
-    return (returnDate.Year < dueDate.Year) ||
-            ((returnDate.Year == dueDate.Year) && (returnDate.Month < dueDate.Month)) ||
-            ((returnDate.Year == dueDate.Year) && (returnDate.Month == dueDate.Month) && (returnDate.Day <= dueDate.Day));
+    return returnDate.Year > dueDate.Year;
+}
+
+bool IsMonthLate(DateTime returnDate, DateTime dueDate)
+{
+    return returnDate.Year == dueDate.Year && returnDate.Month > dueDate.Month;
+}
+
+bool IsDayLate(DateTime returnDate, DateTime dueDate)
+{
+    return returnDate.Year == dueDate.Year && returnDate.Month == dueDate.Month && returnDate.Day > dueDate.Day;
 }
 
 enum HackosFine

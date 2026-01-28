@@ -15,7 +15,9 @@ typedef struct {
 
 date read_date();
 int calculate_fine(const date *return_date, const date *due_date);
-bool returned_on_time(const date *return_date, const date *due_date);
+bool is_year_late(const date *return_date, const date *due_date);
+bool is_month_late(const date *return_date, const date *due_date);
+bool is_day_late(const date *return_date, const date *due_date);
 
 int main()
 {
@@ -32,21 +34,31 @@ date read_date()
     return input_date;
 }
 
+// T: O(1)
+// S: O(1) extra space
 int calculate_fine(const date *return_date, const date *due_date)
 {
-    if (returned_on_time(return_date, due_date))
-        return 0;
-    if (return_date->year > due_date->year)
+    if (is_year_late(return_date, due_date))
         return hackos_years_fine;
-    if (return_date->month > due_date->month)
+    if (is_month_late(return_date, due_date))
         return (return_date->month - due_date->month) * hackos_months_fine;
-    return (return_date->day - due_date->day) * hackos_days_fine;
+    if (is_day_late(return_date, due_date))
+        return (return_date->day - due_date->day) * hackos_days_fine;
+    return 0;
 }
 
-bool returned_on_time(const date *return_date, const date *due_date)
+bool is_year_late(const date *return_date, const date *due_date)
 {
-    return (return_date->year < due_date->year) ||
-           ((return_date->year == due_date->year) && (return_date->month < due_date->month)) ||
-           ((return_date->year == due_date->year) && (return_date->month == due_date->month) && (
-                return_date->day <= due_date->day));
+    return return_date->year > due_date->year;
+}
+
+bool is_month_late(const date *return_date, const date *due_date)
+{
+    return return_date->year == due_date->year && return_date->month > due_date->month;
+}
+
+bool is_day_late(const date *return_date, const date *due_date)
+{
+    return return_date->year == due_date->year && return_date->month == due_date->month
+           && return_date->day > due_date->day;
 }

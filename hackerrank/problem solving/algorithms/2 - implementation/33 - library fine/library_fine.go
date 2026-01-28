@@ -25,21 +25,29 @@ func readDate() time.Time {
     return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
 }
 
+// T: O(1)
+// S: O(1) extra space
 func calculateFine(returnDate, dueDate time.Time) int {
-    if returnedOnTime(returnDate, dueDate) {
-        return 0
-    }
-    if returnDate.Year() > dueDate.Year() {
+    if isYearLate(returnDate, dueDate) {
         return HackosYearsFine
     }
-    if returnDate.Month() > dueDate.Month() {
+    if isMonthLate(returnDate, dueDate) {
         return (int(returnDate.Month()) - int(dueDate.Month())) * HackosMonthsFine
     }
-    return (returnDate.Day() - dueDate.Day()) * HackosDaysFine
+    if isDayLate(returnDate, dueDate) {
+        return (returnDate.Day() - dueDate.Day()) * HackosDaysFine
+    }
+    return 0
 }
 
-func returnedOnTime(returnDate, dueDate time.Time) bool {
-    return (returnDate.Year() < dueDate.Year()) ||
-        ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) < int(dueDate.Month()))) ||
-        ((returnDate.Year() == dueDate.Year()) && (int(returnDate.Month()) == int(dueDate.Month())) && (returnDate.Day() <= dueDate.Day()))
+func isYearLate(returnDate, dueDate time.Time) bool {
+    return returnDate.Year() > dueDate.Year()
+}
+
+func isMonthLate(returnDate, dueDate time.Time) bool {
+    return returnDate.Year() == dueDate.Year() && returnDate.Month() > dueDate.Month()
+}
+
+func isDayLate(returnDate, dueDate time.Time) bool {
+    return returnDate.Year() == dueDate.Year() && returnDate.Month() == dueDate.Month() && returnDate.Day() > dueDate.Day()
 }

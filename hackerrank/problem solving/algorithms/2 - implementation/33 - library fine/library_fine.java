@@ -12,21 +12,32 @@ void main() {
 }
 
 LocalDate readDate() {
-    var nums = Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
-    int day = nums[0];
-    int month = nums[1];
-    int year = nums[2];
+    var arr = Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+    int day = arr[0];
+    int month = arr[1];
+    int year = arr[2];
     return LocalDate.of(year, month, day);
 }
 
+// T: O(1)
+// S: O(1) extra space
 int calculateFine(LocalDate returnDate, LocalDate dueDate) {
-    if (returnedOnTime(returnDate, dueDate)) return 0;
-    if (returnDate.getYear() > dueDate.getYear()) return HACKOS_YEARS_FINE;
-    if (returnDate.getMonthValue() > dueDate.getMonthValue())
+    if (isYearLate(returnDate, dueDate)) return HACKOS_YEARS_FINE;
+    if (isMonthLate(returnDate, dueDate))
         return (returnDate.getMonthValue() - dueDate.getMonthValue()) * HACKOS_MONTHS_FINE;
-    return (returnDate.getDayOfMonth() - dueDate.getDayOfMonth()) * HACKOS_DAYS_FINE;
+    if (isDayLate(returnDate, dueDate))
+        return (returnDate.getDayOfMonth() - dueDate.getDayOfMonth()) * HACKOS_DAYS_FINE;
+    return 0;
 }
 
-boolean returnedOnTime(LocalDate returnDate, LocalDate dueDate) {
-    return !returnDate.isAfter(dueDate);
+boolean isYearLate(LocalDate returnDate, LocalDate dueDate) {
+    return returnDate.getYear() > dueDate.getYear();
+}
+
+boolean isMonthLate(LocalDate returnDate, LocalDate dueDate) {
+    return returnDate.getYear() == dueDate.getYear() && returnDate.getMonthValue() > dueDate.getMonthValue();
+}
+
+boolean isDayLate(LocalDate returnDate, LocalDate dueDate) {
+    return returnDate.getYear() == dueDate.getYear() && returnDate.getMonthValue() == dueDate.getMonthValue() && returnDate.getDayOfMonth() > dueDate.getDayOfMonth();
 }

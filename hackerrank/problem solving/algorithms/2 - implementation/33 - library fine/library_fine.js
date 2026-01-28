@@ -64,21 +64,31 @@ function readDate() {
   return new DateThatWorks(day, month, year);
 }
 
+// T: O(1)
+// S: O(1) extra space
 function calculateFine(returnDate, dueDate) {
-  if (returnedOnTime(returnDate, dueDate)) return 0;
-  if (returnDate.year() > dueDate.year()) return HackosFine.YearsFine;
-  if (returnDate.month() > dueDate.month())
+  if (isYearLate(returnDate, dueDate)) return HackosFine.YearsFine;
+  if (isMonthLate(returnDate, dueDate))
     return (returnDate.month() - dueDate.month()) * HackosFine.MonthsFine;
-  return (returnDate.day() - dueDate.day()) * HackosFine.DaysFine;
+  if (isDayLate(returnDate, dueDate))
+    return (returnDate.day() - dueDate.day()) * HackosFine.DaysFine;
+  return 0;
 }
 
-function returnedOnTime(returnDate, dueDate) {
+function isYearLate(returnDate, dueDate) {
+  return returnDate.year() > dueDate.year();
+}
+
+function isMonthLate(returnDate, dueDate) {
   return (
-    returnDate.year() < dueDate.year() ||
-    (returnDate.year() === dueDate.year() &&
-      returnDate.month() < dueDate.month()) ||
-    (returnDate.year() === dueDate.year() &&
-      returnDate.month() === dueDate.month() &&
-      returnDate.day() <= dueDate.day())
+    returnDate.year() === dueDate.year() && returnDate.month() > dueDate.month()
+  );
+}
+
+function isDayLate(returnDate, dueDate) {
+  return (
+    returnDate.year() === dueDate.year() &&
+    returnDate.month() === dueDate.month() &&
+    returnDate.day() > dueDate.day()
   );
 }
