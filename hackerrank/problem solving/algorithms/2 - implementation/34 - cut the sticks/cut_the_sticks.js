@@ -27,18 +27,30 @@ function main() {
   readLine();
   const arr = readNumbers();
   arr.sort((a, b) => a - b);
-  cutTheSticks(arr).forEach((x) => console.log(x));
+  for (const x of cutTheSticks(arr)) console.log(x);
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of arr
+// k: number of distinct values in arr
+// T: O(n)
+//    Sorting arr before calling this function is O(n log n)
+// S: O(k), but O(n) in the worst case extra space
+//    Sorting arr before calling this function is O(n) extra space
 function cutTheSticks(arr) {
   const res = [];
-  for (let i = 0, n = arr.length; i < n; ) {
-    res.push(n - i);
-    for (const shortest = arr[i]; i < n && arr[i] === shortest; i++);
+  let slow = 0;
+  const n = arr.length;
+
+  for (let fast = 0; fast < n; fast++) {
+    if (arr[slow] === arr[fast]) continue;
+    res.push(n - slow);
+    slow = fast;
   }
+
+  res.push(n - slow);
   return res;
 }

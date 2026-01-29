@@ -5,18 +5,27 @@ int[] arr = ReadNumbers();
 Array.Sort(arr);
 CutTheSticks(arr).ForEach(Console.WriteLine);
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of arr
+// k: number of distinct values in arr
+// T: O(n)
+//    Sorting arr before calling this function is O(n log n)
+// S: O(k), but O(n) in the worst case extra space
+//    Sorting arr before calling this function is O(n) extra space
 List<int> CutTheSticks(int[] arr)
 {
     var res = new List<int>();
-    for (int i = 0, n = arr.Length; i < n;)
+    int slow = 0, n = arr.Length;
+
+    for (int fast = 0; fast < n; fast++)
     {
-        res.Add(n - i);
-        for (int shortest = arr[i]; i < n && arr[i] == shortest; i++);
+        if (arr[slow] == arr[fast])
+            continue;
+        res.Add(n - slow);
+        slow = fast;
     }
+
+    res.Add(n - slow);
     return res;
 }

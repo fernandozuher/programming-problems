@@ -14,8 +14,7 @@ int main()
     vector<int> arr{ read_numbers(n) };
     ranges::sort(arr);
     for (auto x : cut_the_sticks(arr))
-        cout << x << '\n';
-
+        println("{}", x);
     return 0;
 }
 
@@ -27,12 +26,24 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of arr
+// k: number of distinct values in arr
+// T: O(n)
+//    Sorting arr before calling this function is O(n log n)
+// S: O(k), but O(n) in the worst case extra space
+//    Sorting arr before calling this function is O(n) extra space
 vector<int> cut_the_sticks(const vector<int>& arr)
 {
     vector<int> res;
-    for (int i{}, n = arr.size(); i < n;) {
-        res.push_back(n - i);
-        for (const int shortest{ arr[i] }; i < n && arr[i] == shortest; ++i);
+    int slow{}, n = arr.size();
+
+    for (int fast{}; fast < n; ++fast) {
+        if (arr[slow] == arr[fast])
+            continue;
+        res.push_back(n - slow);
+        slow = fast;
     }
+
+    res.push_back(n - slow);
     return res;
 }

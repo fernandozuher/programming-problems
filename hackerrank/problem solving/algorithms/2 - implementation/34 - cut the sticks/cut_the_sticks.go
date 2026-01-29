@@ -25,11 +25,24 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of arr
+// k: number of distinct values in arr
+// T: O(n)
+//    Sorting arr before calling this function is O(n log n)
+// S: O(k), but O(n) in the worst case extra space
+//    Sorting arr before calling this function is O(n) extra space
 func cutTheSticks(arr []int) []int {
-    res := []int{}
-    for i, n := 0, len(arr); i < n; {
-        res = append(res, n-i)
-        for shortest := arr[i]; i < n && arr[i] == shortest; i++ {}
+    var res []int
+    slow, n := 0, len(arr)
+
+    for fast := range n {
+        if arr[slow] == arr[fast] {
+            continue
+        }
+        res = append(res, n-slow)
+        slow = fast
     }
+
+    res = append(res, n-slow)
     return res
 }

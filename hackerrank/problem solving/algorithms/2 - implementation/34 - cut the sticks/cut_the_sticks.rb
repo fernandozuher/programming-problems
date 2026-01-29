@@ -7,19 +7,26 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
+# n: length of arr
+# k: number of distinct values in arr
+# T: O(n)
+#    Sorting arr before calling this function is O(n log n)
+# S: O(k), but O(n) in the worst case extra space
+#    Sorting arr before calling this function is O(n) extra space
 def cut_the_sticks(arr)
   res = []
-  i = 0
-  n = arr.length
-  while i < n
-    res << (n - i)
-    shortest = arr[i]
-    i += 1 while i < n && arr[i] == shortest
+  slow, n = 0, arr.length
+
+  n.times do |fast|
+    next if arr[slow] == arr[fast]
+    res << n - slow
+    slow = fast
   end
-  res
+  
+  res << n - slow
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
