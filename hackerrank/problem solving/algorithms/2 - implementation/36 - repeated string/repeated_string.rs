@@ -13,15 +13,18 @@ fn main() {
     );
 }
 
+// n: length of string
+// T: O(n)
+// S: O(1) extra space
 fn count_in_repeated_string(string: &str, letter: char, n_characters: usize) -> usize {
     let (full_repeats, n_substring): (usize, usize) = div_rem(n_characters, string.len());
     let substring = &string[..n_substring];
 
-    let mut quantity: usize = count(string, letter);
-    quantity *= full_repeats;
-    quantity + count(substring, letter)
+    let mut count: usize = count_char(string, letter);
+    count *= full_repeats;
+    count + count_char(substring, letter)
 }
 
-fn count(string: &str, letter: char) -> usize {
+fn count_char(string: &str, letter: char) -> usize {
     string.chars().filter(|&c| c == letter).count()
 }

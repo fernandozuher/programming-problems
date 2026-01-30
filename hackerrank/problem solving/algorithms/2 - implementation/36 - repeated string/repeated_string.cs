@@ -5,13 +5,16 @@ long nCharacters = long.Parse(Console.ReadLine()!);
 const char letter = 'a';
 Console.WriteLine(CountInRepeatedString(inputString, letter, nCharacters));
 
+// n: length of string
+// T: O(n)
+// S: O(1) extra space
 long CountInRepeatedString(string inputString, char letter, long nCharacters)
 {
     long nSubstring;
     long fullRepeats = Math.DivRem(nCharacters, inputString.Length, out nSubstring);
-    var substring = inputString[..(int)nSubstring];
+    var substring = inputString.AsSpan(0, (int)nSubstring);
 
-    long quantity = inputString.Count(x => x == letter);
-    quantity *= fullRepeats;
-    return quantity + substring.Count(x => x == letter);
+    long count = inputString.Count(x => x == letter);
+    count *= fullRepeats;
+    return count + substring.Count(letter);
 }

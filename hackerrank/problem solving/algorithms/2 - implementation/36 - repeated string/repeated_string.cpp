@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-long long count_in_repeated_string(const string_view& input_string, char letter, long long n_characters);
+long long count_in_repeated_string(string_view input_string, char letter, long long n_characters);
 
 int main()
 {
@@ -18,12 +18,15 @@ int main()
     return 0;
 }
 
-long long count_in_repeated_string(const string_view& input_string, char letter, long long n_characters)
+// n: length of string
+// T: O(n)
+// S: O(1) extra space
+long long count_in_repeated_string(string_view input_string, char letter, long long n_characters)
 {
     auto [full_repeats, n_substring] {div(n_characters, input_string.length())};
     string_view substring{ input_string.begin(), input_string.begin() + n_substring };
 
-    auto quantity{ ranges::count(input_string, letter) };
-    quantity *= full_repeats;
-    return quantity + ranges::count(substring, letter);
+    auto count{ ranges::count(input_string, letter) };
+    count *= full_repeats;
+    return count + ranges::count(substring, letter);
 }

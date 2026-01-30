@@ -30,6 +30,9 @@ function main() {
   console.log(countInRepeatedString(inputString, letter, nCharacters));
 }
 
+// n: length of string
+// T: O(n)
+// S: O(1) extra space
 function countInRepeatedString(
   inputString: string,
   letter: string,
@@ -37,13 +40,16 @@ function countInRepeatedString(
 ) {
   const fullRepeats: number = Math.trunc(nCharacters / inputString.length);
   const nSubstring: number = nCharacters % inputString.length;
-  const substring: string = inputString.substring(0, nSubstring);
 
-  let quantity: number = count(inputString, letter);
-  quantity *= fullRepeats;
-  return quantity + count(substring, letter);
+  let count: number = countChar(inputString, inputString.length, letter);
+  count *= fullRepeats;
+  return count + count_char(inputString, nSubstring, letter);
 }
 
-function count(inputString: string, letter: string): number {
-  return (inputString.match(new RegExp(letter, 'g')) || []).length;
+function countChar(inputString: string, n: number, letter: string): number {
+  let count = 0;
+  for (let i = 0; i < n; i++) {
+    if (inputString[i] === letter) count++;
+  }
+  return count;
 }

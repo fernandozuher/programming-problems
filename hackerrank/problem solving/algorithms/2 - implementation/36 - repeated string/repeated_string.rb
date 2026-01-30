@@ -7,13 +7,16 @@ def main
   puts count_in_repeated_string(string, letter, n_characters)
 end
 
+# n: length of string
+# T: O(n)
+# S: O(1) extra space
 def count_in_repeated_string(string, letter, n_characters)
   full_repeats, n_substring = n_characters.divmod(string.size)
-  substring = string[0...n_substring]
 
-  quantity = string.count(letter)
-  quantity *= full_repeats
-  quantity + substring.count(letter)
+  count = string.count(letter)
+  count *= full_repeats
+  substring_count = (0...n_substring).count { |i| string[i] == letter }
+  count + substring_count
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
