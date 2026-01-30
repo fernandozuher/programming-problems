@@ -30,7 +30,7 @@ function main() {
   console.log(countInRepeatedString(inputString, letter, nCharacters));
 }
 
-// n: length of string
+// n: length of inputString
 // T: O(n)
 // S: O(1) extra space
 function countInRepeatedString(inputString, letter, nCharacters) {

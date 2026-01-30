@@ -15,7 +15,7 @@ func main() {
     fmt.Println(countInRepeatedString(inputString, letter, nCharacters))
 }
 
-// n: length of string
+// n: length of inputString
 // T: O(n)
 // S: O(1) extra space
 func countInRepeatedString(inputString string, letter rune, nCharacters int64) int64 {

@@ -8,7 +8,7 @@ void main() {
     IO.println(countInRepeatedString(inputString, letter, nCharacters));
 }
 
-// n: length of string
+// n: length of inputString
 // T: O(n)
 // S: O(1) extra space
 long countInRepeatedString(String inputString, char letter, long nCharacters) {

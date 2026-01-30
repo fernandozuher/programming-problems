@@ -5,7 +5,7 @@ long nCharacters = long.Parse(Console.ReadLine()!);
 const char letter = 'a';
 Console.WriteLine(CountInRepeatedString(inputString, letter, nCharacters));
 
-// n: length of string
+// n: length of inputString
 // T: O(n)
 // S: O(1) extra space
 long CountInRepeatedString(string inputString, char letter, long nCharacters)

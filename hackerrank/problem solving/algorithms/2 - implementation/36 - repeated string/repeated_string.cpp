@@ -18,7 +18,7 @@ int main()
     return 0;
 }
 
-// n: length of string
+// n: length of input_string
 // T: O(n)
 // S: O(1) extra space
 long long count_in_repeated_string(string_view input_string, char letter, long long n_characters)
