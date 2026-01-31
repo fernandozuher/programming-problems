@@ -2,29 +2,33 @@
 
 def main():
     input()
-    print(minimum_number_of_jumps(read_numbers()))
+    print(min_jumps(read_numbers()))
 
 
 def read_numbers():
     return list(map(int, input().split()))
 
 
-def minimum_number_of_jumps(clouds):
+# n: length of array clouds
+# T: O(n)
+# S: O(1) extra space
+def min_jumps(clouds):
     i = 0
     n = len(clouds) - 1
     jumps = 0
 
     while i < n:
-        i += next_jump(i, clouds)
+        i += skip(i, clouds)
         jumps += 1
     return jumps
 
 
-def next_jump(index, clouds):
-    if index + 2 < len(clouds):
-        if is_next_second_cloud_cumulus := clouds[index + 2] == 0:
-            return 2
-    return 1
+def skip(idx, clouds):
+    return 2 if is_next_second_cloud_cumulus(idx, clouds) else 1
+
+
+def is_next_second_cloud_cumulus(idx, clouds):
+    return idx + 2 < len(clouds) and clouds[idx + 2] == 0
 
 
 if __name__ == '__main__':

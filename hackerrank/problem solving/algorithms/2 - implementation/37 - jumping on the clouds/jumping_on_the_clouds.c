@@ -4,8 +4,9 @@
 #include <stdio.h>
 
 void read_numbers(int *arr, int n);
-int minimum_number_of_jumps(const int *clouds, int n);
-int next_jump(int index, const int *clouds, int n);
+int min_jumps(const int *clouds, int n);
+int skip(int idx, const int *clouds, int n);
+bool is_next_second_cloud_cumulus(int idx, const int *clouds, int n);
 
 int main()
 {
@@ -13,8 +14,7 @@ int main()
     scanf("%d", &n);
     int clouds[n];
     read_numbers(clouds, n);
-    printf("%d\n", minimum_number_of_jumps(clouds, n));
-
+    printf("%d\n", min_jumps(clouds, n));
     return 0;
 }
 
@@ -24,18 +24,22 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-int minimum_number_of_jumps(const int *clouds, int n)
+// n: length of array clouds
+// T: O(n)
+// S: O(1) extra space
+int min_jumps(const int *clouds, int n)
 {
     int jumps = 0;
-    for (int i = 0, size = n - 1; i < size; i += next_jump(i, clouds, n))
-        ++jumps;
+    for (int i = 0, size = n - 1; i < size; i += skip(i, clouds, n), ++jumps);
     return jumps;
 }
 
-int next_jump(int index, const int *clouds, int n)
+int skip(int idx, const int *clouds, int n)
 {
-    bool is_next_second_cloud_cumulus = false;
-    if (index + 2 < n)
-        is_next_second_cloud_cumulus = clouds[index + 2] == 0;
-    return is_next_second_cloud_cumulus ? 2 : 1;
+    return is_next_second_cloud_cumulus(idx, clouds, n) ? 2 : 1;
+}
+
+bool is_next_second_cloud_cumulus(int idx, const int *clouds, int n)
+{
+    return idx + 2 < n && clouds[idx + 2] == 0;
 }

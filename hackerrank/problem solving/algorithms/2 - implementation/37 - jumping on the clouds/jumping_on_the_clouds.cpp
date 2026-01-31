@@ -5,14 +5,15 @@ import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
-int minimum_number_of_jumps(const vector<int>& clouds);
-int next_jump(int index, const vector<int>& clouds);
+int min_jumps(const vector<int>& clouds);
+int skip(int idx, const vector<int>& clouds);
+bool is_next_second_cloud_cumulus(int idx, const vector<int>& clouds);
 
 int main()
 {
     int n;
     cin >> n;
-    cout << minimum_number_of_jumps(read_numbers(n));
+    cout << min_jumps(read_numbers(n));
     return 0;
 }
 
@@ -24,18 +25,22 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-int minimum_number_of_jumps(const vector<int>& clouds)
+// n: length of array clouds
+// T: O(n)
+// S: O(1) extra space
+int min_jumps(const vector<int>& clouds)
 {
     int jumps{};
-    for (int i{}, n = clouds.size() - 1; i < n; i += next_jump(i, clouds))
-        ++jumps;
+    for (int i{}, size = clouds.size() - 1; i < size; i += skip(i, clouds), ++jumps);
     return jumps;
 }
 
-int next_jump(int index, const vector<int>& clouds)
+int skip(int idx, const vector<int>& clouds)
 {
-    if (index + 2 < clouds.size())
-        if (bool is_next_second_cloud_cumulus{ clouds[index + 2] == 0 })
-            return 2;
-    return 1;
+    return is_next_second_cloud_cumulus(idx, clouds) ? 2 : 1;
+}
+
+bool is_next_second_cloud_cumulus(int idx, const vector<int>& clouds)
+{
+    return idx + 2 < clouds.size() && clouds.at(idx + 2) == 0;
 }

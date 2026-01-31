@@ -1,25 +1,20 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem?isFullScreen=true
 
 Console.ReadLine();
-Console.WriteLine(MinimumNumberOfJumps(ReadNumbers()));
+Console.WriteLine(MinJumps(ReadNumbers()));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-int MinimumNumberOfJumps(int[] clouds)
+// n: length of array clouds
+// T: O(n)
+// S: O(1) extra space
+int MinJumps(int[] clouds)
 {
     int jumps = 0;
-    for (int i = 0, n = clouds.Length - 1; i < n; i += NextJump(i, clouds))
-        jumps++;
+    for (int i = 0, n = clouds.Length - 1; i < n; i += Skip(i, clouds), jumps++);
     return jumps;
 }
 
-int NextJump(int index, int[] clouds)
-{
-    bool isNextSecondCloudCumulus = false;
-    if (index + 2 < clouds.Length)
-        isNextSecondCloudCumulus = clouds[index + 2] == 0;
-    return isNextSecondCloudCumulus ? 2 : 1;
-}
+int Skip(int idx, int[] clouds) => IsNextSecondCloudCumulus(idx, clouds) ? 2 : 1;
+
+bool IsNextSecondCloudCumulus(int idx, int[] clouds) => idx + 2 < clouds.Length && clouds[idx + 2] == 0;

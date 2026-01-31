@@ -25,23 +25,26 @@ function readLine(): string {
 
 function main() {
   readLine();
-  console.log(minimumNumberOfJumps(readNumbers()));
+  console.log(minJumps(readNumbers()));
 }
 
 function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-function minimumNumberOfJumps(clouds: number[]) {
+// n: length of array clouds
+// T: O(n)
+// S: O(1) extra space
+function minJumps(clouds: number[]) {
   let jumps = 0;
-  for (let i = 0, n = clouds.length - 1; i < n; i += nextJump(i, clouds))
-    jumps++;
+  for (let i = 0, n = clouds.length - 1; i < n; i += skip(i, clouds), jumps++);
   return jumps;
 }
 
-function nextJump(index: number, clouds: number[]): number {
-  let isNextSecondCloudCumulus = false;
-  if (index + 2 < clouds.length)
-    isNextSecondCloudCumulus = clouds[index + 2] === 0;
-  return isNextSecondCloudCumulus ? 2 : 1;
+function skip(idx: number, clouds: number[]): number {
+  return isNextSecondCloudCumulus(idx, clouds) ? 2 : 1;
+}
+
+function isNextSecondCloudCumulus(idx: number, clouds: number[]): boolean {
+  return idx + 2 < clouds.length && clouds[idx + 2] === 0;
 }
