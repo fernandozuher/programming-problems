@@ -25,16 +25,18 @@ function readLine() {
 
 function main() {
   readLine();
-  console.log(equalizeArray(readNumbers()));
+  console.log(minDeletionsToEqualize(readNumbers()));
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-function equalizeArray(arr) {
-  const maxCount = Math.max(...Object.values(counter(arr)));
-  return arr.length - maxCount;
+// n: length of arr, 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(n) = O(100) = O(1) extra space
+function minDeletionsToEqualize(arr) {
+  return arr.length - Math.max(...Object.values(counter(arr)));
 }
 
 function counter(arr) {

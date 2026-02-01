@@ -7,7 +7,7 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    fmt.Println(equalizeArray(readNumbers(n)))
+    fmt.Println(minDeletionsToEqualize(readNumbers(n)))
 }
 
 func readNumbers(n int) []int {
@@ -18,7 +18,10 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func equalizeArray(arr []int) int {
+// n: length of arr, 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(n) = O(100) = O(1) extra space
+func minDeletionsToEqualize(arr []int) int {
     maxCount := 0
     for _, count := range counter(arr) {
         if count > maxCount {

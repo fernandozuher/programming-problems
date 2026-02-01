@@ -3,16 +3,18 @@
 
 void main() {
     IO.readln();
-    IO.println(equalizeArray(readNumbers()));
+    IO.println(minDeletionsToEqualize(readNumbers()));
 }
 
 int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-int equalizeArray(int[] arr) {
-    int maxCount = Collections.max(counter(arr).values());
-    return arr.length - maxCount;
+// n: length of arr, 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(n) = O(100) = O(1) extra space
+int minDeletionsToEqualize(int[] arr) {
+    return arr.length - Collections.max(counter(arr).values());
 }
 
 HashMap<Integer, Integer> counter(int[] arr) {
