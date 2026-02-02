@@ -39,10 +39,10 @@ int between_two_sets(const int *a, int n1, const int *b, int n2)
 
 int reduce(const int *arr, int n, int func(int a, int b))
 {
-    int res = arr[0];
+    int acc = arr[0];
     for (int i = 1; i < n; ++i)
-        res = func(res, arr[i]);
-    return res;
+        acc = func(acc, arr[i]);
+    return acc;
 }
 
 int lcm(int a, int b)

@@ -34,11 +34,11 @@ func betweenTwoSets(a, b []int) int {
 }
 
 func reduce(arr []int, function func(int, int) int) int {
-    res := arr[0]
+    acc := arr[0]
     for _, x := range arr[1:] {
-        res = function(res, x)
+        acc = function(acc, x)
     }
-    return res
+    return acc
 }
 
 func lcm(a, b int) int {

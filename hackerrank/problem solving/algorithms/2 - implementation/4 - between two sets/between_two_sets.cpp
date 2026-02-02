@@ -6,7 +6,7 @@ using namespace std;
 
 vector<int> read_numbers(int n);
 int between_two_sets(const vector<int>& a, const vector<int>& b);
-template<typename Func>
+template<class Func>
 int reduce(const vector<int>& arr, Func func);
 
 int main()
@@ -36,7 +36,7 @@ int between_two_sets(const vector<int>& a, const vector<int>& b)
         [gcd_of_b](auto i) { return gcd_of_b % i == 0; });
 }
 
-template<typename Func>
+template<class Func>
 int reduce(const vector<int>& arr, Func func)
 {
     return *ranges::fold_left_first(arr, func);
