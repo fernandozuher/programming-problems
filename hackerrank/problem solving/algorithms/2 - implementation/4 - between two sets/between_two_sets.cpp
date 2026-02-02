@@ -6,8 +6,8 @@ using namespace std;
 
 vector<int> read_numbers(int n);
 int between_two_sets(const vector<int>& a, const vector<int>& b);
-int lcm_array(const vector<int>& arr);
-int gcd_array(const vector<int>& arr);
+template<typename Func>
+int reduce(const vector<int>& arr, Func func);
 
 int main()
 {
@@ -29,23 +29,15 @@ vector<int> read_numbers(int n)
 
 int between_two_sets(const vector<int>& a, const vector<int>& b)
 {
-    int lcm_of_a{ lcm_array(a) };
-    int gcd_of_b{ gcd_array(b) };
-
-    auto rng{
-        views::iota(lcm_of_a, gcd_of_b + 1)
-        | views::stride(lcm_of_a)
-        | views::filter([gcd_of_b](auto i) { return gcd_of_b % i == 0; })
-    };
-    return static_cast<int>(ranges::distance(rng));
+    int lcm_of_a{ reduce(a, lcm<int, int>) };
+    int gcd_of_b{ reduce(b, gcd<int, int>) };
+    return ranges::count_if(
+        views::iota(lcm_of_a, gcd_of_b + 1) | views::stride(lcm_of_a),
+        [gcd_of_b](auto i) { return gcd_of_b % i == 0; });
 }
 
-int lcm_array(const vector<int>& arr)
+template<typename Func>
+int reduce(const vector<int>& arr, Func func)
 {
-    return *ranges::fold_left_first(arr, lcm<int, int>);
-}
-
-int gcd_array(const vector<int>& arr)
-{
-    return *ranges::fold_left_first(arr, gcd<int, int>);
+    return *ranges::fold_left_first(arr, func);
 }

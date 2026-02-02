@@ -18,12 +18,7 @@ def read_numbers():
 def between_two_sets(a, b):
     lcm_of_a = reduce(math.lcm, a)
     gcd_of_b = reduce(math.gcd, b)
-
-    count = 0
-    for i in range(lcm_of_a, gcd_of_b + 1, lcm_of_a):
-        if gcd_of_b % i == 0:
-            count += 1
-    return count
+    return sum(gcd_of_b % i == 0 for i in range(lcm_of_a, gcd_of_b + 1, lcm_of_a))
 
 
 if __name__ == '__main__':

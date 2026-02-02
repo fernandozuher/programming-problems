@@ -16,18 +16,14 @@ fn read_numbers(n: usize) -> Vec<i32> {
 }
 
 fn between_two_sets(a: &[i32], b: &[i32]) -> usize {
-    let lcm_of_a: i32 = lcm_array(&a);
-    let gcd_of_b: i32 = gcd_array(&b);
+    let lcm_of_a = reduce(a, lcm) as usize;
+    let gcd_of_b = reduce(b, gcd) as usize;
     (lcm_of_a..=gcd_of_b)
-        .step_by(lcm_of_a as usize)
+        .step_by(lcm_of_a)
         .filter(|i| gcd_of_b % i == 0)
         .count()
 }
 
-fn lcm_array(arr: &[i32]) -> i32 {
-    arr.iter().copied().reduce(lcm).unwrap()
-}
-
-fn gcd_array(arr: &[i32]) -> i32 {
-    arr.iter().copied().reduce(gcd).unwrap()
+fn reduce(arr: &[i32], func: fn(i32, i32) -> i32) -> i32 {
+    arr.iter().copied().reduce(func).unwrap()
 }

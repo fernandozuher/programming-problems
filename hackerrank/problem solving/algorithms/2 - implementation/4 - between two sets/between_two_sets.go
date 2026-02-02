@@ -21,8 +21,8 @@ func readNumbers(n int) []int {
 }
 
 func betweenTwoSets(a, b []int) int {
-    lcmOfA := lcmArray(a)
-    gcdOfB := gcdArray(b)
+    lcmOfA := reduce(a, lcm)
+    gcdOfB := reduce(b, gcd)
 
     count := 0
     for i := lcmOfA; i <= gcdOfB; i += lcmOfA {
@@ -33,24 +33,16 @@ func betweenTwoSets(a, b []int) int {
     return count
 }
 
-func lcmArray(arr []int) int {
+func reduce(arr []int, function func(int, int) int) int {
     res := arr[0]
     for _, x := range arr[1:] {
-        res = lcm(res, x)
+        res = function(res, x)
     }
     return res
 }
 
 func lcm(a, b int) int {
     return (a * b) / gcd(a, b)
-}
-
-func gcdArray(arr []int) int {
-    res := arr[0]
-    for _, x := range arr[1:] {
-        res = gcd(res, x)
-    }
-    return res
 }
 
 func gcd(a, b int) int {

@@ -35,8 +35,8 @@ function readNumbers() {
 }
 
 function betweenTwoSets(a, b) {
-  const lcmOfA = lcmArray(a);
-  const gcdOfB = gcdArray(b);
+  const lcmOfA = a.reduce(lcm);
+  const gcdOfB = b.reduce(gcd);
 
   let count = 0;
   for (let i = lcmOfA; i <= gcdOfB; i += lcmOfA) {
@@ -45,16 +45,8 @@ function betweenTwoSets(a, b) {
   return count;
 }
 
-function lcmArray(arr) {
-  return arr.reduce(lcm);
-}
-
 function lcm(a, b) {
   return (a * b) / gcd(a, b);
-}
-
-function gcdArray(arr) {
-  return arr.reduce(gcd);
 }
 
 function gcd(a, b) {

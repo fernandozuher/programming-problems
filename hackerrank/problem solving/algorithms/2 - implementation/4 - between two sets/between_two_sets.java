@@ -13,25 +13,19 @@ int[] readNumbers() {
 }
 
 int betweenTwoSets(int[] a, int[] b) {
-    int lcmOfA = lcmArray(a);
-    int gcdOfB = gcdArray(b);
-
-    int count = 0;
-    for (int i = lcmOfA; i <= gcdOfB; i += lcmOfA)
-        if (gcdOfB % i == 0) count++;
-    return count;
+    int lcmOfA = reduce(a, this::lcm);
+    int gcdOfB = reduce(b, this::gcd);
+    return (int) IntStream.iterate(lcmOfA, i -> i <= gcdOfB, i -> i + lcmOfA)
+            .filter(i -> gcdOfB % i == 0)
+            .count();
 }
 
-int lcmArray(int[] arr) {
-    return Arrays.stream(arr).reduce(this::lcm).getAsInt();
+int reduce(int[] arr, IntBinaryOperator func) {
+    return Arrays.stream(arr).reduce(func).orElse(0);
 }
 
 int lcm(int a, int b) {
     return a * b / gcd(a, b);
-}
-
-int gcdArray(int[] arr) {
-    return Arrays.stream(arr).reduce(this::gcd).getAsInt();
 }
 
 int gcd(int a, int b) {

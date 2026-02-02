@@ -4,9 +4,8 @@
 
 void read_numbers(int *arr, int n);
 int between_two_sets(const int *a, int n1, const int *b, int n2);
-int lcm_array(const int *arr, int n);
+int reduce(const int *arr, int n, int func(int a, int b));
 int lcm(int a, int b);
-int gcd_array(const int *arr, int n);
 int gcd(int a, int b);
 
 int main()
@@ -28,8 +27,8 @@ void read_numbers(int *arr, int n)
 
 int between_two_sets(const int *a, int n1, const int *b, int n2)
 {
-    int lcm_of_a = lcm_array(a, n1);
-    int gcd_of_b = gcd_array(b, n2);
+    int lcm_of_a = reduce(a, n1, lcm);
+    int gcd_of_b = reduce(b, n2, gcd);
 
     int count = 0;
     for (int i = lcm_of_a; i <= gcd_of_b; i += lcm_of_a)
@@ -38,25 +37,17 @@ int between_two_sets(const int *a, int n1, const int *b, int n2)
     return count;
 }
 
-int lcm_array(const int *arr, int n)
+int reduce(const int *arr, int n, int func(int a, int b))
 {
     int res = arr[0];
     for (int i = 1; i < n; ++i)
-        res = lcm(res, arr[i]);
+        res = func(res, arr[i]);
     return res;
 }
 
 int lcm(int a, int b)
 {
     return a * b / gcd(a, b);
-}
-
-int gcd_array(const int *arr, int n)
-{
-    int res = arr[0];
-    for (int i = 1; i < n; ++i)
-        res = gcd(res, arr[i]);
-    return res;
 }
 
 int gcd(int a, int b)

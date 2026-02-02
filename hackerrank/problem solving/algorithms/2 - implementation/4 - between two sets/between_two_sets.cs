@@ -5,15 +5,12 @@ int[] a = ReadNumbers();
 int[] b = ReadNumbers();
 Console.WriteLine(BetweenTwoSets(a, b));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
 
 int BetweenTwoSets(int[] a, int[] b)
 {
-    int lcmOfA = LcmArray(a);
-    int gcdOfB = GcdArray(b);
+    int lcmOfA = a.Aggregate(LCM);
+    int gcdOfB = b.Aggregate(GCD);
 
     int count = 0;
     for (int i = lcmOfA; i <= gcdOfB; i += lcmOfA)
@@ -22,28 +19,18 @@ int BetweenTwoSets(int[] a, int[] b)
     return count;
 }
 
-int LcmArray(int[] arr)
+int LCM(int a, int b)
 {
-    return arr.Aggregate(Lcm);
+    return a * b / GCD(a, b);
 }
 
-int Lcm(int a, int b)
-{
-    return a * b / Gcd(a, b);
-}
-
-int GcdArray(int[] arr)
-{
-    return arr.Aggregate(Gcd);
-}
-
-int Gcd(int a, int b)
+int GCD(int a, int b)
 {
     while (b != 0)
     {
-        int temp = b;
+        int t = b;
         b = a % b;
-        a = temp;
+        a = t;
     }
     return a;
 }

@@ -8,7 +8,7 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets&.split&.map!(&:to_i)
 end
 
 def between_two_sets(a, b)
@@ -17,4 +17,4 @@ def between_two_sets(a, b)
   (lcm_of_a..gcd_of_b).step(lcm_of_a).count { |i| gcd_of_b % i == 0 }
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
