@@ -42,7 +42,7 @@ function acmTeam(binaries) {
   let teamsWithMax = 0;
 
   for (let i = 0, n1 = binaries.length - 1; i < n1; i++) {
-    for (let j = i + 1, n2 = binaries.length; j < n2; j++) {
+    for (let j = i + 1; j < binaries.length; j++) {
       const knownSubjects = countSubjectsKnownBy2Teams(
         binaries[i],
         binaries[j],
