@@ -3,23 +3,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 char **read_binaries(int n1, int n2);
-void acm_team(char **binaries, int n, int *res);
-int count_subjects_known_by_2_teams(const char *a, const char *b);
+void acm_team(char **binaries, int n, int n_topics, int *res);
+int count_subjects_known_by_2_teams(const char *a, const char *b, int n);
 
 int main()
 {
-    int attendees, topics;
-    scanf("%d %d", &attendees, &topics);
-    char **binaries = read_binaries(attendees, topics);
+    int n, m;
+    scanf("%d %d", &n, &m);
+    char **binaries = read_binaries(n, m);
 
     int res[2];
-    acm_team(binaries, attendees, res);
+    acm_team(binaries, n, m, res);
     printf("%d\n%d", res[0], res[1]);
 
-    for (int i = 0; i < attendees; ++i)
+    for (int i = 0; i < n; ++i)
         free(binaries[i]);
     free(binaries);
 
@@ -36,14 +35,14 @@ char **read_binaries(int n1, int n2)
     return binaries;
 }
 
-void acm_team(char **binaries, int n, int *res)
+void acm_team(char **binaries, int n, int n_topics, int *res)
 {
     int max_subjects = 0;
     int teams_with_max = 0;
 
     for (int i = 0, n1 = n - 1; i < n1; ++i)
         for (int j = i + 1; j < n; ++j) {
-            int known_subjects = count_subjects_known_by_2_teams(binaries[i], binaries[j]);
+            int known_subjects = count_subjects_known_by_2_teams(binaries[i], binaries[j], n_topics);
 
             if (known_subjects > max_subjects) {
                 max_subjects = known_subjects;
@@ -56,11 +55,10 @@ void acm_team(char **binaries, int n, int *res)
     res[1] = teams_with_max;
 }
 
-int count_subjects_known_by_2_teams(const char *a, const char *b)
+int count_subjects_known_by_2_teams(const char *a, const char *b, int n)
 {
     int count = 0;
-    for (int i = 0, n = strlen(a); i < n; ++i)
-        if (a[i] == '1' || b[i] == '1')
-            ++count;
+    for (int i = 0; i < n; ++i)
+        count += a[i] == '1' || b[i] == '1';
     return count;
 }

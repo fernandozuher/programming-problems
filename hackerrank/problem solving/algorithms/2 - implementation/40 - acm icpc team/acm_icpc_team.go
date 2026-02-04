@@ -5,9 +5,9 @@ package main
 import "fmt"
 
 func main() {
-    var attendees, n int
-    _, _ = fmt.Scan(&attendees, &n)
-    binaries := readBinaries(attendees)
+    var n, m int
+    _, _ = fmt.Scan(&n, &m)
+    binaries := readBinaries(n)
     maxSubjects, teamsWithMax := acmTeam(binaries)
     fmt.Println(maxSubjects)
     fmt.Println(teamsWithMax)

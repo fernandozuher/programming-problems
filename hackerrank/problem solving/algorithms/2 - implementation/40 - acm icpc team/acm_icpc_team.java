@@ -2,8 +2,8 @@
 // Java 25
 
 void main() {
-    int attendees = readNumbers()[0];
-    List<BitSet> binaries = readBinaries(attendees);
+    int n = readNumbers()[0];
+    List<BitSet> binaries = readBinaries(n);
     acmTeam(binaries).forEach(IO::println);
 }
 

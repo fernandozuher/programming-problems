@@ -1,42 +1,48 @@
 // https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
-use combinations::Combinations;
 use text_io::read;
 
 fn main() {
-    let attendees: usize = read!();
+    let n: usize = read!();
     let _: usize = read!();
-    let binaries: Vec<String> = read_binaries(attendees);
-    for x in acm_team(binaries) {
-        println!("{}", x);
-    }
+    let binaries: Vec<Vec<u8>> = read_binaries(n);
+    let [max_subjects, teams_with_max] = acm_team(&binaries);
+    println!("{}", max_subjects);
+    println!("{}", teams_with_max);
 }
 
-fn read_binaries(n: usize) -> Vec<String> {
-    (0..n).map(|_| read!()).collect()
+fn read_binaries(n: usize) -> Vec<Vec<u8>> {
+    (0..n)
+        .map(|_| {
+            let s: String = read!();
+            s.into_bytes()
+        })
+        .collect()
 }
 
-fn acm_team(binaries: Vec<String>) -> [usize; 2] {
+fn acm_team(binaries: &[Vec<u8>]) -> [usize; 2] {
     let mut max_subjects: usize = 0;
     let mut teams_with_max: usize = 0;
 
-    for c in Combinations::new(binaries, 2).collect::<Vec<_>>() {
-        let known_subjects: usize = count_subjects_known_by_2_teams(&c[0], &c[1]);
+    for i in 0..binaries.len() {
+        for j in (i + 1)..binaries.len() {
+            let known_subjects: usize = count_subjects_known_by_2_teams(&binaries[i], &binaries[j]);
 
-        if known_subjects > max_subjects {
-            max_subjects = known_subjects;
-            teams_with_max = 1;
-        } else if known_subjects == max_subjects {
-            teams_with_max += 1;
+            if known_subjects > max_subjects {
+                max_subjects = known_subjects;
+                teams_with_max = 1;
+            } else if known_subjects == max_subjects {
+                teams_with_max += 1;
+            }
         }
     }
 
     [max_subjects, teams_with_max]
 }
 
-fn count_subjects_known_by_2_teams(a: &str, b: &str) -> usize {
-    a.chars()
-        .zip(b.chars())
-        .filter(|(ac, bc)| *ac == '1' || *bc == '1')
+fn count_subjects_known_by_2_teams(a: &[u8], b: &[u8]) -> usize {
+    a.iter()
+        .zip(b.iter())
+        .filter(|(&ac, &bc)| ac == b'1' || bc == b'1')
         .count()
 }

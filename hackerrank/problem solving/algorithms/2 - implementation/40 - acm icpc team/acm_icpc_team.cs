@@ -2,13 +2,11 @@
 
 using System.Numerics;
 
-int attendees = ReadNumbers()[0];
-List<BigInteger> binaries = ReadBinaries(attendees);
+int n = ReadNumbers()[0];
+List<BigInteger> binaries = ReadBinaries(n);
 AcmTeam(binaries).ForEach(x => Console.WriteLine(x));
 
-int[] ReadNumbers() {
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 List<BigInteger> ReadBinaries(int n)
 {
@@ -42,7 +40,4 @@ List<BigInteger> AcmTeam(List<BigInteger> binaries)
     return [maxSubjects, teamsWithMax];
 }
 
-int CountSubjectsKnownBy2Teams(BigInteger a, BigInteger b)
-{
-    return (int)BigInteger.PopCount(a | b);
-}
+int CountSubjectsKnownBy2Teams(BigInteger a, BigInteger b) => (int)BigInteger.PopCount(a | b);

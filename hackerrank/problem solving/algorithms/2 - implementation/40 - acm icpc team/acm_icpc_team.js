@@ -24,10 +24,9 @@ function readLine() {
 //////////////////////////////////////////////////
 
 function main() {
-  const [attendees, _] = readNumbers();
-  const binaries = readBinaries(attendees);
-  for (const x of acmTeam(binaries))
-    console.log(x);
+  const [n, _] = readNumbers();
+  const binaries = readBinaries(n);
+  for (const x of acmTeam(binaries)) console.log(x);
 }
 
 function readNumbers() {
@@ -35,33 +34,34 @@ function readNumbers() {
 }
 
 function readBinaries(n) {
-  return new Array(n).fill(null).map(readLine);
+  return new Array(n).fill('').map(readLine);
 }
 
 function acmTeam(binaries) {
   let maxSubjects = 0;
   let teamsWithMax = 0;
 
-  for (const [i, a] of binaries.slice(0, -1).entries())
-    for (const b of binaries.slice(i + 1)) {
-      const knownSubjects = countSubjectsKnownBy2Teams(a, b);
+  for (let i = 0, n1 = binaries.length - 1; i < n1; i++) {
+    for (let j = i + 1, n2 = binaries.length; j < n2; j++) {
+      const knownSubjects = countSubjectsKnownBy2Teams(
+        binaries[i],
+        binaries[j],
+      );
 
       if (knownSubjects > maxSubjects) {
         maxSubjects = knownSubjects;
         teamsWithMax = 1;
       } else if (knownSubjects === maxSubjects) teamsWithMax++;
     }
+  }
 
   return [maxSubjects, teamsWithMax];
 }
 
 function countSubjectsKnownBy2Teams(a, b) {
   let count = 0;
-
-  [...a].forEach((ch1, i) => {
-    let ch2 = b[i];
-    if (ch1 === '1' || ch2 === '1') count++;
-  });
-
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] === '1' || b[i] === '1') count++;
+  }
   return count;
 }

@@ -4,8 +4,8 @@ from itertools import combinations
 
 
 def main():
-    attendees, _ = read_numbers()
-    binaries = read_binaries(attendees)
+    n, _ = read_numbers()
+    binaries = read_binaries(n)
     print(*acm_team(binaries), sep='\n')
 
 
@@ -14,7 +14,7 @@ def read_numbers():
 
 
 def read_binaries(n):
-    return [input().strip() for _ in range(n)]
+    return [int(input().strip(), 2) for _ in range(n)]
 
 
 def acm_team(binaries):
@@ -22,7 +22,7 @@ def acm_team(binaries):
     teams_with_max = 0
 
     for a, b in combinations(binaries, 2):
-        known_subjects = count_subjects_known_by_2_teams(a, b)
+        known_subjects = (a | b).bit_count()
 
         if known_subjects > max_subjects:
             max_subjects = known_subjects
@@ -31,10 +31,6 @@ def acm_team(binaries):
             teams_with_max += 1
 
     return max_subjects, teams_with_max
-
-
-def count_subjects_known_by_2_teams(a, b):
-    return (int(a, 2) | int(b, 2)).bit_count()
 
 
 if __name__ == '__main__':

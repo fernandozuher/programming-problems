@@ -4,38 +4,36 @@
 import std;
 using namespace std;
 
-constexpr int n_bitset{ 500 };
-
-vector<bitset<n_bitset>> read_binaries(int n);
-tuple<int, int> acm_team(const vector<bitset<n_bitset>>& binaries);
-int count_subjects_known_by_2_teams(const bitset<n_bitset>& a, const bitset<n_bitset>& b);
+vector<string> read_binaries(int n);
+tuple<int, int> acm_team(const vector<string>& binaries);
+int count_subjects_known_by_2_teams(string_view a, string_view b);
 
 int main()
 {
     int attendees, topics;
     cin >> attendees >> topics;
-    vector<bitset<n_bitset>> binaries{ read_binaries(attendees) };
+    vector<string> binaries{ read_binaries(attendees) };
     auto [maxSubjects, teamsWithMax] {acm_team(binaries)};
-    cout << maxSubjects << '\n' << teamsWithMax;
+    println("{}\n{}", maxSubjects, teamsWithMax);
     return 0;
 }
 
-vector<bitset<n_bitset>> read_binaries(int n)
+vector<string> read_binaries(int n)
 {
-    vector<bitset<n_bitset>> arr(n);
+    vector<string> arr(n);
     for (auto& x : arr)
         cin >> x;
     return arr;
 }
 
-tuple<int, int> acm_team(const vector<bitset<n_bitset>>& binaries)
+tuple<int, int> acm_team(const vector<string>& binaries)
 {
     int max_subjects{};
     int teams_with_max{};
 
-    for (auto range{ span(binaries.begin(), binaries.end() - 1) }; const auto& [i, a] : range | views::enumerate)
-        for (const auto& b : binaries | views::drop(i + 1)) {
-            int known_subjects{ count_subjects_known_by_2_teams(a, b) };
+    for (size_t i{}, n1{ binaries.size() - 1 }; i < n1; ++i)
+        for (size_t j{ i + 1 }; j < binaries.size(); ++j) {
+            int known_subjects{ count_subjects_known_by_2_teams(binaries.at(i), binaries.at(j)) };
 
             if (known_subjects > max_subjects) {
                 max_subjects = known_subjects;
@@ -48,7 +46,7 @@ tuple<int, int> acm_team(const vector<bitset<n_bitset>>& binaries)
     return { max_subjects, teams_with_max };
 }
 
-int count_subjects_known_by_2_teams(const bitset<n_bitset>& a, const bitset<n_bitset>& b)
+int count_subjects_known_by_2_teams(string_view a, string_view b)
 {
-    return (a | b).count();
+    return ranges::count_if(views::zip(a, b), [](auto x) { return get<0>(x) == '1' || get<1>(x) == '1'; });
 }
