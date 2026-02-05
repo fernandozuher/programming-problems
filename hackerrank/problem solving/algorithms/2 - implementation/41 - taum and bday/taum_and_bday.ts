@@ -39,7 +39,7 @@ function main() {
 
 function readTestCase(): Gifts {
   const arr: bigint[] = readNumbers();
-  arr.push(...readNumbers());
+  for (const x of readNumbers()) arr.push(x);
   return {
     nBlackGifts: arr[0],
     nWhiteGifts: arr[1],
@@ -53,6 +53,8 @@ function readNumbers(): bigint[] {
   return readLine().split(' ').map(BigInt);
 }
 
+// T: O(1)
+// S: O(1) extra space
 function minCostOfBuyingGifts(x: Gifts): bigint {
   const blackCost: bigint =
     x.blackGiftCost < x.whiteGiftCost + x.costToConvertBetweenGifts

@@ -28,6 +28,8 @@ fn read_test_case() -> Gifts {
     }
 }
 
+// T: O(1)
+// S: O(1) extra space
 fn min_cost_of_buying_gifts(x: Gifts) -> i64 {
     let black_cost = cmp::min(
         x.black_gift_cost,

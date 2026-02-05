@@ -11,11 +11,10 @@ Gifts ReadTestCase()
     return new Gifts(arr1[0], arr1[1], arr2[0], arr2[1], arr2[2]);
 }
 
-long[] ReadNumbers()
-{
-    return Console.ReadLine()!.Split().Select(long.Parse).ToArray();
-}
+long[] ReadNumbers() => Console.ReadLine()!.Split().Select(long.Parse).ToArray();
 
+// T: O(1)
+// S: O(1) extra space
 long MinCostOfBuyingGifts(Gifts x)
 {
     long blackCost = Math.Min(x.BlackGiftCost, x.WhiteGiftCost + x.CostToConvertBetweenGifts);

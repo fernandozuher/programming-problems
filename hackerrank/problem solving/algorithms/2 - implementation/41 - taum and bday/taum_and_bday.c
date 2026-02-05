@@ -34,6 +34,8 @@ gifts read_test_case()
     return x;
 }
 
+// T: O(1)
+// S: O(1) extra space
 long min_cost_of_buying_gifts(const gifts *x)
 {
     long blackCost = x->black_gift_cost < x->white_gift_cost + x->cost_to_convert_between_gifts

@@ -26,6 +26,8 @@ func readTestCase() Gifts {
     return x
 }
 
+// T: O(1)
+// S: O(1) extra space
 func minCostOfBuyingGifts(x Gifts) int {
     blackCost := min(x.blackGiftCost, x.whiteGiftCost+x.costToConvertBetweenGifts)
     whiteCost := min(x.whiteGiftCost, x.blackGiftCost+x.costToConvertBetweenGifts)

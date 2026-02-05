@@ -53,6 +53,8 @@ function readNumbers() {
   return readLine().split(' ').map(BigInt);
 }
 
+// T: O(1)
+// S: O(1) extra space
 function minCostOfBuyingGifts(x) {
   const blackCost =
     x.blackGiftCost < x.whiteGiftCost + x.costToConvertBetweenGifts

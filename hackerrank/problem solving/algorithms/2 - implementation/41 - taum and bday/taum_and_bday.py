@@ -1,9 +1,10 @@
 # https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
-from typing import NamedTuple
+from dataclasses import dataclass
 
 
-class Gifts(NamedTuple):
+@dataclass(frozen=True)
+class Gifts:
     n_black_gifts: int
     n_white_gifts: int
     black_gift_cost: int
@@ -27,6 +28,8 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# T: O(1)
+# S: O(1) extra space
 def min_cost_of_buying_gifts(x):
     black_cost = min(x.black_gift_cost, x.white_gift_cost + x.cost_to_convert_between_gifts)
     white_cost = min(x.white_gift_cost, x.black_gift_cost + x.cost_to_convert_between_gifts)
