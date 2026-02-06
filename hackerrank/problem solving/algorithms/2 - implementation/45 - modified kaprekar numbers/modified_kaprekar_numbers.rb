@@ -24,8 +24,11 @@ def is_number_kaprekar(n)
   n == left_number + right_number
 end
 
+# log n: for calculating number of digits
+# T: O(log n)
+# S: O(1) extra space
 def number_digits(n)
-  n.to_s.length
+  Math.log10(n).to_i + 1
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

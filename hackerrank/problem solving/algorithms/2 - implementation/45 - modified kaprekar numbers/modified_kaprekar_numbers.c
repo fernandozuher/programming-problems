@@ -26,6 +26,9 @@ int main()
     return 0;
 }
 
+// log n: for calculating number of digits
+// T: O(log n)
+// S: O(1) extra space
 bool is_number_kaprekar(int n)
 {
     auto square_number = (long long) powl(n, 2);

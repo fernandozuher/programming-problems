@@ -19,6 +19,9 @@ fn main() {
     }
 }
 
+// log n: for calculating number of digits
+// T: O(log n)
+// S: O(1) extra space
 fn is_number_kaprekar(n: usize) -> bool {
     let square_number: usize = n.pow(2);
     let divisor: usize = 10_usize.pow(number_digits(n));
@@ -27,5 +30,5 @@ fn is_number_kaprekar(n: usize) -> bool {
 }
 
 fn number_digits(n: usize) -> u32 {
-    n.to_string().len() as u32
+    (n as f64).log10() as u32 + 1
 }

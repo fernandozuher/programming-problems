@@ -2,8 +2,8 @@
 // Java 25
 
 void main() {
-    int lower = readNumbers()[0];
-    int upper = readNumbers()[0];
+    int lower = readNumber();
+    int upper = readNumber();
     boolean validRange = false;
 
     for (int num = lower; num <= upper; num++)
@@ -15,10 +15,13 @@ void main() {
     if (!validRange) IO.println("INVALID RANGE");
 }
 
-int[] readNumbers() {
-    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+int readNumber() {
+    return Integer.parseInt(IO.readln());
 }
 
+// log n: for calculating number of digits
+// T: O(log n)
+// S: O(1) extra space
 boolean isNumberKaprekar(int n) {
     long squareNumber = (long) Math.pow(n, 2);
     long divisor = (long) Math.pow(10, numberDigits(n));
@@ -28,5 +31,5 @@ boolean isNumberKaprekar(int n) {
 }
 
 int numberDigits(long n) {
-    return String.valueOf(n).length();
+    return (int) Math.log10(n) + 1;
 }

@@ -39,6 +39,9 @@ function main() {
   if (!validRange) console.log('INVALID RANGE');
 }
 
+// log n: for calculating number of digits
+// T: O(log n)
+// S: O(1) extra space
 function isNumberKaprekar(n) {
   const squareNumber = Math.pow(n, 2);
   const divisor = Math.pow(10, numberDigits(n));
@@ -48,5 +51,5 @@ function isNumberKaprekar(n) {
 }
 
 function numberDigits(n) {
-  return n.toString().length;
+  return Math.trunc(Math.log10(n)) + 1;
 }

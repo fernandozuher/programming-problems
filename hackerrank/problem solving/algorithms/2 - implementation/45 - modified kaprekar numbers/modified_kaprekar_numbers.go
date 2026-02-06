@@ -6,7 +6,6 @@ import (
     "fmt"
     "math"
     "math/bits"
-    "strconv"
 )
 
 func main() {
@@ -26,6 +25,9 @@ func main() {
     }
 }
 
+// log n: for calculating number of digits
+// T: O(log n)
+// S: O(1) extra space
 func isNumberKaprekar(n uint64) bool {
     squareNumber := uint64(math.Pow(float64(n), 2.0))
     divisor := uint64(math.Pow(10.0, float64(numberDigits(n))))
@@ -34,5 +36,5 @@ func isNumberKaprekar(n uint64) bool {
 }
 
 func numberDigits(n uint64) int {
-    return len(strconv.Itoa(int(n)))
+    return int(math.Log10(float64(n)) + 1)
 }

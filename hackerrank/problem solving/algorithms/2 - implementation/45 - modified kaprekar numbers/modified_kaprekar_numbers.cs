@@ -14,6 +14,9 @@ for (int num = lower; num <= upper; num++)
 if (!validRange)
     Console.WriteLine("INVALID RANGE");
 
+// log n: for calculating number of digits
+// T: O(log n)
+// S: O(1) extra space
 bool IsNumberKaprekar(int n)
 {
     long squareNumber = (long)Math.Pow(n, 2);
@@ -22,7 +25,4 @@ bool IsNumberKaprekar(int n)
     return n == leftNumber + rightNumber;
 }
 
-int NumberDigits(long n)
-{
-    return n.ToString().Length;
-}
+int NumberDigits(long n) => (int) Math.Log10(n) + 1;
