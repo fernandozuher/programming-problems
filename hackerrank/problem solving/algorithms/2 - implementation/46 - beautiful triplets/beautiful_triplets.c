@@ -25,8 +25,8 @@ void read_numbers(int *arr, int n)
 }
 
 // n: length of array arr
-// T: O(n)
-// S: O(n) extra space
+// T: O(n log n)
+// S: O(1) extra space
 int find_beautiful_triplets(const int *arr, int n, int beautiful_difference)
 {
     int count = 0;
@@ -37,7 +37,7 @@ int find_beautiful_triplets(const int *arr, int n, int beautiful_difference)
 
         void *found_first = bsearch(&first, arr + i + 1, n - i - 1, sizeof(int), compare);
         if (found_first) {
-            int found_index = ((int *) found_first) - arr;
+            int found_index = (int *) found_first - arr;
             auto found_second = bsearch(&second, arr + found_index + 1, n - found_index - 1, sizeof(int), compare);
             count += found_second ? 1 : 0;
         }
