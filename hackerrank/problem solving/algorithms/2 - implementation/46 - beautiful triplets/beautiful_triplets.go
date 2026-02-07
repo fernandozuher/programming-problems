@@ -19,14 +19,17 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 func findBeautifulTriplets(arr []int, beautifulDifference int) int {
     values := make(map[int]bool)
     for _, v := range arr {
         values[v] = true
     }
 
-    count := 0
     doubleBD := 2*beautifulDifference
+    count := 0
     for _, x := range arr {
         if values[x+beautifulDifference] && values[x+doubleBD] {
             count++

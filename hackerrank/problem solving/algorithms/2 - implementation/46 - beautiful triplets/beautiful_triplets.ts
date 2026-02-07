@@ -33,16 +33,21 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 function findBeautifulTriplets(
   arr: number[],
   beautifulDifference: number,
 ): number {
   const values: Set<number> = new Set(arr);
   const doubleBD: number = 2 * beautifulDifference;
+  let count: number = 0;
 
-  return arr.filter(
-    (x: number) =>
-      values.has(x + beautifulDifference) &&
-      values.has(x + doubleBD),
-  ).length;
+  for (const x of arr) {
+    if (values.has(x + beautifulDifference) && values.has(x + doubleBD))
+      count++;
+  }
+
+  return count;
 }

@@ -11,6 +11,9 @@ List<Integer> readNumbers() {
     return Stream.of(IO.readln().split(" ")).map(Integer::parseInt).toList();
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 int findBeautifulTriplets(List<Integer> arr, int beautifulDifference) {
     var values = new HashSet<>(arr);
     int doubleBD = 2 * beautifulDifference;

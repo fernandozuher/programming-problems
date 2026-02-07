@@ -10,6 +10,9 @@ def read_numbers
   gets.split.map(&:to_i)
 end
 
+# n: length of array arr
+# T: O(n)
+# S: O(n) extra space
 def find_beautiful_triplets(arr, beautiful_difference)
   values = arr.to_set
   double_bd = 2 * beautiful_difference
@@ -18,4 +21,4 @@ def find_beautiful_triplets(arr, beautiful_difference)
   end
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

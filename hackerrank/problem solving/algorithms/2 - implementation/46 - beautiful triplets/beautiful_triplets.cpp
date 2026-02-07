@@ -24,11 +24,14 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 int find_beautiful_triplets(const vector<int>& arr, int beautiful_difference)
 {
-    int count{};
+    auto values{ unordered_set(arr.begin(), arr.end()) };
     int double_bd{ 2 * beautiful_difference };
-    for (auto values{ set(arr.begin(), arr.end()) }; auto x : arr)
-        count += values.contains(x + beautiful_difference) && values.contains(x + double_bd);
-    return count;
+    return ranges::count_if(arr, [beautiful_difference, double_bd, &values](auto x) {
+        return values.contains(x + beautiful_difference) && values.contains(x + double_bd);
+        });
 }
