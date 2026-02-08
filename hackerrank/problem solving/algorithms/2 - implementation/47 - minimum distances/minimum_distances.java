@@ -11,6 +11,9 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 int minDistance(int[] arr) {
     var lastSeen = new HashMap<Integer, Integer>();
     int minDist = -1;
@@ -20,11 +23,13 @@ int minDistance(int[] arr) {
 
         if (lastSeen.containsKey(x)) {
             int dist = i - lastSeen.get(x);
+
             if (minDist == -1 || dist < minDist) {
                 minDist = dist;
                 if (minDist == 1) return 1;
             }
         }
+
         lastSeen.put(x, i);
     }
 

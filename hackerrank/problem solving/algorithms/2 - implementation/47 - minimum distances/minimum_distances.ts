@@ -33,6 +33,9 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 function minDistance(arr: number[]): number {
   const lastSeen: { [key: number]: number } = {};
   let minDist = -1;
@@ -42,11 +45,13 @@ function minDistance(arr: number[]): number {
 
     if (lastSeen.hasOwnProperty(x)) {
       const dist = i - lastSeen[x];
+
       if (minDist === -1 || dist < minDist) {
         minDist = dist;
         if (minDist === 1) return 1;
       }
     }
+
     lastSeen[x] = i;
   }
 

@@ -10,6 +10,9 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# n: length of array arr
+# T: O(n)
+# S: O(n) extra space
 def min_distance(arr):
     last_seen = {}
     min_dist = None
@@ -17,6 +20,7 @@ def min_distance(arr):
     for i, x in enumerate(arr):
         if x in last_seen:
             dist = i - last_seen[x]
+
             if min_dist is None or dist < min_dist:
                 min_dist = dist
                 if min_dist == 1:

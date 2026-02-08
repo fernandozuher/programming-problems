@@ -4,11 +4,11 @@ Console.ReadLine();
 int[] arr = ReadNumbers();
 Console.WriteLine(MinDistance(arr));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 int MinDistance(int[] arr)
 {
     var lastSeen = new Dictionary<int, int>();

@@ -7,9 +7,12 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
+# n: length of array arr
+# T: O(n)
+# S: O(n) extra space
 def min_distance(arr)
   last_seen = {}
   min_dist = nil
@@ -17,15 +20,17 @@ def min_distance(arr)
   arr.each_with_index do |x, i|
     if last_seen.key?(x)
       dist = i - last_seen[x]
+
       if min_dist == nil or dist < min_dist
         min_dist = dist
         return 1 if min_dist == 1
       end
     end
+
     last_seen[x] = i
   end
 
   min_dist || -1
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

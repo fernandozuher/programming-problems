@@ -19,6 +19,9 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 func minDistance(arr []int) int {
     lastSeen := map[int]int{}
     minDist := -1
@@ -26,6 +29,7 @@ func minDistance(arr []int) int {
     for i, x := range arr {
         if _, ok := lastSeen[x]; ok {
             dist := i - lastSeen[x]
+
             if minDist == -1 || dist < minDist {
                 minDist = dist
                 if minDist == 1 {
@@ -33,6 +37,7 @@ func minDistance(arr []int) int {
                 }
             }
         }
+
         lastSeen[x] = i
     }
 

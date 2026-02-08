@@ -22,6 +22,9 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 int min_distance(const int *arr, int n)
 {
     constexpr int limit = 100000;
@@ -36,6 +39,7 @@ int min_distance(const int *arr, int n)
 
         if (last_seen[x] != -1) {
             int dist = i - last_seen[x];
+
             if (min_dist == -1 || dist < min_dist) {
                 min_dist = dist;
                 if (min_dist == 1) {
@@ -43,6 +47,7 @@ int min_distance(const int *arr, int n)
                 }
             }
         }
+
         last_seen[x] = i;
     }
 

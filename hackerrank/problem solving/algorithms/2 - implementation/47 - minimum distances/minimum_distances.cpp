@@ -12,7 +12,7 @@ int main()
     int n;
     cin >> n;
     vector arr{ read_numbers(n) };
-    cout << min_distance(arr) << '\n';
+    println("{}", min_distance(arr));
     return 0;
 }
 
@@ -24,6 +24,9 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array arr
+// T: O(n)
+// S: O(n) extra space
 int min_distance(const vector<int>& arr)
 {
     unordered_map<int, int> last_seen;
