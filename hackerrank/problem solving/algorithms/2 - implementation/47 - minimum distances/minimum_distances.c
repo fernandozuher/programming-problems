@@ -22,9 +22,10 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array arr
-// T: O(n)
-// S: O(n) extra space
+// 1 <= arr[i] <= 10^5
+// n: length of array arr, 1 <= n <= 10^3
+// T: O(100000 + n) = O(100000 + 1000) = O(1)
+// S: O(100000) = O(1) extra space
 int min_distance(const int *arr, int n)
 {
     constexpr int limit = 100000;
