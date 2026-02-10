@@ -9,6 +9,8 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# T: O(budget / min_price)
+# S: O(1) extra space
 def how_many_games_can_be_bought(price, discount, min_price, budget):
     count = 0
     while budget >= price:

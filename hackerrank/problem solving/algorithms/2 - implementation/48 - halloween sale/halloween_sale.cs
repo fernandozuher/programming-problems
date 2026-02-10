@@ -7,11 +7,10 @@ int minPrice = arr[2];
 int budget = arr[3];
 Console.WriteLine(HowManyGamesCanBeBought(price, discount, minPrice, budget));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(' '), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split(' ').Select(int.Parse).ToArray();
 
+// T: O(budget / minPrice)
+// S: O(1) extra space
 int HowManyGamesCanBeBought(int price, int discount, int minPrice, int budget)
 {
     int count = 0;

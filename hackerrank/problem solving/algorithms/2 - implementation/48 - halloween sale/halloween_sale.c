@@ -12,6 +12,8 @@ int main()
     return 0;
 }
 
+// T: O(budget / min_price)
+// S: O(1) extra space
 int how_many_games_can_be_bought(int price, int discount, int min_price, int budget)
 {
     int count = 0;

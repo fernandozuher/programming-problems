@@ -14,6 +14,8 @@ fn main() {
     );
 }
 
+// T: O(budget / min_price)
+// S: O(1) extra space
 fn how_many_games_can_be_bought(
     mut price: i32,
     discount: i32,

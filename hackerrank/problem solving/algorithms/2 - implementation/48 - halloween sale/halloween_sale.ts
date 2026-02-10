@@ -32,6 +32,8 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// T: O(budget / minPrice)
+// S: O(1) extra space
 function howManyGamesCanBeBought(
   price: number,
   discount: number,

@@ -10,6 +10,8 @@ func main() {
     fmt.Println(howManyGamesCanBeBought(price, discount, minPrice, budget))
 }
 
+// T: O(budget / minPrice)
+// S: O(1) extra space
 func howManyGamesCanBeBought(price, discount, minPrice, budget int) int {
     count := 0
     for budget >= price {

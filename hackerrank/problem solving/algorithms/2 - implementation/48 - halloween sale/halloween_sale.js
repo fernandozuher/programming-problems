@@ -32,6 +32,8 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// T: O(budget / minPrice)
+// S: O(1) extra space
 function howManyGamesCanBeBought(price, discount, minPrice, budget) {
   let count = 0;
   while (budget >= price) {

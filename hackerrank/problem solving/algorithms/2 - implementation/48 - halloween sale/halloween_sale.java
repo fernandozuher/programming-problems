@@ -14,6 +14,8 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// T: O(budget / minPrice)
+// S: O(1) extra space
 int howManyGamesCanBeBought(int price, int discount, int minPrice, int budget) {
     int count = 0;
     while (budget >= price) {
