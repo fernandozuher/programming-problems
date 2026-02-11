@@ -4,10 +4,7 @@ Console.ReadLine();
 var (mostRecordBreaks, leastRecordBreaks) = BreakingRecords(ReadNumbers());
 Console.WriteLine($"{mostRecordBreaks} {leastRecordBreaks}");
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 (int, int) BreakingRecords(int[] scores)
 {

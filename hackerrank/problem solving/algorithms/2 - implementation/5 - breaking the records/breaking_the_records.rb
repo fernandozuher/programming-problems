@@ -6,7 +6,7 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 def breaking_records(scores)
@@ -26,4 +26,4 @@ def breaking_records(scores)
   [most_record_breaks, least_record_breaks]
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
