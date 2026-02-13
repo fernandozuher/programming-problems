@@ -7,7 +7,7 @@ def main
 end
 
 def read_numbers
-  gets&.split&.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 def min_width_in_segment(widths, segment)
@@ -15,4 +15,4 @@ def min_width_in_segment(widths, segment)
   widths.lazy.drop(start).take(finish - start + 1).min
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

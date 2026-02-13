@@ -5,10 +5,7 @@ int[] widths = ReadNumbers();
 for (int i = 0; i < t; i++)
     Console.WriteLine(minWidthInSegment(widths, ReadNumbers()));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 int minWidthInSegment(int[] widths, int[] segment)
 {
