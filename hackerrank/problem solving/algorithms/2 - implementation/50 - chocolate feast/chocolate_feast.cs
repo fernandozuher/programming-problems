@@ -9,10 +9,7 @@ for (int i = 0, n = int.Parse(Console.ReadLine()!); i < n; i++)
     Console.WriteLine(HowManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
 }
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 int HowManyChocolatesCanBeEaten(int money, int cost, int wrappersNeeded)
 {

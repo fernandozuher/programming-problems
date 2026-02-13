@@ -6,10 +6,10 @@ int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed);
 
 int main()
 {
-    unsigned n;
-    scanf("%u", &n);
+    int n;
+    scanf("%d", &n);
 
-    while (n--) {
+    for (int i = 0; i < n; ++i) {
         int money, cost, wrappers_needed;
         scanf("%d %d %d", &money, &cost, &wrappers_needed);
         printf("%d\n", how_many_chocolates_can_be_eaten(money, cost, wrappers_needed));

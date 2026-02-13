@@ -8,10 +8,10 @@ int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed);
 
 int main()
 {
-    unsigned n;
+    int n;
     cin >> n;
 
-    while (n--) {
+    for (int i{}; i < n; ++i) {
         int money, cost, wrappers_needed;
         cin >> money >> cost >> wrappers_needed;
         println("{}", how_many_chocolates_can_be_eaten(money, cost, wrappers_needed));

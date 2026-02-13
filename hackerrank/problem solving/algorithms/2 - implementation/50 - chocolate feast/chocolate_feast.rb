@@ -9,7 +9,7 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 def how_many_chocolates_can_be_eaten(money, cost, wrappers_needed)
@@ -25,4 +25,4 @@ def how_many_chocolates_can_be_eaten(money, cost, wrappers_needed)
   chocolates
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
