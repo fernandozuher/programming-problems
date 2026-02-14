@@ -1,5 +1,8 @@
 # https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
+from itertools import pairwise
+
+
 def main():
     n_cities, _ = read_numbers()
     last_city = n_cities - 1
@@ -14,7 +17,7 @@ def read_numbers():
 def max_distance_from_space_station(last_city, stations):
     max_dist = stations[0]
 
-    for prev, curr in zip(stations, stations[1:]):
+    for prev, curr in pairwise(stations):
         gap = (curr - prev) // 2
         max_dist = max(max_dist, gap)
 

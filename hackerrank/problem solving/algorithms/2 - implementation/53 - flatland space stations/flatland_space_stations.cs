@@ -6,18 +6,15 @@ int[] stations = ReadNumbers();
 Array.Sort(stations);
 Console.WriteLine(MaxDistanceFromSpaceStation(lastCity, stations));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 int MaxDistanceFromSpaceStation(int lastCity, int[] stations)
 {
     int maxDist = stations[0];
 
-    for (int i = 1; i < stations.Length; i++)
+    foreach (var (prev, curr) in stations.Zip(stations.Skip(1)))
     {
-        int gap = (stations[i] - stations[i-1]) / 2;
+        int gap = (curr - prev) / 2;
         maxDist = Math.Max(maxDist, gap);
     }
 

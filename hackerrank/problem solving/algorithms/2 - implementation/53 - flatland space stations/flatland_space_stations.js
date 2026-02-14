@@ -42,5 +42,5 @@ function maxDistanceFromSpaceStation(lastCity, stations) {
     maxDist = Math.max(maxDist, gap);
   }
 
-  return Math.max(maxDist, lastCity - stations[stations.length - 1]);
+  return Math.max(maxDist, lastCity - stations.at(-1));
 }

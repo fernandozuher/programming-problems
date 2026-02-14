@@ -8,7 +8,7 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 def max_distance_from_space_station(last_city, stations)
@@ -23,4 +23,4 @@ def max_distance_from_space_station(last_city, stations)
 
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0
