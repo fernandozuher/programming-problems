@@ -9,11 +9,14 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
+# n: length of array scores
+# T: O(n)
+# S: O(1) extra space
 def breaking_records(scores)
   most_points, least_points = scores.first, scores.first
   most_record_breaks, least_record_breaks = 0, 0
 
-  scores[1..].each do |score|
+  scores.each do |score|
     if score > most_points
       most_points = score
       most_record_breaks += 1

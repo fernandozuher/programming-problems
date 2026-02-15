@@ -29,11 +29,14 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
+// n: length of array scores
+// T: O(n)
+// S: O(1) extra space
 records_t breaking_records(const int *scores, int n)
 {
     int most_record_breaks = 0, least_record_breaks = 0;
 
-    for (int i = 1, most_points = scores[0], least_points = scores[0]; i < n; ++i)
+    for (int i = 0, most_points = scores[0], least_points = scores[0]; i < n; ++i)
         if (scores[i] > most_points) {
             most_points = scores[i];
             ++most_record_breaks;

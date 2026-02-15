@@ -11,6 +11,9 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array scores
+// T: O(n)
+// S: O(1) extra space
 int[] breakingRecords(int[] scores) {
     int mostPoints = scores[0], leastPoints = scores[0];
     int mostRecordBreaks = 0, leastRecordBreaks = 0;

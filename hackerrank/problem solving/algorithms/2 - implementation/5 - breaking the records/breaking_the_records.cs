@@ -6,12 +6,15 @@ Console.WriteLine($"{mostRecordBreaks} {leastRecordBreaks}");
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of array scores
+// T: O(n)
+// S: O(1) extra space
 (int, int) BreakingRecords(int[] scores)
 {
     int mostPoints = scores[0], leastPoints = scores[0];
     int mostRecordBreaks = 0, leastRecordBreaks = 0;
 
-    foreach (int score in scores.Skip(1))
+    foreach (int score in scores)
         if (score > mostPoints)
         {
             mostPoints = score;

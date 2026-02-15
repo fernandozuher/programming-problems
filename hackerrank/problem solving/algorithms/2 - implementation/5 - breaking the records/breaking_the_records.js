@@ -33,6 +33,9 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array scores
+// T: O(n)
+// S: O(1) extra space
 function breakingRecords(scores) {
   let mostPoints = scores[0],
     leastPoints = scores[0];

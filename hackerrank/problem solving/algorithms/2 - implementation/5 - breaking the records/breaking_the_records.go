@@ -18,11 +18,14 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array scores
+// T: O(n)
+// S: O(1) extra space
 func breakingRecords(scores []int) (int, int) {
     mostPoints, leastPoints := scores[0], scores[0]
     mostRecordBreaks, leastRecordBreaks := 0, 0
 
-    for _, score := range scores[1:] {
+    for _, score := range scores {
         if score > mostPoints {
             mostPoints = score
             mostRecordBreaks++

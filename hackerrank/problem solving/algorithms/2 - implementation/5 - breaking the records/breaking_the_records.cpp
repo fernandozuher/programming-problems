@@ -11,7 +11,7 @@ int main()
 {
     int n;
     cin >> n;
-    auto [most_record_breaks, least_record_breaks] {breaking_records(read_numbers(n))};
+    auto [most_record_breaks, least_record_breaks] { breaking_records(read_numbers(n)) };
     println("{} {}", most_record_breaks, least_record_breaks);
     return 0;
 }
@@ -24,11 +24,14 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array scores
+// T: O(n)
+// S: O(1) extra space
 pair<int, int> breaking_records(const vector<int>& scores)
 {
     int most_record_breaks{}, least_record_breaks{};
 
-    for (int most_points{ scores.front() }, least_points{ scores.front() }; int score : scores | views::drop(1))
+    for (int most_points{ scores.front() }, least_points{ scores.front() }; int score : scores)
         if (score > most_points) {
             most_points = score;
             ++most_record_breaks;
