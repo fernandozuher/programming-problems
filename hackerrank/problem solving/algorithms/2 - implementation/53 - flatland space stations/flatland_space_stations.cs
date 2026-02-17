@@ -8,6 +8,9 @@ Console.WriteLine(MaxDistanceFromSpaceStation(lastCity, stations));
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of array stations
+// T: O(n)
+// S: O(1) extra space
 int MaxDistanceFromSpaceStation(int lastCity, int[] stations)
 {
     int maxDist = stations[0];

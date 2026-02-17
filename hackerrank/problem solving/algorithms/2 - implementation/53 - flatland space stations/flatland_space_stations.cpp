@@ -28,6 +28,9 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array stations
+// T: O(n)
+// S: O(1) extra space
 int max_distance_from_space_station(int last_city, const vector<int>& stations)
 {
     int max_dist{ stations.front() };

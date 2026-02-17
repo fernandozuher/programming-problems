@@ -5,7 +5,7 @@
 
 void read_numbers(int *arr, int n);
 int compare(const void *a, const void *b);
-int max_distance_from_space_station(int last_city, const int *stations, int n_stations);
+int max_distance_from_space_station(int last_city, const int *stations, int n);
 
 int main()
 {
@@ -33,16 +33,19 @@ int compare(const void *a, const void *b)
     return *(int *) a - *(int *) b;
 }
 
-int max_distance_from_space_station(int last_city, const int *stations, int n_stations)
+// n: length of array stations
+// T: O(n)
+// S: O(1) extra space
+int max_distance_from_space_station(int last_city, const int *stations, int n)
 {
     int max_dist = stations[0];
 
-    for (int i = 1; i < n_stations; ++i) {
+    for (int i = 1; i < n; ++i) {
         int gap = (stations[i] - stations[i - 1]) / 2;
         if (max_dist < gap)
             max_dist = gap;
     }
 
-    int dist_after_last = last_city - stations[n_stations - 1];
+    int dist_after_last = last_city - stations[n - 1];
     return max_dist >= dist_after_last ? max_dist : dist_after_last;
 }

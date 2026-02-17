@@ -34,6 +34,9 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array stations
+// T: O(n)
+// S: O(1) extra space
 function maxDistanceFromSpaceStation(lastCity, stations) {
   let maxDist = stations[0];
 

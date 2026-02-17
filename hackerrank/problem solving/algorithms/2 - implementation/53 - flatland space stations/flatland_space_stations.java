@@ -13,13 +13,17 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array stations
+// T: O(n)
+// S: O(1) extra space
 int maxDistanceFromSpaceStation(int lastCity, int[] stations) {
     int maxDist = stations[0];
+    int n = stations.length;
 
-    for (int i = 1; i < stations.length; i++) {
+    for (int i = 1; i < n; i++) {
         int gap = (stations[i] - stations[i - 1]) / 2;
         maxDist = Math.max(maxDist, gap);
     }
 
-    return Math.max(maxDist, lastCity - stations[stations.length - 1]);
+    return Math.max(maxDist, lastCity - stations[n - 1]);
 }
