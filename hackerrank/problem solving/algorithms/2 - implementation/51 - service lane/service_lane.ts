@@ -34,9 +34,12 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-function minWidthInSegment(
-  widths: number[],
-  segment: number[],
-): number {
-  return Math.min(...widths.slice(segment[0], segment[1] + 1));
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
+function minWidthInSegment(widths: number[], segment: number[]): number {
+  const [start, finish]: number[] = segment;
+  let minEl: number = widths[start];
+  for (let i = start; i <= finish; ++i) minEl = Math.min(minEl, widths[i]);
+  return minEl;
 }

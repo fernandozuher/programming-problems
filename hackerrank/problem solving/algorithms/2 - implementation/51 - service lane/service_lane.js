@@ -34,6 +34,12 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
 function minWidthInSegment(widths, segment) {
-  return Math.min(...widths.slice(segment[0], segment[1] + 1));
+  const [start, finish] = segment;
+  let minEl = widths[start];
+  for (let i = start; i <= finish; ++i) minEl = Math.min(minEl, widths[i]);
+  return minEl;
 }

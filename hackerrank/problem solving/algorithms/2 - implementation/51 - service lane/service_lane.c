@@ -7,17 +7,17 @@ typedef struct {
     int exit;
 } segment_pair;
 
-void read_numbers(int *arr, unsigned n);
-int min_width_in_segment(const int *width_measurements, const segment_pair *segment);
+void read_numbers(int *arr, int n);
+int min_width_in_segment(const int *widths, const segment_pair *segment);
 
 int main()
 {
-    unsigned n, t;
-    scanf("%u %u", &n, &t);
+    int n, t;
+    scanf("%d %d", &n, &t);
     int widths[n];
     read_numbers(widths, n);
 
-    while (t--) {
+    for (int i = 0; i < t; ++i) {
         segment_pair segment;
         scanf("%d %d", &segment.entry, &segment.exit);
         printf("%d\n", min_width_in_segment(widths, &segment));
@@ -26,16 +26,19 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, unsigned n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
-int min_width_in_segment(const int *width_measurements, const segment_pair *segment)
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
+int min_width_in_segment(const int *widths, const segment_pair *segment)
 {
-    int min = width_measurements[segment->entry];
+    int min = widths[segment->entry];
     for (int i = segment->entry; i <= segment->exit; ++i)
-        min = min < width_measurements[i] ? min : width_measurements[i];
+        min = min < widths[i] ? min : widths[i];
     return min;
 }

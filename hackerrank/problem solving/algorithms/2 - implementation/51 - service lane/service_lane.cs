@@ -7,6 +7,9 @@ for (int i = 0; i < t; i++)
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
 int minWidthInSegment(int[] widths, int[] segment)
 {
     int nElements = segment[1] - segment[0] + 1;

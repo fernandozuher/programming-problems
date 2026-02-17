@@ -12,6 +12,9 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
 int minWidthInSegment(int[] widths, int[] segment) {
     return Arrays.stream(widths, segment[0], segment[1] + 1).min().getAsInt();
 }

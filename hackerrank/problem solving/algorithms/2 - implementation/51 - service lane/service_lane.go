@@ -24,6 +24,9 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
 func minWidthInSegment(widths, segment []int) int {
     return slices.Min(widths[segment[0] : segment[1]+1])
 }

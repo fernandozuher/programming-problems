@@ -4,25 +4,16 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(unsigned n);
-int min_width_in_segment(const vector<int>& width_measurements, const pair<int, int>& segment);
+vector<int> read_numbers(int n);
+int min_width_in_segment(const vector<int>& widths, const pair<int, int>& segment);
 
-// n: len array widths
-// t: number test cases
-// k_i: len of i-th queried segment = segment.second - segment.first + 1
-// avg_k: avg len segments over all test cases
-
-// T:
-  // Total: O(n + E k_i) = O(n + t * avg_k)
-  // Worst-case: O(n + t * n) = O(t * n)
-// S: O(n)
 int main()
 {
-    unsigned n, t;
+    int n, t;
     cin >> n >> t;
     vector widths{ read_numbers(n) };
 
-    while (t--) {
+    for (int i{}; i < t; ++i) {
         pair<int, int> segment;
         cin >> segment.first >> segment.second;
         println("{}", min_width_in_segment(widths, segment));
@@ -31,9 +22,7 @@ int main()
     return 0;
 }
 
-// n: len arr
-// T O(n), S O(n)
-vector<int> read_numbers(unsigned n)
+vector<int> read_numbers(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)
@@ -41,9 +30,10 @@ vector<int> read_numbers(unsigned n)
     return arr;
 }
 
-// k: len segment = segment.second - segment.first + 1
-// T O(k), S O(1)
-int min_width_in_segment(const vector<int>& width_measurements, const pair<int, int>& segment)
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
+int min_width_in_segment(const vector<int>& widths, const pair<int, int>& segment)
 {
-    return *min_element(width_measurements.begin() + segment.first, width_measurements.begin() + segment.second + 1);
+    return *min_element(widths.begin() + segment.first, widths.begin() + segment.second + 1);
 }

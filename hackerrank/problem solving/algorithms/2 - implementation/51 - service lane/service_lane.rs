@@ -15,6 +15,9 @@ fn read_numbers(n: i32) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n: length of array widths
+// T: O(n)
+// S: O(1) extra space
 fn min_width_in_segment(widths: &[i32], segment: &[i32]) -> i32 {
     *widths[segment[0] as usize..=segment[1] as usize]
         .iter()
