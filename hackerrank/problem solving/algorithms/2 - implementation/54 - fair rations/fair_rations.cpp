@@ -29,6 +29,9 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array people_loaf_counts
+// T: O(n)
+// S: O(1) extra space
 int min_loaves_to_satisfy_rules(const vector<int>& people_loaf_counts)
 {
     int loaves_given{};

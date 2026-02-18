@@ -12,18 +12,19 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array peopleLoafCounts
+// T: O(n)
+// S: O(1) extra space
 int minLoavesToSatisfyRules(int[] peopleLoafCounts) {
     int loavesGiven = 0;
     int counts = peopleLoafCounts[0];
 
-    for (int i = 1; i < peopleLoafCounts.length; i++) {
+    for (int i = 1; i < peopleLoafCounts.length; i++)
         if (isOdd(counts)) {
             loavesGiven += 2;
             counts = peopleLoafCounts[i] + 1;
-        } else {
+        } else
             counts = peopleLoafCounts[i];
-        }
-    }
 
     return isOdd(counts) ? -1 : loavesGiven;
 }

@@ -34,6 +34,9 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array peopleLoafCounts
+// T: O(n)
+// S: O(1) extra space
 function minLoavesToSatisfyRules(peopleLoafCounts: number[]) {
   let loavesGiven = 0;
   let counts = peopleLoafCounts[0];

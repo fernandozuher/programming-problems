@@ -23,6 +23,9 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array peopleLoafCounts
+// T: O(n)
+// S: O(1) extra space
 func minLoavesToSatisfyRules(peopleLoafCounts []int) int {
     loavesGiven := 0
     counts := peopleLoafCounts[0]

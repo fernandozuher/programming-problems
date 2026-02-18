@@ -17,6 +17,9 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n: length of array people_loaf_counts
+// T: O(n)
+// S: O(1) extra space
 fn min_loaves_to_satisfy_rules(people_loaf_counts: &[i32]) -> i32 {
     let mut loaves_given: i32 = 0;
     let mut counts: i32 = people_loaf_counts[0];
