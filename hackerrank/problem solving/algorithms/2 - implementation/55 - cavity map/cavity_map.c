@@ -27,6 +27,9 @@ void read_matrix(int n, char matrix[n][n + 1])
         scanf("%s", matrix[i]);
 }
 
+// n: length of rows/cols of matrix
+// T: O(n^2)
+// S: O(1) extra space
 void change_matrix_to_cavity_map(int n, char matrix[n][n + 1])
 {
     for (int i = 1, n2 = n - 1; i < n2; ++i)
@@ -37,8 +40,9 @@ void change_matrix_to_cavity_map(int n, char matrix[n][n + 1])
 
 bool is_cell_cavity(int n, char matrix[n][n + 1], int i, int j)
 {
-    return matrix[i - 1][j] < matrix[i][j]
-           && matrix[i][j - 1] < matrix[i][j]
-           && matrix[i + 1][j] < matrix[i][j]
-           && matrix[i][j + 1] < matrix[i][j];
+    char c = matrix[i][j];
+    return matrix[i - 1][j] < c &&
+           matrix[i][j - 1] < c &&
+           matrix[i + 1][j] < c &&
+           matrix[i][j + 1] < c;
 }

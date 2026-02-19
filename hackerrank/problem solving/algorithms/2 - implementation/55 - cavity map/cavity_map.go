@@ -16,7 +16,7 @@ func main() {
 
 func readMatrix(n int) [][]byte {
     matrix := make([][]byte, n)
-    for i := range n {
+    for i := range matrix {
         var x string
         _, _ = fmt.Scan(&x)
         matrix[i] = []byte(x)
@@ -24,6 +24,9 @@ func readMatrix(n int) [][]byte {
     return matrix
 }
 
+// n: length of rows/cols of matrix
+// T: O(n^2)
+// S: O(1) extra space
 func changeMatrixToCavityMap(matrix [][]byte) {
     for i, n := 1, len(matrix)-1; i < n; i++ {
         for j := 1; j < n; j++ {
@@ -35,8 +38,9 @@ func changeMatrixToCavityMap(matrix [][]byte) {
 }
 
 func isCellCavity(matrix [][]byte, i, j int) bool {
-    return matrix[i-1][j] < matrix[i][j] &&
-        matrix[i][j-1] < matrix[i][j] &&
-        matrix[i+1][j] < matrix[i][j] &&
-        matrix[i][j+1] < matrix[i][j]
+    c := matrix[i][j]
+    return matrix[i-1][j] < c &&
+        matrix[i][j-1] < c &&
+        matrix[i+1][j] < c &&
+        matrix[i][j+1] < c
 }

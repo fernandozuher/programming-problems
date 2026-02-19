@@ -5,7 +5,7 @@ import std;
 using namespace std;
 
 vector<string> read_matrix(int n);
-void change_matrix_to_cavity_map_in_place(vector<string>& matrix);
+void change_matrix_to_cavity_map(vector<string>& matrix);
 bool is_cell_cavity(const vector<string>& matrix, int i, int j);
 
 int main()
@@ -13,7 +13,7 @@ int main()
     int n;
     cin >> n;
     vector matrix{ read_matrix(n) };
-    change_matrix_to_cavity_map_in_place(matrix);
+    change_matrix_to_cavity_map(matrix);
     for (const auto& x : matrix)
         println("{}", x);
 
@@ -28,7 +28,10 @@ vector<string> read_matrix(int n)
     return arr;
 }
 
-void change_matrix_to_cavity_map_in_place(vector<string>& matrix)
+// n: length of rows/cols of matrix
+// T: O(n^2)
+// S: O(1) extra space
+void change_matrix_to_cavity_map(vector<string>& matrix)
 {
     for (int i{ 1 }, n2 = matrix.size() - 1; i < n2; ++i)
         for (int j{ 1 }; j < n2; ++j)
@@ -38,8 +41,9 @@ void change_matrix_to_cavity_map_in_place(vector<string>& matrix)
 
 bool is_cell_cavity(const vector<string>& matrix, int i, int j)
 {
-    return matrix.at(i - 1).at(j) < matrix.at(i).at(j)
-        && matrix.at(i).at(j - 1) < matrix.at(i).at(j)
-        && matrix.at(i + 1).at(j) < matrix.at(i).at(j)
-        && matrix.at(i).at(j + 1) < matrix.at(i).at(j);
+    char c{ matrix[i][j] };
+    return matrix.at(i - 1).at(j) < c &&
+           matrix.at(i).at(j - 1) < c &&
+           matrix.at(i + 1).at(j) < c &&
+           matrix.at(i).at(j + 1) < c;
 }

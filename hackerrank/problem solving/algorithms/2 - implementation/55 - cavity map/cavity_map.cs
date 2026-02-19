@@ -6,11 +6,11 @@ ChangeMatrixToCavityMap(matrix);
 foreach (var x in matrix)
     Console.WriteLine(new string(x));
 
-char[][] ReadMatrix(int n)
-{
-    return Enumerable.Range(0, n).Select(_ => Console.ReadLine()!.ToCharArray()).ToArray();
-}
+char[][] ReadMatrix(int n) => Enumerable.Range(0, n).Select(_ => Console.ReadLine()!.ToCharArray()).ToArray();
 
+// n: length of rows/cols of matrix
+// T: O(n^2)
+// S: O(1) extra space
 void ChangeMatrixToCavityMap(char[][] matrix)
 {
     for (int i = 1, n = matrix.Length - 1; i < n; i++)
@@ -21,8 +21,9 @@ void ChangeMatrixToCavityMap(char[][] matrix)
 
 bool IsCellCavity(char[][] matrix, int i, int j)
 {
-    return matrix[i - 1][j] < matrix[i][j]
-        && matrix[i][j - 1] < matrix[i][j]
-        && matrix[i + 1][j] < matrix[i][j]
-        && matrix[i][j + 1] < matrix[i][j];
+    char c = matrix[i][j];
+    return matrix[i - 1][j] < c &&
+           matrix[i][j - 1] < c &&
+           matrix[i + 1][j] < c &&
+           matrix[i][j + 1] < c;
 }

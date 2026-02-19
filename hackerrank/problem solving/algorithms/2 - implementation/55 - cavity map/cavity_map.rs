@@ -20,6 +20,9 @@ fn read_matrix(n: usize) -> Vec<Vec<char>> {
         .collect()
 }
 
+// n: length of rows/cols of matrix
+// T: O(n^2)
+// S: O(1) extra space
 fn change_matrix_to_cavity_map(matrix: &mut [Vec<char>]) {
     let range = 1..(matrix.len() - 1);
     for i in range.clone() {
@@ -32,8 +35,9 @@ fn change_matrix_to_cavity_map(matrix: &mut [Vec<char>]) {
 }
 
 fn is_cell_cavity(matrix: &[Vec<char>], i: usize, j: usize) -> bool {
-    matrix[i - 1][j] < matrix[i][j]
-        && matrix[i][j - 1] < matrix[i][j]
-        && matrix[i + 1][j] < matrix[i][j]
-        && matrix[i][j + 1] < matrix[i][j]
+    let c: char = matrix[i][j];
+    matrix[i - 1][j] < c &&
+        matrix[i][j - 1] < c &&
+        matrix[i + 1][j] < c &&
+        matrix[i][j + 1] < c
 }

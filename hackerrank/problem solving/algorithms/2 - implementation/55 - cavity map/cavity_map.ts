@@ -27,8 +27,7 @@ function main() {
   const n: number = +readLine();
   const matrix: string[][] = readMatrix(n);
   changeMatrixToCavityMap(matrix);
-  for (const x of matrix)
-    console.log(x.join(''));
+  for (const x of matrix) console.log(x.join(''));
 }
 
 function readMatrix(n: number): string[][] {
@@ -37,6 +36,9 @@ function readMatrix(n: number): string[][] {
     .map((_) => readLine().split(''));
 }
 
+// n: length of rows/cols of matrix
+// T: O(n^2)
+// S: O(1) extra space
 function changeMatrixToCavityMap(matrix: string[][]) {
   for (let i = 1, n = matrix.length - 1; i < n; i++)
     for (let j = 1; j < n; j++)
@@ -44,10 +46,11 @@ function changeMatrixToCavityMap(matrix: string[][]) {
 }
 
 function isCellCavity(matrix: string[][], i: number, j: number): boolean {
+  const c: string = matrix[i][j];
   return (
-    matrix[i - 1][j] < matrix[i][j] &&
-    matrix[i][j - 1] < matrix[i][j] &&
-    matrix[i + 1][j] < matrix[i][j] &&
-    matrix[i][j + 1] < matrix[i][j]
+    matrix[i - 1][j] < c &&
+    matrix[i][j - 1] < c &&
+    matrix[i + 1][j] < c &&
+    matrix[i][j + 1] < c
   );
 }
