@@ -28,6 +28,10 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
+// n: length of array chocolate_squares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
 int birthday(const int *chocolate_squares, int n, const int *day_month)
 {
     int day = day_month[0];
@@ -40,13 +44,12 @@ int birthday(const int *chocolate_squares, int n, const int *day_month)
     for (int i = 0; i < month; ++i)
         sum += chocolate_squares[i];
 
-    int ways_bar_can_be_divided = sum == day;
+    int count = sum == day;
 
     for (int i = month; i < n; ++i) {
         sum += chocolate_squares[i] - chocolate_squares[i - month];
-        if (sum == day)
-            ++ways_bar_can_be_divided;
+        count += sum == day;
     }
 
-    return ways_bar_can_be_divided;
+    return count;
 }

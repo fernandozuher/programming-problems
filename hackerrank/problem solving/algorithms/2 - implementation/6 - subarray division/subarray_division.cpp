@@ -26,6 +26,10 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array chocolate_squares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
 int birthday(const vector<int>& chocolate_squares, const vector<int>& day_month)
 {
     int day{ day_month[0] };
@@ -34,13 +38,12 @@ int birthday(const vector<int>& chocolate_squares, const vector<int>& day_month)
         return 0;
 
     int sum{ *ranges::fold_left_first(chocolate_squares.begin(), chocolate_squares.begin() + month, plus{}) };
-    int ways_bar_can_be_divided{ sum == day };
+    int count{ sum == day };
 
     for (int i{ month }, n = chocolate_squares.size(); i < n; ++i) {
         sum += chocolate_squares.at(i) - chocolate_squares.at(i - month);
-        if (sum == day)
-            ++ways_bar_can_be_divided;
+        count += sum == day;
     }
 
-    return ways_bar_can_be_divided;
+    return count;
 }

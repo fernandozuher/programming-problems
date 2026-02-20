@@ -5,11 +5,12 @@ int[] chocolateSquares = ReadNumbers();
 int[] dayMonth = ReadNumbers();
 Console.WriteLine(Birthday(chocolateSquares, dayMonth));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of array chocolateSquares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
 int Birthday(int[] chocolateSquares, int[] dayMonth)
 {
     int day = dayMonth[0];
@@ -19,14 +20,14 @@ int Birthday(int[] chocolateSquares, int[] dayMonth)
         return 0;
 
     int sum = chocolateSquares.Take(month).Sum();
-    int waysBarCanBeDivided = sum == day ? 1 : 0;
+    int count = sum == day ? 1 : 0;
 
-    foreach (var i in Enumerable.Range(month, chocolateSquares.Length - month))
+    for (int i = month; i < chocolateSquares.Length; i++)
     {
         sum += chocolateSquares[i] - chocolateSquares[i - month];
         if (sum == day)
-            waysBarCanBeDivided++;
+            count++;
     }
 
-    return waysBarCanBeDivided;
+    return count;
 }

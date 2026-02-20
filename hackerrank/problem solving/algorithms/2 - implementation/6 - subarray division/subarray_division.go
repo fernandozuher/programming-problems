@@ -21,7 +21,11 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func birthday(chocolateSquares []int, dayMonth []int) int {
+// n: length of array chocolateSquares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
+func birthday(chocolateSquares, dayMonth []int) int {
     day := dayMonth[0]
     month := dayMonth[1]
 
@@ -34,17 +38,17 @@ func birthday(chocolateSquares []int, dayMonth []int) int {
         sum += x
     }
 
-    waysBarCanBeDivided := 0
+    count := 0
     if sum == day {
-        waysBarCanBeDivided++
+        count++
     }
 
     for i := month; i < len(chocolateSquares); i++ {
         sum += chocolateSquares[i] - chocolateSquares[i-month]
         if sum == day {
-            waysBarCanBeDivided++
+            count++
         }
     }
 
-    return waysBarCanBeDivided
+    return count
 }

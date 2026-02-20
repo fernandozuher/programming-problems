@@ -34,17 +34,22 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array chocolateSquares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
 function birthday(chocolateSquares, dayMonth) {
   const [day, month] = dayMonth;
   if (month > chocolateSquares.length) return 0;
 
-  let sum = chocolateSquares.slice(0, month).reduce((a, b) => a + b, 0);
-  let waysBarCanBeDivided = Number(sum === day);
+  let sum = 0;
+  for (let i = 0; i < month; i++) sum += chocolateSquares[i];
+  let count = Number(sum === day);
 
   for (let i = month; i < chocolateSquares.length; i++) {
     sum += chocolateSquares[i] - chocolateSquares[i - month];
-    if (sum === day) waysBarCanBeDivided++;
+    if (sum === day) count++;
   }
 
-  return waysBarCanBeDivided;
+  return count;
 }

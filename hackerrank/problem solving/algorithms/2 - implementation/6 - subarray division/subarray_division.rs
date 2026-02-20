@@ -14,6 +14,10 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n: length of array chocolate_squares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
 fn birthday(chocolate_squares: &[i32], day_month: &[i32]) -> i32 {
     let day = day_month[0];
     let month = day_month[1] as usize;
@@ -23,14 +27,14 @@ fn birthday(chocolate_squares: &[i32], day_month: &[i32]) -> i32 {
     }
 
     let mut sum: i32 = chocolate_squares[..month].iter().sum();
-    let mut ways_bar_can_be_divided: i32 = if sum == day { 1 } else { 0 };
+    let mut count: i32 = if sum == day { 1 } else { 0 };
 
     (month..chocolate_squares.len()).for_each(|i| {
         sum += chocolate_squares[i] - chocolate_squares[i - month];
         if sum == day {
-            ways_bar_can_be_divided += 1;
+            count += 1;
         }
     });
 
-    ways_bar_can_be_divided
+    count
 }
