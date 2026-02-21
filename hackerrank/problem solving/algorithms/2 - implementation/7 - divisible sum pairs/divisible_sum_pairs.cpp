@@ -29,6 +29,10 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array numbers
+// k: length of array frequency
+// T: O(n + k)
+// S: O(k) extra space
 int divisible_sum_pairs(const vector<int>& numbers, int k)
 {
     vector frequency{ init_remainder_frequency(numbers, k) };
@@ -56,14 +60,16 @@ int pair_count(int n)
 
 int count_complementary_remainder_pairs(const vector<int>& frequency)
 {
-    auto k{ frequency.size() };
-    return ranges::fold_left(views::iota(1ul, (k + 1) / 2), 0, [&frequency, k](auto acc, auto i) {
-        return acc + frequency.at(i) * frequency.at(k - i);
-        });
+    auto n{ frequency.size() };
+    return *ranges::fold_left_first(
+        views::iota(1ul, (n + 1) / 2) |
+        views::transform([&frequency, n](auto i) { return frequency.at(i) * frequency.at(n - i); }),
+        plus{}
+    );
 }
 
 int count_pairs_with_remainder_k_half(const vector<int>& frequency)
 {
-    auto k{ frequency.size() };
-    return k % 2 == 0 ? pair_count(frequency.at(k / 2)) : 0;
+    auto n{ frequency.size() };
+    return n % 2 == 0 ? pair_count(frequency.at(n / 2)) : 0;
 }

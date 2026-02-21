@@ -4,11 +4,12 @@ int k = ReadNumbers()[1];
 int[] numbers = ReadNumbers();
 Console.WriteLine(DivisibleSumPairs(numbers, k));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n: length of array numbers
+// k: length of array frequency
+// T: O(n + k)
+// S: O(k) extra space
 int DivisibleSumPairs(int[] numbers, int k)
 {
     int[] frequency = InitRemainderFrequency(numbers, k);
@@ -30,12 +31,11 @@ int PairCount(int n) => n * (n - 1) / 2;
 
 int CountComplementaryRemainderPairs(int[] frequency)
 {
-    int k = frequency.Length;
-    return Enumerable.Range(1, (k + 1) / 2 - 1).Sum(i => frequency[i] * frequency[k - i]);
+    return Enumerable.Range(1, (frequency.Length + 1) / 2 - 1).Sum(i => frequency[i] * frequency[^i]);
 }
 
 int CountPairsWithRemainderKHalf(int[] frequency)
 {
-    int k = frequency.Length;
-    return k % 2 == 0 ? PairCount(frequency[k / 2]) : 0;
+    int n = frequency.Length;
+    return int.IsOddInteger(n) ? 0 : PairCount(frequency[n / 2]);
 }

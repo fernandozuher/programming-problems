@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
+use num::Integer;
 use text_io::read;
 
 fn main() {
@@ -12,6 +13,10 @@ fn read_numbers(n: usize) -> Vec<usize> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n: length of array numbers
+// k: length of array frequency
+// T: O(n + k)
+// S: O(k) extra space
 fn divisible_sum_pairs(numbers: &[usize], k: usize) -> usize {
     let frequency: Vec<usize> = init_remainder_frequency(numbers, k);
     count_pairs_with_remainder_0(&frequency)
@@ -36,15 +41,16 @@ fn pair_count(n: usize) -> usize {
 }
 
 fn count_complementary_remainder_pairs(frequency: &[usize]) -> usize {
-    let k: usize = frequency.len();
-    (1..(k + 1) / 2).fold(0, |acc, i| acc + frequency[i] * frequency[k - i])
+    let n: usize = frequency.len();
+    (1..(n + 1) / 2)
+        .map(|i| frequency[i] * frequency[n - i])
+        .sum()
 }
 
 fn count_pairs_with_remainder_k_half(frequency: &[usize]) -> usize {
-    let k: usize = frequency.len();
-    if k % 2 == 0 {
-        pair_count(frequency[k / 2])
-    } else {
-        0
+    let n: usize = frequency.len();
+    if n.is_even() {
+        return pair_count(frequency[n / 2]);
     }
+    0
 }

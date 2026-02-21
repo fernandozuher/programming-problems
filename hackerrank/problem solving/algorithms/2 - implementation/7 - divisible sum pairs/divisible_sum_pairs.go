@@ -19,6 +19,10 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array numbers
+// k: length of array frequency
+// T: O(n + k)
+// S: O(k) extra space
 func divisibleSumPairs(numbers []int, k int) int {
     frequency := initRemainderFrequency(numbers, k)
     return countPairsWithRemainder0(frequency) + countComplementaryRemainderPairs(frequency) + countPairsWithRemainderKHalf(frequency)
@@ -42,17 +46,17 @@ func pairCount(n int) int {
 
 func countComplementaryRemainderPairs(frequency []int) int {
     count := 0
-    k := len(frequency)
-    for i, n := 1, (k+1)/2; i < n; i++ {
-        count += frequency[i] * frequency[k-i]
+    n := len(frequency)
+    for i, n2 := 1, (n+1)/2; i < n2; i++ {
+        count += frequency[i] * frequency[n-i]
     }
     return count
 }
 
 func countPairsWithRemainderKHalf(frequency []int) int {
-    k := len(frequency)
-    if k%2 == 0 {
-        return pairCount(frequency[k/2])
+    n := len(frequency)
+    if n%2 == 0 {
+        return pairCount(frequency[n/2])
     }
     return 0
 }

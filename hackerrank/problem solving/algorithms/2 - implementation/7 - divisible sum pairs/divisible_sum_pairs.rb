@@ -7,9 +7,13 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
+# n: length of array numbers
+# k: length of array frequency
+# T: O(n + k)
+# S: O(k) extra space
 def divisible_sum_pairs(numbers, k)
   frequency = init_remainder_frequency(numbers, k)
   count_pairs_with_remainder_0(frequency) +
@@ -32,13 +36,12 @@ def pair_count(n)
 end
 
 def count_complementary_remainder_pairs(frequency)
-  k = frequency.size
-  (1...(k + 1) / 2).sum { |i| frequency[i] * frequency[k - i] }
+  (1...(frequency.size + 1) / 2).sum { |i| frequency[i] * frequency[-i] }
 end
 
 def count_pairs_with_remainder_k_half(frequency)
-  k = frequency.size
-  k.even? ? pair_count(frequency[k / 2]) : 0
+  n = frequency.size
+  n.even? ? pair_count(frequency[n / 2]) : 0
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

@@ -11,10 +11,14 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array numbers
+// k: length of array frequency
+// T: O(n + k)
+// S: O(k) extra space
 int divisibleSumPairs(int[] numbers, int k) {
     int[] frequency = initRemainderFrequency(numbers, k);
-    return countPairsWithRemainder0(frequency) + countComplementaryRemainderPairs(frequency)
-            + countPairsWithRemainderKHalf(frequency);
+    return countPairsWithRemainder0(frequency) + countComplementaryRemainderPairs(frequency) +
+            countPairsWithRemainderKHalf(frequency);
 }
 
 int[] initRemainderFrequency(int[] numbers, int k) {
@@ -33,11 +37,13 @@ int pairCount(int n) {
 }
 
 int countComplementaryRemainderPairs(int[] frequency) {
-    int k = frequency.length;
-    return IntStream.range(1, (k + 1) / 2).reduce(0, (acc, i) -> acc + frequency[i] * frequency[k - i]);
+    int n = frequency.length;
+    return IntStream.range(1, (n + 1) / 2)
+            .map(i -> frequency[i] * frequency[n - i])
+            .sum();
 }
 
 int countPairsWithRemainderKHalf(int[] frequency) {
-    int k = frequency.length;
-    return k % 2 == 0 ? pairCount(frequency[k / 2]) : 0;
+    int n = frequency.length;
+    return n % 2 == 0 ? pairCount(frequency[n / 2]) : 0;
 }

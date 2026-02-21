@@ -33,6 +33,10 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array numbers
+// k: length of array frequency
+// T: O(n + k)
+// S: O(k) extra space
 function divisibleSumPairs(numbers: number[], k: number): number {
   const frequency: number[] = initRemainderFrequency(numbers, k);
   return (
@@ -58,13 +62,12 @@ function pairCount(n: number): number {
 
 function countComplementaryRemainderPairs(frequency: number[]): number {
   let count = 0;
-  const k: number = frequency.length;
-  for (let i = 1, n = Math.trunc((k + 1) / 2); i < n; i++)
-    count += frequency[i] * frequency[k - i];
+  for (let i = 1, n = Math.trunc((frequency.length + 1) / 2); i < n; i++)
+    count += frequency[i] * frequency.at(-i);
   return count;
 }
 
 function countPairsWithRemainderKHalf(frequency: number[]): number {
-  const k: number = frequency.length;
-  return k % 2 === 0 ? pairCount(frequency[k / 2]) : 0;
+  const n: number = frequency.length;
+  return n % 2 === 0 ? pairCount(frequency[n / 2]) : 0;
 }

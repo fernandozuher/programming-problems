@@ -10,6 +10,10 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# n: length of array numbers
+# k: length of array frequency
+# T: O(n + k)
+# S: O(k) extra space
 def divisible_sum_pairs(numbers, k):
     frequency = init_remainder_frequency(numbers, k)
     return count_pairs_with_remainder_0(frequency) + count_complementary_remainder_pairs(
@@ -32,16 +36,12 @@ def pair_count(n):
 
 
 def count_complementary_remainder_pairs(frequency):
-    count = 0
-    k = len(frequency)
-    for i in range(1, (k + 1) // 2):
-        count += frequency[i] * frequency[k - i]
-    return count
+    return sum(frequency[i] * frequency[-i] for i in range(1, (len(frequency) + 1) // 2))
 
 
 def count_pairs_with_remainder_k_half(frequency):
-    k = len(frequency)
-    return pair_count(frequency[k // 2]) if k % 2 == 0 else 0
+    n = len(frequency)
+    return pair_count(frequency[n // 2]) if n % 2 == 0 else 0
 
 
 if __name__ == '__main__':
