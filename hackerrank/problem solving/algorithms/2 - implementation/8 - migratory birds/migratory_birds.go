@@ -6,29 +6,35 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    birdCounts := counter(n)
-    fmt.Println(findMostSpottedBird(birdCounts))
+    _, _ = fmt.Scan(&n)
+    birdsToCounts := counter(n)
+    fmt.Println(findMostSpottedBird(birdsToCounts))
 }
 
+// n: length of input
+// k: length of distinct numbers
+// T: O(n)
+// S: O(k) = O(n) extra space
 func counter(n int) map[int]int {
-    numberCounts := map[int]int{}
+    freqMap := map[int]int{}
     for range n {
         var x int
-        fmt.Scan(&x)
-        numberCounts[x]++
+        _, _ = fmt.Scan(&x)
+        freqMap[x]++
     }
-    return numberCounts
+    return freqMap
 }
 
-func findMostSpottedBird(birdCounts map[int]int) int {
-    mostSpottedBird := 0
-    maxCount := 0
-    for bird, count := range birdCounts {
-        if count > maxCount || (count == maxCount && bird < mostSpottedBird) {
-            mostSpottedBird = bird
-            maxCount = count
+// n: length of input
+// k: length of hash birds_to_counts
+// T: O(k) = O(n)
+// S: O(1) extra space
+func findMostSpottedBird(birdsToCounts map[int]int) int {
+    var resBird, resCount int
+    for bird, count := range birdsToCounts {
+        if count > resCount || (count == resCount && bird < resBird) {
+            resBird, resCount = bird, count
         }
     }
-    return mostSpottedBird
+    return resBird
 }
