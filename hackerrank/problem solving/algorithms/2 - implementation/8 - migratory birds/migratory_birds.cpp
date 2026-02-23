@@ -4,26 +4,39 @@
 import std;
 using namespace std;
 
-map<int, int> counter(int n);
-int find_most_spotted_bird(const map<int, int>& bird_counts);
+unordered_map<int, int> read_input();
+int find_most_spotted_bird(const unordered_map<int, int>& birds_to_counts);
 
 int main()
 {
-    int n;
-    cin >> n;
-    auto bird_counts{ counter(n) };
-    cout << find_most_spotted_bird(bird_counts);
+    auto birds_to_counts{ read_input() };
+    cout << find_most_spotted_bird(birds_to_counts);
     return 0;
 }
 
-map<int, int> counter(int n)
+// n: length of input
+// T: O(n)
+// S: O(n) extra space
+unordered_map<int, int> read_input()
 {
-    map<int, int> number_counts;
-    for (int bird; n-- && cin >> bird; ++number_counts[bird]);
-    return number_counts;
+    int n;
+    cin >> n;
+    unordered_map<int, int> freq_map;
+
+    for (int i{}; i < n; ++i) {
+        int x;
+        cin >> x;
+        ++freq_map[x];
+    }
+
+    return freq_map;
 }
 
-int find_most_spotted_bird(const map<int, int>& bird_counts)
+// n: length of birds_to_counts
+// T: O(n)
+// S: O(1) extra space
+int find_most_spotted_bird(const unordered_map<int, int>& birds_to_counts)
 {
-    return ranges::max_element(bird_counts, {}, &pair<const int, int>::second)->first;
+    auto [id, count] { *ranges::max_element(birds_to_counts, {}, [](const auto& x) { return pair<int, int>(x.second, -x.first); }) };
+    return id;
 }

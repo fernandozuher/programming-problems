@@ -4,16 +4,15 @@ use std::collections::HashMap;
 use text_io::read;
 
 fn main() {
-    let n: usize = read!();
-    let birds_to_counts = counter(n);
+    let birds_to_counts = read_input();
     println!("{}", find_most_spotted_bird(&birds_to_counts));
 }
 
 // n: length of input
-// k: length of distinct numbers
 // T: O(n)
-// S: O(k) = O(n) extra space
-fn counter(n: usize) -> HashMap<i32, i32> {
+// S: O(n) extra space
+fn read_input() -> HashMap<i32, i32> {
+    let n: usize = read!();
     let mut freq_map = HashMap::new();
     for _ in 0..n {
         let x: i32 = read!();
@@ -22,14 +21,13 @@ fn counter(n: usize) -> HashMap<i32, i32> {
     freq_map
 }
 
-// n: length of input
-// k: length of hash birds_to_counts
-// T: O(k) = O(n)
+// n: length of birds_to_counts
+// T: O(n)
 // S: O(1) extra space
 fn find_most_spotted_bird(birds_to_counts: &HashMap<i32, i32>) -> i32 {
     *birds_to_counts
         .iter()
-        .max_by_key(|(&bird, &count)| (count, -bird))
+        .max_by_key(|(&id, &count)| (count, -id))
         .unwrap()
         .0
 }
