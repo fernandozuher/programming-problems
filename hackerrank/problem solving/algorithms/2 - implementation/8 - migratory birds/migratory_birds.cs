@@ -1,19 +1,28 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
-Console.ReadLine();
-int[] birdCounts = ReadNumbers();
-Console.WriteLine(FindMostSpottedBird(birdCounts));
+Dictionary<int, int> birdsToCounts = ReadInput();
+Console.WriteLine(FindMostSpottedBird(birdsToCounts));
 
-int[] ReadNumbers()
+// n: length of input
+// T: O(n)
+// S: O(n) extra space
+Dictionary<int, int> ReadInput()
 {
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+    Console.ReadLine();
+    var freqMap = new Dictionary<int, int>();
+    foreach (int x in Console.ReadLine()!.Split().Select(int.Parse))
+    {
+        freqMap.TryGetValue(x, out int count);
+        freqMap[x] = ++count;
+    }
+    return freqMap;
 }
 
-int FindMostSpottedBird(int[] birdCounts)
+// n: length of birdsToCounts
+// T: O(n)
+// S: O(1) extra space
+int FindMostSpottedBird(Dictionary<int, int> birdsToCounts)
 {
-    return birdCounts.GroupBy(bird => bird)
-                .OrderByDescending(group => group.Count())
-                .ThenBy(group => group.Key)
-                .First()
-                .Key;
+    var x = birdsToCounts.MaxBy(x => (x.Value, -x.Key));
+    return x.Key;
 }

@@ -2,19 +2,31 @@
 // Java 25
 
 void main() {
-    IO.readln();
-    Map<Integer, Integer> birdCounts = counter();
-    IO.println(findMostSpottedBird(birdCounts));
+    Map<Integer, Integer> birdsToCounts = readInput();
+    IO.println(findMostSpottedBird(birdsToCounts));
 }
 
-Map<Integer, Integer> counter() {
-    Map<Integer, Integer> numberCounts = new HashMap<>();
+// n: length of input
+// T: O(n)
+// S: O(n) extra space
+Map<Integer, Integer> readInput() {
+    IO.readln();
+    Map<Integer, Integer> freqMap = new HashMap<>();
     Stream.of(IO.readln().split(" "))
             .map(Integer::parseInt)
-            .forEach(x -> numberCounts.put(x, numberCounts.getOrDefault(x, 0) + 1));
-    return numberCounts;
+            .forEach(x -> freqMap.put(x, freqMap.getOrDefault(x, 0) + 1));
+    return freqMap;
 }
 
-int findMostSpottedBird(Map<Integer, Integer> birdCounts) {
-    return birdCounts.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+// n: length of birdsToCounts
+// T: O(n)
+// S: O(1) extra space
+int findMostSpottedBird(Map<Integer, Integer> birdsToCounts) {
+    int resID = 0, resCount = 0;
+    for (var x : birdsToCounts.entrySet())
+        if (x.getValue() > resCount || (x.getValue() == resCount && x.getKey() < resID)) {
+            resID = x.getKey();
+            resCount = x.getValue();
+        }
+    return resID;
 }

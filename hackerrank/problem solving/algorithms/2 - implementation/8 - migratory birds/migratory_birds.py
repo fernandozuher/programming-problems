@@ -20,7 +20,7 @@ def read_input():
 # T: O(n)
 # S: O(1) extra space
 def find_most_spotted_bird(birds_to_counts):
-    bird_id, _ = max(birds_to_counts.items(), key=lambda kv: (kv[1], -kv[0]))
+    bird_id, _ = max(birds_to_counts.items(), key=lambda x: (x[1], -x[0]))
     return bird_id
 
 

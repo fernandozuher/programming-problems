@@ -24,30 +24,39 @@ function readLine(): string {
 //////////////////////////////////////////////////
 
 function main() {
-  readLine();
-  const birdCounts: Map<number, number> = counter();
-  console.log(findMostSpottedBird(birdCounts));
+  const birdsToCounts: Map<number, number> = readInput();
+  console.log(findMostSpottedBird(birdsToCounts));
 }
 
-function counter(): Map<number, number> {
-  const numberCounts = new Map<number, number>();
+// n: length of input
+// T: O(n)
+// S: O(n) extra space
+function readInput(): Map<number, number> {
+  readLine();
+  const freqMap = new Map<number, number>();
+
   readLine()
     .split(' ')
     .forEach((x: any) => {
       x = +x;
-      numberCounts.set(x, (numberCounts.get(x) ?? 0) + 1);
+      freqMap.set(x, (freqMap.get(x) ?? 0) + 1);
     });
-  return numberCounts;
+
+  return freqMap;
 }
 
-function findMostSpottedBird(birdCounts: Map<number, number>): number {
-  let mostSpottedBird = 0;
-  let maxCount = 0;
-  for (const [bird, count] of birdCounts.entries()) {
-    if (count > maxCount || (count === maxCount && bird < mostSpottedBird)) {
-      mostSpottedBird = bird;
-      maxCount = count;
+// n: length of birdsToCounts
+// T: O(n)
+// S: O(1) extra space
+function findMostSpottedBird(birdsToCounts: Map<number, number>): number {
+  let resID = 0,
+    resCount = 0;
+
+  for (const [id, count] of birdsToCounts)
+    if (count > resCount || (count === resCount && id < resID)) {
+      resID = id;
+      resCount = count;
     }
-  }
-  return mostSpottedBird;
+
+  return resID;
 }

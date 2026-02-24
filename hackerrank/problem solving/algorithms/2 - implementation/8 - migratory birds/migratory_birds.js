@@ -24,30 +24,39 @@ function readLine() {
 //////////////////////////////////////////////////
 
 function main() {
-  readLine();
-  const birdCounts = counter();
-  console.log(findMostSpottedBird(birdCounts));
+  const birdsToCounts = readInput();
+  console.log(findMostSpottedBird(birdsToCounts));
 }
 
-function counter() {
-  const numberCounts = new Map();
+// n: length of input
+// T: O(n)
+// S: O(n) extra space
+function readInput() {
+  readLine();
+  const freqMap = new Map();
+
   readLine()
     .split(' ')
     .forEach((x) => {
       x = +x;
-      numberCounts.set(x, (numberCounts.get(x) ?? 0) + 1);
+      freqMap.set(x, (freqMap.get(x) ?? 0) + 1);
     });
-  return numberCounts;
+
+  return freqMap;
 }
 
-function findMostSpottedBird(birdCounts) {
-  let mostSpottedBird = 0;
-  let maxCount = 0;
-  for (const [bird, count] of birdCounts.entries()) {
-    if (count > maxCount || (count === maxCount && bird < mostSpottedBird)) {
-      mostSpottedBird = bird;
-      maxCount = count;
+// n: length of birdsToCounts
+// T: O(n)
+// S: O(1) extra space
+function findMostSpottedBird(birdsToCounts) {
+  let resID = 0,
+    resCount = 0;
+
+  for (const [id, count] of birdsToCounts)
+    if (count > resCount || (count === resCount && id < resID)) {
+      resID = id;
+      resCount = count;
     }
-  }
-  return mostSpottedBird;
+
+  return resID;
 }
