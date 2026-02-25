@@ -27,10 +27,12 @@ const TRANSITION_YEAR = 1918;
 
 function main() {
   const year = +readLine();
-  console.log(calculateDateOf256thDay(year));
+  console.log(calcDateOf256thDay(year));
 }
 
-function calculateDateOf256thDay(year) {
+// T: O(1)
+// S: O(1) extra space
+function calcDateOf256thDay(year) {
   let day;
   if (year === TRANSITION_YEAR) day = 26;
   else day = isLeapYear(year) ? 12 : 13;

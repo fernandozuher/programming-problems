@@ -2,9 +2,11 @@
 
 const int TransitionYear = 1918;
 int year = int.Parse(Console.ReadLine()!);
-Console.WriteLine(CalculateDateOf256thDay(year));
+Console.WriteLine(CalcDateOf256thDay(year));
 
-string CalculateDateOf256thDay(int year)
+// T: O(1)
+// S: O(1) extra space
+string CalcDateOf256thDay(int year)
 {
     int day;
     if (year == TransitionYear)

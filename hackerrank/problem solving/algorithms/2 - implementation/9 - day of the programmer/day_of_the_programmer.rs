@@ -6,10 +6,12 @@ const TRANSITION_YEAR: i32 = 1918;
 
 fn main() {
     let year: i32 = read!();
-    print!("{}", calculate_date_of_256th_day(year));
+    println!("{}", calc_date_of_256th_day(year));
 }
 
-fn calculate_date_of_256th_day(year: i32) -> String {
+// T: O(1)
+// S: O(1) extra space
+fn calc_date_of_256th_day(year: i32) -> String {
     let day = if year == TRANSITION_YEAR {
         "26"
     } else if is_leap_year(year) {

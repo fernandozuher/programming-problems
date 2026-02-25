@@ -2,12 +2,10 @@
 // C23
 
 #include <stdio.h>
-#include <stdlib.h>
 
 #define TRANSITION_YEAR 1918
-#define DATE_BUF_SIZE 11 // "dd.mm.yyyy" + '\0'
 
-char *calculate_date_of_256th_day(int year);
+void calc_date_of_256th_day(int year, char *date, size_t n);
 bool is_leap_year(int year);
 bool is_leap_julian_year(int year);
 bool is_leap_gregorian_year(int year);
@@ -16,13 +14,19 @@ int main()
 {
     int year;
     scanf("%d", &year);
-    char *date = calculate_date_of_256th_day(year);
-    puts(date);
-    free(date);
+
+    constexpr size_t n = 11; // "dd.mm.yyyy" + '\0'
+    char date[n];
+
+    calc_date_of_256th_day(year, date, n);
+    printf("%s", date);
+
     return 0;
 }
 
-char *calculate_date_of_256th_day(int year)
+// T: O(1)
+// S: O(1) extra space
+void calc_date_of_256th_day(int year, char *date, size_t n)
 {
     int day;
     if (year == TRANSITION_YEAR)
@@ -30,9 +34,7 @@ char *calculate_date_of_256th_day(int year)
     else
         day = is_leap_year(year) ? 12 : 13;
 
-    auto date = (char *) malloc(DATE_BUF_SIZE * sizeof(char));
-    snprintf(date, DATE_BUF_SIZE, "%02d.09.%d", day, year);
-    return date;
+    snprintf(date, n, "%02d.09.%d", day, year);
 }
 
 bool is_leap_year(int year)

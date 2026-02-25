@@ -5,10 +5,12 @@ final int TRANSITION_YEAR = 1918;
 
 void main() {
     int year = Integer.parseInt(IO.readln());
-    IO.println(calculateDateOf256thDay(year));
+    IO.println(calcDateOf256thDay(year));
 }
 
-String calculateDateOf256thDay(int year) {
+// T: O(1)
+// S: O(1) extra space
+String calcDateOf256thDay(int year) {
     int day;
     if (year == TRANSITION_YEAR) day = 26;
     else day = isLeapYear(year) ? 12 : 13;

@@ -4,10 +4,12 @@ TRANSITION_YEAR = 1918
 
 def main
   year = gets.to_i
-  puts calculate_date_of_256th_day(year)
+  puts calc_date_of_256th_day(year)
 end
 
-def calculate_date_of_256th_day(year)
+# T: O(1)
+# S: O(1) extra space
+def calc_date_of_256th_day(year)
   if year == TRANSITION_YEAR
     day = '26'
   else
@@ -30,4 +32,4 @@ def leap_gregorian_year?(year)
   year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)
 end
 
-main if __FILE__ == $PROGRAM_NAME
+main if __FILE__ == $0

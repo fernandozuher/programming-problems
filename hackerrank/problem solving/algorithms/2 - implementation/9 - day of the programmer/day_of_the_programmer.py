@@ -5,10 +5,12 @@ TRANSITION_YEAR = 1918
 
 def main():
     year = int(input())
-    print(calculate_date_of_256th_day(year))
+    print(calc_date_of_256th_day(year))
 
 
-def calculate_date_of_256th_day(year):
+# T: O(1)
+# S: O(1) extra space
+def calc_date_of_256th_day(year):
     if year == TRANSITION_YEAR:
         day = '26'
     else:

@@ -12,10 +12,12 @@ const transitionYear = 1918
 func main() {
     var year int
     _, _ = fmt.Scan(&year)
-    fmt.Println(calculateDateOf256thDay(year))
+    fmt.Println(calcDateOf256thDay(year))
 }
 
-func calculateDateOf256thDay(year int) string {
+// T: O(1)
+// S: O(1) extra space
+func calcDateOf256thDay(year int) string {
     var day string
     if year == transitionYear {
         day = "26"
