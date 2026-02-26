@@ -40,10 +40,9 @@ function readNumbers(n: number): number[] {
 // S: O(1) extra space
 function gradingStudents(grades: number[]): number[] {
   for (let i = 0, minGrade = 38; i < grades.length; i++) {
-    if (grades[i] >= minGrade) {
-      const nextMultiple5 = Math.trunc(grades[i] / 5 + 1) * 5;
-      if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
-    }
+    if (grades[i] < minGrade) continue;
+    const nextMultiple5 = Math.trunc(grades[i] / 5 + 1) * 5;
+    if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
   }
   return grades;
 }

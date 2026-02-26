@@ -17,10 +17,9 @@ int[] readNumbers(int n) {
 // S: O(1) extra space
 int[] gradingStudents(int[] grades) {
     for (int i = 0, minGrade = 38; i < grades.length; i++) {
-        if (grades[i] >= minGrade) {
-            int nextMultiple5 = (grades[i] / 5 + 1) * 5;
-            if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
-        }
+        if (grades[i] < minGrade) continue;
+        int nextMultiple5 = (grades[i] / 5 + 1) * 5;
+        if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
     }
     return grades;
 }

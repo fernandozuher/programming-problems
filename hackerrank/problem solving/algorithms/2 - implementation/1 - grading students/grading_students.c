@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int arr[], int n);
-int *grading_students(int *grades, int n);
+void read_numbers(int *arr, int n);
+void grading_students(int *grades, int n);
 
 int main()
 {
@@ -19,7 +19,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int arr[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
@@ -28,7 +28,7 @@ void read_numbers(int arr[], int n)
 // n: length of array grades
 // T: O(n)
 // S: O(1) extra space
-int *grading_students(int *grades, int n)
+void grading_students(int *grades, int n)
 {
     for (int i = 0, min_grade = 38; i < n; ++i)
         if (grades[i] >= min_grade) {
@@ -36,5 +36,4 @@ int *grading_students(int *grades, int n)
             if (next_multiple_5 - grades[i] < 3)
                 grades[i] = next_multiple_5;
         }
-    return grades;
 }

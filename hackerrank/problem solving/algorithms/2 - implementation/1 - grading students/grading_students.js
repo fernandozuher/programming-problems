@@ -26,8 +26,7 @@ function readLine() {
 function main() {
   const n = +readLine();
   const grades = readNumbers(n);
-  const roundedGrades = gradingStudents(grades);
-  console.log(roundedGrades.join('\n'));
+  console.log(gradingStudents(grades).join('\n'));
 }
 
 function readNumbers(n) {
@@ -41,10 +40,9 @@ function readNumbers(n) {
 // S: O(1) extra space
 function gradingStudents(grades) {
   for (let i = 0, minGrade = 38; i < grades.length; i++) {
-    if (grades[i] >= minGrade) {
-      const nextMultiple5 = Math.trunc(grades[i] / 5 + 1) * 5;
-      if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
-    }
+    if (grades[i] < minGrade) continue;
+    const nextMultiple5 = Math.trunc(grades[i] / 5 + 1) * 5;
+    if (nextMultiple5 - grades[i] < 3) grades[i] = nextMultiple5;
   }
   return grades;
 }
