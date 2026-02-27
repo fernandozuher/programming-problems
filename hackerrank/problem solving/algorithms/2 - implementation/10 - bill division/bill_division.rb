@@ -10,12 +10,12 @@ def read_input
   input = Struct.new(:item_not_eaten, :meal_costs, :amount_charged)
   _, item_not_eaten = read_numbers
   meal_costs = read_numbers
-  amount_charged = gets&.to_i
+  amount_charged = gets.to_i
   input.new(item_not_eaten, meal_costs, amount_charged)
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 # n: length of array data.meal_costs

@@ -21,7 +21,6 @@ int main()
         println("{}", charged);
     else
         println("Bon Appetit");
-
     return 0;
 }
 
@@ -48,7 +47,7 @@ vector<int> read_numbers(int n)
 // S: O(1) extra space
 int bon_appetit(const input& data)
 {
-    int total_cost{ *ranges::fold_left_first(data.meal_costs, plus()) };
+    int total_cost{ *ranges::fold_left_first(data.meal_costs, plus{}) };
     int total_shared_cost{ total_cost - data.meal_costs.at(data.item_not_eaten) };
     total_shared_cost /= 2;
     return data.amount_charged - total_shared_cost;

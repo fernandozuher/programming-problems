@@ -12,10 +12,7 @@ Input ReadInput()
     return new Input(itemNotEaten, mealCosts, amountCharged);
 }
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of array data.MealCosts
 // T: O(n)

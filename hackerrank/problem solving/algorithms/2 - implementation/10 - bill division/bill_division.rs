@@ -2,6 +2,12 @@
 
 use text_io::read;
 
+struct Input {
+    item_not_eaten: usize,
+    meal_costs: Vec<i32>,
+    amount_charged: i32,
+}
+
 fn main() {
     let data: Input = read_input();
     let charged: i32 = bon_appetit(&data);
@@ -10,12 +16,6 @@ fn main() {
     } else {
         println!("Bon Appetit");
     }
-}
-
-struct Input {
-    item_not_eaten: usize,
-    meal_costs: Vec<i32>,
-    amount_charged: i32,
 }
 
 fn read_input() -> Input {
