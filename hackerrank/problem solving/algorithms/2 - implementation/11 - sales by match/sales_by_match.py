@@ -5,19 +5,25 @@ from collections import Counter
 
 def main():
     input()
-    sock_counts = counter()
-    print(sock_merchant(sock_counts))
+    socks_to_counts = counter()
+    print(sock_merchant(socks_to_counts))
 
 
+# n: length of user input
+# k: length of distinct numbers in user input
+# T: O(n)
+# S: O(n) extra space
 def counter():
     return Counter(map(int, input().split()))
 
 
-# n: quantity of entries in sock_counts
-# T: O(n)
+# n: length of initial user input
+# k: length of entries in socks_to_counts
+# k <= n
+# T: O(k)
 # S: O(1) extra space
-def sock_merchant(sock_counts):
-    return sum(count // 2 for count in sock_counts.values())
+def sock_merchant(socks_to_counts):
+    return sum(x // 2 for x in socks_to_counts.values())
 
 
 if __name__ == '__main__':
