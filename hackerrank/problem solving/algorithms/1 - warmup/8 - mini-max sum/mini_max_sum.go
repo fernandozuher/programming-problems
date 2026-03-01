@@ -6,17 +6,16 @@ import "fmt"
 
 func main() {
     const n = 5
-    var numbers []int = readNumbers(n)
-    var minSum, maxSum int = calcMinMaxSum(numbers)
+    minSum, maxSum := calcMinMaxSum(readNumbers(n))
     fmt.Println(minSum, maxSum)
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
-    for i := range numbers {
-        fmt.Scan(&numbers[i])
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func calcMinMaxSum(numbers []int) (int, int) {

@@ -6,35 +6,31 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    var inputStrings map[string]int = readInput(n)
+    _, _ = fmt.Scan(&n)
+    inputStrings := counter(n)
 
-    fmt.Scan(&n)
-    var result []int = readQueriesAndCountMatches(inputStrings, n)
-    printArray(result)
+    _, _ = fmt.Scan(&n)
+    for _, x := range readQueriesAndCountMatches(inputStrings, n) {
+        fmt.Println(x)
+    }
 }
 
-    func readInput(n int) map[string]int {
-        input := map[string]int{}
-        for i, line := 0, ""; i < n; i++ {
-            fmt.Scanf("%s", &line)
-            input[line] += 1
-        }
-        return input
+func counter(n int) map[string]int {
+    freqMap := map[string]int{}
+    for range n {
+        var line string
+        _, _ = fmt.Scan(&line)
+        freqMap[line] += 1
     }
+    return freqMap
+}
 
-    func readQueriesAndCountMatches(input map[string]int, n int) []int {
-        result := make([]int, n)
-        var query string
-        for i := range result {
-            fmt.Scanf("%s", &query)
-            result[i] = input[query]
-        }
-        return result
+func readQueriesAndCountMatches(input map[string]int, n int) []int {
+    result := make([]int, n)
+    var query string
+    for i := range n {
+        _, _ = fmt.Scan(&query)
+        result[i] = input[query]
     }
-
-    func printArray(array []int) {
-        for _, x := range array {
-            fmt.Println(x)
-        }
-    }
+    return result
+}

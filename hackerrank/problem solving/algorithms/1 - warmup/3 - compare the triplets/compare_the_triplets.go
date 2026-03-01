@@ -4,27 +4,26 @@ package main
 
 import "fmt"
 
-const (
-    tripletSize = 3
-    resultSize  = 2
-)
-
 func main() {
-    tripletA := readInput()
-    tripletB := readInput()
-    result := compareTriplets(tripletA, tripletB)
-    fmt.Printf("%d %d\n", result[0], result[1])
+    const tripletSize = 3
+    tripletA := readNumbers(tripletSize)
+    tripletB := readNumbers(tripletSize)
+    scoreA, scoreB := compareTriplets(tripletA, tripletB)
+    fmt.Println(scoreA, scoreB)
 }
 
-func readInput() [tripletSize]int {
-    var array [tripletSize]int
-    for i := range array {
-        fmt.Scan(&array[i])
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
-    return array
+    return arr
 }
 
-func compareTriplets(a [tripletSize]int, b [tripletSize]int) [resultSize]int {
+// tripletSize: length of array a and b = 3
+// T: O(3) = O(1)
+// S: O(1) extra space
+func compareTriplets(a, b []int) (int, int) {
     scoreA, scoreB := 0, 0
 
     for i := range a {
@@ -35,5 +34,5 @@ func compareTriplets(a [tripletSize]int, b [tripletSize]int) [resultSize]int {
         }
     }
 
-    return [resultSize]int{scoreA, scoreB}
+    return scoreA, scoreB
 }

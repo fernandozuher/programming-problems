@@ -2,12 +2,14 @@
 
 package main
 
-import "fmt"
-import "strings"
+import (
+    "fmt"
+    "strings"
+)
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     staircase(n)
 }
 

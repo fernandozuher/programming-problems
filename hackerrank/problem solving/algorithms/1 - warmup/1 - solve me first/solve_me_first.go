@@ -6,10 +6,12 @@ import "fmt"
 
 func main() {
     var n1, n2 int
-    fmt.Scan(&n1, &n2)
-    fmt.Print(solveMeFirst(n1, n2))
+    _, _ = fmt.Scan(&n1, &n2)
+    fmt.Println(solveMeFirst(n1, n2))
 }
 
-func solveMeFirst(n1 int, n2 int) int {
+// T: O(1)
+// S: O(1) extra space
+func solveMeFirst(n1, n2 int) int {
     return n1 + n2
 }

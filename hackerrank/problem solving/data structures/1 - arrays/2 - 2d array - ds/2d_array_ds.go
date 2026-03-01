@@ -9,48 +9,48 @@ import (
 
 func main() {
     n := 6
-    matrix := make([][]int, n)
-
-    for i := range matrix {
-        matrix[i] = make([]int, n)
-        for j := 0; j < n; j++ {
-            fmt.Scanf("%d", &matrix[i][j])
-        }
-    }
-
-    fmt.Println(maxHourglassSum(matrix))
+    fmt.Println(maxHourglassSum(readInput(n)))
 }
 
-    func maxHourglassSum(matrix [][]int) int {
-        var maxSum int = math.MinInt32
+func readInput(n int) [][]int {
+    matrix := make([][]int, n)
+    for i := range n {
+        matrix[i] = make([]int, n)
+        for j := range n {
+            _, _ = fmt.Scan(&matrix[i][j])
+        }
+    }
+    return matrix
+}
 
-        for i, rows_cols := 1, 4; i <= rows_cols; i++ {
-            for j := 1; j <= rows_cols; j++ {
-                var currentSum int = hourglassSum(matrix, i, j)
-                if currentSum > maxSum {
-                    maxSum = currentSum
-                }
+func maxHourglassSum(matrix [][]int) int {
+    maxSum := math.MinInt32
+
+    for i, rows_cols := 1, 4; i <= rows_cols; i++ {
+        for j := 1; j <= rows_cols; j++ {
+            currentSum := hourglassSum(matrix, i, j)
+            if currentSum > maxSum {
+                maxSum = currentSum
             }
         }
-
-        return maxSum
     }
 
-        func hourglassSum(matrix [][]int, i int, j int) int {
-            var subrow1FirstIndex int = i - 1
-            var subrow3FirstIndex int = i + 1
-            var firstColIndex int = j - 1
-            var end int = firstColIndex + 3
+    return maxSum
+}
 
-            subrow1 := matrix[subrow1FirstIndex][firstColIndex:end]
-            subrow3 := matrix[subrow3FirstIndex][firstColIndex:end]
+func hourglassSum(matrix [][]int, i, j int) int {
+    subrow1FirstIndex := i - 1
+    subrow3FirstIndex := i + 1
+    firstColIndex := j - 1
+    end := firstColIndex + 3
 
-            sum := 0
-            for i := range subrow1 {
-                sum += subrow1[i] + subrow3[i]
-            }
+    subrow1 := matrix[subrow1FirstIndex][firstColIndex:end]
+    subrow3 := matrix[subrow3FirstIndex][firstColIndex:end]
 
-            sum += matrix[i][j]
+    sum := 0
+    for i := range subrow1 {
+        sum += subrow1[i] + subrow3[i]
+    }
 
-            return sum
-        }
+    return sum + matrix[i][j]
+}

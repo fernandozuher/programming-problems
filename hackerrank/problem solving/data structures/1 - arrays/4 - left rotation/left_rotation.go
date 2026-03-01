@@ -6,31 +6,28 @@ import "fmt"
 
 func main() {
     var n, rotateBy int
-    fmt.Scan(&n, &rotateBy)
-    var array []int = readIntArray(n)
+    _, _ = fmt.Scan(&n, &rotateBy)
 
     if rotateBy > n-1 {
         rotateBy %= n
     }
 
-    array = rotate(array, rotateBy)
-    printArray(array)
+    for i, x := range rotate(readNumbers(n), rotateBy) {
+        if i > 0 {
+            fmt.Print(" ")
+        }
+        fmt.Print(x)
+    }
 }
 
-    func readIntArray(n int) []int {
-        array := make([]int, n)
-        for i := range array {
-            fmt.Scanf("%d", &array[i])
-        }
-        return array
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
+    return arr
+}
 
-    func rotate(array []int, n int) []int {
-        return append(array[n:], array[:n]...)
-    }
-
-    func printArray(array []int) {
-        for _, x := range array {
-            fmt.Printf("%d ", x)
-        }
-    }
+func rotate(array []int, n int) []int {
+    return append(array[n:], array[:n]...)
+}

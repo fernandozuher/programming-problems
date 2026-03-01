@@ -1,5 +1,4 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
-// Go 1.22
 
 package main
 
@@ -10,17 +9,16 @@ import (
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    candles := readNumbers(n)
-    fmt.Println(birthdayCakeCandles(candles))
+    _, _ = fmt.Scan(&n)
+    fmt.Println(birthdayCakeCandles(readNumbers(n)))
 }
 
 func readNumbers(n int) []int {
-    numbers := make([]int, n)
+    arr := make([]int, n)
     for i := range n {
-        fmt.Scan(&numbers[i])
+        _, _ = fmt.Scan(&arr[i])
     }
-    return numbers
+    return arr
 }
 
 func birthdayCakeCandles(candles []int) int {

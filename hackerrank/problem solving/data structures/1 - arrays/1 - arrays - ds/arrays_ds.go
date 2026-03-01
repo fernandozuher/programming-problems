@@ -2,26 +2,25 @@
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "slices"
+)
 
 func main() {
     var n int
-    fmt.Scan(&n)
-    array := make([]int, n)
-
-    for i := range array {
-        fmt.Scanf("%d", &array[i])
-    }
-    array = reverseArray(array)
-
-    for _, x := range array {
-        fmt.Printf("%d ", x)
+    _, _ = fmt.Scan(&n)
+    arr := readNumbers(n)
+    slices.Reverse(arr)
+    for _, x := arr {
+        fmt.Print(x)
     }
 }
 
-    func reverseArray(array []int) []int {
-        for i, j := 0, len(array)-1; i < j; i, j = i+1, j-1 {
-            array[i], array[j] = array[j], array[i]
-        }
-        return array
+func readNumbers(n int) []int {
+    arr := make([]int, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
     }
+    return arr
+}
