@@ -1,8 +1,8 @@
 # https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
 def main
-  n = gets&.to_i
-  page = gets&.to_i
+  n = gets.to_i
+  page = gets.to_i
   puts count_page(n, page)
 end
 
