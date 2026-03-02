@@ -15,7 +15,7 @@ int main()
     return 0;
 }
 
-// n: length of steps
+// n: length of string steps
 // T: O(n)
 // S: O(1) extra space
 int counting_valleys(string_view steps)
@@ -25,8 +25,8 @@ int counting_valleys(string_view steps)
     for (int current_altitude{}; auto step : steps) {
         bool was_below_sea_level{ current_altitude < 0 };
         current_altitude += step == 'D' ? -1 : 1;
-        if (bool is_in_sea_level_from_valley{ was_below_sea_level && current_altitude == 0 }; is_in_sea_level_from_valley)
-            ++valleys;
+        bool is_in_sea_level_from_valley{ was_below_sea_level && current_altitude == 0 };
+        valleys += is_in_sea_level_from_valley;
     }
 
     return valleys;

@@ -8,7 +8,7 @@ fn main() {
     println!("{}", counting_valleys(&steps));
 }
 
-// n: length of steps
+// n: length of string steps
 // T: O(n)
 // S: O(1) extra space
 fn counting_valleys(steps: &str) -> i32 {

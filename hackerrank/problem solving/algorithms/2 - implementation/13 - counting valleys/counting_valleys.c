@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-int counting_valleys(const char steps[], int n);
+int counting_valleys(const char *steps, int n);
 
 int main()
 {
@@ -15,10 +15,10 @@ int main()
     return 0;
 }
 
-// n: length of steps
+// n: length of string steps
 // T: O(n)
 // S: O(1) extra space
-int counting_valleys(const char steps[], int n)
+int counting_valleys(const char *steps, int n)
 {
     int valleys = 0;
 
@@ -26,8 +26,7 @@ int counting_valleys(const char steps[], int n)
         bool was_below_sea_level = current_altitude < 0;
         current_altitude += steps[i] == 'D' ? -1 : 1;
         bool is_in_sea_level_from_valley = was_below_sea_level && current_altitude == 0;
-        if (is_in_sea_level_from_valley)
-            ++valleys;
+        valleys += is_in_sea_level_from_valley;
     }
 
     return valleys;

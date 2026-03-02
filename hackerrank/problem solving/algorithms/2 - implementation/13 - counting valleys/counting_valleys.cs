@@ -4,7 +4,7 @@ Console.ReadLine();
 string steps = Console.ReadLine()!;
 Console.WriteLine(CountingValleys(steps));
 
-// n: length of steps
+// n: length of string steps
 // T: O(n)
 // S: O(1) extra space
 int CountingValleys(string steps)

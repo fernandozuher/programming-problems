@@ -6,13 +6,13 @@ import "fmt"
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     var steps string
-    fmt.Scan(&steps)
+    _, _ = fmt.Scan(&steps)
     fmt.Println(countingValleys(steps))
 }
 
-// n: length of steps
+// n: length of string steps
 // T: O(n)
 // S: O(1) extra space
 func countingValleys(steps string) int {
