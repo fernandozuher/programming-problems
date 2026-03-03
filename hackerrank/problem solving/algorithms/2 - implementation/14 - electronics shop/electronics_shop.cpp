@@ -6,7 +6,7 @@ using namespace std;
 
 vector<int> read_numbers(int n);
 void preprocess_input(vector<int>& arr);
-int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget);
+int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget);
 
 int main()
 {
@@ -18,7 +18,7 @@ int main()
     preprocess_input(keyboards);
     preprocess_input(usb_drives);
 
-    cout << calculate_money_spent(keyboards, usb_drives, budget);
+    cout << calc_money_spent(keyboards, usb_drives, budget);
 
     return 0;
 }
@@ -31,6 +31,13 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of array arr
+// k: length after deduplication
+// k <= n
+// T: O((n log n) + n) = O(n log n)
+// S:
+//    log n for the recursion stack of ranges::sort()
+//    O(log n) extra space
 void preprocess_input(vector<int>& arr)
 {
     ranges::sort(arr);
@@ -38,11 +45,11 @@ void preprocess_input(vector<int>& arr)
     arr.erase(x.begin(), x.end());
 }
 
-// n: length of array keyboards
-// m: length of array usb_drives
-// T: O(n + m)
+// n1: length of array keyboards
+// n2: length of array usb_drives
+// T: O(n1 + n2)
 // S: O(1) extra space
-int calculate_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget)
+int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget)
 {
     if (keyboards[0] >= budget || usb_drives[0] >= budget)
         return -1;

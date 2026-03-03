@@ -12,7 +12,7 @@ func main() {
     _, _ = fmt.Scan(&budget, &nKeyboards, &nUsbDrives)
     keyboards := preprocessInput(readNumbers(nKeyboards))
     usbDrives := preprocessInput(readNumbers(nUsbDrives))
-    fmt.Println(calculateMoneySpent(keyboards, usbDrives, budget))
+    fmt.Println(calcMoneySpent(keyboards, usbDrives, budget))
 }
 
 func readNumbers(n int) []int {
@@ -23,6 +23,11 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of array arr
+// k: length after deduplication
+// k <= n
+// T: O(n + k log k) = O(n log n)
+// S: O(k) = O(n) extra space
 func preprocessInput(arr []int) []int {
     data := map[int]bool{}
     var out []int
@@ -38,11 +43,11 @@ func preprocessInput(arr []int) []int {
     return out
 }
 
-// n: length of array keyboards
-// m: length of array usbDrives
-// T: O(n + m)
+// n1: length of array keyboards
+// n2: length of array usbDrives
+// T: O(n1 + n2)
 // S: O(1) extra space
-func calculateMoneySpent(keyboards, usbDrives []int, budget int) int {
+func calcMoneySpent(keyboards, usbDrives []int, budget int) int {
     if keyboards[0] >= budget || usbDrives[0] >= budget {
         return -1
     }

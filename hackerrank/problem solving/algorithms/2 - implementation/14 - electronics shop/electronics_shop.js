@@ -27,23 +27,28 @@ function main() {
   const budget = readNumbers()[0];
   const keyboards = preprocessInput(readNumbers());
   const usbDrives = preprocessInput(readNumbers());
-  console.log(calculateMoneySpent(keyboards, usbDrives, budget));
+  console.log(calcMoneySpent(keyboards, usbDrives, budget));
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of array arr
+// k: length after deduplication
+// k <= n
+// T: O(n + k log k) = O(n log n)
+// S: O(k) = O(n) extra space
 function preprocessInput(arr) {
   arr = [...new Set(arr)];
   return arr.sort((a, b) => a - b);
 }
 
-// n: length of array keyboards
-// m: length of array usbDrives
-// T: O(n + m)
+// n1: length of array keyboards
+// n2: length of array usbDrives
+// T: O(n1 + n2)
 // S: O(1) extra space
-function calculateMoneySpent(keyboards, usbDrives, budget) {
+function calcMoneySpent(keyboards, usbDrives, budget) {
   if (keyboards[0] >= budget || usbDrives[0] >= budget) return -1;
 
   let maxSpent = -1;

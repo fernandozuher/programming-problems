@@ -4,24 +4,29 @@ def main():
     budget = read_numbers()[0]
     keyboards = preprocess_input(read_numbers())
     usb_drives = preprocess_input(read_numbers())
-    print(calculate_money_spent(keyboards, usb_drives, budget))
+    print(calc_money_spent(keyboards, usb_drives, budget))
 
 
 def read_numbers():
     return list(map(int, input().split()))
 
 
+# n: length of array arr
+# k: length after deduplication
+# k <= n
+# T: O(n + k log k) = O(n log n)
+# S: O(k) = O(n) extra space
 def preprocess_input(arr):
     arr = list(set(arr))
     arr.sort()
     return arr
 
 
-# n: length of array keyboards
-# m: length of array usb_drives
-# T: O(n + m)
+# n1: length of array keyboards
+# n2: length of array usb_drives
+# T: O(n1 + n2)
 # S: O(1) extra space
-def calculate_money_spent(keyboards, usb_drives, budget):
+def calc_money_spent(keyboards, usb_drives, budget):
     if keyboards[0] >= budget or usb_drives[0] >= budget:
         return -1
 

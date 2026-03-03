@@ -8,7 +8,7 @@ int preprocess_input(int *arr, int n);
 void sort(int *arr, int n);
 int compare(const void *a, const void *b);
 int remove_duplicate(int *arr, int n);
-int calculate_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget);
+int calc_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget);
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
     int n1 = preprocess_input(keyboards, n_keyboards);
     int n2 = preprocess_input(usb_drives, n_usb_drives);
 
-    printf("%d\n", calculate_money_spent(keyboards, n1, usb_drives, n2, budget));
+    printf("%d\n", calc_money_spent(keyboards, n1, usb_drives, n2, budget));
 
     return 0;
 }
@@ -32,6 +32,13 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
+// n: length of array arr
+// k: length after deduplication
+// k <= n
+// T: O((n log n) + n) = O(n log n)
+// S:
+//    log n for the recursion stack of qsort()
+//    O(log n) extra space
 int preprocess_input(int *arr, int n)
 {
     sort(arr, n);
@@ -61,11 +68,11 @@ int remove_duplicate(int *arr, int n)
     return w;
 }
 
-// n: n_keyboards
-// m: n_usb_drives
-// T: O(n + m)
+// n1: length of array keyboards
+// n2: length of array usb_drives
+// T: O(n1 + n2)
 // S: O(1) extra space
-int calculate_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget)
+int calc_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget)
 {
     if (keyboards[0] >= budget || usb_drives[0] >= budget)
         return -1;

@@ -3,23 +3,22 @@
 int budget = ReadNumbers()[0];
 int[] keyboards = PreprocessInput(ReadNumbers());
 int[] usbDrives = PreprocessInput(ReadNumbers());
-Console.WriteLine(CalculateMoneySpent(keyboards, usbDrives, budget));
+Console.WriteLine(CalcMoneySpent(keyboards, usbDrives, budget));
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-int[] PreprocessInput(int[] arr)
-{
-    return arr.Distinct().OrderBy(x => x).ToArray();
-}
+// n: length of array arr
+// k: length after deduplication
+// k <= n
+// T: O(n + k log k) = O(n log n)
+// S: O(k) = O(n) extra space
+int[] PreprocessInput(int[] arr) => arr.Distinct().OrderBy(x => x).ToArray();
 
-// n: length of array keyboards
-// m: length of array usbDrives
-// T: O(n + m)
+// n1: length of array keyboards
+// n2: length of array usbDrives
+// T: O(n1 + n2)
 // S: O(1) extra space
-int CalculateMoneySpent(int[] keyboards, int[] usbDrives, int budget)
+int CalcMoneySpent(int[] keyboards, int[] usbDrives, int budget)
 {
     if (keyboards[0] >= budget || usbDrives[0] >= budget)
         return -1;

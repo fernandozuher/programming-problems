@@ -5,22 +5,27 @@ void main() {
     int budget = readNumbers()[0];
     int[] keyboards = preprocessInput(readNumbers());
     int[] usbDrives = preprocessInput(readNumbers());
-    IO.println(calculateMoneySpent(keyboards, usbDrives, budget));
+    IO.println(calcMoneySpent(keyboards, usbDrives, budget));
 }
 
 int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of array arr
+// k: length after deduplication
+// k <= n
+// T: O(n + k log k) = O(n log n)
+// S: O(k) = O(n) extra space
 int[] preprocessInput(int[] arr) {
     return IntStream.of(arr).distinct().sorted().toArray();
 }
 
-// n: length of array keyboards
-// m: length of array usbDrives
-// T: O(n + m)
+// n1: length of array keyboards
+// n2: length of array usbDrives
+// T: O(n1 + n2)
 // S: O(1) extra space
-int calculateMoneySpent(int[] keyboards, int[] usbDrives, int budget) {
+int calcMoneySpent(int[] keyboards, int[] usbDrives, int budget) {
     if (keyboards[0] >= budget || usbDrives[0] >= budget) return -1;
 
     int maxSpent = -1;
