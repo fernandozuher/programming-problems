@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
 
 def main
-  n = gets&.to_i
+  n = gets.to_i
   n.times { puts find_nearest_cat_or_not(read_numbers) }
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 # T: O(1)

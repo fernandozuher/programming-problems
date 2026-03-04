@@ -4,20 +4,21 @@
 #include <stdio.h>
 #include <string.h>
 
-#define NUM_POSITIONS 3
-#define RESULT_SIZE 10
-
-void read_positions(int *arr);
-void find_nearest_cat_or_not(const int positions[NUM_POSITIONS], char *out);
+void read_numbers(int *arr, int n);
+void find_nearest_cat_or_not(const int *positions, char *out);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    char out[RESULT_SIZE];
 
-    for (int i = 0, positions[NUM_POSITIONS]; i < n; ++i) {
-        read_positions(positions);
+    constexpr size_t n_positions = 3;
+    int positions[n_positions];
+    constexpr size_t out_size = 10;
+    char out[out_size];
+
+    for (int i = 0; i < n; ++i) {
+        read_numbers(positions, n_positions);
         find_nearest_cat_or_not(positions, out);
         puts(out);
     }
@@ -25,19 +26,17 @@ int main()
     return 0;
 }
 
-void read_positions(int *arr)
+void read_numbers(int *arr, int n)
 {
-    for (int i = 0; i < NUM_POSITIONS; ++i)
+    for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
 // T: O(1)
 // S: O(1) extra space
-void find_nearest_cat_or_not(const int positions[NUM_POSITIONS], char *out)
+void find_nearest_cat_or_not(const int *positions, char *out)
 {
-    int cat_a = positions[0];
-    int cat_b = positions[1];
-    int mouse = positions[2];
+    int cat_a = positions[0], cat_b = positions[1], mouse = positions[2];
     int cat_a_from_mouse = abs(cat_a - mouse);
     int cat_b_from_mouse = abs(cat_b - mouse);
 

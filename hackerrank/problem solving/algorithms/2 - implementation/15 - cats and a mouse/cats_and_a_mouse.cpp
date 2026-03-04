@@ -4,30 +4,32 @@
 import std;
 using namespace std;
 
-tuple<int, int, int> read_positions();
-string find_nearest_cat_or_not(const tuple<int, int, int>& positions);
+vector<int> read_numbers(int n);
+string find_nearest_cat_or_not(const vector<int>& positions);
 
 int main()
 {
     int n;
     cin >> n;
+    constexpr int n_positions{ 3 };
     for (int i{}; i < n; ++i)
-        println("{}", find_nearest_cat_or_not(read_positions()));
+        println("{}", find_nearest_cat_or_not(read_numbers(n_positions)));
     return 0;
 }
 
-tuple<int, int, int> read_positions()
+vector<int> read_numbers(int n)
 {
-    int cat_a, cat_b, mouse;
-    cin >> cat_a >> cat_b >> mouse;
-    return { cat_a, cat_b, mouse };
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
 }
 
 // T: O(1)
 // S: O(1) extra space
-string find_nearest_cat_or_not(const tuple<int, int, int>& positions)
+string find_nearest_cat_or_not(const vector<int>& positions)
 {
-    auto [cat_a, cat_b, mouse] = positions;
+    int cat_a{ positions[0] }, cat_b{ positions[1] }, mouse{ positions[2] };
     int cat_a_from_mouse{ abs(cat_a - mouse) };
     int cat_b_from_mouse{ abs(cat_b - mouse) };
 

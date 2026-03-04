@@ -7,8 +7,9 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
+    const nPositions = 3
     for range n {
-        fmt.Println(findNearestCatOrNot(readNumbers(3)))
+        fmt.Println(findNearestCatOrNot(readNumbers(nPositions)))
     }
 }
 
