@@ -8,23 +8,21 @@ def main():
     print(picking_numbers(counter()))
 
 
+# n: length of initial input array of numbers
+# T: O(n)
+# S: O(n) extra space
 def counter():
     return Counter(map(int, input().split()))
 
 
-# n: length of initial input array of numbers
-# k: length of map frequency
-# T:
-#   Without constraining the input values:
-#       In the worst case, length of map equals length of initial input array when there is no repeated element: k = n
-#       O(n)
-#   With input values limited to 1 through 99, as stated in the problem:
-#       Max of 99 keys/values at map: O(99) = O(1)
+# k: length of freq_map
+# 1 <= k <= 99
+# T: O(k) = O(99) = O(1)
 # S: O(1) extra space
-def picking_numbers(frequency):
+def picking_numbers(freq_map):
     max_len = 0
-    for num in frequency:
-        max_len = max(max_len, frequency[num] + frequency.get(num + 1, 0))
+    for num in freq_map:
+        max_len = max(max_len, freq_map[num] + freq_map.get(num + 1, 0))
     return max_len
 
 

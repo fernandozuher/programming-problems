@@ -5,22 +5,20 @@ def main
   puts picking_numbers(counter)
 end
 
+# n: length of initial input array of numbers
+# T: O(n)
+# S: O(n) extra space
 def counter
-  gets&.split&.map!(&:to_i)&.tally
+  gets.split.map!(&:to_i).tally
 end
 
-# n: length of initial input array of numbers
-# k: length of map frequency
-# T:
-#   Without constraining the input values:
-#       In the worst case, length of map equals length of initial input array when there is no repeated element: k = n
-#       O(n)
-#   With input values limited to 1 through 99, as stated in the problem:
-#       Max of 99 keys/values at map: O(99) = O(1)
+# k: length of freq_map
+# 1 <= k <= 99
+# T: O(k) = O(99) = O(1)
 # S: O(1) extra space
-def picking_numbers(frequency)
-  frequency.each_key.inject(0) do |max_len, num|
-    [max_len, frequency[num] + frequency.fetch(num + 1, 0)].max
+def picking_numbers(freq_map)
+  freq_map.each_key.inject(0) do |max_len, num|
+    [max_len, freq_map[num] + freq_map.fetch(num + 1, 0)].max
   end
 end
 

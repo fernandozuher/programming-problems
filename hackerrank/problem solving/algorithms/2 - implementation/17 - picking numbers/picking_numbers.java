@@ -6,27 +6,25 @@ void main() {
     IO.println(pickingNumbers(counter()));
 }
 
+// n: length of initial input array of numbers
+// T: O(n)
+// S: O(n) extra space
 Map<Integer, Integer> counter() {
     var arr = Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
-    Map<Integer, Integer> frequency = new HashMap<>();
+    Map<Integer, Integer> freqMap = new HashMap<>();
     for (int num : arr)
-        frequency.put(num, frequency.getOrDefault(num, 0) + 1);
-    return frequency;
+        freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+    return freqMap;
 }
 
-// n: length of initial input array of numbers
-// k: length of map frequency
-// T:
-//   Without constraining the input values:
-//       In the worst case, length of map equals length of initial input array when there is no repeated element: k = n
-//       O(n)
-//   With input values limited to 1 through 99, as stated in the problem:
-//       Max of 99 keys/values at map: O(99) = O(1)
+// k: length of freqMap
+// 1 <= k <= 99
+// T: O(k) = O(99) = O(1)
 // S: O(1) extra space
-int pickingNumbers(Map<Integer, Integer> frequency) {
+int pickingNumbers(Map<Integer, Integer> freqMap) {
     int maxLen = 0;
-    for (var num : frequency.keySet()) {
-        int current = frequency.get(num) + frequency.getOrDefault(num + 1, 0);
+    for (var num : freqMap.keySet()) {
+        int current = freqMap.get(num) + freqMap.getOrDefault(num + 1, 0);
         maxLen = Math.max(maxLen, current);
     }
     return maxLen;

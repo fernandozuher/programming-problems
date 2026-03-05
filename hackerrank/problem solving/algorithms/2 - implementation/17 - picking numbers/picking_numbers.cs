@@ -3,6 +3,9 @@
 Console.ReadLine();
 Console.WriteLine(PickingNumbers(Counter()));
 
+// n: length of initial input array of numbers
+// T: O(n)
+// S: O(n) extra space
 Dictionary<int, int> Counter()
 {
     return Console.ReadLine()!
@@ -12,21 +15,16 @@ Dictionary<int, int> Counter()
                   .ToDictionary(g => g.Key, g => g.Count());
 }
 
-// n: length of initial input array of numbers
-// k: length of map frequency
-// T:
-//   Without constraining the input values:
-//       In the worst case, length of map equals length of initial input array when there is no repeated element: k = n
-//       O(n)
-//   With input values limited to 1 through 99, as stated in the problem:
-//       Max of 99 keys/values at map: O(99) = O(1)
+// k: length of freqMap
+// 1 <= k <= 99
+// T: O(k) = O(99) = O(1)
 // S: O(1) extra space
-int PickingNumbers(Dictionary<int, int> frequency)
+int PickingNumbers(Dictionary<int, int> freqMap)
 {
     int maxLen = 0;
-    foreach (int num in frequency.Keys)
+    foreach (int num in freqMap.Keys)
     {
-        int current = frequency[num] + (frequency.ContainsKey(num + 1) ? frequency[num + 1] : 0);
+        int current = freqMap[num] + (freqMap.ContainsKey(num + 1) ? freqMap[num + 1] : 0);
         maxLen = Math.Max(maxLen, current);
     }
     return maxLen;
