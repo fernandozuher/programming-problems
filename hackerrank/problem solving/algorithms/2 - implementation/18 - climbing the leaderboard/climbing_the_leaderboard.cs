@@ -6,20 +6,19 @@ Console.ReadLine();
 int[] player = ReadNumbers();
 Array.ForEach(ClimbingLeaderboard(ranked, player), Console.WriteLine);
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-int[] RemoveDuplicates(int[] arr)
-{
-    return arr.Distinct().ToArray();
-}
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
+// T: O(n)
+// S: O(k) = O(n) extra space
+int[] RemoveDuplicates(int[] arr) => arr.Distinct().ToArray();
 
-// n: length of array player and returned output array
-// m: length of array ranked
-// T: O(n + m)
-// S: O(n) extra space
+// n1: length of player, output
+// n2: length of ranked
+// T: O(n1 + n2)
+// S: O(n1) extra space
 int[] ClimbingLeaderboard(int[] ranked, int[] player)
 {
     int i = ranked.Length - 1;

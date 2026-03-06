@@ -28,21 +28,26 @@ function main() {
   const ranked = removeDuplicates(readNumbers());
   readLine();
   const player = readNumbers();
-  console.log(climbingLeaderboard(ranked, player).join('\n'));
+  for (const x of climbingLeaderboard(ranked, player)) console.log(x);
 }
 
 function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
+// T: O(n)
+// S: O(k) = O(n) extra space
 function removeDuplicates(numbers) {
   return [...new Set(numbers)];
 }
 
-// n: length of array player and returned output array
-// m: length of array ranked
-// T: O(n + m)
-// S: O(n) extra space
+// n1: length of player, output
+// n2: length of ranked
+// T: O(n1 + n2)
+// S: O(n1) extra space
 function climbingLeaderboard(ranked, player) {
   let i = ranked.length - 1;
   return player.map((score) => {

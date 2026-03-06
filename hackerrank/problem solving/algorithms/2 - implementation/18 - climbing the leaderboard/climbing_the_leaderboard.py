@@ -12,14 +12,19 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# n: length of arr
+# k: length of distinct numbers in arr
+# k <= n
+# T: O(n)
+# S: O(k) = O(n) extra space
 def remove_duplicates(arr):
     return list(dict.fromkeys(arr))
 
 
-# n: length of array player|player_ranks
-# m: length of array ranked
-# T: O(n + m)
-# S: O(n) extra space
+# n1: length of player, player_ranks
+# n2: length of ranked
+# T: O(n1 + n2)
+# S: O(n1) extra space
 def climbing_leaderboard(ranked, player):
     player_ranks = [0] * len(player)
     seeker = len(ranked) - 1

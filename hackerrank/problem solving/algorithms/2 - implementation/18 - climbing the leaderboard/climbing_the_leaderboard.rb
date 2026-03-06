@@ -10,13 +10,13 @@ def main
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
-# n: length of array player and returned output array
-# m: length of array ranked
-# T: O(n + m)
-# S: O(n) extra space
+# n1: length of player, output
+# n2: length of ranked
+# T: O(n1 + n2)
+# S: O(n1) extra space
 def climbing_leaderboard(ranked, player)
   i = ranked.length - 1
   player.map do |score|

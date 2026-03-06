@@ -20,7 +20,7 @@ int main()
     vector player{ read_numbers(n) };
 
     for (auto x : climbing_leaderboard(ranked, player))
-        cout << x << '\n';
+        println("{}", x);
 
     return 0;
 }
@@ -33,16 +33,21 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
+// T: O(n)
+// S: O(1) extra space
 void remove_duplicates(vector<int>& arr)
 {
     auto [first, last] { ranges::unique(arr) };
     arr.erase(first, last);
 }
 
-// n: length of array player and returned output array
-// m: length of array ranked
-// T: O(n + m)
-// S: O(n) extra space
+// n1: length of player, output
+// n2: length of ranked
+// T: O(n1 + n2)
+// S: O(n1) extra space
 vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& player)
 {
     int i = ranked.size() - 1;
@@ -50,5 +55,6 @@ vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& p
         while (i >= 0 && score >= ranked[i])
             --i;
         return i + 2;
-        }) | ranges::to<vector>();
+        }) |
+        ranges::to<vector>();
 }

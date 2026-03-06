@@ -35,14 +35,19 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
+// T: O(n)
+// S: O(k) = O(n) extra space
 function removeDuplicates(numbers: number[]): number[] {
   return [...new Set(numbers)];
 }
 
-// n: length of array player and returned output array
-// m: length of array ranked
-// T: O(n + m)
-// S: O(n) extra space
+// n1: length of player, output
+// n2: length of ranked
+// T: O(n1 + n2)
+// S: O(n1) extra space
 function climbingLeaderboard(ranked: number[], player: number[]): number[] {
   let i: number = ranked.length - 1;
   return player.map((score) => {

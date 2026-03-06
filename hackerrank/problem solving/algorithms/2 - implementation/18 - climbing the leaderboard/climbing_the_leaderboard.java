@@ -14,14 +14,19 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
+// T: O(n)
+// S: O(k) = O(n) extra space
 int[] removeDuplicates(int[] arr) {
     return Arrays.stream(arr).distinct().toArray();
 }
 
-// n: length of array player|playerRanks
-// m: length of array ranked
-// T: O(n + m)
-// S: O(n) extra space
+// n1: length of player, playerRanks
+// n2: length of ranked
+// T: O(n1 + n2)
+// S: O(n1) extra space
 int[] climbingLeaderboard(int[] ranked, int[] player) {
     int[] playerRanks = new int[player.length];
     int seeker = ranked.length - 1;
