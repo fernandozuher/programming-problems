@@ -33,7 +33,7 @@ function readNumbers() {
   return readLine().split(' ').map(Number);
 }
 
-// n: length of array hurdles
+// n: length of hurdles
 // T: O(n)
 // S: O(1) extra space
 function hurdleRace(hurdles, maxJump) {

@@ -23,7 +23,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array hurdles
+// n: length of hurdles
 // T: O(n)
 // S: O(1) extra space
 int hurdle_race(const int *hurdles, int n, int max_jump)

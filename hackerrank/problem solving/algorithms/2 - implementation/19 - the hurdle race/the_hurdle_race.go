@@ -22,7 +22,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array hurdles
+// n: length of hurdles
 // T: O(n)
 // S: O(1) extra space
 func hurdleRace(hurdles []int, maxJump int) int {

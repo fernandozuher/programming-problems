@@ -24,10 +24,10 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array hurdles
+// n: length of hurdles
 // T: O(n)
 // S: O(1) extra space
 int hurdle_race(const vector<int>& hurdles, int max_jump)
 {
-    return max(0, *ranges::max_element(hurdles) - max_jump);
+    return max(0, ranges::max(hurdles) - max_jump);
 }

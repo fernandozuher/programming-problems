@@ -10,7 +10,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of array hurdles
+# n: length of hurdles
 # T: O(n)
 # S: O(1) extra space
 def hurdle_race(hurdles, max_jump):

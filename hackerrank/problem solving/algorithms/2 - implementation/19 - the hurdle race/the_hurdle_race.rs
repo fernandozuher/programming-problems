@@ -13,7 +13,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array hurdles
+// n: length of hurdles
 // T: O(n)
 // S: O(1) extra space
 fn hurdle_race(hurdles: &[i32], max_jump: i32) -> i32 {

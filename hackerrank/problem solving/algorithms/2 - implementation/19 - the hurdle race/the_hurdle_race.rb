@@ -7,10 +7,10 @@ def main
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
-# n: length of array hurdles
+# n: length of hurdles
 # T: O(n)
 # S: O(1) extra space
 def hurdle_race(hurdles, max_jump)
