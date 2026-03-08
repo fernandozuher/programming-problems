@@ -60,7 +60,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array fruitTree.fruitDistances
+// n: length of fruitTree.fruitDistances
 // T: O(n)
 // S: O(1) extra space
 func countFruitsOnHouse(fruitTree FruitTree, house House) int {

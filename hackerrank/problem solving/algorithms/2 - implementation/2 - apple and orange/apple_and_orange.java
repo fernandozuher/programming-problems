@@ -31,7 +31,7 @@ Input readInput() {
     var appleTreeLocation = arr[0];
     var orangeTreeLocation = arr[1];
 
-    readNumbers(); // Discard sizes of arrays
+    readNumbers(); // Discard array sizes
 
     var appleTree = new FruitTree(appleTreeLocation, readNumbers());
     var orangeTree = new FruitTree(orangeTreeLocation, readNumbers());
@@ -43,7 +43,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array fruitTree.fruitDistances
+// n: length of fruitTree.fruitDistances
 // T: O(n)
 // S: O(1) extra space
 int countFruitsOnHouse(FruitTree fruitTree, House house) {

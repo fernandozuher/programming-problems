@@ -51,7 +51,7 @@ int *read_numbers(int n)
     return arr;
 }
 
-// n: length of array fruit_tree.fruit_distances
+// n: length of fruit_tree.fruit_distances
 // T: O(n)
 // S: O(1) extra space
 int count_fruits_on_house(const fruit_tree_t *fruit_tree, const house_t *house)

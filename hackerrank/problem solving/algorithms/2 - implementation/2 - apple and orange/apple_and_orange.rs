@@ -56,7 +56,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array fruit_tree.fruit_distances
+// n: length of fruit_tree.fruit_distances
 // T: O(n)
 // S: O(1) extra space
 fn count_fruits_on_house(fruit_tree: &FruitTree, house: &House) -> usize {

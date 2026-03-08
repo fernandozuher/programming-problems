@@ -53,7 +53,7 @@ function readInput(): [House, FruitTree, FruitTree] {
   const house = new House(houseStart, houseEnd);
 
   const [appleTreeLocation, orangeTreeLocation] = readNumbers();
-  readLine(); // Discard sizes of arrays
+  readLine(); // Discard array sizes
   const appleDistances: number[] = readNumbers();
   const orangeDistances: number[] = readNumbers();
 
@@ -73,11 +73,13 @@ function readNumbers(): number[] {
   return readLine().split(' ').map(Number);
 }
 
-// n: length of array fruitTree.fruitDistances
+// n: length of fruitTree.fruitDistances
 // T: O(n)
 // S: O(1) extra space
 function countFruitsOnHouse(fruitTree: FruitTree, house: House): number {
-  return fruitTree.fruitDistances.filter((distance) =>
-    house.contains(fruitTree.treeLocation + distance),
-  ).length;
+  return fruitTree.fruitDistances.reduce(
+    (count, distance) =>
+      count + +house.contains(fruitTree.treeLocation + distance),
+    0,
+  );
 }

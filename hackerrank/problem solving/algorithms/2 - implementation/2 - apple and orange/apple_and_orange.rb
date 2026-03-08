@@ -30,10 +30,10 @@ def read_input
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
-# n: length of array fruit_tree.fruit_distances
+# n: length of fruit_tree.fruit_distances
 # T: O(n)
 # S: O(1) extra space
 def count_fruits_on_house(fruit_tree, house)

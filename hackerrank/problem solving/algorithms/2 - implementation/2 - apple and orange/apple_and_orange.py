@@ -42,7 +42,8 @@ def read_input():
 def read_numbers():
     return list(map(int, input().split()))
 
-# n: length of array fruit_tree.fruit_distances
+
+# n: length of fruit_tree.fruit_distances
 # T: O(n)
 # S: O(1) extra space
 def count_fruits_on_house(fruit_tree, house):
