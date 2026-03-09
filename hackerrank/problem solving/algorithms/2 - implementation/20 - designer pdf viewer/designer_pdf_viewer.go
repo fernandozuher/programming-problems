@@ -21,14 +21,13 @@ func readInput() [alphabetSize]int {
     return arr
 }
 
-// n_w: length of string word, no more than 10 letters
-// T = O(10) = O(1)
-// S = O(1) extra space
+// n: length word, <= 10
+// T: O(10) = O(1)
+// S: O(1) extra space
 func designerPdfViewer(lettersHeights [alphabetSize]int, word string) int {
     maxHeight := 0
     for _, ch := range word {
-        height := lettersHeights[int(ch)-int('a')]
-        maxHeight = max(maxHeight, height)
+        maxHeight = max(maxHeight, lettersHeights[int(ch)-int('a')])
     }
     return maxHeight * len(word)
 }

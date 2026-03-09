@@ -26,11 +26,11 @@ array<int, alphabet_size> read_input()
     return arr;
 }
 
-// n_w: length of string word, no more than 10 letters
-// T = O(10) = O(1)
-// S = O(1) extra space
+// n: length word, <= 10
+// T: O(10) = O(1)
+// S: O(1) extra space
 int designer_pdf_viewer(const array<int, alphabet_size>& letters_heights, string_view word)
 {
-    return ranges::max(word | views::transform([&letters_heights](char ch) { return letters_heights[ch - 'a']; })) *
-        word.size();
+    return word.size() *
+           ranges::max(word | views::transform([&letters_heights](char ch) { return letters_heights[ch - 'a']; }));
 }

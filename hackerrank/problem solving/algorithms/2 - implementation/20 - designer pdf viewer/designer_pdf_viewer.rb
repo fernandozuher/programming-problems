@@ -7,15 +7,14 @@ def main
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
-# n_w: length of string word, no more than 10 letters
-# T = O(10) = O(1)
-# S = O(1) extra space
+# n: length word, <= 10
+# T: O(10) = O(1)
+# S: O(1) extra space
 def designer_pdf_viewer(letters_heights, word)
-  ch = word.each_char.max_by { |ch| letters_heights[ch.ord - 'a'.ord] }
-  max_height = letters_heights[ch.ord - 'a'.ord]
+  max_height = word.each_char.lazy.map { |ch| letters_heights[ch.ord - 'a'.ord] }.max
   max_height * word.length
 end
 

@@ -30,17 +30,14 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine().split(' ').map(x => +x);
 }
 
-// n_w: length of string word, no more than 10 letters
-// T = O(10) = O(1)
-// S = O(1) extra space
+// n: length word, <= 10
+// T: O(10) = O(1)
+// S: O(1) extra space
 function designerPdfViewer(lettersHeights: number[], word: string): number {
   let maxHeight = 0;
-  for (const ch of word) {
-    const height = lettersHeights[ch.charCodeAt(0) - 'a'.charCodeAt(0)];
-    maxHeight = Math.max(maxHeight, height);
-  }
+  for (const ch of word) maxHeight = Math.max(maxHeight, lettersHeights[ch.charCodeAt(0) - 'a'.charCodeAt(0)]);
   return maxHeight * word.length;
 }
