@@ -9,17 +9,18 @@ def main
   end
 end
 
-# k: length of output array = 61
-# T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+# k: length of output = 61
+# T: O(k) = O(61) = O(1)
+# S: O(61) = O(1) extra space
 def generate_heights_utopian_tree
   max_cycles = 60
   height = 0
   0.upto(max_cycles).map do |cycle|
-    height += is_cycle_happening_during_spring(cycle) ? height : 1
+    height += cycle_happening_during_spring?(cycle) ? height : 1
   end
 end
 
-def is_cycle_happening_during_spring(cycle)
+def cycle_happening_during_spring?(cycle)
   cycle.odd?
 end
 

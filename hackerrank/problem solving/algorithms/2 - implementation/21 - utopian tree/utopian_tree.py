@@ -1,5 +1,6 @@
 # https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
+
 def main():
     n = int(input())
     utopian_tree = generate_heights_utopian_tree()
@@ -8,8 +9,9 @@ def main():
         print(utopian_tree[cycles])
 
 
-# k: length of output array heights = 61
-# T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+# k: length of output = 61
+# T: O(k) = O(61) = O(1)
+# S: O(61) = O(1) extra space
 def generate_heights_utopian_tree():
     max_cycles = 60
     heights = [0] * (max_cycles + 1)

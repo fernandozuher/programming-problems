@@ -20,8 +20,9 @@ int main()
     return 0;
 }
 
-// k: length of output array heights = 61
-// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+// k: length of output = 61
+// T: O(k) = O(61) = O(1)
+// S: O(61) = O(1) extra space
 vector<int> generate_heights_utopian_tree()
 {
     constexpr int max_cycles{ 60 };

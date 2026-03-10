@@ -15,8 +15,9 @@ func main() {
     }
 }
 
-// k: length of output array heights = 61
-// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+// k: length of output = 61
+// T: O(k) = O(61) = O(1)
+// S: O(61) = O(1) extra space
 func generateHeightsUtopianTree() []int {
     const maxCycles = 60
     heights := make([]int, maxCycles+1)

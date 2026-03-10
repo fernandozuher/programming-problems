@@ -11,8 +11,9 @@ fn main() {
     }
 }
 
-// k: length of output array = 61
-// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+// k: length of output = 61
+// T: O(k) = O(61) = O(1)
+// S: O(61) = O(1) extra space
 fn generate_heights_utopian_tree() -> Vec<i32> {
     const MAX_CYCLES: i32 = 60;
     let mut height = 0;

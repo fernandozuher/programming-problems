@@ -23,8 +23,9 @@ int main()
     return 0;
 }
 
-// k: length of output array heights = 61
-// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+// n: length of heights = 61
+// T: O(n) = O(61) = O(1)
+// S: O(1) extra space
 void generate_heights_utopian_tree(int *heights, int n)
 {
     for (int cycle = 0, height = 0; cycle < n; ++cycle)

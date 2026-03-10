@@ -10,8 +10,9 @@ void main() {
     }
 }
 
-// k: length of output array heights = 61
-// T: O(k) = O(61) = O(1). S: O(61) = O(1) extra space.
+// k: length of output = 61
+// T: O(k) = O(61) = O(1)
+// S: O(61) = O(1) extra space
 int[] generateHeightsUtopianTree() {
     final int maxCycles = 60;
     int[] heights = new int[maxCycles + 1];
