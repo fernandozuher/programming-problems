@@ -28,14 +28,13 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// k: length of array arrival_times
+// k: length of arrival_times
 // T: O(k)
 // S: O(1) extra space
 bool angry_professor(const int *arrival_times, int n, int threshold)
 {
     int on_time = 0;
     for (int i = 0; i < n; ++i)
-        if (arrival_times[i] <= 0)
-            ++on_time;
+            on_time += arrival_times[i] <= 0;
     return on_time < threshold;
 }

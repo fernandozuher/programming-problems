@@ -24,8 +24,7 @@ function readLine() {
 //////////////////////////////////////////////////
 
 function main() {
-  const n = +readLine();
-  for (let i = 0; i < n; i++) {
+  for (let i = 0, n = +readLine(); i < n; i++) {
     const threshold = readNumbers()[1];
     const arrivalTimes = readNumbers();
     console.log(angryProfessor(arrivalTimes, threshold) ? 'YES' : 'NO');
@@ -33,10 +32,10 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine().split(' ').map(x => +x);
 }
 
-// k: length of array arrivalTimes
+// k: length of arrivalTimes
 // T: O(k)
 // S: O(1) extra space
 function angryProfessor(arrivalTimes, threshold) {

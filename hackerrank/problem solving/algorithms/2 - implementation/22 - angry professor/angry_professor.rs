@@ -16,7 +16,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// k: length of array arrival_times
+// k: length of arrival_times
 // T: O(k)
 // S: O(1) extra space
 fn angry_professor(arrival_times: &[i32], threshold: i32) -> bool {

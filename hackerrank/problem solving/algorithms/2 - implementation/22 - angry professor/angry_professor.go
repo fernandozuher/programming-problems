@@ -29,7 +29,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// k: length of array arrivalTimes
+// k: length of arrivalTimes
 // T: O(k)
 // S: O(1) extra space
 func angryProfessor(arrivalTimes []int, threshold int) bool {

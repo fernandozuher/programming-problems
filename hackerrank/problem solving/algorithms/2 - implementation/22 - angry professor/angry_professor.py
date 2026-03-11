@@ -12,7 +12,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# k: length of array arrival_times
+# k: length of arrival_times
 # T: O(k)
 # S: O(1) extra space
 def angry_professor(arrival_times, threshold):

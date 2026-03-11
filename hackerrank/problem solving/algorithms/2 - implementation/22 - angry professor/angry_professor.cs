@@ -8,12 +8,9 @@ for (int i = 0; i < n; i++)
     Console.WriteLine(AngryProfessor(arrivalTimes, threshold) ? "YES" : "NO");
 }
 
-int[] ReadNumbers()
-{
-    return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// k: length of array arrivalTimes
+// k: length of arrivalTimes
 // T: O(k)
 // S: O(1) extra space
 bool AngryProfessor(int[] arrivalTimes, int threshold)

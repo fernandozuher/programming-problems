@@ -30,7 +30,7 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// k: length of array arrival_times
+// k: length of arrival_times
 // T: O(k)
 // S: O(1) extra space
 bool angry_professor(const vector<int>& arrival_times, int threshold)
