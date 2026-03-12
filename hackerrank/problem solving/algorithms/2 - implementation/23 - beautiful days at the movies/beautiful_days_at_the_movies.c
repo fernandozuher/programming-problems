@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 int beautiful_days(int startDay, int endDay, int divisor);
-bool is_day_beautiful(int day, int divisor);
+bool is_beautiful_day(int day, int divisor);
 int reverse_number(int number);
 
 int main()
@@ -24,11 +24,11 @@ int beautiful_days(int startDay, int endDay, int divisor)
 {
     int count = 0;
     for (int day = startDay; day <= endDay; ++day)
-        count += is_day_beautiful(day, divisor);
+        count += is_beautiful_day(day, divisor);
     return count;
 }
 
-bool is_day_beautiful(int day, int divisor)
+bool is_beautiful_day(int day, int divisor)
 {
     return (day - reverse_number(day)) % divisor == 0;
 }

@@ -14,10 +14,10 @@ def read_numbers():
 # T: O(n * d)
 # S: O(d) extra space
 def beautiful_days(start_day, end_day, divisor):
-    return sum(is_day_beautiful(day, divisor) for day in range(start_day, end_day + 1))
+    return sum(is_beautiful_day(day, divisor) for day in range(start_day, end_day + 1))
 
 
-def is_day_beautiful(day, divisor):
+def is_beautiful_day(day, divisor):
     return (day - reverse_number(day)) % divisor == 0
 
 

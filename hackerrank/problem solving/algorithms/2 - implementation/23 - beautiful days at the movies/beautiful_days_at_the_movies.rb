@@ -6,7 +6,7 @@ def main
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 # n: range (end_day - start_day + 1)

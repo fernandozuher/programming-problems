@@ -29,7 +29,7 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine().split(' ').map(x => +x);
 }
 
 // n: range (endDay - startDay + 1)
@@ -43,11 +43,11 @@ function beautifulDays(
 ): number {
   let count = 0;
   for (let day = startDay; day <= endDay; day++)
-    if (isDayBeautiful(day, divisor)) count++;
+    if (isBeautifulDay(day, divisor)) count++;
   return count;
 }
 
-function isDayBeautiful(day: number, divisor: number): boolean {
+function isBeautifulDay(day: number, divisor: number): boolean {
   return (day - reverseNumber(day)) % divisor === 0;
 }
 

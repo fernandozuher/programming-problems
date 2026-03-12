@@ -15,15 +15,9 @@ Console.WriteLine(BeautifulDays(startDay, endDay, divisor));
 // S: O(d) extra space
 int BeautifulDays(int startDay, int endDay, int divisor)
 {
-    return Enumerable.Range(startDay, endDay - startDay + 1).Count(day => IsDayBeautiful(day, divisor));
+    return Enumerable.Range(startDay, endDay - startDay + 1).Count(day => IsBeautifulDay(day, divisor));
 }
 
-bool IsDayBeautiful(int day, int divisor)
-{
-    return (day - ReverseNumber(day)) % divisor == 0;
-}
+bool IsBeautifulDay(int day, int divisor) => (day - ReverseNumber(day)) % divisor == 0;
 
-int ReverseNumber(int number)
-{
-    return int.Parse(new string(number.ToString().Reverse().ToArray()));
-}
+int ReverseNumber(int number) => int.Parse(new string(number.ToString().Reverse().ToArray()));

@@ -17,14 +17,14 @@ func main() {
 func beautifulDays(startDay, endDay, divisor int) int {
     count := 0
     for day := startDay; day <= endDay; day++ {
-        if isDayBeautiful(day, divisor) {
+        if isBeautifulDay(day, divisor) {
             count++
         }
     }
     return count
 }
 
-func isDayBeautiful(day, divisor int) bool {
+func isBeautifulDay(day, divisor int) bool {
     return (day-reverseNumber(day))%divisor == 0
 }
 

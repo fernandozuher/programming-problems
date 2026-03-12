@@ -18,10 +18,10 @@ int[] readNumbers() {
 // T: O(n * d)
 // S: O(d) extra space
 int beautifulDays(int startDay, int endDay, int divisor) {
-    return (int) IntStream.range(startDay, endDay + 1).filter(day -> isDayBeautiful(day, divisor)).count();
+    return (int) IntStream.range(startDay, endDay + 1).filter(day -> isBeautifulDay(day, divisor)).count();
 }
 
-boolean isDayBeautiful(int day, int divisor) {
+boolean isBeautifulDay(int day, int divisor) {
     return (day - reverseNumber(day)) % divisor == 0;
 }
 

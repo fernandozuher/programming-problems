@@ -5,7 +5,7 @@ import std;
 using namespace std;
 
 int beautifulDays(int startDay, int endDay, int divisor);
-bool isDayBeautiful(int day, int divisor);
+bool isBeautifulDay(int day, int divisor);
 int reverseNumber(int number);
 
 int main()
@@ -23,10 +23,10 @@ int main()
 int beautifulDays(int startDay, int endDay, int divisor)
 {
     return ranges::count_if(views::iota(startDay, endDay + 1),
-        [divisor](auto day) { return isDayBeautiful(day, divisor); });
+        [divisor](auto day) { return isBeautifulDay(day, divisor); });
 }
 
-bool isDayBeautiful(int day, int divisor)
+bool isBeautifulDay(int day, int divisor)
 {
     return (day - reverseNumber(day)) % divisor == 0;
 }

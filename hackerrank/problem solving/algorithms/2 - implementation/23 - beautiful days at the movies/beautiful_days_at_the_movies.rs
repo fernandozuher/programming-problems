@@ -12,13 +12,13 @@ fn main() {
 // d: number of digits of the largest day
 // T: O(n * d)
 // S: O(d) extra space
-fn beautiful_days(start_day: i32, end_day: i32, divisor: i32) -> i32 {
+fn beautiful_days(start_day: i32, end_day: i32, divisor: i32) -> usize {
     (start_day..=end_day)
-        .filter(|&day| is_day_beautiful(day, divisor))
-        .count() as i32
+        .filter(|&day| is_beautiful_day(day, divisor))
+        .count()
 }
 
-fn is_day_beautiful(day: i32, divisor: i32) -> bool {
+fn is_beautiful_day(day: i32, divisor: i32) -> bool {
     (day - reverse_number(day)) % divisor == 0
 }
 
