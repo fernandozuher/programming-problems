@@ -32,11 +32,11 @@ function main() {
 // T: O(n)
 // S: O(1) extra space
 function viralAdvertising(days: number): number {
-  let cumulative = 0;
+  let acc = 0;
   for (let shared = 5; days > 0; days--) {
     const liked = Math.trunc(shared / 2);
     shared = liked * 3;
-    cumulative += liked;
+    acc += liked;
   }
-  return cumulative;
+  return acc;
 }

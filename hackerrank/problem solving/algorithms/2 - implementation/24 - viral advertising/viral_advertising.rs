@@ -12,9 +12,9 @@ fn main() {
 // S: O(1) extra space
 fn viral_advertising(days: i32) -> i32 {
     let mut shared = 5;
-    (0..days).fold(0, |cumulative, _| {
+    (0..days).fold(0, |acc, _| {
         let liked = shared / 2;
         shared = liked * 3;
-        cumulative + liked
+        acc + liked
     })
 }

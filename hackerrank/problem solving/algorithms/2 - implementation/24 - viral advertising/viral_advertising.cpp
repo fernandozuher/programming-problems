@@ -20,9 +20,9 @@ int main()
 int viral_advertising(int days)
 {
     int shared{ 5 };
-    return ranges::fold_left(views::iota(0, days), 0, [&shared](auto cumulative, auto) {
+    return ranges::fold_left(views::iota(0, days), 0, [&shared](auto acc, auto) {
         int liked{ shared / 2 };
         shared = liked * 3;
-        return cumulative + liked;
+        return acc + liked;
         });
 }

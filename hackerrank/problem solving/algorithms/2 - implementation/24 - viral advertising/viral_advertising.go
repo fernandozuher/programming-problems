@@ -14,11 +14,11 @@ func main() {
 // T: O(n)
 // S: O(1) extra space
 func viralAdvertising(days int) int {
-    cumulative := 0
+    acc := 0
     for shared := 5; days > 0; days-- {
         liked := shared / 2
         shared = liked * 3
-        cumulative += liked
+        acc += liked
     }
-    return cumulative
+    return acc
 }

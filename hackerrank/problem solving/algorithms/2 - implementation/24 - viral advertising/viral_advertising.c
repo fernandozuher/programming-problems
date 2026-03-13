@@ -17,11 +17,11 @@ int main()
 // S: O(1) extra space
 int viral_advertising(int days)
 {
-    int cumulative = 0;
+    int acc = 0;
     for (int shared = 5; days > 0; --days) {
         int liked = shared / 2;
         shared = liked * 3;
-        cumulative += liked;
+        acc += liked;
     }
-    return cumulative;
+    return acc;
 }
