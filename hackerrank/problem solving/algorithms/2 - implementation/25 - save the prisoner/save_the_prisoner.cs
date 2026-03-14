@@ -8,10 +8,7 @@ for (int i = 0; i < n; i++)
     Console.WriteLine(SaveThePrisoner(prisoners, sweets, startChair));
 }
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(' '), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split(' ').Select(int.Parse).ToArray();
 
 // T: O(1)
 // S: O(1) extra space
