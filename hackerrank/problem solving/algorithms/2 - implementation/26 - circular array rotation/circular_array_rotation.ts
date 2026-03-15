@@ -26,7 +26,7 @@ function readLine(): string {
 function main() {
   const [_, nRotation, nQueries]: number[] = readNumbers();
   const arr: number[] = readNumbers();
-  printQueries(arr, nRotation, nQueries);
+  for (const q of queries(arr, nRotation, nQueries)) console.log(q);
 }
 
 function readNumbers(): number[] {
@@ -35,12 +35,14 @@ function readNumbers(): number[] {
 
 // T: O(nQueries)
 // S: O(1) extra space
-function printQueries(arr: number[], nRotation: number, nQueries: number) {
-  const n: number = arr.length;
-  const offset: number = n - nRotation % n;
+function* queries(
+  arr: number[],
+  nRotation: number,
+  nQueries: number,
+): Generator<number | undefined> {
+  const offset: number = nRotation % arr.length;
   for (let i = 0; i < nQueries; i++) {
     const query = +readLine();
-    const idx: number = (query + offset) % n;
-    console.log(arr[idx]);
+    yield arr.at(query - offset);
   }
 }

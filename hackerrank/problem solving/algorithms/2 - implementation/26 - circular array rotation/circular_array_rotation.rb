@@ -3,20 +3,20 @@
 def main
   _, n_rotation, n_queries = read_numbers
   arr = read_numbers
-  print_queries(arr, n_rotation, n_queries)
+  queries(arr, n_rotation, n_queries) { puts _1 }
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 # T: O(n_queries)
 # S: O(1) extra space
-def print_queries(arr, n_rotation, n_queries)
+def queries(arr, n_rotation, n_queries)
   offset = n_rotation % arr.size
   n_queries.times do
     query = gets.to_i
-    puts arr[query - offset]
+    yield arr[query - offset]
   end
 end
 

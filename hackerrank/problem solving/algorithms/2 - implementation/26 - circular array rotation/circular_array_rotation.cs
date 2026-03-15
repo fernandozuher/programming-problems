@@ -4,16 +4,14 @@ int[] arr = ReadNumbers();
 int nRotation = arr[1];
 int nQueries = arr[2];
 arr = ReadNumbers();
-PrintQueries(arr, nRotation, nQueries);
+foreach (var q in Queries(arr, nRotation, nQueries))
+    Console.WriteLine(q);
 
-int[] ReadNumbers()
-{
-    return Array.ConvertAll(Console.ReadLine()!.Split(" "), int.Parse);
-}
+int[] ReadNumbers() => Console.ReadLine()!.Split(" ").Select(int.Parse).ToArray();
 
 // T: O(nQueries)
 // S: O(1) extra space
-void PrintQueries(int[] arr, int nRotation, int nQueries)
+IEnumerable<int> Queries(int[] arr, int nRotation, int nQueries)
 {
     int n = arr.Length;
     int offset = n - nRotation % n;
@@ -21,6 +19,6 @@ void PrintQueries(int[] arr, int nRotation, int nQueries)
     {
         int query = int.Parse(Console.ReadLine()!);
         int idx = (query + offset) % n;
-        Console.WriteLine(arr[idx]);
+        yield return arr[idx];
     }
 }
