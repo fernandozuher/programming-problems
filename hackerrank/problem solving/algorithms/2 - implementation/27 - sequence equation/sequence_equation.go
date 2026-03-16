@@ -21,7 +21,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array arr/output
+// n: length of arr/res
 // T: O(n)
 // S: O(n) extra space
 func sequenceEquation(arr []int) []int {

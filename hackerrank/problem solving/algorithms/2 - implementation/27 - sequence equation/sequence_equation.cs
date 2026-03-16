@@ -2,18 +2,20 @@
 
 Console.ReadLine();
 int[] arr = ReadNumbers();
-Array.ForEach(SequenceEquation(arr), Console.WriteLine);
+foreach (var x in SequenceEquation(arr))
+    Console.WriteLine(x);
 
-int[] ReadNumbers() => Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array arr/output
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
-int[] SequenceEquation(int[] arr)
+IEnumerable<int> SequenceEquation(int[] arr)
 {
     int[] valuesToIndex = new int[arr.Length];
     int i = 0;
     foreach (int val in arr)
         valuesToIndex[val - 1] = i++;
-    return valuesToIndex.Select(val => valuesToIndex[val] + 1).ToArray();
+    foreach (int val in valuesToIndex)
+        yield return valuesToIndex[val] + 1;
 }

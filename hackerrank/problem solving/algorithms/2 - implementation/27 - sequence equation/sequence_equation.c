@@ -26,7 +26,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array arr/output
+// n: length of arr/res
 // T: O(n)
 // S: O(n) extra space
 void sequence_equation(const int *arr, int *res, int n)

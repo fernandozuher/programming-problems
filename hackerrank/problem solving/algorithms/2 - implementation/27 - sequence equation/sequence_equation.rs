@@ -14,7 +14,7 @@ fn read_numbers(n: usize) -> Vec<usize> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array arr/output
+// n: length of arr/output
 // T: O(n)
 // S: O(n) extra space
 fn sequence_equation(arr: &[usize]) -> Vec<usize> {
