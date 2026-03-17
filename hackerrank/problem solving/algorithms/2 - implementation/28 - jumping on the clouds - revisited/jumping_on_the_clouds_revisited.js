@@ -30,10 +30,10 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine().split(' ').map(x => +x);
 }
 
-// n: length of array clouds; 2 to 25
+// n: length of clouds; 2 to 25
 // k (jumpLength): 1 <= k <= n
 // n % k = 0
 // c[i] = 0 or 1

@@ -21,7 +21,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array clouds; 2 to 25
+// n: length of clouds; 2 to 25
 // k (jump_length): 1 <= k <= n
 // n % k = 0
 // c[i] = 0 or 1
