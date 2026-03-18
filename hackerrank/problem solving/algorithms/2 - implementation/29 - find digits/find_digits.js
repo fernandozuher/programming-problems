@@ -39,6 +39,8 @@ function findDigits(num) {
   return num
     .toString()
     .split('')
-    .map(Number)
-    .filter((d) => d !== 0 && num % d === 0).length;
+    .filter((c) => {
+      const d = +c;
+      return d !== 0 && num % d === 0;
+    }).length;
 }

@@ -20,10 +20,10 @@ func main() {
 // S: O(1) extra space
 func findDigits(num int) int {
     divisors := 0
-    
+
     for originalNumber := num; num != 0; num /= 10 {
-        divisor := num % 10
-        if divisor != 0 && originalNumber%divisor == 0 {
+        digit := num % 10
+        if digit != 0 && originalNumber%digit == 0 {
             divisors++
         }
     }

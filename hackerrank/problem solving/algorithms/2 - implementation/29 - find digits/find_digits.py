@@ -13,7 +13,7 @@ def main():
 # S: O(k) = O(9) = O(1) extra space
 def find_digits(num):
     digits = map(int, str(num))
-    return sum(d != 0 and num % d == 0 for d in digits)
+    return sum(d and num % d == 0 for d in digits)
 
 
 if __name__ == '__main__':

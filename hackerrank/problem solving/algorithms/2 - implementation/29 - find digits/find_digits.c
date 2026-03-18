@@ -9,7 +9,8 @@ int main()
     int n;
     scanf("%d", &n);
 
-    for (int i = 0, num; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
+        int num;
         scanf("%d", &num);
         printf("%d\n", find_digits(num));
     }
@@ -26,8 +27,8 @@ int find_digits(int num)
     int divisors = 0;
 
     for (int original_number = num; num != 0; num /= 10) {
-        int divisor = num % 10;
-        if (divisor != 0 && original_number % divisor == 0)
+        int digit = num % 10;
+        if (digit && original_number % digit == 0)
             ++divisors;
     }
 
