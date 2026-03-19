@@ -6,7 +6,7 @@ def main
 end
 
 def read_numbers
-  gets&.split&.map!(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 # T: O(1)
@@ -18,7 +18,7 @@ def kangaroo(initial_state)
 
   distance_diff = x2 - x1
   velocity_diff = v1 - v2
-  distance_diff * velocity_diff >= 0 && distance_diff % velocity_diff == 0
+  distance_diff * velocity_diff >= 0 && (distance_diff % velocity_diff).zero?
 end
 
 main if __FILE__ == $0
