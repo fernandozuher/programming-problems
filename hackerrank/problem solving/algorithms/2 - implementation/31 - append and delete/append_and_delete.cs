@@ -5,17 +5,17 @@ string s2 = Console.ReadLine()!;
 int nOps = int.Parse(Console.ReadLine()!);
 Console.WriteLine(AppendAndDelete(s1, s2, nOps) ? "Yes" : "No");
 
-// n1: length of string s1
-// n2: length of string s2
+// n1: length of s1
+// n2: length of s2
 // T: O(min(n1, n2))
 // S: O(1) extra space
 bool AppendAndDelete(string s1, string s2, int nOps)
 {
     int prefixLen = CommonPrefixLength(s1, s2);
     int opsNeeded = (s1.Length - prefixLen) + (s2.Length - prefixLen);
+
     if (nOps < opsNeeded)
         return false;
-
     if (nOps >= s1.Length + s2.Length)
         return true;
 

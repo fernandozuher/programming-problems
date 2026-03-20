@@ -15,17 +15,17 @@ func main() {
     }
 }
 
-// n1: length of string s1
-// n2: length of string s2
+// n1: length of s1
+// n2: length of s2
 // T: O(min(n1, n2))
 // S: O(1) extra space
 func appendAndDelete(s1, s2 string, nOps int) bool {
     prefixLen := commonPrefixLength(s1, s2)
     opsNeeded := (len(s1) - prefixLen) + (len(s2) - prefixLen)
+
     if nOps < opsNeeded {
         return false
     }
-
     if nOps >= len(s1)+len(s2) {
         return true
     }

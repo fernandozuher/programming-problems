@@ -3,6 +3,7 @@
 
 import std;
 using namespace std;
+using namespace views;
 
 bool append_and_delete(string_view s1, string_view s2, int n_ops);
 int common_prefix_length(string_view s1, string_view s2);
@@ -16,17 +17,17 @@ int main()
     return 0;
 }
 
-// n1: length of string s1
-// n2: length of string s2
+// n1: length of s1
+// n2: length of s2
 // T: O(min(n1, n2))
 // S: O(1) extra space
 bool append_and_delete(string_view s1, string_view s2, int n_ops)
 {
     int prefix_len{ common_prefix_length(s1, s2) };
     int ops_needed = (s1.size() - prefix_len) + (s2.size() - prefix_len);
+
     if (n_ops < ops_needed)
         return false;
-
     if (n_ops >= s1.size() + s2.size())
         return true;
 
@@ -35,7 +36,7 @@ bool append_and_delete(string_view s1, string_view s2, int n_ops)
 
 int common_prefix_length(string_view s1, string_view s2)
 {
-    for (auto [i, t] : views::zip(s1, s2) | views::enumerate)
+    for (auto [i, t] : enumerate(zip(s1, s2)))
         if (auto [x, y] = t; x != y)
             return i;
     return min(s1.size(), s2.size());

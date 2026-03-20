@@ -30,15 +30,17 @@ function main() {
   console.log(appendAndDelete(s1, s2, nOps) ? 'Yes' : 'No');
 }
 
-// n1: length of string s1
-// n2: length of string s2
+// n1: length of s1
+// n2: length of s2
 // T: O(min(n1, n2))
 // S: O(1) extra space
 function appendAndDelete(s1: string, s2: string, nOps: number): boolean {
   const prefixLen = commonPrefixLength(s1, s2);
   const opsNeeded = s1.length - prefixLen + (s2.length - prefixLen);
+
   if (nOps < opsNeeded) return false;
   if (nOps >= s1.length + s2.length) return true;
+
   return (nOps - opsNeeded) % 2 === 0;
 }
 

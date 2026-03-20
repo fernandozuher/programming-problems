@@ -7,16 +7,16 @@ def main():
     print('Yes' if append_and_delete(s1, s2, n_ops) else 'No')
 
 
-# n1: length of string s1
-# n2: length of string s2
+# n1: length of s1
+# n2: length of s2
 # T: O(min(n1, n2))
 # S: O(1) extra space
 def append_and_delete(s1, s2, n_ops):
     prefix_len = common_prefix_length(s1, s2)
     ops_needed = (len(s1) - prefix_len) + (len(s2) - prefix_len)
+
     if n_ops < ops_needed:
         return False
-
     if n_ops >= len(s1) + len(s2):
         return True
 
