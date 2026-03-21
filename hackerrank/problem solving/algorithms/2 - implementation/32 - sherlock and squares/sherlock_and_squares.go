@@ -9,7 +9,7 @@ import (
 
 func main() {
     var n int
-    fmt.Scan(&n)
+    _, _ = fmt.Scan(&n)
     for range n {
         var a, b int
         _, _ = fmt.Scan(&a, &b)
