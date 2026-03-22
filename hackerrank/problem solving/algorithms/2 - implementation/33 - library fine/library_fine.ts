@@ -38,7 +38,7 @@ function main() {
 }
 
 function readDate(): DateTriple {
-  const [day, month, year]: number[] = readLine().split(' ').map(Number);
+  const [day, month, year]: number[] = readLine().split(' ').map(x => +x);
   return { day, month, year };
 }
 

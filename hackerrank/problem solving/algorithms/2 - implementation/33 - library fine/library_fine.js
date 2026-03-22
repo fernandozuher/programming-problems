@@ -60,7 +60,7 @@ function main() {
 }
 
 function readDate() {
-  const [day, month, year] = readLine().split(' ').map(Number);
+  const [day, month, year] = readLine().split(' ').map(x => +x);
   return new DateThatWorks(day, month, year);
 }
 
