@@ -38,18 +38,21 @@ int compare_function(const void *a, const void *b)
 
 // n: length of arr
 // k: number of distinct values in arr
+// k <= n
 // T: O(n)
-//    Sorting arr before calling this function is O(n log n)
-// S: O(k), but O(n) in the worst case extra space
-//    Sorting arr before calling this function is O(n) extra space
+//    Sorting arr beforehand is O(n log n)
+// S: O(k) = O(n) extra space
+//    Sorting arr beforehand is O(n) extra space
 void cut_the_sticks(const int *arr, int n, int *res, int *n2)
 {
     int slow = 0;
+
     for (int fast = 0; fast < n; ++fast) {
         if (arr[slow] == arr[fast])
             continue;
         res[(*n2)++] = n - slow;
         slow = fast;
     }
+
     res[(*n2)++] = n - slow;
 }

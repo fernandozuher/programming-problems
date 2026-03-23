@@ -17,10 +17,11 @@ fn read_numbers(n: usize) -> Vec<usize> {
 
 // n: length of arr
 // k: number of distinct values in arr
+// k <= n
 // T: O(n)
-//    Sorting arr before calling this function is O(n log n)
-// S: O(k), but O(n) in the worst case extra space
-//    Sorting arr before calling this function is O(n) extra space
+//    Sorting arr beforehand is O(n log n)
+// S: O(k) = O(n) extra space
+//    Sorting arr beforehand is O(n) extra space
 fn cut_the_sticks(arr: &[usize]) -> Vec<usize> {
     let mut res: Vec<usize> = Vec::new();
     let (mut slow, n): (usize, usize) = (0, arr.len());
