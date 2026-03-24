@@ -8,24 +8,21 @@ import (
 )
 
 func main() {
-    var inputString string
-    var nCharacters int64
-    _, _ = fmt.Scan(&inputString, &nCharacters)
-    const letter = 'a'
-    fmt.Println(countInRepeatedString(inputString, letter, nCharacters))
+    var str string
+    var nChars int
+    _, _ = fmt.Scan(&str, &nChars)
+    const letter = "a"
+    fmt.Println(countInRepeatedString(str, letter, nChars))
 }
 
-// n: length of inputString
+// n: length of str
 // T: O(n)
 // S: O(1) extra space
-func countInRepeatedString(inputString string, letter rune, nCharacters int64) int64 {
-    n := int64(len(inputString))
-    fullRepeats := nCharacters / n
-    nSubstring := nCharacters % n
-    substring := inputString[:nSubstring]
-    c := string(letter)
+func countInRepeatedString(str, letter string, nChars int) int {
+    fullRepeats := nChars / len(str)
+    nSubstr := nChars % len(str)
 
-    count := int64(strings.Count(inputString, c))
+    count := strings.Count(str, letter)
     count *= fullRepeats
-    return count + int64(strings.Count(substring, c))
+    return count + strings.Count(str[:nSubstr], letter)
 }

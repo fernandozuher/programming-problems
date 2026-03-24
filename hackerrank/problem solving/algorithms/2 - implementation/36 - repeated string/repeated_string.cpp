@@ -4,29 +4,29 @@
 import std;
 using namespace std;
 
-long long count_in_repeated_string(string_view input_string, char letter, long long n_characters);
+long long count_in_repeated_string(string_view str, char letter, long long n_chars);
 
 int main()
 {
-    string input_string;
-    long long n_characters;
-    cin >> input_string >> n_characters;
+    string str;
+    long long n_chars;
+    cin >> str >> n_chars;
 
     constexpr char letter{ 'a' };
-    println("{}", count_in_repeated_string(input_string, letter, n_characters));
+    println("{}", count_in_repeated_string(str, letter, n_chars));
 
     return 0;
 }
 
-// n: length of input_string
+// n: length of str
 // T: O(n)
 // S: O(1) extra space
-long long count_in_repeated_string(string_view input_string, char letter, long long n_characters)
+long long count_in_repeated_string(string_view str, char letter, long long n_chars)
 {
-    auto [full_repeats, n_substring] {div(n_characters, input_string.length())};
-    string_view substring{ input_string.begin(), input_string.begin() + n_substring };
+    auto [full_repeats, n_substr] { div(n_chars, str.length()) };
+    string_view substr{ str.begin(), str.begin() + n_substr };
 
-    auto count{ ranges::count(input_string, letter) };
+    auto count{ ranges::count(str, letter) };
     count *= full_repeats;
-    return count + ranges::count(substring, letter);
+    return count + ranges::count(substr, letter);
 }

@@ -2,21 +2,25 @@
 // Java 25
 
 void main() {
-    String inputString = IO.readln();
-    long nCharacters = Long.parseLong(IO.readln());
+    String str = IO.readln();
+    long nChars = Long.parseLong(IO.readln());
     final char letter = 'a';
-    IO.println(countInRepeatedString(inputString, letter, nCharacters));
+    IO.println(countInRepeatedString(str, letter, nChars));
 }
 
-// n: length of inputString
+// n: length of str
 // T: O(n)
 // S: O(1) extra space
-long countInRepeatedString(String inputString, char letter, long nCharacters) {
-    long fullRepeats = nCharacters / inputString.length();
-    long nSubstring = nCharacters % inputString.length();
+long countInRepeatedString(String str, char letter, long nChars) {
+    long fullRepeats = nChars / str.length();
+    long nSubstr = nChars % str.length();
 
-    long count = inputString.chars().filter(x -> x == letter).count();
+    long count = countChar(str, letter);
     count *= fullRepeats;
-    long substring_count = inputString.chars().limit(nSubstring).filter(x -> x == letter).count();
-    return count + substring_count;
+    long substrCount = str.chars().limit(nSubstr).filter(x -> x == letter).count();
+    return count + substrCount;
+}
+
+long countChar(String str, char letter) {
+    return str.chars().filter(x -> x == letter).count();
 }

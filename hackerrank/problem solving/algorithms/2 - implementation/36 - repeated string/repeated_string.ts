@@ -24,32 +24,30 @@ function readLine(): string {
 //////////////////////////////////////////////////
 
 function main() {
-  const inputString: string = readLine();
-  const nCharacters: number = +readLine();
+  const str: string = readLine();
+  const nChars: number = +readLine();
   const letter = 'a';
-  console.log(countInRepeatedString(inputString, letter, nCharacters));
+  console.log(countInRepeatedString(str, letter, nChars));
 }
 
-// n: length of inputString
+// n: length of str
 // T: O(n)
 // S: O(1) extra space
 function countInRepeatedString(
-  inputString: string,
+  str: string,
   letter: string,
-  nCharacters: number,
-) {
-  const fullRepeats: number = Math.trunc(nCharacters / inputString.length);
-  const nSubstring: number = nCharacters % inputString.length;
+  nChars: number,
+): number {
+  const fullRepeats: number = Math.trunc(nChars / str.length);
+  const nSubstr: number = nChars % str.length;
 
-  let count: number = countChar(inputString, inputString.length, letter);
+  let count: number = countChar(str, str.length, letter);
   count *= fullRepeats;
-  return count + count_char(inputString, nSubstring, letter);
+  return count + countChar(str, nSubstr, letter);
 }
 
-function countChar(inputString: string, n: number, letter: string): number {
+function countChar(str: string, n: number, letter: string): number {
   let count = 0;
-  for (let i = 0; i < n; i++) {
-    if (inputString[i] === letter) count++;
-  }
+  for (let i = 0; i < n; i++) if (str[i] === letter) count++;
   return count;
 }

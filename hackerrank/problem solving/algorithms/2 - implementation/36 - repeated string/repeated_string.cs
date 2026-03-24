@@ -1,20 +1,20 @@
 // https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
-string inputString = Console.ReadLine()!;
-long nCharacters = long.Parse(Console.ReadLine()!);
+string str = Console.ReadLine()!;
+long nChars = long.Parse(Console.ReadLine()!);
 const char letter = 'a';
-Console.WriteLine(CountInRepeatedString(inputString, letter, nCharacters));
+Console.WriteLine(CountInRepeatedString(str, letter, nChars));
 
-// n: length of inputString
+// n: length of str
 // T: O(n)
 // S: O(1) extra space
-long CountInRepeatedString(string inputString, char letter, long nCharacters)
+long CountInRepeatedString(string str, char letter, long nChars)
 {
-    long nSubstring;
-    long fullRepeats = Math.DivRem(nCharacters, inputString.Length, out nSubstring);
-    var substring = inputString.AsSpan(0, (int)nSubstring);
+    long nSubstr;
+    long fullRepeats = Math.DivRem(nChars, str.Length, out nSubstr);
+    var substr = str.AsSpan(0, (int)nSubstr);
 
-    long count = inputString.Count(x => x == letter);
+    long count = str.Count(c => c == letter);
     count *= fullRepeats;
-    return count + substring.Count(letter);
+    return count + substr.Count(letter);
 }
