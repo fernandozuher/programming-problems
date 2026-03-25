@@ -29,15 +29,17 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array clouds
+// n: length of clouds
 // T: O(n)
 // S: O(1) extra space
 function minJumps(clouds) {
   let jumps = 0;
-  for (let i = 0, n = clouds.length - 1; i < n; i += skip(i, clouds), jumps++);
+  for (let i = 0, n = clouds.length - 1; i < n; i += skip(i, clouds)) jumps++;
   return jumps;
 }
 

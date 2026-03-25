@@ -9,7 +9,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of array clouds
+# n: length of clouds
 # T: O(n)
 # S: O(1) extra space
 def min_jumps(clouds):

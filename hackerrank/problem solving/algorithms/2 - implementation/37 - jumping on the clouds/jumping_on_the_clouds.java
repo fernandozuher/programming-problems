@@ -10,12 +10,13 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array clouds
+// n: length of clouds
 // T: O(n)
 // S: O(1) extra space
 int minJumps(int[] clouds) {
     int jumps = 0;
-    for (int i = 0, n = clouds.length - 1; i < n; i += skip(i, clouds), jumps++);
+    for (int i = 0, n = clouds.length - 1; i < n; i += skip(i, clouds))
+        jumps++;
     return jumps;
 }
 

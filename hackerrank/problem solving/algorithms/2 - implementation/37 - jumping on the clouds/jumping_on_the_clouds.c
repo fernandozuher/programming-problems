@@ -24,13 +24,14 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array clouds
+// n: length of clouds
 // T: O(n)
 // S: O(1) extra space
 int min_jumps(const int *clouds, int n)
 {
     int jumps = 0;
-    for (int i = 0, size = n - 1; i < size; i += skip(i, clouds, n), ++jumps);
+    for (int i = 0, size = n - 1; i < size; i += skip(i, clouds, n))
+        ++jumps;
     return jumps;
 }
 

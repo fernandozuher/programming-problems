@@ -25,13 +25,14 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array clouds
+// n: length of clouds
 // T: O(n)
 // S: O(1) extra space
 int min_jumps(const vector<int>& clouds)
 {
     int jumps{};
-    for (int i{}, size = clouds.size() - 1; i < size; i += skip(i, clouds), ++jumps);
+    for (int i{}, size = clouds.size() - 1; i < size; i += skip(i, clouds))
+        ++jumps;
     return jumps;
 }
 

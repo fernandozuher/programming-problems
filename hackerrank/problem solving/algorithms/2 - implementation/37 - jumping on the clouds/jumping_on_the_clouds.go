@@ -18,12 +18,13 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array clouds
+// n: length of clouds
 // T: O(n)
 // S: O(1) extra space
 func minJumps(clouds []int) int {
     jumps := 0
-    for i, n := 0, len(clouds)-1; i < n; jumps, i = jumps+1, i+skip(i, clouds) {
+    for i, n := 0, len(clouds)-1; i < n; i += skip(i, clouds) {
+        jumps++
     }
     return jumps
 }

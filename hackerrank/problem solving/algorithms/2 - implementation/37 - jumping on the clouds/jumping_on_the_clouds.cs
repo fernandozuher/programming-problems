@@ -5,13 +5,14 @@ Console.WriteLine(MinJumps(ReadNumbers()));
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array clouds
+// n: length of clouds
 // T: O(n)
 // S: O(1) extra space
 int MinJumps(int[] clouds)
 {
     int jumps = 0;
-    for (int i = 0, n = clouds.Length - 1; i < n; i += Skip(i, clouds), jumps++);
+    for (int i = 0, n = clouds.Length - 1; i < n; i += Skip(i, clouds))
+        jumps++;
     return jumps;
 }
 
