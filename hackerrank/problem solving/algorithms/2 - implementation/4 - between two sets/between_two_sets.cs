@@ -5,8 +5,12 @@ int[] a = ReadNumbers();
 int[] b = ReadNumbers();
 Console.WriteLine(BetweenTwoSets(a, b));
 
-int[] ReadNumbers() => Array.ConvertAll(Console.ReadLine()!.Split(), int.Parse);
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// n1, n2: length of a, b
+// k: number of multiples tested = gcdOfB / lcmOfA
+// T: O(n1 + n2 + k)
+// S: O(1) extra space
 int BetweenTwoSets(int[] a, int[] b)
 {
     int lcmOfA = a.Aggregate(LCM);

@@ -2,16 +2,16 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
-int between_two_sets(const int *a, int n1, const int *b, int n2);
-int reduce(const int *arr, int n, int func(int a, int b));
+void read_numbers(int *arr, size_t n);
+int between_two_sets(const int *a, size_t n1, const int *b, size_t n2);
+int reduce(const int *arr, size_t n, int func(int a, int b));
 int lcm(int a, int b);
 int gcd(int a, int b);
 
 int main()
 {
-    int n1, n2;
-    scanf("%d %d", &n1, &n2);
+    size_t n1, n2;
+    scanf("%zu %zu", &n1, &n2);
     int a[n1], b[n2];
     read_numbers(a, n1);
     read_numbers(b, n2);
@@ -19,25 +19,29 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_numbers(int *arr, size_t n)
 {
-    for (int i = 0; i < n; ++i)
+    for (size_t i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
-int between_two_sets(const int *a, int n1, const int *b, int n2)
+// n1, n2: length of a, b
+// k: number of multiples tested = gcd_of_b / lcm_of_a
+// T: O(n1 + n2 + k)
+// S: O(1) extra space
+int between_two_sets(const int *a, size_t n1, const int *b, size_t n2)
 {
     int lcm_of_a = reduce(a, n1, lcm);
     int gcd_of_b = reduce(b, n2, gcd);
 
     int count = 0;
-    for (int i = lcm_of_a; i <= gcd_of_b; i += lcm_of_a)
+    for (size_t i = lcm_of_a; i <= gcd_of_b; i += lcm_of_a)
         if (gcd_of_b % i == 0)
             ++count;
     return count;
 }
 
-int reduce(const int *arr, int n, int func(int a, int b))
+int reduce(const int *arr, size_t n, int func(int a, int b))
 {
     int acc = arr[0];
     for (int i = 1; i < n; ++i)

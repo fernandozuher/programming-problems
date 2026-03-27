@@ -15,6 +15,10 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
+// n1, n2: length of a, b
+// k: number of multiples tested = gcd_of_b / lcm_of_a
+// T: O(n1 + n2 + k)
+// S: O(1) extra space
 fn between_two_sets(a: &[i32], b: &[i32]) -> usize {
     let lcm_of_a = reduce(a, lcm) as usize;
     let gcd_of_b = reduce(b, gcd) as usize;

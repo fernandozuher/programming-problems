@@ -20,6 +20,10 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n1, n2: length of a, b
+// k: number of multiples tested = gcdOfB / lcmOfA
+// T: O(n1 + n2 + k)
+// S: O(1) extra space
 func betweenTwoSets(a, b []int) int {
     lcmOfA := reduce(a, lcm)
     gcdOfB := reduce(b, gcd)

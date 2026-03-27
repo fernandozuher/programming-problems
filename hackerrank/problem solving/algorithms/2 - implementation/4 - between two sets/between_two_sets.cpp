@@ -27,6 +27,10 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
+// n1, n2: length of a, b
+// k: number of multiples tested = gcd_of_b / lcm_of_a
+// T: O(n1 + n2 + k)
+// S: O(1) extra space
 int between_two_sets(const vector<int>& a, const vector<int>& b)
 {
     int lcm_of_a{ reduce(a, lcm<int, int>) };

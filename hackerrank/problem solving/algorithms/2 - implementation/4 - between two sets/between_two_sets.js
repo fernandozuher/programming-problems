@@ -31,9 +31,15 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
+// n1, n2: length of a, b
+// k: number of multiples tested = gcdOfB / lcmOfA
+// T: O(n1 + n2 + k)
+// S: O(1) extra space
 function betweenTwoSets(a, b) {
   const lcmOfA = a.reduce(lcm);
   const gcdOfB = b.reduce(gcd);

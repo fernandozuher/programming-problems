@@ -15,6 +15,10 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# n1, n2: length of a, b
+# k: number of multiples tested = gcd_of_b / lcm_of_a
+# T: O(n1 + n2 + k)
+# S: O(1) extra space
 def between_two_sets(a, b):
     lcm_of_a = reduce(math.lcm, a)
     gcd_of_b = reduce(math.gcd, b)
