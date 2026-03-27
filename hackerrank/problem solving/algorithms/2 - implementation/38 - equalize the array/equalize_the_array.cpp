@@ -3,6 +3,7 @@
 
 import std;
 using namespace std;
+using namespace views;
 
 vector<int> read_numbers(int n);
 int min_deletions_to_equalize(const vector<int>& arr);
@@ -25,19 +26,19 @@ vector<int> read_numbers(int n)
 }
 
 // n: length of arr, 1 <= n <= 100
+// k: number of distinct elements in arr
+// k <= n
 // T: O(n) = O(100) = O(1)
-// S: O(n) = O(100) = O(1) extra space
+// S: O(k) = O(n) = O(100) = O(1) extra space
 int min_deletions_to_equalize(const vector<int>& arr)
 {
-    auto frequency_map{ counter(arr) };
-    int max_count{ *ranges::max_element(views::values(frequency_map)) };
-    return arr.size() - max_count;
+    return arr.size() - ranges::max(values(counter(arr)));
 }
 
 unordered_map<int, int> counter(const vector<int>& arr)
 {
-    unordered_map<int, int> counter;
+    unordered_map<int, int> freq_map;
     for (auto x : arr)
-        ++counter[x];
-    return counter;
+        ++freq_map[x];
+    return freq_map;
 }

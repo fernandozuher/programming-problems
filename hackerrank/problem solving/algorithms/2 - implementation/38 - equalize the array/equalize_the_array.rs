@@ -13,11 +13,13 @@ fn read_numbers(n: usize) -> Vec<i32> {
 }
 
 // n: length of arr, 1 <= n <= 100
+// k: number of distinct elements in arr
+// k <= n
 // T: O(n) = O(100) = O(1)
-// S: O(n) = O(100) = O(1) extra space
+// S: O(k) = O(n) = O(100) = O(1) extra space
 fn min_deletions_to_equalize(arr: &[i32]) -> usize {
-    let counter: Counter<&i32> = Counter::from_iter(arr);
-    let max_count = counter
+    let freq_map: Counter<&i32> = Counter::from_iter(arr);
+    let max_count = freq_map
         .iter()
         .max_by_key(|(_k, v)| *v)
         .unwrap_or((&&0, &0))

@@ -5,7 +5,7 @@
 
 void read_numbers(int *arr, int n);
 int min_deletions_to_equalize(const int *arr, int n);
-void counter(const int *arr, int *counter_arr, int n);
+void counter(const int *arr, int *freq_map, int n);
 int max(const int *arr, int n);
 
 int main()
@@ -31,15 +31,15 @@ void read_numbers(int *arr, int n)
 int min_deletions_to_equalize(const int *arr, int n)
 {
     constexpr int max_n = 101;
-    int counter_arr[max_n] = {}; // C23
-    counter(arr, counter_arr, n);
-    return n - max(counter_arr, max_n);
+    int freq_map[max_n] = {};
+    counter(arr, freq_map, n);
+    return n - max(freq_map, max_n);
 }
 
-void counter(const int *arr, int *counter_arr, int n)
+void counter(const int *arr, int *freq_map, int n)
 {
     for (int i = 0; i < n; ++i)
-        ++counter_arr[arr[i]];
+        ++freq_map[arr[i]];
 }
 
 int max(const int *arr, int n)

@@ -13,8 +13,10 @@ def read_numbers():
 
 
 # n: length of arr, 1 <= n <= 100
+# k: number of distinct elements in arr
+# k <= n
 # T: O(n) = O(100) = O(1)
-# S: O(n) = O(100) = O(1) extra space
+# S: O(k) = O(n) = O(100) = O(1) extra space
 def min_deletions_to_equalize(arr):
     return len(arr) - max(Counter(arr).values())
 

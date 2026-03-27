@@ -19,8 +19,10 @@ func readNumbers(n int) []int {
 }
 
 // n: length of arr, 1 <= n <= 100
+// k: number of distinct elements in arr
+// k <= n
 // T: O(n) = O(100) = O(1)
-// S: O(n) = O(100) = O(1) extra space
+// S: O(k) = O(n) = O(100) = O(1) extra space
 func minDeletionsToEqualize(arr []int) int {
     maxCount := 0
     for _, count := range counter(arr) {
@@ -32,9 +34,9 @@ func minDeletionsToEqualize(arr []int) int {
 }
 
 func counter(arr []int) map[int]int {
-    counter := make(map[int]int)
+    freqMap := make(map[int]int)
     for _, x := range arr {
-        counter[x]++
+        freqMap[x]++
     }
-    return counter
+    return freqMap
 }

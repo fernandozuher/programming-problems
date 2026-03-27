@@ -29,20 +29,27 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // n: length of arr, 1 <= n <= 100
+// k: number of distinct elements in arr
+// k <= n
 // T: O(n) = O(100) = O(1)
-// S: O(n) = O(100) = O(1) extra space
+// S: O(k) = O(n) = O(100) = O(1) extra space
 function minDeletionsToEqualize(arr: number[]): number {
-  return arr.length - Math.max(...Object.values(counter(arr)));
+  let maxCount = 0;
+  const freqMap = counter(arr);
+  for (const key in freqMap) maxCount = Math.max(maxCount, freqMap[key]);
+  return arr.length - maxCount;
 }
 
 function counter(arr: number[]): Record<number, number> {
-  let counter: Record<number, number> = {};
+  let freqMap: Record<number, number> = {};
   arr.forEach((x) => {
-    counter[x] = (counter[x] ?? 0) + 1;
+    freqMap[x] = (freqMap[x] ?? 0) + 1;
   });
-  return counter;
+  return freqMap;
 }
