@@ -35,7 +35,7 @@ int between_two_sets(const int *a, size_t n1, const int *b, size_t n2)
     int gcd_of_b = reduce(b, n2, gcd);
 
     int count = 0;
-    for (size_t i = lcm_of_a; i <= gcd_of_b; i += lcm_of_a)
+    for (int i = lcm_of_a; i <= gcd_of_b; i += lcm_of_a)
         if (gcd_of_b % i == 0)
             ++count;
     return count;
@@ -44,7 +44,7 @@ int between_two_sets(const int *a, size_t n1, const int *b, size_t n2)
 int reduce(const int *arr, size_t n, int func(int a, int b))
 {
     int acc = arr[0];
-    for (int i = 1; i < n; ++i)
+    for (size_t i = 1; i < n; ++i)
         acc = func(acc, arr[i]);
     return acc;
 }
