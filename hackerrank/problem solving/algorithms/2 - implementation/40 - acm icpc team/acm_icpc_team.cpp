@@ -12,7 +12,7 @@ int main()
 {
     int attendees, topics;
     cin >> attendees >> topics;
-    vector<string> binaries{ read_binaries(attendees) };
+    vector binaries{ read_binaries(attendees) };
     auto [maxSubjects, teamsWithMax] {acm_team(binaries)};
     println("{}\n{}", maxSubjects, teamsWithMax);
     return 0;
