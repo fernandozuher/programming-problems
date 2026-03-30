@@ -18,7 +18,7 @@ def read_test_case
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
 # T: O(1)
