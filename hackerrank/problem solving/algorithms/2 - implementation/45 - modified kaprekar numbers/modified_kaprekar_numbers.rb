@@ -5,9 +5,9 @@ def main
   upper = gets.to_i
   valid_range = false
 
-  lower.upto(upper) do |num|
-    if is_number_kaprekar(num)
-      print num, ' '
+  lower.upto(upper) do
+    if kaprekar_number?(_1)
+      print _1, ' '
       valid_range = true
     end
   end
@@ -17,7 +17,7 @@ def main
   end
 end
 
-def is_number_kaprekar(n)
+def kaprekar_number?(n)
   square_number = n ** 2
   divisor = 10 ** number_digits(n)
   left_number, right_number = square_number.divmod(divisor)
