@@ -6,9 +6,11 @@ Console.WriteLine(FindBeautifulTriplets(arr, beautifulDifference));
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array arr
+// n: length of arr
+// k: distinct numbers of arr
+// k <= n
 // T: O(n)
-// S: O(n) extra space
+// S: O(k) = O(n) extra space
 int FindBeautifulTriplets(int[] arr, int beautifulDifference)
 {
     var values = new HashSet<int>(arr);

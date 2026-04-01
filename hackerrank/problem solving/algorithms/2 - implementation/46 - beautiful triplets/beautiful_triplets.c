@@ -24,7 +24,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array arr
+// n: length of arr
 // T: O(n log n)
 // S: O(1) extra space
 int find_beautiful_triplets(const int *arr, int n, int beautiful_difference)

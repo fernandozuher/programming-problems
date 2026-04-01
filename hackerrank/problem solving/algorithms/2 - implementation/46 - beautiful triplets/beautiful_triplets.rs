@@ -14,9 +14,11 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array arr
+// n: length of arr
+// k: distinct numbers of arr
+// k <= n
 // T: O(n)
-// S: O(n) extra space
+// S: O(k) = O(n) extra space
 fn find_beautiful_triplets(arr: &[i32], beautiful_difference: i32) -> usize {
     let values: HashSet<_> = arr.iter().cloned().collect();
     let double_bd: i32 = 2 * beautiful_difference;

@@ -24,9 +24,11 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array arr
+// n: length of arr
+// k: distinct numbers of arr
+// k <= n
 // T: O(n)
-// S: O(n) extra space
+// S: O(k) = O(n) extra space
 int find_beautiful_triplets(const vector<int>& arr, int beautiful_difference)
 {
     auto values{ unordered_set(arr.begin(), arr.end()) };

@@ -7,17 +7,19 @@ def main
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
-# n: length of array arr
+# n: length of arr
+# k: distinct numbers of arr
+# k <= n
 # T: O(n)
-# S: O(n) extra space
+# S: O(k) = O(n) extra space
 def find_beautiful_triplets(arr, beautiful_difference)
   values = arr.to_set
   double_bd = 2 * beautiful_difference
-  arr.count do |x|
-    values.include?(x + beautiful_difference) && values.include?(x + double_bd)
+  arr.count do
+    values.include?(_1 + beautiful_difference) && values.include?(_1 + double_bd)
   end
 end
 
