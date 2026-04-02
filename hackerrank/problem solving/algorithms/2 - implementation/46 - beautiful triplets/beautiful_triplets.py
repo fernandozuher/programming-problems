@@ -10,13 +10,15 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of array arr
+# n: length of arr
+# k: distinct numbers of arr
+# k <= n
 # T: O(n)
-# S: O(n) extra space
+# S: O(k) = O(n) extra space
 def find_beautiful_triplets(arr, beautiful_difference):
     values = set(arr)
     double_bd = 2 * beautiful_difference
-    return sum(1 for x in arr if x + beautiful_difference in values and x + double_bd in values)
+    return sum(x + beautiful_difference in values and x + double_bd in values for x in arr)
 
 
 if __name__ == '__main__':

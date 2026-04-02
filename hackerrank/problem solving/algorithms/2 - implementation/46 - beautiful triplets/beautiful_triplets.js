@@ -30,12 +30,16 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array arr
+// n: length of arr
+// k: distinct numbers of arr
+// k <= n
 // T: O(n)
-// S: O(n) extra space
+// S: O(k) = O(n) extra space
 function findBeautifulTriplets(arr, beautifulDifference) {
   const values = new Set(arr);
   const doubleBD = 2 * beautifulDifference;
