@@ -30,10 +30,12 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array arr
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
 function minDistance(arr: number[]): number {

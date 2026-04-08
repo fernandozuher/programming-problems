@@ -19,7 +19,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array arr
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
 func minDistance(arr []int) int {

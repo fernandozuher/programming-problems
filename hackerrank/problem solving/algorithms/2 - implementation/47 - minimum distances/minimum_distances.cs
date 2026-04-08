@@ -6,7 +6,7 @@ Console.WriteLine(MinDistance(arr));
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array arr
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
 int MinDistance(int[] arr)

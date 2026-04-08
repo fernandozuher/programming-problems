@@ -13,7 +13,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array arr
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
 fn min_distance(arr: &[i32]) -> i32 {

@@ -11,7 +11,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array arr
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
 int minDistance(int[] arr) {

@@ -24,7 +24,7 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array arr
+// n: length of arr
 // T: O(n)
 // S: O(n) extra space
 int min_distance(const vector<int>& arr)
