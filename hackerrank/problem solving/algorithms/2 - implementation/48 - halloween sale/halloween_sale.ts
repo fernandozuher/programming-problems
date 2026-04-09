@@ -29,7 +29,9 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // T: O(budget / minPrice)
