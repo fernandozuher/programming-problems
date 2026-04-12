@@ -3,6 +3,7 @@
 
 import std;
 using namespace std;
+using namespace ranges;
 
 vector<int> read_numbers(int n);
 pair<int, int> breaking_records(const vector<int>& scores);
@@ -18,13 +19,10 @@ int main()
 
 vector<int> read_numbers(int n)
 {
-    vector<int> arr(n);
-    for (auto& x : arr)
-        cin >> x;
-    return arr;
+    return views::iota(0, n) | views::transform([](auto) {int x; cin >> x; return x; }) | to<vector>();
 }
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 pair<int, int> breaking_records(const vector<int>& scores)

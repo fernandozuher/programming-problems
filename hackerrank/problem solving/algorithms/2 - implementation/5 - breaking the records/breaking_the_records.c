@@ -29,7 +29,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 records_t breaking_records(const int *scores, int n)

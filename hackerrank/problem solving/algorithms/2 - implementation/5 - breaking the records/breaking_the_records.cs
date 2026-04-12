@@ -6,7 +6,7 @@ Console.WriteLine($"{mostRecordBreaks} {leastRecordBreaks}");
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 (int, int) BreakingRecords(int[] scores)

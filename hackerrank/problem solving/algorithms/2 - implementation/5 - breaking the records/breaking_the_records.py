@@ -10,7 +10,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of array scores
+# n: length of scores
 # T: O(n)
 # S: O(1) extra space
 def breaking_records(scores):

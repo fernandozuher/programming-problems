@@ -9,7 +9,7 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
-# n: length of array scores
+# n: length of scores
 # T: O(n)
 # S: O(1) extra space
 def breaking_records(scores)

@@ -31,10 +31,12 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 function breakingRecords(scores: number[]): number[] {

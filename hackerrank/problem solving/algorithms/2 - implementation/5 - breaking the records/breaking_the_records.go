@@ -18,7 +18,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 func breakingRecords(scores []int) (int, int) {

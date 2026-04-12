@@ -11,7 +11,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 int[] breakingRecords(int[] scores) {

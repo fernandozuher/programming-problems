@@ -12,7 +12,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array scores
+// n: length of scores
 // T: O(n)
 // S: O(1) extra space
 fn breaking_records(scores: &[i32]) -> (i32, i32) {
