@@ -20,6 +20,8 @@ int main()
     return 0;
 }
 
+// T: O(log(money / cost))
+// S: O(1) extra space
 int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed)
 {
     int chocolates{ money / cost };

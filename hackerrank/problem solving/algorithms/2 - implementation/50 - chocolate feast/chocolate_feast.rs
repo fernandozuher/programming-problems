@@ -15,6 +15,8 @@ fn main() {
     }
 }
 
+// T: O(log(money / cost))
+// S: O(1) extra space
 fn how_many_chocolates_can_be_eaten(money: i32, cost: i32, wrappers_needed: i32) -> i32 {
     let mut chocolates: i32 = money / cost;
     let mut wrappers: i32 = chocolates;

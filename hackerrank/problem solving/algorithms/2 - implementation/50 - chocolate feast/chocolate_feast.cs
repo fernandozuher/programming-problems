@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
-for (int i = 0, n = int.Parse(Console.ReadLine()!); i < n; i++)
+int n = int.Parse(Console.ReadLine()!);
+for (int i = 0; i < n; i++)
 {
     var arr = ReadNumbers();
     int money = arr[0];
@@ -11,6 +12,8 @@ for (int i = 0, n = int.Parse(Console.ReadLine()!); i < n; i++)
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
+// T: O(log(money / cost))
+// S: O(1) extra space
 int HowManyChocolatesCanBeEaten(int money, int cost, int wrappersNeeded)
 {
     int chocolates = money / cost;

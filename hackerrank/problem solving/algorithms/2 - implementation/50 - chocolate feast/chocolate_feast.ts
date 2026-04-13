@@ -31,9 +31,13 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
+// T: O(log(money / cost))
+// S: O(1) extra space
 function howManyChocolatesCanBeEaten(
   money: number,
   cost: number,

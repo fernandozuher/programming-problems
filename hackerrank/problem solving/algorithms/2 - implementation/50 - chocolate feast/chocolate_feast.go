@@ -18,6 +18,8 @@ func readInput() (int, int, int) {
     return money, cost, wrappersNeeded
 }
 
+// T: O(log(money / cost))
+// S: O(1) extra space
 func howManyChocolatesCanBeEaten(money, cost, wrappersNeeded int) int {
     chocolates := money / cost
 

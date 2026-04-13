@@ -11,6 +11,8 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
+# T: O(log(money / cost))
+# S: O(1) extra space
 def how_many_chocolates_can_be_eaten(money, cost, wrappers_needed):
     chocolates = money // cost
     wrappers = chocolates

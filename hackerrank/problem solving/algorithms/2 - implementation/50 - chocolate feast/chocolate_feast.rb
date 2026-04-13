@@ -12,6 +12,8 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
+# T: O(log(money / cost))
+# S: O(1) extra space
 def how_many_chocolates_can_be_eaten(money, cost, wrappers_needed)
   chocolates = money.div(cost)
   wrappers = chocolates
