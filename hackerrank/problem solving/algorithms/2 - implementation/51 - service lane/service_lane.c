@@ -32,7 +32,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array widths
+// n: length of widths
 // T: O(n)
 // S: O(1) extra space
 int min_width_in_segment(const int *widths, const segment_pair *segment)

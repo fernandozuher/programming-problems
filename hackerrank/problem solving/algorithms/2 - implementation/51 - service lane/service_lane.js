@@ -31,10 +31,12 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array widths
+// n: length of widths
 // T: O(n)
 // S: O(1) extra space
 function minWidthInSegment(widths, segment) {

@@ -14,7 +14,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of array widths
+# n: length of widths
 # T: O(n)
 # S: O(1) extra space
 def min_width_in_segment(widths, segment):

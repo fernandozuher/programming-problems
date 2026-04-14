@@ -7,11 +7,12 @@ for (int i = 0; i < t; i++)
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array widths
+// n: length of widths
 // T: O(n)
 // S: O(1) extra space
 int minWidthInSegment(int[] widths, int[] segment)
 {
-    int nElements = segment[1] - segment[0] + 1;
-    return widths.Skip(segment[0]).Take(nElements).Min();
+    int start = segment[0], finish = segment[1];
+    int nElements = finish - start + 1;
+    return widths.Skip(start).Take(nElements).Min();
 }

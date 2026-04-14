@@ -3,6 +3,7 @@
 
 import std;
 using namespace std;
+using namespace ranges;
 
 vector<int> read_numbers(int n);
 int min_width_in_segment(const vector<int>& widths, const pair<int, int>& segment);
@@ -24,16 +25,14 @@ int main()
 
 vector<int> read_numbers(int n)
 {
-    vector<int> arr(n);
-    for (auto& x : arr)
-        cin >> x;
-    return arr;
+    return views::iota(0, n) | views::transform([](auto) {int x; cin >> x; return x; }) | to<vector>();
 }
 
-// n: length of array widths
+// n: length of widths
 // T: O(n)
 // S: O(1) extra space
 int min_width_in_segment(const vector<int>& widths, const pair<int, int>& segment)
 {
-    return *min_element(widths.begin() + segment.first, widths.begin() + segment.second + 1);
+    int start{ segment.first }, finish{ segment.second };
+    return *ranges::min_element(widths.begin() + start, widths.begin() + finish + 1);
 }

@@ -10,7 +10,7 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
-# n: length of array widths
+# n: length of widths
 # T: O(n)
 # S: O(1) extra space
 def min_width_in_segment(widths, segment)
