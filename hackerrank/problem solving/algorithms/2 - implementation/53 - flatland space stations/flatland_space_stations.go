@@ -24,7 +24,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array stations
+// n: length of stations
 // T: O(n)
 // S: O(1) extra space
 func maxDistanceFromSpaceStation(lastCity int, stations []int) int {

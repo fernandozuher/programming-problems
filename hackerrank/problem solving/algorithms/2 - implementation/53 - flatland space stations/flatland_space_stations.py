@@ -15,11 +15,13 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of array stations
+# n: length of stations
 # T: O(n)
 # S: O(1) extra space
 def max_distance_from_space_station(last_city, stations):
-    max_dist = max((curr - prev) // 2 for prev, curr in pairwise(stations)) if len(stations) > 1 else 0
+    max_dist = 0
+    if len(stations) > 1:
+        max_dist = max((curr - prev) // 2 for prev, curr in pairwise(stations))
     return max(max_dist, stations[0], last_city - stations[-1])
 
 

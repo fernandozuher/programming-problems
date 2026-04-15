@@ -12,7 +12,7 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
-# n: length of array stations
+# n: length of stations
 # T: O(n)
 # S: O(1) extra space
 def max_distance_from_space_station(last_city, stations)

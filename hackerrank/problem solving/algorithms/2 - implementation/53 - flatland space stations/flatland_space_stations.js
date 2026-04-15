@@ -31,10 +31,12 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array stations
+// n: length of stations
 // T: O(n)
 // S: O(1) extra space
 function maxDistanceFromSpaceStation(lastCity, stations) {

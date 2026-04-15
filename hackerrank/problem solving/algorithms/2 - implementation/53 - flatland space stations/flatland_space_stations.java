@@ -13,7 +13,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array stations
+// n: length of stations
 // T: O(n)
 // S: O(1) extra space
 int maxDistanceFromSpaceStation(int lastCity, int[] stations) {
