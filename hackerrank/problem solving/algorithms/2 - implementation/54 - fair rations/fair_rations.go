@@ -23,7 +23,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array peopleLoafCounts
+// n: length of peopleLoafCounts
 // T: O(n)
 // S: O(1) extra space
 func minLoavesToSatisfyRules(peopleLoafCounts []int) int {

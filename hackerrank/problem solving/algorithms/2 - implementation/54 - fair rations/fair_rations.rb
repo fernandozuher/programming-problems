@@ -11,7 +11,7 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
-# n: length of array people_loaf_counts
+# n: length of people_loaf_counts
 # T: O(n)
 # S: O(1) extra space
 def min_loaves_to_satisfy_rules(people_loaf_counts)

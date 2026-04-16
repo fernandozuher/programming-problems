@@ -12,7 +12,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array peopleLoafCounts
+// n: length of peopleLoafCounts
 // T: O(n)
 // S: O(1) extra space
 int minLoavesToSatisfyRules(int[] peopleLoafCounts) {

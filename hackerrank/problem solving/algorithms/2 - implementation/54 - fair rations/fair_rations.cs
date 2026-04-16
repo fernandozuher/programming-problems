@@ -7,7 +7,7 @@ Console.WriteLine(minLoaves == -1 ? "NO" : minLoaves);
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array peopleLoafCounts
+// n: length of peopleLoafCounts
 // T: O(n)
 // S: O(1) extra space
 int MinLoavesToSatisfyRules(int[] peopleLoafCounts)

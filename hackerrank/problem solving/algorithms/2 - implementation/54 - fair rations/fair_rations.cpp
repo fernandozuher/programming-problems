@@ -3,6 +3,7 @@
 
 import std;
 using namespace std;
+using namespace ranges;
 
 vector<int> read_numbers(int n);
 int min_loaves_to_satisfy_rules(const vector<int>& people_loaf_counts);
@@ -13,23 +14,20 @@ int main()
     int n;
     cin >> n;
     vector people_loaf_counts{ read_numbers(n) };
-    if (int min_loaves{ min_loaves_to_satisfy_rules(people_loaf_counts) }; min_loaves == -1)
+    int min_loaves{ min_loaves_to_satisfy_rules(people_loaf_counts) };
+    if (min_loaves == -1)
         cout << "NO";
     else
         cout << min_loaves;
-
     return 0;
 }
 
 vector<int> read_numbers(int n)
 {
-    vector<int> arr(n);
-    for (auto& x : arr)
-        cin >> x;
-    return arr;
+    return views::iota(0, n) | views::transform([](auto) { int x; cin >> x; return x; }) | to<vector>();
 }
 
-// n: length of array people_loaf_counts
+// n: length of people_loaf_counts
 // T: O(n)
 // S: O(1) extra space
 int min_loaves_to_satisfy_rules(const vector<int>& people_loaf_counts)
