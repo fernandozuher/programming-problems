@@ -24,7 +24,7 @@ func readMatrix(n int) [][]byte {
     return matrix
 }
 
-// n: length of rows/cols of matrix
+// n: length of matrix' rows
 // T: O(n^2)
 // S: O(1) extra space
 func changeMatrixToCavityMap(matrix [][]byte) {

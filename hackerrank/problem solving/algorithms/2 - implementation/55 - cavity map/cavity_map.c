@@ -11,7 +11,7 @@ int main()
 {
     int n;
     scanf("%d", &n);
-    char matrix[n][n + 1]; // +1 = \0
+    char matrix[n][n + 1];
     read_matrix(n, matrix);
 
     change_matrix_to_cavity_map(n, matrix);
@@ -27,7 +27,7 @@ void read_matrix(int n, char matrix[n][n + 1])
         scanf("%s", matrix[i]);
 }
 
-// n: length of rows/cols of matrix
+// n: length of matrix' rows
 // T: O(n^2)
 // S: O(1) extra space
 void change_matrix_to_cavity_map(int n, char matrix[n][n + 1])

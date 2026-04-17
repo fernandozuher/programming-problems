@@ -13,7 +13,7 @@ char[][] readMatrix(int n) {
     return IntStream.range(0, n).mapToObj(_ -> IO.readln().toCharArray()).toArray(char[][]::new);
 }
 
-// n: length of rows/cols of matrix
+// n: length of matrix' rows
 // T: O(n^2)
 // S: O(1) extra space
 void changeMatrixToCavityMap(char[][] matrix) {

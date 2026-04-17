@@ -8,7 +8,7 @@ foreach (var x in matrix)
 
 char[][] ReadMatrix(int n) => Enumerable.Range(0, n).Select(_ => Console.ReadLine()!.ToCharArray()).ToArray();
 
-// n: length of rows/cols of matrix
+// n: length of matrix' rows
 // T: O(n^2)
 // S: O(1) extra space
 void ChangeMatrixToCavityMap(char[][] matrix)

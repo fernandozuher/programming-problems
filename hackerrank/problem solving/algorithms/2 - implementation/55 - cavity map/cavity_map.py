@@ -8,7 +8,7 @@ def main():
         print(''.join(line))
 
 
-# n: length of rows/cols of matrix
+# n: length of matrix' rows
 # T: O(n^2)
 # S: O(1) extra space
 def change_matrix_to_cavity_map(matrix):
