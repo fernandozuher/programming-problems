@@ -28,7 +28,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array chocolate_squares
+// n: length of chocolate_squares
 // 1 <= n <= 100
 // T: O(n) = O(100) = O(1)
 // S: O(1) extra space

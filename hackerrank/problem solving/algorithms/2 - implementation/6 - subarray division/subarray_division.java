@@ -12,7 +12,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array chocolateSquares
+// n: length of chocolateSquares
 // 1 <= n <= 100
 // T: O(n) = O(100) = O(1)
 // S: O(1) extra space

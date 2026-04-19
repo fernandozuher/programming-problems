@@ -14,7 +14,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array chocolate_squares
+// n: length of chocolate_squares
 // 1 <= n <= 100
 // T: O(n) = O(100) = O(1)
 // S: O(1) extra space

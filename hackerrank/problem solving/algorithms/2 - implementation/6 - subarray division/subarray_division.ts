@@ -31,10 +31,12 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array chocolateSquares
+// n: length of chocolateSquares
 // 1 <= n <= 100
 // T: O(n) = O(100) = O(1)
 // S: O(1) extra space
