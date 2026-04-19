@@ -13,44 +13,44 @@ fn read_numbers(n: usize) -> Vec<usize> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array numbers
-// k: length of array frequency
+// n: length of numbers
+// k: length of freq
 // T: O(n + k)
 // S: O(k) extra space
 fn divisible_sum_pairs(numbers: &[usize], k: usize) -> usize {
-    let frequency: Vec<usize> = init_remainder_frequency(numbers, k);
-    count_pairs_with_remainder_0(&frequency)
-        + count_complementary_remainder_pairs(&frequency)
-        + count_pairs_with_remainder_k_half(&frequency)
+    let freq: Vec<usize> = init_remainder_frequency(numbers, k);
+    count_pairs_with_remainder_0(&freq)
+        + count_complementary_remainder_pairs(&freq)
+        + count_pairs_with_remainder_k_half(&freq)
 }
 
 fn init_remainder_frequency(numbers: &[usize], k: usize) -> Vec<usize> {
-    let mut frequency: Vec<usize> = vec![0; k];
+    let mut freq: Vec<usize> = vec![0; k];
     for &x in numbers.iter() {
-        frequency[x % k] += 1;
+        freq[x % k] += 1;
     }
-    frequency
+    freq
 }
 
-fn count_pairs_with_remainder_0(frequency: &[usize]) -> usize {
-    pair_count(frequency[0])
+fn count_pairs_with_remainder_0(freq: &[usize]) -> usize {
+    pair_count(freq[0])
 }
 
 fn pair_count(n: usize) -> usize {
     n * (n - 1) / 2
 }
 
-fn count_complementary_remainder_pairs(frequency: &[usize]) -> usize {
-    let n: usize = frequency.len();
+fn count_complementary_remainder_pairs(freq: &[usize]) -> usize {
+    let n: usize = freq.len();
     (1..(n + 1) / 2)
-        .map(|i| frequency[i] * frequency[n - i])
+        .map(|i| freq[i] * freq[n - i])
         .sum()
 }
 
-fn count_pairs_with_remainder_k_half(frequency: &[usize]) -> usize {
-    let n: usize = frequency.len();
+fn count_pairs_with_remainder_k_half(freq: &[usize]) -> usize {
+    let n: usize = freq.len();
     if n.is_even() {
-        return pair_count(frequency[n / 2]);
+        return pair_count(freq[n / 2]);
     }
     0
 }

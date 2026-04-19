@@ -19,44 +19,44 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array numbers
-// k: length of array frequency
+// n: length of numbers
+// k: length of freq
 // T: O(n + k)
 // S: O(k) extra space
 func divisibleSumPairs(numbers []int, k int) int {
-    frequency := initRemainderFrequency(numbers, k)
-    return countPairsWithRemainder0(frequency) + countComplementaryRemainderPairs(frequency) + countPairsWithRemainderKHalf(frequency)
+    freq := initRemainderFrequency(numbers, k)
+    return countPairsWithRemainder0(freq) + countComplementaryRemainderPairs(freq) + countPairsWithRemainderKHalf(freq)
 }
 
 func initRemainderFrequency(numbers []int, k int) []int {
-    frequency := make([]int, k)
+    freq := make([]int, k)
     for _, x := range numbers {
-        frequency[x%k]++
+        freq[x%k]++
     }
-    return frequency
+    return freq
 }
 
-func countPairsWithRemainder0(frequency []int) int {
-    return pairCount(frequency[0])
+func countPairsWithRemainder0(freq []int) int {
+    return pairCount(freq[0])
 }
 
 func pairCount(n int) int {
     return n * (n - 1) / 2
 }
 
-func countComplementaryRemainderPairs(frequency []int) int {
+func countComplementaryRemainderPairs(freq []int) int {
     count := 0
-    n := len(frequency)
+    n := len(freq)
     for i, n2 := 1, (n+1)/2; i < n2; i++ {
-        count += frequency[i] * frequency[n-i]
+        count += freq[i] * freq[n-i]
     }
     return count
 }
 
-func countPairsWithRemainderKHalf(frequency []int) int {
-    n := len(frequency)
+func countPairsWithRemainderKHalf(freq []int) int {
+    n := len(freq)
     if n%2 == 0 {
-        return pairCount(frequency[n/2])
+        return pairCount(freq[n/2])
     }
     return 0
 }

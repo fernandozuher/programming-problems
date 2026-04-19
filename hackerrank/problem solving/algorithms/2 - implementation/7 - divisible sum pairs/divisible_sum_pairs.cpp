@@ -7,10 +7,10 @@ using namespace std;
 vector<int> read_numbers(int n);
 int divisible_sum_pairs(const vector<int>& numbers, int k);
 vector<int> init_remainder_frequency(const vector<int>& numbers, int k);
-int count_pairs_with_remainder_0(const vector<int>& frequency);
+int count_pairs_with_remainder_0(const vector<int>& freq);
 int pair_count(int n);
-int count_complementary_remainder_pairs(const vector<int>& frequency);
-int count_pairs_with_remainder_k_half(const vector<int>& frequency);
+int count_complementary_remainder_pairs(const vector<int>& freq);
+int count_pairs_with_remainder_k_half(const vector<int>& freq);
 
 int main()
 {
@@ -29,28 +29,28 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array numbers
-// k: length of array frequency
+// n: length of numbers
+// k: length of freq
 // T: O(n + k)
 // S: O(k) extra space
 int divisible_sum_pairs(const vector<int>& numbers, int k)
 {
-    vector frequency{ init_remainder_frequency(numbers, k) };
-    return count_pairs_with_remainder_0(frequency) + count_complementary_remainder_pairs(frequency) +
-        count_pairs_with_remainder_k_half(frequency);
+    vector freq{ init_remainder_frequency(numbers, k) };
+    return count_pairs_with_remainder_0(freq) + count_complementary_remainder_pairs(freq) +
+        count_pairs_with_remainder_k_half(freq);
 }
 
 vector<int> init_remainder_frequency(const vector<int>& numbers, int k)
 {
-    vector<int> frequency(k);
+    vector<int> freq(k);
     for (int x : numbers)
-        ++frequency.at(x % k);
-    return frequency;
+        ++freq.at(x % k);
+    return freq;
 }
 
-int count_pairs_with_remainder_0(const vector<int>& frequency)
+int count_pairs_with_remainder_0(const vector<int>& freq)
 {
-    return pair_count(frequency.front());
+    return pair_count(freq.front());
 }
 
 int pair_count(int n)
@@ -58,18 +58,18 @@ int pair_count(int n)
     return n * (n - 1) / 2;
 }
 
-int count_complementary_remainder_pairs(const vector<int>& frequency)
+int count_complementary_remainder_pairs(const vector<int>& freq)
 {
-    auto n{ frequency.size() };
+    auto n{ freq.size() };
     return *ranges::fold_left_first(
         views::iota(1ul, (n + 1) / 2) |
-        views::transform([&frequency, n](auto i) { return frequency.at(i) * frequency.at(n - i); }),
+        views::transform([&freq, n](auto i) { return freq.at(i) * freq.at(n - i); }),
         plus{}
     );
 }
 
-int count_pairs_with_remainder_k_half(const vector<int>& frequency)
+int count_pairs_with_remainder_k_half(const vector<int>& freq)
 {
-    auto n{ frequency.size() };
-    return n % 2 == 0 ? pair_count(frequency.at(n / 2)) : 0;
+    auto n{ freq.size() };
+    return n % 2 == 0 ? pair_count(freq.at(n / 2)) : 0;
 }

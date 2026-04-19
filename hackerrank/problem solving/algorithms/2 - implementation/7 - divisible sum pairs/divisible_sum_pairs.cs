@@ -6,36 +6,36 @@ Console.WriteLine(DivisibleSumPairs(numbers, k));
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array numbers
-// k: length of array frequency
+// n: length of numbers
+// k: length of freq
 // T: O(n + k)
 // S: O(k) extra space
 int DivisibleSumPairs(int[] numbers, int k)
 {
-    int[] frequency = InitRemainderFrequency(numbers, k);
-    return CountPairsWithRemainder0(frequency) + CountComplementaryRemainderPairs(frequency)
-           + CountPairsWithRemainderKHalf(frequency);
+    int[] freq = InitRemainderFrequency(numbers, k);
+    return CountPairsWithRemainder0(freq) + CountComplementaryRemainderPairs(freq)
+           + CountPairsWithRemainderKHalf(freq);
 }
 
 int[] InitRemainderFrequency(int[] numbers, int k)
 {
-    int[] frequency = new int[k];
+    int[] freq = new int[k];
     foreach (int x in numbers)
-        frequency[x % k]++;
-    return frequency;
+        freq[x % k]++;
+    return freq;
 }
 
-int CountPairsWithRemainder0(int[] frequency) => PairCount(frequency[0]);
+int CountPairsWithRemainder0(int[] freq) => PairCount(freq[0]);
 
 int PairCount(int n) => n * (n - 1) / 2;
 
-int CountComplementaryRemainderPairs(int[] frequency)
+int CountComplementaryRemainderPairs(int[] freq)
 {
-    return Enumerable.Range(1, (frequency.Length + 1) / 2 - 1).Sum(i => frequency[i] * frequency[^i]);
+    return Enumerable.Range(1, (freq.Length + 1) / 2 - 1).Sum(i => freq[i] * freq[^i]);
 }
 
-int CountPairsWithRemainderKHalf(int[] frequency)
+int CountPairsWithRemainderKHalf(int[] freq)
 {
-    int n = frequency.Length;
-    return int.IsOddInteger(n) ? 0 : PairCount(frequency[n / 2]);
+    int n = freq.Length;
+    return int.IsOddInteger(n) ? 0 : PairCount(freq[n / 2]);
 }

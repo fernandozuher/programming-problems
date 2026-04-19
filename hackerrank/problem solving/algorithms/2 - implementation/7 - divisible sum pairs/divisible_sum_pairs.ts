@@ -30,44 +30,46 @@ function main() {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array numbers
-// k: length of array frequency
+// n: length of numbers
+// k: length of freq
 // T: O(n + k)
 // S: O(k) extra space
 function divisibleSumPairs(numbers: number[], k: number): number {
-  const frequency: number[] = initRemainderFrequency(numbers, k);
+  const freq: number[] = initRemainderFrequency(numbers, k);
   return (
-    countPairsWithRemainder0(frequency) +
-    countComplementaryRemainderPairs(frequency) +
-    countPairsWithRemainderKHalf(frequency)
+    countPairsWithRemainder0(freq) +
+    countComplementaryRemainderPairs(freq) +
+    countPairsWithRemainderKHalf(freq)
   );
 }
 
 function initRemainderFrequency(numbers: number[], k: number): number[] {
-  const frequency = new Array(k).fill(0);
-  for (const x of numbers) frequency[x % k]++;
-  return frequency;
+  const freq = new Array(k).fill(0);
+  for (const x of numbers) freq[x % k]++;
+  return freq;
 }
 
-function countPairsWithRemainder0(frequency: number[]): number {
-  return pairCount(frequency[0]);
+function countPairsWithRemainder0(freq: number[]): number {
+  return pairCount(freq[0]);
 }
 
 function pairCount(n: number): number {
   return (n * (n - 1)) / 2;
 }
 
-function countComplementaryRemainderPairs(frequency: number[]): number {
+function countComplementaryRemainderPairs(freq: number[]): number {
   let count = 0;
-  for (let i = 1, n = Math.trunc((frequency.length + 1) / 2); i < n; i++)
-    count += frequency[i] * frequency.at(-i);
+  for (let i = 1, n = Math.trunc((freq.length + 1) / 2); i < n; i++)
+    count += freq[i] * freq.at(-i);
   return count;
 }
 
-function countPairsWithRemainderKHalf(frequency: number[]): number {
-  const n: number = frequency.length;
-  return n % 2 === 0 ? pairCount(frequency[n / 2]) : 0;
+function countPairsWithRemainderKHalf(freq: number[]): number {
+  const n: number = freq.length;
+  return n % 2 === 0 ? pairCount(freq[n / 2]) : 0;
 }

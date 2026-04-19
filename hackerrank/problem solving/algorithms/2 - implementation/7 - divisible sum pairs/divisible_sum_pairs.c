@@ -5,11 +5,11 @@
 
 void read_numbers(int *arr, int n);
 int divisible_sum_pairs(const int *numbers, int n, int k);
-void init_remainder_frequency(int *frequency, int k, const int *numbers, int n);
-int count_pairs_with_remainder_0(const int *frequency);
+void init_remainder_frequency(int *freq, int k, const int *numbers, int n);
+int count_pairs_with_remainder_0(const int *freq);
 int pair_count(int n);
-int count_complementary_remainder_pairs(const int *frequency, int n);
-int count_pairs_with_remainder_k_half(const int *frequency, int n);
+int count_complementary_remainder_pairs(const int *freq, int n);
+int count_pairs_with_remainder_k_half(const int *freq, int n);
 
 int main()
 {
@@ -27,27 +27,27 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array numbers
-// k: length of array frequency
+// n: length of numbers
+// k: length of freq
 // T: O(n + k)
 // S: O(k) extra space
 int divisible_sum_pairs(const int *numbers, int n, int k)
 {
-    int frequency[k] = {};
-    init_remainder_frequency(frequency, k, numbers, n);
-    return count_pairs_with_remainder_0(frequency) + count_complementary_remainder_pairs(frequency, k) +
-           count_pairs_with_remainder_k_half(frequency, k);
+    int freq[k] = {};
+    init_remainder_frequency(freq, k, numbers, n);
+    return count_pairs_with_remainder_0(freq) + count_complementary_remainder_pairs(freq, k) +
+           count_pairs_with_remainder_k_half(freq, k);
 }
 
-void init_remainder_frequency(int *frequency, int k, const int *numbers, int n)
+void init_remainder_frequency(int *freq, int k, const int *numbers, int n)
 {
     for (int i = 0; i < n; ++i)
-        ++frequency[numbers[i] % k];
+        ++freq[numbers[i] % k];
 }
 
-int count_pairs_with_remainder_0(const int *frequency)
+int count_pairs_with_remainder_0(const int *freq)
 {
-    return pair_count(frequency[0]);
+    return pair_count(freq[0]);
 }
 
 int pair_count(int n)
@@ -55,15 +55,15 @@ int pair_count(int n)
     return n * (n - 1) / 2;
 }
 
-int count_complementary_remainder_pairs(const int *frequency, int n)
+int count_complementary_remainder_pairs(const int *freq, int n)
 {
     int count = 0;
     for (int i = 1, n2 = (n + 1) / 2; i < n2; ++i)
-        count += frequency[i] * frequency[n - i];
+        count += freq[i] * freq[n - i];
     return count;
 }
 
-int count_pairs_with_remainder_k_half(const int *frequency, int n)
+int count_pairs_with_remainder_k_half(const int *freq, int n)
 {
-    return n % 2 == 0 ? pair_count(frequency[n / 2]) : 0;
+    return n % 2 == 0 ? pair_count(freq[n / 2]) : 0;
 }
