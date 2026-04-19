@@ -25,7 +25,7 @@ int[] InitRemainderFrequency(int[] numbers, int k)
     return freq;
 }
 
-int CountPairsWithRemainder0(int[] freq) => PairCount(freq[0]);
+int CountPairsWithRemainder0(int[] freq) => PairCount(freq.First());
 
 int PairCount(int n) => n * (n - 1) / 2;
 

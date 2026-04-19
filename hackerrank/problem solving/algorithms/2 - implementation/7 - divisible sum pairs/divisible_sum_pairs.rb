@@ -28,7 +28,7 @@ def init_remainder_frequency(numbers, k)
 end
 
 def count_pairs_with_remainder_0(freq)
-  pair_count(freq[0])
+  pair_count(freq.first)
 end
 
 def pair_count(n)
