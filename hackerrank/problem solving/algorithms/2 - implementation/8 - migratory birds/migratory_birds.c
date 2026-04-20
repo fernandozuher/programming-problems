@@ -19,7 +19,7 @@ int main()
     return 0;
 }
 
-// n: length of input array
+// n: length of input
 // n_distinct_ids: length of output = 5
 // T: O(n)
 // S: O(n_distinct_ids) = O(5) = O(1) extra space
@@ -41,7 +41,7 @@ bool is_valid_id(int x)
     return x >= min_id && x <= max_id;
 }
 
-// n_distinct_ids: length of array birds_to_counts = 5
+// n_distinct_ids: length of birds_to_counts = 5
 // T: O(n_distinct_ids) = O(5) = O(1)
 // S: O(1) extra space
 int find_most_spotted_bird(const int *birds_to_counts)
