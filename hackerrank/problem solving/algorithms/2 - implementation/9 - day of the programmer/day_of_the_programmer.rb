@@ -25,11 +25,11 @@ def leap_year?(year)
 end
 
 def leap_julian_year?(year)
-  year % 4 == 0
+  (year % 4).zero?
 end
 
 def leap_gregorian_year?(year)
-  year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)
+  (year % 400).zero? || ((year % 4).zero? && !(year % 100).zero?)
 end
 
 main if __FILE__ == $0
