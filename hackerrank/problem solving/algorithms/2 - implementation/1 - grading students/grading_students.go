@@ -21,7 +21,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array grades
+// n: length of grades
 // T: O(n)
 // S: O(1) extra space
 func gradingStudents(grades []int) []int {

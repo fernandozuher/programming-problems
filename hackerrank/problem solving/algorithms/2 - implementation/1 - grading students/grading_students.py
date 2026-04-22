@@ -11,7 +11,7 @@ def read_numbers(n):
     return [int(input()) for _ in range(n)]
 
 
-# n: length of array grades
+# n: length of grades
 # T: O(n)
 # S: O(1) extra space
 def grading_students(grades):

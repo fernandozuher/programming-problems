@@ -6,7 +6,7 @@ Array.ForEach(GradingStudents(grades), Console.WriteLine);
 
 int[] ReadNumbers(int n) => Enumerable.Range(0, n).Select(_ => int.Parse(Console.ReadLine()!)).ToArray();
 
-// n: length of array grades
+// n: length of grades
 // T: O(n)
 // S: O(1) extra space
 int[] GradingStudents(int[] grades)

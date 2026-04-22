@@ -25,7 +25,7 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array grades
+// n: length of grades
 // T: O(n)
 // S: O(1) extra space
 vector<int>& grading_students(vector<int>& grades)

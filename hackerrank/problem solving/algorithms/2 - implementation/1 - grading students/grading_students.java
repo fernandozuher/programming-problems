@@ -12,7 +12,7 @@ int[] readNumbers(int n) {
     return IntStream.range(0, n).map(_ -> Integer.parseInt(IO.readln())).toArray();
 }
 
-// n: length of array grades
+// n: length of grades
 // T: O(n)
 // S: O(1) extra space
 int[] gradingStudents(int[] grades) {

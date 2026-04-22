@@ -14,7 +14,7 @@ fn read_numbers(n: usize) -> Vec<i32> {
     (0..n).map(|_| read!()).collect()
 }
 
-// n: length of array grades
+// n: length of grades
 // T: O(n)
 // S: O(1) extra space
 fn grading_students(grades: &mut [i32]) -> &[i32] {

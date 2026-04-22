@@ -3,17 +3,17 @@
 def main
   n = gets.to_i
   grades = read_numbers(n)
-  puts grading_students!(grades)
+  puts grading_students(grades)
 end
 
 def read_numbers(n)
-  Array.new(n) { gets.to_i }
+  n.times.map { gets.to_i }
 end
 
-# n: length of array grades
+# n: length of grades
 # T: O(n)
 # S: O(1) extra space
-def grading_students!(grades)
+def grading_students(grades)
   min_grade = 38
   grades.each_with_index do |grade, i|
     next if grade < min_grade

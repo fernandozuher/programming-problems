@@ -35,7 +35,7 @@ function readNumbers(n) {
     .map((_) => +readLine());
 }
 
-// n: length of array grades
+// n: length of grades
 // T: O(n)
 // S: O(1) extra space
 function gradingStudents(grades) {
