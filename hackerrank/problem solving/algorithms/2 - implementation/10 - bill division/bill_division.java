@@ -21,7 +21,7 @@ int[] readNumbers() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
-// n: length of array data.mealCosts
+// n: length of data.mealCosts
 // T: O(n)
 // S: O(1) extra space
 int bonAppetit(Input data) {

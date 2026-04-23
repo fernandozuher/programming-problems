@@ -14,7 +14,7 @@ Input ReadInput()
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array data.MealCosts
+// n: length of data.MealCosts
 // T: O(n)
 // S: O(1) extra space
 int BonAppetit(Input data)

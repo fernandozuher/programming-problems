@@ -36,7 +36,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array data.mealCosts
+// n: length of data.mealCosts
 // T: O(n)
 // S: O(1) extra space
 func bonAppetit(data Input) int {

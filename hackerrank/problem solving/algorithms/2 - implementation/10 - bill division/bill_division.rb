@@ -18,7 +18,7 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
-# n: length of array data.meal_costs
+# n: length of data.meal_costs
 # T: O(n)
 # S: O(1) extra space
 def bon_appetit(data)

@@ -36,10 +36,12 @@ function readInput() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-// n: length of array data.mealCosts
+// n: length of data.mealCosts
 // T: O(n)
 // S: O(1) extra space
 function bonAppetit(data) {
