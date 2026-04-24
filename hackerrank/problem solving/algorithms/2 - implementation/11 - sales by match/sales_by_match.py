@@ -5,16 +5,12 @@ from collections import Counter
 
 def main():
     input()
-    socks_to_counts = counter()
+    socks_to_counts = Counter(read_numbers())
     print(sock_merchant(socks_to_counts))
 
 
-# n: length of user input
-# k: length of distinct numbers in user input
-# T: O(n)
-# S: O(n) extra space
-def counter():
-    return Counter(map(int, input().split()))
+def read_numbers():
+    return list(map(int, input().split()))
 
 
 # n: length of initial user input
