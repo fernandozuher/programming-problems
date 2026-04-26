@@ -22,7 +22,7 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array socks_to_counts
+// n: length of socks_to_counts
 // 1 <= n <= 100
 // T: O(n) => O(1)
 // S: O(101) => O(1) extra space

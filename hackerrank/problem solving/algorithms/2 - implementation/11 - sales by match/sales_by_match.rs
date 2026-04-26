@@ -22,9 +22,7 @@ fn counter(n: usize) -> Counter<i32, i32> {
     freq_map
 }
 
-// n: length of initial user input
 // k: length of entries in socks_to_counts
-// k <= n
 // T: O(k)
 // S: O(1) extra space
 fn sock_merchant(socks_to_counts: &Counter<i32, i32>) -> i32 {

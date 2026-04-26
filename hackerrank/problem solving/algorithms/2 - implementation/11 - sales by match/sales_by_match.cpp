@@ -32,9 +32,7 @@ unordered_map<int, int> counter(int n)
     return freq_map;
 }
 
-// n: length of initial user input
 // k: length of entries in socks_to_counts
-// k <= n
 // T: O(k)
 // S: O(1) extra space
 int sock_merchant(const unordered_map<int, int>& socks_to_counts)

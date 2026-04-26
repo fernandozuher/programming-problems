@@ -13,9 +13,7 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-# n: length of initial user input
 # k: length of entries in socks_to_counts
-# k <= n
 # T: O(k)
 # S: O(1) extra space
 def sock_merchant(socks_to_counts):

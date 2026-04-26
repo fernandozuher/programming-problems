@@ -25,34 +25,32 @@ function readLine() {
 
 function main() {
   readLine();
-  const socksToCounts = counter();
+  const socksToCounts = counter(readNumbers());
   console.log(sockMerchant(socksToCounts));
 }
 
-// n: length of user input
-// k: length of distinct numbers in user input
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
 // T: O(n)
-// S: O(n) extra space
-function counter() {
+// S: O(k) extra space
+function counter(arr) {
   const freqMap = new Map();
-  readLine()
-    .split(' ')
-    .forEach((s) => {
-      const x = Number(s);
-      freqMap.set(x, (freqMap.get(x) || 0) + 1);
-    });
+  for (const x of arr) freqMap.set(x, (freqMap.get(x) || 0) + 1);
   return freqMap;
 }
 
-// n: length of initial user input
+function readNumbers() {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
+
 // k: length of entries in socksToCounts
-// k <= n
 // T: O(k)
 // S: O(1) extra space
 function sockMerchant(socksToCounts) {
   let pairs = 0;
-  socksToCounts.forEach((x) => {
-    pairs += Math.trunc(x / 2);
-  });
+  for (const x of socksToCounts.values()) pairs += Math.trunc(x / 2);
   return pairs;
 }

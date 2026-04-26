@@ -1,17 +1,18 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 Console.ReadLine();
-Dictionary<int, int> socksToCounts = Counter();
+Dictionary<int, int> socksToCounts = Counter(ReadNumbers());
 Console.WriteLine(SockMerchant(socksToCounts));
 
-// n: length of user input
-// k: length of distinct numbers in user input
+// n: length of arr
+// k: length of distinct numbers in arr
+// k <= n
 // T: O(n)
-// S: O(n) extra space
-Dictionary<int, int> Counter()
+// S: O(k) extra space
+Dictionary<int, int> Counter(int[] arr)
 {
     var freqMap = new Dictionary<int, int>();
-    foreach (var x in Console.ReadLine()!.Split().Select(int.Parse))
+    foreach (var x in arr)
     {
         freqMap.TryGetValue(x, out int count);
         freqMap[x] = ++count;
@@ -19,9 +20,12 @@ Dictionary<int, int> Counter()
     return freqMap;
 }
 
-// n: length of initial user input
+int[] ReadNumbers()
+{
+    return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+}
+
 // k: length of entries in socksToCounts
-// k <= n
 // T: O(k)
 // S: O(1) extra space
-int SockMerchant(Dictionary<int, int> socksToCounts) => socksToCounts.Values.Select(x => x / 2).Sum();
+int SockMerchant(Dictionary<int, int> socksToCounts) => socksToCounts.Values.Sum(x => x / 2);

@@ -26,9 +26,7 @@ func counter(n int) map[int]int {
     return freqMap
 }
 
-// n: length of initial user input
 // k: length of entries in socksToCounts
-// k <= n
 // T: O(k)
 // S: O(1) extra space
 func sockMerchant(socksToCounts map[int]int) int {
