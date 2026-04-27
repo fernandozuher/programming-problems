@@ -6,7 +6,7 @@ def main():
     print(counting_valleys(steps))
 
 
-# n: length of string steps
+# n: length of steps
 # T: O(n)
 # S: O(1) extra space
 def counting_valleys(steps):

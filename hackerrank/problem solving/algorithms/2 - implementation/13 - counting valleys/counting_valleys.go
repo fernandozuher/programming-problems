@@ -12,7 +12,7 @@ func main() {
     fmt.Println(countingValleys(steps))
 }
 
-// n: length of string steps
+// n: length of steps
 // T: O(n)
 // S: O(1) extra space
 func countingValleys(steps string) int {

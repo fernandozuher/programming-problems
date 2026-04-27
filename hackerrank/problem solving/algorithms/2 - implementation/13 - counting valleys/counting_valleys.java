@@ -7,7 +7,7 @@ void main() {
     IO.println(countingValleys(steps));
 }
 
-// n: length of string steps
+// n: length of steps
 // T: O(n)
 // S: O(1) extra space
 int countingValleys(String steps) {

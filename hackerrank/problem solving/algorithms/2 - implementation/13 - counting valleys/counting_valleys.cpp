@@ -15,7 +15,7 @@ int main()
     return 0;
 }
 
-// n: length of string steps
+// n: length of steps
 // T: O(n)
 // S: O(1) extra space
 int counting_valleys(string_view steps)
