@@ -31,8 +31,8 @@ vector<int> read_numbers(int n)
     return arr;
 }
 
-// n: length of array arr
-// k: length after deduplication
+// n: length of arr
+// k: length of arr after deduplication
 // k <= n
 // T: O((n log n) + n) = O(n log n)
 // S:
@@ -45,8 +45,8 @@ void preprocess_input(vector<int>& arr)
     arr.erase(x.begin(), x.end());
 }
 
-// n1: length of array keyboards
-// n2: length of array usb_drives
+// n1: length of keyboards
+// n2: length of usb_drives
 // T: O(n1 + n2)
 // S: O(1) extra space
 int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget)

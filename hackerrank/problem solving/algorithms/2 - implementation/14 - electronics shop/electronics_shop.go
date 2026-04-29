@@ -23,28 +23,19 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// n: length of array arr
-// k: length after deduplication
+// n: length of arr
+// k: length of arr after deduplication
 // k <= n
-// T: O(n + k log k) = O(n log n)
-// S: O(k) = O(n) extra space
+// T: O(n log n)
+// S: O(n + k) extra space
 func preprocessInput(arr []int) []int {
-    data := map[int]bool{}
-    var out []int
-
-    for _, x := range arr {
-        if _, ok := data[x]; !ok {
-            data[x] = true
-            out = append(out, x)
-        }
-    }
-
-    slices.Sort(out)
-    return out
+    slices.Sort(arr)
+    arr = slices.Compact(arr)
+    return arr
 }
 
-// n1: length of array keyboards
-// n2: length of array usbDrives
+// n1: length of keyboards
+// n2: length of usbDrives
 // T: O(n1 + n2)
 // S: O(1) extra space
 func calcMoneySpent(keyboards, usbDrives []int, budget int) int {

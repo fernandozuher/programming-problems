@@ -7,15 +7,15 @@ Console.WriteLine(CalcMoneySpent(keyboards, usbDrives, budget));
 
 int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
-// n: length of array arr
-// k: length after deduplication
+// n: length of arr
+// k: length of arr after deduplication
 // k <= n
-// T: O(n + k log k) = O(n log n)
-// S: O(k) = O(n) extra space
+// T: O(n + k log k)
+// S: O(k) extra space
 int[] PreprocessInput(int[] arr) => arr.Distinct().OrderBy(x => x).ToArray();
 
-// n1: length of array keyboards
-// n2: length of array usbDrives
+// n1: length of keyboards
+// n2: length of usbDrives
 // T: O(n1 + n2)
 // S: O(1) extra space
 int CalcMoneySpent(int[] keyboards, int[] usbDrives, int budget)

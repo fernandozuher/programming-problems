@@ -11,18 +11,18 @@ def read_numbers
   gets.split.map!(&:to_i)
 end
 
-# n: length of array arr
-# k: length after deduplication
+# n: length of arr
+# k: length of arr after deduplication
 # k <= n
-# T: O(n + k log k) = O(n log n)
-# S: O(k) = O(n) extra space
+# T: O(n + k log k)
+# S: O(k) extra space
 def preprocess_input(arr)
   arr.uniq!
   arr.sort!
 end
 
-# n1: length of array keyboards
-# n2: length of array usb_drives
+# n1: length of keyboards
+# n2: length of usb_drives
 # T: O(n1 + n2)
 # S: O(1) extra space
 def calc_money_spent(keyboards, usb_drives, budget)

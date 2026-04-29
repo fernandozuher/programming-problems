@@ -31,21 +31,21 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine().split(' ').map(x => +x);
 }
 
-// n: length of array arr
-// k: length after deduplication
+// n: length of arr
+// k: length of arr after deduplication
 // k <= n
-// T: O(n + k log k) = O(n log n)
-// S: O(k) = O(n) extra space
+// T: O(n + k log k)
+// S: O(k) extra space
 function preprocessInput(arr) {
   arr = [...new Set(arr)];
   return arr.sort((a, b) => a - b);
 }
 
-// n1: length of array keyboards
-// n2: length of array usbDrives
+// n1: length of keyboards
+// n2: length of usbDrives
 // T: O(n1 + n2)
 // S: O(1) extra space
 function calcMoneySpent(keyboards, usbDrives, budget) {
@@ -57,6 +57,7 @@ function calcMoneySpent(keyboards, usbDrives, budget) {
 
     const currentSum = keyboards[idxK] + usbDrives[idxUD];
     if (currentSum === budget) return budget;
+
     if (currentSum > budget) idxUD--;
     else {
       maxSpent = Math.max(maxSpent, currentSum);

@@ -32,8 +32,8 @@ void read_numbers(int *arr, int n)
         scanf("%d", &arr[i]);
 }
 
-// n: length of array arr
-// k: length after deduplication
+// n: length of arr
+// k: length of arr after deduplication
 // k <= n
 // T: O((n log n) + n) = O(n log n)
 // S:
@@ -68,8 +68,8 @@ int remove_duplicate(int *arr, int n)
     return w;
 }
 
-// n1: length of array keyboards
-// n2: length of array usb_drives
+// n1: length of keyboards
+// n2: length of usb_drives
 // T: O(n1 + n2)
 // S: O(1) extra space
 int calc_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget)
