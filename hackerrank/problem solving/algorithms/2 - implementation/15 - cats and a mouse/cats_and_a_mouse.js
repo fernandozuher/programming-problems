@@ -25,12 +25,13 @@ function readLine() {
 
 function main() {
   const n = +readLine();
-  for (let i = 0; i < n; i++)
-    console.log(findNearestCatOrNot(readNumbers()));
+  for (let i = 0; i < n; i++) console.log(findNearestCatOrNot(readNumbers()));
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // T: O(1)
