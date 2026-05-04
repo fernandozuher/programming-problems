@@ -1,19 +1,17 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 Console.ReadLine();
-Console.WriteLine(PickingNumbers(Counter()));
+var freqMap = Counter(ReadNumbers());
+Console.WriteLine(PickingNumbers(freqMap));
 
-// n: length of initial input array of numbers
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
+// n: length of arr
+// k: length of output
+// k <= n
 // T: O(n)
-// S: O(n) extra space
-Dictionary<int, int> Counter()
-{
-    return Console.ReadLine()!
-                  .Split()
-                  .Select(int.Parse)
-                  .GroupBy(num => num)
-                  .ToDictionary(g => g.Key, g => g.Count());
-}
+// S: O(k) extra space
+Dictionary<int, int> Counter(int[] arr) => arr.GroupBy(num => num).ToDictionary(g => g.Key, g => g.Count());
 
 // k: length of freqMap
 // 1 <= k <= 99

@@ -14,7 +14,7 @@ func main() {
 // k: length of freq_map
 // k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(k) extra space
 func counter(n int) map[int]int {
     freqMap := make(map[int]int)
     for range n {

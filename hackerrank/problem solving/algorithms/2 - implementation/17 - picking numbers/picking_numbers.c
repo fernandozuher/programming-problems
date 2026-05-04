@@ -19,10 +19,8 @@ int main()
 }
 
 // n: length of initial input array of numbers
-// k: length of freq_map
-// k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(1) extra space
 void counter(int *freq_map, int n)
 {
     for (int i = 0; i < n; ++i) {

@@ -5,14 +5,12 @@ from collections import Counter
 
 def main():
     input()
-    print(picking_numbers(counter()))
+    freq_map = Counter(read_numbers())
+    print(picking_numbers(freq_map))
 
 
-# n: length of initial input array of numbers
-# T: O(n)
-# S: O(n) extra space
-def counter():
-    return Counter(map(int, input().split()))
+def read_numbers():
+    return list(map(int, input().split()))
 
 
 # k: length of freq_map

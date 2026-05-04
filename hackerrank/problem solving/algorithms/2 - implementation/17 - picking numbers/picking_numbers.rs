@@ -12,7 +12,7 @@ fn main() {
 // k: length of freq_map
 // k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(k) extra space
 fn counter(n: usize) -> Counter<i32, i32> {
     let mut freq_map = Counter::<i32, i32>::new();
     for _ in 0..n {

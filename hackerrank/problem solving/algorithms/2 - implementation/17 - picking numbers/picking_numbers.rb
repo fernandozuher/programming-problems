@@ -2,14 +2,12 @@
 
 def main
   gets
-  puts picking_numbers(counter)
+  freq_map = read_numbers.tally
+  puts picking_numbers(freq_map)
 end
 
-# n: length of initial input array of numbers
-# T: O(n)
-# S: O(n) extra space
-def counter
-  gets.split.map!(&:to_i).tally
+def read_numbers
+  gets.split.map!(&:to_i)
 end
 
 # k: length of freq_map

@@ -25,14 +25,22 @@ function readLine() {
 
 function main() {
   readLine();
-  console.log(pickingNumbers(counter()));
+  const freqMap = counter(readNumbers());
+  console.log(pickingNumbers(freqMap));
 }
 
-// n: length of initial input array of numbers
+function readNumbers() {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
+
+// n: length of arr
+// k: length of freqMap
+// k <= n
 // T: O(n)
-// S: O(n) extra space
-function counter() {
-  const arr = readLine().split(' ').map(Number);
+// S: O(k) extra space
+function counter(arr) {
   const freqMap = new Map();
   for (const num of arr) {
     freqMap.set(num, (freqMap.get(num) || 0) + 1);

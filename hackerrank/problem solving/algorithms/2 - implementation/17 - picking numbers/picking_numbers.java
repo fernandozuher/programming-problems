@@ -3,14 +3,20 @@
 
 void main() {
     IO.readln();
-    IO.println(pickingNumbers(counter()));
+    var freqMap = counter(readNumbers());
+    IO.println(pickingNumbers(freqMap));
 }
 
-// n: length of initial input array of numbers
+int[] readNumbers() {
+    return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
+
+// n: length of arr
+// k: length of freqMap
+// k <= n
 // T: O(n)
-// S: O(n) extra space
-Map<Integer, Integer> counter() {
-    var arr = Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+// S: O(k) extra space
+Map<Integer, Integer> counter(int[] arr) {
     Map<Integer, Integer> freqMap = new HashMap<>();
     for (int num : arr)
         freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);

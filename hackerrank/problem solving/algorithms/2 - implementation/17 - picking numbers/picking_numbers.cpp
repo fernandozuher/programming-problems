@@ -21,7 +21,7 @@ int main()
 // k: length of freq_map
 // k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(k) extra space
 unordered_map<int, int> counter(int n)
 {
     unordered_map<int, int> freq_map;
