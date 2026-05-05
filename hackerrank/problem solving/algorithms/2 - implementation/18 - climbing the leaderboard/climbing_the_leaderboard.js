@@ -32,14 +32,16 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // n: length of arr
 // k: length of distinct numbers in arr
 // k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(k) extra space
 function removeDuplicates(numbers) {
   return [...new Set(numbers)];
 }

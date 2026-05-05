@@ -3,12 +3,11 @@
 
 import std;
 using namespace std;
+using namespace ranges;
 
 vector<int> read_numbers(int n);
 void remove_duplicates(vector<int>& arr);
 vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& player);
-
-using namespace std;
 
 int main()
 {
@@ -51,10 +50,13 @@ void remove_duplicates(vector<int>& arr)
 vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& player)
 {
     int i = ranked.size() - 1;
-    return player | views::transform([&i, &ranked](auto score) {
+    return player |
+
+        views::transform([&i, &ranked](auto score) {
         while (i >= 0 && score >= ranked[i])
             --i;
         return i + 2;
-        }) |
-        ranges::to<vector>();
+            }) |
+
+        to<vector>();
 }

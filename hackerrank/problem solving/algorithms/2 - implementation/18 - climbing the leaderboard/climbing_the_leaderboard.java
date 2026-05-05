@@ -18,7 +18,7 @@ int[] readNumbers() {
 // k: length of distinct numbers in arr
 // k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(k) extra space
 int[] removeDuplicates(int[] arr) {
     return Arrays.stream(arr).distinct().toArray();
 }

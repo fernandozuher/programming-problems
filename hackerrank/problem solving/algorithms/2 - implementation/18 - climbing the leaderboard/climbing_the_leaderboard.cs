@@ -12,7 +12,7 @@ int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 // k: length of distinct numbers in arr
 // k <= n
 // T: O(n)
-// S: O(k) = O(n) extra space
+// S: O(k) extra space
 int[] RemoveDuplicates(int[] arr) => arr.Distinct().ToArray();
 
 // n1: length of player, output
