@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
-int hurdle_race(const int *hurdles, int n, int max_jump);
+void read_numbers(int *arr, size_t n);
+int hurdle_race(const int *hurdles, size_t n, int max_jump);
 
 int main()
 {
@@ -17,21 +17,20 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_numbers(int *arr, size_t n)
 {
-    for (int i = 0; i < n; ++i)
+    for (size_t i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
 // n: length of hurdles
 // T: O(n)
 // S: O(1) extra space
-int hurdle_race(const int *hurdles, int n, int max_jump)
+int hurdle_race(const int *hurdles, size_t n, int max_jump)
 {
     int highest = hurdles[0];
-    for (int i = 1; i < n; ++i)
-        if (highest < hurdles[i])
-            highest = hurdles[i];
+    for (size_t i = 1; i < n; ++i)
+        highest = highest > hurdles[i] ? highest : hurdles[i];
 
     int max = highest - max_jump;
     return 0 > max ? 0 : max;
