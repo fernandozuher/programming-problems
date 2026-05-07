@@ -65,7 +65,9 @@ function readInput() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // n: length of fruitTree.fruitDistances

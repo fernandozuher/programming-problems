@@ -10,12 +10,12 @@ typedef struct {
 
 typedef struct {
     int tree_location;
-    int size;
+    size_t size;
     int *fruit_distances;
 } fruit_tree_t;
 
 void read_input(house_t *house, fruit_tree_t *apple_tree, fruit_tree_t *orange_tree);
-int *read_numbers(int n);
+int *read_numbers(size_t n);
 int count_fruits_on_house(const fruit_tree_t *fruit_tree, const house_t *house);
 bool is_fruit_on_house(const house_t *house, int position);
 
@@ -38,15 +38,15 @@ void read_input(house_t *house, fruit_tree_t *apple_tree, fruit_tree_t *orange_t
 {
     scanf("%d %d", &house->start, &house->end);
     scanf("%d %d", &apple_tree->tree_location, &orange_tree->tree_location);
-    scanf("%d %d", &apple_tree->size, &orange_tree->size);
+    scanf("%zu %zu", &apple_tree->size, &orange_tree->size);
     apple_tree->fruit_distances = read_numbers(apple_tree->size);
     orange_tree->fruit_distances = read_numbers(orange_tree->size);
 }
 
-int *read_numbers(int n)
+int *read_numbers(size_t n)
 {
     auto arr = (int *) malloc(n * sizeof(int));
-    for (int i = 0; i < n; ++i)
+    for (size_t i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
     return arr;
 }
@@ -57,7 +57,7 @@ int *read_numbers(int n)
 int count_fruits_on_house(const fruit_tree_t *fruit_tree, const house_t *house)
 {
     int count = 0;
-    for (int i = 0; i < fruit_tree->size; ++i) {
+    for (size_t i = 0; i < fruit_tree->size; ++i) {
         int position = fruit_tree->tree_location + fruit_tree->fruit_distances[i];
         if (is_fruit_on_house(house, position))
             ++count;

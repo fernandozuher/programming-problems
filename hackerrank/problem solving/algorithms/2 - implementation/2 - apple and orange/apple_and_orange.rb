@@ -37,9 +37,7 @@ end
 # T: O(n)
 # S: O(1) extra space
 def count_fruits_on_house(fruit_tree, house)
-  fruit_tree.fruit_distances.count { |distance|
-    house.contains(fruit_tree.tree_location + distance)
-  }
+  fruit_tree.fruit_distances.count { house.contains(fruit_tree.tree_location + _1) }
 end
 
 main if __FILE__ == $0

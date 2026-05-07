@@ -34,10 +34,7 @@ int CountFruitsOnHouse(FruitTree fruitTree, House house)
 
 record House(int Start, int End)
 {
-    public bool Contains(int position)
-    {
-        return Start <= position && position <= End;
-    }
+    public bool Contains(int position) => Start <= position && position <= End;
 }
 
 record FruitTree(int TreeLocation, int[] FruitDistances);

@@ -70,7 +70,9 @@ function readInput(): [House, FruitTree, FruitTree] {
 }
 
 function readNumbers(): number[] {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // n: length of fruitTree.fruitDistances
