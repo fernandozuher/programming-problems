@@ -16,9 +16,11 @@ def generate_heights_utopian_tree():
     max_cycles = 60
     heights = [0] * (max_cycles + 1)
     height = 0
+
     for cycle in range(max_cycles + 1):
         height += height if is_cycle_happening_during_spring(cycle) else 1
         heights[cycle] = height
+
     return heights
 
 

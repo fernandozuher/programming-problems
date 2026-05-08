@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
+use num::Integer;
 use text_io::read;
 
 fn main() {
@@ -17,6 +18,7 @@ fn main() {
 fn generate_heights_utopian_tree() -> Vec<i32> {
     const MAX_CYCLES: i32 = 60;
     let mut height = 0;
+
     (0..=MAX_CYCLES)
         .map(|cycle| {
             height += if is_cycle_happening_during_spring(cycle) { height } else { 1 };
@@ -26,5 +28,5 @@ fn generate_heights_utopian_tree() -> Vec<i32> {
 }
 
 fn is_cycle_happening_during_spring(cycle: i32) -> bool {
-    cycle & 1 == 1
+    cycle.is_odd()
 }

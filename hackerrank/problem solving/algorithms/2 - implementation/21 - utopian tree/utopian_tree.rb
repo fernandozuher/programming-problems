@@ -15,9 +15,7 @@ end
 def generate_heights_utopian_tree
   max_cycles = 60
   height = 0
-  0.upto(max_cycles).map do |cycle|
-    height += cycle_happening_during_spring?(cycle) ? height : 1
-  end
+  0.upto(max_cycles).map { height += cycle_happening_during_spring?(_1) ? height : 1 }
 end
 
 def cycle_happening_during_spring?(cycle)
