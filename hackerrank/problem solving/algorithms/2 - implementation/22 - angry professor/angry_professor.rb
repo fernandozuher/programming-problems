@@ -17,7 +17,7 @@ end
 # T: O(k)
 # S: O(1) extra space
 def angry_professor?(arrival_times, threshold)
-  on_time = arrival_times.count { |t| t <= 0 }
+  on_time = arrival_times.count { _1 <= 0 }
   on_time < threshold
 end
 
