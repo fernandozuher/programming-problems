@@ -14,11 +14,11 @@ end
 # T: O(n * d)
 # S: O(d) extra space
 def beautiful_days(start_day, end_day, divisor)
-  (start_day..end_day).count { |day| beautiful_day?(day, divisor) }
+  (start_day..end_day).count { beautiful_day?(_1, divisor) }
 end
 
 def beautiful_day?(day, divisor)
-  (day - reverse_number(day)) % divisor == 0
+  ((day - reverse_number(day)) % divisor).zero?
 end
 
 def reverse_number(number)

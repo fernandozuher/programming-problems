@@ -1,18 +1,17 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 // C23
 
-#include <math.h>
 #include <stdio.h>
 
-int beautiful_days(int startDay, int endDay, int divisor);
+int beautiful_days(int start_day, int end_day, int divisor);
 bool is_beautiful_day(int day, int divisor);
 int reverse_number(int number);
 
 int main()
 {
-    int startDay, endDay, divisor;
-    scanf("%d %d %d", &startDay, &endDay, &divisor);
-    printf("%d\n", beautiful_days(startDay, endDay, divisor));
+    int start_day, end_day, divisor;
+    scanf("%d %d %d", &start_day, &end_day, &divisor);
+    printf("%d\n", beautiful_days(start_day, end_day, divisor));
     return 0;
 }
 
@@ -20,10 +19,10 @@ int main()
 // d: number of digits of the largest day
 // T: O(n * d)
 // S: O(1) extra space
-int beautiful_days(int startDay, int endDay, int divisor)
+int beautiful_days(int start_day, int end_day, int divisor)
 {
     int count = 0;
-    for (int day = startDay; day <= endDay; ++day)
+    for (int day = start_day; day <= end_day; ++day)
         count += is_beautiful_day(day, divisor);
     return count;
 }
@@ -36,7 +35,7 @@ bool is_beautiful_day(int day, int divisor)
 int reverse_number(int number)
 {
     int reversed_number = 0;
-    for (; number > 0; number = number / 10)
-        reversed_number = (reversed_number * 10) + (number % 10);
+    for (; number > 0; number /= 10)
+        reversed_number = reversed_number * 10 + number % 10;
     return reversed_number;
 }
