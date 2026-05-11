@@ -8,11 +8,8 @@ for (int i = 0; i < n; i++)
     Console.WriteLine(SaveThePrisoner(prisoners, sweets, startChair));
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split(' ').Select(int.Parse).ToArray();
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // T: O(1)
 // S: O(1) extra space
-int SaveThePrisoner(int prisoners, int sweets, int startChair)
-{
-    return ((startChair - 1 + sweets - 1) % prisoners) + 1;
-}
+int SaveThePrisoner(int prisoners, int sweets, int startChair) => ((startChair - 1 + sweets - 1) % prisoners) + 1;
