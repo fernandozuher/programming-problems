@@ -18,8 +18,7 @@ int[] readNumbers() {
 int[] sequenceEquation(int[] arr) {
     int[] valuesToIndex = new int[arr.length];
     int i = 0;
-    for (int val : arr) {
+    for (int val : arr)
         valuesToIndex[val - 1] = i++;
-    }
     return Arrays.stream(valuesToIndex).map(val -> valuesToIndex[val] + 1).toArray();
 }

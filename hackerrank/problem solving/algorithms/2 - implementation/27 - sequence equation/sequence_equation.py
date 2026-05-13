@@ -1,6 +1,5 @@
 # https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 
-
 def main():
     input()
     arr = read_numbers()
@@ -18,8 +17,7 @@ def sequence_equation(arr):
     values_to_index = [0] * len(arr)
     for i, val in enumerate(arr):
         values_to_index[val - 1] = i
-
-    return (values_to_index[v] + 1 for v in values_to_index)
+    return (values_to_index[val] + 1 for val in values_to_index)
 
 
 if __name__ == '__main__':
