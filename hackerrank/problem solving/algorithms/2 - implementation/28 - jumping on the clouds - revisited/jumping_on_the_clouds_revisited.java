@@ -19,12 +19,12 @@ int[] readNumbers() {
 // S: O(1) extra space
 int jumpingOnTheClouds(int[] clouds, int jumpLength) {
     int energy = 100;
-    int cloudIndex = 0;
 
-    do {
+    for (int cloudIndex = 0; ; ) {
         energy -= clouds[cloudIndex] == 0 ? 1 : 3;
         cloudIndex = (cloudIndex + jumpLength) % clouds.length;
-    } while (cloudIndex != 0);
+        if (cloudIndex == 0) break;
+    }
 
     return energy;
 }

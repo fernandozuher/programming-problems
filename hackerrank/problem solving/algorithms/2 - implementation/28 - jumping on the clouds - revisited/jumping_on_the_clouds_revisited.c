@@ -30,12 +30,13 @@ void read_numbers(int *arr, int n)
 int jumping_on_the_clouds(const int *clouds, int n, int jump_length)
 {
     int energy = 100;
-    int cloud_index = 0;
 
-    do {
+    for (int cloud_index = 0;;) {
         energy -= clouds[cloud_index] ? 3 : 1;
         cloud_index = (cloud_index + jump_length) % n;
-    } while (cloud_index);
+        if (!cloud_index)
+            break;
+    }
 
     return energy;
 }

@@ -11,7 +11,7 @@ int main()
 {
     int n, jump_length;
     cin >> n >> jump_length;
-    vector<int> arr{ read_numbers(n) };
+    vector arr{ read_numbers(n) };
     println("{}", jumping_on_the_clouds(arr, jump_length));
     return 0;
 }
@@ -33,12 +33,13 @@ vector<int> read_numbers(int n)
 int jumping_on_the_clouds(const vector<int>& clouds, int jump_length)
 {
     int energy{ 100 };
-    int cloud_index{};
 
-    do {
+    for (int cloud_index{};;) {
         energy -= clouds[cloud_index] ? 3 : 1;
         cloud_index = (cloud_index + jump_length) % clouds.size();
-    } while (cloud_index);
+        if (!cloud_index)
+            break;
+    }
 
     return energy;
 }

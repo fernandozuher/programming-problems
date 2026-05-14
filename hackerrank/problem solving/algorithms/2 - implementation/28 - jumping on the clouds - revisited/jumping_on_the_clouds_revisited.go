@@ -27,9 +27,8 @@ func readNumbers(n int) []int {
 // S: O(1) extra space
 func jumpingOnTheClouds(clouds []int, jumpLength int) int {
     energy := 100
-    cloudIndex := 0
 
-    for {
+    for cloudIndex := 0; ; {
         energy -= 1
         if clouds[cloudIndex] != 0 {
             energy -= 2

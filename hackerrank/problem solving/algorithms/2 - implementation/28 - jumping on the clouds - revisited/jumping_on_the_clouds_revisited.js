@@ -30,7 +30,9 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(x => +x);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // n: length of clouds; 2 to 25
@@ -41,12 +43,12 @@ function readNumbers() {
 // S: O(1) extra space
 function jumpingOnTheClouds(clouds, jumpLength) {
   let energy = 100;
-  let cloudIndex = 0;
 
-  do {
+  for (let cloudIndex = 0; ; ) {
     energy -= clouds[cloudIndex] === 0 ? 1 : 3;
     cloudIndex = (cloudIndex + jumpLength) % clouds.length;
-  } while (cloudIndex !== 0);
+    if (!cloudIndex) break;
+  }
 
   return energy;
 }

@@ -23,7 +23,7 @@ def jumping_on_the_clouds(clouds, jump_length)
   loop do
     energy -= clouds[cloud_index].zero? ? 1 : 3
     cloud_index = (cloud_index + jump_length) % clouds.size
-    break if cloud_index == 0
+    break if cloud_index.zero?
   end
 
   energy
