@@ -2,7 +2,7 @@
 
 def main
   initial_state = read_numbers
-  puts kangaroo(initial_state) ? "YES" : "NO"
+  puts kangaroo?(initial_state) ? "YES" : "NO"
 end
 
 def read_numbers
@@ -11,7 +11,7 @@ end
 
 # T: O(1)
 # S: O(1) extra space
-def kangaroo(initial_state)
+def kangaroo?(initial_state)
   x1, v1, x2, v2 = initial_state
 
   return x1 == x2 if v1 == v2
