@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-import readline = require("readline");
+import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
 let inputLines: string[] = [];
-rl.on("line", (line: string) => inputLines.push(line));
-rl.on("close", main);
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
 
 function readLine(): string {
   return inputLines.shift()!;
@@ -15,12 +15,12 @@ function readLine(): string {
 
 function main() {
   const initialState: number[] = readNumbers();
-  console.log(kangaroo(initialState) ? "YES" : "NO");
+  console.log(kangaroo(initialState) ? 'YES' : 'NO');
 }
 
 function readNumbers(): number[] {
   return readLine()
-    .split(" ")
+    .split(' ')
     .map((x) => +x);
 }
 
