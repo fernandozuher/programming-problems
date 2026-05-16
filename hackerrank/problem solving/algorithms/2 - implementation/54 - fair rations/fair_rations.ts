@@ -1,18 +1,5 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
-import readline = require('readline');
-
-const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
-rl.on('line', (line: string) => inputLines.push(line));
-rl.on('close', main);
-
-function readLine(): string {
-  return inputLines.shift()!;
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   readLine();
   const peopleLoafCounts: number[] = readNumbers();
@@ -44,4 +31,17 @@ function minLoavesToSatisfyRules(peopleLoafCounts: number[]) {
 
 function isOdd(n: number): boolean {
   return (n & 1) === 1;
+}
+
+//////////////////////////////////////////////////
+
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }

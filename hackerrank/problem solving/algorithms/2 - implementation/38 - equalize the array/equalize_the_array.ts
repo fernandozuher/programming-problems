@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function (inputStdin: string): void {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function (): void {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine(): string {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   readLine();
   console.log(minDeletionsToEqualize(readNumbers()));
@@ -52,4 +29,17 @@ function counter(arr: number[]): Record<number, number> {
     freqMap[x] = (freqMap[x] ?? 0) + 1;
   });
   return freqMap;
+}
+
+//////////////////////////////////////////////////
+
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }

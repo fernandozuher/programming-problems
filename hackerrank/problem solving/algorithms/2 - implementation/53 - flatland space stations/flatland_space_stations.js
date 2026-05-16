@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine() {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   const [nCities, _] = readNumbers();
   const lastCity = nCities - 1;
@@ -48,4 +25,17 @@ function maxDistanceFromSpaceStation(lastCity, stations) {
   }
 
   return Math.max(maxDist, lastCity - stations.at(-1));
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

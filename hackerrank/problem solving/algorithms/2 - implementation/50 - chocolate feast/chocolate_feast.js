@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine() {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   for (let i = 0, n = +readLine(); i < n; i++) {
     const [money, cost, wrappersNeeded] = readNumbers();
@@ -48,4 +25,17 @@ function howManyChocolatesCanBeEaten(money, cost, wrappersNeeded) {
   }
 
   return chocolates;
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

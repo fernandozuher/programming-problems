@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function (inputStdin: string): void {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function (): void {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine(): string {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   const [, k]: number[] = readNumbers();
   const numbers: number[] = readNumbers();
@@ -72,4 +49,17 @@ function countComplementaryRemainderPairs(freq: number[]): number {
 function countPairsWithRemainderKHalf(freq: number[]): number {
   const n: number = freq.length;
   return n % 2 === 0 ? pairCount(freq[n / 2]) : 0;
+}
+
+//////////////////////////////////////////////////
+
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }

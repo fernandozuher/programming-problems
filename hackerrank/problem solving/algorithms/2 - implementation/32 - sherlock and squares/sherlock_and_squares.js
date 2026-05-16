@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/sherlock-and-squares/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine() {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   const n = +readLine();
   for (let i = 0; i < n; i++) {
@@ -32,7 +9,9 @@ function main() {
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(x => +x);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
 // T: O(1)
@@ -41,4 +20,17 @@ function squares(startNum, endNum) {
   const minSquare = Math.ceil(Math.sqrt(startNum));
   const maxSquare = Math.floor(Math.sqrt(endNum));
   return maxSquare - minSquare + 1;
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

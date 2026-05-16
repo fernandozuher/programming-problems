@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine() {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 const TRANSITION_YEAR = 1918;
 
 function main() {
@@ -51,4 +28,17 @@ function isLeapJulianYear(year) {
 
 function isLeapGregorianYear(year) {
   return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

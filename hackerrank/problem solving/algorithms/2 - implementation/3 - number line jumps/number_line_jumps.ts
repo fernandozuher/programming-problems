@@ -1,18 +1,5 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-import readline = require('readline');
-
-const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
-rl.on('line', (line: string) => inputLines.push(line));
-rl.on('close', main);
-
-function readLine(): string {
-  return inputLines.shift()!;
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   const initialState: number[] = readNumbers();
   console.log(kangaroo(initialState) ? 'YES' : 'NO');
@@ -34,4 +21,17 @@ function kangaroo(initialState: number[]): boolean {
   const distanceDiff = x2 - x1;
   const velocityDiff = v1 - v2;
   return distanceDiff * velocityDiff >= 0 && distanceDiff % velocityDiff === 0;
+}
+
+//////////////////////////////////////////////////
+
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }

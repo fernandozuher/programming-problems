@@ -1,28 +1,5 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-function readLine() {
-  return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   const [startDay, endDay, divisor] = readNumbers();
   console.log(beautifulDays(startDay, endDay, divisor));
@@ -51,4 +28,17 @@ function isBeautifulDay(day, divisor) {
 
 function reverseNumber(number) {
   return +String(number).split('').reverse().join('');
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

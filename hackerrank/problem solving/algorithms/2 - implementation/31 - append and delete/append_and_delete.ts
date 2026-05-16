@@ -1,18 +1,5 @@
 // https://www.hackerrank.com/challenges/append-and-delete/problem?isFullScreen=true
 
-import readline = require('readline');
-
-const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
-rl.on('line', (line: string) => inputLines.push(line));
-rl.on('close', main);
-
-function readLine(): string {
-  return inputLines.shift()!;
-}
-
-//////////////////////////////////////////////////
-
 function main() {
   const s1: string = readLine();
   const s2: string = readLine();
@@ -38,4 +25,17 @@ function commonPrefixLength(s1: string, s2: string): number {
   const minLen: number = Math.min(s1.length, s2.length);
   for (let i = 0; i < minLen; i++) if (s1[i] !== s2[i]) return i;
   return minLen;
+}
+
+//////////////////////////////////////////////////
+
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }
