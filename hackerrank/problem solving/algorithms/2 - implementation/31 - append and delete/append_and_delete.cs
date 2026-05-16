@@ -19,7 +19,7 @@ bool AppendAndDelete(string s1, string s2, int nOps)
     if (nOps >= s1.Length + s2.Length)
         return true;
 
-    return (nOps - opsNeeded) % 2 == 0;
+    return int.IsEvenInteger(nOps - opsNeeded);
 }
 
 int CommonPrefixLength(string s1, string s2)

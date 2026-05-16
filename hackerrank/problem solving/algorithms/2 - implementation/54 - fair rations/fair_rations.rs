@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
+use num::Integer;
 use text_io::read;
 
 fn main() {
@@ -25,7 +26,7 @@ fn min_loaves_to_satisfy_rules(people_loaf_counts: &[i32]) -> i32 {
     let mut counts: i32 = people_loaf_counts[0];
 
     people_loaf_counts.iter().skip(1).for_each(|&x| {
-        if is_odd(counts) {
+        if counts.is_odd() {
             loaves_given += 2;
             counts = x + 1;
         } else {
@@ -33,13 +34,9 @@ fn min_loaves_to_satisfy_rules(people_loaf_counts: &[i32]) -> i32 {
         }
     });
 
-    if is_odd(counts) {
+    if counts.is_odd() {
         -1
     } else {
         loaves_given
     }
-}
-
-fn is_odd(n: i32) -> bool {
-    n % 2 == 1
 }

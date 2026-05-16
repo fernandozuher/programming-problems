@@ -1,6 +1,5 @@
 # https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
-
 from itertools import islice
 
 

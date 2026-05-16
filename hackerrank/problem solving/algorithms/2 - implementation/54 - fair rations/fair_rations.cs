@@ -16,7 +16,7 @@ int MinLoavesToSatisfyRules(int[] peopleLoafCounts)
     int counts = peopleLoafCounts[0];
 
     foreach (var x in peopleLoafCounts.Skip(1))
-        if (IsOdd(counts))
+        if (int.IsOddInteger(counts))
         {
             loavesGiven += 2;
             counts = x + 1;
@@ -24,10 +24,5 @@ int MinLoavesToSatisfyRules(int[] peopleLoafCounts)
         else
             counts = x;
 
-    return IsOdd(counts) ? -1 : loavesGiven;
-}
-
-bool IsOdd(int n)
-{
-    return n % 2 == 1;
+    return int.IsOddInteger(counts) ? -1 : loavesGiven;
 }

@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/append-and-delete/problem?isFullScreen=true
 
+use num::Integer;
 use text_io::read;
 
 fn main() {
@@ -28,7 +29,7 @@ fn append_and_delete(s1: &str, s2: &str, n_ops: usize) -> bool {
         return true;
     }
 
-    (n_ops - ops_needed) % 2 == 0
+    (n_ops - ops_needed).is_even()
 }
 
 fn common_prefix_length(s1: &str, s2: &str) -> usize {
