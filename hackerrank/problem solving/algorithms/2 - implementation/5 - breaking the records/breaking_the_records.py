@@ -1,6 +1,5 @@
 # https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
-
 def main():
     input()
     print(*breaking_records(read_numbers()))

@@ -1,6 +1,5 @@
 # https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
-
 def main():
     n = int(input())
     utopian_tree = generate_heights_utopian_tree()
