@@ -12,6 +12,8 @@ int main()
     return 0;
 }
 
+// T: O(1)
+// S: O(1) extra space
 int solve_me_first(int n1, int n2)
 {
     return n1 + n2;

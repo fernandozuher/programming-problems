@@ -6,8 +6,10 @@ def main
   puts solve_me_first(n1, n2)
 end
 
+# T: O(1)
+# S: O(1) extra space
 def solve_me_first(n1, n2)
   n1 + n2
 end
 
-main
+main if __FILE__ == $0

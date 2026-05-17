@@ -1,36 +1,26 @@
 // https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
 
-'use strict';
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function (inputStdin: string): void {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function (): void {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-//////////////////////////////////////////////////
-
 function main() {
   let n1: number = +readLine();
   let n2: number = +readLine();
   console.log(solveMeFirst(n1, n2));
 }
 
-function readLine(): string {
-  return inputLines[currentLine++];
-}
-
+// T: O(1)
+// S: O(1) extra space
 function solveMeFirst(n1: number, n2: number): number {
   return n1 + n2;
+}
+
+//////////////////////////////////////////////////
+
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }
