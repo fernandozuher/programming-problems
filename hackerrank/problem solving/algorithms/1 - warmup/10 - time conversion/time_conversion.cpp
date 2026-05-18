@@ -1,13 +1,10 @@
 // https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
+// C++23
 
-#include <iostream>
-
+import std;
 using namespace std;
 
-string time_conversion(const string& time);
-    bool is_first_period_of_day(const string& day_period);
-    string change_hour(const string& hour, string time);
-    string convert_pm_hour_to_24_h(const string& hour);
+string time_conversion(string_view time);
 
 int main()
 {
@@ -17,40 +14,25 @@ int main()
     return 0;
 }
 
-    string time_conversion(const string& time)
-    {
-        string converted_time {time.substr(0, 8)};
-        string hour {time.substr(0, 2)};
-        string day_period {time.substr(8, 1)};
+// T: O(1)
+// S: O(1) extra space
+string time_conversion(string_view time)
+{
+    string converted_time{ time.substr(0, 8) };
+    string hour{ time.substr(0, 2) };
+    string day_period{ time.substr(8, 1) };
 
-        if (hour == "12") {
-            if (is_first_period_of_day(day_period)) {
-                string midnight {"00"};
-                converted_time = change_hour(midnight, converted_time);
-            }
+    if (hour == "12"s) {
+        if (day_period == "A"s) {
+            string midnight{ "00"s };
+            converted_time.replace(0, 2, midnight);
         }
-        else if (!is_first_period_of_day(day_period)) {
-            string new_hour {convert_pm_hour_to_24_h(hour)};
-            converted_time = change_hour(new_hour, converted_time);
-        }
-
-        return converted_time;
+    }
+    else if (day_period == "P"s) {
+        int new_hour{ stoi(hour) };
+        new_hour += 12;
+        converted_time.replace(0, 2, to_string(new_hour));
     }
 
-        bool is_first_period_of_day(const string& day_period)
-        {
-            return day_period == "A";
-        }
-
-        string change_hour(const string& hour, string time)
-        {
-            time.replace(0, 2, hour);
-            return time;
-        }
-
-        string convert_pm_hour_to_24_h(const string& hour)
-        {
-            int new_hour {stoi(hour)};
-            new_hour += 12;
-            return to_string(new_hour);
-        }
+    return converted_time;
+}

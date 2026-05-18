@@ -10,10 +10,12 @@ import (
 
 func main() {
     var time string
-    fmt.Scan(&time)
+    _, _ = fmt.Scan(&time)
     fmt.Print(timeConversion(time))
 }
 
+// T: O(1)
+// S: O(1) extra space
 func timeConversion(time string) string {
     convertedTime := time[0:8]
     hour := time[0:2]
