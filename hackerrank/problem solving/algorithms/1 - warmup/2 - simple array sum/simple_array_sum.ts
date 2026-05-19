@@ -1,40 +1,33 @@
 // https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  readLine();
+  const arr: number[] = readNumbers();
+  console.log(sum(arr));
+}
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+function readNumbers(): number[] {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function (inputStdin: string): void {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function (): void {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+function sum(arr: number[]): number {
+  return arr.reduce((a, b) => a + b, 0);
+}
 
 //////////////////////////////////////////////////
 
-function main() {
-  readLine();
-  const numbers: number[] = readArray();
-  console.log(sum(numbers));
-}
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
 
 function readLine(): string {
-  return inputLines[currentLine++];
-}
-
-function readArray(): number[] {
-  return readLine().split(' ').map(Number);
-}
-
-function sum(array: number[]): number {
-  return array.reduce((a, b) => a + b, 0);
+  return inputLines.shift()!;
 }

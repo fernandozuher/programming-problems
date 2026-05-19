@@ -12,10 +12,12 @@ int main()
     return 0;
 }
 
+// T: O(n)
+// S: O(1) extra space
 int sum_stdin(int n)
 {
     int sum = 0;
-    while (n--) {
+    for (int i = 0; i < n; ++i) {
         int x;
         scanf("%d", &x);
         sum += x;

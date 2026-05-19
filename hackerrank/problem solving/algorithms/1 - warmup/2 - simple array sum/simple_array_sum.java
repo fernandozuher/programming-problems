@@ -1,19 +1,13 @@
 // https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
+// Java 25
 
-import java.util.Scanner;
+void main() {
+    IO.readln();
+    IO.println(sumStdin());
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            System.out.print(sumStdin(scan, n));
-        }
-    }
-
-    private static int sumStdin(Scanner scan, int n) {
-        int sum = 0;
-        while (n-- > 0)
-            sum += scan.nextInt();
-        return sum;
-    }
+// T: O(n)
+// S: O(n) extra space
+int sumStdin() {
+    return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).sum();
 }

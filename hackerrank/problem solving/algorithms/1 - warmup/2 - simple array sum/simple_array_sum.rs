@@ -7,6 +7,8 @@ fn main() {
     print!("{}", sum_stdin(n));
 }
 
+// T: O(n)
+// S: O(1) extra space
 fn sum_stdin(n: usize) -> i32 {
     let mut sum: i32 = 0;
     for _ in 0..n {
