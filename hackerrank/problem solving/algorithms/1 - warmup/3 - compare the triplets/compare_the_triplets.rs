@@ -2,22 +2,22 @@
 
 use text_io::read;
 
-const TRIPLET_SIZE: usize = 3;
-
 fn main() {
-    let triplet_a: [i32; TRIPLET_SIZE] = read_input();
-    let triplet_b: [i32; TRIPLET_SIZE] = read_input();
+    const N: usize = 3;
+    let triplet_a: Vec<i32> = read_numbers(N);
+    let triplet_b: Vec<i32> = read_numbers(N);
     let (score_a, score_b) = compare_triplets(triplet_a, triplet_b);
     println!("{} {}", score_a, score_b);
 }
 
-fn read_input() -> [i32; TRIPLET_SIZE] {
-    let mut array: [i32; TRIPLET_SIZE] = [0; TRIPLET_SIZE];
-    array.iter_mut().for_each(|x| *x = read!());
-    array
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
 }
 
-fn compare_triplets(triplet_a: [i32; TRIPLET_SIZE], triplet_b: [i32; TRIPLET_SIZE]) -> (i32, i32) {
+// n: length of a and b = 3
+// T: O(3) = O(1)
+// S: O(1) extra space
+fn compare_triplets(triplet_a: Vec<i32>, triplet_b: Vec<i32>) -> (i32, i32) {
     let (mut score_a, mut score_b) = (0, 0);
 
     for (ta, tb) in triplet_a.iter().zip(triplet_b.iter()) {

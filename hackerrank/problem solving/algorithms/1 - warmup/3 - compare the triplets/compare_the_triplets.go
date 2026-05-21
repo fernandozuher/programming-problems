@@ -5,9 +5,9 @@ package main
 import "fmt"
 
 func main() {
-    const tripletSize = 3
-    tripletA := readNumbers(tripletSize)
-    tripletB := readNumbers(tripletSize)
+    const N = 3
+    tripletA := readNumbers(N)
+    tripletB := readNumbers(N)
     scoreA, scoreB := compareTriplets(tripletA, tripletB)
     fmt.Println(scoreA, scoreB)
 }
@@ -20,7 +20,7 @@ func readNumbers(n int) []int {
     return arr
 }
 
-// tripletSize: length of array a and b = 3
+// n: length of a and b = 3
 // T: O(3) = O(1)
 // S: O(1) extra space
 func compareTriplets(a, b []int) (int, int) {

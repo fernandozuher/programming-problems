@@ -3,47 +3,42 @@
 
 #include <stdio.h>
 
-typedef struct {
-    int *array;
-    int size;
-} array_t;
-
-void read_input(const array_t array);
-void compare_triplets(const array_t triplet_a, const array_t triplet_b, const array_t result);
+void read_numbers(int *arr, int n);
+void compare_triplets(const int *ta, const int *tb, int *out);
 
 int main()
 {
-    constexpr int triplet_size = 3;
-    constexpr int result_size = 3;
-    int input_a[triplet_size], input_b[triplet_size], output[result_size];
-    array_t triplet_a = {input_a, triplet_size};
-    array_t triplet_b = {input_b, triplet_size};
-    array_t result = {output, result_size};
+    constexpr int n = 3;
+    constexpr int out_n = 2;
+    int triplet_a[n], triplet_b[n], output[out_n];
+    read_numbers(triplet_a, n);
+    read_numbers(triplet_b, n);
 
-    read_input(triplet_a);
-    read_input(triplet_b);
-    compare_triplets(triplet_a, triplet_b, result);
-    printf("%d %d\n", result.array[0], result.array[1]);
+    compare_triplets(triplet_a, triplet_b, output);
+    printf("%d %d\n", output[0], output[1]);
 
     return 0;
 }
 
-void read_input(const array_t array)
+void read_numbers(int *arr, int n)
 {
-    for (int i = 0, n = array.size; i < n; ++i)
-        scanf("%d", &array.array[i]);
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &arr[i]);
 }
 
-void compare_triplets(const array_t triplet_a, const array_t triplet_b, const array_t result)
+// n: length of a and b = 3
+// T: O(3) = O(1)
+// S: O(1) extra space
+void compare_triplets(const int *ta, const int *tb, int *out)
 {
     int score_a = 0, score_b = 0;
 
-    for (int i = 0, n = triplet_a.size; i < n; ++i)
-        if (triplet_a.array[i] > triplet_b.array[i])
+    for (int i = 0, n = 3; i < n; ++i)
+        if (ta[i] > tb[i])
             ++score_a;
-        else if (triplet_b.array[i] > triplet_a.array[i])
+        else if (tb[i] > ta[i])
             ++score_b;
 
-    result.array[0] = score_a;
-    result.array[1] = score_b;
+    out[0] = score_a;
+    out[1] = score_b;
 }

@@ -1,26 +1,5 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-'use strict';
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-//////////////////////////////////////////////////
-
 function main() {
   const tripletA = readInput();
   const tripletB = readInput();
@@ -28,21 +7,35 @@ function main() {
   console.log(scoreA, scoreB);
 }
 
-function readLine() {
-  return inputLines[currentLine++];
-}
-
 function readInput() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+      .split(' ')
+      .map((x) => +x);
 }
 
+// n: length of a and b = 3
+// T: O(3) = O(1)
+// S: O(1) extra space
 function compareTriplets(tripletA, tripletB) {
   let [scoreA, scoreB] = [0, 0];
 
   for (let i = 0; i < tripletA.length; i++) {
-    if (tripletA[i] > tripletB[i]) ++scoreA;
-    else if (tripletB[i] > tripletA[i]) ++scoreB;
+    if (tripletA[i] > tripletB[i]) scoreA++;
+    else if (tripletB[i] > tripletA[i]) scoreB++;
   }
 
   return [scoreA, scoreB];
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

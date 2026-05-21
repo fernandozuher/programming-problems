@@ -1,36 +1,34 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 // C++23
 
-#include <algorithm>
-#include <array>
-#include <iostream>
-#include <ranges>
-
+import std;
 using namespace std;
 
-constexpr int triplet_size{3};
-
-array<int, triplet_size> read_input();
-pair<int, int> compare_triplets(const array<int, triplet_size>& triplet_a, const array<int, triplet_size>& triplet_b);
+vector<int> read_numbers(int n);
+pair<int, int> compare_triplets(const vector<int>& triplet_a, const vector<int>& triplet_b);
 
 int main()
 {
-    array triplet_a{read_input()};
-    array triplet_b{read_input()};
-    auto [score_a, score_b]{compare_triplets(triplet_a, triplet_b)};
-    cout << score_a << ' ' << score_b << '\n';
+    constexpr int n{ 3 };
+    vector triplet_a{ read_numbers(n) };
+    vector triplet_b{ read_numbers(n) };
+    auto [score_a, score_b] {compare_triplets(triplet_a, triplet_b)};
+    println("{} {}", score_a, score_b);
     return 0;
 }
 
-array<int, triplet_size> read_input()
+vector<int> read_numbers(int n)
 {
-    array<int, triplet_size> result;
-    for (auto& x : result)
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-    return result;
+    return arr;
 }
 
-pair<int, int> compare_triplets(const array<int, triplet_size>& triplet_a, const array<int, triplet_size>& triplet_b)
+// n: length of a and b = 3
+// T: O(3) = O(1)
+// S: O(1) extra space
+pair<int, int> compare_triplets(const vector<int>& triplet_a, const vector<int>& triplet_b)
 {
     int score_a{}, score_b{};
 
@@ -40,5 +38,5 @@ pair<int, int> compare_triplets(const array<int, triplet_size>& triplet_a, const
         else if (tb > ta)
             ++score_b;
 
-    return {score_a, score_b};
+    return { score_a, score_b };
 }
