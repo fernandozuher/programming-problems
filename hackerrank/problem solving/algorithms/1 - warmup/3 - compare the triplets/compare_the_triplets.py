@@ -1,16 +1,19 @@
 # https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
 def main():
-    triplet_a = read_input()
-    triplet_b = read_input()
+    triplet_a = read_numbers()
+    triplet_b = read_numbers()
     score_a, score_b = compare_triplets(triplet_a, triplet_b)
     print(f"{score_a} {score_b}")
 
 
-def read_input():
+def read_numbers():
     return list(map(int, input().split()))
 
 
+# n: length of a and b = 3
+# T: O(3) = O(1)
+# S: O(1) extra space
 def compare_triplets(triplet_a, triplet_b):
     score_a, score_b = 0, 0
 
