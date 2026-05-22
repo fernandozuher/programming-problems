@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int diagonal_difference(int n);
-void read_numbers(int numbers[], int n);
+void read_numbers(int *arr, int n);
 
 int main()
 {
@@ -14,22 +14,23 @@ int main()
     return 0;
 }
 
+// T: O(n^2)
+// S: O(n) extra space
 int diagonal_difference(int n)
 {
     int primary_sum = 0, secondary_sum = 0;
 
-    int numbers[n];
-    for (int i = 0; i < n; ++i) {
-        read_numbers(numbers, n);
-        primary_sum += numbers[i];
-        secondary_sum += numbers[n - i - 1];
+    for (int i = 0, arr[n]; i < n; ++i) {
+        read_numbers(arr, n);
+        primary_sum += arr[i];
+        secondary_sum += arr[n - i - 1];
     }
 
     return abs(primary_sum - secondary_sum);
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }

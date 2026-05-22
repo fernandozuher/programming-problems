@@ -5,13 +5,15 @@ def main():
     print(diagonal_difference(n))
 
 
+# T: O(n^2)
+# S: O(n) extra space
 def diagonal_difference(n):
     primary_sum, secondary_sum = 0, 0
 
     for i in range(n):
-        numbers = read_numbers()
-        primary_sum += numbers[i]
-        secondary_sum += numbers[n - i - 1]
+        arr = read_numbers()
+        primary_sum += arr[i]
+        secondary_sum += arr[-i - 1]
 
     return abs(primary_sum - secondary_sum)
 

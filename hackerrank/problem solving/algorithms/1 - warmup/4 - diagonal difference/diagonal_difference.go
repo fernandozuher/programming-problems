@@ -13,6 +13,8 @@ func main() {
     fmt.Println(diagonalDifference(n))
 }
 
+// T: O(n^2)
+// S: O(n) extra space
 func diagonalDifference(n int) int {
     primarySum, secondarySum := 0, 0
 

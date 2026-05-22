@@ -1,10 +1,7 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
 // C++23
 
-#include <iostream>
-#include <ranges>
-#include <vector>
-
+import std;
 using namespace std;
 
 int diagonal_difference(int n);
@@ -14,18 +11,20 @@ int main()
 {
     int n;
     cin >> n;
-    cout << diagonal_difference(n) << '\n';
+    println("{}", diagonal_difference(n));
     return 0;
 }
 
+// T: O(n^2)
+// S: O(n) extra space
 int diagonal_difference(int n)
 {
     int primary_sum{}, secondary_sum{};
 
-    for (const auto i : views::iota(0, n)) {
-        vector numbers = read_numbers(n);
-        primary_sum += numbers.at(i);
-        secondary_sum += numbers.at(n - i - 1);
+    for (int i{}; i < n; ++i) {
+        vector arr{ read_numbers(n) };
+        primary_sum += arr.at(i);
+        secondary_sum += arr.at(n - i - 1);
     }
 
     return abs(primary_sum - secondary_sum);
@@ -33,9 +32,8 @@ int diagonal_difference(int n)
 
 vector<int> read_numbers(int n)
 {
-    return views::iota(0, n) | views::transform([](auto) {
-        int x;
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-        return x;
-    }) | ranges::to<vector>();
+    return arr;
 }

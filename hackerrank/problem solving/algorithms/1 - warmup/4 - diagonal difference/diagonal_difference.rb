@@ -5,20 +5,22 @@ def main
   puts diagonal_difference(n)
 end
 
+# T: O(n^2)
+# S: O(n) extra space
 def diagonal_difference(n)
   primary_sum, secondary_sum = 0, 0
 
   n.times do |i|
-    numbers = read_numbers
-    primary_sum += numbers[i]
-    secondary_sum += numbers[n - i - 1]
+    arr = read_numbers
+    primary_sum += arr[i]
+    secondary_sum += arr[-i - 1]
   end
 
   (primary_sum - secondary_sum).abs
 end
 
 def read_numbers
-  gets.split.map(&:to_i)
+  gets.split.map!(&:to_i)
 end
 
-main
+main if __FILE__ == $0

@@ -1,29 +1,25 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
+// Java 25
 
-import java.util.*;
+void main() {
+    int n = Integer.parseInt(IO.readln());
+    IO.println(diagonalDifference(n));
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            scan.nextLine();
-            System.out.println(diagonalDifference(scan, n));
-        }
+// T: O(n^2)
+// S: O(n) extra space
+int diagonalDifference(int n) {
+    int primarySum = 0, secondarySum = 0;
+
+    for (int i = 0; i < n; i++) {
+        int[] arr = readNumbers();
+        primarySum += arr[i];
+        secondarySum += arr[n - i - 1];
     }
 
-    private static int diagonalDifference(Scanner scan, int n) {
-        int primarySum = 0, secondarySum = 0;
+    return Math.abs(primarySum - secondarySum);
+}
 
-        for (int i = 0; i < n; i++) {
-            int[] numbers = readNumbers(scan);
-            primarySum += numbers[i];
-            secondarySum += numbers[n - i - 1];
-        }
-
-        return Math.abs(primarySum - secondarySum);
-    }
-
-    private static int[] readNumbers(Scanner scan) {
-        return Arrays.stream(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-    }
+int[] readNumbers() {
+    return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }

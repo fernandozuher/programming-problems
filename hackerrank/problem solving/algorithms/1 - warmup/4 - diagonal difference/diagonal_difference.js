@@ -1,47 +1,39 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
 
-'use strict';
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-//////////////////////////////////////////////////
-
 function main() {
   const n = +readLine();
   console.log(diagonalDifference(n));
 }
 
-function readLine() {
-  return inputLines[currentLine++];
-}
-
+// T: O(n^2)
+// S: O(n) extra space
 function diagonalDifference(n) {
   let [primarySum, secondarySum] = [0, 0];
 
   for (let i = 0; i < n; i++) {
-    const numbers = readNumbers();
-    primarySum += numbers[i];
-    secondarySum += numbers[n - i - 1];
+    const arr = readNumbers();
+    primarySum += arr[i];
+    secondarySum += arr.at(-i - 1);
   }
 
   return Math.abs(primarySum - secondarySum);
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }
