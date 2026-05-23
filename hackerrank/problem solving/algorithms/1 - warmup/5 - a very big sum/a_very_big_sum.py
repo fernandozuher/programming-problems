@@ -2,16 +2,19 @@
 
 def main():
     input()
-    numbers = read_numbers()
-    print(a_very_big_sum(numbers))
+    arr = read_numbers()
+    print(a_very_big_sum(arr))
 
 
 def read_numbers():
     return list(map(int, input().split()))
 
 
-def a_very_big_sum(numbers):
-    return sum(numbers)
+# n: length of arr
+# T: O(n)
+# S: O(1) extra space
+def a_very_big_sum(arr):
+    return sum(arr)
 
 
 if __name__ == '__main__':

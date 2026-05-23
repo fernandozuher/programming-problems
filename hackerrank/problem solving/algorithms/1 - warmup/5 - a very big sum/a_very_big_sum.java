@@ -1,20 +1,19 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
-// Java 22
+// Java 25
 
-import java.util.Scanner;
-import java.util.stream.IntStream;
+void main() {
+    IO.readln();
+    long[] arr = readNumbers();
+    IO.println(aVeryBigSum(arr));
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            System.out.println(aVeryBigSum(scan, n));
-        }
-    }
+long[] readNumbers() {
+    return Arrays.stream(IO.readln().split(" ")).mapToLong(Long::parseLong).toArray();
+}
 
-    private static long aVeryBigSum(Scanner scan, int n) {
-        return IntStream.range(0, n)
-                .mapToLong(_ -> scan.nextLong())
-                .sum();
-    }
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+long aVeryBigSum(long[] arr) {
+    return Arrays.stream(arr).sum();
 }

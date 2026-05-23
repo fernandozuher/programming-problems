@@ -1,21 +1,12 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
-public class Solution
-{
-    public static void Main()
-    {
-        Console.ReadLine();
-        long[] numbers = ReadNumbers();
-        Console.WriteLine(AVeryBigSum(numbers));
-    }
+Console.ReadLine();
+long[] arr = ReadNumbers();
+Console.WriteLine(AVeryBigSum(arr));
 
-    private static long[] ReadNumbers()
-    {
-        return Console.ReadLine().Split().Select(long.Parse).ToArray();
-    }
+long[] ReadNumbers() => Console.ReadLine()!.Split().Select(long.Parse).ToArray();
 
-    private static long AVeryBigSum(long[] numbers)
-    {
-        return numbers.Sum();
-    }
-}
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+long AVeryBigSum(long[] arr) => arr.Sum();

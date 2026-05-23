@@ -2,20 +2,32 @@
 
 #include <stdio.h>
 
-long a_very_big_sum(int n);
+void read_numbers(long *arr, int n);
+long a_very_big_sum(const long *arr, int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    printf("%ld\n", a_very_big_sum(n));
+    long arr[n];
+    read_numbers(arr, n);
+    printf("%ld\n", a_very_big_sum(arr, n));
     return 0;
 }
 
-long a_very_big_sum(int n)
+
+void read_numbers(long *arr, int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%ld", &arr[i]);
+}
+
+// T: O(n)
+// S: O(1) extra space
+long a_very_big_sum(const long *arr, int n)
 {
     long sum = 0;
-    for (long i = 0, x; i < n && scanf("%ld", &x); ++i)
-        sum += x;
+    for (int i = 0; i < n; ++i)
+        sum += arr[i];
     return sum;
 }

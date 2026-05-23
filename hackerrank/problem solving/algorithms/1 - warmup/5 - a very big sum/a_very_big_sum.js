@@ -1,40 +1,33 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
-'use strict';
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function (inputStdin) {
-  inputString += inputStdin;
-});
-
-process.stdin.on('end', function () {
-  inputLines = inputString.split('\n');
-  inputString = '';
-  main();
-});
-
-//////////////////////////////////////////////////
-
 function main() {
   readLine();
-  const numbers = readNumbers();
-  console.log(aVeryBigSum(numbers));
-}
-
-function readLine() {
-  return inputLines[currentLine++];
+  const arr = readNumbers();
+  console.log(aVeryBigSum(arr));
 }
 
 function readNumbers() {
-  return readLine().split(' ').map(Number);
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
 }
 
-function aVeryBigSum(numbers) {
-  return numbers.reduce((a, b) => a + b);
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+function aVeryBigSum(arr) {
+  return arr.reduce((a, b) => a + b);
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+let inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
 }

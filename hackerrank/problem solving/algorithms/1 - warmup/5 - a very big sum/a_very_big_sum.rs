@@ -4,9 +4,17 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    println!("{}", a_very_big_sum(n));
+    let arr: Vec<i64> = read_numbers(n);
+    println!("{}", a_very_big_sum(&arr));
 }
 
-fn a_very_big_sum(n: usize) -> i64 {
-    (0..n).map(|_| read!()).collect::<Vec<i64>>().iter().sum()
+fn read_numbers(n: usize) -> Vec<i64> {
+    (0..n).map(|_| read!()).collect()
+}
+
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+fn a_very_big_sum(arr: &[i64]) -> i64 {
+    arr.iter().sum()
 }
