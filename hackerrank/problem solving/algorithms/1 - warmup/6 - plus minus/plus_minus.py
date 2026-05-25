@@ -2,8 +2,8 @@
 
 def main():
     input()
-    numbers = read_numbers()
-    ratios = plus_minus(numbers)
+    arr = read_numbers()
+    ratios = plus_minus(arr)
     print_ratios(ratios)
 
 
@@ -11,10 +11,13 @@ def read_numbers():
     return list(map(int, input().split()))
 
 
-def plus_minus(numbers):
+# n: length of arr
+# T: O(n)
+# S: O(1) extra space
+def plus_minus(arr):
     positive, negative, zero = 0, 0, 0
 
-    for number in numbers:
+    for number in arr:
         if number > 0:
             positive += 1
         elif number < 0:
@@ -22,7 +25,7 @@ def plus_minus(numbers):
         else:
             zero += 1
 
-    n = len(numbers)
+    n = len(arr)
     return float(positive / n), float(negative / n), float(zero / n)
 
 
