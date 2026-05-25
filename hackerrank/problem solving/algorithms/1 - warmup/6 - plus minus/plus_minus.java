@@ -1,40 +1,32 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
-// Java 22
+// Java 25
 
-import java.util.Scanner;
-import java.util.stream.IntStream;
+void main() {
+    IO.readln();
+    int[] arr = readNumbers();
+    double[] ratios = plusMinus(arr);
+    for (var ratio : ratios)
+        System.out.printf("%.6f\n", ratio);
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            int[] numbers = readNumbers(scan, n);
-            double[] ratios = plusMinus(numbers);
-            printRatios(ratios);
-        }
+int[] readNumbers() {
+    return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
+
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+double[] plusMinus(int[] arr) {
+    int positive = 0;
+    int negative = 0;
+    int zero = 0;
+
+    for (int number : arr) {
+        if (number > 0) positive++;
+        else if (number < 0) negative++;
+        else zero++;
     }
 
-    private static int[] readNumbers(Scanner scan, int n) {
-        return IntStream.range(0, n).map(_ -> scan.nextInt()).toArray();
-    }
-
-    private static double[] plusMinus(int[] numbers) {
-        int positive = 0;
-        int negative = 0;
-        int zero = 0;
-
-        for (int x : numbers) {
-            if (x > 0) ++positive;
-            else if (x < 0) ++negative;
-            else ++zero;
-        }
-
-        double n = numbers.length;
-        return new double[]{positive / n, negative / n, zero / n};
-    }
-
-    private static void printRatios(double[] ratios) {
-        for (double ratio : ratios)
-            System.out.printf("%.6f\n", ratio);
-    }
+    double n = arr.length;
+    return new double[]{positive / n, negative / n, zero / n};
 }

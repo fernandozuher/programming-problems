@@ -1,53 +1,51 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 // C++23
 
-#include <iomanip>
-#include <iostream>
-#include <ranges>
-#include <vector>
-
+import std;
 using namespace std;
 
 vector<int> read_numbers(int n);
-array<double, 3> plus_minus(const vector<int>& numbers);
-void print_ratios(const array<double, 3>& ratios);
+vector<double> plus_minus(const vector<int>& arr);
+void print_ratios(const vector<double>& ratios);
 
 int main()
 {
     int n;
     cin >> n;
-    vector numbers{read_numbers(n)};
-    auto ratios{plus_minus(numbers)};
+    vector arr{ read_numbers(n) };
+    vector ratios{ plus_minus(arr) };
     print_ratios(ratios);
     return 0;
 }
 
 vector<int> read_numbers(int n)
 {
-    return views::iota(0, n) | views::transform([](auto) {
-        int x;
+    vector<int> arr(n);
+    for (auto& x : arr)
         cin >> x;
-        return x;
-    }) | ranges::to<vector>();
+    return arr;
 }
 
-array<double, 3> plus_minus(const vector<int>& numbers)
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+vector<double> plus_minus(const vector<int>& arr)
 {
     int positive{}, negative{}, zero{};
 
-    for (auto x : numbers)
-        if (x > 0)
+    for (int number : arr)
+        if (number > 0)
             ++positive;
-        else if (x < 0)
+        else if (number < 0)
             ++negative;
         else
             ++zero;
 
-    double n{static_cast<double>(numbers.size())};
-    return {positive / n, negative / n, zero / n};
+    double n{ static_cast<double>(arr.size()) };
+    return { positive / n, negative / n, zero / n };
 }
 
-void print_ratios(const array<double, 3>& ratios)
+void print_ratios(const vector<double>& ratios)
 {
     cout << fixed << setprecision(6);
     for (auto ratio : ratios)

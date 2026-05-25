@@ -3,39 +3,42 @@
 
 #include <stdio.h>
 
-void read_numbers(int numbers[], int n);
-void plus_minus(const int numbers[], int n, float ratios[]);
-void print_ratios(const float ratios[], int n);
+void read_numbers(int *arr, int n);
+void plus_minus(const int *arr, int n, float *ratios);
+void print_ratios(const float *ratios, int n);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    int numbers[n];
-    read_numbers(numbers, n);
+    int arr[n];
+    read_numbers(arr, n);
 
     constexpr int n_ratios = 3;
     float ratios[n_ratios];
-    plus_minus(numbers, n, ratios);
+    plus_minus(arr, n, ratios);
     print_ratios(ratios, n_ratios);
 
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int *arr, int n)
 {
-    for (int i = 0, x; i < n && scanf("%d", &x); ++i)
-        numbers[i] = x;
+    for (int i = 0; i < n; ++i)
+        scanf("%d", &arr[i]);
 }
 
-void plus_minus(const int numbers[], int n, float ratios[])
+// T: O(n)
+// S: O(1) extra space
+void plus_minus(const int *arr, int n, float *ratios)
 {
-    int positive = 0, negative = 0, zero = 0;
+    int positive, negative, zero;
+    positive = negative = zero = 0;
 
     for (int i = 0; i < n; ++i) {
-        if (numbers[i] > 0)
+        if (arr[i] > 0)
             ++positive;
-        else if (numbers[i] < 0)
+        else if (arr[i] < 0)
             ++negative;
         else
             ++zero;
@@ -47,7 +50,7 @@ void plus_minus(const int numbers[], int n, float ratios[])
     ratios[2] = zero / total;
 }
 
-void print_ratios(const float ratios[], int n)
+void print_ratios(const float *ratios, int n)
 {
     for (int i = 0; i < n; ++i)
         printf("%.6f\n", ratios[i]);
