@@ -5,11 +5,13 @@ def main
   staircase(n)
 end
 
+# T: O(n^2)
+# S: O(n) extra space
 def staircase(n)
-  n.times do |i|
-    hashes = '#' * (i + 1)
+  n.times do
+    hashes = '#' * (_1 + 1)
     puts hashes.rjust(n)
   end
 end
 
-main
+main if __FILE__ == $0

@@ -12,6 +12,8 @@ int main()
     return 0;
 }
 
+// T: O(n^2)
+// S: O(1) extra space
 void staircase(int n)
 {
     for (int i = 1; i <= n; ++i) {

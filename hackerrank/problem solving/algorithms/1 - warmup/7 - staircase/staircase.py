@@ -5,6 +5,8 @@ def main():
     staircase(n)
 
 
+# T: O(n^2)
+# S: O(n) extra space
 def staircase(n):
     for i in range(1, n + 1):
         spaces = ' ' * (n - i)
