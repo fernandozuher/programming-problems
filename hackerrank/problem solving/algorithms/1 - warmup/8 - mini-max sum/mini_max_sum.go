@@ -18,10 +18,13 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func calcMinMaxSum(numbers []int) (int, int) {
-    sum, minValue, maxValue := numbers[0], numbers[0], numbers[0]
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+func calcMinMaxSum(arr []int) (int, int) {
+    sum, minValue, maxValue := arr[0], arr[0], arr[0]
 
-    for _, x := range numbers[1:] {
+    for _, x := range arr[1:] {
         sum += x
         minValue = min(x, minValue)
         maxValue = max(x, maxValue)

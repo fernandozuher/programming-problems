@@ -1,45 +1,42 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 // C++23
 
-#include <iostream>
-#include <ranges>
-#include <vector>
-
+import std;
 using namespace std;
 
-template<class T = int>
-vector<T> read_numbers(int n);
-pair<long long, long long> calc_min_max_sum(const vector<long long>& numbers);
+vector<long> read_numbers(int n);
+pair<long, long> calc_min_max_sum(const vector<long>& arr);
 
 int main()
 {
-    constexpr int n{5};
-    vector numbers{read_numbers<long long>(n)};
-    auto [min_sum, max_sum]{calc_min_max_sum(numbers)};
-    cout << min_sum << ' ' << max_sum;
+    constexpr int n{ 5 };
+    vector arr{ read_numbers(n) };
+    auto [min_sum, max_sum] { calc_min_max_sum(arr) };
+    println("{} {}", min_sum, max_sum);
     return 0;
 }
 
-template<class T>
-vector<T> read_numbers(int n)
+vector<long> read_numbers(int n)
 {
-    return views::iota(0, n) | views::transform([](auto) {
-        T x;
+    vector<long> arr(n);
+    for (auto& x : arr)
         cin >> x;
-        return x;
-    }) | ranges::to<vector>();
+    return arr;
 }
 
-pair<long long, long long> calc_min_max_sum(const vector<long long>& numbers)
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+pair<long, long> calc_min_max_sum(const vector<long>& arr)
 {
-    long long sum, minValue, maxValue;
-    sum = minValue = maxValue = numbers.front();
+    long sum, min_value, max_value;
+    sum = min_value = max_value = arr.front();
 
-    for (auto x : numbers | views::drop(1)) {
+    for (auto x : arr | views::drop(1)) {
         sum += x;
-        minValue = min(x, minValue);
-        maxValue = max(x, maxValue);
+        min_value = min(x, min_value);
+        max_value = max(x, max_value);
     }
 
-    return {sum - maxValue, sum - minValue};
+    return { sum - max_value, sum - min_value };
 }

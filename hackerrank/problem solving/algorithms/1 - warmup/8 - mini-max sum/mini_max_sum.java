@@ -1,33 +1,28 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
-// Java 22
+// Java 25
 
-import java.util.*;
-import java.util.stream.IntStream;
+void main() {
+    int[] arr = readNumbers();
+    long[] minMaxSum = calcMinMaxSum(arr);
+    IO.println(minMaxSum[0] + " " + minMaxSum[1]);
+}
 
-public class Main {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            final int n = 5;
-            int[] numbers = readNumbers(scan, n);
-            long[] minMaxSum = calcMinMaxSum(numbers);
-            System.out.println(minMaxSum[0] + " " + minMaxSum[1]);
-        }
+int[] readNumbers() {
+    return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
+
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+long[] calcMinMaxSum(int[] arr) {
+    long sum, min, max;
+    sum = min = max = arr[0];
+
+    for (int i = 1; i < arr.length; i++) {
+        sum += arr[i];
+        min = Math.min(min, arr[i]);
+        max = Math.max(max, arr[i]);
     }
 
-    private static int[] readNumbers(Scanner scan, int n) {
-        return IntStream.range(0, n).map(_ -> scan.nextInt()).toArray();
-    }
-
-    private static long[] calcMinMaxSum(int[] numbers) {
-        long sum, min, max;
-        sum = min = max = numbers[0];
-
-        for (int i = 1; i < numbers.length; i++) {
-            sum += numbers[i];
-            min = Math.min(min, numbers[i]);
-            max = Math.max(max, numbers[i]);
-        }
-
-        return new long[]{sum - max, sum - min};
-    }
+    return new long[]{sum - max, sum - min};
 }
