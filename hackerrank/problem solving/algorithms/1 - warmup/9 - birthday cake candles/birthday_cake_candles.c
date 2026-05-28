@@ -2,10 +2,8 @@
 
 #include <stdio.h>
 
-void read_numbers(int numbers[], int n);
-int birthday_cake_candles(int candles[], int n);
-int max_element(const int numbers[], int n);
-int count(const int numbers[], int n, int element);
+void read_numbers(int *arr, int n);
+int birthday_cake_candles(const int *candles, int n);
 
 int main()
 {
@@ -17,31 +15,27 @@ int main()
     return 0;
 }
 
-void read_numbers(int numbers[], int n)
+void read_numbers(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
-        scanf("%d", &numbers[i]);
+        scanf("%d", &arr[i]);
 }
 
-int birthday_cake_candles(int candles[], int n)
+// n: length of candles
+// T: O(n)
+// S: O(1) extra space
+int birthday_cake_candles(const int *candles, int n)
 {
-    return count(candles, n, max_element(candles, n));
-}
+    int max = candles[0];
+    int count = 1;
 
-int max_element(const int numbers[], int n)
-{
-    int max = numbers[0];
-    while (n--)
-        if (numbers[n] > max)
-            max = numbers[n];
-    return max;
-}
-
-int count(const int numbers[], int n, int element)
-{
-    int count = 0;
-    while (n--)
-        if (numbers[n] == element)
+    for (int i = 1; i < n; ++i) {
+        if (candles[i] > max) {
+            max = candles[i];
+            count = 1;
+        } else if (candles[i] == max)
             ++count;
+    }
+
     return count;
 }

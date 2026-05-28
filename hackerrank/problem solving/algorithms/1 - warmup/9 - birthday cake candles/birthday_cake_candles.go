@@ -10,7 +10,8 @@ import (
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    fmt.Println(birthdayCakeCandles(readNumbers(n)))
+    candles := readNumbers(n)
+    fmt.Println(birthdayCakeCandles(candles))
 }
 
 func readNumbers(n int) []int {
@@ -21,13 +22,16 @@ func readNumbers(n int) []int {
     return arr
 }
 
+// n: length of candles
+// T: O(2n) = O(n)
+// S: O(1) extra space
 func birthdayCakeCandles(candles []int) int {
     return count(candles, slices.Max(candles))
 }
 
-func count(numbers []int, value int) int {
+func count(arr []int, value int) int {
     count := 0
-    for _, x := range numbers {
+    for _, x := range arr {
         if x == value {
             count++
         }

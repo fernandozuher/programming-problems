@@ -1,24 +1,20 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
-// Java 22
+// Java 25
 
-import java.util.Scanner;
-import java.util.stream.IntStream;
+void main() {
+    IO.readln();
+    int[] candles = readNumbers();
+    IO.println(birthdayCakeCandles(candles));
+}
 
-class Solution {
-    public static void main(String[] args) {
-        try (var scan = new Scanner(System.in)) {
-            int n = scan.nextInt();
-            int[] candles = readNumbers(scan, n);
-            System.out.println(birthdayCakeCandles(candles));
-        }
-    }
+int[] readNumbers() {
+    return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
+}
 
-    private static int[] readNumbers(Scanner scan, int n) {
-        return IntStream.range(0, n).map(_ -> scan.nextInt()).toArray();
-    }
-
-    private static int birthdayCakeCandles(int[] candles) {
-        int max = IntStream.of(candles).max().getAsInt();
-        return (int) IntStream.of(candles).filter(x -> x == max).count();
-    }
+// n: length of candles
+// T: O(2n) = O(n)
+// S: O(1) extra space
+int birthdayCakeCandles(int[] candles) {
+    int max = Arrays.stream(candles).max().orElse(0);
+    return (int) Arrays.stream(candles).filter(x -> x == max).count();
 }
