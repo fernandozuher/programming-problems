@@ -4,13 +4,9 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let mut array: Vec<i32> = Vec::new();
-    array.resize_with(n, || read!());
-    array = reverse_array(&mut array);
-    array.iter().for_each(|x| print!("{} ", x));
-}
-
-fn reverse_array(array: &mut Vec<i32>) -> Vec<i32> {
-    array.reverse();
-    return array.to_vec();
+    let mut arr: Vec<i32> = (0..n).map(|_| read!()).collect();
+    arr.reverse();
+    for x in arr.iter() {
+        print!("{} ", x);
+    }
 }

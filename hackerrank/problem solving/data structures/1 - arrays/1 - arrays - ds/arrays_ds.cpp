@@ -1,29 +1,20 @@
 // https://www.hackerrank.com/challenges/arrays-ds/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
-
-vector<int> reverse_array(vector<int>& array);
 
 int main()
 {
     int n;
     cin >> n;
-    vector<int> array(n);
-    ranges::generate(array, [] {int x; cin >> x; return x;});
-    array = reverse_array(array);
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
 
-    for (const auto x : array)
-        cout << x << ' ';
+    ranges::reverse(arr);
+    for (auto x : arr)
+        print("{} ", x);
 
     return 0;
 }
-
-    vector<int> reverse_array(vector<int>& array)
-    {
-        ranges::reverse(array);
-        return array;
-    }
