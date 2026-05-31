@@ -1,57 +1,60 @@
 // https://www.hackerrank.com/challenges/2d-array/problem?isFullScreen=true
 
-'use strict';
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
-
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
-
-function readLine() {
-    return inputLines[currentLine++];
-}
-
-//////////////////////////////////////////////////
-
 function main() {
-    const N = 6;
-    let matrix = new Array(N).fill([]);
-    matrix = matrix.map(_ => readLine().split(' ').map(Number));
-    console.log(maxHourglassSum(matrix));
+  const matrix = readMatrix();
+  console.log(maxHourglassSum(matrix));
 }
 
-    function maxHourglassSum(matrix) {
-        let maxSum = -Number.MAX_VALUE;
+function readMatrix() {
+  const N = 6;
+  return new Array(N).fill([]).map(readNumbers);
+}
 
-        for (let i = 1, rowsCols = 4; i <= rowsCols; ++i)
-            for (let j = 1; j <= rowsCols; ++j) {
-                let currentSum = hourglassSum(matrix, i, j);
-                maxSum = Math.max(maxSum, currentSum);
-            }
+function readNumbers() {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-        return maxSum;
+// T: O(1)
+// S: O(1) extra space
+function maxHourglassSum(matrix) {
+  let maxSum = -Number.MAX_VALUE;
+
+  for (let i = 1, rowsCols = 4; i <= rowsCols; i++)
+    for (let j = 1; j <= rowsCols; j++) {
+      const currentSum = hourglassSum(matrix, i, j);
+      maxSum = Math.max(maxSum, currentSum);
     }
 
-        function hourglassSum(matrix, i, j) {
-            let subrow1FirstIndex = i - 1;
-            let subrow3FirstIndex = i + 1;
-            let firstColIndex = j - 1;
-            let end = firstColIndex + 3;
+  return maxSum;
+}
 
-            let subrow1Sum = matrix[subrow1FirstIndex].slice(firstColIndex, end).reduce((a, b) => a + b);
-            let subrow3Sum = matrix[subrow3FirstIndex].slice(firstColIndex, end).reduce((a, b) => a + b);
+function hourglassSum(matrix, i, j) {
+  const subrow1FirstIndex = i - 1;
+  const subrow3FirstIndex = i + 1;
+  const firstColIndex = j - 1;
+  const end = firstColIndex + 3;
 
-            return subrow1Sum + matrix[i][j] + subrow3Sum;
-        }
+  const subrow1Sum = matrix[subrow1FirstIndex]
+    .slice(firstColIndex, end)
+    .reduce((a, b) => a + b);
+  const subrow3Sum = matrix[subrow3FirstIndex]
+    .slice(firstColIndex, end)
+    .reduce((a, b) => a + b);
+
+  return subrow1Sum + matrix[i][j] + subrow3Sum;
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine() {
+  return inputLines.shift();
+}

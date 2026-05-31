@@ -8,30 +8,31 @@ import (
 )
 
 func main() {
-    n := 6
-    fmt.Println(maxHourglassSum(readInput(n)))
+    matrix := readMatrix()
+    fmt.Println(maxHourglassSum(matrix))
 }
 
-func readInput(n int) [][]int {
-    matrix := make([][]int, n)
-    for i := range n {
-        matrix[i] = make([]int, n)
-        for j := range n {
+func readMatrix() [][]int {
+    N := 6
+    matrix := make([][]int, N)
+    for i := range N {
+        matrix[i] = make([]int, N)
+        for j := range N {
             _, _ = fmt.Scan(&matrix[i][j])
         }
     }
     return matrix
 }
 
+// T: O(1)
+// S: O(1) extra space
 func maxHourglassSum(matrix [][]int) int {
     maxSum := math.MinInt32
 
-    for i, rows_cols := 1, 4; i <= rows_cols; i++ {
-        for j := 1; j <= rows_cols; j++ {
+    for i, rowsCols := 1, 4; i <= rowsCols; i++ {
+        for j := 1; j <= rowsCols; j++ {
             currentSum := hourglassSum(matrix, i, j)
-            if currentSum > maxSum {
-                maxSum = currentSum
-            }
+            maxSum = max(maxSum, currentSum)
         }
     }
 

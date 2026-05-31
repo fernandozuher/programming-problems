@@ -1,16 +1,22 @@
 # https://www.hackerrank.com/challenges/2d-array/problem?isFullScreen=true
 
+from itertools import islice
 import sys
 
-def main():
 
+def main():
     N = 6
-    matrix = [list(map(int, input().split())) for _ in range(N)]
+    matrix = [read_numbers() for _ in range(N)]
     print(max_hourglass_sum(matrix))
 
 
-def max_hourglass_sum(matrix):
+def read_numbers():
+    return list(map(int, input().split()))
 
+
+# T: O(1)
+# S: O(1) extra space
+def max_hourglass_sum(matrix):
     max_sum = -sys.maxsize - 1
     rows_cols = range(1, 5)
 
@@ -23,14 +29,13 @@ def max_hourglass_sum(matrix):
 
 
 def hourglass_sum(matrix, i, j):
-
     subrow_1_first_index = i - 1
     subrow_3_first_index = i + 1
     first_col_index = j - 1
     end = first_col_index + 3
 
-    subrow_1_sum = sum(matrix[subrow_1_first_index][first_col_index:end])
-    subrow_3_sum = sum(matrix[subrow_3_first_index][first_col_index:end])
+    subrow_1_sum = sum(islice(matrix[subrow_1_first_index], first_col_index, end))
+    subrow_3_sum = sum(islice(matrix[subrow_3_first_index], first_col_index, end))
 
     return subrow_1_sum + matrix[i][j] + subrow_3_sum
 

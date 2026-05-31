@@ -1,57 +1,60 @@
 // https://www.hackerrank.com/challenges/2d-array/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  const matrix: number[][] = readMatrix();
+  console.log(maxHourglassSum(matrix));
+}
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+function readMatrix(): number[][] {
+  const N: number = 6;
+  return new Array(N).fill([]).map(readNumbers);
+}
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
+function readNumbers(): number[] {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
+// T: O(1)
+// S: O(1) extra space
+function maxHourglassSum(matrix: number[][]): number {
+  let maxSum: number = -Number.MAX_VALUE;
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
+  for (let i = 1, rowsCols = 4; i <= rowsCols; i++)
+    for (let j = 1; j <= rowsCols; j++) {
+      const currentSum: number = hourglassSum(matrix, i, j);
+      maxSum = Math.max(maxSum, currentSum);
+    }
 
-function readLine(): string {
-    return inputLines[currentLine++];
+  return maxSum;
+}
+
+function hourglassSum(matrix: number[][], i: number, j: number): number {
+  const subrow1FirstIndex: number = i - 1;
+  const subrow3FirstIndex: number = i + 1;
+  const firstColIndex: number = j - 1;
+  const end: number = firstColIndex + 3;
+
+  const subrow1Sum: number = matrix[subrow1FirstIndex]
+    .slice(firstColIndex, end)
+    .reduce((a, b) => a + b);
+  const subrow3Sum: number = matrix[subrow3FirstIndex]
+    .slice(firstColIndex, end)
+    .reduce((a, b) => a + b);
+
+  return subrow1Sum + matrix[i][j] + subrow3Sum;
 }
 
 //////////////////////////////////////////////////
 
-function main() {
-    const N: number = 6;
-    let matrix: number[][] = new Array(N).fill([]);
-    matrix = matrix.map(_ => readLine().split(' ').map(Number));
-    console.log(maxHourglassSum(matrix));
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }
-
-    function maxHourglassSum(matrix: number[][]): number {
-        let maxSum: number = -Number.MAX_VALUE;
-
-        for (let i = 1, rowsCols = 4; i <= rowsCols; ++i)
-            for (let j = 1; j <= rowsCols; ++j) {
-                let currentSum: number = hourglassSum(matrix, i, j);
-                maxSum = Math.max(maxSum, currentSum);
-            }
-
-        return maxSum;
-    }
-
-        function hourglassSum(matrix: number[][], i: number, j: number): number {
-            let subrow1FirstIndex: number = i - 1;
-            let subrow3FirstIndex: number = i + 1;
-            let firstColIndex: number = j - 1;
-            let end: number = firstColIndex + 3;
-
-            let subrow1Sum: number = matrix[subrow1FirstIndex].slice(firstColIndex, end).reduce((a, b) => a + b);
-            let subrow3Sum: number = matrix[subrow3FirstIndex].slice(firstColIndex, end).reduce((a, b) => a + b);
-
-            return subrow1Sum + matrix[i][j] + subrow3Sum;
-        }
