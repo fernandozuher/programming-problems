@@ -3,28 +3,35 @@
 use text_io::read;
 
 fn main() {
-    let n: usize = read!();
+    let size_arr: usize = read!();
     let n_queries: usize = read!();
+    for x in handle_queries(size_arr, n_queries) {
+        println!("{}", x);
+    }
+}
 
-    let mut array: Vec<Vec<i32>> = vec![Vec::new(); n];
-    let mut answers: Vec<i32> = Vec::new();
-    let mut last_answer: i32 = 0;
+// T: O(n_queries)
+// S: O(n + n_queries) extra space
+fn handle_queries(n: usize, n_queries: usize) -> Vec<usize> {
+    let mut arr: Vec<Vec<usize>> = vec![Vec::new(); n];
+    let mut answers: Vec<usize> = Vec::new();
+    let mut last_answer: usize = 0;
 
     for _ in 0..n_queries {
-        let type_i: i32 = read!();
-        let x: i32 = read!();
-        let y: i32 = read!();
+        let type_i: usize = read!();
+        let x: usize = read!();
+        let y: usize = read!();
 
-        let index: usize = (x ^ last_answer) as usize % n as usize;
+        let index: usize = (x ^ last_answer) % n;
 
         if type_i == 1 {
-            array[index].push(y)
+            arr[index].push(y)
         } else {
-            let j: usize = (y as usize) % array[index].len();
-            last_answer = array[index][j];
+            let j: usize = y % arr[index].len();
+            last_answer = arr[index][j];
             answers.push(last_answer);
         }
     }
 
-    answers.iter().for_each(|el| println!("{}", el));
+    answers
 }
