@@ -1,19 +1,22 @@
 # https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
 def main
-    n, rotate_by = read_int_array
-    array = read_int_array
-
-    if rotate_by > n - 1
-        rotate_by %= n
-    end
-
-    array.rotate!(rotate_by)
-    puts array.join(' ')
+  _, rotate_by = read_numbers
+  arr = read_numbers
+  rotate(arr, rotate_by)
+  puts arr.join(' ')
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
-    end
+def read_numbers
+  gets.split.map!(&:to_i)
+end
 
-main
+# n: length of arr
+# T: O(n)
+# S: O(1) extra space
+def rotate(arr, rotate_by)
+  rotate_by %= arr.size if rotate_by >= arr.size
+  arr.rotate!(rotate_by)
+end
+
+main if __FILE__ == $0

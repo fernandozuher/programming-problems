@@ -1,25 +1,39 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
+
+vector<int> read_numbers(int n);
+void rotate(vector<int>& arr, int rotate_by);
 
 int main()
 {
     int n, rotate_by;
     cin >> n >> rotate_by;
-    vector<int> array(n);
-    ranges::generate(array, [] {int x; cin >> x; return x;});
+    vector arr{ read_numbers(n) };
 
-    if (rotate_by > n - 1)
-        rotate_by %= n;
-
-    rotate(array.begin(), array.begin() + rotate_by, array.end());
-
-    for (const auto x : array)
-        cout << x << ' ';
+    rotate(arr, rotate_by);
+    for (auto x : arr)
+        print("{} ", x);
 
     return 0;
+}
+
+vector<int> read_numbers(int n)
+{
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
+}
+
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+void rotate(vector<int>& arr, int rotate_by)
+{
+    if (rotate_by >= arr.size())
+        rotate_by %= arr.size();
+    rotate(arr.begin(), arr.begin() + rotate_by, arr.end());
 }

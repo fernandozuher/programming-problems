@@ -4,25 +4,24 @@ use text_io::read;
 
 fn main() {
     let n: usize = read!();
-    let mut rotate_by: usize = read!();
-    let mut array: Vec<i32> = read_int_array(n);
-
-    if rotate_by > n - 1 {
-        rotate_by %= n;
-    }
-
-    array.rotate_left(rotate_by);
-    print_array(&array);
-}
-
-fn read_int_array(n: usize) -> Vec<i32> {
-    let mut array: Vec<i32> = Vec::new();
-    array.resize_with(n, || read!());
-    return array;
-}
-
-fn print_array(array: &Vec<i32>) {
-    for x in array {
+    let rotate_by: usize = read!();
+    let mut arr: Vec<i32> = read_numbers(n);
+    rotate(&mut arr, rotate_by);
+    for x in arr {
         print!("{} ", x);
     }
+}
+
+fn read_numbers(n: usize) -> Vec<i32> {
+    (0..n).map(|_| read!()).collect()
+}
+
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+fn rotate(arr: &mut [i32], mut rotate_by: usize) {
+    if rotate_by >= arr.len() {
+        rotate_by %= arr.len();
+    }
+    arr.rotate_left(rotate_by);
 }

@@ -1,45 +1,36 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  const [_, rotateBy]: number[] = readNumbers();
+  const arr: number[] = readNumbers();
+  rotate(arr, rotateBy);
+  arr.forEach((x) => process.stdout.write(`${x} `));
+}
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+function readNumbers(): number[] {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
-
-function readLine(): string {
-    return inputLines[currentLine++];
+// n: length of arr
+// rotateBy <= n
+// T: O(n)
+// S: O(rotateBy) extra space
+function rotate(arr: number[], rotateBy: number) {
+  if (rotateBy >= arr.length) rotateBy %= arr.length;
+  arr.push(...arr.splice(0, rotateBy));
 }
 
 //////////////////////////////////////////////////
 
-function main() {
-    let [n, rotateBy]: number[] = readIntArray();
-    let array: number[] = readIntArray();
+import readline = require('readline');
 
-    if (rotateBy > n - 1)
-        rotateBy %= n;
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
 
-    array = rotate(array, rotateBy);
-    array.forEach(x => process.stdout.write(`${x} `));
+function readLine(): string {
+  return inputLines.shift()!;
 }
-
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
-
-    function rotate(array: number[], n: number): number[] {
-        return array.concat(array.splice(0, n));
-    }

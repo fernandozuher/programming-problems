@@ -2,21 +2,18 @@
 
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "slices"
+)
 
 func main() {
     var n, rotateBy int
     _, _ = fmt.Scan(&n, &rotateBy)
-
-    if rotateBy > n-1 {
-        rotateBy %= n
-    }
-
-    for i, x := range rotate(readNumbers(n), rotateBy) {
-        if i > 0 {
-            fmt.Print(" ")
-        }
-        fmt.Print(x)
+    arr := readNumbers(n)
+    rotate(arr, rotateBy)
+    for _, x := range arr {
+        fmt.Print(x, " ")
     }
 }
 
@@ -28,6 +25,14 @@ func readNumbers(n int) []int {
     return arr
 }
 
-func rotate(array []int, n int) []int {
-    return append(array[n:], array[:n]...)
+// n: length of arr
+// T: O(n)
+// S: O(1) extra space
+func rotate(arr []int, rotateBy int) {
+    if rotateBy >= len(arr) {
+        rotateBy %= len(arr)
+    }
+    slices.Reverse(arr[:rotateBy])
+    slices.Reverse(arr[rotateBy:])
+    slices.Reverse(arr)
 }

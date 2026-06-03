@@ -1,45 +1,36 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  const [_, rotateBy] = readNumbers();
+  const arr = readNumbers();
+  rotate(arr, rotateBy);
+  arr.forEach((x) => process.stdout.write(`${x} `));
+}
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+function readNumbers() {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
+// n: length of arr
+// rotateBy <= n
+// T: O(n)
+// S: O(rotateBy) extra space
+function rotate(arr, rotateBy) {
+  if (rotateBy >= arr.length) rotateBy %= arr.length;
+  arr.push(...arr.splice(0, rotateBy));
+}
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
-});
+////////////////////////////////////////////////
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines.shift();
 }
-
-//////////////////////////////////////////////////
-
-function main() {
-    let [n, rotateBy] = readIntArray();
-    let array = readIntArray();
-
-    if (rotateBy > n - 1)
-        rotateBy %= n;
-
-    array = rotate(array, rotateBy);
-    array.forEach(x => process.stdout.write(`${x} `));
-}
-
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
-
-    function rotate(array, n) {
-        return array.concat(array.splice(0, n));
-    }

@@ -1,31 +1,21 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+var arr = ReadNumbers();
+int n = arr[0];
+int rotateBy = arr[1];
+arr = ReadNumbers();
+Rotate(arr, rotateBy);
+Console.WriteLine(string.Join(" ", arr));
 
-public class Solution
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
+// n: length of arr
+// T: O(n)
+// S: O(n) extra space
+void Rotate(int[] arr, int rotateBy)
 {
-    public static void Main()
-    {
-        var list = ReadIntArray();
-        int n = list.First(), rotateBy = list.Last();
-        List<int> array = ReadIntArray();
-
-        if (rotateBy > n - 1)
-            rotateBy %= n;
-
-        array = Rotate(array, rotateBy);
-        Console.WriteLine(string.Join(" ", array));
-    }
-
-        public static List<int> ReadIntArray()
-        {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
-        }
-
-        public static List<int> Rotate(List<int> array, int n)
-        {
-            return array.Skip(n).Concat(array.Take(n)).ToList();
-        }
+    if (rotateBy >= n)
+        rotateBy %= n;
+    var rotated = arr.Skip(rotateBy).Concat(arr.Take(rotateBy)).ToArray();
+    Array.Copy(rotated, arr, arr.Length);
 }

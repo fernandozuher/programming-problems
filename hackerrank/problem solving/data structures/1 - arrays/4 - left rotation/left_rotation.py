@@ -1,25 +1,23 @@
 # https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
 def main():
-
-    n, rotate_by = read_int_array()
-    array = read_int_array()
-
-    if rotate_by > n - 1:
-        rotate_by %= n
-
-    array = rotate(array, rotate_by)
-    print(*array, sep= ' ')
+    n, rotate_by = read_numbers()
+    arr = read_numbers()
+    arr = rotate(arr, rotate_by)
+    print(*arr, sep=' ')
 
 
-def read_int_array():
-
+def read_numbers():
     return list(map(int, input().split()))
 
 
-def rotate(array, n):
-
-    return array[n:] + array[:n]
+# n: length of arr
+# T: O(n)
+# S: O(n) extra space
+def rotate(arr, rotate_by):
+    if rotate_by >= len(arr):
+        rotate_by %= len(arr)
+    return arr[rotate_by:] + arr[:rotate_by]
 
 
 if __name__ == '__main__':
