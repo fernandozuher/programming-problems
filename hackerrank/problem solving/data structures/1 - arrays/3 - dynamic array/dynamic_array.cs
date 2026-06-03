@@ -1,68 +1,54 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+var arr = ReadNumbers();
+int n = arr[0];
+int nQueries = arr[1];
+var obj = new DynamicArray(n);
 
-public class Solution
+for (int i = 0; i < nQueries; i++)
+    obj.HandleQuery(ReadNumbers());
+
+obj.Answers.ForEach(Console.WriteLine);
+
+
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
+public class DynamicArray
 {
-    public static void Main()
-    {
-        var line = ReadIntArray();
-        int n = line.First();
-        int nQueries = line.Last();
-        var obj = new DynamicArray(n);
+    private int _n;
+    private List<List<int>> _arr;
+    private List<int> _answers;
+    private int _lastAnswer;
 
-        while (nQueries-- > 0)
-            obj.HandleQuery(ReadIntArray());
-        obj.Answers.ForEach(Console.WriteLine);
+    public DynamicArray(int n)
+    {
+        _n = n;
+
+        _arr = new List<List<int>>(n);
+        for (int i = 0; i < n; ++i)
+            _arr.Add([]);
+
+        _answers = [];
+        _lastAnswer = 0;
     }
 
-        public static List<int> ReadIntArray()
+    public void HandleQuery(int[] query)
+    {
+        int type = query[0];
+        int x = query[1];
+        int y = query[2];
+
+        int index = (x ^ _lastAnswer) % _n;
+
+        if (type == 1)
+            _arr[index].Add(y);
+        else
         {
-            return Console.ReadLine().Split().Select(int.Parse).ToList();
+            int j = y % _arr[index].Count;
+            _lastAnswer = _arr[index][j];
+            _answers.Add(_lastAnswer);
         }
+    }
+
+    public List<int> Answers => _answers;
 }
-
-    public class DynamicArray
-    {
-        private int _n;
-        private List<List<int>> _array;
-        private List<int> _answers;
-        private int _lastAnswer;
-
-        public DynamicArray(int n)
-        {
-            _n = n;
-
-            _array = new List<List<int>>(n);
-            for (int i = 0; i < n; ++i)
-                _array.Add(new List<int>());
-
-            _answers = new List<int>();
-            _lastAnswer = 0;
-        }
-
-        public void HandleQuery(List<int> query)
-        {
-            int type = query.First();
-            int x = query[1];
-            int y = query.Last();
-
-            int index = (x ^ _lastAnswer) % _n;
-
-            if (type == 1)
-                _array[index].Add(y);
-            else
-            {
-                int j = y % _array[index].Count;
-                _lastAnswer = _array[index][j];
-                _answers.Add(_lastAnswer);
-            }
-        }
-
-        public List<int> Answers
-        {
-            get { return _answers; }
-        }
-    }

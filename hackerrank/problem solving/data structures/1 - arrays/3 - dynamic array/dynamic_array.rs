@@ -3,9 +3,9 @@
 use text_io::read;
 
 fn main() {
-    let size_arr: usize = read!();
+    let n: usize = read!();
     let n_queries: usize = read!();
-    for x in handle_queries(size_arr, n_queries) {
+    for x in handle_queries(n, n_queries) {
         println!("{}", x);
     }
 }

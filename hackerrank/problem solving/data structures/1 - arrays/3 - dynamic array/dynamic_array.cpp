@@ -1,33 +1,24 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <array>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-constexpr int query_size {3};
+constexpr int query_size{ 3 };
 
 class Dynamic_Array {
-public:
-    explicit Dynamic_Array(const int n);
-    void handle_query(const std::array<int, query_size>& query);
-    vector<int> answers() const;
-
-private:
     int n;
     vector<vector<int>> array;
     vector<int> answers_to_queries;
     int last_answer;
-};
 
-    Dynamic_Array::Dynamic_Array(const int n): n{n}, array{vector<vector<int>>(n)}, last_answer{} {}
+public:
+    explicit Dynamic_Array(int n) : n{ n }, array{ vector<vector<int>>(n) }, last_answer{} {}
 
-    void Dynamic_Array::handle_query(const std::array<int, query_size>& query)
+    void handle_query(const std::array<int, query_size>& query)
     {
         const auto [type, x, y] {query};
-        int index {(x ^ last_answer) % n};
+        int index{ (x ^ last_answer) % n };
 
         if (type == 1)
             array.at(index).push_back(y);
@@ -38,25 +29,26 @@ private:
         }
     }
 
-    vector<int> Dynamic_Array::answers() const
+    vector<int> answers() const
     {
         return answers_to_queries;
     }
-
-//////////////////////////////////////////////////
+};
 
 int main()
 {
     int n, n_queries;
     cin >> n >> n_queries;
 
-    Dynamic_Array obj{n};
-    for (array<int, query_size> query; n_queries--;) {
+    Dynamic_Array obj{ n };
+    for (int i{}; i < n_queries; ++i) {
+        array<int, query_size> query;
         ranges::generate(query, [] {int x; cin >> x; return x;});
         obj.handle_query(query);
     }
 
-    ranges::for_each(obj.answers(), [](const auto x) {cout << x << '\n';});
+    for (auto x : obj.answers())
+        println("{}", x);
 
     return 0;
 }

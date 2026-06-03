@@ -1,70 +1,59 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  const [n, nQueries]: number[] = readNumbers();
+  const obj = new DynamicArray(n);
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+  for (let i = 0; i < nQueries; i++) obj.handleQuery(readNumbers());
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
+  obj.answers().forEach((x) => console.log(x));
+}
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
+function readNumbers(): number[] {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
+class DynamicArray {
+  private readonly n: number;
+  private readonly arr: number[][];
+  private readonly answersToQueries: number[];
+  private lastAnswer: number;
 
-function readLine(): string {
-    return inputLines[currentLine++];
+  constructor(n: number) {
+    this.n = n;
+    this.arr = new Array(n).fill([]).map(() => []);
+    this.answersToQueries = [];
+    this.lastAnswer = 0;
+  }
+
+  public handleQuery(queries: number[]) {
+    const [type, x, y]: number[] = queries;
+    const index: number = (x ^ this.lastAnswer) % this.n;
+
+    if (type === 1) this.arr[index].push(y);
+    else {
+      const j: number = y % this.arr[index].length;
+      this.lastAnswer = this.arr[index][j];
+      this.answersToQueries.push(this.lastAnswer);
+    }
+  }
+
+  public answers(): number[] {
+    return this.answersToQueries;
+  }
 }
 
 //////////////////////////////////////////////////
 
-function main() {
-    let [n, nQueries]: number[] = readIntArray();
-    let obj = new DynamicArray(n);
+import readline = require('readline');
 
-    while (nQueries--)
-        obj.handleQuery(readIntArray());
-    obj.answers().forEach(x => console.log(x));
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }
-
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
-
-    class DynamicArray {
-        private n: number;
-        private array: number[][];
-        private answersToQueries: number[];
-        private lastAnswer: number;
-
-        constructor(n: number) {
-            this.n = n;
-            this.array = new Array(n).fill([]).map(x => []);
-            this.answersToQueries = [];
-            this.lastAnswer = 0;
-        }
-
-        public handleQuery(queries: number[]) {
-            const [type, x, y]: number[] = queries
-            let index: number = (x ^ this.lastAnswer) % this.n;
-
-            if (type === 1)
-                this.array[index].push(y);
-            else {
-                let j: number = y % this.array[index].length;
-                this.lastAnswer = this.array[index][j];
-                this.answersToQueries.push(this.lastAnswer);
-            }
-        }
-
-        public answers(): number[] {
-            return this.answersToQueries;
-        }
-    }

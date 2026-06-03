@@ -7,27 +7,32 @@ import "fmt"
 func main() {
     var n, nQueries int
     _, _ = fmt.Scan(&n, &nQueries)
+    for _, x := range handleQueries(n, nQueries) {
+        fmt.Println(x)
+    }
+}
 
-    array := make([][]int, n)
+// T: O(nQueries)
+// S: O(n + nQueries) extra space
+func handleQueries(n, nQueries int) []int {
+    arr := make([][]int, n)
     var answers []int
     lastAnswer := 0
 
-    for i := 0; i < nQueries; i++ {
+    for range nQueries {
         var typeI, x, y int
         _, _ = fmt.Scan(&typeI, &x, &y)
 
         index := (x ^ lastAnswer) % n
 
         if typeI == 1 {
-            array[index] = append(array[index], y)
+            arr[index] = append(arr[index], y)
         } else {
-            j := y % len(array[index])
-            lastAnswer = array[index][j]
+            j := y % len(arr[index])
+            lastAnswer = arr[index][j]
             answers = append(answers, lastAnswer)
         }
     }
 
-    for _, x := range answers {
-        fmt.Println(x)
-    }
+    return answers
 }
