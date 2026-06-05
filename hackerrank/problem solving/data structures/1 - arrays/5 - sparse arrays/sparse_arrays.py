@@ -1,38 +1,28 @@
 # https://www.hackerrank.com/challenges/sparse-arrays/problem?isFullScreen=true
 
-def main():
+from collections import Counter
 
+
+def main():
     n = int(input())
-    input_strings = read_lines(n)
-    input_strings = create_dictionary_from_list(input_strings)
+    strings = read_lines(n)
+    freq_map = Counter(strings)
 
     n = int(input())
     queries = read_lines(n)
 
-    result = count_matches(input_strings, queries)
-    print(*result, sep= '\n')
+    print(*count_matches(freq_map, queries), sep='\n')
 
 
 def read_lines(n):
-
-    return [input() for _ in range(n)]
-
-
-def create_dictionary_from_list(ls):
-
-    dictionary = {}
-    for key in ls:
-        dictionary[key] = dictionary.get(key, 0) + 1
-    return dictionary
+    return (input() for _ in range(n))
 
 
-def count_matches(input_strings, queries):
-
-    result = [0] * len(queries)
-    for i in range(len(result)):
-        query = queries[i]
-        result[i] = input_strings.get(query, 0)
-    return result
+# n: length of queries
+# T: O(n)
+# S: O(1) extra space
+def count_matches(freq_map, queries):
+    return (freq_map[q] for q in queries)
 
 
 if __name__ == '__main__':
