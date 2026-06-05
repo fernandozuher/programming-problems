@@ -1,38 +1,48 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <iostream>
-#include <map>
-#include <vector>
-
+import std;
 using namespace std;
 
-map<string, int> read_input(int n);
-vector<int> read_queries_and_count_matches(map<string, int>& input, const int n);
+vector<string> read_lines(int n);
+unordered_map<string, int> counter(const vector<string>& strings);
+vector<int> counts_from(unordered_map<string, int>& freq_map, const vector<string>& queries);
 
 int main()
 {
     int n;
+    cin >> n;
+    vector strings{ read_lines(n) };
+    unordered_map strings_to_counts{ counter(strings) };
 
     cin >> n;
-    map<string, int> input {read_input(n)};
+    vector queries{ read_lines(n) };
 
-    cin >> n;
-    vector<int> result {read_queries_and_count_matches(input, n)};
-    for (const auto x : result)
-        cout << x << '\n';
+    for (auto x : counts_from(strings_to_counts, queries))
+        println("{}", x);
 }
 
-    map<string, int> read_input(int n)
-    {
-        map<string, int> input;
-        for (string x; n-- && cin >> x; ++input[x]);
-        return input;
-    }
+vector<string> read_lines(int n)
+{
+    vector<string> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
+}
 
-    vector<int> read_queries_and_count_matches(map<string, int>& input, const int n)
-    {
-        vector<int> result(n);
-        ranges::generate(result, [&input] {string query; cin >> query; return input[query];});
-        return result;
-    }
+unordered_map<string, int> counter(const vector<string>& strings)
+{
+    unordered_map<string, int> freq_map;
+    for (const auto& x : strings)
+        ++freq_map[x];
+    return freq_map;
+}
+
+// n: length of queries
+// max_query_string_length: 20
+// T: O(n * max_query_string_length) = O(n * 20) = O(n)
+// S: O(n) extra space
+vector<int> counts_from(unordered_map<string, int>& freq_map, const vector<string>& queries)
+{
+    return queries | views::transform([&freq_map](const string& q) { return freq_map[q]; }) | ranges::to<vector>();
+}

@@ -7,30 +7,41 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    inputStrings := counter(n)
+    strings := readLines(n)
+    stringsToCounts := counter()
 
     _, _ = fmt.Scan(&n)
-    for _, x := range readQueriesAndCountMatches(inputStrings, n) {
+    queries := readLines(n)
+
+    for _, x := range countsFrom(stringsToCounts, queries) {
         fmt.Println(x)
     }
 }
 
-func counter(n int) map[string]int {
+func readLines(n usize) []int {
+    arr := make([]string, n)
+    for i := range n {
+        _, _ = fmt.Scan(&arr[i])
+    }
+    return arr
+}
+
+func counter(arr []string) map[string]int {
     freqMap := map[string]int{}
-    for range n {
-        var line string
-        _, _ = fmt.Scan(&line)
-        freqMap[line] += 1
+    for _, x := range arr {
+        freqMap[x]++
     }
     return freqMap
 }
 
-func readQueriesAndCountMatches(input map[string]int, n int) []int {
-    result := make([]int, n)
-    var query string
-    for i := range n {
-        _, _ = fmt.Scan(&query)
-        result[i] = input[query]
+// n: length of queries
+// maxQueryStringLength: 20
+// T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
+// S: O(n) extra space
+func countsFrom(freqMap map[string]int, queries []string) []int {
+    res := make([]int, len(queries))
+    for i, q := range queries {
+       res[i] = freqMap[q]
     }
-    return result
+    return res
 }

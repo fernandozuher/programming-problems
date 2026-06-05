@@ -1,53 +1,43 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  let n: number = +readLine();
+  const strings: string[] = readLines(n);
+  const stringsToCounts: Map<string, number> = counter(strings);
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+  n = +readLine();
+  const queries: string[] = readLines(n);
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
+  countsFrom(stringsToCounts, queries).forEach((x) => console.log(x));
+}
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
+function readLines(n: number): string[] {
+  return Array.from({ length: n }, readLine);
+}
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
+function counter(arr: string[]): Map<string, number> {
+  const freqMap = new Map<string, number>();
+  for (const x of arr) freqMap.set(x, (freqMap.get(x) || 0) + 1);
+  return freqMap;
+}
 
-function readLine(): string {
-    return inputLines[currentLine++];
+// n: length of queries
+// maxQueryStringLength: 20
+// T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
+// S: O(n) extra space
+function countsFrom(freqMap: Map<string, number>, queries: string[]): number[] {
+  return queries.map((q) => freqMap.get(q) || 0);
 }
 
 //////////////////////////////////////////////////
 
-function main() {
-    let n: number = +readLine();
-    let input: {[key: string]: number} = readInput(n);
-    n = +readLine();
-    let result: number[] = readQueriesAndCountMatches(input, n);
-    result.forEach(x => console.log(x));
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }
-
-    function readInput(n: number): {} {
-        let input: {[key: string]: number} = {};
-        while (n-- > 0) {
-            let x: string = readLine();
-            input[x] = (input[x]+1) || 1;
-        }
-        return input;
-    }
-
-    function readQueriesAndCountMatches(input: {[key: string]: number}, n: number): number[] {
-        let result: number[] = Array(n).fill(0);
-        for (let i = 0; i < n; ++i) {
-            let query: string = readLine();
-            let count: number = input[query] || 0;
-            result[i] = count;
-        }
-        return result;
-    }

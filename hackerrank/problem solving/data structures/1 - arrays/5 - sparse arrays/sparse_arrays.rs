@@ -1,32 +1,29 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem?isFullScreen=true
 
-use std::collections::HashMap;
+use counter::Counter;
 use text_io::read;
 
 fn main() {
     let mut n: usize = read!();
-    let mut input_strings: HashMap<String, i32> = read_input(n);
+    let strings: Vec<String> = read_lines(n);
+    let strings_to_counts = strings.iter().collect::<Counter<_>>();
 
     n = read!();
-    let result: Vec<i32> = read_queries_and_count_matches(&mut input_strings, n);
-    result.iter().for_each(|x| println!("{}", x))
+    let queries: Vec<String> = read_lines(n);
+
+    counts_from(strings_to_counts, &queries)
+        .iter()
+        .for_each(|x| println!("{}", x))
 }
 
-fn read_input(n: usize) -> HashMap<String, i32> {
-    let mut input = HashMap::new();
-    for _i in 0..n {
-        let line: String = read!();
-        *input.entry(line.to_owned()).or_default() += 1;
-    }
-    return input;
+fn read_lines(n: usize) -> Vec<String> {
+    (0..n).map(|_| read!()).collect()
 }
 
-fn read_queries_and_count_matches(input: &mut HashMap<String, i32>, n: usize) -> Vec<i32> {
-    let mut result: Vec<i32> = Vec::new();
-    for _i in 0..n {
-        let query: String = read!();
-        let count: i32 = *input.entry(query.to_owned()).or_default();
-        result.push(count);
-    }
-    return result;
+// n: length of queries
+// maxQueryStringLength: 20
+// T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
+// S: O(n) extra space
+fn counts_from(freq_map: Counter<&String>, queries: &[String]) -> Vec<usize> {
+    queries.iter().map(|q| freq_map[q]).collect()
 }

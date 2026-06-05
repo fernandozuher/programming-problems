@@ -1,83 +1,56 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem?isFullScreen=true
+// C23
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define MAX_SIZE_STRING 21
 
-char** read_lines(const int n);
-int cmp(const void* const s1, const void* const s2);
-int* read_queries_and_count_matches(char** input, const int n, const int n_queries);
-void print_array(const int* const array, const int n);
-char** free_matrix(char** matrix, const int n);
+void read_lines(char arr[][MAX_SIZE_STRING], int n);
+void counts_from(char strings[][MAX_SIZE_STRING], int n, char queries[][MAX_SIZE_STRING], int n_queries, int res[]);
+int count_if(char arr[][MAX_SIZE_STRING], int n, char query[]);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-    char **input_strings = read_lines(n);
-    qsort(input_strings, n, sizeof(char*), cmp);
+    char strings[n][MAX_SIZE_STRING];
+    read_lines(strings, n);
 
     int n_queries;
     scanf("%d", &n_queries);
-    int *result = read_queries_and_count_matches(input_strings, n, n_queries);
-    print_array(result, n_queries);
+    char queries[n_queries][MAX_SIZE_STRING];
+    read_lines(queries, n_queries);
 
-    input_strings = free_matrix(input_strings, n);
-    free(result);
-    result = NULL;
+    int res[n_queries];
+    counts_from(strings, n, queries, n_queries, res);
+
+    for (int i = 0; i < n_queries; ++i)
+        printf("%d\n", res[i]);
 
     return 0;
 }
 
-    char** read_lines(const int n)
-    {
-        char **array = (char**) calloc(n, sizeof(char*));
-        for (int i = 0; i < n; ++i) {
-            array[i] = (char*) calloc(MAX_SIZE_STRING, sizeof(char));
-            scanf("%s", array[i]);
-        }
-        return array;
-    }
+void read_lines(char arr[][MAX_SIZE_STRING], int n)
+{
+    for (int i = 0; i < n; ++i)
+        scanf("%s", arr[i]);
+}
 
-    int cmp(const void *a, const void *b)
-    {
-        return strcmp(*(const char**)a, *(const char**)b);
-    }
+// MAX_SIZE_STRING: 21
+// T: O(n_queries * n * MAX_SIZE_STRING) = O(n_queries * n * 21) = O(n_queries * n)
+// S: O(1) extra space
+void counts_from(char strings[][MAX_SIZE_STRING], int n, char queries[][MAX_SIZE_STRING], int n_queries, int res[])
+{
+    for (int i = 0; i < n_queries; ++i)
+        res[i] = count_if(strings, n, queries[i]);
+}
 
-    int* read_queries_and_count_matches(char** input, const int n, const int n_queries)
-    {
-        int *result = (int*) calloc(n_queries, sizeof(int));
-        char query[MAX_SIZE_STRING];
-
-        for (int i = 0, count = 0; i < n_queries; ++i, count = 0) {
-            scanf("%s", query);
-
-            int j = 0;
-            // Since input is sorted, look until find the first key or not
-            for (; j < n && strcmp(query, input[j]) != 0; ++j);
-
-            // If key was found
-            if (j < n)
-                for (; j < n && strcmp(query, input[j]) == 0; ++j)
-                    ++count;
-            result[i] = count;
-        }
-
-        return result;
-    }
-
-    void print_array(const int* const array, const int n)
-    {
-        for (int i = 0; i < n; ++i)
-            printf("%d\n", array[i]);
-    }
-
-    char** free_matrix(char** matrix, const int n)
-    {
-        for (int i = 0; i < n; ++i)
-            free(matrix[i]);
-        free(matrix);
-        return NULL;
-    }
+int count_if(char arr[][MAX_SIZE_STRING], int n, char query[])
+{
+    int count = 0;
+    for (int i = 0; i < n; ++i)
+        if (!strcmp(arr[i], query))
+            ++count;
+    return count;
+}

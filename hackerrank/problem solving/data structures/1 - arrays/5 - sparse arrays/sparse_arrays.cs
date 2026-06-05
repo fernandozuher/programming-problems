@@ -1,42 +1,30 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
-using System.Linq;
+int n = int.Parse(Console.ReadLine()!);
+string[] strings = ReadLines(n);
+Dictionary<string, int> stringsToCounts = Counter(strings);
 
-public class Solution
+n = int.Parse(Console.ReadLine()!);
+string[] queries = ReadLines(n);
+
+foreach (var x in CountsFrom(stringsToCounts, queries))
+    Console.WriteLine(x);
+
+string[] ReadLines(int n) => Enumerable.Range(0, n).Select(_ => Console.ReadLine()!).ToArray();
+
+Dictionary<string, int> Counter(string[] arr)
 {
-    public static void Main()
-    {
-        int n = int.Parse(Console.ReadLine());
-        ConcurrentDictionary<string, int> input = ReadInput(n);
+    var freqMap = new Dictionary<string, int>();
+    foreach (var x in arr)
+        freqMap[x] = freqMap.GetValueOrDefault(x) + 1;
+    return freqMap;
+}
 
-        n = int.Parse(Console.ReadLine());
-        List<int> result = ReadQueriesAndCountMatches(input, n);
-        result.ForEach(Console.WriteLine);
-    }
-
-        public static ConcurrentDictionary<string, int> ReadInput(int n)
-        {
-            var input = new ConcurrentDictionary<string, int>();
-            while (n-- > 0)
-            {
-                string x = Console.ReadLine();
-                input.AddOrUpdate(x, 1, (k, v) => v + 1);
-            }
-            return input;
-        }
-
-        public static List<int> ReadQueriesAndCountMatches(ConcurrentDictionary<string, int> input, int n)
-        {
-            var result = new List<int>(n);
-            while (n-- > 0)
-            {
-                string query = Console.ReadLine();
-                int count = input.ContainsKey(query) ? input[query] : 0;
-                result.Add(count);
-            }
-            return result;
-        }
+// n: length of queries
+// maxQueryStringLength: 20
+// T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
+// S: O(n) extra space
+int[] CountsFrom(Dictionary<string, int> freqMap, string[] queries)
+{
+    return queries.Select(q => freqMap.GetValueOrDefault(q)).ToArray();
 }

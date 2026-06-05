@@ -6,12 +6,12 @@ from collections import Counter
 def main():
     n = int(input())
     strings = read_lines(n)
-    freq_map = Counter(strings)
+    strings_to_counts = Counter(strings)
 
     n = int(input())
     queries = read_lines(n)
 
-    print(*count_matches(freq_map, queries), sep='\n')
+    print(*counts_from(strings_to_counts, queries), sep='\n')
 
 
 def read_lines(n):
@@ -19,9 +19,10 @@ def read_lines(n):
 
 
 # n: length of queries
-# T: O(n)
+# max_query_string_length: 20
+# T: O(n * max_query_string_length) = O(n * 20) = O(n)
 # S: O(1) extra space
-def count_matches(freq_map, queries):
+def counts_from(freq_map, queries):
     return (freq_map[q] for q in queries)
 
 
