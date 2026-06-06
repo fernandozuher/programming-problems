@@ -12,13 +12,7 @@ foreach (var x in CountsFrom(stringsToCounts, queries))
 
 string[] ReadLines(int n) => Enumerable.Range(0, n).Select(_ => Console.ReadLine()!).ToArray();
 
-Dictionary<string, int> Counter(string[] arr)
-{
-    var freqMap = new Dictionary<string, int>();
-    foreach (var x in arr)
-        freqMap[x] = freqMap.GetValueOrDefault(x) + 1;
-    return freqMap;
-}
+Dictionary<string, int> Counter(string[] arr) => arr.GroupBy(x => x).ToDictionary(g => g.Key, g => g.Count());
 
 // n: length of queries
 // maxQueryStringLength: 20

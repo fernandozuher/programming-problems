@@ -8,7 +8,7 @@ func main() {
     var n int
     _, _ = fmt.Scan(&n)
     strings := readLines(n)
-    stringsToCounts := counter()
+    stringsToCounts := counter(strings)
 
     _, _ = fmt.Scan(&n)
     queries := readLines(n)
@@ -18,7 +18,7 @@ func main() {
     }
 }
 
-func readLines(n usize) []int {
+func readLines(n int) []string {
     arr := make([]string, n)
     for i := range n {
         _, _ = fmt.Scan(&arr[i])
@@ -39,9 +39,9 @@ func counter(arr []string) map[string]int {
 // T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
 // S: O(n) extra space
 func countsFrom(freqMap map[string]int, queries []string) []int {
-    res := make([]int, len(queries))
+    arr := make([]int, len(queries))
     for i, q := range queries {
-       res[i] = freqMap[q]
+        arr[i] = freqMap[q]
     }
-    return res
+    return arr
 }

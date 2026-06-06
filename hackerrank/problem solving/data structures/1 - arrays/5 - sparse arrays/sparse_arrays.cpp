@@ -44,5 +44,5 @@ unordered_map<string, int> counter(const vector<string>& strings)
 // S: O(n) extra space
 vector<int> counts_from(unordered_map<string, int>& freq_map, const vector<string>& queries)
 {
-    return queries | views::transform([&freq_map](const string& q) { return freq_map[q]; }) | ranges::to<vector>();
+    return queries | views::transform([&freq_map](const auto& q) { return freq_map[q]; }) | ranges::to<vector>();
 }
