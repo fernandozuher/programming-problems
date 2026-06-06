@@ -1,33 +1,43 @@
 # https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
 def main
-    n, n_queries = read_int_array
-    puts array_manipulation(n, n_queries)
+  n, n_queries = read_numbers
+  puts array_manipulation(n, n_queries)
 end
 
-    def read_int_array
-        gets.split.map(&:to_i)
-    end
+def read_numbers
+  gets.split.map!(&:to_i)
+end
 
-    def array_manipulation(n, n_queries)
-        array = Array.new(n + 2, 0) # n + 2 = 1-indexed array + range-end
+# T: O(n + n_queries)
+# S: O(n) extra space
+def array_manipulation(n, n_queries)
+  arr = populate_arr(n, n_queries)
+  max_sequential_sum(arr)
+end
 
-        n_queries.times {
-            b, e, summand = read_int_array
-            array[b] += summand
-            array[e + 1] -= summand
-        }
+def populate_arr(n, n_queries)
+  arr = Array.new(n + 2, 0) # +2 = 1-indexed array + range-end
 
-        sum, max = 0, 0
-        for x in array
-            if x == 0
-                next
-            end
-            sum += x
-            max = [max, sum].max
-        end
-        
-        max
-    end
+  n_queries.times do
+    b, e, summand = read_numbers
+    arr[b] += summand
+    arr[e + 1] -= summand
+  end
 
-main
+  arr
+end
+
+def max_sequential_sum(arr)
+  sum, max = 0, 0
+
+  arr.each do |x|
+    next if x.zero?
+    sum += x
+    max = [max, sum].max
+  end
+
+  max
+end
+
+main if __FILE__ == $0
