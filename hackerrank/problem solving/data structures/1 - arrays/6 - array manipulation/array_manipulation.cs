@@ -1,49 +1,41 @@
 // https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+int[] arr = ReadNumbers();
+int n = arr[0];
+int nQueries = arr[1];
+Console.WriteLine(ArrayManipulation(n, nQueries));
 
-public class Solution
+int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
+long ArrayManipulation(int n, int nQueries)
 {
-    public static void Main()
+    int[] arr = PopulateArr(n, nQueries);
+    return MaxSequentialSum(arr);
+}
+
+// T: O(n + nQueries)
+// S: O(n) extra space
+int[] PopulateArr(int n, int nQueries)
+{
+    // +2 = 1-indexed array + range-end
+    var res = new int[n + 2];
+
+    for (int i = 0; i < nQueries; i++)
     {
-        List<int> line = ReadIntArray();
-        int n = line.First();
-        int nQueries = line.Last();
-        Console.WriteLine(ArrayManipulation(n, nQueries));
+        int[] arr = ReadNumbers();
+        int b = arr[0];
+        int e = arr[1];
+        int summand = arr[2];
+
+        res[b] += summand;
+        res[e + 1] -= summand;
     }
 
-        public static List<int> ReadIntArray()
-        {
-            return Console.ReadLine().Split(" ").Select(int.Parse).ToList();
-        }
+    return res;
+}
 
-        public static long ArrayManipulation(int n, int nQueries)
-        {
-            // n + 2 = 1-indexed array + range-end
-            var array = new List<int>(Enumerable.Repeat(0, n + 2));
-
-            while (nQueries-- > 0)
-            {
-                List<int> line = ReadIntArray();
-                int b = line.First();
-                int e = line[1];
-                int summand = line.Last();
-
-                array[b] += summand;
-                array[e + 1] -= summand;
-            }
-
-            long sum = 0, max = 0;
-            foreach (int x in array)
-            {
-                if (x == 0)
-                    continue;
-                sum += x;
-                max = Math.Max(max, sum);
-            }
-
-            return max;
-        }
+long MaxSequentialSum(int[] arr)
+{
+    long acc = 0;
+    return arr.Select(x => acc += x).Max();
 }

@@ -1,56 +1,57 @@
 // https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  const [n, nQueries] = readNumbers();
+  console.log(arrayManipulation(n, nQueries));
+}
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+function readNumbers() {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-let inputString = '';
-let inputLines = [];
-let currentLine = 0;
+// T: O(n + nQueries)
+// S: O(n) extra space
+function arrayManipulation(n, nQueries) {
+  const arr = populateArr(n, nQueries);
+  return maxSequentialSum(arr);
+}
 
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
-});
+function populateArr(n, nQueries) {
+  // +2 = 1-indexed array + range-end
+  const arr = new Array(n + 2).fill(0);
 
-process.stdin.on('end', function() {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
+  for (let i = 0; i < nQueries; i++) {
+    const [b, e, summand] = readNumbers();
+    arr[b] += summand;
+    arr[e + 1] -= summand;
+  }
+
+  return arr;
+}
+
+function maxSequentialSum(arr) {
+  let sum = 0;
+  let max = 0;
+
+  for (const x of arr) {
+    sum += x;
+    max = Math.max(max, sum);
+  }
+
+  return max;
+}
+
+////////////////////////////////////////////////
+
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines = [];
+rl.on('line', (line) => inputLines.push(line));
+rl.on('close', main);
 
 function readLine() {
-    return inputLines[currentLine++];
+  return inputLines.shift();
 }
-
-//////////////////////////////////////////////////
-
-function main() {
-    let [n, nQueries] = readIntArray();
-    console.log(arrayManipulation(n, nQueries));
-}
-
-    function readIntArray() {
-        return readLine().split(' ').map(Number);
-    }
-
-    function arrayManipulation(n, nQueries) {
-        // n + 2 = 1-indexed array + range-end
-        let array = new Array(n + 2).fill(0);
-
-        while (nQueries--) {
-            let [b, e, summand] = readIntArray();
-            array[b] += summand;
-            array[e + 1] -= summand;
-        }
-
-        let sum = 0, max = 0;
-        for (const x of array) {
-            if (x == 0)
-                continue;
-            sum += x;
-            max = Math.max(max, sum);
-        }
-
-        return max;
-    }

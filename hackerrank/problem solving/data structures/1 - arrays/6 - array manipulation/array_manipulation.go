@@ -10,23 +10,31 @@ func main() {
     fmt.Println(arrayManipulation(n, nQueries))
 }
 
-func arrayManipulation(n int, nQueries int) int {
-    array := make([]int, n+2) // n + 2 = 1-indexed array + range-end)
+// T: O(n + nQueries)
+// S: O(n) extra space
+func arrayManipulation(n, nQueries int) int {
+    arr := populateArr(n, nQueries)
+    return maxSequentialSum(arr)
+}
 
-    for b, e, summand := 0, 0, 0; nQueries > 0; nQueries-- {
+func populateArr(n, nQueries int) []int {
+    arr := make([]int, n+2) // +2 = 1-indexed array + range-end)
+
+    for range nQueries {
+        var b, e, summand int
         _, _ = fmt.Scan(&b, &e, &summand)
-        array[b] += summand
-        array[e+1] -= summand
+        arr[b] += summand
+        arr[e+1] -= summand
     }
 
+    return arr
+}
+
+func maxSequentialSum(arr []int) int {
     sum, maxSum := 0, 0
-    for _, x := range array {
-        if x == 0 {
-            continue
-        }
+    for _, x := range arr {
         sum += x
         maxSum = max(maxSum, sum)
     }
-
     return maxSum
 }

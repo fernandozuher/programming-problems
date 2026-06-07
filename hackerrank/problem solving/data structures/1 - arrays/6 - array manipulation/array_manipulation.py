@@ -1,5 +1,8 @@
 # https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
+from itertools import accumulate
+
+
 def main():
     n, n_queries = read_numbers()
     print(array_manipulation(n, n_queries))
@@ -13,7 +16,7 @@ def read_numbers():
 # S: O(n) extra space
 def array_manipulation(n, n_queries):
     arr = populate_arr(n, n_queries)
-    return max_sequential_sum(arr)
+    return max(accumulate(arr))
 
 
 def populate_arr(n, n_queries):
@@ -23,17 +26,6 @@ def populate_arr(n, n_queries):
         arr[b] += summand
         arr[e + 1] -= summand
     return arr
-
-
-def max_sequential_sum(arr):
-    curr_sum = 0
-    max_sum = 0
-    for x in arr:
-        if x == 0:
-            continue
-        curr_sum += x
-        max_sum = max(max_sum, curr_sum)
-    return max_sum
 
 
 if __name__ == '__main__':

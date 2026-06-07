@@ -1,57 +1,57 @@
 // https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
-'use strict';
+function main() {
+  const [n, nQueries]: number[] = readNumbers();
+  console.log(arrayManipulation(n, nQueries));
+}
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
+function readNumbers(): number[] {
+  return readLine()
+    .split(' ')
+    .map((x) => +x);
+}
 
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
+// T: O(n + nQueries)
+// S: O(n) extra space
+function arrayManipulation(n: number, nQueries: number): number {
+  const arr: number[] = populateArr(n, nQueries);
+  return maxSequentialSum(arr);
+}
 
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
+function populateArr(n: number, nQueries: number): number[] {
+  // +2 = 1-indexed array + range-end
+  const arr: number[] = new Array(n + 2).fill(0);
 
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-    main();
-});
+  for (let i = 0; i < nQueries; i++) {
+    const [b, e, summand]: number[] = readNumbers();
+    arr[b] += summand;
+    arr[e + 1] -= summand;
+  }
 
-function readLine(): string {
-    return inputLines[currentLine++];
+  return arr;
+}
+
+function maxSequentialSum(arr: number[]): number {
+  let sum: number = 0;
+  let max: number = 0;
+
+  for (const x of arr) {
+    sum += x;
+    max = Math.max(max, sum);
+  }
+
+  return max;
 }
 
 //////////////////////////////////////////////////
 
-function main() {
-    let [n, nQueries]: number[] = readIntArray();
-    console.log(arrayManipulation(n, nQueries));
+import readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin });
+const inputLines: string[] = [];
+rl.on('line', (line: string) => inputLines.push(line));
+rl.on('close', main);
+
+function readLine(): string {
+  return inputLines.shift()!;
 }
-
-    function readIntArray(): number[] {
-        return readLine().split(' ').map(Number);
-    }
-
-    function arrayManipulation(n: number, nQueries: number): number {
-        // n + 2 = 1-indexed array + range-end
-        let array: number[] = new Array(n + 2).fill(0);
-
-        while (nQueries--) {
-            let [b, e, summand]: number[] = readIntArray();
-            array[b] += summand;
-            array[e + 1] -= summand;
-        }
-
-        let sum: number = 0;
-        let max: number = 0;
-        for (const x of array) {
-            if (x == 0)
-                continue;
-            sum += x;
-            max = Math.max(max, sum);
-        }
-
-        return max;
-    }

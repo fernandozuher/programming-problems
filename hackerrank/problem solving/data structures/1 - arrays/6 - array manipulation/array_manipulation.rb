@@ -29,15 +29,8 @@ def populate_arr(n, n_queries)
 end
 
 def max_sequential_sum(arr)
-  sum, max = 0, 0
-
-  arr.each do |x|
-    next if x.zero?
-    sum += x
-    max = [max, sum].max
-  end
-
-  max
+  acc = 0
+  arr.lazy.map { |x| acc += x }.max
 end
 
 main if __FILE__ == $0
