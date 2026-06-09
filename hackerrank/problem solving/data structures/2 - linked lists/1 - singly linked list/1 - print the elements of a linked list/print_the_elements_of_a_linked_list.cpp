@@ -18,6 +18,8 @@ int main()
     return 0;
 }
 
+// T: O(n)
+// S: O(n) extra space
 template<template<class...> class C, class T>
 C<T> read_numbers(int n)
 {
