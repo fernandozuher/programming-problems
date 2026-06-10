@@ -1,54 +1,56 @@
 // https://www.hackerrank.com/challenges/get-the-value-of-the-node-at-a-specific-position-from-the-tail/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
-int get_node_value(const forward_list<int>& list, const int position);
-
-template<class T>
-void print_array(const vector<T>& array);
+pair<forward_list<int>, int> read_test_case();
+template<template<class...> class C, class T >
+C<T> read(int n);
+int node_value_at(const forward_list<int>& l, int pos);
 
 int main()
 {
-    int test_cases;
-    cin >> test_cases;
-    vector<int> nodes_values(test_cases);
+    int n;
+    cin >> n;
 
-    for (int n{}; auto& x : nodes_values) {
-        cin >> n;
-        forward_list<int> list {initialize_list(n)};
-
-        int position_from_tail;
-        cin >> position_from_tail;
-
-        int position {n - position_from_tail - 1};
-        x = get_node_value(list, position);
+    vector<int> res(n);
+    for (auto& x : res) {
+        auto [list, position] { read_test_case() };
+        x = node_value_at(list, position);
     }
 
-    print_array(nodes_values);
+    for (auto x : res)
+        println("{}", x);
 
     return 0;
 }
 
-    forward_list<int> initialize_list(const int n)
-    {
-        forward_list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
+pair<forward_list<int>, int> read_test_case()
+{
+    int n;
+    cin >> n;
+    auto list{ read<forward_list, int>(n) };
 
-    int get_node_value(const forward_list<int>& list, const int position)
-    {
-        return *std::next(list.begin(), position);
-    }
+    int position_from_tail;
+    cin >> position_from_tail;
 
-    template<class T>
-    void print_array(const vector<T>& array)
-    {
-        ranges::for_each(array, [](const auto x) {cout << x << '\n';});
-    }
+    int position{ n - position_from_tail - 1 };
+    return { list, position };
+}
+
+template<template<class...> class C, class T >
+C<T> read(int n)
+{
+    C<T> container(n);
+    for (auto& x : container)
+        cin >> x;
+    return container;
+}
+
+// T: O(n)
+// S: O(1) extra space
+int node_value_at(const forward_list<int>& l, int pos)
+{
+    return *std::next(l.begin(), pos);
+}
