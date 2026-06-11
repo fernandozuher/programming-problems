@@ -1,50 +1,49 @@
 // https://www.hackerrank.com/challenges/delete-duplicate-value-nodes-from-a-sorted-linked-list/problem?isFullScreen=true
+// C++26
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
-forward_list<int> remove_duplicates(forward_list<int>& list);
-void print_list(const forward_list<int>& list);
+template<template<class...> class C, class T>
+C<T> read(int n);
+
+forward_list<int>& remove_duplicates(forward_list<int>& l);
 
 int main()
 {
-    int test_cases;
-    cin >> test_cases;
-    vector<forward_list<int>> unique_lists(test_cases);
-
-    for (int n{}; auto& x : unique_lists) {
+    int n;
+    cin >> n;
+    vector<forward_list<int>> unique_lists(n);
+    for (auto& x : unique_lists) {
+        int n;
         cin >> n;
-        forward_list<int> list {initialize_list(n)};
-        x = remove_duplicates(list);
+        auto l{ read<forward_list, int>(n) };
+        x = remove_duplicates(l);
     }
 
-    for (const auto& list : unique_lists) {
-        print_list(list);
-        cout << '\n';
+    for (const auto& l : unique_lists) {
+        for (auto x : l)
+            print("{} ", x);
+        println();
     }
 
     return 0;
 }
 
-    forward_list<int> initialize_list(const int n)
-    {
-        forward_list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
+template<template<class...> class C, class T>
+C<T> read(int n)
+{
+    C<T> container(n);
+    for (auto& x : container)
+        cin >> x;
+    return container;
+}
 
-    forward_list<int> remove_duplicates(forward_list<int>& list)
-    {
-        list.unique();
-        return list;
-    }
-
-    void print_list(const forward_list<int>& list)
-    {
-        ranges::for_each(list, [](const auto x) {cout << x << ' ';});
-    }
+// n: length of l
+// T: O(n)
+// S: O(1) extra space
+forward_list<int>& remove_duplicates(forward_list<int>& l)
+{
+    l.unique();
+    return l;
+}
