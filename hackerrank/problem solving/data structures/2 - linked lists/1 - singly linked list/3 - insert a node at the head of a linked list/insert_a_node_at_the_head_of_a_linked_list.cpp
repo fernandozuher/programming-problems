@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/insert-a-node-at-the-head-of-a-linked-list/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-
+import std;
 using namespace std;
 
 int main()
@@ -11,9 +9,14 @@ int main()
     int n;
     cin >> n;
     forward_list<int> list;
-    for (int x{}; n-- && cin >> x;)
+
+    for (int i{}, x{}; i < n; ++i) {
+        cin >> x;
         list.push_front(x);
-    ranges::for_each(list, [](const auto x) {cout << x << '\n';});
+    }
+
+    for (auto x : list)
+        println("{}", x);
 
     return 0;
 }
