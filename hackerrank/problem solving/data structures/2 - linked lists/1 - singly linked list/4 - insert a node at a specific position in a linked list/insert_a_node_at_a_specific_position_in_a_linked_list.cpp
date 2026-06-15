@@ -1,45 +1,44 @@
 // https://www.hackerrank.com/challenges/insert-a-node-at-a-specific-position-in-a-linked-list/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
-forward_list<int> insert_at_position(forward_list<int>& list, const int position, const int data);
-void print_list(const forward_list<int>& list);
+template<template<class...> class C, class T>
+C<T> read(int n);
+forward_list<int>& insert_at_position(forward_list<int>& list, int position, int data);
 
 int main()
 {
     int n;
     cin >> n;
-    forward_list<int> list {initialize_list(n)};
+    auto list{ read<forward_list, int>(n) };
 
     int data, position;
     cin >> data >> position;
     list = insert_at_position(list, position, data);
 
-    print_list(list);
+    for (auto x : list)
+        print("{} ", x);
 
     return 0;
 }
 
-    forward_list<int> initialize_list(const int n)
-    {
-        forward_list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
+template<template<class...> class C, class T>
+C<T> read(int n)
+{
+    C<T> container(n);
+    for (auto& x : container)
+        cin >> x;
+    return container;
+}
 
-    forward_list<int> insert_at_position(forward_list<int>& list, const int position, const int data)
-    {
-        auto it {position ? std::next(list.begin(), position - 1) : list.before_begin()};
-        list.insert_after(it, data);
-        return list;
-    }
-
-    void print_list(const forward_list<int>& list)
-    {
-        ranges::for_each(list, [](const auto x) {cout << x << ' ';});
-    }
+// n: length of nodes in list
+// T: O(n)
+// S: O(1) extra space
+forward_list<int>& insert_at_position(forward_list<int>& list, int position, int data)
+{
+    auto it{ position ? std::next(list.begin(), position - 1) : list.before_begin() };
+    list.insert_after(it, data);
+    return list;
+}
