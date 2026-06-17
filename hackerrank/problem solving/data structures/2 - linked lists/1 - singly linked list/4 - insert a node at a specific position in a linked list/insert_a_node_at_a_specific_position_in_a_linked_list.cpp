@@ -6,7 +6,8 @@ using namespace std;
 
 template<template<class...> class C, class T>
 C<T> read(int n);
-forward_list<int>& insert_at_position(forward_list<int>& list, int position, int data);
+template<class T>
+forward_list<T>& insert_at(forward_list<T>& list, int position, T data);
 
 int main()
 {
@@ -16,7 +17,7 @@ int main()
 
     int data, position;
     cin >> data >> position;
-    list = insert_at_position(list, position, data);
+    list = insert_at(list, position, data);
 
     for (auto x : list)
         print("{} ", x);
@@ -36,7 +37,8 @@ C<T> read(int n)
 // n: length of nodes in list
 // T: O(n)
 // S: O(1) extra space
-forward_list<int>& insert_at_position(forward_list<int>& list, int position, int data)
+template<class T>
+forward_list<T>& insert_at(forward_list<T>& list, int position, T data)
 {
     auto it{ position ? std::next(list.begin(), position - 1) : list.before_begin() };
     list.insert_after(it, data);
