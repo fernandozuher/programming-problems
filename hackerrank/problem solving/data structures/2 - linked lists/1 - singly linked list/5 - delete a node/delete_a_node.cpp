@@ -1,12 +1,11 @@
 // https://www.hackerrank.com/challenges/delete-a-node-from-a-linked-list/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
+template<template<class ...> class c, class T>
+C<T> read(int n);
 forward_list<int> delete_node(forward_list<int>& list, const int position);
 void print_list(const forward_list<int>& list);
 
