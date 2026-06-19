@@ -1,43 +1,47 @@
 // https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list-in-reverse/problem?isFullScreen=true
+// C++23
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
-void print_reverse_list(forward_list<int>& list);
+template<template<class ...> class C, class T>
+C<T> read(int n);
+template<template<class ...> class C, class T>
+void print_reverse(C<T>& container);
 
 int main()
 {
     int test_cases;
     cin >> test_cases;
-    vector<forward_list<int>> reversed_lists(test_cases);
+    vector<forward_list<int>> lists(test_cases);
 
-    for (int n{}; auto& x : reversed_lists) {
+    for (int n{}; auto& list : lists) {
         cin >> n;
-        forward_list<int> list {initialize_list(n)};
-        x = list;
+        list = read<forward_list, int>(n);
     }
 
-    for (auto& list : reversed_lists)
-        print_reverse_list(list);
+    for (auto& list : lists)
+        print_reverse(list);
 
     return 0;
 }
 
-    forward_list<int> initialize_list(const int n)
-    {
-        forward_list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
+template<template<class ...> class C, class T>
+C<T> read(int n)
+{
+    C<T> container(n);
+    for (auto& x : container)
+        cin >> x;
+    return container;
+}
 
-    void print_reverse_list(forward_list<int>& list)
-    {
-        list.reverse();
-        ranges::for_each(list, [](const auto x) {cout << x << '\n';});
-        list.reverse();
-    }
+// T: O(n)
+// S: O(1) extra space
+template<template<class ...> class C, class T>
+void print_reverse(C<T>& container)
+{
+    container.reverse();
+    for (const auto& x : container)
+        println("{}", x);
+    container.reverse();
+}
