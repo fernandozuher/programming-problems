@@ -1,45 +1,64 @@
 // https://www.hackerrank.com/challenges/reverse-a-linked-list/problem?isFullScreen=true
+// C++26
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
-void print_list(const forward_list<int>& list);
+template<class T = string>
+T read();
+
+template<template<class...> class C = vector, class T = string>
+C<T> read(int n);
+
+template<template<class...> class C, class T>
+void print(const C<T>& container);
 
 int main()
 {
-    int test_cases;
-    cin >> test_cases;
-    vector<forward_list<int>> reversed_lists(test_cases);
-
-    int n{};
-    for (auto& x : reversed_lists) {
-        cin >> n;
-        forward_list<int> list {initialize_list(n)};
-        list.reverse();
-        x = list;
+    auto n{ read<int>() };
+    vector<forward_list<int> > lists(n);
+    for (auto& l : lists) {
+        auto n{ read<int>() };
+        l = read<forward_list, int>(n);
+        l.reverse();
     }
 
-    for (const auto& list : reversed_lists) {
-        print_list(list);
-        cout << '\n';
+    for (const auto& l : lists) {
+        print(l);
+        println();
     }
 
     return 0;
 }
 
-    forward_list<int> initialize_list(const int n)
-    {
-        forward_list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
+template<class T>
+T read()
+{
+    T x;
+    cin >> x;
+    return x;
+}
 
-    void print_list(const forward_list<int>& list)
-    {
-        ranges::for_each(list, [](const auto x) {cout << x << ' ';});
+template<template<class...> class C, class T>
+C<T> read(int n)
+{
+    C<T> container(n);
+    for (auto& x : container)
+        cin >> x;
+    return container;
+}
+
+template<template<class...> class C, class T>
+void print(const C<T>& container)
+{
+    if (container.empty())
+        return;
+
+    auto it{ container.begin() };
+    for (; it != container.end(); ++it) {
+        if (next(it, 1) == container.end())
+            break;
+        cout << *it << ' ';
     }
+    cout << *it;
+}
