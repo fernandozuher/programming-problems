@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/compare-two-linked-lists/problem?isFullScreen=true
-// C++26
+// C++23
 
 import std;
 using namespace std;
@@ -41,7 +41,7 @@ void println(const C& container)
 
 int main()
 {
-    int n{ read<int>() };
+    auto n{ read<int>() };
 
     println(
         views::iota(0, n)
