@@ -1,53 +1,68 @@
 // https://www.hackerrank.com/challenges/find-the-merge-point-of-two-joined-linked-lists/problem?isFullScreen=true
+// C++26
 
 // BAD INPUT COMPOSED (ADAPTED FROM) BY HACKERRANK SOURCE
 
-#include <algorithm>
-#include <forward_list>
-#include <iostream>
-#include <vector>
-
+import std;
 using namespace std;
 
-forward_list<int> initialize_list(const int n);
-int get_node_value(const forward_list<int>& list, const int position);
-
 template<class T>
-void print_array(const vector<T>& array);
+concept Primitive = is_fundamental_v<T>;
+template<Primitive T>
+T read()
+{
+    T x;
+    cin >> x;
+    return x;
+}
+
+template<ranges::range C, class T>
+C read(int n)
+{
+    return views::iota(0, n)
+        | views::transform([](auto) { return read<T>(); })
+        | ranges::to<C>();
+}
+
+template<ranges::range C, class T>
+pair<C, C> read_2_containers()
+{
+    int n{ read<T>() };
+    auto container1{ read<C, T>(n) };
+    n = read<T>();
+    auto container2{ read<C, T>(n) };
+    return { container1, container2 };
+}
+
+// T: It depends on the container type. For forward_list is O(position)
+// S: O(1) extra space
+template<ranges::range C>
+auto value_at(const C& container, int position)
+{
+    return *std::next(container.begin(), position);
+}
+
+template<ranges::range C>
+void println(const C& container)
+{
+    for (const auto& x : container)
+        print("{} ", x);
+    println();
+}
 
 int main()
 {
-    int test_cases;
-    cin >> test_cases;
-    vector<int> merged_point_values(test_cases);
+    int n{ read<int>() };
+    vector<int> merge_points(n);
 
-    for (int index{}, n{}; auto& x : merged_point_values) {
-        cin >> index >> n;
-        forward_list<int> list1 {initialize_list(n)};
-        cin >> n;
-        forward_list<int> list2 {initialize_list(n)};
-        x = get_node_value(list1, index);
+    for (auto& x : merge_points) {
+        int position{ read<int>() };
+        auto [l1, l2] { read_2_containers<forward_list<int>, int>() };
+        l1.merge(l2);
+        x = value_at(l1, position);
     }
 
-    print_array(merged_point_values);
+    println(merge_points);
 
     return 0;
 }
-
-    forward_list<int> initialize_list(const int n)
-    {
-        forward_list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
-
-    int get_node_value(const forward_list<int>& list, const int position)
-    {
-        return *std::next(list.begin(), position);
-    }
-
-    template<class T>
-    void print_array(const vector<T>& array)
-    {
-        ranges::for_each(array, [](const auto x) {cout << x << '\n';});
-    }
