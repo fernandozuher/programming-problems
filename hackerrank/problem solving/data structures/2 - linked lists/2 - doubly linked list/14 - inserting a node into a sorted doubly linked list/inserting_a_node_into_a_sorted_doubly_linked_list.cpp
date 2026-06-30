@@ -1,52 +1,69 @@
 // https://www.hackerrank.com/challenges/insert-a-node-into-a-sorted-doubly-linked-list/problem?isFullScreen=true
+// C++26
 
-#include <algorithm>
-#include <iostream>
-#include <list>
-#include <vector>
-
+import std;
 using namespace std;
 
-list<int> initialize_list(const int n);
-list<int> sorted_insert(list<int>& list, const int data);
-void print_list(const list<int>& list);
+template<class T>
+concept Primitive = is_fundamental_v<T>;
+
+template<Primitive T>
+T read()
+{
+    T x;
+    cin >> x;
+    return x;
+}
+
+template<ranges::range C, Primitive T>
+C read(int n)
+{
+    return views::iota(0, n)
+        | views::transform([](auto) { return read<T>(); })
+        | ranges::to<C>();
+}
+
+// n: length of list
+// T: O(n)
+// S: O(1) extra space
+template<Primitive T>
+void insert_sorted(list<T>& list, T data)
+{
+    auto it = list.begin();
+    for (; it != list.end(); ++it) {
+        if (*it >= data)
+            break;
+    }
+    list.insert(it, data);
+}
+
+template<ranges::range C>
+void print(const C& c)
+{
+    for (const auto& x : c)
+        print("{} ", x);
+}
 
 int main()
 {
-    int test_cases;
-    cin >> test_cases;
-    vector<list<int>> sorted_lists(test_cases);
+    int n;
+    cin >> n;
 
-    for (int n{}, data{}; auto& x : sorted_lists) {
-        cin >> n;
-        list<int> list {initialize_list(n)};
-        cin >> data;
-        x = sorted_insert(list, data);
-    }
+    auto lists =
+        views::iota(0, n)
+        | views::transform([](auto) {
+            auto n{ read<int>() };
+            auto l{ read<list<int>, int>(n) };
+            auto data{ read<int>() };
+            insert_sorted<int>(l, data);
+            return l;
+        })
+        | ranges::to<vector<list<int>>>();
 
-    for (const auto& list : sorted_lists) {
-        print_list(list);
-        cout << '\n';
+    for (const auto& l : lists) {
+        print(l);
+        println();
     }
 
     return 0;
 }
-
-    list<int> initialize_list(const int n)
-    {
-        list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
-
-    list<int> sorted_insert(list<int>& list, const int data)
-    {
-        auto it {ranges::lower_bound(list, data)};
-        list.insert(it, data);
-        return list;
-    }
-
-    void print_list(const list<int>& list)
-    {
-        ranges::for_each(list, [](const auto x) {cout << x << ' ';});
-    }

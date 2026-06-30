@@ -1,50 +1,62 @@
 // https://www.hackerrank.com/challenges/reverse-a-doubly-linked-list/problem?isFullScreen=true
+// C++26
 
-#include <algorithm>
-#include <iostream>
-#include <list>
-#include <vector>
-
+import std;
 using namespace std;
 
-list<int> initialize_list(const int n);
-list<int> reverse(list<int>& list);
-void print_list(const list<int>& list);
+template<class T>
+concept Primitive = is_fundamental_v<T>;
+
+template<Primitive T>
+T read()
+{
+    T x;
+    cin >> x;
+    return x;
+}
+
+template<ranges::range C, Primitive T>
+C read(int n)
+{
+    return views::iota(0, n)
+        | views::transform([](auto) { return read<T>(); })
+        | ranges::to<C>();
+}
+
+// n: length of l
+// T: O(n)
+// S: O(1) extra space
+template<Primitive T>
+void reverse(list<T>& l)
+{
+    l.reverse();
+}
+
+template<ranges::range C>
+void print(const C& c)
+{
+    for (const auto& x : c)
+        print("{} ", x);
+}
 
 int main()
 {
-    int test_cases;
-    cin >> test_cases;
-    vector<list<int>> reversed_lists(test_cases);
+    auto n{ read<int>() };
 
-    for (int n{}; auto& x : reversed_lists) {
-        cin >> n;
-        list<int> list {initialize_list(n)};
-        x = reverse(list);
-    }
+    auto lists =
+        views::iota(0, n)
+        | views::transform([](auto) {
+            auto n{ read<int>() };
+            auto l{ read<list<int>, int>(n) };
+            reverse(l);
+            return l;
+        })
+        | ranges::to<vector<list<int>>>();
 
-    for (const auto& list : reversed_lists) {
-        print_list(list);
-        cout << '\n';
+    for (const auto& l : lists) {
+        print(l);
+        println();
     }
 
     return 0;
 }
-
-    list<int> initialize_list(const int n)
-    {
-        list<int> list(n);
-        ranges::generate(list, [] {int x; cin >> x; return x;});
-        return list;
-    }
-
-    list<int> reverse(list<int>& list)
-    {
-        list.reverse();
-        return list;
-    }
-
-    void print_list(const list<int>& list)
-    {
-        ranges::for_each(list, [](const auto x) {cout << x << ' ';});
-    }
