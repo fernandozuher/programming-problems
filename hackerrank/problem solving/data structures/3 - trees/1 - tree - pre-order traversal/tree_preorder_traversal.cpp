@@ -1,55 +1,91 @@
 // https://www.hackerrank.com/challenges/tree-preorder-traversal/problem?isFullScreen=true
+// C++23
 
-import <iostream>;
-import <memory>;
-
+import std;
 using namespace std;
 
+template<class T>
 struct Node {
-    int data;
-    shared_ptr<Node> left {};
-    shared_ptr<Node> right {};
+    T data;
+    shared_ptr<Node<T>> left{};
+    shared_ptr<Node<T>> right{};
 
-    Node(const int data): data{data} {}
+    explicit Node(T data) : data{ move(data) } {}
 };
 
-shared_ptr<Node> insert_node(const shared_ptr<Node>& node, const int data);
-void pre_order(const shared_ptr<Node>& node);
+template<class T>
+concept Readable = requires(istream& is, T& value) { is >> value; };
+
+template<Readable T>
+T read_as()
+{
+    T x;
+    if (cin >> x)
+        return x;
+    throw invalid_argument("Failed to read value.");
+}
+
+struct read {
+    template<Readable T>
+    operator T() const {
+        return read_as<T>();
+    }
+};
+
+template<ranges::range C>
+C read_to(int n)
+{
+    using T = ranges::range_value_t<C>;
+    return views::iota(0, n)
+        | views::transform([](...) { return read_as<T>(); })
+        | ranges::to<C>();
+}
+
+template<class T>
+shared_ptr<Node<T>> insert(const T& data, const shared_ptr<Node<T>>& node = nullptr)
+{
+    if (!node)
+        return make_shared<Node<T>>(data);
+
+    if (data <= node->data)
+        node->left = insert(data, node->left);
+    else
+        node->right = insert(data, node->right);
+
+    return node;
+}
+
+template<ranges::range C, class T = ranges::range_value_t<C>>
+shared_ptr<Node<T>> to_binary_tree(const C& c)
+{
+    shared_ptr<Node<T>> root;
+    for (const auto& x : c) {
+        root = insert(x, root);
+    }
+    return root;
+}
+
+// n = number of nodes
+// T: O(n)
+// S:
+//   h = height of the tree
+//   O(h) recursion call stack, extra space 
+//   Worst case: h = n => O(n)
+template<class T>
+void pre_order(const shared_ptr<Node<T>>& node)
+{
+    if (node) {
+        print("{} ", node->data);
+        pre_order(node->left);
+        pre_order(node->right);
+    }
+}
 
 int main()
 {
-    int n;
-    cin >> n;
-
-    shared_ptr<Node> root {};
-    for (int data; n-- && cin >> data;)
-        root = insert_node(root, data);
-
+    int n{ read() };
+    auto arr = read_to<vector<int>>(n);
+    auto root = to_binary_tree(arr);
     pre_order(root);
-
     return 0;
 }
-
-    shared_ptr<Node> insert_node(const shared_ptr<Node>& node, const int data)
-    {
-        if (!node)
-            return shared_ptr<Node> {new Node{data}};
-
-        if (shared_ptr<Node> current; data <= node->data) {
-            current = insert_node(node->left, data);
-            node->left = current;
-        } else {
-            current = insert_node(node->right, data);
-            node->right = current;
-        }
-        return node;
-    }
-
-    void pre_order(const shared_ptr<Node>& node)
-    {
-        if (node) {
-            cout << node->data << ' ';
-            pre_order(node->left);
-            pre_order(node->right);
-        }
-    }
