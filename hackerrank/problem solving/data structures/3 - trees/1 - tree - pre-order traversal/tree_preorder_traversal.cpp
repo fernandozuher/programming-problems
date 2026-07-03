@@ -7,8 +7,8 @@ using namespace std;
 template<class T>
 struct Node {
     T data;
-    shared_ptr<Node<T>> left{};
-    shared_ptr<Node<T>> right{};
+    shared_ptr<Node<T>> left;
+    shared_ptr<Node<T>> right;
 
     explicit Node(T data) : data{ move(data) } {}
 };
