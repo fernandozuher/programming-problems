@@ -1,8 +1,8 @@
 // https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
 
 function main() {
-  let n1 = +readLine();
-  let n2 = +readLine();
+  const n1 = +readLine();
+  const n2 = +readLine();
   console.log(solveMeFirst(n1, n2));
 }
 
@@ -17,7 +17,7 @@ function solveMeFirst(n1, n2) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 
