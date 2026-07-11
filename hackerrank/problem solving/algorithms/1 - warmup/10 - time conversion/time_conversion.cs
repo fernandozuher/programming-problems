@@ -1,30 +1,30 @@
 // https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 
 string time = Console.ReadLine()!;
-Console.WriteLine(TimeConversion(time));
+Console.WriteLine(To24HourTime(time));
 
 // T: O(1)
 // S: O(1) extra space
-string TimeConversion(string time)
+string To24HourTime(string hour12)
 {
-    string convertedTime = time.Substring(0, 8);
-    string hour = time.Substring(0, 2);
-    string dayPeriod = time.Substring(8, 1);
+    string hour24 = hour12.Substring(0, 8);
+    string hour = hour12.Substring(0, 2);
+    string dayPeriod = hour12.Substring(8, 1);
 
-    if (hour == "12")
+    if ((hour == "12" && dayPeriod == "A") || (hour != "12" && dayPeriod == "P"))
     {
-        if (dayPeriod == "A")
-        {
-            string midnight = "00";
-            convertedTime = convertedTime.Replace(hour, midnight);
-        }
-    }
-    else if (dayPeriod == "P")
-    {
-        int newHour = int.Parse(hour);
-        newHour += 12;
-        convertedTime = convertedTime.Replace(hour, newHour.ToString());
+        string newHour = GenNewHour(dayPeriod, hour);
+        hour24 = hour24.Replace(hour, newHour);
     }
 
-    return convertedTime;
+    return hour24;
+}
+
+string GenNewHour(string dayPeriod, string hour)
+{
+    if (dayPeriod == "A")
+        return "00";
+    int newHour = int.Parse(hour);
+    newHour += 12;
+    return newHour.ToString();
 }

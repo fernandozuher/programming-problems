@@ -2,36 +2,40 @@
 
 function main() {
   const time = readLine();
-  console.log(timeConversion(time));
+  console.log(to24HourTime(time));
 }
 
 // T: O(1)
 // S: O(1) extra space
-function timeConversion(time) {
-  let convertedTime = time.substring(0, 8);
-  const hour = time.substring(0, 2);
-  const dayPeriod = time.substring(8, 9);
+function to24HourTime(hour12) {
+  let hour24 = hour12.substring(0, 8);
+  const hour = hour12.substring(0, 2);
+  const dayPeriod = hour12.substring(8, 9);
 
-  if (hour === '12') {
-    if (dayPeriod === 'A') {
-      let midnight = '00';
-      convertedTime = convertedTime.replace(hour, midnight);
-    }
-  } else if (dayPeriod === 'P') {
-    let newHour = Number(hour);
-    newHour += 12;
-    convertedTime = convertedTime.replace(hour, newHour.toString());
+  if (
+    (hour === '12' && dayPeriod === 'A') ||
+    (hour !== '12' && dayPeriod === 'P')
+  ) {
+    const newHour = genNewHour(dayPeriod, hour);
+    hour24 = hour24.replace(hour, newHour);
   }
 
-  return convertedTime;
+  return hour24;
 }
 
-////////////////////////////////////////////////
+function genNewHour(dayPeriod, hour) {
+  if (dayPeriod === 'A') return '00';
+  let newHour = +hour;
+  newHour += 12;
+  return newHour.toString();
+}
+
+//////////////////////////////////////////////////
 
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

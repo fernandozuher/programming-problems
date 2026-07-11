@@ -5,100 +5,63 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *time_conversion(const char *time);
-char *convert_time(const char *time);
-char *get_hour(const char *time);
-char *get_day_period(const char *time);
-bool is_12_hour(const char *hour);
-bool is_first_period_of_day(const char *day_period);
-char *change_hour(const char *hour, char *time);
-char *convert_pm_hour_to_24_h(char *hour);
+char *to_24_hour_time(const char *hour_12);
+char *gen_new_hour(char day_period, const char *hour);
 
 int main()
 {
-    constexpr int max_string = 15;
-    char string[max_string];
-    scanf("%s", string);
+    constexpr int max_string = 10;
+    char string[max_string + 1]; // + 1 = \0
+    scanf("%10s", string);
 
-    char *converted_time = time_conversion(string);
-    printf("%s", converted_time);
+    char *hour_24 = to_24_hour_time(string);
+    puts(hour_24);
 
-    free(converted_time);
+    free(hour_24);
+
     return 0;
 }
 
 // T: O(1)
 // S: O(1) extra space
-char *time_conversion(const char *time)
+char *to_24_hour_time(const char *hour_12)
 {
-    char *converted_time = convert_time(time);
-    char *hour = get_hour(time);
-    char *day_period = get_day_period(time);
+    constexpr int hour_24_size = 8;
+    auto hour_24 = (char *) malloc(hour_24_size + 1); // + 1 = \0
+    strncpy(hour_24, hour_12, hour_24_size);
+    hour_24[hour_24_size] = '\0';
 
-    if (is_12_hour(hour)) {
-        if (is_first_period_of_day(day_period)) {
-            auto new_hour = "00";
-            converted_time = change_hour(new_hour, converted_time);
-        }
-    } else if (!is_first_period_of_day(day_period)) {
-        char *new_hour = convert_pm_hour_to_24_h(hour);
-        converted_time = change_hour(new_hour, converted_time);
+    constexpr int hour_size = 2;
+    char hour[hour_size + 1]; // + 1 = \0
+    strncpy(hour, hour_12, hour_size);
+    hour[hour_size] = '\0';
+
+    constexpr int day_period_index = 8;
+    char day_period = hour_12[day_period_index];
+
+    if ((!strcmp(hour, "12") && day_period == 'A')
+        ||
+        (strcmp(hour, "12") && day_period == 'P')) {
+        auto new_hour = gen_new_hour(day_period, hour);
+        memcpy(hour_24, new_hour, hour_size);
+        free(new_hour);
     }
 
-    return converted_time;
+    return hour_24;
 }
 
-char *convert_time(const char *time)
-{
-    constexpr int time_string_size = 9;
-    auto converted_time = (char *) malloc(time_string_size);
-    strncpy(converted_time, time, time_string_size - 1);
-    converted_time[8] = '\0';
-    return converted_time;
-}
-
-char *get_hour(const char *time)
-{
-    constexpr int hour_size = 3;
-    auto hour = (char *) malloc(hour_size);
-    strncpy(hour, time, hour_size);
-    hour[2] = '\0';
-    return hour;
-}
-
-char *get_day_period(const char *time)
-{
-    constexpr int day_period_string_size = 2;
-    auto day_period = (char *) malloc(day_period_string_size);
-
-    constexpr int time_string_size = 8;
-    strncpy(day_period, time + time_string_size, 1);
-    day_period[1] = '\0';
-
-    return day_period;
-}
-
-bool is_12_hour(const char *hour)
-{
-    return !strcmp(hour, "12");
-}
-
-bool is_first_period_of_day(const char *day_period)
-{
-    return !strcmp(day_period, "A");
-}
-
-char *change_hour(const char *hour, char *time)
+char *gen_new_hour(char day_period, const char *hour)
 {
     constexpr int hour_size = 2;
-    strncpy(time, hour, hour_size);
-    return time;
-}
+    auto new_hour = (char *) malloc(hour_size + 1); // + 1 = \0
 
-char *convert_pm_hour_to_24_h(char *hour)
-{
-    int new_hour = atoi(hour);
-    new_hour += 12;
-    sprintf(hour, "%d", new_hour);
-    return hour;
+    if (day_period == 'A')
+        memcpy(new_hour, "00", hour_size);
+    else {
+        int parsed_hour = atoi(hour);
+        parsed_hour += 12;
+        sprintf(new_hour, "%02d", parsed_hour);
+    }
+
+    return new_hour;
 }

@@ -4,26 +4,29 @@ use text_io::read;
 
 fn main() {
     let time: String = read!();
-    print!("{}", time_conversion(&time));
+    print!("{}", to_24_hour_time(&time));
 }
 
 // T: O(1)
 // S: O(1) extra space
-fn time_conversion(time: &String) -> String {
-    let mut converted_time: String = time[0..8].to_string();
-    let hour = &time[0..2];
-    let day_period = &time[8..9];
+fn to_24_hour_time(hour_12: &String) -> String {
+    let mut hour_24: String = hour_12[0..8].to_string();
+    let hour = &hour_12[0..2];
+    let day_period = &hour_12[8..9];
 
-    if hour == "12" {
-        if day_period == "A" {
-            let midnight: &str = "00";
-            converted_time = converted_time.replace(hour, midnight);
-        }
-    } else if day_period == "P" {
-        let mut new_hour: i32 = hour.parse().unwrap();
-        new_hour += 12;
-        converted_time = converted_time.replace(hour, &new_hour.to_string());
+    if (hour == "12" && day_period == "A") || (hour != "12" && day_period == "P") {
+        let new_hour: String = gen_new_hour(day_period, hour);
+        hour_24 = hour_24.replace(hour, &new_hour);
     }
 
-    converted_time
+    hour_24
+}
+
+fn gen_new_hour(day_period: &str, hour: &str) -> String {
+    if day_period == "A" {
+        return "00".to_string();
+    }
+    let mut new_hour: i32 = hour.parse().unwrap();
+    new_hour += 12;
+    new_hour.to_string()
 }

@@ -2,28 +2,32 @@
 
 function main() {
   const time: string = readLine();
-  console.log(timeConversion(time));
+  console.log(to24HourTime(time));
 }
 
 // T: O(1)
 // S: O(1) extra space
-function timeConversion(time: string): string {
-  let convertedTime: string = time.substring(0, 8);
-  const hour: string = time.substring(0, 2);
-  const dayPeriod: string = time.substring(8, 9);
+function to24HourTime(hour12: string): string {
+  let hour24: string = hour12.substring(0, 8);
+  const hour: string = hour12.substring(0, 2);
+  const dayPeriod: string = hour12.substring(8, 9);
 
-  if (hour === '12') {
-    if (dayPeriod === 'A') {
-      let midnight: string = '00';
-      convertedTime = convertedTime.replace(hour, midnight);
-    }
-  } else if (dayPeriod === 'P') {
-    let newHour: number = Number(hour);
-    newHour += 12;
-    convertedTime = convertedTime.replace(hour, newHour.toString());
+  if (
+    (hour == '12' && dayPeriod == 'A') ||
+    (hour != '12' && dayPeriod == 'P')
+  ) {
+    const newHour: string = genNewHour(dayPeriod, hour);
+    hour24 = hour24.replace(hour, newHour);
   }
 
-  return convertedTime;
+  return hour24;
+}
+
+function genNewHour(dayPeriod: string, hour: string): string {
+  if (dayPeriod === 'A') return '00';
+  let newHour = +hour;
+  newHour += 12;
+  return newHour.toString();
 }
 
 //////////////////////////////////////////////////
@@ -31,7 +35,7 @@ function timeConversion(time: string): string {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 
