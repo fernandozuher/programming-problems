@@ -10,10 +10,5 @@ fn main() {
 // T: O(n)
 // S: O(1) extra space
 fn sum_stdin(n: usize) -> i32 {
-    let mut sum: i32 = 0;
-    for _ in 0..n {
-        let x: i32 = read!();
-        sum += x;
-    }
-    sum
+    (0..n).map(|_| -> i32 { read!() }).sum()
 }

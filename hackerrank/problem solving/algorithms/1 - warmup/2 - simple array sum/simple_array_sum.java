@@ -6,6 +6,7 @@ void main() {
     IO.println(sumStdin());
 }
 
+// n: number of integers in the input line
 // T: O(n)
 // S: O(n) extra space
 int sumStdin() {

@@ -2,21 +2,16 @@
 
 function main() {
   readLine();
-  const arr = readNumbers();
-  console.log(sum(arr));
+  console.log(sumStdin());
 }
 
-function readNumbers() {
+// n: number of integers in the input line
+// T: O(n)
+// S: O(n) extra space
+function sumStdin() {
   return readLine()
     .split(' ')
-    .map((x) => +x);
-}
-
-// n: length of arr
-// T: O(n)
-// S: O(1) extra space
-function sum(arr) {
-  return arr.reduce((a, b) => a + b, 0);
+    .reduce((acc, x) => acc + +x, 0);
 }
 
 ////////////////////////////////////////////////
@@ -24,7 +19,7 @@ function sum(arr) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 
