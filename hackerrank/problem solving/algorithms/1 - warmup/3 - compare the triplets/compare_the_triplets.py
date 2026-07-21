@@ -1,27 +1,14 @@
 # https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-import sys
-from typing import Type, List, Any, TextIO
-
-
 def main():
-    triplet_a = read(int)
-    triplet_b = read(int)
+    triplet_a = read_nums()
+    triplet_b = read_nums()
     score_a, score_b = compare_triplets(triplet_a, triplet_b)
     print(f"{score_a} {score_b}")
 
 
-def read(target_type: Type[Any], stream: TextIO = sys.stdin) -> List[Any]:
-    if not is_callable_builtin_type(target_type):
-        raise TypeError(f"Type '{target_type}' is not a valid built-in type.")
-    line = stream.readline()
-    return list(map(target_type, line.strip().split()))
-
-
-def is_callable_builtin_type(target_type: Type[Any]):
-    return (hasattr(target_type, '__module__') and
-            target_type.__module__ == 'builtins' and
-            callable(target_type))
+def read_nums():
+    return list(map(int, input().split()))
 
 
 # n: length of a and b = 3

@@ -1,14 +1,14 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-int[] tripletA = ReadNumbers();
-int[] tripletB = ReadNumbers();
+int[] tripletA = ReadNums();
+int[] tripletB = ReadNums();
 var (scoreA, scoreB) = CompareTriplets(tripletA, tripletB);
 Console.WriteLine("{0} {1}", scoreA, scoreB);
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of a and b = 3
-// T: O(3) = O(1)
+// T: O(3) => O(1)
 // S: O(1) extra space
 (int, int) CompareTriplets(int[] tripletA, int[] tripletB)
 {

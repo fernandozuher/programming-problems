@@ -6,30 +6,30 @@ import "fmt"
 
 func main() {
     const N = 3
-    tripletA := readNumbers(N)
-    tripletB := readNumbers(N)
+    tripletA := readNums(N)
+    tripletB := readNums(N)
     scoreA, scoreB := compareTriplets(tripletA, tripletB)
     fmt.Println(scoreA, scoreB)
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr
 }
 
 // n: length of a and b = 3
-// T: O(3) = O(1)
+// T: O(3) => O(1)
 // S: O(1) extra space
-func compareTriplets(a, b []int) (int, int) {
+func compareTriplets(tripletA, tripletB []int) (int, int) {
     scoreA, scoreB := 0, 0
 
-    for i := range a {
-        if a[i] > b[i] {
+    for i := range tripletA {
+        if tripletA[i] > tripletB[i] {
             scoreA++
-        } else if b[i] > a[i] {
+        } else if tripletB[i] > tripletA[i] {
             scoreB++
         }
     }

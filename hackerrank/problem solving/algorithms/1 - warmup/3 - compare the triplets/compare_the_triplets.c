@@ -3,16 +3,16 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
-void compare_triplets(const int *ta, const int *tb, int *out);
+void read_nums(int *arr, int n);
+void compare_triplets(const int *triplet_a, const int *triplet_b, int *out);
 
 int main()
 {
     constexpr int n = 3;
     constexpr int out_n = 2;
     int triplet_a[n], triplet_b[n], output[out_n];
-    read_numbers(triplet_a, n);
-    read_numbers(triplet_b, n);
+    read_nums(triplet_a, n);
+    read_nums(triplet_b, n);
 
     compare_triplets(triplet_a, triplet_b, output);
     printf("%d %d\n", output[0], output[1]);
@@ -20,23 +20,23 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);
 }
 
 // n: length of a and b = 3
-// T: O(3) = O(1)
+// T: O(3) => O(1)
 // S: O(1) extra space
-void compare_triplets(const int *ta, const int *tb, int *out)
+void compare_triplets(const int *triplet_a, const int *triplet_b, int *out)
 {
     int score_a = 0, score_b = 0;
 
     for (int i = 0, n = 3; i < n; ++i)
-        if (ta[i] > tb[i])
+        if (triplet_a[i] > triplet_b[i])
             ++score_a;
-        else if (tb[i] > ta[i])
+        else if (triplet_b[i] > triplet_a[i])
             ++score_b;
 
     out[0] = score_a;

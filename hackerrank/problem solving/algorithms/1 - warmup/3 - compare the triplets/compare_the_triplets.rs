@@ -1,21 +1,19 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
     const N: usize = 3;
-    let triplet_a: Vec<i32> = read_numbers(N);
-    let triplet_b: Vec<i32> = read_numbers(N);
+    let triplet_a: Vec<i32> = read_nums(N);
+    let triplet_b: Vec<i32> = read_nums(N);
     let (score_a, score_b) = compare_triplets(triplet_a, triplet_b);
     println!("{} {}", score_a, score_b);
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of a and b = 3
-// T: O(3) = O(1)
+// T: O(3) => O(1)
 // S: O(1) extra space
 fn compare_triplets(triplet_a: Vec<i32>, triplet_b: Vec<i32>) -> (i32, i32) {
     let (mut score_a, mut score_b) = (0, 0);
