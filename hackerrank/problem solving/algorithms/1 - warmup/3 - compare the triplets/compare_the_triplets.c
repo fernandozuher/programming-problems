@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 void read_nums(int *arr, int n);
-void compare_triplets(const int *triplet_a, const int *triplet_b, int *out);
+void compute_triplet_scores(const int *triplet_a, const int *triplet_b, int *out);
 
 int main()
 {
@@ -14,7 +14,7 @@ int main()
     read_nums(triplet_a, n);
     read_nums(triplet_b, n);
 
-    compare_triplets(triplet_a, triplet_b, output);
+    compute_triplet_scores(triplet_a, triplet_b, output);
     printf("%d %d\n", output[0], output[1]);
 
     return 0;
@@ -29,7 +29,7 @@ void read_nums(int *arr, int n)
 // n: length of a and b = 3
 // T: O(3) => O(1)
 // S: O(1) extra space
-void compare_triplets(const int *triplet_a, const int *triplet_b, int *out)
+void compute_triplet_scores(const int *triplet_a, const int *triplet_b, int *out)
 {
     int score_a = 0, score_b = 0;
 

@@ -3,7 +3,7 @@
 function main() {
   const tripletA: number[] = readNums();
   const tripletB: number[] = readNums();
-  const [scoreA, scoreB]: number[] = compareTriplets(tripletA, tripletB);
+  const [scoreA, scoreB]: number[] = computeTripletScores(tripletA, tripletB);
   console.log(scoreA, scoreB);
 }
 
@@ -14,7 +14,7 @@ function readNums(): number[] {
 // n: length of a and b = 3
 // T: O(3) => O(1)
 // S: O(1) extra space
-function compareTriplets(tripletA: number[], tripletB: number[]): number[] {
+function computeTripletScores(tripletA: number[], tripletB: number[]): number[] {
   let [scoreA, scoreB]: number[] = [0, 0];
 
   for (let i = 0; i < tripletA.length; i++)

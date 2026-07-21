@@ -3,7 +3,7 @@
 def main():
     triplet_a = read_nums()
     triplet_b = read_nums()
-    score_a, score_b = compare_triplets(triplet_a, triplet_b)
+    score_a, score_b = compute_triplet_scores(triplet_a, triplet_b)
     print(f"{score_a} {score_b}")
 
 
@@ -14,7 +14,7 @@ def read_nums():
 # n: length of a and b = 3
 # T: O(3) => O(1)
 # S: O(1) extra space
-def compare_triplets(triplet_a, triplet_b):
+def compute_triplet_scores(triplet_a, triplet_b):
     score_a, score_b = 0, 0
 
     for ta, tb in zip(triplet_a, triplet_b):
@@ -23,7 +23,7 @@ def compare_triplets(triplet_a, triplet_b):
         elif tb > ta:
             score_b += 1
 
-    return [score_a, score_b]
+    return score_a, score_b
 
 
 if __name__ == '__main__':

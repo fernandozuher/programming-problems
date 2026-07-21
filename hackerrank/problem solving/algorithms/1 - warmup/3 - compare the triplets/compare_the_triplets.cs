@@ -2,7 +2,7 @@
 
 int[] tripletA = ReadNums();
 int[] tripletB = ReadNums();
-var (scoreA, scoreB) = CompareTriplets(tripletA, tripletB);
+var (scoreA, scoreB) = ComputeTripletScores(tripletA, tripletB);
 Console.WriteLine("{0} {1}", scoreA, scoreB);
 
 int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
@@ -10,7 +10,7 @@ int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 // n: length of a and b = 3
 // T: O(3) => O(1)
 // S: O(1) extra space
-(int, int) CompareTriplets(int[] tripletA, int[] tripletB)
+(int, int) ComputeTripletScores(int[] tripletA, int[] tripletB)
 {
     int scoreA = 0, scoreB = 0;
 

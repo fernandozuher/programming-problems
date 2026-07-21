@@ -5,14 +5,14 @@ import std;
 using namespace std;
 
 vector<int> read_nums(size_t n);
-pair<int, int> count_scores_between(const vector<int>& triplet_a, const vector<int>& triplet_b);
+pair<int, int> compute_triplet_scores(const vector<int>& triplet_a, const vector<int>& triplet_b);
 
 int main()
 {
     constexpr int n{ 3 };
     vector triplet_a{ read_nums(n) };
     vector triplet_b{ read_nums(n) };
-    auto [score_a, score_b] {count_scores_between(triplet_a, triplet_b)};
+    auto [score_a, score_b] { compute_triplet_scores(triplet_a, triplet_b) };
     println("{} {}", score_a, score_b);
     return 0;
 }
@@ -27,7 +27,7 @@ vector<int> read_nums(size_t n)
 // n: length of a and b = 3
 // T: O(3) => O(1)
 // S: O(1) extra space
-pair<int, int> count_scores_between(const vector<int>& triplet_a, const vector<int>& triplet_b)
+pair<int, int> compute_triplet_scores(const vector<int>& triplet_a, const vector<int>& triplet_b)
 {
     int score_a{}, score_b{};
 
