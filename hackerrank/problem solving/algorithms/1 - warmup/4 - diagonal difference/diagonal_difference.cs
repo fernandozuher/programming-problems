@@ -11,7 +11,7 @@ int DiagonalDifference(int n)
 
     for (int i = 0; i < n; i++)
     {
-        int[] arr = ReadNumbers();
+        int[] arr = ReadNums();
         primarySum += arr[i];
         secondarySum += arr[n - i - 1];
     }
@@ -19,4 +19,4 @@ int DiagonalDifference(int n)
     return Math.Abs(primarySum - secondarySum);
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();

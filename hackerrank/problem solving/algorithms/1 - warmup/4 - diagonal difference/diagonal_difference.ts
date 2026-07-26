@@ -10,8 +10,8 @@ function main() {
 function diagonalDifference(n: number): number {
   let [primarySum, secondarySum] = [0, 0];
 
-  for (let i = 0; i < n; ++i) {
-    let arr: number[] = readNumbers();
+  for (let i = 0; i < n; i++) {
+    let arr: number[] = readNums();
     primarySum += arr[i];
     secondarySum += arr.at(-i - 1);
   }
@@ -19,10 +19,8 @@ function diagonalDifference(n: number): number {
   return Math.abs(primarySum - secondarySum);
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 //////////////////////////////////////////////////
@@ -30,7 +28,7 @@ function readNumbers(): number[] {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

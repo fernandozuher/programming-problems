@@ -11,7 +11,7 @@ def diagonal_difference(n)
   primary_sum, secondary_sum = 0, 0
 
   n.times do |i|
-    arr = read_numbers
+    arr = read_nums
     primary_sum += arr[i]
     secondary_sum += arr[-i - 1]
   end
@@ -19,7 +19,7 @@ def diagonal_difference(n)
   (primary_sum - secondary_sum).abs
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

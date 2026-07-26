@@ -5,7 +5,7 @@ import std;
 using namespace std;
 
 int diagonal_difference(int n);
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 
 int main()
 {
@@ -22,7 +22,7 @@ int diagonal_difference(int n)
     int primary_sum{}, secondary_sum{};
 
     for (int i{}; i < n; ++i) {
-        vector arr{ read_numbers(n) };
+        vector arr{ read_nums(n) };
         primary_sum += arr.at(i);
         secondary_sum += arr.at(n - i - 1);
     }
@@ -30,7 +30,7 @@ int diagonal_difference(int n)
     return abs(primary_sum - secondary_sum);
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

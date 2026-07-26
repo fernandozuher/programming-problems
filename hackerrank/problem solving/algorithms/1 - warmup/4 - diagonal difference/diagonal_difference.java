@@ -12,7 +12,7 @@ int diagonalDifference(int n) {
     int primarySum = 0, secondarySum = 0;
 
     for (int i = 0; i < n; i++) {
-        int[] arr = readNumbers();
+        int[] arr = readNums();
         primarySum += arr[i];
         secondarySum += arr[n - i - 1];
     }
@@ -20,6 +20,6 @@ int diagonalDifference(int n) {
     return Math.abs(primarySum - secondarySum);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }

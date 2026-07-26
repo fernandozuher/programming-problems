@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/diagonal-difference/problem?isFullScreen=true
 
 #include <stdio.h>
-#include <stdlib.h>
 
 int diagonal_difference(int n);
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 
 int main()
 {
@@ -21,7 +20,7 @@ int diagonal_difference(int n)
     int primary_sum = 0, secondary_sum = 0;
 
     for (int i = 0, arr[n]; i < n; ++i) {
-        read_numbers(arr, n);
+        read_nums(arr, n);
         primary_sum += arr[i];
         secondary_sum += arr[n - i - 1];
     }
@@ -29,7 +28,7 @@ int diagonal_difference(int n)
     return abs(primary_sum - secondary_sum);
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

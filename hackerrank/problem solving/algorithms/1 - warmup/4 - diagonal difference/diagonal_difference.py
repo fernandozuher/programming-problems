@@ -11,14 +11,14 @@ def diagonal_difference(n):
     primary_sum, secondary_sum = 0, 0
 
     for i in range(n):
-        arr = read_numbers()
+        arr = read_nums()
         primary_sum += arr[i]
         secondary_sum += arr[-i - 1]
 
     return abs(primary_sum - secondary_sum)
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 
