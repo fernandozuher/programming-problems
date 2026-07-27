@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let arr: Vec<i64> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let arr: Vec<i64> = read_nums(n);
     println!("{}", a_very_big_sum(&arr));
 }
 
-fn read_numbers(n: usize) -> Vec<i64> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i64> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr

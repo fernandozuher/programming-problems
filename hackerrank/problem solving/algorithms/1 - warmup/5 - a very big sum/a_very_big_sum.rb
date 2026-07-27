@@ -2,11 +2,11 @@
 
 def main
   gets
-  arr = read_numbers
+  arr = read_nums
   puts a_very_big_sum(arr)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

@@ -2,14 +2,12 @@
 
 function main() {
   readLine();
-  const arr: number[] = readNumbers();
+  const arr: number[] = readNums();
   console.log(aVeryBigSum(arr));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -24,7 +22,7 @@ function aVeryBigSum(arr: number[]): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(long *arr, int n);
+void read_nums(long *arr, int n);
 long a_very_big_sum(const long *arr, int n);
 
 int main()
@@ -10,13 +10,13 @@ int main()
     int n;
     scanf("%d", &n);
     long arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
     printf("%ld\n", a_very_big_sum(arr, n));
     return 0;
 }
 
 
-void read_numbers(long *arr, int n)
+void read_nums(long *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%ld", &arr[i]);

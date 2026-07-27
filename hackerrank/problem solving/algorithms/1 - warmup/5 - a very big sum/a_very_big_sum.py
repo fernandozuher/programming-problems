@@ -2,11 +2,11 @@
 
 def main():
     input()
-    arr = read_numbers()
+    arr = read_nums()
     print(a_very_big_sum(arr))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

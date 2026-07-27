@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<long long> read_numbers(int n);
+vector<long long> read_nums(int n);
 long long a_very_big_sum(const vector<long long>& arr);
 
 int main()
 {
     int n;
     cin >> n;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     cout << a_very_big_sum(arr);
     return 0;
 }
 
-vector<long long> read_numbers(int n) {
+vector<long long> read_nums(int n) {
     vector<long long> arr(n);
     for (auto& x : arr)
         cin >> x;

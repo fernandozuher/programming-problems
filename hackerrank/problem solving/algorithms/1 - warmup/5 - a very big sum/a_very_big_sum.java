@@ -3,11 +3,11 @@
 
 void main() {
     IO.readln();
-    long[] arr = readNumbers();
+    long[] arr = readNums();
     IO.println(aVeryBigSum(arr));
 }
 
-long[] readNumbers() {
+long[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToLong(Long::parseLong).toArray();
 }
 

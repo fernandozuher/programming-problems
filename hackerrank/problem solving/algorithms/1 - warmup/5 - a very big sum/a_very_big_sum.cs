@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/a-very-big-sum/problem?isFullScreen=true
 
 Console.ReadLine();
-long[] arr = ReadNumbers();
+long[] arr = ReadNums();
 Console.WriteLine(AVeryBigSum(arr));
 
-long[] ReadNumbers() => Console.ReadLine()!.Split().Select(long.Parse).ToArray();
+long[] ReadNums() => Console.ReadLine()!.Split().Select(long.Parse).ToArray();
 
 // n: length of arr
 // T: O(n)

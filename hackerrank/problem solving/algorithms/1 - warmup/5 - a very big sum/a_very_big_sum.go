@@ -7,13 +7,13 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    arr := readNumbers(n)
+    arr := readNums(n)
     fmt.Println(aVeryBigSum(arr))
 }
 
-func readNumbers(n int) []int64 {
+func readNums(n int) []int64 {
     arr := make([]int64, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr
