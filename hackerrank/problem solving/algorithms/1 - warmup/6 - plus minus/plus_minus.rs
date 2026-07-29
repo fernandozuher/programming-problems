@@ -1,16 +1,14 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let arr: Vec<i32> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let arr: Vec<i32> = read_nums(n);
     let ratios: Vec<f32> = plus_minus(&arr);
     print_ratios(ratios);
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr
@@ -21,10 +19,10 @@ fn plus_minus(arr: &[i32]) -> Vec<f32> {
     let mut negative: i32 = 0;
     let mut zero: i32 = 0;
 
-    for number in arr.iter() {
-        if *number > 0 {
+    for &number in arr.iter() {
+        if number > 0 {
             positive += 1;
-        } else if *number < 0 {
+        } else if number < 0 {
             negative += 1;
         } else {
             zero += 1;

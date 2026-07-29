@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 vector<double> plus_minus(const vector<int>& arr);
 void print_ratios(const vector<double>& ratios);
 
@@ -12,13 +12,13 @@ int main()
 {
     int n;
     cin >> n;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     vector ratios{ plus_minus(arr) };
     print_ratios(ratios);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

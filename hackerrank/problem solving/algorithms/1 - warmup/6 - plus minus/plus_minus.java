@@ -3,13 +3,12 @@
 
 void main() {
     IO.readln();
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     double[] ratios = plusMinus(arr);
-    for (var ratio : ratios)
-        System.out.printf("%.6f\n", ratio);
+    printRatios(ratios);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
@@ -29,4 +28,9 @@ double[] plusMinus(int[] arr) {
 
     double n = arr.length;
     return new double[]{positive / n, negative / n, zero / n};
+}
+
+void printRatios(double[] ratios) {
+    for (var ratio : ratios)
+        System.out.printf("%.6f\n", ratio);
 }

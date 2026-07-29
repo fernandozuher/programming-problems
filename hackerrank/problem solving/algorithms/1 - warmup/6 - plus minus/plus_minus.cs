@@ -1,12 +1,11 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] arr = ReadNumbers();
+int[] arr = ReadNums();
 double[] ratios = PlusMinus(arr);
-foreach (var ratio in ratios)
-    Console.WriteLine(ratio.ToString("F6"));
+printRatios(ratios);
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // T: O(n)
@@ -26,5 +25,7 @@ double[] PlusMinus(int[] arr)
             zero++;
 
     double n = arr.Length;
-    return [positive / n, negative / n, zero / n];
+    return new double[] { positive / n, negative / n, zero / n };
 }
+
+void printRatios(double[] ratios) => Array.ForEach(ratios, ratio => Console.WriteLine(ratio.ToString("F6")));

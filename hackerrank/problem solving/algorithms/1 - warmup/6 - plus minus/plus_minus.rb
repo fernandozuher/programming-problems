@@ -2,12 +2,12 @@
 
 def main
   gets
-  arr = read_numbers
+  arr = read_nums
   ratios = plus_minus(arr)
   print_ratios(ratios)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

@@ -7,14 +7,14 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    arr := readNumbers(n)
+    arr := readNums(n)
     ratios := plusMinus(arr)
     printRatios(ratios)
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr
@@ -40,6 +40,7 @@ func plusMinus(arr []int) []float64 {
     positiveRatio := float64(positive) / n
     negativeRatio := float64(negative) / n
     zeroRatio := float64(zero) / n
+
     return []float64{positiveRatio, negativeRatio, zeroRatio}
 }
 

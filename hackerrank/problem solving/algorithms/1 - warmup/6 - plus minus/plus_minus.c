@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 void plus_minus(const int *arr, int n, float *ratios);
 void print_ratios(const float *ratios, int n);
 
@@ -12,7 +12,7 @@ int main()
     int n;
     scanf("%d", &n);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
 
     constexpr int n_ratios = 3;
     float ratios[n_ratios];
@@ -22,7 +22,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

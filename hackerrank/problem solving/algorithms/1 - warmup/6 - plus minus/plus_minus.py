@@ -2,12 +2,12 @@
 
 def main():
     input()
-    arr = read_numbers()
+    arr = read_nums()
     ratios = plus_minus(arr)
     print_ratios(ratios)
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 
