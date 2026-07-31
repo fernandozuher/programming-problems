@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/staircase/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     staircase(n);
 }
 
