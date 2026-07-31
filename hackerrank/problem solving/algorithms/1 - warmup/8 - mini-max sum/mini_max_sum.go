@@ -6,7 +6,8 @@ import "fmt"
 
 func main() {
     const n = 5
-    minSum, maxSum := calcMinMaxSum(readNums(n))
+    arr := readNums(n)
+    minSum, maxSum := calcMinMaxSum(arr)
     fmt.Println(minSum, maxSum)
 }
 
