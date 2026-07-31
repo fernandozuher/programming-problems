@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<long> read_numbers(int n);
+vector<long> read_nums(int n);
 pair<long, long> calc_min_max_sum(const vector<long>& arr);
 
 int main()
 {
     constexpr int n{ 5 };
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     auto [min_sum, max_sum] { calc_min_max_sum(arr) };
     println("{} {}", min_sum, max_sum);
     return 0;
 }
 
-vector<long> read_numbers(int n)
+vector<long> read_nums(int n)
 {
     vector<long> arr(n);
     for (auto& x : arr)
@@ -29,14 +29,14 @@ vector<long> read_numbers(int n)
 // S: O(1) extra space
 pair<long, long> calc_min_max_sum(const vector<long>& arr)
 {
-    long sum, min_value, max_value;
-    sum = min_value = max_value = arr.front();
+    long total, min_value, max_value;
+    total = min_value = max_value = arr.front();
 
     for (auto x : arr | views::drop(1)) {
-        sum += x;
+        total += x;
         min_value = min(x, min_value);
         max_value = max(x, max_value);
     }
 
-    return { sum - max_value, sum - min_value };
+    return { total - max_value, total - min_value };
 }

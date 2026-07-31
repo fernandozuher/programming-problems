@@ -3,14 +3,14 @@
 
 #include <stdio.h>
 
-void read_numbers(long *arr, int n);
+void read_nums(long *arr, int n);
 void calc_min_max_sum(const long *arr, int n, long *min_max_sum);
 
 int main()
 {
     constexpr int n = 5;
     long arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
 
     long min_max_sum[2];
     calc_min_max_sum(arr, n, min_max_sum);
@@ -19,7 +19,7 @@ int main()
     return 0;
 }
 
-void read_numbers(long *arr, int n)
+void read_nums(long *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%ld", &arr[i]);
@@ -30,17 +30,17 @@ void read_numbers(long *arr, int n)
 // S: O(1) extra space
 void calc_min_max_sum(const long *arr, int n, long *min_max_sum)
 {
-    long sum, min, max;
-    sum = min = max = arr[0];
+    long total, min_value, max_value;
+    total = min_value = max_value = arr[0];
 
     for (int i = 1; i < n; ++i) {
-        sum += arr[i];
-        if (arr[i] < min)
-            min = arr[i];
-        if (arr[i] > max)
-            max = arr[i];
+        total += arr[i];
+        if (arr[i] < min_value)
+            min_value = arr[i];
+        if (arr[i] > max_value)
+            max_value = arr[i];
     }
 
-    min_max_sum[0] = sum - max;
-    min_max_sum[1] = sum - min;
+    min_max_sum[0] = total - max_value;
+    min_max_sum[1] = total - min_value;
 }

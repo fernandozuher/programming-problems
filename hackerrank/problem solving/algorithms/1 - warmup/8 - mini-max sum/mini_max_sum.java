@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     long[] minMaxSum = calcMinMaxSum(arr);
     IO.println(minMaxSum[0] + " " + minMaxSum[1]);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
@@ -15,14 +15,14 @@ int[] readNumbers() {
 // T: O(n)
 // S: O(1) extra space
 long[] calcMinMaxSum(int[] arr) {
-    long sum, min, max;
-    sum = min = max = arr[0];
+    long total, minValue, maxValue;
+    total = minValue = maxValue = arr[0];
 
     for (int i = 1; i < arr.length; i++) {
-        sum += arr[i];
-        min = Math.min(min, arr[i]);
-        max = Math.max(max, arr[i]);
+        total += arr[i];
+        minValue = Math.min(minValue, arr[i]);
+        maxValue = Math.max(maxValue, arr[i]);
     }
 
-    return new long[]{sum - max, sum - min};
+    return new long[]{total - maxValue, total - minValue};
 }
