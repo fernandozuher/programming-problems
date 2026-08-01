@@ -2,11 +2,11 @@
 
 def main
   gets
-  candles = read_numbers
+  candles = read_nums
   puts birthday_cake_candles(candles)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

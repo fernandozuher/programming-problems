@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int birthday_cake_candles(const vector<int>& candles);
 
 int main()
 {
     int n;
     cin >> n;
-    vector candles{ read_numbers(n) };
+    vector candles{ read_nums(n) };
     cout << birthday_cake_candles(candles);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

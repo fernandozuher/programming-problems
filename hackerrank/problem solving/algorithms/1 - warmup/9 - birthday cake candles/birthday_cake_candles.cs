@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] candles = ReadNumbers();
+int[] candles = ReadNums();
 Console.WriteLine(BirthdayCakeCandles(candles));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of candles
 // T: O(2n) = O(n)

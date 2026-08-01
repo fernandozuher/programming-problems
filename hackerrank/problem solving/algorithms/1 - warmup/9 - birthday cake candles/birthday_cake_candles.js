@@ -2,14 +2,12 @@
 
 function main() {
   readLine();
-  const candles = readNumbers();
+  const candles = readNums();
   console.log(birthdayCakeCandles(candles));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of candles
@@ -34,7 +32,7 @@ function birthdayCakeCandles(candles) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

@@ -2,11 +2,11 @@
 
 def main():
     input()
-    candles = read_numbers()
+    candles = read_nums()
     print(birthday_cake_candles(candles))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

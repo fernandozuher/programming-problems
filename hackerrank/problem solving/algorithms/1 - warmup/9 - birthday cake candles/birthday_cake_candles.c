@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int birthday_cake_candles(const int *candles, int n);
 
 int main()
@@ -10,12 +10,12 @@ int main()
     int n;
     scanf("%d", &n);
     int candles[n];
-    read_numbers(candles, n);
+    read_nums(candles, n);
     printf("%d\n", birthday_cake_candles(candles, n));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

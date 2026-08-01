@@ -3,11 +3,11 @@
 
 void main() {
     IO.readln();
-    int[] candles = readNumbers();
+    int[] candles = readNums();
     IO.println(birthdayCakeCandles(candles));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

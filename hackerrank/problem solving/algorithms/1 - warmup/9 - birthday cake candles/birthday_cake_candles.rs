@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let candles: Vec<i32> = read_numbers(n);
-    println!("{}", birthday_cake_candles(candles));
+    let n: usize = text_io::read!();
+    let candles: Vec<i32> = read_nums(n);
+    println!("{}", birthday_cake_candles(&candles));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of candles

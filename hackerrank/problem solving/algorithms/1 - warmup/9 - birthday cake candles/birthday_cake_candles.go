@@ -10,13 +10,13 @@ import (
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    candles := readNumbers(n)
+    candles := readNums(n)
     fmt.Println(birthdayCakeCandles(candles))
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr
@@ -29,10 +29,10 @@ func birthdayCakeCandles(candles []int) int {
     return count(candles, slices.Max(candles))
 }
 
-func count(arr []int, value int) int {
+func count[T comparable](arr []T, target T) int {
     count := 0
     for _, x := range arr {
-        if x == value {
+        if x == target {
             count++
         }
     }
