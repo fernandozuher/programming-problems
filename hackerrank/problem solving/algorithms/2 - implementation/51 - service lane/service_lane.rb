@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
 def main
-  _, t = read_numbers
-  widths = read_numbers
-  t.times { puts min_width_in_segment(widths, read_numbers) }
+  _, t = read_nums
+  widths = read_nums
+  t.times { puts min_width_in_segment(widths, read_nums) }
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

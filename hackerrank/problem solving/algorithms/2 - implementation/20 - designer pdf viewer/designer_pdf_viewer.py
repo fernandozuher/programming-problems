@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 def main():
-    letters_heights = read_numbers()
+    letters_heights = read_nums()
     word = input()
     print(designer_pdf_viewer(letters_heights, word))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

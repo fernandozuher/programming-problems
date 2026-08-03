@@ -1,9 +1,9 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
 Console.ReadLine();
-Console.WriteLine(MinDeletionsToEqualize(ReadNumbers()));
+Console.WriteLine(MinDeletionsToEqualize(ReadNums()));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr, 1 <= n <= 100
 // k: number of distinct elements in arr

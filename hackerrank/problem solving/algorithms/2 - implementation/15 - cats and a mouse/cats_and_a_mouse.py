@@ -3,10 +3,10 @@
 def main():
     n = int(input())
     for _ in range(n):
-        print(find_nearest_cat_or_not(read_numbers()))
+        print(find_nearest_cat_or_not(read_nums()))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

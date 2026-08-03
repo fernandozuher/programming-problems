@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 void preprocess_input(vector<int>& arr);
 int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget);
 
@@ -13,8 +13,8 @@ int main()
     int budget, n_keyboards, n_usb_drives;
     cin >> budget >> n_keyboards >> n_usb_drives;
 
-    vector keyboards{ read_numbers(n_keyboards) };
-    vector usb_drives{ read_numbers(n_usb_drives) };
+    vector keyboards{ read_nums(n_keyboards) };
+    vector usb_drives{ read_nums(n_usb_drives) };
     preprocess_input(keyboards);
     preprocess_input(usb_drives);
 
@@ -23,7 +23,7 @@ int main()
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

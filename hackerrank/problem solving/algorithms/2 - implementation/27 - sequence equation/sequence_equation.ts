@@ -2,14 +2,12 @@
 
 function main() {
   readLine();
-  const arr: number[] = readNumbers();
+  const arr: number[] = readNums();
   for (const x of sequenceEquation(arr)) console.log(x);
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -27,7 +25,7 @@ function* sequenceEquation(arr: number[]): Generator<number | undefined> {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

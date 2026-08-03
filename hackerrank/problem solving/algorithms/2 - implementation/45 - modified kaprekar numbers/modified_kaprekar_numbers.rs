@@ -1,10 +1,8 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let lower: usize = read!();
-    let upper: usize = read!();
+    let lower: usize = text_io::read!();
+    let upper: usize = text_io::read!();
     let mut valid_range: bool = false;
 
     for num in lower..=upper {

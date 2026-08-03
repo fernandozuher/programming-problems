@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-use text_io::read;
-
 struct House {
     start: i32,
     end: i32,
@@ -25,14 +23,14 @@ fn main() {
 }
 
 fn read_input() -> (House, FruitTree, FruitTree) {
-    let house_start: i32 = read!();
-    let house_end: i32 = read!();
-    let apple_tree_location: i32 = read!();
-    let orange_tree_location: i32 = read!();
-    let n_apples: usize = read!();
-    let n_oranges: usize = read!();
-    let apple_distances: Vec<i32> = read_numbers(n_apples);
-    let orange_distances: Vec<i32> = read_numbers(n_oranges);
+    let house_start: i32 = text_io::read!();
+    let house_end: i32 = text_io::read!();
+    let apple_tree_location: i32 = text_io::read!();
+    let orange_tree_location: i32 = text_io::read!();
+    let n_apples: usize = text_io::read!();
+    let n_oranges: usize = text_io::read!();
+    let apple_distances: Vec<i32> = read_nums(n_apples);
+    let orange_distances: Vec<i32> = read_nums(n_oranges);
 
     let house = House {
         start: house_start,
@@ -52,8 +50,8 @@ fn read_input() -> (House, FruitTree, FruitTree) {
     (house, apple_tree, orange_tree)
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of fruit_tree.fruit_distances

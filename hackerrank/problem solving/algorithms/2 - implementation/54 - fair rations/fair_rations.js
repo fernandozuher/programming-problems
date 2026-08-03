@@ -2,15 +2,13 @@
 
 function main() {
   readLine();
-  const peopleLoafCounts = readNumbers();
+  const peopleLoafCounts = readNums();
   const minLoaves = minLoavesToSatisfyRules(peopleLoafCounts);
   console.log(minLoaves === -1 ? 'NO' : minLoaves);
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of peopleLoafCounts
@@ -38,7 +36,7 @@ function isOdd(n) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

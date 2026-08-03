@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/2d-array/problem?isFullScreen=true
 
 use std::cmp;
-use text_io::read;
 
 fn main() {
     let matrix: Vec<Vec<i32>> = read_matrix();
@@ -10,7 +9,7 @@ fn main() {
 
 fn read_matrix() -> Vec<Vec<i32>> {
     const N: usize = 6;
-    let matrix: Vec<Vec<i32>> = (0..N).map(|_| (0..N).map(|_| read!()).collect()).collect();
+    let matrix: Vec<Vec<i32>> = (0..N).map(|_| (0..N).map(|_| text_io::read!()).collect()).collect();
     matrix
 }
 

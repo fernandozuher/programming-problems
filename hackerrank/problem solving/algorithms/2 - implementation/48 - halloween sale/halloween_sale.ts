@@ -1,14 +1,12 @@
 // https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
 function main() {
-  const [price, discount, minPrice, budget]: number[] = readNumbers();
+  const [price, discount, minPrice, budget]: number[] = readNums();
   console.log(howManyGamesCanBeBought(price, discount, minPrice, budget));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(budget / minPrice)
@@ -33,7 +31,7 @@ function howManyGamesCanBeBought(
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int divisible_sum_pairs(const vector<int>& numbers, int k);
 vector<int> init_remainder_frequency(const vector<int>& numbers, int k);
 int count_pairs_with_remainder_0(const vector<int>& freq);
@@ -16,12 +16,12 @@ int main()
 {
     int n, k;
     cin >> n >> k;
-    vector numbers{ read_numbers(n) };
+    vector numbers{ read_nums(n) };
     cout << divisible_sum_pairs(numbers, k);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

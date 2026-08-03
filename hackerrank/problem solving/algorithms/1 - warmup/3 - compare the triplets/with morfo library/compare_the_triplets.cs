@@ -1,0 +1,22 @@
+// https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
+
+int[] tripletA = ReadLn();
+int[] tripletB = ReadLn();
+var (scoreA, scoreB) = ComputeTripletScores(tripletA, tripletB);
+Console.WriteLine("{0} {1}", scoreA, scoreB);
+
+// n: length of a and b = 3
+// T: O(3) => O(1)
+// S: O(1) extra space
+(int, int) ComputeTripletScores(int[] tripletA, int[] tripletB)
+{
+    int scoreA = 0, scoreB = 0;
+
+    foreach (var (ta, tb) in tripletA.Zip(tripletB))
+        if (ta > tb)
+            scoreA++;
+        else if (tb > ta)
+            scoreB++;
+
+    return (scoreA, scoreB);
+}

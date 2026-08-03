@@ -2,15 +2,13 @@
 
 function main() {
   readLine();
-  const a: number[] = readNumbers();
-  const b: number[] = readNumbers();
+  const a: number[] = readNums();
+  const b: number[] = readNums();
   console.log(betweenTwoSets(a, b));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n1, n2: length of a, b
@@ -46,7 +44,7 @@ function gcd(a: number, b: number): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

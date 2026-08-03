@@ -2,12 +2,12 @@
 
 def main():
     n = int(input())
-    grades = read_numbers(n)
+    grades = read_nums(n)
     grading_students(grades)
     print(*grades, sep='\n')
 
 
-def read_numbers(n):
+def read_nums(n):
     return [int(input()) for _ in range(n)]
 
 

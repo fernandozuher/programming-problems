@@ -9,13 +9,13 @@ func main() {
     _, _ = fmt.Scan(&n)
     const nPositions = 3
     for range n {
-        fmt.Println(findNearestCatOrNot(readNumbers(nPositions)))
+        fmt.Println(findNearestCatOrNot(readNums(nPositions)))
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

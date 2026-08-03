@@ -4,12 +4,12 @@ from itertools import combinations
 
 
 def main():
-    n, _ = read_numbers()
+    n, _ = read_nums()
     binaries = read_binaries(n)
     print(*acm_team(binaries), sep='\n')
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

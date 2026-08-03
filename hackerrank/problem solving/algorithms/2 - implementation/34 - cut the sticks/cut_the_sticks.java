@@ -3,12 +3,12 @@
 
 void main() {
     IO.readln();
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     Arrays.sort(arr);
     cutTheSticks(arr).forEach(IO::println);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

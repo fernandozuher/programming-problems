@@ -11,7 +11,7 @@ struct input {
 };
 
 input read_input();
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int bon_appetit(const input& data);
 
 int main()
@@ -28,13 +28,13 @@ input read_input()
 {
     int n, item_not_eaten;
     cin >> n >> item_not_eaten;
-    vector<int> meal_costs{ read_numbers(n) };
+    vector<int> meal_costs{ read_nums(n) };
     int amount_charged;
     cin >> amount_charged;
     return { item_not_eaten, meal_costs, amount_charged };
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

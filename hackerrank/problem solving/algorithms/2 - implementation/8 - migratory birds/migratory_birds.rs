@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
 use std::collections::HashMap;
-use text_io::read;
 
 fn main() {
     let birds_to_counts = read_input();
@@ -12,10 +11,10 @@ fn main() {
 // T: O(n)
 // S: O(n) extra space
 fn read_input() -> HashMap<i32, i32> {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     let mut freq_map = HashMap::new();
     for _ in 0..n {
-        let x: i32 = read!();
+        let x: i32 = text_io::read!();
         *freq_map.entry(x).or_insert(0) += 1;
     }
     freq_map

@@ -2,13 +2,13 @@
 
 def main():
     input()
-    ranked = remove_duplicates(read_numbers())
+    ranked = remove_duplicates(read_nums())
     input()
-    player = read_numbers()
+    player = read_nums()
     print(*climbing_leaderboard(ranked, player), sep='\n')
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

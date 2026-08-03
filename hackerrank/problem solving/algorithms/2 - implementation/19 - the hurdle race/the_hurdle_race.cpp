@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int hurdle_race(const vector<int>& hurdles, int max_jump);
 
 int main()
 {
     int n, max_jump;
     cin >> n >> max_jump;
-    vector hurdles{ read_numbers(n) };
+    vector hurdles{ read_nums(n) };
     cout << hurdle_race(hurdles, max_jump);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

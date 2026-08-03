@@ -5,12 +5,12 @@ from itertools import islice
 
 def main():
     input()
-    chocolate_squares = read_numbers()
-    day_month = read_numbers()
+    chocolate_squares = read_nums()
+    day_month = read_nums()
     print(birthday(chocolate_squares, day_month))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

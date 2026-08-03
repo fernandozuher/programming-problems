@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int designer_pdf_viewer(const int *letters_heights, const char *word);
 
 int main()
@@ -13,7 +13,7 @@ int main()
     constexpr int n2 = 12;
 
     int letters_heights[n1];
-    read_numbers(letters_heights, n1);
+    read_nums(letters_heights, n1);
     scanf("\n");
 
     char word[n2];
@@ -26,7 +26,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

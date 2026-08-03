@@ -4,20 +4,20 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 vector<int>& grading_students(vector<int>& grades);
 
 int main()
 {
     int n;
     cin >> n;
-    vector grades{ read_numbers(n) };
+    vector grades{ read_nums(n) };
     for (auto x : grading_students(grades))
         println("{}", x);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

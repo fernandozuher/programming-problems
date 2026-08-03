@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 void print_queries(const vector<int>& arr, int n_rotation, int n_queries);
 
 int main()
 {
     int n, n_rotation, n_queries;
     cin >> n >> n_rotation >> n_queries;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     print_queries(arr, n_rotation, n_queries);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

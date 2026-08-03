@@ -10,14 +10,14 @@ import (
 func main() {
     var budget, nKeyboards, nUsbDrives int
     _, _ = fmt.Scan(&budget, &nKeyboards, &nUsbDrives)
-    keyboards := preprocessInput(readNumbers(nKeyboards))
-    usbDrives := preprocessInput(readNumbers(nUsbDrives))
+    keyboards := preprocessInput(readNums(nKeyboards))
+    usbDrives := preprocessInput(readNums(nUsbDrives))
     fmt.Println(calcMoneySpent(keyboards, usbDrives, budget))
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

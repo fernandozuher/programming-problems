@@ -1,18 +1,16 @@
 // https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let mut arr: Vec<usize> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let mut arr: Vec<usize> = read_nums(n);
     arr.sort();
     for x in cut_the_sticks(&arr) {
         println!("{}", x);
     }
 }
 
-fn read_numbers(n: usize) -> Vec<usize> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<usize> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr

@@ -3,11 +3,11 @@
 
 void main() {
     IO.readln();
-    var freqMap = counter(readNumbers());
+    var freqMap = counter(readNums());
     IO.println(pickingNumbers(freqMap));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

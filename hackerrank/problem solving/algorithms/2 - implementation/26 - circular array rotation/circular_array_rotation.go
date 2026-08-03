@@ -7,13 +7,13 @@ import "fmt"
 func main() {
     var n, nRotation, nQueries int
     _, _ = fmt.Scan(&n, &nRotation, &nQueries)
-    arr := readNumbers(n)
+    arr := readNums(n)
     printQueries(arr, nRotation, nQueries)
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

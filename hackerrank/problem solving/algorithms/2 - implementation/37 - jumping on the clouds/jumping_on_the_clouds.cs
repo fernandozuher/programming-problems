@@ -1,9 +1,9 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem?isFullScreen=true
 
 Console.ReadLine();
-Console.WriteLine(MinJumps(ReadNumbers()));
+Console.WriteLine(MinJumps(ReadNums()));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of clouds
 // T: O(n)

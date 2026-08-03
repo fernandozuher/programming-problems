@@ -2,15 +2,13 @@
 
 function main() {
   readLine();
-  const chocolateSquares = readNumbers();
-  const dayMonth = readNumbers();
+  const chocolateSquares = readNums();
+  const dayMonth = readNums();
   console.log(birthday(chocolateSquares, dayMonth));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of chocolateSquares
@@ -38,7 +36,7 @@ function birthday(chocolateSquares, dayMonth) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

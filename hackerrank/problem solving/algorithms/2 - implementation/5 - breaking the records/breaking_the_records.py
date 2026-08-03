@@ -2,10 +2,10 @@
 
 def main():
     input()
-    print(*breaking_records(read_numbers()))
+    print(*breaking_records(read_nums()))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

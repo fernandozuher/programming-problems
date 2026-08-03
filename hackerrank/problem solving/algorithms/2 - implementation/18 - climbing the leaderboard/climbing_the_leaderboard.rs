@@ -1,22 +1,20 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let mut n: usize = read!();
-    let mut ranked: Vec<i32> = read_numbers(n);
+    let mut n: usize = text_io::read!();
+    let mut ranked: Vec<i32> = read_nums(n);
     ranked.dedup();
 
-    n = read!();
-    let player: Vec<i32> = read_numbers(n);
+    n = text_io::read!();
+    let player: Vec<i32> = read_nums(n);
 
     for x in climbing_leaderboard(&ranked, &player) {
         println!("{}", x);
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n1: length of player, output

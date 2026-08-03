@@ -1,16 +1,15 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 use num::Integer;
-use text_io::read;
 
 fn main() {
-    let (n, k): (usize, usize) = (read!(), read!());
-    let numbers: Vec<usize> = read_numbers(n);
+    let (n, k): (usize, usize) = (read!(), text_io::read!());
+    let numbers: Vec<usize> = read_nums(n);
     println!("{}", divisible_sum_pairs(&numbers, k));
 }
 
-fn read_numbers(n: usize) -> Vec<usize> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<usize> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of numbers

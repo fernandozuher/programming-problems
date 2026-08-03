@@ -2,13 +2,11 @@
 
 function main() {
   readLine();
-  console.log(minDeletionsToEqualize(readNumbers()));
+  console.log(minDeletionsToEqualize(readNums()));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr, 1 <= n <= 100
@@ -36,7 +34,7 @@ function counter(arr: number[]): Record<number, number> {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

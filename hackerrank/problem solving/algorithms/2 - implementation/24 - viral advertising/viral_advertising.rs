@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let days: i32 = read!();
+    let days: i32 = text_io::read!();
     println!("{}", viral_advertising(days));
 }
 

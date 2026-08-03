@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 bool angry_professor(const vector<int>& arrival_times, int threshold);
 
 int main()
@@ -15,14 +15,14 @@ int main()
     for (int i{}; i < n; ++i) {
         int size, threshold;
         cin >> size >> threshold;
-        vector arrival_times{ read_numbers(size) };
+        vector arrival_times{ read_nums(size) };
         puts(angry_professor(arrival_times, threshold) ? "YES" : "NO");
     }
 
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

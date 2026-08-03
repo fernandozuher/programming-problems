@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int find_beautiful_triplets(const int *arr, int n, int beautiful_difference);
 int compare(const void *a, const void *b);
 
@@ -13,12 +13,12 @@ int main()
     int n, beautiful_difference;
     scanf("%d %d", &n, &beautiful_difference);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
     printf("%d\n", find_beautiful_triplets(arr, n, beautiful_difference));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

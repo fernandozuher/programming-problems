@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
 Console.ReadLine();
-var (mostRecordBreaks, leastRecordBreaks) = BreakingRecords(ReadNumbers());
+var (mostRecordBreaks, leastRecordBreaks) = BreakingRecords(ReadNums());
 Console.WriteLine($"{mostRecordBreaks} {leastRecordBreaks}");
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of scores
 // T: O(n)

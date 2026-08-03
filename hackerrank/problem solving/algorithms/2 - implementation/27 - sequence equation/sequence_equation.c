@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 void sequence_equation(const int *arr, int *res, int n);
 
 int main()
@@ -10,7 +10,7 @@ int main()
     int n;
     scanf("%d", &n);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
 
     int res[n];
     sequence_equation(arr, res, n);
@@ -20,7 +20,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

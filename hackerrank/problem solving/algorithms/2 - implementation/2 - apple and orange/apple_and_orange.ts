@@ -26,13 +26,13 @@ function main() {
 }
 
 function readInput(): [House, FruitTree, FruitTree] {
-  const [houseStart, houseEnd] = readNumbers();
+  const [houseStart, houseEnd] = readNums();
   const house = new House(houseStart, houseEnd);
 
-  const [appleTreeLocation, orangeTreeLocation] = readNumbers();
+  const [appleTreeLocation, orangeTreeLocation] = readNums();
   readLine(); // Discard array sizes
-  const appleDistances: number[] = readNumbers();
-  const orangeDistances: number[] = readNumbers();
+  const appleDistances: number[] = readNums();
+  const orangeDistances: number[] = readNums();
 
   const appleTree: FruitTree = {
     treeLocation: appleTreeLocation,
@@ -46,10 +46,8 @@ function readInput(): [House, FruitTree, FruitTree] {
   return [house, appleTree, orangeTree];
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of fruitTree.fruitDistances
@@ -68,7 +66,7 @@ function countFruitsOnHouse(fruitTree: FruitTree, house: House): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

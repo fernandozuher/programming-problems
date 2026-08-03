@@ -6,12 +6,12 @@ for (int i = 0; i < n; i++)
 
 Gifts ReadTestCase()
 {
-    var arr1 = ReadNumbers();
-    var arr2 = ReadNumbers();
+    var arr1 = ReadNums();
+    var arr2 = ReadNums();
     return new Gifts(arr1[0], arr1[1], arr2[0], arr2[1], arr2[2]);
 }
 
-long[] ReadNumbers() => Console.ReadLine()!.Split().Select(long.Parse).ToArray();
+long[] ReadNums() => Console.ReadLine()!.Split().Select(long.Parse).ToArray();
 
 // T: O(1)
 // S: O(1) extra space

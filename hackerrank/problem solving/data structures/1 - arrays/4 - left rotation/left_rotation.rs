@@ -1,19 +1,17 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let rotate_by: usize = read!();
-    let mut arr: Vec<i32> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let rotate_by: usize = text_io::read!();
+    let mut arr: Vec<i32> = read_nums(n);
     rotate(&mut arr, rotate_by);
     for x in arr {
         print!("{} ", x);
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr

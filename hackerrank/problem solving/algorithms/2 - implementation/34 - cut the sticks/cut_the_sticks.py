@@ -2,12 +2,12 @@
 
 def main():
     input()
-    arr = read_numbers()
+    arr = read_nums()
     arr.sort()
     print(*cut_the_sticks(arr), sep='\n')
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

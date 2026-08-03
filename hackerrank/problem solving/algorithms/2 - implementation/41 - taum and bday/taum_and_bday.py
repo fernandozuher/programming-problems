@@ -19,12 +19,12 @@ def main():
 
 
 def read_test_case():
-    arr = read_numbers()
-    arr.extend(read_numbers())
+    arr = read_nums()
+    arr.extend(read_nums())
     return Gifts(*arr)
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

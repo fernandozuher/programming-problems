@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int n = readNumbers()[0];
+    int n = readNums()[0];
     for (int i = 0; i < n; i++)
-        IO.println(findNearestCatOrNot(readNumbers()));
+        IO.println(findNearestCatOrNot(readNums()));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

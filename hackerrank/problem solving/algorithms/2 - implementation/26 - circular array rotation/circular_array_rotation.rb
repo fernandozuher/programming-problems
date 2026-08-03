@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
 def main
-  _, n_rotation, n_queries = read_numbers
-  arr = read_numbers
+  _, n_rotation, n_queries = read_nums
+  arr = read_nums
   queries(arr, n_rotation, n_queries) { puts _1 }
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

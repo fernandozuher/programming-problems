@@ -34,8 +34,8 @@ func readInput() (House, FruitTree, FruitTree) {
     _, _ = fmt.Scan(&houseStart, &houseEnd)
     _, _ = fmt.Scan(&appleTreeLocation, &orangeTreeLocation)
     _, _ = fmt.Scan(&nApples, &nOranges)
-    appleDistances := readNumbers(nApples)
-    orangeDistances := readNumbers(nOranges)
+    appleDistances := readNums(nApples)
+    orangeDistances := readNums(nOranges)
 
     house := House{houseStart, houseEnd}
 
@@ -52,9 +52,9 @@ func readInput() (House, FruitTree, FruitTree) {
     return house, appleTree, orangeTree
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

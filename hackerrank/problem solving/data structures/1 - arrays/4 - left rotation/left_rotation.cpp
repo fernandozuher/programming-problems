@@ -4,14 +4,14 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 void rotate(vector<int>& arr, int rotate_by);
 
 int main()
 {
     int n, rotate_by;
     cin >> n >> rotate_by;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
 
     rotate(arr, rotate_by);
     for (auto x : arr)
@@ -20,7 +20,7 @@ int main()
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

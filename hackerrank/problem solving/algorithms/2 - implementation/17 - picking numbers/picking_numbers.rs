@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 use counter::Counter;
-use text_io::read;
 
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     println!("{}", picking_numbers(&counter(n)));
 }
 

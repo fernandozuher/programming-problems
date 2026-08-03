@@ -2,13 +2,13 @@
 // Java 25
 
 void main() {
-    int budget = readNumbers()[0];
-    int[] keyboards = preprocessInput(readNumbers());
-    int[] usbDrives = preprocessInput(readNumbers());
+    int budget = readNums()[0];
+    int[] keyboards = preprocessInput(readNums());
+    int[] usbDrives = preprocessInput(readNums());
     IO.println(calcMoneySpent(keyboards, usbDrives, budget));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

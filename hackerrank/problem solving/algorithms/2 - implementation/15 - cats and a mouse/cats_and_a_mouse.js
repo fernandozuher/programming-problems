@@ -2,13 +2,11 @@
 
 function main() {
   const n = +readLine();
-  for (let i = 0; i < n; i++) console.log(findNearestCatOrNot(readNumbers()));
+  for (let i = 0; i < n; i++) console.log(findNearestCatOrNot(readNums()));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(1)
@@ -28,7 +26,7 @@ function findNearestCatOrNot(positions) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

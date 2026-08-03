@@ -2,11 +2,11 @@
 
 def main
   gets
-  freq_map = read_numbers.tally
+  freq_map = read_nums.tally
   puts picking_numbers(freq_map)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

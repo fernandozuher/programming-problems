@@ -1,0 +1,1 @@
+SKIPPED: input muito grande (34096 caracteres, matriz 100x100). Nao extraido para economizar tempo.

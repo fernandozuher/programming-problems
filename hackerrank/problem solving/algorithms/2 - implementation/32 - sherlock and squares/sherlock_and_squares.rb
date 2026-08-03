@@ -3,12 +3,12 @@
 def main
   n = gets.to_i
   n.times do
-    a, b = read_numbers
+    a, b = read_nums
     puts squares(a, b)
   end
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

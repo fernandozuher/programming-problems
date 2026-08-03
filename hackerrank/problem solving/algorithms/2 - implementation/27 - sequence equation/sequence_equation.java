@@ -3,12 +3,12 @@
 
 void main() {
     IO.readln();
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     for (var x : sequenceEquation(arr))
         IO.println(x);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

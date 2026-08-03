@@ -5,11 +5,11 @@ from collections import Counter
 
 def main():
     input()
-    freq_map = Counter(read_numbers())
+    freq_map = Counter(read_nums())
     print(picking_numbers(freq_map))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

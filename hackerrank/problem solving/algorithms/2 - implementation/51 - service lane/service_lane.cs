@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
-int t = ReadNumbers()[1];
-int[] widths = ReadNumbers();
+int t = ReadNums()[1];
+int[] widths = ReadNums();
 for (int i = 0; i < t; i++)
-    Console.WriteLine(minWidthInSegment(widths, ReadNumbers()));
+    Console.WriteLine(minWidthInSegment(widths, ReadNums()));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of widths
 // T: O(n)

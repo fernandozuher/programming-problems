@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int jumping_on_the_clouds(const vector<int>& clouds, int jump_length);
 
 int main()
 {
     int n, jump_length;
     cin >> n >> jump_length;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     println("{}", jumping_on_the_clouds(arr, jump_length));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

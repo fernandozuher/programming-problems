@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
 
 Console.ReadLine();
-var freqMap = Counter(ReadNumbers());
+var freqMap = Counter(ReadNums());
 Console.WriteLine(PickingNumbers(freqMap));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // k: length of output

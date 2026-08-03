@@ -2,18 +2,18 @@
 // Java 25
 
 void main() {
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     int n = arr[0];
     int nQueries = arr[1];
     var obj = new DynamicArray(n);
 
     for (int i = 0; i < nQueries; i++)
-        obj.handleQuery(readNumbers());
+        obj.handleQuery(readNums());
 
     obj.answers().forEach(IO::println);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 use counter::Counter;
-use text_io::read;
 
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     let socks_to_counts: Counter<i32, i32> = counter(n);
     println!("{}", sock_merchant(&socks_to_counts));
 }

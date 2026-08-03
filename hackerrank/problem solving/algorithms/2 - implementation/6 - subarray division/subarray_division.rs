@@ -1,17 +1,15 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let chocolate_squares = read_numbers(n);
+    let n: usize = text_io::read!();
+    let chocolate_squares = read_nums(n);
     const N_DAY_MONTH: usize = 2;
-    let day_month = read_numbers(N_DAY_MONTH);
+    let day_month = read_nums(N_DAY_MONTH);
     println!("{}", birthday(&chocolate_squares, &day_month));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of chocolate_squares

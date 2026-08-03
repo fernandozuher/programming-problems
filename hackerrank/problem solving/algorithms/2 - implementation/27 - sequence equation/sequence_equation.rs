@@ -1,17 +1,15 @@
 // https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let arr: Vec<usize> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let arr: Vec<usize> = read_nums(n);
     for x in sequence_equation(&arr) {
         println!("{}", x)
     }
 }
 
-fn read_numbers(n: usize) -> Vec<usize> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<usize> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr/output

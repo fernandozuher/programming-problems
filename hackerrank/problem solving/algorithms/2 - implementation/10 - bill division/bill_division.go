@@ -23,14 +23,14 @@ func readInput() Input {
     var data Input
     var n int
     _, _ = fmt.Scan(&n, &data.itemNotEaten)
-    data.mealCosts = readNumbers(n)
+    data.mealCosts = readNums(n)
     _, _ = fmt.Scan(&data.amountCharged)
     return data
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

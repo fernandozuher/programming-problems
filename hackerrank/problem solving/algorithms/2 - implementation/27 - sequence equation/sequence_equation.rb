@@ -2,11 +2,11 @@
 
 def main
   gets
-  arr = read_numbers
+  arr = read_nums
   sequence_equation(arr) { puts _1 }
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

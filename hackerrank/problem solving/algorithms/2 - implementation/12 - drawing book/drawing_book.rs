@@ -1,10 +1,8 @@
 // https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let page: usize = read!();
+    let n: usize = text_io::read!();
+    let page: usize = text_io::read!();
     println!("{}", page_count(n, page));
 }
 

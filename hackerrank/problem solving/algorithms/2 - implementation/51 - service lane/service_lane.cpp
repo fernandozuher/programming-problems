@@ -5,14 +5,14 @@ import std;
 using namespace std;
 using namespace ranges;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int min_width_in_segment(const vector<int>& widths, const pair<int, int>& segment);
 
 int main()
 {
     int n, t;
     cin >> n >> t;
-    vector widths{ read_numbers(n) };
+    vector widths{ read_nums(n) };
 
     for (int i{}; i < t; ++i) {
         pair<int, int> segment;
@@ -23,7 +23,7 @@ int main()
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     return views::iota(0, n) | views::transform([](auto) {int x; cin >> x; return x; }) | to<vector>();
 }

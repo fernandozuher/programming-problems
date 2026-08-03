@@ -3,11 +3,11 @@
 def main():
     n = int(input())
     for _ in range(n):
-        money, cost, wrappers_needed = read_numbers()
+        money, cost, wrappers_needed = read_nums()
         print(how_many_chocolates_can_be_eaten(money, cost, wrappers_needed))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

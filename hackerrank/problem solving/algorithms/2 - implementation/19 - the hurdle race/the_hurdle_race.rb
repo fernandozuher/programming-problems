@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 def main
-  _, max_jump = read_numbers
-  hurdles = read_numbers
+  _, max_jump = read_nums
+  hurdles = read_nums
   puts hurdle_race(hurdles, max_jump)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

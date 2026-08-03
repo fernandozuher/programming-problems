@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
     let initial_state: (i32, i32, i32, i32) = read_input();
     if kangaroo(&initial_state) {
@@ -12,7 +10,7 @@ fn main() {
 }
 
 fn read_input() -> (i32, i32, i32, i32) {
-    (read!(), read!(), read!(), read!())
+    (read!(), text_io::read!(), text_io::read!(), text_io::read!())
 }
 
 // T: O(1)

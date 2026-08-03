@@ -1,0 +1,5 @@
+node_modules/
+.morfo_ts_build/
+__pycache__/
+*.pyc
+.idea/

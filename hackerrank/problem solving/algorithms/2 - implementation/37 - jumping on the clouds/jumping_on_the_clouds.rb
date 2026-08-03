@@ -2,10 +2,10 @@
 
 def main
   gets
-  puts min_jumps(read_numbers)
+  puts min_jumps(read_nums)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

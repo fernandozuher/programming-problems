@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
 def main
-  n, n_queries = read_numbers
+  n, n_queries = read_nums
   obj = DynamicArray.new(n)
-  n_queries.times { obj.handle_query(read_numbers) }
+  n_queries.times { obj.handle_query(read_nums) }
   puts obj.answers
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

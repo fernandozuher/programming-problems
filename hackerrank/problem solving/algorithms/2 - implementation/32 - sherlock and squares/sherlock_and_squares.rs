@@ -1,12 +1,10 @@
 // https://www.hackerrank.com/challenges/sherlock-and-squares/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     for _ in 0..n {
-        let a: usize = read!();
-        let b: usize = read!();
+        let a: usize = text_io::read!();
+        let b: usize = text_io::read!();
         println!("{}", squares(a, b));
     }
 }

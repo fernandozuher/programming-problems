@@ -4,21 +4,21 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int birthday(const vector<int>& chocolate_squares, const vector<int>& day_month);
 
 int main()
 {
     int n;
     cin >> n;
-    vector chocolate_squares{ read_numbers(n) };
+    vector chocolate_squares{ read_nums(n) };
     constexpr int n_day_month{ 2 };
-    vector day_month{ read_numbers(n_day_month) };
+    vector day_month{ read_nums(n_day_month) };
     cout << birthday(chocolate_squares, day_month);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

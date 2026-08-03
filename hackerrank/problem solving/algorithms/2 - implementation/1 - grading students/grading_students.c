@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 void grading_students(int *grades, int n);
 
 int main()
@@ -10,7 +10,7 @@ int main()
     int n;
     scanf("%d", &n);
     int grades[n];
-    read_numbers(grades, n);
+    read_nums(grades, n);
 
     grading_students(grades, n);
     for (int i = 0; i < n; ++i)
@@ -19,7 +19,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

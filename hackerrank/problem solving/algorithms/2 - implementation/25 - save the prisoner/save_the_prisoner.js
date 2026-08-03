@@ -3,15 +3,13 @@
 function main() {
   const n = +readLine();
   for (let i = 0; i < n; i++) {
-    const [prisoners, sweets, startChair] = readNumbers();
+    const [prisoners, sweets, startChair] = readNums();
     console.log(saveThePrisoner(prisoners, sweets, startChair));
   }
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(1)
@@ -25,7 +23,7 @@ function saveThePrisoner(prisoners, sweets, startChair) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

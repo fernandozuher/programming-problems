@@ -7,14 +7,14 @@ import "fmt"
 func main() {
     var n1, n2 int
     _, _ = fmt.Scan(&n1, &n2)
-    a := readNumbers(n1)
-    b := readNumbers(n2)
+    a := readNums(n1)
+    b := readNums(n2)
     fmt.Println(betweenTwoSets(a, b))
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

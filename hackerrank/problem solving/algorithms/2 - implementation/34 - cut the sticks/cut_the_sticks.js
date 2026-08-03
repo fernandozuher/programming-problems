@@ -2,15 +2,13 @@
 
 function main() {
   readLine();
-  const arr = readNumbers();
+  const arr = readNums();
   arr.sort((a, b) => a - b);
   for (const x of cutTheSticks(arr)) console.log(x);
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -40,7 +38,7 @@ function cutTheSticks(arr) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

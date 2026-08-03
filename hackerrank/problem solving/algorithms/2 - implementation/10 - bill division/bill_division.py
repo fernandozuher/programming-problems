@@ -19,13 +19,13 @@ def main():
 
 
 def read_input():
-    _, item_not_eaten = read_numbers()
-    meal_costs = read_numbers()
+    _, item_not_eaten = read_nums()
+    meal_costs = read_nums()
     amount_charged = int(input())
     return Input(item_not_eaten, meal_costs, amount_charged)
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

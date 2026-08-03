@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 def main
-  budget = read_numbers.first
-  keyboards = preprocess_input(read_numbers)
-  usb_drives = preprocess_input(read_numbers)
+  budget = read_nums.first
+  keyboards = preprocess_input(read_nums)
+  usb_drives = preprocess_input(read_nums)
   puts calc_money_spent(keyboards, usb_drives, budget)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

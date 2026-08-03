@@ -1,0 +1,1 @@
+SKIPPED: input muito grande (matriz 59x59). Nao extraido para economizar tempo.

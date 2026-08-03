@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
 Console.ReadLine();
-Dictionary<int, int> socksToCounts = Counter(ReadNumbers());
+Dictionary<int, int> socksToCounts = Counter(ReadNums());
 Console.WriteLine(SockMerchant(socksToCounts));
 
 // n: length of arr
@@ -20,7 +20,7 @@ Dictionary<int, int> Counter(int[] arr)
     return freqMap;
 }
 
-int[] ReadNumbers()
+int[] ReadNums()
 {
     return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 }

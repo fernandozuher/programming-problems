@@ -2,11 +2,11 @@
 
 def main
   gets
-  arr = read_numbers.sort!
+  arr = read_nums.sort!
   puts cut_the_sticks(arr)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

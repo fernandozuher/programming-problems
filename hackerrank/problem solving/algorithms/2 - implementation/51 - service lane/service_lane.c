@@ -7,7 +7,7 @@ typedef struct {
     int exit;
 } segment_pair;
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int min_width_in_segment(const int *widths, const segment_pair *segment);
 
 int main()
@@ -15,7 +15,7 @@ int main()
     int n, t;
     scanf("%d %d", &n, &t);
     int widths[n];
-    read_numbers(widths, n);
+    read_nums(widths, n);
 
     for (int i = 0; i < t; ++i) {
         segment_pair segment;
@@ -26,7 +26,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

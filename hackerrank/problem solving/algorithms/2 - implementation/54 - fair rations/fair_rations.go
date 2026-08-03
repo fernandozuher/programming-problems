@@ -7,7 +7,7 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    peopleLoafCounts := readNumbers(n)
+    peopleLoafCounts := readNums(n)
     if minLoaves := minLoavesToSatisfyRules(peopleLoafCounts); minLoaves == -1 {
         fmt.Println("NO")
     } else {
@@ -15,9 +15,9 @@ func main() {
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

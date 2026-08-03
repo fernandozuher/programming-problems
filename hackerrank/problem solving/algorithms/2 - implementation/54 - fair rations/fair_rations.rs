@@ -1,11 +1,10 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
 use num::Integer;
-use text_io::read;
 
 fn main() {
-    let n: usize = read!();
-    let people_loaf_counts: Vec<i32> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let people_loaf_counts: Vec<i32> = read_nums(n);
     let min_loaves: i32 = min_loaves_to_satisfy_rules(&people_loaf_counts);
     if min_loaves == -1 {
         println!("NO");
@@ -14,8 +13,8 @@ fn main() {
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of people_loaf_counts

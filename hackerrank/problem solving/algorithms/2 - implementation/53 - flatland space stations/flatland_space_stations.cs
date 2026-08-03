@@ -1,12 +1,12 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
-int nCities = ReadNumbers()[0];
+int nCities = ReadNums()[0];
 int lastCity = nCities - 1;
-int[] stations = ReadNumbers();
+int[] stations = ReadNums();
 Array.Sort(stations);
 Console.WriteLine(MaxDistanceFromSpaceStation(lastCity, stations));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of stations
 // T: O(n)

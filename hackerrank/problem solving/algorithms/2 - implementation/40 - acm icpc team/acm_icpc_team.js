@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
 function main() {
-  const [n, _] = readNumbers();
+  const [n, _] = readNums();
   const binaries = readBinaries(n);
   for (const x of acmTeam(binaries)) console.log(x);
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 function readBinaries(n) {
@@ -50,7 +48,7 @@ function countSubjectsKnownBy2Teams(a, b) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

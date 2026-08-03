@@ -3,10 +3,10 @@
 
 void main() {
     IO.readln();
-    IO.println(minDeletionsToEqualize(readNumbers()));
+    IO.println(minDeletionsToEqualize(readNums()));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
 def main
-  _, rotate_by = read_numbers
-  arr = read_numbers
+  _, rotate_by = read_nums
+  arr = read_nums
   rotate(arr, rotate_by)
   puts arr.join(' ')
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

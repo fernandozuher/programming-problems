@@ -6,11 +6,11 @@ import math
 def main():
     n = int(input())
     for _ in range(n):
-        a, b = read_numbers()
+        a, b = read_nums()
         print(squares(a, b))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

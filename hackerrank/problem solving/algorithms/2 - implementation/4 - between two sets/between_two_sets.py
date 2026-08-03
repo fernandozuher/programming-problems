@@ -6,12 +6,12 @@ from functools import reduce
 
 def main():
     input()
-    a = read_numbers()
-    b = read_numbers()
+    a = read_nums()
+    b = read_nums()
     print(between_two_sets(a, b))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

@@ -15,13 +15,13 @@ def main
 end
 
 def read_input
-  house_start, house_end = read_numbers
+  house_start, house_end = read_nums
   house = Struct::House.new(house_start, house_end)
 
-  apple_tree_location, orange_tree_location = read_numbers
+  apple_tree_location, orange_tree_location = read_nums
   gets # Discard array sizes
-  apple_distances = read_numbers
-  orange_distances = read_numbers
+  apple_distances = read_nums
+  orange_distances = read_nums
 
   apple_tree = Struct::FruitTree.new(apple_tree_location, apple_distances)
   orange_tree = Struct::FruitTree.new(orange_tree_location, orange_distances)
@@ -29,7 +29,7 @@ def read_input
   [house, apple_tree, orange_tree]
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

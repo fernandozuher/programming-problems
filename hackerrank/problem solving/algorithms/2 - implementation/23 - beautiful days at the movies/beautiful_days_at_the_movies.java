@@ -2,14 +2,14 @@
 // Java 25
 
 void main() {
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     int startDay = arr[0];
     int endDay = arr[1];
     int divisor = arr[2];
     IO.println(beautifulDays(startDay, endDay, divisor));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

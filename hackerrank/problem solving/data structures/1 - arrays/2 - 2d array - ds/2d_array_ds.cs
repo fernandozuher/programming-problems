@@ -7,11 +7,11 @@ int[][] ReadMatrix()
 {
     var matrix = new int[6][];
     for (int i = 0; i < 6; i++)
-        matrix[i] = ReadNumbers();
+        matrix[i] = ReadNums();
     return matrix;
 }
 
-int[] ReadNumbers()
+int[] ReadNums()
 {
     return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 }

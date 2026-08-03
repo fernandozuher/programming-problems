@@ -1,16 +1,14 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 function main() {
-  const budget = readNumbers()[0];
-  const keyboards = preprocessInput(readNumbers());
-  const usbDrives = preprocessInput(readNumbers());
+  const budget = readNums()[0];
+  const keyboards = preprocessInput(readNums());
+  const usbDrives = preprocessInput(readNums());
   console.log(calcMoneySpent(keyboards, usbDrives, budget));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -52,7 +50,7 @@ function calcMoneySpent(keyboards, usbDrives, budget) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

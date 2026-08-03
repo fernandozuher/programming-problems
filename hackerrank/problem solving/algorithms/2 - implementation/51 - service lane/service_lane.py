@@ -4,13 +4,13 @@ from itertools import islice
 
 
 def main():
-    _, t = read_numbers()
-    widths = read_numbers()
+    _, t = read_nums()
+    widths = read_nums()
     for _ in range(t):
-        print(min_width_in_segment(widths, read_numbers()))
+        print(min_width_in_segment(widths, read_nums()))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
 def main():
-    _, n_rotation, n_queries = read_numbers()
-    arr = read_numbers()
+    _, n_rotation, n_queries = read_nums()
+    arr = read_nums()
     print(*queries(arr, n_rotation, n_queries), sep='\n')
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

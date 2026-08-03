@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
 
 use num::BigUint;
-use text_io::read;
 
 fn main() {
-    let n: u32 = read!();
+    let n: u32 = text_io::read!();
     println!("{}", factorial(n));
 }
 

@@ -2,12 +2,12 @@
 
 def main
   gets
-  a = read_numbers
-  b = read_numbers
+  a = read_nums
+  b = read_nums
   print(between_two_sets(a, b))
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

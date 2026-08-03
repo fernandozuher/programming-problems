@@ -1,11 +1,9 @@
 // https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     for _ in 0..n {
-        let num: i32 = read!();
+        let num: i32 = text_io::read!();
         println!("{}", find_digits(num));
     }
 }

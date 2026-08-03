@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
 function main() {
-  const maxJump: number = readNumbers()[1];
-  const hurdles: number[] = readNumbers();
+  const maxJump: number = readNums()[1];
+  const hurdles: number[] = readNums();
   console.log(hurdleRace(hurdles, maxJump));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of hurdles
@@ -24,7 +22,7 @@ function hurdleRace(hurdles: number[], maxJump: number): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

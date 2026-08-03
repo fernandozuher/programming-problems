@@ -2,13 +2,13 @@
 // Java 25
 
 void main() {
-    var arr = readNumbers();
+    var arr = readNums();
     int n = arr[0];
     int nQueries = arr[1];
     IO.println(arrayManipulation(n, nQueries));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 
@@ -23,7 +23,7 @@ int[] populateArr(int n, int nQueries) {
     var res = new int[n + 2]; // +2 = 1-indexed array + range-end
 
     for (int i = 0; i < nQueries; i++) {
-        var arr = readNumbers();
+        var arr = readNums();
         int b = arr[0];
         int e = arr[1];
         int summand = arr[2];

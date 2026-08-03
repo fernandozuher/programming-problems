@@ -3,14 +3,14 @@
 
 void main() {
     IO.readln();
-    int[] ranked = removeDuplicates(readNumbers());
+    int[] ranked = removeDuplicates(readNums());
     IO.readln();
-    int[] player = readNumbers();
+    int[] player = readNums();
     for (var x : climbingLeaderboard(ranked, player))
         IO.println(x);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

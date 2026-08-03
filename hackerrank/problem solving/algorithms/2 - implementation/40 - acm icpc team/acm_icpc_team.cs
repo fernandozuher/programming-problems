@@ -2,11 +2,11 @@
 
 using System.Numerics;
 
-int n = ReadNumbers()[0];
+int n = ReadNums()[0];
 List<BigInteger> binaries = ReadBinaries(n);
 AcmTeam(binaries).ForEach(x => Console.WriteLine(x));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 List<BigInteger> ReadBinaries(int n)
 {

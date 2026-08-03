@@ -7,11 +7,11 @@ import "fmt"
 func main() {
     var n, jumpLength int
     _, _ = fmt.Scan(&n, &jumpLength)
-    arr := readNumbers(n)
+    arr := readNums(n)
     fmt.Println(jumpingOnTheClouds(arr, jumpLength))
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
     for i := range arr {
         _, _ = fmt.Scan(&arr[i])

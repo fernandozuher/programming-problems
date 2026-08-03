@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/cavity-map/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     let mut matrix: Vec<Vec<char>> = read_matrix(n);
     change_matrix_to_cavity_map(&mut matrix);
     for x in matrix.iter() {
@@ -14,7 +12,7 @@ fn main() {
 fn read_matrix(n: usize) -> Vec<Vec<char>> {
     (0..n)
         .map(|_| {
-            let x: String = read!();
+            let x: String = text_io::read!();
             x.chars().collect::<Vec<char>>()
         })
         .collect()

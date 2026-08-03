@@ -1,14 +1,14 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
-int n = ReadNumbers()[0];
+int n = ReadNums()[0];
 for (int i = 0; i < n; i++)
 {
-    int threshold = ReadNumbers()[1];
-    int[] arrivalTimes = ReadNumbers();
+    int threshold = ReadNums()[1];
+    int[] arrivalTimes = ReadNums();
     Console.WriteLine(AngryProfessor(arrivalTimes, threshold) ? "YES" : "NO");
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // k: length of arrivalTimes
 // T: O(k)

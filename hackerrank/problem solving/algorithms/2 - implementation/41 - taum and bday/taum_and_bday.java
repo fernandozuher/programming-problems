@@ -6,18 +6,18 @@ record Gifts(long nBlackGifts, long nWhiteGifts, long blackGiftCost, long whiteG
 }
 
 void main() {
-    int n = (int) readNumbers()[0];
+    int n = (int) readNums()[0];
     for (int i = 0; i < n; i++)
         IO.println(minCostOfBuyingGifts(readTestCase()));
 }
 
-long[] readNumbers() {
+long[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToLong(Long::parseLong).toArray();
 }
 
 Gifts readTestCase() {
-    var arr1 = readNumbers();
-    var arr2 = readNumbers();
+    var arr1 = readNums();
+    var arr2 = readNums();
     return new Gifts(arr1[0], arr1[1], arr2[0], arr2[1], arr2[2]);
 }
 

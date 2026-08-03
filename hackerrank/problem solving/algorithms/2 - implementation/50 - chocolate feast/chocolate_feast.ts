@@ -2,15 +2,13 @@
 
 function main() {
   for (let i = 0, n = +readLine(); i < n; i++) {
-    const [money, cost, wrappersNeeded] = readNumbers();
+    const [money, cost, wrappersNeeded] = readNums();
     console.log(howManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
   }
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(log(money / cost))
@@ -36,7 +34,7 @@ function howManyChocolatesCanBeEaten(
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

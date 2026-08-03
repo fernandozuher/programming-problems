@@ -2,7 +2,7 @@
 
 function main() {
   readLine();
-  const socksToCounts = counter(readNumbers());
+  const socksToCounts = counter(readNums());
   console.log(sockMerchant(socksToCounts));
 }
 
@@ -17,10 +17,8 @@ function counter(arr) {
   return freqMap;
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // k: length of entries in socksToCounts
@@ -37,7 +35,7 @@ function sockMerchant(socksToCounts) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

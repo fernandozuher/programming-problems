@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 function main() {
-  const lettersHeights = readNumbers();
+  const lettersHeights = readNums();
   const word = readLine();
   console.log(designerPdfViewer(lettersHeights, word));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length word, <= 10
@@ -26,7 +24,7 @@ function designerPdfViewer(lettersHeights, word) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

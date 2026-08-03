@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int beautifulDifference = readNumbers()[1];
-    var arr = readNumbers();
+    int beautifulDifference = readNums()[1];
+    var arr = readNums();
     IO.println(findBeautifulTriplets(arr, beautifulDifference));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

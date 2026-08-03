@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 def main
-  _, jump_length = read_numbers
-  arr = read_numbers
+  _, jump_length = read_nums
+  arr = read_nums
   puts jumping_on_the_clouds(arr, jump_length)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

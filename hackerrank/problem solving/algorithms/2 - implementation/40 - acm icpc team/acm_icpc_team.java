@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int n = readNumbers()[0];
+    int n = readNums()[0];
     List<BitSet> binaries = readBinaries(n);
     acmTeam(binaries).forEach(IO::println);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

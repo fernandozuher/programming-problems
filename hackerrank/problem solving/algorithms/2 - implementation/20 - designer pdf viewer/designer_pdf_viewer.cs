@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
-int[] lettersHeights = ReadNumbers();
+int[] lettersHeights = ReadNums();
 String word = Console.ReadLine()!;
 Console.WriteLine(DesignerPdfViewer(lettersHeights, word));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length word, <= 10
 // T: O(10) = O(1)

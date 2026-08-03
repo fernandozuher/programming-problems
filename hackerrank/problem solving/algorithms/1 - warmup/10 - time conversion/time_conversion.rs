@@ -1,9 +1,7 @@
 // https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let time: String = read!();
+    let time: String = text_io::read!();
     print!("{}", to_24_hour_time(&time));
 }
 

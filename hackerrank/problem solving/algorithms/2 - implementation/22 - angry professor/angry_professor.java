@@ -4,13 +4,13 @@
 void main() {
     int n = Integer.parseInt(IO.readln());
     for (int i = 0; i < n; i++) {
-        int threshold = readNumbers()[1];
-        int[] arrivalTimes = readNumbers();
+        int threshold = readNums()[1];
+        int[] arrivalTimes = readNums();
         IO.println(angryProfessor(arrivalTimes, threshold) ? "YES" : "NO");
     }
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

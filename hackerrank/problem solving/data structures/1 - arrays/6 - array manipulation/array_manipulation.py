@@ -4,11 +4,11 @@ from itertools import accumulate
 
 
 def main():
-    n, n_queries = read_numbers()
+    n, n_queries = read_nums()
     print(array_manipulation(n, n_queries))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 
@@ -22,7 +22,7 @@ def array_manipulation(n, n_queries):
 def populate_arr(n, n_queries):
     arr = [0] * (n + 2)  # +2 = 1-indexed array + range-end
     for _ in range(n_queries):
-        b, e, summand = read_numbers()
+        b, e, summand = read_nums()
         arr[b] += summand
         arr[e + 1] -= summand
     return arr

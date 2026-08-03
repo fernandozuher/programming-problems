@@ -7,15 +7,15 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    grades := readNumbers(n)
+    grades := readNums(n)
     for _, x := range gradingStudents(grades) {
         fmt.Println(x)
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

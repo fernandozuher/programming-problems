@@ -2,14 +2,12 @@
 
 function main() {
   readLine();
-  const freqMap: Map<number, number> = counter(readNumbers());
+  const freqMap: Map<number, number> = counter(readNums());
   console.log(pickingNumbers(freqMap));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -43,7 +41,7 @@ function pickingNumbers(freqMap: Map<number, number>): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

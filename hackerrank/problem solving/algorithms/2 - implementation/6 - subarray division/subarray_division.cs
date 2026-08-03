@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] chocolateSquares = ReadNumbers();
-int[] dayMonth = ReadNumbers();
+int[] chocolateSquares = ReadNums();
+int[] dayMonth = ReadNums();
 Console.WriteLine(Birthday(chocolateSquares, dayMonth));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of chocolateSquares
 // 1 <= n <= 100

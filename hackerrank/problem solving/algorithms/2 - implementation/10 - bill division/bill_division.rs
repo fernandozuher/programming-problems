@@ -1,7 +1,5 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-use text_io::read;
-
 struct Input {
     item_not_eaten: usize,
     meal_costs: Vec<i32>,
@@ -19,16 +17,16 @@ fn main() {
 }
 
 fn read_input() -> Input {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     Input {
-        item_not_eaten: read!(),
-        meal_costs: read_numbers(n),
-        amount_charged: read!(),
+        item_not_eaten: text_io::read!(),
+        meal_costs: read_nums(n),
+        amount_charged: text_io::read!(),
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of data.meal_costs

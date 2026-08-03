@@ -5,11 +5,11 @@ from collections import Counter
 
 def main():
     input()
-    socks_to_counts = Counter(read_numbers())
+    socks_to_counts = Counter(read_nums())
     print(sock_merchant(socks_to_counts))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

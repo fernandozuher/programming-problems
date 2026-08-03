@@ -5,7 +5,7 @@ import std;
 using namespace std;
 using namespace ranges;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 void remove_duplicates(vector<int>& arr);
 vector<int> climbing_leaderboard(const vector<int>& ranked, const vector<int>& player);
 
@@ -13,10 +13,10 @@ int main()
 {
     int n;
     cin >> n;
-    vector ranked{ read_numbers(n) };
+    vector ranked{ read_nums(n) };
     remove_duplicates(ranked);
     cin >> n;
-    vector player{ read_numbers(n) };
+    vector player{ read_nums(n) };
 
     for (auto x : climbing_leaderboard(ranked, player))
         println("{}", x);
@@ -24,7 +24,7 @@ int main()
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

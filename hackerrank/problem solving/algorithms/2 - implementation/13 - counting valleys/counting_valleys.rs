@@ -1,10 +1,8 @@
 // https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let _: usize = read!();
-    let steps: String = read!();
+    let _: usize = text_io::read!();
+    let steps: String = text_io::read!();
     println!("{}", counting_valleys(&steps));
 }
 

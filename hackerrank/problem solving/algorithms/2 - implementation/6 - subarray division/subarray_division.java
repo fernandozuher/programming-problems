@@ -3,12 +3,12 @@
 
 void main() {
     IO.readln();
-    int[] chocolateSquares = readNumbers();
-    int[] dayMonth = readNumbers();
+    int[] chocolateSquares = readNums();
+    int[] dayMonth = readNums();
     IO.println(birthday(chocolateSquares, dayMonth));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

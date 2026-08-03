@@ -1,16 +1,14 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
 function main() {
-  const [_, t]: number[] = readNumbers();
-  const widths = readNumbers();
+  const [_, t]: number[] = readNums();
+  const widths = readNums();
   for (let i = 0; i < t; i++)
-    console.log(minWidthInSegment(widths, readNumbers()));
+    console.log(minWidthInSegment(widths, readNums()));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of widths
@@ -28,7 +26,7 @@ function minWidthInSegment(widths: number[], segment: number[]): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

@@ -2,14 +2,12 @@
 
 function main() {
   readLine();
-  const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(readNumbers());
+  const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(readNums());
   console.log(`${mostRecordBreaks} ${leastRecordBreaks}`);
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of scores
@@ -38,7 +36,7 @@ function breakingRecords(scores) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

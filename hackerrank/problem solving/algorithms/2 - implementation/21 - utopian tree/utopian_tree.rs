@@ -1,13 +1,12 @@
 // https://www.hackerrank.com/challenges/utopian-tree/problem?isFullScreen=true
 
 use num::Integer;
-use text_io::read;
 
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     let utopian_tree: Vec<i32> = generate_heights_utopian_tree();
     for _ in 0..n {
-        let cycles: usize = read!();
+        let cycles: usize = text_io::read!();
         println!("{}", utopian_tree[cycles]);
     }
 }

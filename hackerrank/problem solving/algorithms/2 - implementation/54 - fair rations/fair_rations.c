@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int min_loaves_to_satisfy_rules(const int *people_loaf_counts, int n);
 bool is_odd(int n);
 
@@ -12,7 +12,7 @@ int main()
     int n;
     scanf("%d", &n);
     int people_loaf_counts[n];
-    read_numbers(people_loaf_counts, n);
+    read_nums(people_loaf_counts, n);
 
     int min_loaves = min_loaves_to_satisfy_rules(people_loaf_counts, n);
     min_loaves == -1 ? puts("NO") : printf("%d\n", min_loaves);
@@ -20,7 +20,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

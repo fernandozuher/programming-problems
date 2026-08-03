@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int compare_function(const void *a, const void *b);
 void cut_the_sticks(const int *arr, int n, int *res, int *n2);
 
@@ -12,7 +12,7 @@ int main()
     int n;
     scanf("%d", &n);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
     qsort(arr, n, sizeof(int), compare_function);
 
     int n2 = 0;
@@ -25,7 +25,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

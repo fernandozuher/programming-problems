@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-int k = ReadNumbers()[1];
-int[] numbers = ReadNumbers();
+int k = ReadNums()[1];
+int[] numbers = ReadNums();
 Console.WriteLine(DivisibleSumPairs(numbers, k));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of numbers
 // k: length of freq

@@ -3,12 +3,12 @@
 
 void main() {
     IO.readln();
-    int[] a = readNumbers();
-    int[] b = readNumbers();
+    int[] a = readNums();
+    int[] b = readNums();
     IO.println(betweenTwoSets(a, b));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

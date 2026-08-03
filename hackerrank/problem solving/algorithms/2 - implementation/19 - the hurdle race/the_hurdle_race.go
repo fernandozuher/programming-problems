@@ -10,11 +10,11 @@ import (
 func main() {
     var n, maxJump int
     _, _ = fmt.Scan(&n, &maxJump)
-    hurdles := readNumbers(n)
+    hurdles := readNums(n)
     fmt.Println(hurdleRace(hurdles, maxJump))
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
     for i := range arr {
         _, _ = fmt.Scan(&arr[i])

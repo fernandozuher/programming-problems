@@ -10,15 +10,15 @@ import (
 func main() {
     var n, t int
     _, _ = fmt.Scan(&n, &t)
-    widths := readNumbers(n)
+    widths := readNums(n)
     for range t {
-        fmt.Println(minWidthInSegment(widths, readNumbers(2)))
+        fmt.Println(minWidthInSegment(widths, readNums(2)))
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

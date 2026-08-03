@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 
-int beautifulDifference = ReadNumbers()[1];
-int[] arr = ReadNumbers();
+int beautifulDifference = ReadNums()[1];
+int[] arr = ReadNums();
 Console.WriteLine(FindBeautifulTriplets(arr, beautifulDifference));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // k: distinct numbers of arr

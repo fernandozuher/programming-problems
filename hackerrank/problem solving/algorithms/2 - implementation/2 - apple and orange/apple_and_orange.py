@@ -25,13 +25,13 @@ def main():
 
 
 def read_input():
-    house_start, house_end = read_numbers()
+    house_start, house_end = read_nums()
     house = House(house_start, house_end)
 
-    apple_tree_location, orange_tree_location = read_numbers()
+    apple_tree_location, orange_tree_location = read_nums()
     input()  # Discard array sizes
-    apple_distances = read_numbers()
-    orange_distances = read_numbers()
+    apple_distances = read_nums()
+    orange_distances = read_nums()
 
     apple_tree = FruitTree(apple_tree_location, apple_distances)
     orange_tree = FruitTree(orange_tree_location, orange_distances)
@@ -39,7 +39,7 @@ def read_input():
     return [house, apple_tree, orange_tree]
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

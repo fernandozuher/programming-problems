@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 
 def main
-  _, beautiful_difference = read_numbers
-  arr = read_numbers
+  _, beautiful_difference = read_nums
+  arr = read_nums
   puts find_beautiful_triplets(arr, beautiful_difference)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

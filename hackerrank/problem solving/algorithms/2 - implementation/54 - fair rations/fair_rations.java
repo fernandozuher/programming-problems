@@ -3,12 +3,12 @@
 
 void main() {
     IO.readln();
-    int[] peopleLoafCounts = readNumbers();
+    int[] peopleLoafCounts = readNums();
     int minLoaves = minLoavesToSatisfyRules(peopleLoafCounts);
     IO.println(minLoaves == -1 ? "NO" : minLoaves);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

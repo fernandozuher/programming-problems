@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int jumping_on_the_clouds(const int *clouds, int n, int jump_length);
 
 int main()
@@ -10,12 +10,12 @@ int main()
     int n, jump_length;
     scanf("%d %d", &n, &jump_length);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
     printf("%d\n", jumping_on_the_clouds(arr, n, jump_length));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

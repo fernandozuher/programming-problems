@@ -3,11 +3,11 @@
 def main():
     n = int(input())
     for i in range(n):
-        prisoners, sweets, start_chair = read_numbers()
+        prisoners, sweets, start_chair = read_nums()
         print(save_the_prisoner(prisoners, sweets, start_chair))
 
 
-def read_numbers():
+def read_nums():
     return map(int, input().split())
 
 

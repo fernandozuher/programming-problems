@@ -2,13 +2,13 @@
 // Java 25
 
 void main() {
-    int n = readNumbers(1)[0];
-    int[] grades = readNumbers(n);
+    int n = readNums(1)[0];
+    int[] grades = readNums(n);
     for (int x : gradingStudents(grades))
         IO.println(x);
 }
 
-int[] readNumbers(int n) {
+int[] readNums(int n) {
     return IntStream.range(0, n).map(_ -> Integer.parseInt(IO.readln())).toArray();
 }
 

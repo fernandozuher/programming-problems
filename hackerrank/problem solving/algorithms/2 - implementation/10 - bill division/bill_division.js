@@ -6,16 +6,14 @@ function main() {
 }
 
 function readInput() {
-  const [, itemNotEaten] = readNumbers();
-  const mealCosts = readNumbers();
+  const [, itemNotEaten] = readNums();
+  const mealCosts = readNums();
   const amountCharged = +readLine();
   return { itemNotEaten, mealCosts, amountCharged };
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of data.mealCosts
@@ -33,7 +31,7 @@ function bonAppetit(data) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

@@ -1,14 +1,12 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 function main() {
-  const [startDay, endDay, divisor] = readNumbers();
+  const [startDay, endDay, divisor] = readNums();
   console.log(beautifulDays(startDay, endDay, divisor));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: range (endDay - startDay + 1)
@@ -35,7 +33,7 @@ function reverseNumber(number) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

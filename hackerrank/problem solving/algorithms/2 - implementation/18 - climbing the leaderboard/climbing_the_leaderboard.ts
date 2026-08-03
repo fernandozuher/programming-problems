@@ -2,16 +2,14 @@
 
 function main() {
   readLine();
-  const ranked: number[] = removeDuplicates(readNumbers());
+  const ranked: number[] = removeDuplicates(readNums());
   readLine();
-  const player: number[] = readNumbers();
+  const player: number[] = readNums();
   for (const x of climbingLeaderboard(ranked, player)) console.log(x);
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -40,7 +38,7 @@ function climbingLeaderboard(ranked: number[], player: number[]): number[] {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

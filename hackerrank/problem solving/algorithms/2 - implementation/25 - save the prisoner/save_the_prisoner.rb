@@ -3,12 +3,12 @@
 def main
   n = gets.to_i
   n.times do
-    prisoners, sweets, start_chair = read_numbers
+    prisoners, sweets, start_chair = read_nums
     puts save_the_prisoner(prisoners, sweets, start_chair)
   end
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

@@ -2,10 +2,10 @@
 
 def main
   n = gets.to_i
-  n.times { puts find_nearest_cat_or_not(read_numbers) }
+  n.times { puts find_nearest_cat_or_not(read_nums) }
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

@@ -1,11 +1,11 @@
 # https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 def main
-  initial_state = read_numbers
+  initial_state = read_nums
   puts kangaroo?(initial_state) ? "YES" : "NO"
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

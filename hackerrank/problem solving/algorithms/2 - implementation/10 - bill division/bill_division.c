@@ -11,7 +11,7 @@ typedef struct {
 } input;
 
 input read_input();
-int *read_numbers(int n);
+int *read_nums(int n);
 int bon_appetit(const input *data);
 
 int main()
@@ -27,13 +27,13 @@ input read_input()
 {
     int n, item_not_eaten;
     scanf("%d %d", &n, &item_not_eaten);
-    int *meal_costs = read_numbers(n);
+    int *meal_costs = read_nums(n);
     int amount_charged;
     scanf("%d", &amount_charged);
     return (input){n, item_not_eaten, meal_costs, amount_charged};
 }
 
-int *read_numbers(int n)
+int *read_nums(int n)
 {
     auto arr = (int *) malloc(n * sizeof(int));
     for (int i = 0; i < n; ++i)

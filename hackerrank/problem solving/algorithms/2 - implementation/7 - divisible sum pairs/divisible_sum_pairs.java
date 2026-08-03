@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int k = readNumbers()[1];
-    int[] numbers = readNumbers();
+    int k = readNums()[1];
+    int[] numbers = readNums();
     IO.println(divisibleSumPairs(numbers, k));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

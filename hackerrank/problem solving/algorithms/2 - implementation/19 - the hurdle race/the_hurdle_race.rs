@@ -1,16 +1,14 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let max_jump: i32 = read!();
-    let hurdles = read_numbers(n);
+    let n: usize = text_io::read!();
+    let max_jump: i32 = text_io::read!();
+    let hurdles = read_nums(n);
     println!("{}", hurdle_race(&hurdles, max_jump));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of hurdles

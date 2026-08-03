@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 
 def main():
-    _, beautiful_difference = read_numbers()
-    arr = read_numbers()
+    _, beautiful_difference = read_nums()
+    arr = read_nums()
     print(find_beautiful_triplets(arr, beautiful_difference))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int maxJump = readNumbers()[1];
-    int[] hurdles = readNumbers();
+    int maxJump = readNums()[1];
+    int[] hurdles = readNums();
     IO.println(hurdleRace(hurdles, maxJump));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

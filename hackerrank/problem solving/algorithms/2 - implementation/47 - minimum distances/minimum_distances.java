@@ -3,11 +3,11 @@
 
 void main() {
     IO.readln();
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     IO.println(minDistance(arr));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

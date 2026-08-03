@@ -2,16 +2,14 @@
 
 function main() {
   for (let i = 0, n = +readLine(); i < n; i++) {
-    const threshold = readNumbers()[1];
-    const arrivalTimes = readNumbers();
+    const threshold = readNums()[1];
+    const arrivalTimes = readNums();
     console.log(angryProfessor(arrivalTimes, threshold) ? 'YES' : 'NO');
   }
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // k: length of arrivalTimes
@@ -30,7 +28,7 @@ function angryProfessor(arrivalTimes, threshold) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/fair-rations/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] peopleLoafCounts = ReadNumbers();
+int[] peopleLoafCounts = ReadNums();
 int minLoaves = MinLoavesToSatisfyRules(peopleLoafCounts);
 Console.WriteLine(minLoaves == -1 ? "NO" : minLoaves);
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of peopleLoafCounts
 // T: O(n)

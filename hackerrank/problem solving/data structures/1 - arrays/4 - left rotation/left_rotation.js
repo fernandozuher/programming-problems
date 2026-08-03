@@ -1,16 +1,14 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
 function main() {
-  const [_, rotateBy] = readNumbers();
-  const arr = readNumbers();
+  const [_, rotateBy] = readNums();
+  const arr = readNums();
   rotate(arr, rotateBy);
   arr.forEach((x) => process.stdout.write(`${x} `));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr

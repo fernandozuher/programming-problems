@@ -1,11 +1,11 @@
 # https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
 def main():
-    price, discount, min_price, budget = read_numbers()
+    price, discount, min_price, budget = read_nums()
     print(how_many_games_can_be_bought(price, discount, min_price, budget))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

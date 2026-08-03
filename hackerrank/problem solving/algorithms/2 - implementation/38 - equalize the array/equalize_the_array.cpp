@@ -5,7 +5,7 @@ import std;
 using namespace std;
 using namespace views;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int min_deletions_to_equalize(const vector<int>& arr);
 unordered_map<int, int> counter(const vector<int>& arr);
 
@@ -13,11 +13,11 @@ int main()
 {
     int n;
     cin >> n;
-    cout << min_deletions_to_equalize(read_numbers(n));
+    cout << min_deletions_to_equalize(read_nums(n));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

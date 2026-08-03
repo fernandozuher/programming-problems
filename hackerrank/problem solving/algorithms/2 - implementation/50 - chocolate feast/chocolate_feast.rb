@@ -3,12 +3,12 @@
 def main
   n = gets.to_i
   n.times do
-    money, cost, wrappers_needed = read_numbers
+    money, cost, wrappers_needed = read_nums
     puts how_many_chocolates_can_be_eaten(money, cost, wrappers_needed)
   end
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

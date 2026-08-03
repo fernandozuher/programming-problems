@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
-int[] arr = ReadNumbers();
+int[] arr = ReadNums();
 int n = arr[0];
 int nQueries = arr[1];
 Console.WriteLine(ArrayManipulation(n, nQueries));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 long ArrayManipulation(int n, int nQueries)
 {
@@ -22,7 +22,7 @@ int[] PopulateArr(int n, int nQueries)
 
     for (int i = 0; i < nQueries; i++)
     {
-        int[] arr = ReadNumbers();
+        int[] arr = ReadNums();
         int b = arr[0];
         int e = arr[1];
         int summand = arr[2];

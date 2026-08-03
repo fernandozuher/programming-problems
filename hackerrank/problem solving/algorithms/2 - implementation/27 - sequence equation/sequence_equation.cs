@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] arr = ReadNumbers();
+int[] arr = ReadNums();
 foreach (var x in SequenceEquation(arr))
     Console.WriteLine(x);
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // T: O(n)

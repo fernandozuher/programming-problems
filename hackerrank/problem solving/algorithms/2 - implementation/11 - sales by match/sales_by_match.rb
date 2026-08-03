@@ -2,11 +2,11 @@
 
 def main
   gets
-  socks_to_counts = read_numbers.tally
+  socks_to_counts = read_nums.tally
   puts sock_merchant(socks_to_counts)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

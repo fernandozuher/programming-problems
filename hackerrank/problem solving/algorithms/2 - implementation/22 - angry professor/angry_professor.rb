@@ -3,13 +3,13 @@
 def main
   n = gets.to_i
   n.times do
-    _, threshold = read_numbers
-    arrival_times = read_numbers
+    _, threshold = read_nums
+    arrival_times = read_nums
     puts angry_professor?(arrival_times, threshold) ? "YES" : "NO"
   end
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

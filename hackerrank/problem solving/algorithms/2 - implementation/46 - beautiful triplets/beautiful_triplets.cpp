@@ -4,19 +4,19 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int find_beautiful_triplets(const vector<int>& arr, int beautiful_difference);
 
 int main()
 {
     int n, beautiful_difference;
     cin >> n >> beautiful_difference;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     println("{}", find_beautiful_triplets(arr, beautiful_difference));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

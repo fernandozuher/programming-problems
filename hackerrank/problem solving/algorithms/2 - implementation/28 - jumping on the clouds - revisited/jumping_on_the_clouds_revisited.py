@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 def main():
-    _, jump_length = read_numbers()
-    arr = read_numbers()
+    _, jump_length = read_nums()
+    arr = read_nums()
     print(jumping_on_the_clouds(arr, jump_length))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

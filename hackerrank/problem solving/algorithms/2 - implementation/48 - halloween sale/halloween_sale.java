@@ -2,7 +2,7 @@
 // Java 25
 
 void main() {
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     int price = arr[0];
     int discount = arr[1];
     int minPrice = arr[2];
@@ -10,7 +10,7 @@ void main() {
     IO.println(howManyGamesCanBeBought(price, discount, minPrice, budget));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

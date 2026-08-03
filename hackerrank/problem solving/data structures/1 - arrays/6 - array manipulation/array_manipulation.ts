@@ -1,14 +1,12 @@
 // https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
 function main() {
-  const [n, nQueries]: number[] = readNumbers();
+  const [n, nQueries]: number[] = readNums();
   console.log(arrayManipulation(n, nQueries));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(n + nQueries)
@@ -23,7 +21,7 @@ function populateArr(n: number, nQueries: number): number[] {
   const arr: number[] = new Array(n + 2).fill(0);
 
   for (let i = 0; i < nQueries; i++) {
-    const [b, e, summand]: number[] = readNumbers();
+    const [b, e, summand]: number[] = readNums();
     arr[b] += summand;
     arr[e + 1] -= summand;
   }

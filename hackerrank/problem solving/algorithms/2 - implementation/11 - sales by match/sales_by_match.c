@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int sock_merchant(const int *socks, int n);
 
 int main()
@@ -11,12 +11,12 @@ int main()
     int n;
     scanf("%d", &n);
     int socks_to_counts[n];
-    read_numbers(socks_to_counts, n);
+    read_nums(socks_to_counts, n);
     printf("%d\n", sock_merchant(socks_to_counts, n));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

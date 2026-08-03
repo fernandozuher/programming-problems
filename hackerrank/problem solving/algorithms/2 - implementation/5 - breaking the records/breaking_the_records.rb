@@ -2,10 +2,10 @@
 
 def main
   gets
-  puts breaking_records(read_numbers).join(' ')
+  puts breaking_records(read_nums).join(' ')
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

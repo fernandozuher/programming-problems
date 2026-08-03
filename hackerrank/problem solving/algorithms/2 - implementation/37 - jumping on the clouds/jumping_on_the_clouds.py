@@ -2,10 +2,10 @@
 
 def main():
     input()
-    print(min_jumps(read_numbers()))
+    print(min_jumps(read_nums()))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

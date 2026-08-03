@@ -2,14 +2,14 @@
 
 def main
   gets
-  ranked = read_numbers
+  ranked = read_nums
   ranked.uniq!
   gets
-  player = read_numbers
+  player = read_nums
   puts climbing_leaderboard(ranked, player)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

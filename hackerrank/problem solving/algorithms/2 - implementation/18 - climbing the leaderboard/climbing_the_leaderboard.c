@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int remove_duplicates(int *arr, int n);
 void climbing_leaderboard(const int *ranked, int n, const int *player, int n2, int *player_ranks);
 
@@ -11,13 +11,13 @@ int main()
     int n;
     scanf("%d", &n);
     int ranked[n];
-    read_numbers(ranked, n);
+    read_nums(ranked, n);
     n = remove_duplicates(ranked, n);
 
     int n2;
     scanf("%d", &n2);
     int player[n2];
-    read_numbers(player, n2);
+    read_nums(player, n2);
 
     int player_ranks[n2];
     climbing_leaderboard(ranked, n, player, n2, player_ranks);
@@ -27,7 +27,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

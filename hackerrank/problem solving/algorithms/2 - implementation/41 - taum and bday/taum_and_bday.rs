@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/taum-and-bday/problem?isFullScreen=true
 
 use std::cmp;
-use text_io::read;
 
 struct Gifts {
     n_black_gifts: i64,
@@ -12,7 +11,7 @@ struct Gifts {
 }
 
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     for _ in 0..n {
         println!("{}", min_cost_of_buying_gifts(read_test_case()));
     }
@@ -20,11 +19,11 @@ fn main() {
 
 fn read_test_case() -> Gifts {
     Gifts {
-        n_black_gifts: read!(),
-        n_white_gifts: read!(),
-        black_gift_cost: read!(),
-        white_gift_cost: read!(),
-        cost_to_convert_between_gifts: read!(),
+        n_black_gifts: text_io::read!(),
+        n_white_gifts: text_io::read!(),
+        black_gift_cost: text_io::read!(),
+        white_gift_cost: text_io::read!(),
+        cost_to_convert_between_gifts: text_io::read!(),
     }
 }
 

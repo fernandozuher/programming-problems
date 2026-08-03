@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int birthday(const int *chocolate_squares, int n, const int *day_month);
 
 int main()
@@ -11,18 +11,18 @@ int main()
     int n;
     scanf("%d", &n);
     int chocolate_squares[n];
-    read_numbers(chocolate_squares, n);
+    read_nums(chocolate_squares, n);
 
     constexpr int n_day_month = 2;
     int day_month[n_day_month];
-    read_numbers(day_month, n_day_month);
+    read_nums(day_month, n_day_month);
 
     printf("%d\n", birthday(chocolate_squares, n, day_month));
 
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

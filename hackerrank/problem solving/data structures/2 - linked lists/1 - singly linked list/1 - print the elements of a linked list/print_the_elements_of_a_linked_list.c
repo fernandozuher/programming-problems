@@ -17,7 +17,7 @@ typedef struct linked_list {
     node_t *tail;
 } linked_list;
 
-linked_list *read_numbers(int n);
+linked_list *read_nums(int n);
 linked_list *create_list();
 void add_node(linked_list *list, int data);
 node_t *create_node(int data);
@@ -28,7 +28,7 @@ int main()
 {
     int n;
     scanf("%d", &n);
-    linked_list *list = read_numbers(n);
+    linked_list *list = read_nums(n);
     print_list(list);
 
     free_list(list);
@@ -38,7 +38,7 @@ int main()
 
 // T: O(n)
 // S: O(n) extra space
-linked_list *read_numbers(int n)
+linked_list *read_nums(int n)
 {
     linked_list *list = create_list();
     for (int i = 0, data; i < n; ++i) {

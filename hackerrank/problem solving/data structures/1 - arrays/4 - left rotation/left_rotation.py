@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
 def main():
-    n, rotate_by = read_numbers()
-    arr = read_numbers()
+    n, rotate_by = read_nums()
+    arr = read_nums()
     arr = rotate(arr, rotate_by)
     print(*arr, sep=' ')
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

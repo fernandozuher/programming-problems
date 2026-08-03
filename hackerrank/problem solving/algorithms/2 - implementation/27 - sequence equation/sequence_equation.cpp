@@ -6,20 +6,20 @@ using namespace std;
 using namespace ranges;
 using namespace views;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 vector<int> sequence_equation(const vector<int>& arr);
 
 int main()
 {
     int n;
     cin >> n;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     for (auto x : sequence_equation(arr))
         println("{}", x);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

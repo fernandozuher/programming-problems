@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int divisible_sum_pairs(const int *numbers, int n, int k);
 void init_remainder_frequency(int *freq, int k, const int *numbers, int n);
 int count_pairs_with_remainder_0(const int *freq);
@@ -16,12 +16,12 @@ int main()
     int n, k;
     scanf("%d %d", &n, &k);
     int numbers[n];
-    read_numbers(numbers, n);
+    read_nums(numbers, n);
     printf("%d\n", divisible_sum_pairs(numbers, n, k));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int min_jumps(const vector<int>& clouds);
 int skip(int idx, const vector<int>& clouds);
 bool is_next_second_cloud_cumulus(int idx, const vector<int>& clouds);
@@ -13,11 +13,11 @@ int main()
 {
     int n;
     cin >> n;
-    cout << min_jumps(read_numbers(n));
+    cout << min_jumps(read_nums(n));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

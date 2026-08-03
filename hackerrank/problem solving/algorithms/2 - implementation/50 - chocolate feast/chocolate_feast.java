@@ -2,9 +2,9 @@
 // Java 25
 
 void main() {
-    int n = readNumbers()[0];
+    int n = readNums()[0];
     for (int i = 0; i < n; i++) {
-        var arr = readNumbers();
+        var arr = readNums();
         int money = arr[0];
         int cost = arr[1];
         int wrappersNeeded = arr[2];
@@ -12,7 +12,7 @@ void main() {
     }
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

@@ -1,18 +1,16 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
 function main() {
-  const [n, nQueries]: number[] = readNumbers();
+  const [n, nQueries]: number[] = readNums();
   const obj = new DynamicArray(n);
 
-  for (let i = 0; i < nQueries; i++) obj.handleQuery(readNumbers());
+  for (let i = 0; i < nQueries; i++) obj.handleQuery(readNums());
 
   obj.answers().forEach((x) => console.log(x));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 class DynamicArray {

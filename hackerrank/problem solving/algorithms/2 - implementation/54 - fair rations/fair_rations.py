@@ -5,12 +5,12 @@ from itertools import islice
 
 def main():
     input()
-    people_loaf_counts = read_numbers()
+    people_loaf_counts = read_nums()
     min_loaves = min_loaves_to_satisfy_rules(people_loaf_counts)
     print("NO" if min_loaves == -1 else min_loaves)
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

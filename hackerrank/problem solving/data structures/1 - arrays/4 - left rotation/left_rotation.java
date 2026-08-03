@@ -2,14 +2,14 @@
 // Java 25
 
 void main() {
-    var arr = readNumbers();
+    var arr = readNums();
     int rotateBy = arr.get(1);
-    arr = readNumbers();
+    arr = readNums();
     rotate(arr, rotateBy);
     arr.forEach(x -> IO.print(x + " "));
 }
 
-List<Integer> readNumbers() {
+List<Integer> readNums() {
     return new ArrayList<>(Arrays.stream(IO.readln().split(" ")).map(Integer::parseInt).toList());
 }
 

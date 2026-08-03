@@ -1,15 +1,14 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
 use counter::Counter;
-use text_io::read;
 
 fn main() {
-    let n: usize = read!();
-    println!("{}", min_deletions_to_equalize(&*read_numbers(n)));
+    let n: usize = text_io::read!();
+    println!("{}", min_deletions_to_equalize(&*read_nums(n)));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr, 1 <= n <= 100

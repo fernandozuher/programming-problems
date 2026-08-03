@@ -3,12 +3,12 @@
 def main():
     n = int(input())
     for _ in range(n):
-        _, threshold = read_numbers()
-        arrival_times = read_numbers()
+        _, threshold = read_nums()
+        arrival_times = read_nums()
         print("YES" if angry_professor(arrival_times, threshold) else "NO")
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
 def main
-  n, _ = read_numbers
+  n, _ = read_nums
   binaries = read_binaries(n)
   puts acm_team(binaries)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

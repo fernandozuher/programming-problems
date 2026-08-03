@@ -1,17 +1,16 @@
 // https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 
 use std::collections::HashSet;
-use text_io::read;
 
 fn main() {
-    let n: usize = read!();
-    let beautiful_difference: i32 = read!();
-    let arr: Vec<i32> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let beautiful_difference: i32 = text_io::read!();
+    let arr: Vec<i32> = read_nums(n);
     println!("{}", find_beautiful_triplets(&arr, beautiful_difference));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of arr

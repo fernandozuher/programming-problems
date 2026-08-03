@@ -3,7 +3,7 @@
 
 void main() {
     IO.readln();
-    Map<Integer, Integer> socksToCounts = counter(readNumbers());
+    Map<Integer, Integer> socksToCounts = counter(readNums());
     IO.println(sockMerchant(socksToCounts));
 }
 
@@ -19,7 +19,7 @@ Map<Integer, Integer> counter(int[] arr) {
     return freqMap;
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

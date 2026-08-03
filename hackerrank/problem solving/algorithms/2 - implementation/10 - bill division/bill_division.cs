@@ -6,13 +6,13 @@ Console.WriteLine(charged > 0 ? charged : "Bon Appetit");
 
 Input ReadInput()
 {
-    int itemNotEaten = ReadNumbers()[1];
-    int[] mealCosts = ReadNumbers();
-    int amountCharged = ReadNumbers()[0];
+    int itemNotEaten = ReadNums()[1];
+    int[] mealCosts = ReadNums();
+    int amountCharged = ReadNums()[0];
     return new Input(itemNotEaten, mealCosts, amountCharged);
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of data.MealCosts
 // T: O(n)

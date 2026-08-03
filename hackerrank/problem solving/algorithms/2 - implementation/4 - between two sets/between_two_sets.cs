@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] a = ReadNumbers();
-int[] b = ReadNumbers();
+int[] a = ReadNums();
+int[] b = ReadNums();
 Console.WriteLine(BetweenTwoSets(a, b));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n1, n2: length of a, b
 // k: number of multiples tested = gcdOfB / lcmOfA

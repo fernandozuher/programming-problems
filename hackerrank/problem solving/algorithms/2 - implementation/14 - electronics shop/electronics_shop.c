@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int preprocess_input(int *arr, int n);
 void sort(int *arr, int n);
 int compare(const void *a, const void *b);
@@ -16,8 +16,8 @@ int main()
     scanf("%d %d %d", &budget, &n_keyboards, &n_usb_drives);
 
     int keyboards[n_keyboards], usb_drives[n_usb_drives];
-    read_numbers(keyboards, n_keyboards);
-    read_numbers(usb_drives, n_usb_drives);
+    read_nums(keyboards, n_keyboards);
+    read_nums(usb_drives, n_usb_drives);
     int n1 = preprocess_input(keyboards, n_keyboards);
     int n2 = preprocess_input(usb_drives, n_usb_drives);
 
@@ -26,7 +26,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

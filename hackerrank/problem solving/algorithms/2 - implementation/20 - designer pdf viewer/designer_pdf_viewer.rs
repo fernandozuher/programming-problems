@@ -1,17 +1,15 @@
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
-use text_io::read;
-
 const ALPHABET_SIZE: usize = 26;
 
 fn main() {
     let letters_heights: [usize; ALPHABET_SIZE] = read_input();
-    let word: String = read!();
+    let word: String = text_io::read!();
     println!("{}", designer_pdf_viewer(&letters_heights, &word));
 }
 
 fn read_input() -> [usize; ALPHABET_SIZE] {
-    core::array::from_fn(|_| read!())
+    core::array::from_fn(|_| text_io::read!())
 }
 
 // n: length word, <= 10

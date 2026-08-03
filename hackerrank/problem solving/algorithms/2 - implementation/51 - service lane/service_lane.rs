@@ -1,18 +1,16 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: i32 = read!();
-    let t: i32 = read!();
-    let widths: Vec<i32> = read_numbers(n);
+    let n: i32 = text_io::read!();
+    let t: i32 = text_io::read!();
+    let widths: Vec<i32> = read_nums(n);
     for _ in 0..t {
-        println!("{}", min_width_in_segment(&widths, &read_numbers(2)))
+        println!("{}", min_width_in_segment(&widths, &read_nums(2)))
     }
 }
 
-fn read_numbers(n: i32) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: i32) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of widths

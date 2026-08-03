@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/minimum-distances/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] arr = ReadNumbers();
+int[] arr = ReadNums();
 Console.WriteLine(MinDistance(arr));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // T: O(n)

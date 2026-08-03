@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 
 def main
-  letters_heights = read_numbers
+  letters_heights = read_nums
   word = gets
   puts designer_pdf_viewer(letters_heights, word)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

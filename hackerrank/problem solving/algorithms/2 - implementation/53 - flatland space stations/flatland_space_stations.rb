@@ -1,14 +1,14 @@
 # https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
 def main
-  n_cities, _ = read_numbers
+  n_cities, _ = read_nums
   last_city = n_cities - 1
-  cities_with_space_station = read_numbers
+  cities_with_space_station = read_nums
   cities_with_space_station.sort!
   puts max_distance_from_space_station(last_city, cities_with_space_station)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

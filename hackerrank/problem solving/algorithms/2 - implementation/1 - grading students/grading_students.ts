@@ -2,11 +2,11 @@
 
 function main() {
   const n: number = +readLine();
-  const grades: number[] = readNumbers(n);
+  const grades: number[] = readNums(n);
   console.log(gradingStudents(grades).join('\n'));
 }
 
-function readNumbers(n: number): number[] {
+function readNums(n: number): number[] {
   return Array(n)
     .fill(0)
     .map((_) => +readLine());
@@ -29,7 +29,7 @@ function gradingStudents(grades: number[]): number[] {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

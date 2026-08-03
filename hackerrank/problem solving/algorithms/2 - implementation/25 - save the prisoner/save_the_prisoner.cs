@@ -1,14 +1,14 @@
 // https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
-int n = ReadNumbers()[0];
+int n = ReadNums()[0];
 for (int i = 0; i < n; i++)
 {
-    var line = ReadNumbers();
+    var line = ReadNums();
     int prisoners = line[0], sweets = line[1], startChair = line[2];
     Console.WriteLine(SaveThePrisoner(prisoners, sweets, startChair));
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // T: O(1)
 // S: O(1) extra space

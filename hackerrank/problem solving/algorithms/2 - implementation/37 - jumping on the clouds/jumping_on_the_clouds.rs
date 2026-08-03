@@ -1,14 +1,12 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    println!("{}", min_jumps(&read_numbers(n)));
+    let n: usize = text_io::read!();
+    println!("{}", min_jumps(&read_nums(n)));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of clouds

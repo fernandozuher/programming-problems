@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 
 function main() {
-  const [, beautifulDifference]: number[] = readNumbers();
-  const arr: number[] = readNumbers();
+  const [, beautifulDifference]: number[] = readNums();
+  const arr: number[] = readNums();
   console.log(findBeautifulTriplets(arr, beautifulDifference));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of arr
@@ -38,7 +36,7 @@ function findBeautifulTriplets(
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

@@ -5,7 +5,7 @@ import std;
 using namespace std;
 using namespace ranges;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int min_loaves_to_satisfy_rules(const vector<int>& people_loaf_counts);
 bool is_odd(int n);
 
@@ -13,7 +13,7 @@ int main()
 {
     int n;
     cin >> n;
-    vector people_loaf_counts{ read_numbers(n) };
+    vector people_loaf_counts{ read_nums(n) };
     int min_loaves{ min_loaves_to_satisfy_rules(people_loaf_counts) };
     if (min_loaves == -1)
         cout << "NO";
@@ -22,7 +22,7 @@ int main()
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     return views::iota(0, n) | views::transform([](auto) { int x; cin >> x; return x; }) | to<vector>();
 }

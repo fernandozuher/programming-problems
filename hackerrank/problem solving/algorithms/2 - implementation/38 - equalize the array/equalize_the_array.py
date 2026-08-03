@@ -5,10 +5,10 @@ from collections import Counter
 
 def main():
     input()
-    print(min_deletions_to_equalize(read_numbers()))
+    print(min_deletions_to_equalize(read_nums()))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

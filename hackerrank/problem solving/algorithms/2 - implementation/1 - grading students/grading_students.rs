@@ -1,17 +1,15 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let mut grades: Vec<i32> = read_numbers(n);
+    let n: usize = text_io::read!();
+    let mut grades: Vec<i32> = read_nums(n);
     for x in grading_students(&mut grades) {
         println!("{}", x);
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of grades

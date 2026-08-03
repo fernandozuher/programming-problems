@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, size_t n);
+void read_nums(int *arr, size_t n);
 int between_two_sets(const int *a, size_t n1, const int *b, size_t n2);
 int reduce(const int *arr, size_t n, int func(int a, int b));
 int lcm(int a, int b);
@@ -13,13 +13,13 @@ int main()
     size_t n1, n2;
     scanf("%zu %zu", &n1, &n2);
     int a[n1], b[n2];
-    read_numbers(a, n1);
-    read_numbers(b, n2);
+    read_nums(a, n1);
+    read_nums(b, n2);
     printf("%d\n", between_two_sets(a, n1, b, n2));
     return 0;
 }
 
-void read_numbers(int *arr, size_t n)
+void read_nums(int *arr, size_t n)
 {
     for (size_t i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

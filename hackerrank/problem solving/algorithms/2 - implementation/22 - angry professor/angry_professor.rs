@@ -1,19 +1,17 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     for _ in 0..n {
-        let n: usize = read!();
-        let threshold: i32 = read!();
-        let arrival_times: Vec<i32> = read_numbers(n);
+        let n: usize = text_io::read!();
+        let threshold: i32 = text_io::read!();
+        let arrival_times: Vec<i32> = read_nums(n);
         println!("{}", if angry_professor(&arrival_times, threshold) { "YES" } else { "NO" });
     }
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // k: length of arrival_times

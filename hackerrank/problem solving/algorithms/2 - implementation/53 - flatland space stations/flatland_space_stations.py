@@ -4,14 +4,14 @@ from itertools import pairwise
 
 
 def main():
-    n_cities, _ = read_numbers()
+    n_cities, _ = read_nums()
     last_city = n_cities - 1
-    cities_with_space_station = read_numbers()
+    cities_with_space_station = read_nums()
     cities_with_space_station.sort()
     print(max_distance_from_space_station(last_city, cities_with_space_station))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

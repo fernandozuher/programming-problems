@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
 function main() {
-  const [_, jumpLength] = readNumbers();
-  const arr = readNumbers();
+  const [_, jumpLength] = readNums();
+  const arr = readNums();
   console.log(jumpingOnTheClouds(arr, jumpLength));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of clouds; 2 to 25
@@ -35,7 +33,7 @@ function jumpingOnTheClouds(clouds, jumpLength) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

@@ -7,13 +7,13 @@ import "fmt"
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    arr := readNumbers(n)
+    arr := readNums(n)
     for _, x := range sequenceEquation(arr) {
         fmt.Println(x)
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
     for i := range arr {
         _, _ = fmt.Scan(&arr[i])

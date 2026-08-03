@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int between_two_sets(const vector<int>& a, const vector<int>& b);
 template<class Func>
 int reduce(const vector<int>& arr, Func func);
@@ -13,13 +13,13 @@ int main()
 {
     int n1, n2;
     cin >> n1 >> n2;
-    vector a{ read_numbers(n1) };
-    vector b{ read_numbers(n2) };
+    vector a{ read_nums(n1) };
+    vector b{ read_nums(n2) };
     println("{}", between_two_sets(a, b));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

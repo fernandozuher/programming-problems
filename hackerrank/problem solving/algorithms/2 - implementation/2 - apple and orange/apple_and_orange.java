@@ -24,22 +24,22 @@ void main() {
 }
 
 Input readInput() {
-    var arr = readNumbers();
+    var arr = readNums();
     var house = new House(arr[0], arr[1]);
 
-    arr = readNumbers();
+    arr = readNums();
     var appleTreeLocation = arr[0];
     var orangeTreeLocation = arr[1];
 
-    readNumbers(); // Discard array sizes
+    readNums(); // Discard array sizes
 
-    var appleTree = new FruitTree(appleTreeLocation, readNumbers());
-    var orangeTree = new FruitTree(orangeTreeLocation, readNumbers());
+    var appleTree = new FruitTree(appleTreeLocation, readNums());
+    var orangeTree = new FruitTree(orangeTreeLocation, readNums());
 
     return new Input(house, appleTree, orangeTree);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

@@ -19,7 +19,7 @@ struct fruit_tree_t {
 };
 
 tuple<house_t, fruit_tree_t, fruit_tree_t> read_input();
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 int count_fruits_on_house(const fruit_tree_t& fruit_tree, const house_t& house);
 
 int main()
@@ -41,13 +41,13 @@ tuple<house_t, fruit_tree_t, fruit_tree_t> read_input()
     int n_apples, n_oranges;
     cin >> n_apples >> n_oranges;
 
-    apple_tree.fruit_distances = read_numbers(n_apples);
-    orange_tree.fruit_distances = read_numbers(n_oranges);
+    apple_tree.fruit_distances = read_nums(n_apples);
+    orange_tree.fruit_distances = read_nums(n_oranges);
 
     return { house, apple_tree, orange_tree };
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

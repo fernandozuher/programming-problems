@@ -15,8 +15,8 @@ function main() {
 }
 
 function readTestCase(): Gifts {
-  const arr: bigint[] = readNumbers();
-  for (const x of readNumbers()) arr.push(x);
+  const arr: bigint[] = readNums();
+  for (const x of readNums()) arr.push(x);
   return {
     nBlackGifts: arr[0],
     nWhiteGifts: arr[1],
@@ -26,7 +26,7 @@ function readTestCase(): Gifts {
   };
 }
 
-function readNumbers(): bigint[] {
+function readNums(): bigint[] {
   return readLine().split(' ').map(BigInt);
 }
 
@@ -51,7 +51,7 @@ function minCostOfBuyingGifts(x: Gifts): bigint {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

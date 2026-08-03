@@ -2,11 +2,11 @@
 
 def main
   n = gets.to_i
-  grades = read_numbers(n)
+  grades = read_nums(n)
   puts grading_students(grades)
 end
 
-def read_numbers(n)
+def read_nums(n)
   n.times.map { gets.to_i }
 end
 

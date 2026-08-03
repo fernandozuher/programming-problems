@@ -1,13 +1,13 @@
 // https://www.hackerrank.com/challenges/array-left-rotation/problem?isFullScreen=true
 
-var arr = ReadNumbers();
+var arr = ReadNums();
 int n = arr[0];
 int rotateBy = arr[1];
-arr = ReadNumbers();
+arr = ReadNums();
 Rotate(arr, rotateBy);
 Console.WriteLine(string.Join(" ", arr));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // T: O(n)

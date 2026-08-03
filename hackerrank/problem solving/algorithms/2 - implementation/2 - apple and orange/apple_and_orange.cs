@@ -6,22 +6,22 @@ Console.WriteLine(CountFruitsOnHouse(orangeTree, house));
 
 (House, FruitTree, FruitTree) ReadInput()
 {
-    var arr = ReadNumbers();
+    var arr = ReadNums();
     var house = new House(arr[0], arr[1]);
 
-    arr = ReadNumbers();
+    arr = ReadNums();
     var appleTreeLocation = arr[0];
     var orangeTreeLocation = arr[1];
 
     Console.ReadLine(); // Discard array sizes
 
-    var appleTree = new FruitTree(appleTreeLocation, ReadNumbers());
-    var orangeTree = new FruitTree(orangeTreeLocation, ReadNumbers());
+    var appleTree = new FruitTree(appleTreeLocation, ReadNums());
+    var orangeTree = new FruitTree(orangeTreeLocation, ReadNums());
 
     return (house, appleTree, orangeTree);
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of fruitTree.fruitDistances
 // T: O(n)

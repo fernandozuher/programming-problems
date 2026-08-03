@@ -10,16 +10,16 @@ import (
 func main() {
     var n int
     _, _ = fmt.Scan(&n)
-    arr := readNumbers(n)
+    arr := readNums(n)
     slices.Reverse(arr)
     for _, x := arr {
         fmt.Print(x)
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

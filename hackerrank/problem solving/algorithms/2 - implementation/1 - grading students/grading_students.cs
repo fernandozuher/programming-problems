@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/grading/problem?isFullScreen=true
 
-int n = ReadNumbers(1)[0];
-int[] grades = ReadNumbers(n);
+int n = ReadNums(1)[0];
+int[] grades = ReadNums(n);
 Array.ForEach(GradingStudents(grades), Console.WriteLine);
 
-int[] ReadNumbers(int n) => Enumerable.Range(0, n).Select(_ => int.Parse(Console.ReadLine()!)).ToArray();
+int[] ReadNums(int n) => Enumerable.Range(0, n).Select(_ => int.Parse(Console.ReadLine()!)).ToArray();
 
 // n: length of grades
 // T: O(n)

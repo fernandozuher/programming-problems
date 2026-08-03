@@ -3,15 +3,13 @@
 function main() {
   const n = +readLine();
   for (let i = 0; i < n; i++) {
-    const [a, b] = readNumbers();
+    const [a, b] = readNums();
     console.log(squares(a, b));
   }
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(1)
@@ -27,7 +25,7 @@ function squares(startNum, endNum) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

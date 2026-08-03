@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
 use chrono::{Datelike, NaiveDate};
-use text_io::read;
 
 enum HackosFine {
     HackosDaysFine = 15,
@@ -16,9 +15,9 @@ fn main() {
 }
 
 fn read_date() -> NaiveDate {
-    let day: u32 = read!();
-    let month: u32 = read!();
-    let year: i32 = read!();
+    let day: u32 = text_io::read!();
+    let month: u32 = text_io::read!();
+    let year: i32 = text_io::read!();
     NaiveDate::from_ymd_opt(year, month, day).unwrap()
 }
 

@@ -5,19 +5,19 @@ import std;
 using namespace std;
 using namespace ranges;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 pair<int, int> breaking_records(const vector<int>& scores);
 
 int main()
 {
     int n;
     cin >> n;
-    auto [most_record_breaks, least_record_breaks] { breaking_records(read_numbers(n)) };
+    auto [most_record_breaks, least_record_breaks] { breaking_records(read_nums(n)) };
     println("{} {}", most_record_breaks, least_record_breaks);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     return views::iota(0, n) | views::transform([](auto) {int x; cin >> x; return x; }) | to<vector>();
 }

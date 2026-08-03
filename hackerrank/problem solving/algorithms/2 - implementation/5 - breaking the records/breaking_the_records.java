@@ -3,11 +3,11 @@
 
 void main() {
     IO.readln();
-    int[] records = breakingRecords(readNumbers());
+    int[] records = breakingRecords(readNums());
     IO.println(records[0] + " " + records[1]);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

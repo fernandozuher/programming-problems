@@ -1,13 +1,13 @@
 # https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
 def main():
-    budget = read_numbers()[0]
-    keyboards = preprocess_input(read_numbers())
-    usb_drives = preprocess_input(read_numbers())
+    budget = read_nums()[0]
+    keyboards = preprocess_input(read_nums())
+    usb_drives = preprocess_input(read_nums())
     print(calc_money_spent(keyboards, usb_drives, budget))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

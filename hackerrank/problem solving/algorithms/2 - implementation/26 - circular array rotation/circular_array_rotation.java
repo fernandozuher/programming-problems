@@ -2,14 +2,14 @@
 // Java 25
 
 void main() {
-    int[] line = readNumbers();
+    int[] line = readNums();
     int nRotation = line[1];
     int nQueries = line[2];
-    int[] arr = readNumbers();
+    int[] arr = readNums();
     printQueries(arr, nRotation, nQueries);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

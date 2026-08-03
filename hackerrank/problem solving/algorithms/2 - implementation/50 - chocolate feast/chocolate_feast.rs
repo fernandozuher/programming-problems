@@ -1,13 +1,11 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     for _ in 0..n {
-        let money: i32 = read!();
-        let cost: i32 = read!();
-        let wrappers_needed: i32 = read!();
+        let money: i32 = text_io::read!();
+        let cost: i32 = text_io::read!();
+        let wrappers_needed: i32 = text_io::read!();
         println!(
             "{}",
             how_many_chocolates_can_be_eaten(money, cost, wrappers_needed)

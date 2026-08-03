@@ -2,12 +2,12 @@
 
 def main
   gets
-  people_loaf_counts = read_numbers
+  people_loaf_counts = read_nums
   min_loaves = min_loaves_to_satisfy_rules(people_loaf_counts)
   puts min_loaves == -1 ? 'NO' : min_loaves
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

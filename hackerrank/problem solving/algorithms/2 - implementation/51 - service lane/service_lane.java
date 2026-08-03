@@ -2,13 +2,13 @@
 // Java 25
 
 void main() {
-    int t = readNumbers()[1];
-    int[] widths = readNumbers();
+    int t = readNums()[1];
+    int[] widths = readNums();
     for (int i = 0; i < t; i++)
-        IO.println(minWidthInSegment(widths, readNumbers()));
+        IO.println(minWidthInSegment(widths, readNums()));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

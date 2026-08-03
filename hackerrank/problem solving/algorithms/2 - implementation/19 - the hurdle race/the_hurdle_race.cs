@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/the-hurdle-race/problem?isFullScreen=true
 
-int maxJump = ReadNumbers()[1];
-int[] hurdles = ReadNumbers();
+int maxJump = ReadNums()[1];
+int[] hurdles = ReadNums();
 Console.WriteLine(HurdleRace(hurdles, maxJump));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of hurdles
 // T: O(n)

@@ -2,13 +2,11 @@
 
 function main() {
   readLine();
-  console.log(minJumps(readNumbers()));
+  console.log(minJumps(readNums()));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of clouds
@@ -33,7 +31,7 @@ function isNextSecondCloudCumulus(idx: number, clouds: number[]): boolean {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

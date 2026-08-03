@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 function main() {
-  const [, k]: number[] = readNumbers();
-  const numbers: number[] = readNumbers();
+  const [, k]: number[] = readNums();
+  const numbers: number[] = readNums();
   console.log(divisibleSumPairs(numbers, k));
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of numbers
@@ -56,7 +54,7 @@ function countPairsWithRemainderKHalf(freq: number[]): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

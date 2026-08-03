@@ -12,12 +12,12 @@ def main
 end
 
 def read_test_case
-  arr = read_numbers
-  arr.concat(read_numbers)
+  arr = read_nums
+  arr.concat(read_nums)
   Gifts.new(*arr)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

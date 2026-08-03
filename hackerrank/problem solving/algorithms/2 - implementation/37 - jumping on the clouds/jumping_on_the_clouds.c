@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int min_jumps(const int *clouds, int n);
 int skip(int idx, const int *clouds, int n);
 bool is_next_second_cloud_cumulus(int idx, const int *clouds, int n);
@@ -13,12 +13,12 @@ int main()
     int n;
     scanf("%d", &n);
     int clouds[n];
-    read_numbers(clouds, n);
+    read_nums(clouds, n);
     printf("%d\n", min_jumps(clouds, n));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

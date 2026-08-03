@@ -1,16 +1,14 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
 function main() {
-  const [nCities, _] = readNumbers();
+  const [nCities, _] = readNums();
   const lastCity = nCities - 1;
-  let stations = readNumbers().sort((a, b) => a - b);
+  let stations = readNums().sort((a, b) => a - b);
   console.log(maxDistanceFromSpaceStation(lastCity, stations));
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // n: length of stations
@@ -32,7 +30,7 @@ function maxDistanceFromSpaceStation(lastCity, stations) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

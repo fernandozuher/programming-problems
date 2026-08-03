@@ -1,12 +1,12 @@
 # https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
 def main():
-    _, k = read_numbers()
-    numbers = read_numbers()
+    _, k = read_nums()
+    numbers = read_nums()
     print(divisible_sum_pairs(numbers, k))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

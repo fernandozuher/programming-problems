@@ -1,10 +1,8 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let n_queries: usize = read!();
+    let n: usize = text_io::read!();
+    let n_queries: usize = text_io::read!();
     for x in handle_queries(n, n_queries) {
         println!("{}", x);
     }
@@ -18,9 +16,9 @@ fn handle_queries(n: usize, n_queries: usize) -> Vec<usize> {
     let mut last_answer: usize = 0;
 
     for _ in 0..n_queries {
-        let type_i: usize = read!();
-        let x: usize = read!();
-        let y: usize = read!();
+        let type_i: usize = text_io::read!();
+        let x: usize = text_io::read!();
+        let y: usize = text_io::read!();
 
         let index: usize = (x ^ last_answer) % n;
 

@@ -1,11 +1,11 @@
 # https://www.hackerrank.com/challenges/crush/problem?isFullScreen=true
 
 def main
-  n, n_queries = read_numbers
+  n, n_queries = read_nums
   puts array_manipulation(n, n_queries)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 
@@ -20,7 +20,7 @@ def populate_arr(n, n_queries)
   arr = Array.new(n + 2, 0) # +2 = 1-indexed array + range-end
 
   n_queries.times do
-    b, e, summand = read_numbers
+    b, e, summand = read_nums
     arr[b] += summand
     arr[e + 1] -= summand
   end

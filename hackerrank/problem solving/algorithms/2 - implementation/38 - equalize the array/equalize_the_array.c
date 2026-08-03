@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int min_deletions_to_equalize(const int *arr, int n);
 void counter(const int *arr, int *freq_map, int n);
 int max(const int *arr, int n);
@@ -13,12 +13,12 @@ int main()
     int n;
     scanf("%d", &n);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
     printf("%d\n", min_deletions_to_equalize(arr, n));
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

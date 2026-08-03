@@ -4,21 +4,21 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 vector<int> cut_the_sticks(const vector<int>& arr);
 
 int main()
 {
     int n;
     cin >> n;
-    vector arr{ read_numbers(n) };
+    vector arr{ read_nums(n) };
     ranges::sort(arr);
     for (auto x : cut_the_sticks(arr))
         println("{}", x);
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

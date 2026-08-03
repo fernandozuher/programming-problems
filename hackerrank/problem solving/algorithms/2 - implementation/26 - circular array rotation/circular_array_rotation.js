@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
 function main() {
-  const [_, nRotation, nQueries] = readNumbers();
-  const arr = readNumbers();
+  const [_, nRotation, nQueries] = readNums();
+  const arr = readNums();
   for (const q of queries(arr, nRotation, nQueries)) console.log(q);
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(nQueries)
@@ -27,7 +25,7 @@ function* queries(arr, nRotation, nQueries) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

@@ -1,11 +1,9 @@
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
 
-use text_io::read;
-
 const TRANSITION_YEAR: i32 = 1918;
 
 fn main() {
-    let year: i32 = read!();
+    let year: i32 = text_io::read!();
     println!("{}", calc_date_of_256th_day(year));
 }
 

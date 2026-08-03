@@ -1,11 +1,11 @@
 # https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
 
 def main
-  start_day, end_day, divisor = read_numbers
+  start_day, end_day, divisor = read_nums
   puts beautiful_days(start_day, end_day, divisor)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

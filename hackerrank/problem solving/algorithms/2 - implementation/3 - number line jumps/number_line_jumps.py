@@ -1,11 +1,11 @@
 # https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 def main():
-    initial_state = read_numbers()
+    initial_state = read_nums()
     print("YES" if kangaroo(initial_state) else "NO")
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

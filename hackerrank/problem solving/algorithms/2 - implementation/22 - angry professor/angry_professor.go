@@ -11,7 +11,7 @@ func main() {
     for range n {
         var size, threshold int
         _, _ = fmt.Scan(&size, &threshold)
-        arrivalTimes := readNumbers(size)
+        arrivalTimes := readNums(size)
 
         if angryProfessor(arrivalTimes, threshold) {
             fmt.Println("YES")
@@ -21,9 +21,9 @@ func main() {
     }
 }
 
-func readNumbers(n int) []int {
+func readNums(n int) []int {
     arr := make([]int, n)
-    for i := range n {
+    for i := range arr {
         _, _ = fmt.Scan(&arr[i])
     }
     return arr

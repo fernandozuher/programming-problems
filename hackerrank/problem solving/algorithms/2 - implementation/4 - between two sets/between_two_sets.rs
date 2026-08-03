@@ -1,18 +1,17 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
 use num::integer::{gcd, lcm};
-use text_io::read;
 
 fn main() {
-    let n1: usize = read!();
-    let n2: usize = read!();
-    let a: Vec<i32> = read_numbers(n1);
-    let b: Vec<i32> = read_numbers(n2);
+    let n1: usize = text_io::read!();
+    let n2: usize = text_io::read!();
+    let a: Vec<i32> = read_nums(n1);
+    let b: Vec<i32> = read_nums(n2);
     println!("{}", between_two_sets(&a, &b));
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n1, n2: length of a, b

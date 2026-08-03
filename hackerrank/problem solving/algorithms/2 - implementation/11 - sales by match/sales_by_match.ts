@@ -2,7 +2,7 @@
 
 function main() {
   readLine();
-  const socksToCounts: Map<number, number> = counter(readNumbers());
+  const socksToCounts: Map<number, number> = counter(readNums());
   console.log(sockMerchant(socksToCounts));
 }
 
@@ -17,10 +17,8 @@ function counter(arr: number[]): Map<number, number> {
   return freqMap;
 }
 
-function readNumbers(): number[] {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
 }
 
 // k: length of entries in socksToCounts
@@ -37,7 +35,7 @@ function sockMerchant(socksToCounts: Map<number, number>): number {
 import readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines: string[] = [];
+const inputLines: string[] = [];
 rl.on('line', (line: string) => inputLines.push(line));
 rl.on('close', main);
 

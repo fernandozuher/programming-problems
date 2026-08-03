@@ -14,18 +14,18 @@ import (
 func main() {
     reader := bufio.NewReader(os.Stdin)
 
-    n := readNumbers(reader, 1)[0]
-    ranked := removeDuplicates(readNumbers(reader, n))
+    n := readNums(reader, 1)[0]
+    ranked := removeDuplicates(readNums(reader, n))
 
-    n = readNumbers(reader, 1)[0]
-    player := readNumbers(reader, n)
+    n = readNums(reader, 1)[0]
+    player := readNums(reader, n)
 
     for _, x := range climbingLeaderboard(ranked, player) {
         fmt.Println(x)
     }
 }
 
-func readNumbers(reader *bufio.Reader, n int) []int {
+func readNums(reader *bufio.Reader, n int) []int {
     line, _ := reader.ReadString('\n')
     tokens := strings.Fields(line)
     arr := make([]int, n)

@@ -1,11 +1,10 @@
 // https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
 use num::integer::div_rem;
-use text_io::read;
 
 fn main() {
-    let string: String = read!();
-    let n_chars: usize = read!();
+    let string: String = text_io::read!();
+    let n_chars: usize = text_io::read!();
     const LETTER: char = 'a';
     println!(
         "{}",

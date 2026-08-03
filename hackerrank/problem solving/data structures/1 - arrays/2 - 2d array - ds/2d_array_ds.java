@@ -10,12 +10,12 @@ int[][] readMatrix() {
     final int n = 6;
     var matrix = new int[n][n];
     for (int i = 0; i < n; i++)
-        System.arraycopy(readNumbers(), 0, matrix[i], 0, n);
+        System.arraycopy(readNums(), 0, matrix[i], 0, n);
 
     return matrix;
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Arrays.stream(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

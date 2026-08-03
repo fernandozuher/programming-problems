@@ -4,7 +4,7 @@
 import std;
 using namespace std;
 
-vector<int> read_numbers(int n);
+vector<int> read_nums(int n);
 string find_nearest_cat_or_not(const vector<int>& positions);
 
 int main()
@@ -13,11 +13,11 @@ int main()
     cin >> n;
     constexpr int n_positions{ 3 };
     for (int i{}; i < n; ++i)
-        println("{}", find_nearest_cat_or_not(read_numbers(n_positions)));
+        println("{}", find_nearest_cat_or_not(read_nums(n_positions)));
     return 0;
 }
 
-vector<int> read_numbers(int n)
+vector<int> read_nums(int n)
 {
     vector<int> arr(n);
     for (auto& x : arr)

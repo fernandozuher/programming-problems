@@ -1,17 +1,17 @@
 // https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
-var arr = ReadNumbers();
+var arr = ReadNums();
 int n = arr[0];
 int nQueries = arr[1];
 var obj = new DynamicArray(n);
 
 for (int i = 0; i < nQueries; i++)
-    obj.HandleQuery(ReadNumbers());
+    obj.HandleQuery(ReadNums());
 
 obj.Answers.ForEach(Console.WriteLine);
 
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 public class DynamicArray
 {

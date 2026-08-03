@@ -11,13 +11,13 @@ void main() {
 }
 
 Input readInput() {
-    int itemNotEaten = readNumbers()[1];
-    int[] mealCosts = readNumbers();
-    int amountCharged = readNumbers()[0];
+    int itemNotEaten = readNums()[1];
+    int[] mealCosts = readNums();
+    int amountCharged = readNums()[0];
     return new Input(itemNotEaten, mealCosts, amountCharged);
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

@@ -1,16 +1,16 @@
 # https://www.hackerrank.com/challenges/dynamic-array/problem?isFullScreen=true
 
 def main():
-    n, n_queries = read_numbers()
+    n, n_queries = read_nums()
     obj = DynamicArray(n)
 
     for _ in range(n_queries):
-        obj.handle_query(read_numbers())
+        obj.handle_query(read_nums())
 
     print(*obj.answers(), sep='\n')
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

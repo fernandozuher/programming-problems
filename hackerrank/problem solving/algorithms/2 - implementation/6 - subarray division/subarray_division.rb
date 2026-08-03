@@ -2,12 +2,12 @@
 
 def main
   gets
-  chocolate_squares = read_numbers
-  day_month = read_numbers
+  chocolate_squares = read_nums
+  day_month = read_nums
   puts birthday(chocolate_squares, day_month)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

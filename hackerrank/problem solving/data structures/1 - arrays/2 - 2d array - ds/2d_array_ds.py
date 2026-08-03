@@ -6,11 +6,11 @@ import sys
 
 def main():
     N = 6
-    matrix = [read_numbers() for _ in range(N)]
+    matrix = [read_nums() for _ in range(N)]
     print(max_hourglass_sum(matrix))
 
 
-def read_numbers():
+def read_nums():
     return list(map(int, input().split()))
 
 

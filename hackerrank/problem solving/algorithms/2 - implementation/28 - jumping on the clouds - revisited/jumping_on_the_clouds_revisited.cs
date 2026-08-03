@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
 
-int jumpLength = ReadNumbers()[1];
-int[] arr = ReadNumbers();
+int jumpLength = ReadNums()[1];
+int[] arr = ReadNums();
 Console.WriteLine(JumpingOnTheClouds(arr, jumpLength));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of clouds; 2 to 25
 // k (jumpLength): 1 <= k <= n

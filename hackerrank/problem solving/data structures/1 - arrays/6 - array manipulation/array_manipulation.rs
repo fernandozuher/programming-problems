@@ -1,10 +1,8 @@
 // https://www.hackerrank.com/challenges/crush/problem?is_full_screen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let n_queries: usize = read!();
+    let n: usize = text_io::read!();
+    let n_queries: usize = text_io::read!();
     println!("{}", array_manipulation(n, n_queries));
 }
 
@@ -20,7 +18,7 @@ fn populate_arr(n: usize, n_queries: usize) -> Vec<i64> {
     let mut arr: Vec<i64> = vec![0; n + 2];
 
     for _i in 0..n_queries {
-        let (b, e, summand): (usize, usize, i64) = (read!(), read!(), read!());
+        let (b, e, summand): (usize, usize, i64) = (read!(), text_io::read!(), text_io::read!());
         arr[b] += summand;
         arr[e + 1] -= summand;
     }

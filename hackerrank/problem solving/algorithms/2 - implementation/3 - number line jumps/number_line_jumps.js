@@ -1,14 +1,12 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
 function main() {
-  const initialState = readNumbers();
+  const initialState = readNums();
   console.log(kangaroo(initialState) ? 'YES' : 'NO');
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(1)
@@ -28,7 +26,7 @@ function kangaroo(initialState) {
 const readline = require('readline');
 
 const rl = readline.createInterface({ input: process.stdin });
-let inputLines = [];
+const inputLines = [];
 rl.on('line', (line) => inputLines.push(line));
 rl.on('close', main);
 

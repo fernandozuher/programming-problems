@@ -2,11 +2,11 @@
 
 def main
   n = 6
-  matrix = n.times.map { read_numbers }
+  matrix = n.times.map { read_nums }
   puts max_hourglass_sum(matrix)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

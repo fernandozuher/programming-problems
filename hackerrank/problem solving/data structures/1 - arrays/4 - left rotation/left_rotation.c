@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 int *rotate(const int *arr, int n, int rotate_by);
 
 int main()
@@ -13,7 +13,7 @@ int main()
     int n, rotate_by;
     scanf("%d %d", &n, &rotate_by);
     int arr[n];
-    read_numbers(arr, n);
+    read_nums(arr, n);
     int *rotated = rotate(arr, n, rotate_by);
     for (int i = 0; i < n; ++i)
         printf("%d ", rotated[i]);
@@ -23,7 +23,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

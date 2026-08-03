@@ -2,9 +2,9 @@
 // Java 25
 
 void main() {
-    int n = readNumbers()[0];
+    int n = readNums()[0];
     for (int i = 0; i < n; i++) {
-        var line = readNumbers();
+        var line = readNums();
         int prisoners = line[0];
         int sweets = line[1];
         int startChair = line[2];
@@ -12,7 +12,7 @@ void main() {
     }
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

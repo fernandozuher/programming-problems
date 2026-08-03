@@ -2,14 +2,14 @@
 // Java 25
 
 void main() {
-    int nCities = readNumbers()[0];
+    int nCities = readNums()[0];
     int lastCity = nCities - 1;
-    int[] stations = readNumbers();
+    int[] stations = readNums();
     Arrays.sort(stations);
     IO.println(maxDistanceFromSpaceStation(lastCity, stations));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

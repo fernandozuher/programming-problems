@@ -1,12 +1,12 @@
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] ranked = RemoveDuplicates(ReadNumbers());
+int[] ranked = RemoveDuplicates(ReadNums());
 Console.ReadLine();
-int[] player = ReadNumbers();
+int[] player = ReadNums();
 Array.ForEach(ClimbingLeaderboard(ranked, player), Console.WriteLine);
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // k: length of distinct numbers in arr

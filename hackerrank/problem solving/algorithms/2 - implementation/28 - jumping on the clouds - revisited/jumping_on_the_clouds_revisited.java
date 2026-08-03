@@ -2,12 +2,12 @@
 // Java 25
 
 void main() {
-    int jumpLength = readNumbers()[1];
-    int[] arr = readNumbers();
+    int jumpLength = readNums()[1];
+    int[] arr = readNums();
     IO.println(jumpingOnTheClouds(arr, jumpLength));
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

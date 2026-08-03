@@ -2,14 +2,14 @@
 // Java 25
 
 void main() {
-    int n = readNumbers()[0];
+    int n = readNums()[0];
     for (int i = 0; i < n; i++) {
-        var range = readNumbers();
+        var range = readNums();
         IO.println(squares(range[0], range[1]));
     }
 }
 
-int[] readNumbers() {
+int[] readNums() {
     return Stream.of(IO.readln().split(" ")).mapToInt(Integer::parseInt).toArray();
 }
 

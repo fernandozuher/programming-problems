@@ -1,12 +1,10 @@
 // https://www.hackerrank.com/challenges/save-the-prisoner/problem?isFullScreen=true
 
-use text_io::{read, scan};
-
 fn main() {
-    let n: usize = read!();
+    let n: usize = text_io::read!();
     for _ in 0..n {
         let (prisoners, sweets, start_chair): (i32, i32, i32);
-        scan!("{} {} {}", prisoners, sweets, start_chair);
+        text_io::scan!("{} {} {}", prisoners, sweets, start_chair);
         println!("{}", save_the_prisoner(prisoners, sweets, start_chair));
     }
 }

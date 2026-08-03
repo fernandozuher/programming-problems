@@ -8,13 +8,13 @@ end
 
 def read_input
   input = Struct.new(:item_not_eaten, :meal_costs, :amount_charged)
-  _, item_not_eaten = read_numbers
-  meal_costs = read_numbers
+  _, item_not_eaten = read_nums
+  meal_costs = read_nums
   amount_charged = gets.to_i
   input.new(item_not_eaten, meal_costs, amount_charged)
 end
 
-def read_numbers
+def read_nums
   gets.split.map!(&:to_i)
 end
 

@@ -1,10 +1,8 @@
 // https://www.hackerrank.com/challenges/acm-icpc-team/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let _: usize = read!();
+    let n: usize = text_io::read!();
+    let _: usize = text_io::read!();
     let binaries: Vec<Vec<u8>> = read_binaries(n);
     let [max_subjects, teams_with_max] = acm_team(&binaries);
     println!("{}", max_subjects);
@@ -14,7 +12,7 @@ fn main() {
 fn read_binaries(n: usize) -> Vec<Vec<u8>> {
     (0..n)
         .map(|_| {
-            let s: String = read!();
+            let s: String = text_io::read!();
             s.into_bytes()
         })
         .collect()

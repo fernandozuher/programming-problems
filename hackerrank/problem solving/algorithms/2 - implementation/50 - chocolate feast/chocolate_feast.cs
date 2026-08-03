@@ -3,14 +3,14 @@
 int n = int.Parse(Console.ReadLine()!);
 for (int i = 0; i < n; i++)
 {
-    var arr = ReadNumbers();
+    var arr = ReadNums();
     int money = arr[0];
     int cost = arr[1];
     int wrappersNeeded = arr[2];
     Console.WriteLine(HowManyChocolatesCanBeEaten(money, cost, wrappersNeeded));
 }
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // T: O(log(money / cost))
 // S: O(1) extra space

@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
-int budget = ReadNumbers()[0];
-int[] keyboards = PreprocessInput(ReadNumbers());
-int[] usbDrives = PreprocessInput(ReadNumbers());
+int budget = ReadNums()[0];
+int[] keyboards = PreprocessInput(ReadNums());
+int[] usbDrives = PreprocessInput(ReadNums());
 Console.WriteLine(CalcMoneySpent(keyboards, usbDrives, budget));
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // k: length of arr after deduplication

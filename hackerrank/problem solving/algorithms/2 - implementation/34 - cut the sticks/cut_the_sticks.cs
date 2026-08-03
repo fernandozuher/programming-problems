@@ -1,11 +1,11 @@
 // https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
 
 Console.ReadLine();
-int[] arr = ReadNumbers();
+int[] arr = ReadNums();
 Array.Sort(arr);
 CutTheSticks(arr).ForEach(Console.WriteLine);
 
-int[] ReadNumbers() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of arr
 // k: number of distinct values in arr

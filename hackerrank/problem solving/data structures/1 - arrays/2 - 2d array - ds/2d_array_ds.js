@@ -7,13 +7,11 @@ function main() {
 
 function readMatrix() {
   const N = 6;
-  return new Array(N).fill([]).map(readNumbers);
+  return new Array(N).fill([]).map(readNums);
 }
 
-function readNumbers() {
-  return readLine()
-    .split(' ')
-    .map((x) => +x);
+function readNums() {
+  return readLine().split(' ').map(Number);
 }
 
 // T: O(1)

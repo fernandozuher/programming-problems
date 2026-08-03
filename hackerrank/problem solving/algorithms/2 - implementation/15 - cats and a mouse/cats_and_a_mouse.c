@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void read_numbers(int *arr, int n);
+void read_nums(int *arr, int n);
 void find_nearest_cat_or_not(const int *positions, char *out);
 
 int main()
@@ -18,7 +18,7 @@ int main()
     char out[out_size];
 
     for (int i = 0; i < n; ++i) {
-        read_numbers(positions, n_positions);
+        read_nums(positions, n_positions);
         find_nearest_cat_or_not(positions, out);
         puts(out);
     }
@@ -26,7 +26,7 @@ int main()
     return 0;
 }
 
-void read_numbers(int *arr, int n)
+void read_nums(int *arr, int n)
 {
     for (int i = 0; i < n; ++i)
         scanf("%d", &arr[i]);

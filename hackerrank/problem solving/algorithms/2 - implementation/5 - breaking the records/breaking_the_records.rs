@@ -1,15 +1,13 @@
 // https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem?isFullScreen=true
 
-use text_io::read;
-
 fn main() {
-    let n: usize = read!();
-    let (most_record_breaks, least_record_breaks) = breaking_records(&read_numbers(n));
+    let n: usize = text_io::read!();
+    let (most_record_breaks, least_record_breaks) = breaking_records(&read_nums(n));
     println!("{} {}", most_record_breaks, least_record_breaks);
 }
 
-fn read_numbers(n: usize) -> Vec<i32> {
-    (0..n).map(|_| read!()).collect()
+fn read_nums(n: usize) -> Vec<i32> {
+    (0..n).map(|_| text_io::read!()).collect()
 }
 
 // n: length of scores
