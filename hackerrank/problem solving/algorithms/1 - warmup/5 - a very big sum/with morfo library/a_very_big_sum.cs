@@ -3,7 +3,7 @@
 using Morfo.IO;
 
 Reader.SkipInputLn();
-long[] arr = Reader.ReadLn<long>();
+long[] arr = Reader.ReadLn<long, long[]>();
 Console.WriteLine(AVeryBigSum(arr));
 
 // n: length of arr

@@ -2,6 +2,7 @@
 // C23
 
 #include <stdio.h>
+#include "morfo/io.h"
 
 void compute_triplet_scores(const int *triplet_a, const int *triplet_b, int *out);
 
@@ -10,8 +11,8 @@ int main()
     constexpr int n = 3;
     constexpr int out_n = 2;
     int triplet_a[n], triplet_b[n], output[out_n];
-    read_nums(triplet_a, n);
-    read_nums(triplet_b, n);
+    morfo_read_n(triplet_a, n);
+    morfo_read_n(triplet_b, n);
 
     compute_triplet_scores(triplet_a, triplet_b, output);
     printf("%d %d\n", output[0], output[1]);

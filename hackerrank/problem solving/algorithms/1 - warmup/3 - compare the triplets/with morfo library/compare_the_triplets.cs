@@ -1,7 +1,9 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
-int[] tripletA = ReadLn();
-int[] tripletB = ReadLn();
+using Morfo.IO;
+
+int[] tripletA = Reader.ReadLn<int, int[]>();
+int[] tripletB = Reader.ReadLn<int, int[]>();
 var (scoreA, scoreB) = ComputeTripletScores(tripletA, tripletB);
 Console.WriteLine("{0} {1}", scoreA, scoreB);
 

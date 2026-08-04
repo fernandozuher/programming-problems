@@ -5,54 +5,51 @@
 #include <stdlib.h>
 #include "morfo/io.h"
 
-morfo_float_slice_t plus_minus(const morfo_float_slice_t *arr);
-void print_ratios(const morfo_float_slice_t *ratios);
+enum { n_ratios = 3 };
+
+void plus_minus(const float *arr, size_t n, float *ratios);
+void print_ratios(const float *ratios, size_t n);
 
 int main()
 {
     morfo_skip_input_ln();
-    morfo_float_slice_t arr = morfo_readln(float);
-    morfo_float_slice_t ratios = plus_minus(&arr);
-    print_ratios(&ratios);
-    
-    free(arr.data);
-    free(ratios.data);
 
+    size_t n;
+    float *arr = morfo_readln(float, &n);
+
+    float ratios[n_ratios];
+    plus_minus(arr, n, ratios);
+    print_ratios(ratios, n_ratios);
+
+    free(arr);
     return 0;
 }
 
 // n: length of arr
 // T: O(n)
 // S: O(1) extra space
-morfo_float_slice_t plus_minus(const morfo_float_slice_t *arr)
+void plus_minus(const float *arr, size_t n, float *ratios)
 {
     int positive, negative, zero;
     positive = negative = zero = 0;
 
-    for (int i = 0; i < arr->len; ++i) {
-        if (arr->data[i] > 0)
+    for (size_t i = 0; i < n; ++i) {
+        if (arr[i] > 0)
             ++positive;
-        else if (arr->data[i] < 0)
+        else if (arr[i] < 0)
             ++negative;
         else
             ++zero;
     }
 
-    float total = (float) arr->len;
-
-    morfo_float_slice_t ratios;
-    ratios.len = 3;
-    ratios.data = malloc(ratios.len * sizeof(float));
-
-    ratios.data[0] = positive / total;
-    ratios.data[1] = negative / total;
-    ratios.data[2] = zero / total;
-
-    return ratios;
+    float total = (float) n;
+    ratios[0] = positive / total;
+    ratios[1] = negative / total;
+    ratios[2] = zero / total;
 }
 
-void print_ratios(const morfo_float_slice_t *ratios)
+void print_ratios(const float *ratios, size_t n)
 {
-    for (int i = 0; i < ratios->len; ++i)
-        printf("%.6f\n", ratios->data[i]);
+    for (size_t i = 0; i < n; ++i)
+        printf("%.6f\n", ratios[i]);
 }

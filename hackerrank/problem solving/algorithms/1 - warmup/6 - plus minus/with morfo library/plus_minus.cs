@@ -3,7 +3,7 @@
 using Morfo.IO;
 
 Reader.SkipInputLn();
-int[] arr = Reader.ReadLn<int>();
+int[] arr = Reader.ReadLn<int, int[]>();
 double[] ratios = PlusMinus(arr);
 printRatios(ratios);
 

@@ -4,8 +4,8 @@ import morfo
 
 
 def main():
-    triplet_a = morfo.read(int, list)
-    triplet_b = morfo.read(int, list)
+    triplet_a = morfo.readln(int, list)
+    triplet_b = morfo.readln(int, list)
     score_a, score_b = compute_triplet_scores(triplet_a, triplet_b)
     print(f"{score_a} {score_b}")
 
