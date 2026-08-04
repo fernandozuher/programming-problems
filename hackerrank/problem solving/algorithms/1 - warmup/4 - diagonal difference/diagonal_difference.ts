@@ -11,9 +11,9 @@ function diagonalDifference(n: number): number {
   let [primarySum, secondarySum] = [0, 0];
 
   for (let i = 0; i < n; i++) {
-    let arr: number[] = readNums();
+    const arr: number[] = readNums();
     primarySum += arr[i];
-    secondarySum += arr.at(-i - 1);
+    secondarySum += arr.at(-i - 1)!;
   }
 
   return Math.abs(primarySum - secondarySum);
