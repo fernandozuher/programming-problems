@@ -1,8 +1,10 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
+import { readLn } from 'morfo';
+
 function main() {
-  const tripletA: number[] = readLn();
-  const tripletB: number[] = readLn();
+  const tripletA: number[] = readLn(Number);
+  const tripletB: number[] = readLn(Number);
   const [scoreA, scoreB]: number[] = computeTripletScores(tripletA, tripletB);
   console.log(scoreA, scoreB);
 }
@@ -20,15 +22,4 @@ function computeTripletScores(tripletA: number[], tripletB: number[]): number[] 
   return [scoreA, scoreB];
 }
 
-//////////////////////////////////////////////////
-
-import readline = require('readline');
-
-const rl = readline.createInterface({ input: process.stdin });
-const inputLines: string[] = [];
-rl.on('line', (line: string) => inputLines.push(line));
-rl.on('close', main);
-
-function readLine(): string {
-  return inputLines.shift()!;
-}
+main();
