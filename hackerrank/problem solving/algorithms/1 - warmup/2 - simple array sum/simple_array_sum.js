@@ -9,9 +9,7 @@ function main() {
 // T: O(n)
 // S: O(n) extra space
 function sumStdin() {
-  return readLine()
-    .split(' ')
-    .reduce((acc, x) => acc + +x, 0);
+  return readLine().split(' ').reduce((acc, x) => acc + +x, 0);
 }
 
 ////////////////////////////////////////////////
