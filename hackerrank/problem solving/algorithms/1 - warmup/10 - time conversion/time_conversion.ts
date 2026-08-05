@@ -13,8 +13,8 @@ function to24HourTime(hour12: string): string {
   const dayPeriod: string = hour12.substring(8, 9);
 
   if (
-    (hour == '12' && dayPeriod == 'A') ||
-    (hour != '12' && dayPeriod == 'P')
+    (hour === '12' && dayPeriod === 'A') ||
+    (hour !== '12' && dayPeriod === 'P')
   ) {
     const newHour: string = genNewHour(dayPeriod, hour);
     hour24 = hour24.replace(hour, newHour);
