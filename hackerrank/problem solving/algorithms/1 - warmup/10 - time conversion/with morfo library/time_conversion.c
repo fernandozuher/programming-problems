@@ -4,19 +4,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "morfo/io.h"
 
 char *to_24_hour_time(const char *hour_12);
 char *gen_new_hour(char day_period, const char *hour);
 
 int main()
 {
-    constexpr int max_string = 10;
-    char string[max_string + 1]; // + 1 = \0
-    scanf("%10s", string);
-
-    char *hour_24 = to_24_hour_time(string);
+    char *time = morfo_read(char *);
+    char *hour_24 = to_24_hour_time(time);
     puts(hour_24);
 
+    free(time);
     free(hour_24);
 
     return 0;

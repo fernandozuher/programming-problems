@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/time-conversion/problem?isFullScreen=true
 // C++23
 
+import morfo;
 import std;
 using namespace std;
 
@@ -9,8 +10,7 @@ string gen_new_hour(string_view day_period, string_view hour);
 
 int main()
 {
-    string time;
-    cin >> time;
+    string time = morfo::read();
     cout << to_24_hour_time(time);
     return 0;
 }
