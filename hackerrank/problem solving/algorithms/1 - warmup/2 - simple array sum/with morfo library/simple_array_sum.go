@@ -5,6 +5,7 @@ package main
 import (
     "fmt"
     "morfo/morfoio"
+    "morfo/morfomath"
 )
 
 func main() {
@@ -14,12 +15,7 @@ func main() {
 
 // n: number of integers in the input line
 // T: O(n)
-// S: O(1) extra space
+// S: O(n) extra space
 func sumStdin() int {
-    sum := 0
-    arr := morfoio.ReadLn[int]()
-    for _, x := range arr {
-        sum += x
-    }
-    return sum
+    return morfomath.Sum(morfoio.ReadLn[int]())
 }
