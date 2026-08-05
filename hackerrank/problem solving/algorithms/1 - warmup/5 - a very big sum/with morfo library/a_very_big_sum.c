@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "morfo/io.h"
+#include "morfo/math.h"
 
 long long a_very_big_sum(const long long *arr, size_t n);
 
@@ -23,8 +24,5 @@ int main()
 // S: O(1) extra space
 long long a_very_big_sum(const long long *arr, size_t n)
 {
-    long long sum = 0;
-    for (size_t i = 0; i < n; ++i)
-        sum += arr[i];
-    return sum;
+    return morfo_sum(arr, n);
 }

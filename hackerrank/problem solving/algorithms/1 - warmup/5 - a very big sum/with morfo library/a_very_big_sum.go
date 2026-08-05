@@ -5,6 +5,7 @@ package main
 import (
     "fmt"
     "morfo/morfoio"
+    "morfo/morfomath"
 )
 
 func main() {
@@ -17,9 +18,5 @@ func main() {
 // T: O(n)
 // S: O(1) extra space
 func aVeryBigSum(arr []int64) int64 {
-    var sum int64 = 0
-    for _, x := range arr {
-        sum += x
-    }
-    return sum
+    return morfomath.Sum(arr)
 }
