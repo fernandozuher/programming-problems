@@ -1,5 +1,7 @@
 node_modules/
 .morfo_ts_build/
+package.json
+package-lock.json
 __pycache__/
 *.pyc
 .idea/
