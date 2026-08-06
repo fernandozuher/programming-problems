@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-use std::cmp::{min, max};
 use morfo::{read_ln, reduce_many};
+use std::cmp::{max, min};
 
 fn main() {
     let arr: Vec<i64> = read_ln();
@@ -23,6 +23,14 @@ fn calc_min_max_sum(arr: &[i64]) -> (i64, i64) {
     (total - max_value, total - min_value)
 }
 
-fn add(a: i64, &b: &i64) -> i64 { a + b }
-fn smaller(a: i64, &b: &i64) -> i64 { min(a, b) }
-fn larger(a: i64, &b: &i64) -> i64 { max(a, b) }
+fn add(a: i64, &b: &i64) -> i64 {
+    a + b
+}
+
+fn smaller(a: i64, &b: &i64) -> i64 {
+    min(a, b)
+}
+
+fn larger(a: i64, &b: &i64) -> i64 {
+    max(a, b)
+}

@@ -25,7 +25,6 @@ int main()
     return 0;
 }
 
-// n: length of arr
 // T: O(n)
 // S: O(1) extra space
 void calc_min_max_sum(const long long *arr, int n, long long *min_max_sum)
@@ -44,6 +43,17 @@ void calc_min_max_sum(const long long *arr, int n, long long *min_max_sum)
     min_max_sum[1] = total - min_value;
 }
 
-long long add(long long a, long long b) { return a + b; }
-long long smaller(long long a, long long b) { return b < a ? b : a; }
-long long larger(long long a, long long b) { return b > a ? b : a; }
+long long add(long long a, long long b)
+{
+    return a + b;
+}
+
+long long smaller(long long a, long long b)
+{
+    return b < a ? b : a;
+}
+
+long long larger(long long a, long long b)
+{
+    return b > a ? b : a;
+}

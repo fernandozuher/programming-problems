@@ -28,6 +28,14 @@ func calcMinMaxSum(arr []int) (int, int) {
 	return total - maxValue, total - minValue
 }
 
-func add(a, b int) int     { return a + b }
-func smaller(a, b int) int { return min(a, b) }
-func larger(a, b int) int  { return max(a, b) }
+func add(a, b int) int {
+	return a + b
+}
+
+func smaller(a, b int) int {
+	return min(a, b)
+}
+
+func larger(a, b int) int {
+	return max(a, b)
+}
