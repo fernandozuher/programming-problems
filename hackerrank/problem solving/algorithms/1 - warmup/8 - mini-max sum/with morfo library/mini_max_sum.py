@@ -1,6 +1,6 @@
 # https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-from itertools import islice
+import operator
 import morfo
 
 
@@ -14,12 +14,12 @@ def main():
 # T: O(n)
 # S: O(1) extra space
 def calc_min_max_sum(arr):
-    total = min_value = max_value = arr[0]
-
-    for x in islice(arr, 1, None):
-        total += x
-        min_value = min(x, min_value)
-        max_value = max(x, max_value)
+    total, min_value, max_value = morfo.reduce_many(
+        arr,
+        operator.add, 0,
+        min, arr[0],
+        max, arr[0]
+    )
 
     return total - max_value, total - min_value
 

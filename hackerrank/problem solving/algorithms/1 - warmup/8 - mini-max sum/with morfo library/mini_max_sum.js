@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/mini-max-sum/problem?isFullScreen=true
 
-import { readLn } from 'morfo';
+import { readLn, reduceMany } from 'morfo';
 
 const arr = readLn(Number);
 const [minSum, maxSum] = calcMinMaxSum(arr);
@@ -10,14 +10,15 @@ console.log(minSum, maxSum);
 // T: O(n)
 // S: O(1) extra space
 function calcMinMaxSum(arr) {
-  let total, minValue, maxValue;
-  total = minValue = maxValue = arr[0];
-
-  for (let i = 1; i < arr.length; i++) {
-    total += arr[i];
-    minValue = Math.min(minValue, arr[i]);
-    maxValue = Math.max(maxValue, arr[i]);
-  }
+  const [total, minValue, maxValue] = reduceMany(
+    arr,
+    (a, v) => a + v,
+    0,
+    Math.min,
+    arr[0],
+    Math.max,
+    arr[0],
+  );
 
   return [total - maxValue, total - minValue];
 }

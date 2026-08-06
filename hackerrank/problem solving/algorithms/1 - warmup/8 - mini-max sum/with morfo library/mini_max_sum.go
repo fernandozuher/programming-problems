@@ -3,27 +3,31 @@
 package main
 
 import (
-    "fmt"
-    "morfo/morfoio"
+	"fmt"
+	"morfo/morfocollections"
+	"morfo/morfoio"
+	"slices"
 )
 
 func main() {
-    arr := morfoio.ReadLn[int]()
-    minSum, maxSum := calcMinMaxSum(arr)
-    fmt.Println(minSum, maxSum)
+	arr := morfoio.ReadLn[int]()
+	minSum, maxSum := calcMinMaxSum(arr)
+	fmt.Println(minSum, maxSum)
 }
 
 // n: length of arr
 // T: O(n)
 // S: O(1) extra space
 func calcMinMaxSum(arr []int) (int, int) {
-    total, minValue, maxValue := arr[0], arr[0], arr[0]
+	total, minValue, maxValue := morfocollections.ReduceMany3(slices.Values(arr),
+		add, 0,
+		smaller, arr[0],
+		larger, arr[0],
+	)
 
-    for _, x := range arr[1:] {
-        total += x
-        minValue = min(x, minValue)
-        maxValue = max(x, maxValue)
-    }
-
-    return total - maxValue, total - minValue
+	return total - maxValue, total - minValue
 }
+
+func add(a, b int) int     { return a + b }
+func smaller(a, b int) int { return min(a, b) }
+func larger(a, b int) int  { return max(a, b) }

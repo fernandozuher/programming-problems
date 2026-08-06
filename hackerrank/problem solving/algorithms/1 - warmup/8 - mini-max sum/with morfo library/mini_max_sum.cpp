@@ -9,7 +9,7 @@ pair<long long, long long> calc_min_max_sum(const vector<long long>& arr);
 
 int main()
 {
-    auto arr = morfo::readln<long long, vector>();
+    vector<long long> arr = morfo::readln();
     auto [min_sum, max_sum] { calc_min_max_sum(arr) };
     println("{} {}", min_sum, max_sum);
     return 0;
@@ -20,14 +20,12 @@ int main()
 // S: O(1) extra space
 pair<long long, long long> calc_min_max_sum(const vector<long long>& arr)
 {
-    long long total, min_value, max_value;
-    total = min_value = max_value = arr.front();
+    auto [total, min_value, max_value] = morfo::reduce_many(
+        arr,
+        plus{}, 0LL,
+        ranges::min, arr.front(),
+        ranges::max, arr.front()
+    );
 
-    for (auto x : arr | views::drop(1)) {
-        total += x;
-        min_value = min(x, min_value);
-        max_value = max(x, max_value);
-    }
-
-    return { total - max_value, total - min_value };
+    return {total - max_value, total - min_value};
 }
