@@ -1,9 +1,11 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 // Java 25
 
+import morfo.io.Reader;
+
 void main() {
-    int[] tripletA = readLn();
-    int[] tripletB = readLn();
+    int[] tripletA = Reader.readLnInts();
+    int[] tripletB = Reader.readLnInts();
     int[] result = computeTripletScores(tripletA, tripletB);
     IO.println(result[0] + " " + result[1]);
 }

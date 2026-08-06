@@ -19,8 +19,9 @@ int diagonal_difference(int n)
 {
     int primary_sum = 0, secondary_sum = 0;
 
-    for (int i = 0, arr[n]; i < n; ++i) {
-        int *arr = morfo_read_ln_alloc(int, &n);
+    for (int i = 0; i < n; ++i) {
+        size_t len;
+        int *arr = morfo_readln(int, &len);
         primary_sum += arr[i];
         secondary_sum += arr[n - i - 1];
         free(arr);

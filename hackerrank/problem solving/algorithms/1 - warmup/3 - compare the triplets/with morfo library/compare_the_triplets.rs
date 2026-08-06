@@ -1,9 +1,11 @@
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 
+use morfo::read_n;
+
 fn main() {
     const N: usize = 3;
-    let triplet_a: Vec<i32> = morfo::read(N);
-    let triplet_b: Vec<i32> = morfo::read(N);
+    let triplet_a: Vec<i32> = morfo::read_n(N);
+    let triplet_b: Vec<i32> = morfo::read_n(N);
     let (score_a, score_b) = compute_triplet_scores(triplet_a, triplet_b);
     println!("{} {}", score_a, score_b);
 }
