@@ -1,21 +1,3 @@
 2
 7 19 2
 3 7 3
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

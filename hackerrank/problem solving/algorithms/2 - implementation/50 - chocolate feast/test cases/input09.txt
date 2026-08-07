@@ -999,21 +999,3 @@
 60461 37 43449
 22464 16 3027
 49546 249 9518
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

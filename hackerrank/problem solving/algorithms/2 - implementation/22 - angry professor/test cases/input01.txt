@@ -19,21 +19,3 @@
 -58 -29 -35 -18 43 -28 -76 43 -13 6
 10 1
 88 -17 -96 43 83 99 25 90 -39 86
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

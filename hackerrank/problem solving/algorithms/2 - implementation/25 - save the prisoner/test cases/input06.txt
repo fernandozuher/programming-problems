@@ -99,21 +99,3 @@
 7 328955427 1
 5 766287890 3
 5 995691643 2
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

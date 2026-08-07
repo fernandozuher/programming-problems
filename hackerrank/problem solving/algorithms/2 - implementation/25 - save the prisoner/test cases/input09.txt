@@ -99,21 +99,3 @@
 16 480102127 1
 999999999 999995673 999999998
 168 176223392 129
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

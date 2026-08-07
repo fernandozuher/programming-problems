@@ -98,21 +98,3 @@
 176 719643761 1
 1000000000 999999999 328966243
 65 980609890 37
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    
