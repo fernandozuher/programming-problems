@@ -7,9 +7,7 @@ def main
   puts "#{score_a} #{score_b}"
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of a and b = 3
 # T: O(3) => O(1)

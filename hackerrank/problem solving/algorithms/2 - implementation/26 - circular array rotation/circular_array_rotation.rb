@@ -6,9 +6,7 @@ def main
   queries(arr, n_rotation, n_queries) { puts _1 }
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(n_queries)
 # S: O(1) extra space

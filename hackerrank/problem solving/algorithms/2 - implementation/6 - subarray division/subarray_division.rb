@@ -7,9 +7,7 @@ def main
   puts birthday(chocolate_squares, day_month)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of chocolate_squares
 # 1 <= n <= 100

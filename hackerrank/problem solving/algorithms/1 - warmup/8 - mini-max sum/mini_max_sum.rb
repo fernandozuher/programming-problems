@@ -6,9 +6,7 @@ def main
   puts "#{min_sum} #{max_sum}"
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of arr
 # T: O(n)

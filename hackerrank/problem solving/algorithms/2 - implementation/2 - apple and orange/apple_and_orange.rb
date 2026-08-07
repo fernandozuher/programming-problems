@@ -1,9 +1,7 @@
 # https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
 Struct.new("House", :house_start, :house_end) do
-  def contains(position)
-    house_start <= position && position <= house_end
-  end
+  def contains(position) = house_start <= position && position <= house_end
 end
 
 Struct.new("FruitTree", :tree_location, :fruit_distances)
@@ -29,9 +27,7 @@ def read_input
   [house, apple_tree, orange_tree]
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of fruit_tree.fruit_distances
 # T: O(n)

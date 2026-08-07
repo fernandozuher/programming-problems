@@ -6,9 +6,7 @@ def main
   puts find_beautiful_triplets(arr, beautiful_difference)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of arr
 # k: distinct numbers of arr

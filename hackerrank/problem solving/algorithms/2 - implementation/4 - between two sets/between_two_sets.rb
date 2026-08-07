@@ -7,9 +7,7 @@ def main
   print(between_two_sets(a, b))
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n1, n2: length of a, b
 # k: number of multiples tested = gcd_of_b / lcm_of_a

@@ -5,9 +5,7 @@ def main
   n.times { puts find_nearest_cat_or_not(read_nums) }
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(1)
 # S: O(1) extra space

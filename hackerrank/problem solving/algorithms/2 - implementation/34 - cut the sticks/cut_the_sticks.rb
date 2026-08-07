@@ -6,9 +6,7 @@ def main
   puts cut_the_sticks(arr)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of arr
 # k: number of distinct values in arr

@@ -5,9 +5,7 @@ def main
   puts kangaroo?(initial_state) ? "YES" : "NO"
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(1)
 # S: O(1) extra space

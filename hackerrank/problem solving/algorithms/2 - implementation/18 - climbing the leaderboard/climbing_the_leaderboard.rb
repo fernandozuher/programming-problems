@@ -9,9 +9,7 @@ def main
   puts climbing_leaderboard(ranked, player)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n1: length of player, output
 # n2: length of ranked

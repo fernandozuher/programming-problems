@@ -7,8 +7,6 @@ end
 
 # T: O(n)
 # S: O(1) extra space (excluding the size of the resulting integer)
-def factorial(n)
-  (1..n).reduce(:*)
-end
+def factorial(n) = (1..n).reduce(:*)
 
 main if __FILE__ == $0

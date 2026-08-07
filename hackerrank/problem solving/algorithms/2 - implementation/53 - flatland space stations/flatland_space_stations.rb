@@ -8,9 +8,7 @@ def main
   puts max_distance_from_space_station(last_city, cities_with_space_station)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of stations
 # T: O(n)

@@ -18,8 +18,6 @@ def generate_heights_utopian_tree
   0.upto(max_cycles).map { height += cycle_happening_during_spring?(_1) ? height : 1 }
 end
 
-def cycle_happening_during_spring?(cycle)
-  cycle.odd?
-end
+def cycle_happening_during_spring?(cycle) = cycle.odd?
 
 main if __FILE__ == $0

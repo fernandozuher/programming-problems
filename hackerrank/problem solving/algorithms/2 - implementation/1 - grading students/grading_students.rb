@@ -6,9 +6,7 @@ def main
   puts grading_students(grades)
 end
 
-def read_nums(n)
-  n.times.map { gets.to_i }
-end
+def read_nums(n) = n.times.map { gets.to_i }
 
 # n: length of grades
 # T: O(n)

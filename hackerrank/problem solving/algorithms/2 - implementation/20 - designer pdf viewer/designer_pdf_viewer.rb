@@ -6,9 +6,7 @@ def main
   puts designer_pdf_viewer(letters_heights, word)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length word, <= 10
 # T: O(10) = O(1)

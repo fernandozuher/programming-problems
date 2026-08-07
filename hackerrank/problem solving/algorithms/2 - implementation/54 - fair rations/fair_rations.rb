@@ -7,9 +7,7 @@ def main
   puts min_loaves == -1 ? 'NO' : min_loaves
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of people_loaf_counts
 # T: O(n)

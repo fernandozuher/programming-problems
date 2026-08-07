@@ -7,9 +7,7 @@ def main
   print_ratios(ratios)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of arr
 # T: O(n)
@@ -31,8 +29,6 @@ def plus_minus(arr)
   [positive / n, negative / n, zero / n]
 end
 
-def print_ratios(ratios)
-  ratios.each { printf "%.6f\n", _1 }
-end
+def print_ratios(ratios) = ratios.each { printf "%.6f\n", _1 }
 
 main if __FILE__ == $0

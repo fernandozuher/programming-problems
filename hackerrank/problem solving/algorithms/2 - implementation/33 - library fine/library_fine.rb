@@ -14,9 +14,7 @@ def main
   puts calculate_fine(return_date, due_date)
 end
 
-def read_date
-  Date.strptime(gets, "%d %m %Y")
-end
+def read_date = Date.strptime(gets, "%d %m %Y")
 
 # T: O(1)
 # S: O(1) extra space
@@ -27,13 +25,9 @@ def calculate_fine(return_date, due_date)
   0
 end
 
-def late_year?(return_date, due_date)
-  return_date.year > due_date.year
-end
+def late_year?(return_date, due_date) = return_date.year > due_date.year
 
-def late_month?(return_date, due_date)
-  return_date.year == due_date.year && return_date.month > due_date.month
-end
+def late_month?(return_date, due_date) = return_date.year == due_date.year && return_date.month > due_date.month
 
 def late_day?(return_date, due_date)
   return_date.year == due_date.year && return_date.month == due_date.month && return_date.day > due_date.day

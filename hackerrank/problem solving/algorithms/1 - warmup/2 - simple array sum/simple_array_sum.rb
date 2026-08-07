@@ -8,8 +8,6 @@ end
 # n: number of integers in the input line
 # T: O(n)
 # S: O(n) extra space
-def sum_stdin
-  gets.split.map!(&:to_i).sum
-end
+def sum_stdin = gets.split.map!(&:to_i).sum
 
 main if __FILE__ == $0

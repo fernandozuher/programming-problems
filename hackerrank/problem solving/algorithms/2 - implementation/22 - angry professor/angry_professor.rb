@@ -9,9 +9,7 @@ def main
   end
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # k: length of arrival_times
 # T: O(k)

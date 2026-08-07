@@ -27,8 +27,6 @@ end
 # log n: for calculating number of digits
 # T: O(log n)
 # S: O(1) extra space
-def number_digits(n)
-  Math.log10(n).to_i + 1
-end
+def number_digits(n) = Math.log10(n).to_i + 1
 
 main if __FILE__ == $0

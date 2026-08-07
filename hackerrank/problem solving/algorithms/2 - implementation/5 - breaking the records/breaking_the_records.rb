@@ -5,9 +5,7 @@ def main
   puts breaking_records(read_nums).join(' ')
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of scores
 # T: O(n)

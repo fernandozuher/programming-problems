@@ -6,9 +6,7 @@ def main
   puts jumping_on_the_clouds(arr, jump_length)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of clouds; 2 to 25
 # k (jump_length): 1 <= k <= n

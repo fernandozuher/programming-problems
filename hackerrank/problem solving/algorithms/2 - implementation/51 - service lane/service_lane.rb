@@ -6,9 +6,7 @@ def main
   t.times { puts min_width_in_segment(widths, read_nums) }
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of widths
 # T: O(n)

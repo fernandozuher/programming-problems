@@ -24,12 +24,8 @@ def leap_year?(year)
   false
 end
 
-def leap_julian_year?(year)
-  (year % 4).zero?
-end
+def leap_julian_year?(year) = (year % 4).zero?
 
-def leap_gregorian_year?(year)
-  (year % 400).zero? || ((year % 4).zero? && !(year % 100).zero?)
-end
+def leap_gregorian_year?(year) = (year % 400).zero? || ((year % 4).zero? && !(year % 100).zero?)
 
 main if __FILE__ == $0

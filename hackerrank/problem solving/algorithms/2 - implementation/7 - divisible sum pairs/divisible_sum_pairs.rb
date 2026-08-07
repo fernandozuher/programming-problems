@@ -6,9 +6,7 @@ def main
   puts divisible_sum_pairs(numbers, k)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of numbers
 # k: length of freq
@@ -27,17 +25,11 @@ def init_remainder_frequency(numbers, k)
   freq
 end
 
-def count_pairs_with_remainder_0(freq)
-  pair_count(freq.first)
-end
+def count_pairs_with_remainder_0(freq) = pair_count(freq.first)
 
-def pair_count(n)
-  n * (n - 1) / 2
-end
+def pair_count(n) = n * (n - 1) / 2
 
-def count_complementary_remainder_pairs(freq)
-  (1...(freq.size + 1) / 2).sum { freq[_1] * freq[-_1] }
-end
+def count_complementary_remainder_pairs(freq) = (1...(freq.size + 1) / 2).sum { freq[_1] * freq[-_1] }
 
 def count_pairs_with_remainder_k_half(freq)
   n = freq.size

@@ -17,9 +17,7 @@ def read_test_case
   Gifts.new(*arr)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(1)
 # S: O(1) extra space

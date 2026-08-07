@@ -14,9 +14,7 @@ def read_input
   input.new(item_not_eaten, meal_costs, amount_charged)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of data.meal_costs
 # T: O(n)

@@ -6,15 +6,11 @@ def main
   puts birthday_cake_candles(candles)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of candles
 # T: O(2n) => O(n)
 # S: O(1) extra space
-def birthday_cake_candles(candles)
-  candles.count(candles.max)
-end
+def birthday_cake_candles(candles) = candles.count(candles.max)
 
 main if __FILE__ == $0

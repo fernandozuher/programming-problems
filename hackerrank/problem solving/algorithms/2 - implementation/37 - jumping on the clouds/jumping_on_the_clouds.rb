@@ -5,9 +5,7 @@ def main
   puts min_jumps(read_nums)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of clouds
 # T: O(n)
@@ -24,12 +22,8 @@ def min_jumps(clouds)
   jumps
 end
 
-def skip(idx, clouds)
-  next_second_cloud_cumulus?(idx, clouds) ? 2 : 1
-end
+def skip(idx, clouds) = next_second_cloud_cumulus?(idx, clouds) ? 2 : 1
 
-def next_second_cloud_cumulus?(idx, clouds)
-  idx + 2 < clouds.size && clouds[idx + 2].zero?
-end
+def next_second_cloud_cumulus?(idx, clouds) = idx + 2 < clouds.size && clouds[idx + 2].zero?
 
 main if __FILE__ == $0

@@ -29,8 +29,6 @@ def plus_minus(arr)
   [positive / n, negative / n, zero / n]
 end
 
-def print_ratios(ratios)
-  ratios.each { printf "%.6f\n", _1 }
-end
+def print_ratios(ratios) = ratios.each { printf "%.6f\n", _1 }
 
 main if __FILE__ == $0

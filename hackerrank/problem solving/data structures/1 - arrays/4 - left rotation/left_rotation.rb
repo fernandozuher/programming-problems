@@ -7,9 +7,7 @@ def main
   puts arr.join(' ')
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of arr
 # T: O(n)

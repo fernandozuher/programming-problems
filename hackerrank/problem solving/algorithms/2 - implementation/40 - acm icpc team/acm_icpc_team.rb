@@ -6,13 +6,9 @@ def main
   puts acm_team(binaries)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
-def read_binaries(n)
-  n.times.map { gets.strip.to_i(2) }
-end
+def read_binaries(n) = n.times.map { gets.strip.to_i(2) }
 
 def acm_team(binaries)
   max_subjects = 0

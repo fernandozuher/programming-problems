@@ -5,9 +5,7 @@ def main
   puts array_manipulation(n, n_queries)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(n + n_queries)
 # S: O(n) extra space

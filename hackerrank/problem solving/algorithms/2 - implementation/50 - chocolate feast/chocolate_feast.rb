@@ -8,9 +8,7 @@ def main
   end
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(log(money / cost))
 # S: O(1) extra space

@@ -6,9 +6,7 @@ def main
   puts picking_numbers(freq_map)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # k: length of freq_map
 # 1 <= k <= 99

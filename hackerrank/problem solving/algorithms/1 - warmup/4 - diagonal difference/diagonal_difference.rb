@@ -19,8 +19,6 @@ def diagonal_difference(n)
   (primary_sum - secondary_sum).abs
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 main if __FILE__ == $0

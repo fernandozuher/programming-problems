@@ -7,9 +7,7 @@ def main
   puts obj.answers
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 class DynamicArray
   attr_reader :answers

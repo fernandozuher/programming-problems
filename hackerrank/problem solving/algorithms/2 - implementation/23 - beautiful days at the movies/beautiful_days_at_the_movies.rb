@@ -5,24 +5,16 @@ def main
   puts beautiful_days(start_day, end_day, divisor)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: range (end_day - start_day + 1)
 # d: number of digits of the largest day
 # T: O(n * d)
 # S: O(d) extra space
-def beautiful_days(start_day, end_day, divisor)
-  (start_day..end_day).count { beautiful_day?(_1, divisor) }
-end
+def beautiful_days(start_day, end_day, divisor) = (start_day..end_day).count { beautiful_day?(_1, divisor) }
 
-def beautiful_day?(day, divisor)
-  ((day - reverse_number(day)) % divisor).zero?
-end
+def beautiful_day?(day, divisor) = ((day - reverse_number(day)) % divisor).zero?
 
-def reverse_number(number)
-  number.to_s.reverse.to_i
-end
+def reverse_number(number) = number.to_s.reverse.to_i
 
 main if __FILE__ == $0

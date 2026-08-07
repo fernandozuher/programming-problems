@@ -6,15 +6,11 @@ def main
   puts sock_merchant(socks_to_counts)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # k: length of entries in socks_to_counts
 # T: O(k)
 # S: O(1) extra space
-def sock_merchant(socks_to_counts)
-  socks_to_counts.each_value.sum { _1 / 2 }
-end
+def sock_merchant(socks_to_counts) = socks_to_counts.each_value.sum { _1 / 2 }
 
 main if __FILE__ == $0

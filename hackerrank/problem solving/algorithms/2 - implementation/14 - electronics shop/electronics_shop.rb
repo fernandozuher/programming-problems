@@ -7,9 +7,7 @@ def main
   puts calc_money_spent(keyboards, usb_drives, budget)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # n: length of arr
 # k: length of arr after deduplication

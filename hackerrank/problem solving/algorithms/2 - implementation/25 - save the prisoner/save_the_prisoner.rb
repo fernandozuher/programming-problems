@@ -8,14 +8,10 @@ def main
   end
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(1)
 # S: O(1) extra space
-def save_the_prisoner(prisoners, sweets, start_chair)
-  ((start_chair - 1 + sweets - 1) % prisoners) + 1
-end
+def save_the_prisoner(prisoners, sweets, start_chair) = ((start_chair - 1 + sweets - 1) % prisoners) + 1
 
 main if __FILE__ == $0

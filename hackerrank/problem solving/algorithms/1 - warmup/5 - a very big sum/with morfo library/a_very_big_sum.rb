@@ -11,8 +11,6 @@ end
 # n: length of arr
 # T: O(n)
 # S: O(1) extra space
-def a_very_big_sum(arr)
-  arr.sum
-end
+def a_very_big_sum(arr) = arr.sum
 
 main if __FILE__ == $0

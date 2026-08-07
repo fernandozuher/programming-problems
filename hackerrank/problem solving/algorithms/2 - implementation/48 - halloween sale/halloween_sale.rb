@@ -5,9 +5,7 @@ def main
   puts how_many_games_can_be_bought(price, discount, min_price, budget)
 end
 
-def read_nums
-  gets.split.map!(&:to_i)
-end
+def read_nums = gets.split.map!(&:to_i)
 
 # T: O(budget / min_price)
 # S: O(1) extra space
