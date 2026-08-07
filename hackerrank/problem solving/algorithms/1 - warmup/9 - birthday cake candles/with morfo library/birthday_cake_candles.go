@@ -4,6 +4,7 @@ package main
 
 import (
     "fmt"
+    "morfo/morfocollections"
     "morfo/morfoio"
     "slices"
 )
@@ -18,15 +19,5 @@ func main() {
 // T: O(2n) = O(n)
 // S: O(1) extra space
 func birthdayCakeCandles(candles []int) int {
-    return count(candles, slices.Max(candles))
-}
-
-func count[T comparable](arr []T, target T) int {
-    count := 0
-    for _, x := range arr {
-        if x == target {
-            count++
-        }
-    }
-    return count
+    return morfocollections.Count(candles, slices.Max(candles))
 }

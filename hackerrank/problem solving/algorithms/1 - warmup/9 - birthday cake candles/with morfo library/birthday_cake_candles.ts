@@ -1,24 +1,14 @@
 // https://www.hackerrank.com/challenges/birthday-cake-candles/problem?isFullScreen=true
 
-import { skipInputLn, readLn } from 'morfo';
+import { count, skipInputLn, readLn } from 'morfo';
 
 skipInputLn();
 const candles: number[] = readLn(Number);
 console.log(birthdayCakeCandles(candles));
 
 // n: length of candles
-// T: O(n)
+// T: O(2n) = O(n)
 // S: O(1) extra space
 function birthdayCakeCandles(candles: number[]): number {
-  let max: number = candles[0];
-  let count = 0;
-
-  for (const candle of candles) {
-    if (candle > max) {
-      max = candle;
-      count = 1;
-    } else if (candle === max) count++;
-  }
-
-  return count;
+  return count(candles, Math.max(...candles));
 }

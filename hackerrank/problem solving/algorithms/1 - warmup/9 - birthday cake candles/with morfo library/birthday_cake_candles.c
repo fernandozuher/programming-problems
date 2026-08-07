@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "morfo/io.h"
+#include "morfo/collections.h"
 
 int birthday_cake_candles(const int *candles, int n);
 
@@ -17,20 +18,14 @@ int main()
 }
 
 // n: length of candles
-// T: O(n)
+// T: O(2n) = O(n)
 // S: O(1) extra space
 int birthday_cake_candles(const int *candles, int n)
 {
     int max = candles[0];
-    int count = 1;
-
-    for (int i = 1; i < n; ++i) {
-        if (candles[i] > max) {
+    for (int i = 1; i < n; ++i)
+        if (candles[i] > max)
             max = candles[i];
-            count = 1;
-        } else if (candles[i] == max)
-            ++count;
-    }
 
-    return count;
+    return (int)morfo_count(candles, (size_t)n, max);
 }
