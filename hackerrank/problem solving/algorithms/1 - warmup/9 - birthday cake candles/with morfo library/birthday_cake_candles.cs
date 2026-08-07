@@ -7,7 +7,7 @@ var candles = Reader.ReadLn<int, int[]>();
 Console.WriteLine(BirthdayCakeCandles(candles));
 
 // n: length of candles
-// T: O(2n) = O(n)
+// T: O(2n) => O(n)
 // S: O(1) extra space
 int BirthdayCakeCandles(int[] candles)
 {

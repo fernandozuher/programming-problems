@@ -23,7 +23,7 @@ func readNums(n int) []int {
 }
 
 // n: length of candles
-// T: O(2n) = O(n)
+// T: O(2n) => O(n)
 // S: O(1) extra space
 func birthdayCakeCandles(candles []int) int {
     return count(candles, slices.Max(candles))

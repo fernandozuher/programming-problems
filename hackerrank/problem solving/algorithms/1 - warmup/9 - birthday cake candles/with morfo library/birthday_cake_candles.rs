@@ -9,7 +9,7 @@ fn main() {
 }
 
 // n: length of candles
-// T: O(2n) = O(n)
+// T: O(2n) => O(n)
 // S: O(1) extra space
 fn birthday_cake_candles(candles: &[i32]) -> usize {
     let max = candles.iter().max().unwrap();

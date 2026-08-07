@@ -7,7 +7,7 @@ Console.WriteLine(BirthdayCakeCandles(candles));
 int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
 
 // n: length of candles
-// T: O(2n) = O(n)
+// T: O(2n) => O(n)
 // S: O(1) extra space
 int BirthdayCakeCandles(int[] candles)
 {

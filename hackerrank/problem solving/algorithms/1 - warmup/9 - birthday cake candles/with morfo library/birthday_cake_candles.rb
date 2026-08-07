@@ -9,7 +9,7 @@ def main
 end
 
 # n: length of candles
-# T: O(2n) = O(n)
+# T: O(2n) => O(n)
 # S: O(1) extra space
 def birthday_cake_candles(candles)
   candles.count(candles.max)

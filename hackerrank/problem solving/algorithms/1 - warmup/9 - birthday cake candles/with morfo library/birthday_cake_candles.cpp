@@ -16,7 +16,7 @@ int main()
 }
 
 // n: length of candles
-// T: O(2n) = O(n)
+// T: O(2n) => O(n)
 // S: O(1) extra space
 int birthday_cake_candles(const vector<int>& candles)
 {

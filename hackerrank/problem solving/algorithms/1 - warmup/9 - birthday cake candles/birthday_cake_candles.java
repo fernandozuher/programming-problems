@@ -12,7 +12,7 @@ int[] readNums() {
 }
 
 // n: length of candles
-// T: O(2n) = O(n)
+// T: O(2n) => O(n)
 // S: O(1) extra space
 int birthdayCakeCandles(int[] candles) {
     int max = Arrays.stream(candles).max().orElse(0);
