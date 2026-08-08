@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true&is_full_screen=true
 
-#include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void read_nums(int *arr, int n);
