@@ -26,7 +26,7 @@ fn read_input() -> HashMap<i32, i32> {
 fn find_most_spotted_bird(birds_to_counts: &HashMap<i32, i32>) -> i32 {
     *birds_to_counts
         .iter()
-        .max_by_key(|(&id, &count)| (count, -id))
+        .max_by_key(|&(&id, &count)| (count, -id))
         .unwrap()
         .0
 }
