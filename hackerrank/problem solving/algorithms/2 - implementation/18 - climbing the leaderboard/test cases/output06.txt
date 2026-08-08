@@ -99998,21 +99998,3 @@
 14
 4
 2
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    
