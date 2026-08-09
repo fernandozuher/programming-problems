@@ -1,0 +1,33 @@
+// https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
+// Java 25
+
+import morfo.io.Reader;
+import morfo.io.Writer;
+
+void main() {
+    Reader.skipInputLn();
+    int[] arr = Reader.readLnInts();
+    Arrays.sort(arr);
+    Writer.println(cutTheSticks(arr));
+}
+
+// n: length of arr
+// k: number of distinct values in arr
+// k <= n
+// T: O(n)
+//    Sorting arr beforehand is O(n log n)
+// S: O(k) = O(n) extra space
+//    Sorting arr beforehand is O(n) extra space
+List<Integer> cutTheSticks(int[] arr) {
+    List<Integer> res = new ArrayList<>();
+    int slow = 0, n = arr.length;
+
+    for (int fast = 0; fast < n; fast++) {
+        if (arr[slow] == arr[fast]) continue;
+        res.add(n - slow);
+        slow = fast;
+    }
+
+    res.add(n - slow);
+    return res;
+}
