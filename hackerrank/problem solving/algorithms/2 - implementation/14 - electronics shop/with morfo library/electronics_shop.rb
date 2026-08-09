@@ -1,0 +1,49 @@
+# https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+
+require 'morfo'
+
+def main
+  budget = Morfo.readln(&:to_i).first
+  keyboards = preprocess_input(Morfo.readln(&:to_i))
+  usb_drives = preprocess_input(Morfo.readln(&:to_i))
+  puts calc_money_spent(keyboards, usb_drives, budget)
+end
+
+# n: length of arr
+# k: length of arr after deduplication
+# k <= n
+# T: O(n + k log k)
+# S: O(k) extra space
+def preprocess_input(arr)
+  arr.uniq!
+  arr.sort!
+end
+
+# n1: length of keyboards
+# n2: length of usb_drives
+# T: O(n1 + n2)
+# S: O(1) extra space
+def calc_money_spent(keyboards, usb_drives, budget)
+  return -1 if keyboards[0] >= budget || usb_drives[0] >= budget
+
+  max_spent = -1
+  idx_k, idx_ud = 0, usb_drives.size - 1
+
+  while idx_k < keyboards.size && idx_ud >= 0
+    break if keyboards[idx_k] >= budget
+
+    current_sum = keyboards[idx_k] + usb_drives[idx_ud]
+    return budget if current_sum == budget
+
+    if current_sum > budget
+      idx_ud -= 1
+    else
+      max_spent = [max_spent, current_sum].max
+      idx_k += 1
+    end
+  end
+
+  max_spent
+end
+
+main if __FILE__ == $0

@@ -1,0 +1,94 @@
+// https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "morfo/io.h"
+
+int preprocess_input(int *arr, int n);
+void sort(int *arr, int n);
+int compare(const void *a, const void *b);
+int remove_duplicate(int *arr, int n);
+int calc_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget);
+
+int main()
+{
+    int budget = morfo_read(int);
+    int n_keyboards = morfo_read(int);
+    int n_usb_drives = morfo_read(int);
+
+    int keyboards[n_keyboards], usb_drives[n_usb_drives];
+    morfo_read_n(keyboards, n_keyboards);
+    morfo_read_n(usb_drives, n_usb_drives);
+    int n1 = preprocess_input(keyboards, n_keyboards);
+    int n2 = preprocess_input(usb_drives, n_usb_drives);
+
+    printf("%d\n", calc_money_spent(keyboards, n1, usb_drives, n2, budget));
+
+    return 0;
+}
+
+// n: length of arr
+// k: length of arr after deduplication
+// k <= n
+// T: O((n log n) + n) = O(n log n)
+// S:
+//    log n for the recursion stack of qsort()
+//    O(log n) extra space
+int preprocess_input(int *arr, int n)
+{
+    sort(arr, n);
+    int new_size = remove_duplicate(arr, n);
+    return new_size;
+}
+
+void sort(int *arr, int n)
+{
+    qsort(arr, n, sizeof(int), compare);
+}
+
+int compare(const void *a, const void *b)
+{
+    return *(int *) a - *(int *) b;
+}
+
+int remove_duplicate(int *arr, int n)
+{
+    int w = 0;
+    for (int s = 0; s < n; ++s) {
+        if (s != 0 && arr[s] == arr[s - 1])
+            continue;
+        arr[w] = arr[s];
+        ++w;
+    }
+    return w;
+}
+
+// n1: length of keyboards
+// n2: length of usb_drives
+// T: O(n1 + n2)
+// S: O(1) extra space
+int calc_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget)
+{
+    if (keyboards[0] >= budget || usb_drives[0] >= budget)
+        return -1;
+
+    int max_spent = -1;
+    for (int idx_k = 0, idx_ud = n_usb_drives - 1; idx_k < n_keyboards && idx_ud >= 0;) {
+        if (keyboards[idx_k] >= budget)
+            break;
+
+        int current_sum = keyboards[idx_k] + usb_drives[idx_ud];
+        if (current_sum == budget)
+            return budget;
+
+        if (current_sum > budget)
+            --idx_ud;
+        else {
+            if (current_sum > max_spent)
+                max_spent = current_sum;
+            ++idx_k;
+        }
+    }
+
+    return max_spent;
+}

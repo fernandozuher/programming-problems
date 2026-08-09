@@ -1,0 +1,68 @@
+// https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+// C++23
+
+import morfo;
+import std;
+using namespace std;
+
+void preprocess_input(vector<int>& arr);
+int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget);
+
+int main()
+{
+    int budget = morfo::read();
+    int n_keyboards = morfo::read();
+    int n_usb_drives = morfo::read();
+
+    vector<int> keyboards = morfo::read(n_keyboards);
+    vector<int> usb_drives = morfo::read(n_usb_drives);
+    preprocess_input(keyboards);
+    preprocess_input(usb_drives);
+
+    cout << calc_money_spent(keyboards, usb_drives, budget);
+
+    return 0;
+}
+
+// n: length of arr
+// k: length of arr after deduplication
+// k <= n
+// T: O((n log n) + n) = O(n log n)
+// S:
+//    log n for the recursion stack of ranges::sort()
+//    O(log n) extra space
+void preprocess_input(vector<int>& arr)
+{
+    ranges::sort(arr);
+    auto x{ ranges::unique(arr) };
+    arr.erase(x.begin(), x.end());
+}
+
+// n1: length of keyboards
+// n2: length of usb_drives
+// T: O(n1 + n2)
+// S: O(1) extra space
+int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives, int budget)
+{
+    if (keyboards[0] >= budget || usb_drives[0] >= budget)
+        return -1;
+
+    int max_spent{ -1 };
+    for (int idx_k{}, idx_ud = usb_drives.size() - 1; idx_k < keyboards.size() && idx_ud >= 0;) {
+        if (keyboards[idx_k] >= budget)
+            break;
+
+        int current_sum{ keyboards[idx_k] + usb_drives[idx_ud] };
+        if (current_sum == budget)
+            return budget;
+
+        if (current_sum > budget)
+            --idx_ud;
+        else {
+            max_spent = max(max_spent, current_sum);
+            ++idx_k;
+        }
+    }
+
+    return max_spent;
+}
