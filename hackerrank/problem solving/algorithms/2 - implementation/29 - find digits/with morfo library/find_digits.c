@@ -1,0 +1,35 @@
+// https://www.hackerrank.com/challenges/find-digits/problem?isFullScreen=true
+
+#include <stdio.h>
+#include "morfo/io.h"
+
+int find_digits(int num);
+
+int main()
+{
+    int n = morfo_read(int);
+
+    for (int i = 0; i < n; ++i) {
+        int num = morfo_read(int);
+        printf("%d\n", find_digits(num));
+    }
+
+    return 0;
+}
+
+// k: quantity of digits of num = log num
+// 0 < num < 10^9
+// T: O(k) = O(9) = O(1)
+// S: O(1) extra space
+int find_digits(int num)
+{
+    int divisors = 0;
+
+    for (int original_number = num; num != 0; num /= 10) {
+        int digit = num % 10;
+        if (digit && original_number % digit == 0)
+            ++divisors;
+    }
+
+    return divisors;
+}
