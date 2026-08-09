@@ -1,0 +1,31 @@
+// https://www.hackerrank.com/challenges/append-and-delete/problem?isFullScreen=true
+
+using Morfo.IO;
+
+string s1 = Reader.Read<string>();
+string s2 = Reader.Read<string>();
+int nOps = Reader.Read<int>();
+Console.WriteLine(AppendAndDelete(s1, s2, nOps) ? "Yes" : "No");
+
+// n1: length of s1
+// n2: length of s2
+// T: O(min(n1, n2))
+// S: O(1) extra space
+bool AppendAndDelete(string s1, string s2, int nOps)
+{
+    int prefixLen = CommonPrefixLength(s1, s2);
+    int opsNeeded = (s1.Length - prefixLen) + (s2.Length - prefixLen);
+
+    if (nOps < opsNeeded)
+        return false;
+    if (nOps >= s1.Length + s2.Length)
+        return true;
+
+    return int.IsEvenInteger(nOps - opsNeeded);
+}
+
+int CommonPrefixLength(string s1, string s2)
+{
+    int minLen = Math.Min(s1.Length, s2.Length);
+    return Enumerable.Range(0, minLen).FirstOrDefault(i => s1[i] != s2[i], minLen);
+}
