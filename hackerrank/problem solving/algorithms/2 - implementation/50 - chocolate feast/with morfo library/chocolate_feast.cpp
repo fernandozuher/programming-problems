@@ -1,0 +1,37 @@
+// https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
+// C++23
+
+import morfo;
+import std;
+using namespace std;
+
+int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed);
+
+int main()
+{
+    int n = morfo::read();
+
+    for (int i{}; i < n; ++i) {
+        int money = morfo::read<int>();
+        int cost = morfo::read<int>();
+        int wrappers_needed = morfo::read<int>();
+        println("{}", how_many_chocolates_can_be_eaten(money, cost, wrappers_needed));
+    }
+
+    return 0;
+}
+
+// T: O(log(money / cost))
+// S: O(1) extra space
+int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed)
+{
+    int chocolates{ money / cost };
+
+    for (int wrappers{ chocolates }; wrappers >= wrappers_needed;) {
+        int free_chocolates{ wrappers / wrappers_needed };
+        wrappers = wrappers % wrappers_needed + free_chocolates;
+        chocolates += free_chocolates;
+    }
+
+    return chocolates;
+}

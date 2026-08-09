@@ -1,0 +1,35 @@
+// https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
+
+#include <stdio.h>
+#include "morfo/io.h"
+
+int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed);
+
+int main()
+{
+    int n = morfo_read(int);
+
+    for (int i = 0; i < n; ++i) {
+        int money = morfo_read(int);
+        int cost = morfo_read(int);
+        int wrappers_needed = morfo_read(int);
+        printf("%d\n", how_many_chocolates_can_be_eaten(money, cost, wrappers_needed));
+    }
+
+    return 0;
+}
+
+// T: O(log(money / cost))
+// S: O(1) extra space
+int how_many_chocolates_can_be_eaten(int money, int cost, int wrappers_needed)
+{
+    int chocolates = money / cost;
+
+    for (int wrappers = chocolates; wrappers >= wrappers_needed;) {
+        int free_chocolates = wrappers / wrappers_needed;
+        wrappers = wrappers % wrappers_needed + free_chocolates;
+        chocolates += free_chocolates;
+    }
+
+    return chocolates;
+}
