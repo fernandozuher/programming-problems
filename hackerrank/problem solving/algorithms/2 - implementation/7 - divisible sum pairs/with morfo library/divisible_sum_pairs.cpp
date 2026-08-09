@@ -1,0 +1,67 @@
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+// C++23
+
+import morfo;
+import std;
+using namespace std;
+
+int divisible_sum_pairs(const vector<int>& numbers, int k);
+vector<int> init_remainder_frequency(const vector<int>& numbers, int k);
+int count_pairs_with_remainder_0(const vector<int>& freq);
+int pair_count(int n);
+int count_complementary_remainder_pairs(const vector<int>& freq);
+int count_pairs_with_remainder_k_half(const vector<int>& freq);
+
+int main()
+{
+    int n = morfo::read();
+    int k = morfo::read();
+    vector<int> numbers = morfo::read(n);
+    cout << divisible_sum_pairs(numbers, k);
+    return 0;
+}
+
+// n: length of numbers
+// k: length of freq
+// T: O(n + k)
+// S: O(k) extra space
+int divisible_sum_pairs(const vector<int>& numbers, int k)
+{
+    vector freq{ init_remainder_frequency(numbers, k) };
+    return count_pairs_with_remainder_0(freq) + count_complementary_remainder_pairs(freq) +
+        count_pairs_with_remainder_k_half(freq);
+}
+
+vector<int> init_remainder_frequency(const vector<int>& numbers, int k)
+{
+    vector<int> freq(k);
+    for (int x : numbers)
+        ++freq.at(x % k);
+    return freq;
+}
+
+int count_pairs_with_remainder_0(const vector<int>& freq)
+{
+    return pair_count(freq.front());
+}
+
+int pair_count(int n)
+{
+    return n * (n - 1) / 2;
+}
+
+int count_complementary_remainder_pairs(const vector<int>& freq)
+{
+    auto n{ freq.size() };
+    return *ranges::fold_left_first(
+        views::iota(1ul, (n + 1) / 2) |
+        views::transform([&freq, n](auto i) { return freq.at(i) * freq.at(n - i); }),
+        plus{}
+    );
+}
+
+int count_pairs_with_remainder_k_half(const vector<int>& freq)
+{
+    auto n{ freq.size() };
+    return n % 2 == 0 ? pair_count(freq.at(n / 2)) : 0;
+}
