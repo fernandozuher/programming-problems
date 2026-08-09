@@ -1,0 +1,48 @@
+// https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
+
+package main
+
+import (
+    "fmt"
+    "morfo/morfoio"
+)
+
+func main() {
+    n := morfoio.Read[int]()
+    chocolateSquares := morfoio.ReadN[int](n)
+    const nDayMonth int = 2
+    dayMonth := morfoio.ReadN[int](nDayMonth)
+    fmt.Println(birthday(chocolateSquares, dayMonth))
+}
+
+// n: length of chocolateSquares
+// 1 <= n <= 100
+// T: O(n) = O(100) = O(1)
+// S: O(1) extra space
+func birthday(chocolateSquares, dayMonth []int) int {
+    day := dayMonth[0]
+    month := dayMonth[1]
+
+    if month > len(chocolateSquares) {
+        return 0
+    }
+
+    sum := 0
+    for _, x := range chocolateSquares[:month] {
+        sum += x
+    }
+
+    count := 0
+    if sum == day {
+        count++
+    }
+
+    for i := month; i < len(chocolateSquares); i++ {
+        sum += chocolateSquares[i] - chocolateSquares[i-month]
+        if sum == day {
+            count++
+        }
+    }
+
+    return count
+}
