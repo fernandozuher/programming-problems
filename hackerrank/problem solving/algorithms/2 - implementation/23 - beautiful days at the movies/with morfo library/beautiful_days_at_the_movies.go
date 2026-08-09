@@ -1,0 +1,41 @@
+// https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?isFullScreen=true
+
+package main
+
+import (
+    "fmt"
+    "morfo/morfoio"
+)
+
+func main() {
+    startDay := morfoio.Read[int]()
+    endDay := morfoio.Read[int]()
+    divisor := morfoio.Read[int]()
+    fmt.Println(beautifulDays(startDay, endDay, divisor))
+}
+
+// n: range (endDay - startDay + 1)
+// d: number of digits of the largest day
+// T: O(n * d)
+// S: O(1) extra space
+func beautifulDays(startDay, endDay, divisor int) int {
+    count := 0
+    for day := startDay; day <= endDay; day++ {
+        if isBeautifulDay(day, divisor) {
+            count++
+        }
+    }
+    return count
+}
+
+func isBeautifulDay(day, divisor int) bool {
+    return (day-reverseNumber(day))%divisor == 0
+}
+
+func reverseNumber(number int) int {
+    reversedNumber := 0
+    for ; number > 0; number /= 10 {
+        reversedNumber = reversedNumber*10 + number%10
+    }
+    return reversedNumber
+}
