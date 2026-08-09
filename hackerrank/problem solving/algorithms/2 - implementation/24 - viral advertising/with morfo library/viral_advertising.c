@@ -1,0 +1,27 @@
+// https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+
+#include <stdio.h>
+#include "morfo/io.h"
+
+int viral_advertising(int days);
+
+int main()
+{
+    int days = morfo_read(int);
+    printf("%d\n", viral_advertising(days));
+    return 0;
+}
+
+// n: days
+// T: O(n)
+// S: O(1) extra space
+int viral_advertising(int days)
+{
+    int acc = 0;
+    for (int shared = 5; days > 0; --days) {
+        int liked = shared / 2;
+        shared = liked * 3;
+        acc += liked;
+    }
+    return acc;
+}

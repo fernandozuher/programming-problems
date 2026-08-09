@@ -1,0 +1,26 @@
+// https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
+
+package main
+
+import (
+    "fmt"
+    "morfo/morfoio"
+)
+
+func main() {
+    days := morfoio.Read[int]()
+    fmt.Println(viralAdvertising(days))
+}
+
+// n: days
+// T: O(n)
+// S: O(1) extra space
+func viralAdvertising(days int) int {
+    acc := 0
+    for shared := 5; days > 0; days-- {
+        liked := shared / 2
+        shared = liked * 3
+        acc += liked
+    }
+    return acc
+}
