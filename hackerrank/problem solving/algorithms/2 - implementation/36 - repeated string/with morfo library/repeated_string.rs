@@ -1,0 +1,29 @@
+// https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
+
+use morfo::read;
+use num::integer::div_rem;
+
+fn main() {
+    let string: String = read();
+    let n_chars: usize = read();
+    const LETTER: char = 'a';
+    println!(
+        "{}",
+        count_in_repeated_string(string.as_str(), LETTER, n_chars)
+    );
+}
+
+// n: length of string
+// T: O(n)
+// S: O(1) extra space
+fn count_in_repeated_string(string: &str, letter: char, n_chars: usize) -> usize {
+    let (full_repeats, n_substring): (usize, usize) = div_rem(n_chars, string.len());
+
+    let mut count = count_char(string, letter);
+    count *= full_repeats;
+    count + count_char(&string[..n_substring], letter)
+}
+
+fn count_char(string: &str, letter: char) -> usize {
+    string.chars().filter(|&c| c == letter).count()
+}
