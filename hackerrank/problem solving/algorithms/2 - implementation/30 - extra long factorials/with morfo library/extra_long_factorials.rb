@@ -1,0 +1,14 @@
+# https://www.hackerrank.com/challenges/extra-long-factorials/problem?isFullScreen=true
+
+require 'morfo'
+
+def main
+  n = Morfo.read(&:to_i)
+  puts factorial(n)
+end
+
+# T: O(n)
+# S: O(1) extra space (excluding the size of the resulting integer)
+def factorial(n) = (1..n).reduce(:*)
+
+main if __FILE__ == $0
