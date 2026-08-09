@@ -5,7 +5,7 @@ require 'morfo'
 def main
   data = read_input
   charged = bon_appetit(data)
-  puts charged.zero? ? "Bon Appetit" : charged
+  puts Morfo.or_if_falsy(charged, "Bon Appetit")
 end
 
 def read_input

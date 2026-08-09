@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-import { read, sum } from 'morfo';
+import { read, sum, orIfFalsy } from 'morfo';
 
 interface Input {
   itemNotEaten: number;
@@ -9,7 +9,7 @@ interface Input {
 }
 
 const data: Input = readInput();
-console.log(bonAppetit(data) || 'Bon Appetit');
+console.log(orIfFalsy(bonAppetit(data), 'Bon Appetit'));
 
 function readInput(): Input {
   const n: number = read(Number);

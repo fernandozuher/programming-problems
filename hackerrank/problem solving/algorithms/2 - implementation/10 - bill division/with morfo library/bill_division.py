@@ -14,10 +14,8 @@ class Input:
 
 def main():
     data = read_input()
-    if charged := bon_appetit(data):
-        print(charged)
-    else:
-        print("Bon Appetit")
+    charged = bon_appetit(data)
+    print(morfo.or_if_falsy(charged, "Bon Appetit"))
 
 
 def read_input():

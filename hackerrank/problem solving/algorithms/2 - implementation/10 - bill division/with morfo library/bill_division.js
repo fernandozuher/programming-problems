@@ -1,9 +1,9 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-import { read, sum } from 'morfo';
+import { read, sum, orIfFalsy } from 'morfo';
 
 const data = readInput();
-console.log(bonAppetit(data) || 'Bon Appetit');
+console.log(orIfFalsy(bonAppetit(data), 'Bon Appetit'));
 
 function readInput() {
   const n = read(Number);
