@@ -1,0 +1,31 @@
+# https://www.hackerrank.com/challenges/jumping-on-the-clouds-revisited/problem?isFullScreen=true
+
+require 'morfo'
+
+def main
+  Morfo.skip_input
+  jump_length = Morfo.read(&:to_i)
+  arr = Morfo.readln(&:to_i)
+  puts jumping_on_the_clouds(arr, jump_length)
+end
+
+# n: length of clouds; 2 to 25
+# k (jump_length): 1 <= k <= n
+# n % k = 0
+# c[i] = 0 or 1
+# T: O(n) = O(25) = O(1)
+# S: O(1) extra space
+def jumping_on_the_clouds(clouds, jump_length)
+  energy = 100
+  cloud_index = 0
+
+  loop do
+    energy -= clouds[cloud_index].zero? ? 1 : 3
+    cloud_index = (cloud_index + jump_length) % clouds.size
+    break if cloud_index.zero?
+  end
+
+  energy
+end
+
+main if __FILE__ == $0
