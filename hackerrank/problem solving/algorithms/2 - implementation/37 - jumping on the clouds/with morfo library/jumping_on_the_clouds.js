@@ -1,0 +1,27 @@
+// https://www.hackerrank.com/challenges/jumping-on-the-clouds/problem?isFullScreen=true
+
+import { readLn, skipInputLn } from 'morfo';
+
+function main() {
+  skipInputLn();
+  console.log(minJumps(readLn(Number)));
+}
+
+// n: length of clouds
+// T: O(n)
+// S: O(1) extra space
+function minJumps(clouds) {
+  let jumps = 0;
+  for (let i = 0, n = clouds.length - 1; i < n; i += skip(i, clouds)) jumps++;
+  return jumps;
+}
+
+function skip(idx, clouds) {
+  return isNextSecondCloudCumulus(idx, clouds) ? 2 : 1;
+}
+
+function isNextSecondCloudCumulus(idx, clouds) {
+  return idx + 2 < clouds.length && clouds[idx + 2] === 0;
+}
+
+main();
