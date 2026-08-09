@@ -21,11 +21,9 @@ type FruitTree = {
   fruitDistances: number[];
 };
 
-function main() {
-  const [house, appleTree, orangeTree] = readInput();
-  console.log(countFruitsOnHouse(appleTree, house));
-  console.log(countFruitsOnHouse(orangeTree, house));
-}
+const [house, appleTree, orangeTree] = readInput();
+console.log(countFruitsOnHouse(appleTree, house));
+console.log(countFruitsOnHouse(orangeTree, house));
 
 function readInput(): [House, FruitTree, FruitTree] {
   const house = new House(read(Number), read(Number));
@@ -60,5 +58,3 @@ function countFruitsOnHouse(fruitTree: FruitTree, house: House): number {
     0,
   );
 }
-
-main();

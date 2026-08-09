@@ -2,11 +2,9 @@
 
 import { counter, readLn, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const freqMap = counter(readLn(Number));
-  console.log(pickingNumbers(freqMap));
-}
+skipInputLn();
+const freqMap = counter(readLn(Number));
+console.log(pickingNumbers(freqMap));
 
 // k: length of freqMap
 // 1 <= k <= 99
@@ -20,5 +18,3 @@ function pickingNumbers(freqMap) {
   }
   return maxLen;
 }
-
-main();

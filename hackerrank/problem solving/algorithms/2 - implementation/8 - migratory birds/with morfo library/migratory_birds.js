@@ -2,10 +2,8 @@
 
 import { skipInputLn, readLn } from 'morfo';
 
-function main() {
-  const birdsToCounts = readInput();
-  console.log(findMostSpottedBird(birdsToCounts));
-}
+const birdsToCounts = readInput();
+console.log(findMostSpottedBird(birdsToCounts));
 
 // n: length of input
 // T: O(n)
@@ -36,5 +34,3 @@ function findMostSpottedBird(birdsToCounts) {
 
   return resID;
 }
-
-main();

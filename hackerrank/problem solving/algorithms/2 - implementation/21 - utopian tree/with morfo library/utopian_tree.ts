@@ -2,13 +2,11 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const n: number = read(Number);
-  const utopianTree: number[] = generateHeightsUtopianTree();
-  for (let i = 0; i < n; i++) {
-    const cycles: number = read(Number);
-    console.log(utopianTree[cycles]);
-  }
+const n: number = read(Number);
+const utopianTree: number[] = generateHeightsUtopianTree();
+for (let i = 0; i < n; i++) {
+  const cycles: number = read(Number);
+  console.log(utopianTree[cycles]);
 }
 
 // k: length of output = 61
@@ -29,5 +27,3 @@ function generateHeightsUtopianTree(): number[] {
 function isCycleHappeningDuringSpring(cycle: number): boolean {
   return (cycle & 1) === 1;
 }
-
-main();

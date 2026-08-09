@@ -2,11 +2,9 @@
 
 import { skipInputLn, readLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const arr: number[] = readLn(Number);
-  console.log(minDistance(arr));
-}
+skipInputLn();
+const arr: number[] = readLn(Number);
+console.log(minDistance(arr));
 
 // n: length of arr
 // T: O(n)
@@ -32,5 +30,3 @@ function minDistance(arr: number[]): number {
 
   return minDist;
 }
-
-main();

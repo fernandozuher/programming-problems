@@ -2,10 +2,8 @@
 
 import { read, readLn } from 'morfo';
 
-function main() {
-  const n = read(Number);
-  for (let i = 0; i < n; i++) console.log(findNearestCatOrNot(readLn(Number)));
-}
+const n = read(Number);
+for (let i = 0; i < n; i++) console.log(findNearestCatOrNot(readLn(Number)));
 
 // T: O(1)
 // S: O(1) extra space
@@ -18,5 +16,3 @@ function findNearestCatOrNot(positions) {
   if (catAFromMouse > catBFromMouse) return 'Cat B';
   return 'Mouse C';
 }
-
-main();

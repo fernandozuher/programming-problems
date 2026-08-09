@@ -10,11 +10,9 @@ const HackosFine = Object.freeze({
 
 type DateTriple = { day: number; month: number; year: number };
 
-function main() {
-  const returnDate: DateTriple = readDate();
-  const dueDate: DateTriple = readDate();
-  console.log(calculateFine(returnDate, dueDate));
-}
+const returnDate: DateTriple = readDate();
+const dueDate: DateTriple = readDate();
+console.log(calculateFine(returnDate, dueDate));
 
 function readDate(): DateTriple {
   const day: number = read(Number);
@@ -49,5 +47,3 @@ function isDayLate(returnDate: DateTriple, dueDate: DateTriple): boolean {
     returnDate.day > dueDate.day
   );
 }
-
-main();

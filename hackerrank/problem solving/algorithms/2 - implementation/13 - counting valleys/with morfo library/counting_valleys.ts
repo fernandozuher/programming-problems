@@ -2,11 +2,9 @@
 
 import { read, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const steps: string = read(String);
-  console.log(countingValleys(steps));
-}
+skipInputLn();
+const steps: string = read(String);
+console.log(countingValleys(steps));
 
 // n: length of steps
 // T: O(n)
@@ -25,5 +23,3 @@ function countingValleys(steps: string): number {
 
   return valleys;
 }
-
-main();

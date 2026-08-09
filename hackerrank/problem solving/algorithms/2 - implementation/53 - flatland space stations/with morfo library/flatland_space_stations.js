@@ -2,12 +2,10 @@
 
 import { readLn } from 'morfo';
 
-function main() {
-  const [nCities, _] = readLn(Number);
-  const lastCity = nCities - 1;
-  let stations = readLn(Number).sort((a, b) => a - b);
-  console.log(maxDistanceFromSpaceStation(lastCity, stations));
-}
+const [nCities, _] = readLn(Number);
+const lastCity = nCities - 1;
+let stations = readLn(Number).sort((a, b) => a - b);
+console.log(maxDistanceFromSpaceStation(lastCity, stations));
 
 // n: length of stations
 // T: O(n)
@@ -22,5 +20,3 @@ function maxDistanceFromSpaceStation(lastCity, stations) {
 
   return Math.max(maxDist, lastCity - stations.at(-1));
 }
-
-main();

@@ -2,14 +2,12 @@
 
 import { read, readLn, skipInput } from 'morfo';
 
-function main() {
-  const n = read(Number);
-  for (let i = 0; i < n; i++) {
-    skipInput();
-    const threshold = read(Number);
-    const arrivalTimes = readLn(Number);
-    console.log(angryProfessor(arrivalTimes, threshold) ? 'YES' : 'NO');
-  }
+const n = read(Number);
+for (let i = 0; i < n; i++) {
+  skipInput();
+  const threshold = read(Number);
+  const arrivalTimes = readLn(Number);
+  console.log(angryProfessor(arrivalTimes, threshold) ? 'YES' : 'NO');
 }
 
 // k: length of arrivalTimes
@@ -22,5 +20,3 @@ function angryProfessor(arrivalTimes, threshold) {
   );
   return onTime < threshold;
 }
-
-main();

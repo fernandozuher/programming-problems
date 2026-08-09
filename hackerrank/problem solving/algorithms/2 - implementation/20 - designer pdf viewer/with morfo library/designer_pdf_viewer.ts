@@ -2,11 +2,9 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const lettersHeights: number[] = read(26, Number);
-  const word: string = read(String);
-  console.log(designerPdfViewer(lettersHeights, word));
-}
+const lettersHeights: number[] = read(26, Number);
+const word: string = read(String);
+console.log(designerPdfViewer(lettersHeights, word));
 
 // n: length word, <= 10
 // T: O(10) = O(1)
@@ -16,5 +14,3 @@ function designerPdfViewer(lettersHeights: number[], word: string): number {
   for (const ch of word) maxHeight = Math.max(maxHeight, lettersHeights[ch.charCodeAt(0) - 'a'.charCodeAt(0)]);
   return maxHeight * word.length;
 }
-
-main();

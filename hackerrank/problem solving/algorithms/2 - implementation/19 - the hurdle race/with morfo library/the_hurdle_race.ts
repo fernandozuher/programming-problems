@@ -2,12 +2,10 @@
 
 import { read, readLn, skipInput } from 'morfo';
 
-function main() {
-  skipInput();
-  const maxJump: number = read(Number);
-  const hurdles: number[] = readLn(Number);
-  console.log(hurdleRace(hurdles, maxJump));
-}
+skipInput();
+const maxJump: number = read(Number);
+const hurdles: number[] = readLn(Number);
+console.log(hurdleRace(hurdles, maxJump));
 
 // n: length of hurdles
 // T: O(n)
@@ -15,5 +13,3 @@ function main() {
 function hurdleRace(hurdles: number[], maxJump: number): number {
   return Math.max(0, Math.max(...hurdles) - maxJump);
 }
-
-main();

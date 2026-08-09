@@ -2,12 +2,10 @@
 
 import { readLn } from 'morfo';
 
-function main() {
-  const budget = readLn(Number)[0];
-  const keyboards = preprocessInput(readLn(Number));
-  const usbDrives = preprocessInput(readLn(Number));
-  console.log(calcMoneySpent(keyboards, usbDrives, budget));
-}
+const budget = readLn(Number)[0];
+const keyboards = preprocessInput(readLn(Number));
+const usbDrives = preprocessInput(readLn(Number));
+console.log(calcMoneySpent(keyboards, usbDrives, budget));
 
 // n: length of arr
 // k: length of arr after deduplication
@@ -42,5 +40,3 @@ function calcMoneySpent(keyboards, usbDrives, budget) {
 
   return maxSpent;
 }
-
-main();

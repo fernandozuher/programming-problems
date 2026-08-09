@@ -2,10 +2,8 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const initialState: number[] = read(4, Number);
-  console.log(kangaroo(initialState) ? 'YES' : 'NO');
-}
+const initialState: number[] = read(4, Number);
+console.log(kangaroo(initialState) ? 'YES' : 'NO');
 
 // T: O(1)
 // S: O(1) extra space
@@ -18,5 +16,3 @@ function kangaroo(initialState: number[]): boolean {
   const velocityDiff = v1 - v2;
   return distanceDiff * velocityDiff >= 0 && distanceDiff % velocityDiff === 0;
 }
-
-main();

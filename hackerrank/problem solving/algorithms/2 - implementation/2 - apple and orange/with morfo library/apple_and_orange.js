@@ -23,11 +23,9 @@ class FruitTree {
   }
 }
 
-function main() {
-  const [house, appleTree, orangeTree] = readInput();
-  console.log(countFruitsOnHouse(appleTree, house));
-  console.log(countFruitsOnHouse(orangeTree, house));
-}
+const [house, appleTree, orangeTree] = readInput();
+console.log(countFruitsOnHouse(appleTree, house));
+console.log(countFruitsOnHouse(orangeTree, house));
 
 function readInput() {
   const house = new House(read(Number), read(Number));
@@ -56,5 +54,3 @@ function countFruitsOnHouse(fruitTree, house) {
     0,
   );
 }
-
-main();

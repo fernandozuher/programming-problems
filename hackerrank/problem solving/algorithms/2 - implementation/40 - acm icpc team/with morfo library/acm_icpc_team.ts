@@ -2,12 +2,10 @@
 
 import { println, read, skipInput } from 'morfo';
 
-function main() {
-  const n: number = read(Number);
-  skipInput();
-  const binaries: string[] = readBinaries(n);
-  println(acmTeam(binaries));
-}
+const n: number = read(Number);
+skipInput();
+const binaries: string[] = readBinaries(n);
+println(acmTeam(binaries));
 
 function readBinaries(n: number): string[] {
   return read(n, String);
@@ -41,5 +39,3 @@ function countSubjectsKnownBy2Teams(a: string, b: string): number {
   }
   return count;
 }
-
-main();

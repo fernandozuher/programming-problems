@@ -2,12 +2,10 @@
 
 import { skipInputLn, readLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const a: number[] = readLn(Number);
-  const b: number[] = readLn(Number);
-  console.log(betweenTwoSets(a, b));
-}
+skipInputLn();
+const a: number[] = readLn(Number);
+const b: number[] = readLn(Number);
+console.log(betweenTwoSets(a, b));
 
 // n1, n2: length of a, b
 // k: number of multiples tested = gcdOfB / lcmOfA
@@ -36,5 +34,3 @@ function gcd(a: number, b: number): number {
   }
   return a;
 }
-
-main();

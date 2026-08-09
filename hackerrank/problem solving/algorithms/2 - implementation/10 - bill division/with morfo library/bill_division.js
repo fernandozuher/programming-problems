@@ -2,10 +2,8 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const data = readInput();
-  console.log(bonAppetit(data) || 'Bon Appetit');
-}
+const data = readInput();
+console.log(bonAppetit(data) || 'Bon Appetit');
 
 function readInput() {
   const n = read(Number);
@@ -24,5 +22,3 @@ function bonAppetit(data) {
   totalSharedCost /= 2;
   return data.amountCharged - totalSharedCost;
 }
-
-main();

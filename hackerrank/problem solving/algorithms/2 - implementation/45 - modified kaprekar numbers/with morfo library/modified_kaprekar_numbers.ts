@@ -2,21 +2,19 @@
 
 import { read } from 'morfo';
 
-function main() {
-  let validRange = false;
+let validRange = false;
 
-  for (
-    let lower = read(Number), num = lower, upper = read(Number);
-    num <= upper;
-    num++
-  )
-    if (isNumberKaprekar(num)) {
-      process.stdout.write(num + ' ');
-      validRange = true;
-    }
+for (
+  let lower = read(Number), num = lower, upper = read(Number);
+  num <= upper;
+  num++
+)
+  if (isNumberKaprekar(num)) {
+    process.stdout.write(num + ' ');
+    validRange = true;
+  }
 
-  if (!validRange) console.log('INVALID RANGE');
-}
+if (!validRange) console.log('INVALID RANGE');
 
 // log n: for calculating number of digits
 // T: O(log n)
@@ -32,5 +30,3 @@ function isNumberKaprekar(n: number): boolean {
 function numberDigits(n: number): number {
   return Math.trunc(Math.log10(n)) + 1;
 }
-
-main();

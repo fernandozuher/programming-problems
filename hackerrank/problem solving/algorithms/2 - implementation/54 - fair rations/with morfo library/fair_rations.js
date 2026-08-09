@@ -2,12 +2,10 @@
 
 import { skipInputLn, readLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const peopleLoafCounts = readLn(Number);
-  const minLoaves = minLoavesToSatisfyRules(peopleLoafCounts);
-  console.log(minLoaves === -1 ? 'NO' : minLoaves);
-}
+skipInputLn();
+const peopleLoafCounts = readLn(Number);
+const minLoaves = minLoavesToSatisfyRules(peopleLoafCounts);
+console.log(minLoaves === -1 ? 'NO' : minLoaves);
 
 // n: length of peopleLoafCounts
 // T: O(n)
@@ -28,5 +26,3 @@ function minLoavesToSatisfyRules(peopleLoafCounts) {
 function isOdd(n) {
   return (n & 1) === 1;
 }
-
-main();

@@ -2,12 +2,10 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const s1: string = read(String);
-  const s2: string = read(String);
-  const nOps: number = read(Number);
-  console.log(appendAndDelete(s1, s2, nOps) ? 'Yes' : 'No');
-}
+const s1: string = read(String);
+const s2: string = read(String);
+const nOps: number = read(Number);
+console.log(appendAndDelete(s1, s2, nOps) ? 'Yes' : 'No');
 
 // n1: length of s1
 // n2: length of s2
@@ -28,5 +26,3 @@ function commonPrefixLength(s1: string, s2: string): number {
   for (let i = 0; i < minLen; i++) if (s1[i] !== s2[i]) return i;
   return minLen;
 }
-
-main();

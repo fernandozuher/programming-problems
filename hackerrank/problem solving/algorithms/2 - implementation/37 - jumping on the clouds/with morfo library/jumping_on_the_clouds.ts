@@ -2,10 +2,8 @@
 
 import { readLn, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  console.log(minJumps(readLn(Number)));
-}
+skipInputLn();
+console.log(minJumps(readLn(Number)));
 
 // n: length of clouds
 // T: O(n)
@@ -23,5 +21,3 @@ function skip(idx: number, clouds: number[]): number {
 function isNextSecondCloudCumulus(idx: number, clouds: number[]): boolean {
   return idx + 2 < clouds.length && clouds[idx + 2] === 0;
 }
-
-main();

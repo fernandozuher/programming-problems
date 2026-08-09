@@ -2,13 +2,11 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const price: number = read(Number);
-  const discount: number = read(Number);
-  const minPrice: number = read(Number);
-  const budget: number = read(Number);
-  console.log(howManyGamesCanBeBought(price, discount, minPrice, budget));
-}
+const price: number = read(Number);
+const discount: number = read(Number);
+const minPrice: number = read(Number);
+const budget: number = read(Number);
+console.log(howManyGamesCanBeBought(price, discount, minPrice, budget));
 
 // T: O(budget / minPrice)
 // S: O(1) extra space
@@ -26,5 +24,3 @@ function howManyGamesCanBeBought(
   }
   return count;
 }
-
-main();

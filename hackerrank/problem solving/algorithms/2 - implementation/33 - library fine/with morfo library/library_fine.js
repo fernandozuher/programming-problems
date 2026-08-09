@@ -32,11 +32,9 @@ class DateThatWorks {
   }
 }
 
-function main() {
-  const returnDate = readDate();
-  const dueDate = readDate();
-  console.log(calculateFine(returnDate, dueDate));
-}
+const returnDate = readDate();
+const dueDate = readDate();
+console.log(calculateFine(returnDate, dueDate));
 
 function readDate() {
   const day = read(Number);
@@ -73,5 +71,3 @@ function isDayLate(returnDate, dueDate) {
     returnDate.day() > dueDate.day()
   );
 }
-
-main();

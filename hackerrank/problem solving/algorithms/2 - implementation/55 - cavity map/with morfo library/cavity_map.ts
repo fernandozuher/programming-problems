@@ -2,12 +2,10 @@
 
 import { read, println } from 'morfo';
 
-function main() {
-  const n: number = read(Number);
-  const matrix: string[][] = readMatrix(n);
-  changeMatrixToCavityMap(matrix);
-  println(matrix.map((x) => x.join('')));
-}
+const n: number = read(Number);
+const matrix: string[][] = readMatrix(n);
+changeMatrixToCavityMap(matrix);
+println(matrix.map((x) => x.join('')));
 
 function readMatrix(n: number): string[][] {
   return Array(n)
@@ -33,5 +31,3 @@ function isCellCavity(matrix: string[][], i: number, j: number): boolean {
     matrix[i][j + 1] < c
   );
 }
-
-main();

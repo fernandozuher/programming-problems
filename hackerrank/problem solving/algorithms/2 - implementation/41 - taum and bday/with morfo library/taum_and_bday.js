@@ -2,11 +2,9 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const n = read(Number);
-  for (let i = 0; i < n; i++)
-    console.log(minCostOfBuyingGifts(readTestCase()).toString());
-}
+const n = read(Number);
+for (let i = 0; i < n; i++)
+  console.log(minCostOfBuyingGifts(readTestCase()).toString());
 
 function readTestCase() {
   const nBlackGifts = read(BigInt);
@@ -39,5 +37,3 @@ function minCostOfBuyingGifts(x) {
 
   return x.nBlackGifts * blackCost + x.nWhiteGifts * whiteCost;
 }
-
-main();

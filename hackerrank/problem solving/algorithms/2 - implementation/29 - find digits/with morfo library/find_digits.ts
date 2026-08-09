@@ -2,12 +2,10 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const n: number = read(Number);
-  for (let i = 0; i < n; i++) {
-    const num: number = read(Number);
-    console.log(findDigits(num));
-  }
+const n: number = read(Number);
+for (let i = 0; i < n; i++) {
+  const num: number = read(Number);
+  console.log(findDigits(num));
 }
 
 // k: quantity of digits of num = log num
@@ -23,5 +21,3 @@ function findDigits(num: number): number {
       return d !== 0 && num % d === 0;
     }).length;
 }
-
-main();

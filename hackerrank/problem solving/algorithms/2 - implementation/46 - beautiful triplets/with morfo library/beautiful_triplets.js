@@ -2,12 +2,10 @@
 
 import { skipInput, read, readLn } from 'morfo';
 
-function main() {
-  skipInput();
-  const beautifulDifference = read(Number);
-  const arr = readLn(Number);
-  console.log(findBeautifulTriplets(arr, beautifulDifference));
-}
+skipInput();
+const beautifulDifference = read(Number);
+const arr = readLn(Number);
+console.log(findBeautifulTriplets(arr, beautifulDifference));
 
 // n: length of arr
 // k: distinct numbers of arr
@@ -26,5 +24,3 @@ function findBeautifulTriplets(arr, beautifulDifference) {
 
   return count;
 }
-
-main();

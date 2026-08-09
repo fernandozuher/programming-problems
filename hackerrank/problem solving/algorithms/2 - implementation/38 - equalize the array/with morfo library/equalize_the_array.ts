@@ -2,10 +2,8 @@
 
 import { counter, readLn, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  console.log(minDeletionsToEqualize(readLn(Number)));
-}
+skipInputLn();
+console.log(minDeletionsToEqualize(readLn(Number)));
 
 // n: length of arr, 1 <= n <= 100
 // k: number of distinct elements in arr
@@ -18,5 +16,3 @@ function minDeletionsToEqualize(arr: number[]): number {
     maxCount = Math.max(maxCount, count);
   return arr.length - maxCount;
 }
-
-main();

@@ -2,12 +2,10 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const str: string = read(String);
-  const nChars: number = read(Number);
-  const letter = 'a';
-  console.log(countInRepeatedString(str, letter, nChars));
-}
+const str: string = read(String);
+const nChars: number = read(Number);
+const letter = 'a';
+console.log(countInRepeatedString(str, letter, nChars));
 
 // n: length of str
 // T: O(n)
@@ -30,5 +28,3 @@ function countChar(str: string, n: number, letter: string): number {
   for (let i = 0; i < n; i++) if (str[i] === letter) count++;
   return count;
 }
-
-main();

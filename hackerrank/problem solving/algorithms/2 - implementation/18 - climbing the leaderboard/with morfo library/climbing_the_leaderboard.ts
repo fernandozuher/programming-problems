@@ -2,13 +2,11 @@
 
 import { println, readLn, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const ranked: number[] = removeDuplicates(readLn(Number));
-  skipInputLn();
-  const player: number[] = readLn(Number);
-  println(climbingLeaderboard(ranked, player));
-}
+skipInputLn();
+const ranked: number[] = removeDuplicates(readLn(Number));
+skipInputLn();
+const player: number[] = readLn(Number);
+println(climbingLeaderboard(ranked, player));
 
 // n: length of arr
 // k: length of distinct numbers in arr
@@ -30,5 +28,3 @@ function climbingLeaderboard(ranked: number[], player: number[]): number[] {
     return i + 2;
   });
 }
-
-main();

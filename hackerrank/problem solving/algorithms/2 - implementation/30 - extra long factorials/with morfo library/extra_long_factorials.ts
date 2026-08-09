@@ -2,10 +2,8 @@
 
 import { read } from 'morfo';
 
-function main() {
-  const n: number = read(Number);
-  console.log(factorial(n).toString());
-}
+const n: number = read(Number);
+console.log(factorial(n).toString());
 
 // T: O(n)
 // S: O(1) extra space (excluding the size of the resulting integer)
@@ -14,5 +12,3 @@ function factorial(n: number): BigInt {
   for (let i = BigInt(1); i <= n; i++) res *= i;
   return res;
 }
-
-main();

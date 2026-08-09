@@ -2,11 +2,9 @@
 
 import { readLn } from 'morfo';
 
-function main() {
-  const [, k]: number[] = readLn(Number);
-  const numbers: number[] = readLn(Number);
-  console.log(divisibleSumPairs(numbers, k));
-}
+const [, k]: number[] = readLn(Number);
+const numbers: number[] = readLn(Number);
+console.log(divisibleSumPairs(numbers, k));
 
 // n: length of numbers
 // k: length of freq
@@ -46,5 +44,3 @@ function countPairsWithRemainderKHalf(freq: number[]): number {
   const n: number = freq.length;
   return n % 2 === 0 ? pairCount(freq[n / 2]) : 0;
 }
-
-main();

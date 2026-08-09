@@ -2,12 +2,10 @@
 
 import { skipInputLn, readLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const chocolateSquares = readLn(Number);
-  const dayMonth = readLn(Number);
-  console.log(birthday(chocolateSquares, dayMonth));
-}
+skipInputLn();
+const chocolateSquares = readLn(Number);
+const dayMonth = readLn(Number);
+console.log(birthday(chocolateSquares, dayMonth));
 
 // n: length of chocolateSquares
 // 1 <= n <= 100
@@ -28,5 +26,3 @@ function birthday(chocolateSquares, dayMonth) {
 
   return count;
 }
-
-main();

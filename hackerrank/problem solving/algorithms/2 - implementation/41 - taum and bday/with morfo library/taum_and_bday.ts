@@ -10,11 +10,9 @@ interface Gifts {
   costToConvertBetweenGifts: bigint;
 }
 
-function main() {
-  const n: number = read(Number);
-  for (let i = 0; i < n; i++)
-    console.log(minCostOfBuyingGifts(readTestCase()).toString());
-}
+const n: number = read(Number);
+for (let i = 0; i < n; i++)
+  console.log(minCostOfBuyingGifts(readTestCase()).toString());
 
 function readTestCase(): Gifts {
   const nBlackGifts: bigint = read(BigInt);
@@ -47,5 +45,3 @@ function minCostOfBuyingGifts(x: Gifts): bigint {
 
   return x.nBlackGifts * blackCost + x.nWhiteGifts * whiteCost;
 }
-
-main();

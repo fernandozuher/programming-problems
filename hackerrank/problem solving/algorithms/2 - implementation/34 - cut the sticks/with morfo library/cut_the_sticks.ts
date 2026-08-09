@@ -2,12 +2,10 @@
 
 import { println, readLn, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const arr: number[] = readLn(Number);
-  arr.sort((a, b) => a - b);
-  println(cutTheSticks(arr));
-}
+skipInputLn();
+const arr: number[] = readLn(Number);
+arr.sort((a, b) => a - b);
+println(cutTheSticks(arr));
 
 // n: length of arr
 // k: number of distinct values in arr
@@ -30,5 +28,3 @@ function cutTheSticks(arr: number[]): number[] {
   res.push(n - slow);
   return res;
 }
-
-main();

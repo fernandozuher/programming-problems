@@ -2,11 +2,9 @@
 
 import { skipInputLn, readLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(readLn(Number));
-  console.log(`${mostRecordBreaks} ${leastRecordBreaks}`);
-}
+skipInputLn();
+const [mostRecordBreaks, leastRecordBreaks] = breakingRecords(readLn(Number));
+console.log(`${mostRecordBreaks} ${leastRecordBreaks}`);
 
 // n: length of scores
 // T: O(n)
@@ -28,5 +26,3 @@ function breakingRecords(scores) {
 
   return [mostRecordBreaks, leastRecordBreaks];
 }
-
-main();

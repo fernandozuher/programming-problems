@@ -2,11 +2,9 @@
 
 import { counter, readLn, skipInputLn } from 'morfo';
 
-function main() {
-  skipInputLn();
-  const socksToCounts = counter(readLn(Number));
-  console.log(sockMerchant(socksToCounts));
-}
+skipInputLn();
+const socksToCounts = counter(readLn(Number));
+console.log(sockMerchant(socksToCounts));
 
 // k: length of entries in socksToCounts
 // T: O(k)
@@ -16,5 +14,3 @@ function sockMerchant(socksToCounts) {
   for (const x of socksToCounts.values()) pairs += Math.trunc(x / 2);
   return pairs;
 }
-
-main();

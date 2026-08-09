@@ -4,10 +4,8 @@ import { read } from 'morfo';
 
 const TRANSITION_YEAR: number = 1918;
 
-function main() {
-  const year: number = read(Number);
-  console.log(calcDateOf256thDay(year));
-}
+const year: number = read(Number);
+console.log(calcDateOf256thDay(year));
 
 // T: O(1)
 // S: O(1) extra space
@@ -31,5 +29,3 @@ function isLeapJulianYear(year: number): boolean {
 function isLeapGregorianYear(year: number): boolean {
   return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
 }
-
-main();

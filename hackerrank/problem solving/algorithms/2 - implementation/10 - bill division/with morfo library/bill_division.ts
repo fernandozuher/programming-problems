@@ -8,10 +8,8 @@ interface Input {
   amountCharged: number;
 }
 
-function main() {
-  const data: Input = readInput();
-  console.log(bonAppetit(data) || 'Bon Appetit');
-}
+const data: Input = readInput();
+console.log(bonAppetit(data) || 'Bon Appetit');
 
 function readInput(): Input {
   const n: number = read(Number);
@@ -30,5 +28,3 @@ function bonAppetit(data: Input): number {
   totalSharedCost /= 2;
   return data.amountCharged - totalSharedCost;
 }
-
-main();
