@@ -1,0 +1,36 @@
+// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+// C++23
+
+import morfo;
+import std;
+using namespace std;
+
+constexpr int alphabet_size{ 26 };
+
+array<int, alphabet_size> read_input();
+int designer_pdf_viewer(const array<int, alphabet_size>& letters_heights, string_view word);
+
+int main()
+{
+    array letters_heights{ read_input() };
+    string word = morfo::read();
+    cout << designer_pdf_viewer(letters_heights, word);
+    return 0;
+}
+
+array<int, alphabet_size> read_input()
+{
+    array<int, alphabet_size> arr{};
+    for (auto& x : arr)
+        x = morfo::read<int>();
+    return arr;
+}
+
+// n: length word, <= 10
+// T: O(10) = O(1)
+// S: O(1) extra space
+int designer_pdf_viewer(const array<int, alphabet_size>& letters_heights, string_view word)
+{
+    return word.size() *
+           ranges::max(word | views::transform([&letters_heights](char ch) { return letters_heights[ch - 'a']; }));
+}
