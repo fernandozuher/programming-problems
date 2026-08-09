@@ -1,0 +1,40 @@
+# https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+
+import morfo
+
+
+def main():
+    morfo.skip_input_ln()
+    ranked = remove_duplicates(morfo.readln(int, list))
+    morfo.skip_input_ln()
+    player = morfo.readln(int, list)
+    print(*climbing_leaderboard(ranked, player), sep='\n')
+
+
+# n: length of arr
+# k: length of distinct numbers in arr
+# k <= n
+# T: O(n)
+# S: O(k) extra space
+def remove_duplicates(arr):
+    return list(dict.fromkeys(arr))
+
+
+# n1: length of player, player_ranks
+# n2: length of ranked
+# T: O(n1 + n2)
+# S: O(n1) extra space
+def climbing_leaderboard(ranked, player):
+    player_ranks = [0] * len(player)
+    seeker = len(ranked) - 1
+
+    for writer, score in enumerate(player):
+        while seeker >= 0 and score >= ranked[seeker]:
+            seeker -= 1
+        player_ranks[writer] = seeker + 2
+
+    return player_ranks
+
+
+if __name__ == '__main__':
+    main()
