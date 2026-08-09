@@ -1,0 +1,27 @@
+# https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
+
+import math
+from functools import reduce
+
+import morfo
+
+
+def main():
+    morfo.skip_input_ln()
+    a = morfo.readln(int, list)
+    b = morfo.readln(int, list)
+    print(between_two_sets(a, b))
+
+
+# n1, n2: length of a, b
+# k: number of multiples tested = gcd_of_b / lcm_of_a
+# T: O(n1 + n2 + k)
+# S: O(1) extra space
+def between_two_sets(a, b):
+    lcm_of_a = reduce(math.lcm, a)
+    gcd_of_b = reduce(math.gcd, b)
+    return sum(gcd_of_b % i == 0 for i in range(lcm_of_a, gcd_of_b + 1, lcm_of_a))
+
+
+if __name__ == '__main__':
+    main()
