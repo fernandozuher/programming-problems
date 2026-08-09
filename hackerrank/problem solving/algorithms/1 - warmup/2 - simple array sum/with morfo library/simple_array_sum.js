@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/simple-array-sum/problem?isFullScreen=true
 
-import { skipInputLn, readLn } from 'morfo';
+import { skipInputLn, readLn, sum } from 'morfo';
 
 skipInputLn();
 console.log(sumStdin());
@@ -9,5 +9,5 @@ console.log(sumStdin());
 // T: O(n)
 // S: O(n) extra space
 function sumStdin() {
-  return readLn(Number).reduce((acc, x) => acc + x, 0);
+  return sum(readLn(Number));
 }

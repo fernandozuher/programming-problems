@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-import { read } from 'morfo';
+import { read, sum } from 'morfo';
 
 interface Input {
   itemNotEaten: number;
@@ -23,7 +23,7 @@ function readInput(): Input {
 // T: O(n)
 // S: O(1) extra space
 function bonAppetit(data: Input): number {
-  const totalCost: number = data.mealCosts.reduce((a, b) => a + b, 0);
+  const totalCost: number = sum(data.mealCosts);
   let totalSharedCost: number = totalCost - data.mealCosts[data.itemNotEaten];
   totalSharedCost /= 2;
   return data.amountCharged - totalSharedCost;

@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
 
-import { read } from 'morfo';
+import { read, sum } from 'morfo';
 
 const data = readInput();
 console.log(bonAppetit(data) || 'Bon Appetit');
@@ -17,7 +17,7 @@ function readInput() {
 // T: O(n)
 // S: O(1) extra space
 function bonAppetit(data) {
-  const totalCost = data.mealCosts.reduce((a, b) => a + b, 0);
+  const totalCost = sum(data.mealCosts);
   let totalSharedCost = totalCost - data.mealCosts[data.itemNotEaten];
   totalSharedCost /= 2;
   return data.amountCharged - totalSharedCost;
