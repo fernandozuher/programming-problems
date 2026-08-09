@@ -798,21 +798,3 @@
 384
 335
 4
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

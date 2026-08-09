@@ -998,21 +998,3 @@
 1634
 1404
 198
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

@@ -498,21 +498,3 @@
 86915
 69140
 15294
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

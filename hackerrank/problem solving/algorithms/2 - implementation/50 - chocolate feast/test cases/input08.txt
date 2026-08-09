@@ -899,21 +899,3 @@
 96812 39562 9863
 78791 574 57952
 47084 110 44262
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

@@ -799,21 +799,3 @@
 383 1 249
 13764 41 2689
 19921 4023 14424
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    

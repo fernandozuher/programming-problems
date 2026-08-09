@@ -98,21 +98,3 @@ Cat A
 Cat B
 Cat A
 Cat B
-      
-        
-      
-      Claude is active in this tab group
-      
-      
-        
-          
-        
-        Open chat
-      
-      
-        
-          
-        
-        Dismiss
-      
-    
