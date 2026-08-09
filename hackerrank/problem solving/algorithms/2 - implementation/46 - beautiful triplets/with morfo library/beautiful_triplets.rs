@@ -1,0 +1,27 @@
+// https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
+
+use morfo::{read, read_ln, skip_input};
+use std::collections::HashSet;
+
+fn main() {
+    skip_input();
+    let beautiful_difference: i32 = read();
+    let arr: Vec<i32> = read_ln();
+    println!("{}", find_beautiful_triplets(&arr, beautiful_difference));
+}
+
+// n: length of arr
+// k: distinct numbers of arr
+// k <= n
+// T: O(n)
+// S: O(k) = O(n) extra space
+fn find_beautiful_triplets(arr: &[i32], beautiful_difference: i32) -> usize {
+    let values: HashSet<_> = arr.iter().cloned().collect();
+    let double_bd: i32 = 2 * beautiful_difference;
+    arr.iter()
+        .filter(|&x| {
+            values.contains(&(x + beautiful_difference))
+                && values.contains(&(x + double_bd))
+        })
+        .count()
+}

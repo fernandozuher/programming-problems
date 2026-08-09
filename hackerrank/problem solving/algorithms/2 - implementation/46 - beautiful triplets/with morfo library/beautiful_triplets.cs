@@ -1,0 +1,20 @@
+// https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
+
+using Morfo.IO;
+
+Reader.SkipInput();
+int beautifulDifference = Reader.Read<int>();
+int[] arr = Reader.ReadLn<int, int[]>();
+Console.WriteLine(FindBeautifulTriplets(arr, beautifulDifference));
+
+// n: length of arr
+// k: distinct numbers of arr
+// k <= n
+// T: O(n)
+// S: O(k) = O(n) extra space
+int FindBeautifulTriplets(int[] arr, int beautifulDifference)
+{
+    var values = new HashSet<int>(arr);
+    int doubleBD = 2 * beautifulDifference;
+    return arr.Count(x => values.Contains(x + beautifulDifference) && values.Contains(x + doubleBD));
+}
