@@ -1,0 +1,33 @@
+// https://www.hackerrank.com/challenges/cavity-map/problem?isFullScreen=true
+// Java 25
+
+import morfo.io.Reader;
+import morfo.io.Writer;
+
+void main() {
+    int n = Reader.read(Integer::parseInt);
+    char[][] matrix = readMatrix(n);
+    changeMatrixToCavityMap(matrix);
+    Writer.println(Arrays.stream(matrix).map(String::new).toList());
+}
+
+char[][] readMatrix(int n) {
+    return IntStream.range(0, n).mapToObj(_ -> Reader.read(Function.identity()).toCharArray()).toArray(char[][]::new);
+}
+
+// n: length of matrix' rows
+// T: O(n^2)
+// S: O(1) extra space
+void changeMatrixToCavityMap(char[][] matrix) {
+    for (int i = 1, n = matrix.length - 1; i < n; i++)
+        for (int j = 1; j < n; j++)
+            if (isCellCavity(matrix, i, j)) matrix[i][j] = 'X';
+}
+
+boolean isCellCavity(char[][] matrix, int i, int j) {
+    char c = matrix[i][j];
+    return matrix[i - 1][j] < c &&
+           matrix[i][j - 1] < c &&
+           matrix[i + 1][j] < c &&
+           matrix[i][j + 1] < c;
+}
