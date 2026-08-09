@@ -1,0 +1,23 @@
+# https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
+
+import morfo
+
+
+def main():
+    morfo.skip_input_ln()
+    arr = morfo.readln(int, list)
+    print(*sequence_equation(arr), sep='\n')
+
+
+# n: length of arr
+# T: O(n)
+# S: O(n) extra space
+def sequence_equation(arr):
+    values_to_index = [0] * len(arr)
+    for i, val in enumerate(arr):
+        values_to_index[val - 1] = i
+    return (values_to_index[val] + 1 for val in values_to_index)
+
+
+if __name__ == '__main__':
+    main()

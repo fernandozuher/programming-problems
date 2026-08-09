@@ -1,0 +1,23 @@
+// https://www.hackerrank.com/challenges/permutation-equation/problem?isFullScreen=true
+
+use morfo::{println, read_ln, skip_input_ln};
+
+fn main() {
+    skip_input_ln();
+    let arr: Vec<usize> = read_ln();
+    println(&sequence_equation(&arr));
+}
+
+// n: length of arr/output
+// T: O(n)
+// S: O(n) extra space
+fn sequence_equation(arr: &[usize]) -> Vec<usize> {
+    let mut values_to_index = vec![0; arr.len()];
+    for (i, val) in arr.iter().enumerate() {
+        values_to_index[val - 1] = i;
+    }
+    values_to_index
+        .iter()
+        .map(|&val| values_to_index[val] + 1)
+        .collect()
+}
