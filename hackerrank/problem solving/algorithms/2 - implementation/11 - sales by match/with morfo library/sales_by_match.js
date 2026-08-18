@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
 
-import { counter, readLn, skipInputLn } from 'morfo';
+import { counter, readLn, skipInputLn, sum } from 'morfo';
 
 skipInputLn();
 const socksToCounts = counter(readLn(Number));
@@ -10,7 +10,5 @@ console.log(sockMerchant(socksToCounts));
 // T: O(k)
 // S: O(1) extra space
 function sockMerchant(socksToCounts) {
-  let pairs = 0;
-  for (const x of socksToCounts.values()) pairs += Math.trunc(x / 2);
-  return pairs;
+  return sum(Array.from(socksToCounts.values(), (x) => Math.trunc(x / 2)));
 }

@@ -11,9 +11,9 @@ int main()
 {
     morfo_skip_input_ln();
     size_t n;
-    int *socks_to_counts = morfo_readln(int, &n);
-    printf("%d\n", sock_merchant(socks_to_counts, (int)n));
-    free(socks_to_counts);
+    int *arr = morfo_readln(int, &n);
+    printf("%d\n", sock_merchant(arr, (int)n));
+    free(arr);
     return 0;
 }
 

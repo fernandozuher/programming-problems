@@ -6,8 +6,7 @@ import morfo.io.Reader;
 
 void main() {
     Reader.skipInputLn();
-    int[] arr = Reader.readLnInts();
-    var socksToCounts = counter(arr);
+    var socksToCounts = counter(Reader.readLnInts());
     IO.println(sockMerchant(socksToCounts));
 }
 
