@@ -9,10 +9,7 @@ Console.WriteLine(charged > 0 ? charged : "Bon Appetit");
 Input ReadInput()
 {
     int n = Reader.Read<int>();
-    int itemNotEaten = Reader.Read<int>();
-    int[] mealCosts = Reader.Read<int>(n);
-    int amountCharged = Reader.Read<int>();
-    return new Input(itemNotEaten, mealCosts, amountCharged);
+    return new Input(ItemNotEaten: Reader.Read<int>(), MealCosts: Reader.Read<int>(n), AmountCharged: Reader.Read<int>());
 }
 
 // n: length of data.MealCosts

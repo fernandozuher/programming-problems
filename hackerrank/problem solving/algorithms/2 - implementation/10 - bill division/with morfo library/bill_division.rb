@@ -9,12 +9,9 @@ def main
 end
 
 def read_input
-  input = Struct.new(:item_not_eaten, :meal_costs, :amount_charged)
   n = Morfo.read(&:to_i)
-  item_not_eaten = Morfo.read(&:to_i)
-  meal_costs = Morfo.read(n, &:to_i)
-  amount_charged = Morfo.read(&:to_i)
-  input.new(item_not_eaten, meal_costs, amount_charged)
+  input = Struct.new(:item_not_eaten, :meal_costs, :amount_charged)
+  input.new(item_not_eaten: Morfo.read(&:to_i), meal_costs: Morfo.read(n, &:to_i), amount_charged: Morfo.read(&:to_i))
 end
 
 # n: length of data.meal_costs

@@ -20,10 +20,7 @@ def main():
 
 def read_input():
     n = morfo.read(int)
-    item_not_eaten = morfo.read(int)
-    meal_costs = morfo.read(int, n)
-    amount_charged = morfo.read(int)
-    return Input(item_not_eaten, meal_costs, amount_charged)
+    return Input(item_not_eaten=morfo.read(int), meal_costs=morfo.read(int, n), amount_charged=morfo.read(int))
 
 
 # n: length of data.meal_costs

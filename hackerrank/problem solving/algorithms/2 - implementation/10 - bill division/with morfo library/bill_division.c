@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "morfo/io.h"
+#include "morfo/math.h"
 
 typedef struct {
     int n, item_not_eaten;
@@ -37,10 +38,7 @@ input read_input()
 // S: O(1) extra space
 int bon_appetit(const input *data)
 {
-    int total_cost = 0;
-    for (int i = 0; i < data->n; ++i)
-        total_cost += data->meal_costs[i];
-
+    int total_cost = morfo_sum(data->meal_costs, data->n);
     int total_shared_cost = total_cost - data->meal_costs[data->item_not_eaten];
     total_shared_cost /= 2;
     return data->amount_charged - total_shared_cost;
