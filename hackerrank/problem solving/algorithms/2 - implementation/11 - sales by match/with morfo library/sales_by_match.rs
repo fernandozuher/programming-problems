@@ -5,7 +5,8 @@ use std::collections::HashMap;
 
 fn main() {
     skip_input_ln();
-    let socks_to_counts = counter(read_ln::<Vec<i32>, i32>());
+    let arr: Vec<i32> = read_ln();
+    let socks_to_counts = counter(arr);
     println!("{}", sock_merchant(&socks_to_counts));
 }
 
