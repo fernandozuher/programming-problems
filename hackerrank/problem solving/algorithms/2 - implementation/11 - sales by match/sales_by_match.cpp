@@ -4,16 +4,26 @@
 import std;
 using namespace std;
 
-unordered_map<int, int> counter(int n);
+vector<int> read_nums(int n);
+unordered_map<int, int> counter(const vector<int>& arr);
 int sock_merchant(const unordered_map<int, int>& socks_to_counts);
 
 int main()
 {
     int n;
     cin >> n;
-    unordered_map<int, int> socks_to_counts{ counter(n) };
+    vector<int> arr{ read_nums(n) };
+    unordered_map<int, int> socks_to_counts{ counter(arr) };
     println("{}", sock_merchant(socks_to_counts));
     return 0;
+}
+
+vector<int> read_nums(int n)
+{
+    vector<int> arr(n);
+    for (auto& x : arr)
+        cin >> x;
+    return arr;
 }
 
 // n: length of user input
@@ -21,14 +31,11 @@ int main()
 // k <= n
 // T: O(n)
 // S: O(k) extra space
-unordered_map<int, int> counter(int n)
+unordered_map<int, int> counter(const vector<int>& arr)
 {
     unordered_map<int, int> freq_map;
-    for (int i{}; i < n; ++i) {
-        int x;
-        cin >> x;
+    for (int x : arr)
         ++freq_map[x];
-    }
     return freq_map;
 }
 

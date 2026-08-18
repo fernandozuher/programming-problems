@@ -6,6 +6,10 @@ function main() {
   console.log(sockMerchant(socksToCounts));
 }
 
+function readNums(): number[] {
+  return readLine().split(' ').map(Number);
+}
+
 // n: length of arr
 // k: length of distinct numbers in arr
 // k <= n
@@ -17,17 +21,14 @@ function counter(arr: number[]): Map<number, number> {
   return freqMap;
 }
 
-function readNums(): number[] {
-  return readLine().split(' ').map(Number);
-}
-
 // k: length of entries in socksToCounts
 // T: O(k)
 // S: O(1) extra space
 function sockMerchant(socksToCounts: Map<number, number>): number {
-  let pairs = 0;
-  for (const x of socksToCounts.values()) pairs += Math.trunc(x / 2);
-  return pairs;
+  return Array.from(socksToCounts.values()).reduce(
+    (acc: number, x: number) => acc + Math.trunc(x / 2),
+    0,
+  );
 }
 
 //////////////////////////////////////////////////

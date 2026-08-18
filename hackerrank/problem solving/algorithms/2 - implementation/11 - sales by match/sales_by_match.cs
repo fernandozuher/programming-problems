@@ -4,6 +4,8 @@ Console.ReadLine();
 Dictionary<int, int> socksToCounts = Counter(ReadNums());
 Console.WriteLine(SockMerchant(socksToCounts));
 
+int[] ReadNums() => Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+
 // n: length of arr
 // k: length of distinct numbers in arr
 // k <= n
@@ -11,18 +13,7 @@ Console.WriteLine(SockMerchant(socksToCounts));
 // S: O(k) extra space
 Dictionary<int, int> Counter(int[] arr)
 {
-    var freqMap = new Dictionary<int, int>();
-    foreach (var x in arr)
-    {
-        freqMap.TryGetValue(x, out int count);
-        freqMap[x] = ++count;
-    }
-    return freqMap;
-}
-
-int[] ReadNums()
-{
-    return Console.ReadLine()!.Split().Select(int.Parse).ToArray();
+    return arr.GroupBy(x => x).ToDictionary(g => g.Key, g => g.Count());
 }
 
 // k: length of entries in socksToCounts
