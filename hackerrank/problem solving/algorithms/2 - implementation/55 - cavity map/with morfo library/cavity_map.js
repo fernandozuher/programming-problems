@@ -5,7 +5,7 @@ import { read, println } from 'morfo';
 const n = read(Number);
 const matrix = readMatrix(n);
 changeMatrixToCavityMap(matrix);
-println(matrix.map((x) => x.join('')));
+println(matrix.values().map((x) => x.join('')));
 
 function readMatrix(n) {
   return Array(n)

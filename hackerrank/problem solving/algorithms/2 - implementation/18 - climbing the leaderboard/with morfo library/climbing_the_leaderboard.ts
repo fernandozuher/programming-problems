@@ -20,10 +20,13 @@ function removeDuplicates(numbers: number[]): number[] {
 // n1: length of player, output
 // n2: length of ranked
 // T: O(n1 + n2)
-// S: O(n1) extra space
-function climbingLeaderboard(ranked: number[], player: number[]): number[] {
+// S: O(1) extra space
+function climbingLeaderboard(
+  ranked: number[],
+  player: number[],
+): IteratorObject<number> {
   let i: number = ranked.length - 1;
-  return player.map((score) => {
+  return player.values().map((score) => {
     while (i >= 0 && score >= ranked[i]) i--;
     return i + 2;
   });
