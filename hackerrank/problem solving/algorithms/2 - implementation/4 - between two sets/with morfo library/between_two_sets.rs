@@ -5,8 +5,10 @@ use num::integer::{gcd, lcm};
 
 fn main() {
     skip_input_ln();
-    let a: Vec<i32> = read_ln();
-    let b: Vec<i32> = read_ln();
+    // i64, not i32: the lcm of ten values under 100 reaches 3.1e15, which
+    // overflows an i32 fold and panics in a debug build.
+    let a: Vec<i64> = read_ln();
+    let b: Vec<i64> = read_ln();
     println!("{}", between_two_sets(&a, &b));
 }
 
@@ -14,7 +16,7 @@ fn main() {
 // k: number of multiples tested = gcd_of_b / lcm_of_a
 // T: O(n1 + n2 + k)
 // S: O(1) extra space
-fn between_two_sets(a: &[i32], b: &[i32]) -> usize {
+fn between_two_sets(a: &[i64], b: &[i64]) -> usize {
     let lcm_of_a = reduce(a, lcm) as usize;
     let gcd_of_b = reduce(b, gcd) as usize;
     (lcm_of_a..=gcd_of_b)
@@ -23,6 +25,6 @@ fn between_two_sets(a: &[i32], b: &[i32]) -> usize {
         .count()
 }
 
-fn reduce(arr: &[i32], func: fn(i32, i32) -> i32) -> i32 {
+fn reduce(arr: &[i64], func: fn(i64, i64) -> i64) -> i64 {
     arr.iter().copied().reduce(func).unwrap()
 }
