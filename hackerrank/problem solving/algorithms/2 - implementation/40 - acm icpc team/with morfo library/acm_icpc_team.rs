@@ -42,6 +42,6 @@ fn acm_team(binaries: &[Vec<u8>]) -> [usize; 2] {
 fn count_subjects_known_by_2_teams(a: &[u8], b: &[u8]) -> usize {
     a.iter()
         .zip(b.iter())
-        .filter(|(&ac, &bc)| ac == b'1' || bc == b'1')
+        .filter(|&(&ac, &bc)| ac == b'1' || bc == b'1')
         .count()
 }
