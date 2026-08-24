@@ -24,9 +24,9 @@ function counter(arr) {
 // n: length of queries
 // maxQueryStringLength: 20
 // T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
-// S: O(n) extra space
+// S: O(1) extra space
 function countsFrom(freqMap, queries) {
-  return queries.map((q) => freqMap.get(q) || 0);
+  return queries.values().map((q) => freqMap.get(q) || 0);
 }
 
 //////////////////////////////////////////////////

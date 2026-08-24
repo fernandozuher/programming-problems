@@ -4,8 +4,9 @@ function main() {
   readLine();
   readLine()
     .split(' ')
-    .map((x: string) => +x)
     .reverse()
+    .values()
+    .map((x: string) => +x)
     .forEach((x: number) => process.stdout.write(x + ' '));
 }
 

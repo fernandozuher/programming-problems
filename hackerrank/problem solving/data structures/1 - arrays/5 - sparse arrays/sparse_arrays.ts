@@ -24,9 +24,12 @@ function counter(arr: string[]): Map<string, number> {
 // n: length of queries
 // maxQueryStringLength: 20
 // T: O(n * maxQueryStringLength) = O(n * 20) = O(n)
-// S: O(n) extra space
-function countsFrom(freqMap: Map<string, number>, queries: string[]): number[] {
-  return queries.map((q) => freqMap.get(q) || 0);
+// S: O(1) extra space
+function countsFrom(
+  freqMap: Map<string, number>,
+  queries: string[],
+): IteratorObject<number> {
+  return queries.values().map((q) => freqMap.get(q) || 0);
 }
 
 //////////////////////////////////////////////////
