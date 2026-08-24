@@ -1,7 +1,7 @@
 // https://www.hackerrank.com/challenges/library-fine/problem?isFullScreen=true
 
 use chrono::{Datelike, NaiveDate};
-use morfo::read;
+use morfo::read_many;
 
 enum HackosFine {
     HackosDaysFine = 15,
@@ -16,9 +16,7 @@ fn main() {
 }
 
 fn read_date() -> NaiveDate {
-    let day: u32 = read();
-    let month: u32 = read();
-    let year: i32 = read();
+    let (day, month, year): (u32, u32, i32) = read_many();
     NaiveDate::from_ymd_opt(year, month, day).unwrap()
 }
 

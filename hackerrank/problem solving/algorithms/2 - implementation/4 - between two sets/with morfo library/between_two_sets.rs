@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
-use morfo::{read_ln, skip_input_ln};
-use num::integer::{gcd, lcm};
+use morfo::{gcd, lcm, read_ln, skip_input_ln};
 
 fn main() {
     skip_input_ln();
@@ -17,14 +16,10 @@ fn main() {
 // T: O(n1 + n2 + k)
 // S: O(1) extra space
 fn between_two_sets(a: &[i64], b: &[i64]) -> usize {
-    let lcm_of_a = reduce(a, lcm) as usize;
-    let gcd_of_b = reduce(b, gcd) as usize;
+    let lcm_of_a = lcm(a.iter().copied()) as usize;
+    let gcd_of_b = gcd(b.iter().copied()) as usize;
     (lcm_of_a..=gcd_of_b)
         .step_by(lcm_of_a)
         .filter(|i| gcd_of_b % i == 0)
         .count()
-}
-
-fn reduce(arr: &[i64], func: fn(i64, i64) -> i64) -> i64 {
-    arr.iter().copied().reduce(func).unwrap()
 }

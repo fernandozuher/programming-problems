@@ -26,8 +26,8 @@ int main()
 
 input read_input()
 {
-    int n = morfo_read(int);
-    int item_not_eaten = morfo_read(int);
+    int n, item_not_eaten;
+    morfo_read_many(&n, &item_not_eaten);
     int *meal_costs = morfo_read_n_alloc(int, n);
     int amount_charged = morfo_read(int);
     return (input){n, item_not_eaten, meal_costs, amount_charged};
