@@ -11,8 +11,8 @@ int number_digits(int n);
 
 int main()
 {
-    int lower = morfo_read(int);
-    int upper = morfo_read(int);
+    int lower, upper;
+    morfo_read_many(&lower, &upper);
     bool valid_range = false;
 
     for (int num = lower; num <= upper; ++num)

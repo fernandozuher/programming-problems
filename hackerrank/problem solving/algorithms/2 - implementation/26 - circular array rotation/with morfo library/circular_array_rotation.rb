@@ -3,9 +3,7 @@
 require 'morfo'
 
 def main
-  n = Morfo.read(&:to_i)
-  n_rotation = Morfo.read(&:to_i)
-  n_queries = Morfo.read(&:to_i)
+  n, n_rotation, n_queries = Morfo.read(3, &:to_i)
   arr = Morfo.read(n, &:to_i)
   queries(arr, n_rotation, n_queries) { puts _1 }
 end

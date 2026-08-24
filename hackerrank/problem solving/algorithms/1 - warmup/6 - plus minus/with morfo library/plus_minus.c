@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "morfo/collections.h"
 #include "morfo/io.h"
 
 enum { n_ratios = 3 };
@@ -25,22 +26,17 @@ int main()
     return 0;
 }
 
+static bool is_positive(float number) { return number > 0; }
+static bool is_negative(float number) { return number < 0; }
+
 // n: length of arr
 // T: O(n)
 // S: O(1) extra space
 void plus_minus(const float *arr, size_t n, float *ratios)
 {
-    int positive, negative, zero;
-    positive = negative = zero = 0;
-
-    for (size_t i = 0; i < n; ++i) {
-        if (arr[i] > 0)
-            ++positive;
-        else if (arr[i] < 0)
-            ++negative;
-        else
-            ++zero;
-    }
+    size_t positive = morfo_count_if(arr, n, is_positive);
+    size_t negative = morfo_count_if(arr, n, is_negative);
+    size_t zero = morfo_count(arr, n, 0);
 
     float total = (float) n;
     ratios[0] = positive / total;

@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/angry-professor/problem?isFullScreen=true
 
-import { read, readLn, skipInput } from 'morfo';
+import { countIf, read, readLn, skipInput } from 'morfo';
 
 const n: number = read(Number);
 for (let i = 0; i < n; i++) {
@@ -14,9 +14,6 @@ for (let i = 0; i < n; i++) {
 // T: O(k)
 // S: O(1) extra space
 function angryProfessor(arrivalTimes: number[], threshold: number): boolean {
-  const onTime: number = arrivalTimes.reduce(
-    (count, t) => (t <= 0 ? count + 1 : count),
-    0,
-  );
+  const onTime: number = countIf(arrivalTimes, (t) => t <= 0);
   return onTime < threshold;
 }

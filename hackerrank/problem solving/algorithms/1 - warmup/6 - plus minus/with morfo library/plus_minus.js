@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true
 
-import { readLn, skipInputLn } from 'morfo';
+import { count, countIf, readLn, skipInputLn } from 'morfo';
 
 function main() {
   skipInputLn();
@@ -13,12 +13,9 @@ function main() {
 // T: O(n)
 // S: O(1) extra space
 function plusMinus(arr) {
-  let [positive, negative, zero] = [0, 0, 0];
-
-  for (const number of arr)
-    if (number > 0) positive++;
-    else if (number < 0) negative++;
-    else zero++;
+  const positive = countIf(arr, (number) => number > 0);
+  const negative = countIf(arr, (number) => number < 0);
+  const zero = count(arr, 0);
 
   const n = arr.length;
   return [positive / n, negative / n, zero / n];

@@ -16,9 +16,7 @@ def main():
 
 
 def read_date():
-    day = morfo.read(int)
-    month = morfo.read(int)
-    year = morfo.read(int)
+    day, month, year = morfo.read(int, 3)
     return datetime(year, month, day)
 
 

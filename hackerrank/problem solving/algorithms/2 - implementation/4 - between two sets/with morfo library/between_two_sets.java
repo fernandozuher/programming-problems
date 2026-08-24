@@ -2,6 +2,8 @@
 // Java 25
 
 import morfo.io.Reader;
+import morfo.math.Gcd;
+import morfo.math.Lcm;
 
 void main() {
     Reader.skipInputLn();
@@ -15,26 +17,9 @@ void main() {
 // T: O(n1 + n2 + k)
 // S: O(1) extra space
 int betweenTwoSets(int[] a, int[] b) {
-    int lcmOfA = reduce(a, this::lcm);
-    int gcdOfB = reduce(b, this::gcd);
+    int lcmOfA = Lcm.ofInts(a);
+    int gcdOfB = Gcd.ofInts(b);
     return (int) IntStream.iterate(lcmOfA, i -> i <= gcdOfB, i -> i + lcmOfA)
             .filter(i -> gcdOfB % i == 0)
             .count();
-}
-
-int reduce(int[] arr, IntBinaryOperator func) {
-    return Arrays.stream(arr).reduce(func).orElse(0);
-}
-
-int lcm(int a, int b) {
-    return a * b / gcd(a, b);
-}
-
-int gcd(int a, int b) {
-    while (b != 0) {
-        int temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
 }

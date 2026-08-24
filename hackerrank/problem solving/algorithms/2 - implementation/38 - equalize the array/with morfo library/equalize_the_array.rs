@@ -1,7 +1,6 @@
 // https://www.hackerrank.com/challenges/equality-in-a-array/problem?isFullScreen=true
 
-use counter::Counter;
-use morfo::{read_ln, skip_input_ln};
+use morfo::{counter, read_ln, skip_input_ln};
 
 fn main() {
     skip_input_ln();
@@ -15,11 +14,6 @@ fn main() {
 // T: O(n) = O(100) = O(1)
 // S: O(k) = O(n) = O(100) = O(1) extra space
 fn min_deletions_to_equalize(arr: &[i32]) -> usize {
-    let freq_map: Counter<&i32> = Counter::from_iter(arr);
-    let max_count = freq_map
-        .iter()
-        .max_by_key(|(_k, v)| *v)
-        .unwrap_or((&&0, &0))
-        .1;
-    arr.len() - max_count
+    let freq_map = counter(arr.iter().copied());
+    arr.len() - freq_map.values().max().copied().unwrap_or(0)
 }

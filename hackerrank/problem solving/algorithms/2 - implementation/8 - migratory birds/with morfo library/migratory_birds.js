@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
-import { skipInputLn, readLn } from 'morfo';
+import { counter, readLn, skipInputLn } from 'morfo';
 
 const birdsToCounts = readInput();
 console.log(findMostSpottedBird(birdsToCounts));
@@ -10,13 +10,7 @@ console.log(findMostSpottedBird(birdsToCounts));
 // S: O(n) extra space
 function readInput() {
   skipInputLn();
-  const freqMap = new Map();
-
-  readLn(Number).forEach((x) => {
-    freqMap.set(x, (freqMap.get(x) ?? 0) + 1);
-  });
-
-  return freqMap;
+  return counter(readLn(Number));
 }
 
 // n: length of birdsToCounts

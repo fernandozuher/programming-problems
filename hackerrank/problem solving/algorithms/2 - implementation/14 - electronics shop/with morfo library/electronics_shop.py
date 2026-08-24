@@ -16,9 +16,7 @@ def main():
 # T: O(n + k log k)
 # S: O(k) extra space
 def preprocess_input(arr):
-    arr = list(set(arr))
-    arr.sort()
-    return arr
+    return sorted(set(arr))
 
 
 # n1: length of keyboards

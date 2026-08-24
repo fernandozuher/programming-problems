@@ -2,10 +2,12 @@
 
 import { read } from 'morfo';
 
-const price = read(Number);
-const discount = read(Number);
-const minPrice = read(Number);
-const budget = read(Number);
+const [price, discount, minPrice, budget] = read(
+  Number,
+  Number,
+  Number,
+  Number,
+);
 console.log(howManyGamesCanBeBought(price, discount, minPrice, budget));
 
 // T: O(budget / minPrice)

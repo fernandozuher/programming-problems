@@ -4,9 +4,11 @@ import { read } from 'morfo';
 
 const n: number = read(Number);
 for (let i = 0; i < n; i++) {
-  const prisoners: number = read(Number);
-  const sweets: number = read(Number);
-  const startChair: number = read(Number);
+  const [prisoners, sweets, startChair]: [number, number, number] = read(
+    Number,
+    Number,
+    Number,
+  );
   console.log(saveThePrisoner(prisoners, sweets, startChair));
 }
 

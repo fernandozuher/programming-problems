@@ -3,8 +3,7 @@
 require 'morfo'
 
 def main
-  s1 = Morfo.read(&:to_s)
-  s2 = Morfo.read(&:to_s)
+  s1, s2 = Morfo.read(2, &:to_s)
   n_ops = Morfo.read(&:to_i)
   puts append_and_delete?(s1, s2, n_ops) ? 'Yes' : 'No'
 end

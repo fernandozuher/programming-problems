@@ -10,15 +10,12 @@ int min_width_in_segment(const vector<int>& widths, const pair<int, int>& segmen
 
 int main()
 {
-    int n = morfo::read();
-    int t = morfo::read();
+    auto [n, t] = morfo::read<int, int>();
     vector<int> widths = morfo::read(n);
 
     for (int i{}; i < t; ++i) {
-        pair<int, int> segment;
-        segment.first = morfo::read<int>();
-        segment.second = morfo::read<int>();
-        println("{}", min_width_in_segment(widths, segment));
+        auto [entry, exit] = morfo::read<int, int>();
+        println("{}", min_width_in_segment(widths, { entry, exit }));
     }
 
     return 0;

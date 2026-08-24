@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/beautiful-triplets/problem?isFullScreen=true
 
-import { skipInput, read, readLn } from 'morfo';
+import { countIf, read, readLn, skipInput } from 'morfo';
 
 skipInput();
 const beautifulDifference = read(Number);
@@ -15,12 +15,8 @@ console.log(findBeautifulTriplets(arr, beautifulDifference));
 function findBeautifulTriplets(arr, beautifulDifference) {
   const values = new Set(arr);
   const doubleBD = 2 * beautifulDifference;
-  let count = 0;
-
-  for (const x of arr) {
-    if (values.has(x + beautifulDifference) && values.has(x + doubleBD))
-      count++;
-  }
-
-  return count;
+  return countIf(
+    arr,
+    (x) => values.has(x + beautifulDifference) && values.has(x + doubleBD),
+  );
 }

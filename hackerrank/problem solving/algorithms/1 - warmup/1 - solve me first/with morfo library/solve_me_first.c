@@ -7,8 +7,8 @@ int solve_me_first(int n1, int n2);
 
 int main()
 {
-    int n1 = morfo_read(int);
-    int n2 = morfo_read(int);
+    int n1, n2;
+    morfo_read_many(&n1, &n2);
     printf("%d", solve_me_first(n1, n2));
     return 0;
 }

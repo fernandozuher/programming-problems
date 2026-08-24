@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 // Java 25
 
+import morfo.collections.Counter;
 import morfo.io.Reader;
 
 void main() {
@@ -13,10 +14,7 @@ void main() {
 // S: O(n) extra space
 Map<Integer, Integer> readInput() {
     Reader.skipInputLn();
-    Map<Integer, Integer> freqMap = new HashMap<>();
-    for (int x : Reader.readLnInts())
-        freqMap.put(x, freqMap.getOrDefault(x, 0) + 1);
-    return freqMap;
+    return Counter.of(Arrays.stream(Reader.readLnInts()).boxed().toList());
 }
 
 // n: length of birdsToCounts

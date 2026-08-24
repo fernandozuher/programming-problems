@@ -7,11 +7,13 @@ for (let i = 0; i < n; i++)
   console.log(minCostOfBuyingGifts(readTestCase()).toString());
 
 function readTestCase() {
-  const nBlackGifts = read(BigInt);
-  const nWhiteGifts = read(BigInt);
-  const blackGiftCost = read(BigInt);
-  const whiteGiftCost = read(BigInt);
-  const costToConvertBetweenGifts = read(BigInt);
+  const [
+    nBlackGifts,
+    nWhiteGifts,
+    blackGiftCost,
+    whiteGiftCost,
+    costToConvertBetweenGifts,
+  ] = read(BigInt, BigInt, BigInt, BigInt, BigInt);
 
   return {
     nBlackGifts,

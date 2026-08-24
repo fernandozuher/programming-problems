@@ -37,9 +37,7 @@ const dueDate = readDate();
 console.log(calculateFine(returnDate, dueDate));
 
 function readDate() {
-  const day = read(Number);
-  const month = read(Number);
-  const year = read(Number);
+  const [day, month, year] = read(Number, Number, Number);
   return new DateThatWorks(day, month, year);
 }
 

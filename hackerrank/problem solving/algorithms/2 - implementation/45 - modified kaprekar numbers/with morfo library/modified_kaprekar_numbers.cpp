@@ -10,8 +10,7 @@ int number_digits(int n);
 
 int main()
 {
-    int lower = morfo::read();
-    int upper = morfo::read();
+    auto [lower, upper] = morfo::read<int, int>();
     bool valid_range{};
 
     for (int num{ lower }; num <= upper; ++num)

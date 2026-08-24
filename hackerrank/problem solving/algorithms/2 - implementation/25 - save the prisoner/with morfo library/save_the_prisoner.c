@@ -10,9 +10,8 @@ int main()
     int n = morfo_read(int);
 
     for (int i = 0; i < n; ++i) {
-        int prisoners = morfo_read(int);
-        int sweets = morfo_read(int);
-        int start_chair = morfo_read(int);
+        int prisoners, sweets, start_chair;
+        morfo_read_many(&prisoners, &sweets, &start_chair);
         printf("%d\n", save_the_prisoner(prisoners, sweets, start_chair));
     }
 }

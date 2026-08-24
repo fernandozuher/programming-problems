@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/cut-the-sticks/problem?isFullScreen=true
 
-import { println, readLn, skipInputLn } from 'morfo';
+import { println, readLn, skipInputLn, sort } from 'morfo';
 
 skipInputLn();
 const arr = readLn(Number);
-arr.sort((a, b) => a - b);
+sort(arr);
 println(cutTheSticks(arr));
 
 // n: length of arr

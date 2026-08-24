@@ -3,15 +3,17 @@
 package main
 
 import (
-    "fmt"
-    "morfo/morfocollections"
-    "morfo/morfoio"
+	"fmt"
+	"maps"
+	"morfo/morfocollections"
+	"morfo/morfoio"
+	"morfo/morfomath"
 )
 
 func main() {
-    morfoio.SkipInputLn()
-    arr := morfoio.ReadLn[int]()
-    fmt.Println(minDeletionsToEqualize(arr))
+	morfoio.SkipInputLn()
+	arr := morfoio.ReadLn[int]()
+	fmt.Println(minDeletionsToEqualize(arr))
 }
 
 // n: length of arr, 1 <= n <= 100
@@ -20,11 +22,5 @@ func main() {
 // T: O(n) = O(100) = O(1)
 // S: O(k) = O(n) = O(100) = O(1) extra space
 func minDeletionsToEqualize(arr []int) int {
-    maxCount := 0
-    for _, count := range morfocollections.Counter(arr) {
-        if count > maxCount {
-            maxCount = count
-        }
-    }
-    return len(arr) - maxCount
+	return len(arr) - morfomath.MaxSeq(maps.Values(morfocollections.Counter(arr)))
 }

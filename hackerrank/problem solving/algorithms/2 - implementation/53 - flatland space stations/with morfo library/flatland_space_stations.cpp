@@ -9,8 +9,7 @@ int max_distance_from_space_station(int last_city, const vector<int>& stations);
 
 int main()
 {
-    int n_cities = morfo::read();
-    int n_stations = morfo::read();
+    auto [n_cities, n_stations] = morfo::read<int, int>();
     int last_city{ n_cities - 1 };
 
     vector<int> stations = morfo::read(n_stations);

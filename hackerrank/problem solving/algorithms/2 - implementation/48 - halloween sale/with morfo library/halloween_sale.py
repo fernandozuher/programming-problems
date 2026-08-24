@@ -4,10 +4,7 @@ import morfo
 
 
 def main():
-    price = morfo.read(int)
-    discount = morfo.read(int)
-    min_price = morfo.read(int)
-    budget = morfo.read(int)
+    price, discount, min_price, budget = morfo.read(int, 4)
     print(how_many_games_can_be_bought(price, discount, min_price, budget))
 
 

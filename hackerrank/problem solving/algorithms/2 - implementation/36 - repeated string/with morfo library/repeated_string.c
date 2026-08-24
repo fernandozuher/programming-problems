@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "morfo/collections.h"
 #include "morfo/io.h"
 
 long long count_in_repeated_string(const char *str, char letter, long long n_chars);
-long long count_char(const char *str, long long n, char letter);
 
 int main()
 {
@@ -31,15 +31,7 @@ long long count_in_repeated_string(const char *str, char letter, long long n_cha
     long long full_repeats = division.quot;
     long long n_substr = division.rem;
 
-    long long count = count_char(str, n, letter);
+    long long count = (long long) morfo_count(str, (size_t) n, letter);
     count *= full_repeats;
-    return count + count_char(str, n_substr, letter);
-}
-
-long long count_char(const char *str, long long n, char letter)
-{
-    long long count = 0;
-    for (long long i = 0; i < n; ++i)
-        count += str[i] == letter;
-    return count;
+    return count + (long long) morfo_count(str, (size_t) n_substr, letter);
 }

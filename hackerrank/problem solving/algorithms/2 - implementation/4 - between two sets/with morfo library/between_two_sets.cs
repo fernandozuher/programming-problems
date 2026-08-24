@@ -1,6 +1,7 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
 using Morfo.IO;
+using Morfo.Math;
 
 Reader.SkipInputLn();
 int[] a = Reader.ReadLn<int, int[]>();
@@ -13,28 +14,12 @@ Console.WriteLine(BetweenTwoSets(a, b));
 // S: O(1) extra space
 int BetweenTwoSets(int[] a, int[] b)
 {
-    int lcmOfA = a.Aggregate(LCM);
-    int gcdOfB = b.Aggregate(GCD);
+    int lcmOfA = a.Lcm();
+    int gcdOfB = b.Gcd();
 
     int count = 0;
     for (int i = lcmOfA; i <= gcdOfB; i += lcmOfA)
         if (gcdOfB % i == 0)
             count++;
     return count;
-}
-
-int LCM(int a, int b)
-{
-    return a * b / GCD(a, b);
-}
-
-int GCD(int a, int b)
-{
-    while (b != 0)
-    {
-        int t = b;
-        b = a % b;
-        a = t;
-    }
-    return a;
 }

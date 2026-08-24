@@ -1,5 +1,6 @@
 // https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
 
+using Morfo.Collections;
 using Morfo.IO;
 
 Dictionary<int, int> birdsToCounts = ReadInput();
@@ -11,13 +12,7 @@ Console.WriteLine(FindMostSpottedBird(birdsToCounts));
 Dictionary<int, int> ReadInput()
 {
     Reader.SkipInputLn();
-    var freqMap = new Dictionary<int, int>();
-    foreach (int x in Reader.ReadLn<int, int[]>())
-    {
-        freqMap.TryGetValue(x, out int count);
-        freqMap[x] = ++count;
-    }
-    return freqMap;
+    return Counter.Of(Reader.ReadLn<int, int[]>());
 }
 
 // n: length of birdsToCounts

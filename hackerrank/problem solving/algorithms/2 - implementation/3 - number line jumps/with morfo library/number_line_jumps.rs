@@ -1,18 +1,14 @@
 // https://www.hackerrank.com/challenges/kangaroo/problem?isFullScreen=true
 
-use morfo::read;
+use morfo::read_many;
 
 fn main() {
-    let initial_state: (i32, i32, i32, i32) = read_input();
+    let initial_state: (i32, i32, i32, i32) = read_many();
     if kangaroo(&initial_state) {
         println!("YES");
     } else {
         println!("NO");
     }
-}
-
-fn read_input() -> (i32, i32, i32, i32) {
-    (read(), read(), read(), read())
 }
 
 // T: O(1)

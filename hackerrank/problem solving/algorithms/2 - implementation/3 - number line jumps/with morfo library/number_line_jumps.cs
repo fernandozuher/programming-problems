@@ -5,11 +5,7 @@ using Morfo.IO;
 (int, int, int, int) initialState = ReadInput();
 Console.WriteLine(Kangaroo(initialState) ? "YES" : "NO");
 
-(int, int, int, int) ReadInput()
-{
-    int[] arr = Reader.Read<int>(4);
-    return (arr[0], arr[1], arr[2], arr[3]);
-}
+(int, int, int, int) ReadInput() => Reader.Read<int, int, int, int>();
 
 // T: O(1)
 // S: O(1) extra space

@@ -2,9 +2,9 @@
 // C23
 
 #include <stdlib.h>
+#include "morfo/collections.h"
 #include "morfo/io.h"
 
-int remove_duplicates(int *arr, int n);
 void climbing_leaderboard(const int *ranked, int n, const int *player, int n2, int *player_ranks);
 
 int main()
@@ -12,7 +12,7 @@ int main()
     morfo_skip_input_ln();
     size_t n;
     int *ranked = morfo_readln(int, &n);
-    int rn = remove_duplicates(ranked, (int)n);
+    int rn = (int) morfo_unique(ranked, n);
 
     morfo_skip_input_ln();
     size_t n2;
@@ -26,23 +26,6 @@ int main()
     free(player);
     free(player_ranks);
     return 0;
-}
-
-// n: length of arr
-// k: length of distinct numbers in arr
-// k <= n
-// T: O(n)
-// S: O(1) extra space
-int remove_duplicates(int *arr, int n)
-{
-    int writer = 0;
-    for (int seeker = 1; seeker < n; ++seeker) {
-        if (arr[seeker] == arr[writer])
-            continue;
-        ++writer;
-        arr[writer] = arr[seeker];
-    }
-    return writer + 1;
 }
 
 // n1: length of player, player_ranks

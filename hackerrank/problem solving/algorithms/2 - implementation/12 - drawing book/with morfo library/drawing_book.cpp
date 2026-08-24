@@ -9,8 +9,7 @@ int page_count(int n, int page);
 
 int main()
 {
-    int n = morfo::read();
-    int page = morfo::read();
+    auto [n, page] = morfo::read<int, int>();
     println("{}", page_count(n, page));
     return 0;
 }

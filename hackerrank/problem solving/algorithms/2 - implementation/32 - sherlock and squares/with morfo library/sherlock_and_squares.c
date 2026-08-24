@@ -10,8 +10,8 @@ int main()
 {
     int n = morfo_read(int);
     for (int i = 0; i < n; ++i) {
-        int a = morfo_read(int);
-        int b = morfo_read(int);
+        int a, b;
+        morfo_read_many(&a, &b);
         printf("%d\n", squares(a, b));
     }
 }

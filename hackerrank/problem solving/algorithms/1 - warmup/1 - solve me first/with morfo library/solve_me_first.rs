@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/solve-me-first/problem?isFullScreen=true
 
-use morfo::read;
+use morfo::read_many;
 
 fn main() {
-    let n1: i32 = morfo::read();
-    let n2: i32 = morfo::read();
+    let (n1, n2): (i32, i32) = read_many();
     print!("{}", solve_me_first(n1, n2));
 }
 

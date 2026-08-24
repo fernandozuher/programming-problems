@@ -8,8 +8,8 @@ int page_count(int n, int page);
 
 int main()
 {
-    int n = morfo_read(int);
-    int page = morfo_read(int);
+    int n, page;
+    morfo_read_many(&n, &page);
     printf("%d\n", page_count(n, page));
     return 0;
 }

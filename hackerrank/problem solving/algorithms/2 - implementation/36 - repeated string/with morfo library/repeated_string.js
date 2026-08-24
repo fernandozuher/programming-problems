@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/repeated-string/problem?isFullScreen=true
 
-import { read } from 'morfo';
+import { count, idiv, read } from 'morfo';
 
 const str = read(String);
 const nChars = read(Number);
@@ -11,16 +11,9 @@ console.log(countInRepeatedString(str, letter, nChars));
 // T: O(n)
 // S: O(1) extra space
 function countInRepeatedString(str, letter, nChars) {
-  const fullRepeats = Math.trunc(nChars / str.length);
+  const fullRepeats = idiv(nChars, str.length);
   const nSubstr = nChars % str.length;
-
-  let count = countChar(str, str.length, letter);
-  count *= fullRepeats;
-  return count + countChar(str, nSubstr, letter);
-}
-
-function countChar(str, n, letter) {
-  let count = 0;
-  for (let i = 0; i < n; i++) if (str[i] === letter) count++;
-  return count;
+  return (
+    count(str, letter) * fullRepeats + count(str.slice(0, nSubstr), letter)
+  );
 }

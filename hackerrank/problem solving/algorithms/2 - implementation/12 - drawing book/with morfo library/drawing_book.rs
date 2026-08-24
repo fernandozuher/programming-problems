@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
 
-use morfo::read;
+use morfo::read_many;
 
 fn main() {
-    let n: usize = read();
-    let page: usize = read();
+    let (n, page): (usize, usize) = read_many();
     println!("{}", page_count(n, page));
 }
 

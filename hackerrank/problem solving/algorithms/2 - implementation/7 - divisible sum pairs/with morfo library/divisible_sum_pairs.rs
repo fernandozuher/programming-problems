@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-use morfo::{read, read_n};
+use morfo::{read_many, read_n};
 
 fn main() {
-    let n: usize = read();
-    let k: usize = read();
+    let (n, k): (usize, usize) = read_many();
     let numbers: Vec<usize> = read_n(n);
     println!("{}", divisible_sum_pairs(&numbers, k));
 }
@@ -38,9 +37,7 @@ fn pair_count(n: usize) -> usize {
 
 fn count_complementary_remainder_pairs(freq: &[usize]) -> usize {
     let n: usize = freq.len();
-    (1..(n + 1) / 2)
-        .map(|i| freq[i] * freq[n - i])
-        .sum()
+    (1..(n + 1) / 2).map(|i| freq[i] * freq[n - i]).sum()
 }
 
 fn count_pairs_with_remainder_k_half(freq: &[usize]) -> usize {

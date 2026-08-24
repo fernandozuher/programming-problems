@@ -6,9 +6,7 @@ import morfo
 def main():
     n = morfo.read(int)
     for i in range(n):
-        prisoners = morfo.read(int)
-        sweets = morfo.read(int)
-        start_chair = morfo.read(int)
+        prisoners, sweets, start_chair = morfo.read(int, 3)
         print(save_the_prisoner(prisoners, sweets, start_chair))
 
 

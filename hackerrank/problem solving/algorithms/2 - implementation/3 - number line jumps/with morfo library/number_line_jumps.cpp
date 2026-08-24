@@ -17,11 +17,7 @@ int main()
 
 tuple<int, int, int, int> read_input()
 {
-    int x1 = morfo::read();
-    int v1 = morfo::read();
-    int x2 = morfo::read();
-    int v2 = morfo::read();
-    return { x1, v1, x2, v2 };
+    return morfo::read<int, int, int, int>();
 }
 
 // T: O(1)

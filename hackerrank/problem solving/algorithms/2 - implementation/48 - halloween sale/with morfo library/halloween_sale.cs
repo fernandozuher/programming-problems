@@ -2,10 +2,7 @@
 
 using Morfo.IO;
 
-int price = Reader.Read<int>();
-int discount = Reader.Read<int>();
-int minPrice = Reader.Read<int>();
-int budget = Reader.Read<int>();
+var (price, discount, minPrice, budget) = Reader.Read<int, int, int, int>();
 Console.WriteLine(HowManyGamesCanBeBought(price, discount, minPrice, budget));
 
 // T: O(budget / minPrice)

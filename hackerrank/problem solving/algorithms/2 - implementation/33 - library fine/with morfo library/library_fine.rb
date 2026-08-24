@@ -16,9 +16,7 @@ def main
 end
 
 def read_date
-  day = Morfo.read(&:to_i)
-  month = Morfo.read(&:to_i)
-  year = Morfo.read(&:to_i)
+  day, month, year = Morfo.read(3, &:to_i)
   Date.new(year, month, day)
 end
 

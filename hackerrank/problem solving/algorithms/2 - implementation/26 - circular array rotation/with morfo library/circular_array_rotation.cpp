@@ -9,9 +9,7 @@ void print_queries(const vector<int>& arr, int n_rotation, int n_queries);
 
 int main()
 {
-    int n = morfo::read();
-    int n_rotation = morfo::read();
-    int n_queries = morfo::read();
+    auto [n, n_rotation, n_queries] = morfo::read<int, int, int>();
     vector<int> arr = morfo::read(n);
     print_queries(arr, n_rotation, n_queries);
     return 0;

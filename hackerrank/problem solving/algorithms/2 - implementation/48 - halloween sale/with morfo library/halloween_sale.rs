@@ -1,13 +1,10 @@
 // https://www.hackerrank.com/challenges/halloween-sale/problem?isFullScreen=true
 
-use morfo::read;
+use morfo::read_many;
 use std::cmp::max;
 
 fn main() {
-    let price: i32 = read();
-    let discount: i32 = read();
-    let min_price: i32 = read();
-    let budget: i32 = read();
+    let (price, discount, min_price, budget): (i32, i32, i32, i32) = read_many();
     println!(
         "{}",
         how_many_games_can_be_bought(price, discount, min_price, budget)

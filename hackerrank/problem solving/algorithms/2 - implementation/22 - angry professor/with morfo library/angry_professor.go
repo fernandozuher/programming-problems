@@ -3,35 +3,31 @@
 package main
 
 import (
-    "fmt"
-    "morfo/morfoio"
+	"fmt"
+	"morfo/morfocollections"
+	"morfo/morfoio"
 )
 
 func main() {
-    n := morfoio.Read[int]()
+	n := morfoio.Read[int]()
 
-    for range n {
-        morfoio.SkipInput()
-        threshold := morfoio.Read[int]()
-        arrivalTimes := morfoio.ReadLn[int]()
+	for range n {
+		morfoio.SkipInput()
+		threshold := morfoio.Read[int]()
+		arrivalTimes := morfoio.ReadLn[int]()
 
-        if angryProfessor(arrivalTimes, threshold) {
-            fmt.Println("YES")
-        } else {
-            fmt.Println("NO")
-        }
-    }
+		if angryProfessor(arrivalTimes, threshold) {
+			fmt.Println("YES")
+		} else {
+			fmt.Println("NO")
+		}
+	}
 }
 
 // k: length of arrivalTimes
 // T: O(k)
 // S: O(1) extra space
 func angryProfessor(arrivalTimes []int, threshold int) bool {
-    onTime := 0
-    for _, t := range arrivalTimes {
-        if t <= 0 {
-            onTime++
-        }
-    }
-    return onTime < threshold
+	onTime := morfocollections.CountFunc(arrivalTimes, func(t int) bool { return t <= 0 })
+	return onTime < threshold
 }

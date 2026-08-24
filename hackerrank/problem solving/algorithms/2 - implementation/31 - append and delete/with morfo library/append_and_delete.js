@@ -2,9 +2,7 @@
 
 import { read } from 'morfo';
 
-const s1 = read(String);
-const s2 = read(String);
-const nOps = read(Number);
+const [s1, s2, nOps] = read(String, String, Number);
 console.log(appendAndDelete(s1, s2, nOps) ? 'Yes' : 'No');
 
 // n1: length of s1

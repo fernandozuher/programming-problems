@@ -27,15 +27,12 @@ def main():
 
 
 def read_input():
-    house_start = morfo.read(int)
-    house_end = morfo.read(int)
+    house_start, house_end = morfo.read(int, 2)
     house = House(house_start, house_end)
 
-    apple_tree_location = morfo.read(int)
-    orange_tree_location = morfo.read(int)
+    apple_tree_location, orange_tree_location = morfo.read(int, 2)
 
-    n_apples = morfo.read(int)
-    n_oranges = morfo.read(int)
+    n_apples, n_oranges = morfo.read(int, 2)
     apple_distances = morfo.read(int, n_apples)
     orange_distances = morfo.read(int, n_oranges)
 

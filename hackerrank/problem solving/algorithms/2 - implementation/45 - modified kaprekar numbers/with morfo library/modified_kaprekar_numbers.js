@@ -1,14 +1,11 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
 
-import { read } from 'morfo';
+import { idiv, read } from 'morfo';
 
+const [lower, upper] = read(Number, Number);
 let validRange = false;
 
-for (
-  let lower = read(Number), num = lower, upper = read(Number);
-  num <= upper;
-  num++
-)
+for (let num = lower; num <= upper; num++)
   if (isNumberKaprekar(num)) {
     process.stdout.write(num + ' ');
     validRange = true;
@@ -22,7 +19,7 @@ if (!validRange) console.log('INVALID RANGE');
 function isNumberKaprekar(n) {
   const squareNumber = Math.pow(n, 2);
   const divisor = Math.pow(10, numberDigits(n));
-  const leftNumber = Math.trunc(squareNumber / divisor);
+  const leftNumber = idiv(squareNumber, divisor);
   const rightNumber = squareNumber % divisor;
   return n === leftNumber + rightNumber;
 }

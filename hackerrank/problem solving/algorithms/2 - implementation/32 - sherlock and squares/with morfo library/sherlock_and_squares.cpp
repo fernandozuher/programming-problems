@@ -11,8 +11,7 @@ int main()
 {
     int n = morfo::read();
     for (int i{}; i < n; ++i) {
-        int a = morfo::read();
-        int b = morfo::read();
+        auto [a, b] = morfo::read<int, int>();
         println("{}", squares(a, b));
     }
 }

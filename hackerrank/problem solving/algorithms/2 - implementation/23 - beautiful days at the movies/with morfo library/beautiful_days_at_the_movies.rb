@@ -3,9 +3,7 @@
 require 'morfo'
 
 def main
-  start_day = Morfo.read(&:to_i)
-  end_day = Morfo.read(&:to_i)
-  divisor = Morfo.read(&:to_i)
+  start_day, end_day, divisor = Morfo.read(3, &:to_i)
   puts beautiful_days(start_day, end_day, divisor)
 end
 

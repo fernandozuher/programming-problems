@@ -3,10 +3,7 @@
 require 'morfo'
 
 def main
-  price = Morfo.read(&:to_i)
-  discount = Morfo.read(&:to_i)
-  min_price = Morfo.read(&:to_i)
-  budget = Morfo.read(&:to_i)
+  price, discount, min_price, budget = Morfo.read(4, &:to_i)
   puts how_many_games_can_be_bought(price, discount, min_price, budget)
 end
 

@@ -2,19 +2,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "morfo/collections.h"
 #include "morfo/io.h"
 
 int preprocess_input(int *arr, int n);
-void sort(int *arr, int n);
-int compare(const void *a, const void *b);
-int remove_duplicate(int *arr, int n);
 int calc_money_spent(const int *keyboards, int n_keyboards, const int *usb_drives, int n_usb_drives, int budget);
 
 int main()
 {
-    int budget = morfo_read(int);
-    int n_keyboards = morfo_read(int);
-    int n_usb_drives = morfo_read(int);
+    int budget, n_keyboards, n_usb_drives;
+    morfo_read_many(&budget, &n_keyboards, &n_usb_drives);
 
     int keyboards[n_keyboards], usb_drives[n_usb_drives];
     morfo_read_n(keyboards, n_keyboards);
@@ -32,35 +29,12 @@ int main()
 // k <= n
 // T: O((n log n) + n) = O(n log n)
 // S:
-//    log n for the recursion stack of qsort()
+//    log n for the recursion stack of morfo_sort()
 //    O(log n) extra space
 int preprocess_input(int *arr, int n)
 {
-    sort(arr, n);
-    int new_size = remove_duplicate(arr, n);
-    return new_size;
-}
-
-void sort(int *arr, int n)
-{
-    qsort(arr, n, sizeof(int), compare);
-}
-
-int compare(const void *a, const void *b)
-{
-    return *(int *) a - *(int *) b;
-}
-
-int remove_duplicate(int *arr, int n)
-{
-    int w = 0;
-    for (int s = 0; s < n; ++s) {
-        if (s != 0 && arr[s] == arr[s - 1])
-            continue;
-        arr[w] = arr[s];
-        ++w;
-    }
-    return w;
+    morfo_sort(arr, (size_t) n);
+    return (int) morfo_unique(arr, (size_t) n);
 }
 
 // n1: length of keyboards

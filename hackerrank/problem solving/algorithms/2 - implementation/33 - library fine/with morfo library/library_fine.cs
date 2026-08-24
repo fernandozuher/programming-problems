@@ -8,9 +8,7 @@ Console.WriteLine(CalculateFine(returnDate, dueDate));
 
 DateTime ReadDate()
 {
-    int day = Reader.Read<int>();
-    int month = Reader.Read<int>();
-    int year = Reader.Read<int>();
+    var (day, month, year) = Reader.Read<int, int, int>();
     return new DateTime(year, month, day);
 }
 

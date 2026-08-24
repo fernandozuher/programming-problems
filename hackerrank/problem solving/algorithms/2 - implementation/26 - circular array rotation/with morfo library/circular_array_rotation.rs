@@ -1,11 +1,9 @@
 // https://www.hackerrank.com/challenges/circular-array-rotation/problem?isFullScreen=true
 
-use morfo::{read, read_n};
+use morfo::{read, read_many, read_n};
 
 fn main() {
-    let n: usize = read();
-    let n_rotation: usize = read();
-    let n_queries: usize = read();
+    let (n, n_rotation, n_queries): (usize, usize, usize) = read_many();
     let arr: Vec<i32> = read_n(n);
     print_queries(&arr, n_rotation, n_queries);
 }

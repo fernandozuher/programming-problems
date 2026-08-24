@@ -3,15 +3,16 @@
 package main
 
 import (
-    "fmt"
-    "morfo/morfoio"
+	"fmt"
+	"morfo/morfocollections"
+	"morfo/morfoio"
 )
 
 func main() {
-    morfoio.SkipInput()
-    beautifulDifference := morfoio.Read[int]()
-    arr := morfoio.ReadLn[int]()
-    fmt.Println(findBeautifulTriplets(arr, beautifulDifference))
+	morfoio.SkipInput()
+	beautifulDifference := morfoio.Read[int]()
+	arr := morfoio.ReadLn[int]()
+	fmt.Println(findBeautifulTriplets(arr, beautifulDifference))
 }
 
 // n: length of arr
@@ -20,18 +21,13 @@ func main() {
 // T: O(n)
 // S: O(k) = O(n) extra space
 func findBeautifulTriplets(arr []int, beautifulDifference int) int {
-    values := make(map[int]bool)
-    for _, v := range arr {
-        values[v] = true
-    }
+	values := make(map[int]bool)
+	for _, v := range arr {
+		values[v] = true
+	}
 
-    doubleBD := 2*beautifulDifference
-    count := 0
-    for _, x := range arr {
-        if values[x+beautifulDifference] && values[x+doubleBD] {
-            count++
-        }
-    }
-
-    return count
+	doubleBD := 2 * beautifulDifference
+	return morfocollections.CountFunc(arr, func(x int) bool {
+		return values[x+beautifulDifference] && values[x+doubleBD]
+	})
 }

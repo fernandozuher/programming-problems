@@ -7,9 +7,8 @@ void print_queries(const int *arr, int n, int n_rotation, int n_queries);
 
 int main()
 {
-    int n = morfo_read(int);
-    int n_rotation = morfo_read(int);
-    int n_queries = morfo_read(int);
+    int n, n_rotation, n_queries;
+    morfo_read_many(&n, &n_rotation, &n_queries);
     int arr[n];
     morfo_read_n(arr, n);
     print_queries(arr, n, n_rotation, n_queries);

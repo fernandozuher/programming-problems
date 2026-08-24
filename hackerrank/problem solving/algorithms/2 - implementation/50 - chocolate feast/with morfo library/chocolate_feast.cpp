@@ -12,9 +12,7 @@ int main()
     int n = morfo::read();
 
     for (int i{}; i < n; ++i) {
-        int money = morfo::read<int>();
-        int cost = morfo::read<int>();
-        int wrappers_needed = morfo::read<int>();
+        auto [money, cost, wrappers_needed] = morfo::read<int, int, int>();
         println("{}", how_many_chocolates_can_be_eaten(money, cost, wrappers_needed));
     }
 

@@ -3,26 +3,26 @@
 package main
 
 import (
-    "fmt"
-    "math"
-    "morfo/morfoio"
+	"fmt"
+	"morfo/morfoio"
+	"morfo/morfomath"
 )
 
 func main() {
-    n := morfoio.Read[int]()
-    fmt.Println(diagonalDifference(n))
+	n := morfoio.Read[int]()
+	fmt.Println(diagonalDifference(n))
 }
 
 // T: O(n^2)
 // S: O(n) extra space
 func diagonalDifference(n int) int {
-    primarySum, secondarySum := 0, 0
+	primarySum, secondarySum := 0, 0
 
-    for i := range n {
-        arr := morfoio.ReadLn[int]()
-        primarySum += arr[i]
-        secondarySum += arr[n-i-1]
-    }
+	for i := range n {
+		arr := morfoio.ReadLn[int]()
+		primarySum += arr[i]
+		secondarySum += arr[n-i-1]
+	}
 
-    return int(math.Abs(float64(secondarySum - primarySum)))
+	return morfomath.Abs(secondarySum - primarySum)
 }

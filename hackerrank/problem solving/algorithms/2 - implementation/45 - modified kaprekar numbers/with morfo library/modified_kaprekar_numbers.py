@@ -6,8 +6,7 @@ import morfo
 
 
 def main():
-    lower = morfo.read(int)
-    upper = morfo.read(int)
+    lower, upper = morfo.read(int, 2)
     valid_range = False
 
     for num in range(lower, upper + 1):

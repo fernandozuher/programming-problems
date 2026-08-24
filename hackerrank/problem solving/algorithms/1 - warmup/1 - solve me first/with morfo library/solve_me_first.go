@@ -3,18 +3,17 @@
 package main
 
 import (
-    "fmt"
-    "morfo/morfoio"
+	"fmt"
+	"morfo/morfoio"
 )
 
 func main() {
-    n1 := morfoio.Read[int]()
-    n2 := morfoio.Read[int]()
-    fmt.Println(solveMeFirst(n1, n2))
+	n1, n2 := morfoio.Read2[int, int]()
+	fmt.Println(solveMeFirst(n1, n2))
 }
 
 // T: O(1)
 // S: O(1) extra space
 func solveMeFirst(n1, n2 int) int {
-    return n1 + n2
+	return n1 + n2
 }

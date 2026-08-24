@@ -31,9 +31,7 @@ int main()
 date read_date()
 {
     date input_date;
-    input_date.day = morfo_read(int);
-    input_date.month = morfo_read(int);
-    input_date.year = morfo_read(int);
+    morfo_read_many(&input_date.day, &input_date.month, &input_date.year);
     return input_date;
 }
 

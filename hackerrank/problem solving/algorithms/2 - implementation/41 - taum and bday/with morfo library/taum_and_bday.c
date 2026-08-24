@@ -27,11 +27,8 @@ int main()
 gifts read_test_case()
 {
     gifts x;
-    x.n_black_gifts = morfo_read(long);
-    x.n_white_gifts = morfo_read(long);
-    x.black_gift_cost = morfo_read(long);
-    x.white_gift_cost = morfo_read(long);
-    x.cost_to_convert_between_gifts = morfo_read(long);
+    morfo_read_many(&x.n_black_gifts, &x.n_white_gifts, &x.black_gift_cost, &x.white_gift_cost,
+                    &x.cost_to_convert_between_gifts);
     return x;
 }
 

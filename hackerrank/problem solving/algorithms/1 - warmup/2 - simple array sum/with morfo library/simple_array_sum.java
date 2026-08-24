@@ -2,6 +2,7 @@
 // Java 25
 
 import morfo.io.Reader;
+import morfo.math.Sum;
 
 void main() {
     Reader.skipInputLn();
@@ -12,5 +13,5 @@ void main() {
 // T: O(n)
 // S: O(n) extra space
 int sumStdin() {
-    return Arrays.stream(Reader.readLnInts()).sum();
+    return Sum.ofInts(Reader.readLnInts());
 }

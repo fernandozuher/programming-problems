@@ -5,9 +5,7 @@ using Morfo.IO;
 int n = Reader.Read<int>();
 for (int i = 0; i < n; i++)
 {
-    int prisoners = Reader.Read<int>();
-    int sweets = Reader.Read<int>();
-    int startChair = Reader.Read<int>();
+    var (prisoners, sweets, startChair) = Reader.Read<int, int, int>();
     Console.WriteLine(SaveThePrisoner(prisoners, sweets, startChair));
 }
 

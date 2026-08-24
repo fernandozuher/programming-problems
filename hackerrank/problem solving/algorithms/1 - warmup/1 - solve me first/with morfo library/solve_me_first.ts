@@ -2,8 +2,7 @@
 
 import { read } from 'morfo';
 
-const n1: number = read(Number);
-const n2: number = read(Number);
+const [n1, n2]: [number, number] = read(Number, Number);
 console.log(solveMeFirst(n1, n2));
 
 // T: O(1)

@@ -3,8 +3,7 @@
 require 'morfo'
 
 def main
-  n1 = Morfo.read(&:to_i)
-  n2 = Morfo.read(&:to_i)
+  n1, n2 = Morfo.read(2, &:to_i)
   puts solve_me_first(n1, n2)
 end
 

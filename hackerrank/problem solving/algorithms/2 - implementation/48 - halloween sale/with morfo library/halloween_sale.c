@@ -7,10 +7,8 @@ int how_many_games_can_be_bought(int price, int discount, int min_price, int bud
 
 int main()
 {
-    int price = morfo_read(int);
-    int discount = morfo_read(int);
-    int min_price = morfo_read(int);
-    int budget = morfo_read(int);
+    int price, discount, min_price, budget;
+    morfo_read_many(&price, &discount, &min_price, &budget);
     printf("%d\n", how_many_games_can_be_bought(price, discount, min_price, budget));
     return 0;
 }

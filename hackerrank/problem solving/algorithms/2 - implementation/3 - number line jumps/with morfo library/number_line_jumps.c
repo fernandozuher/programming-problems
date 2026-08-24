@@ -21,10 +21,7 @@ int main()
 state read_input()
 {
     state s;
-    s.x1 = morfo_read(int);
-    s.v1 = morfo_read(int);
-    s.x2 = morfo_read(int);
-    s.v2 = morfo_read(int);
+    morfo_read_many(&s.x1, &s.v1, &s.x2, &s.v2);
     return s;
 }
 

@@ -26,13 +26,9 @@ int main()
 
 gifts read_test_case()
 {
-    gifts x;
-    x.n_black_gifts = morfo::read();
-    x.n_white_gifts = morfo::read();
-    x.black_gift_cost = morfo::read();
-    x.white_gift_cost = morfo::read();
-    x.cost_to_convert_between_gifts = morfo::read();
-    return x;
+    auto [n_black_gifts, n_white_gifts, black_gift_cost, white_gift_cost, cost_to_convert_between_gifts] =
+        morfo::read<long, long, long, long, long>();
+    return { n_black_gifts, n_white_gifts, black_gift_cost, white_gift_cost, cost_to_convert_between_gifts };
 }
 
 // T: O(1)

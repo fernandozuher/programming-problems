@@ -3,8 +3,7 @@
 require 'morfo'
 
 def main
-  n = Morfo.read(&:to_i)
-  page = Morfo.read(&:to_i)
+  n, page = Morfo.read(2, &:to_i)
   puts count_page(n, page)
 end
 

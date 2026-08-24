@@ -10,9 +10,7 @@ int calc_money_spent(const vector<int>& keyboards, const vector<int>& usb_drives
 
 int main()
 {
-    int budget = morfo::read();
-    int n_keyboards = morfo::read();
-    int n_usb_drives = morfo::read();
+    auto [budget, n_keyboards, n_usb_drives] = morfo::read<int, int, int>();
 
     vector<int> keyboards = morfo::read(n_keyboards);
     vector<int> usb_drives = morfo::read(n_usb_drives);
@@ -34,8 +32,7 @@ int main()
 void preprocess_input(vector<int>& arr)
 {
     ranges::sort(arr);
-    auto x{ ranges::unique(arr) };
-    arr.erase(x.begin(), x.end());
+    morfo::unique(arr);
 }
 
 // n1: length of keyboards

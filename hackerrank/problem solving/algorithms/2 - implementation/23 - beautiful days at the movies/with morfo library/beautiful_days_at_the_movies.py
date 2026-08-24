@@ -4,9 +4,7 @@ import morfo
 
 
 def main():
-    start_day = morfo.read(int)
-    end_day = morfo.read(int)
-    divisor = morfo.read(int)
+    start_day, end_day, divisor = morfo.read(int, 3)
     print(beautiful_days(start_day, end_day, divisor))
 
 

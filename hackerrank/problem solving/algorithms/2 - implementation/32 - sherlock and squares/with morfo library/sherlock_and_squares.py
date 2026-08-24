@@ -8,8 +8,7 @@ import morfo
 def main():
     n = morfo.read(int)
     for _ in range(n):
-        a = morfo.read(int)
-        b = morfo.read(int)
+        a, b = morfo.read(int, 2)
         print(squares(a, b))
 
 

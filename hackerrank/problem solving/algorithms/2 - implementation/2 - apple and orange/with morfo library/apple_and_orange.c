@@ -36,10 +36,8 @@ int main()
 
 void read_input(house_t *house, fruit_tree_t *apple_tree, fruit_tree_t *orange_tree)
 {
-    house->start = morfo_read(int);
-    house->end = morfo_read(int);
-    apple_tree->tree_location = morfo_read(int);
-    orange_tree->tree_location = morfo_read(int);
+    morfo_read_many(&house->start, &house->end);
+    morfo_read_many(&apple_tree->tree_location, &orange_tree->tree_location);
     apple_tree->size = morfo_read(int);
     orange_tree->size = morfo_read(int);
     apple_tree->fruit_distances = morfo_read_n_alloc(int, apple_tree->size);

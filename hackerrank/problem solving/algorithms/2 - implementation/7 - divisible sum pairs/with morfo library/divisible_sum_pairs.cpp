@@ -14,8 +14,7 @@ int count_pairs_with_remainder_k_half(const vector<int>& freq);
 
 int main()
 {
-    int n = morfo::read();
-    int k = morfo::read();
+    auto [n, k] = morfo::read<int, int>();
     vector<int> numbers = morfo::read(n);
     cout << divisible_sum_pairs(numbers, k);
     return 0;
@@ -53,10 +52,9 @@ int pair_count(int n)
 int count_complementary_remainder_pairs(const vector<int>& freq)
 {
     auto n{ freq.size() };
-    return *ranges::fold_left_first(
+    return morfo::sum(
         views::iota(1ul, (n + 1) / 2) |
-        views::transform([&freq, n](auto i) { return freq.at(i) * freq.at(n - i); }),
-        plus{}
+        views::transform([&freq, n](auto i) { return freq.at(i) * freq.at(n - i); })
     );
 }
 

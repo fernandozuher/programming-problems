@@ -15,9 +15,11 @@ const dueDate: DateTriple = readDate();
 console.log(calculateFine(returnDate, dueDate));
 
 function readDate(): DateTriple {
-  const day: number = read(Number);
-  const month: number = read(Number);
-  const year: number = read(Number);
+  const [day, month, year]: [number, number, number] = read(
+    Number,
+    Number,
+    Number,
+  );
   return { day, month, year };
 }
 

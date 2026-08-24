@@ -2,9 +2,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "morfo/collections.h"
 #include "morfo/io.h"
 
-int compare_function(const void *a, const void *b);
 void cut_the_sticks(const int *arr, int n, int *res, int *n2);
 
 int main()
@@ -12,7 +12,7 @@ int main()
     morfo_skip_input_ln();
     size_t n;
     int *arr = morfo_readln(int, &n);
-    qsort(arr, n, sizeof(int), compare_function);
+    morfo_sort(arr, n);
 
     int n2 = 0;
     int res[n];
@@ -22,11 +22,6 @@ int main()
 
     free(arr);
     return 0;
-}
-
-int compare_function(const void *a, const void *b)
-{
-    return *(int *) a - *(int *) b;
 }
 
 // n: length of arr

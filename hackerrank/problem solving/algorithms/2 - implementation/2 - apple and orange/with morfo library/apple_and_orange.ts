@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-import { read } from 'morfo';
+import { countIf, read } from 'morfo';
 
 class House {
   private readonly start: number;
@@ -28,11 +28,12 @@ console.log(countFruitsOnHouse(orangeTree, house));
 function readInput(): [House, FruitTree, FruitTree] {
   const house = new House(read(Number), read(Number));
 
-  const appleTreeLocation: number = read(Number);
-  const orangeTreeLocation: number = read(Number);
+  const [appleTreeLocation, orangeTreeLocation]: [number, number] = read(
+    Number,
+    Number,
+  );
 
-  const nApples: number = read(Number);
-  const nOranges: number = read(Number);
+  const [nApples, nOranges]: [number, number] = read(Number, Number);
   const appleDistances: number[] = read(nApples, Number);
   const orangeDistances: number[] = read(nOranges, Number);
 
@@ -52,9 +53,7 @@ function readInput(): [House, FruitTree, FruitTree] {
 // T: O(n)
 // S: O(1) extra space
 function countFruitsOnHouse(fruitTree: FruitTree, house: House): number {
-  return fruitTree.fruitDistances.reduce(
-    (count, distance) =>
-      count + +house.contains(fruitTree.treeLocation + distance),
-    0,
+  return countIf(fruitTree.fruitDistances, (distance) =>
+    house.contains(fruitTree.treeLocation + distance),
   );
 }

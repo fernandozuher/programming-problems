@@ -1,10 +1,9 @@
 // https://www.hackerrank.com/challenges/kaprekar-numbers/problem?isFullScreen=true
 
-use morfo::read;
+use morfo::read_many;
 
 fn main() {
-    let lower: usize = read();
-    let upper: usize = read();
+    let (lower, upper): (usize, usize) = read_many();
     let mut valid_range: bool = false;
 
     for num in lower..=upper {

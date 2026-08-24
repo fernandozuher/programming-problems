@@ -14,8 +14,8 @@ int count_pairs_with_remainder_k_half(const int *freq, int n);
 
 int main()
 {
-    int n = morfo_read(int);
-    int k = morfo_read(int);
+    int n, k;
+    morfo_read_many(&n, &k);
     int *numbers = morfo_read_n_alloc(int, n);
     printf("%d\n", divisible_sum_pairs(numbers, n, k));
     free(numbers);

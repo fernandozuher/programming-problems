@@ -10,9 +10,8 @@ int reverse_number(int number);
 
 int main()
 {
-    int start_day = morfo_read(int);
-    int end_day = morfo_read(int);
-    int divisor = morfo_read(int);
+    int start_day, end_day, divisor;
+    morfo_read_many(&start_day, &end_day, &divisor);
     printf("%d\n", beautiful_days(start_day, end_day, divisor));
     return 0;
 }

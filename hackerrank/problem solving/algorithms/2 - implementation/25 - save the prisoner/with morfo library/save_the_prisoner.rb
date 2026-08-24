@@ -5,9 +5,7 @@ require 'morfo'
 def main
   n = Morfo.read(&:to_i)
   n.times do
-    prisoners = Morfo.read(&:to_i)
-    sweets = Morfo.read(&:to_i)
-    start_chair = Morfo.read(&:to_i)
+    prisoners, sweets, start_chair = Morfo.read(3, &:to_i)
     puts save_the_prisoner(prisoners, sweets, start_chair)
   end
 end

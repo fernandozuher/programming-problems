@@ -11,8 +11,8 @@ int common_prefix_length(const char *s1, int n1, const char *s2, int n2);
 
 int main()
 {
-    char *s1 = morfo_read(char *);
-    char *s2 = morfo_read(char *);
+    char *s1, *s2;
+    morfo_read_many(&s1, &s2);
     int n1 = strlen(s1);
     int n2 = strlen(s2);
     int n_ops = morfo_read(int);

@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/apple-and-orange/problem?isFullScreen=true
 
-use morfo::{read, read_n};
+use morfo::{read_many, read_n};
 
 struct House {
     start: i32,
@@ -25,12 +25,9 @@ fn main() {
 }
 
 fn read_input() -> (House, FruitTree, FruitTree) {
-    let house_start: i32 = read();
-    let house_end: i32 = read();
-    let apple_tree_location: i32 = read();
-    let orange_tree_location: i32 = read();
-    let n_apples: usize = read();
-    let n_oranges: usize = read();
+    let (house_start, house_end): (i32, i32) = read_many();
+    let (apple_tree_location, orange_tree_location): (i32, i32) = read_many();
+    let (n_apples, n_oranges): (usize, usize) = read_many();
     let apple_distances: Vec<i32> = read_n(n_apples);
     let orange_distances: Vec<i32> = read_n(n_oranges);
 

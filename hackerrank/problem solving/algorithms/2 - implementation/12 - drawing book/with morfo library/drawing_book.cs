@@ -2,8 +2,7 @@
 
 using Morfo.IO;
 
-int n = Reader.Read<int>();
-int page = Reader.Read<int>();
+var (n, page) = Reader.Read<int, int>();
 Console.WriteLine(PageCount(n, page));
 
 // T: O(1)

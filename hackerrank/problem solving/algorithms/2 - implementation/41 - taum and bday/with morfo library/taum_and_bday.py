@@ -21,10 +21,7 @@ def main():
 
 
 def read_test_case():
-    return Gifts(
-        morfo.read(int), morfo.read(int),
-        morfo.read(int), morfo.read(int),
-        morfo.read(int))
+    return Gifts(*morfo.read(int, 5))
 
 
 # T: O(1)

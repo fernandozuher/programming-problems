@@ -1,11 +1,9 @@
 // https://www.hackerrank.com/challenges/beautiful-days-at-the-movies/problem?is_full_screen=true
 
-use morfo::read;
+use morfo::read_many;
 
 fn main() {
-    let start_day: i32 = read();
-    let end_day: i32 = read();
-    let divisor: i32 = read();
+    let (start_day, end_day, divisor): (i32, i32, i32) = read_many();
     println!("{}", beautiful_days(start_day, end_day, divisor));
 }
 

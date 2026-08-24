@@ -1,10 +1,10 @@
 // https://www.hackerrank.com/challenges/flatland-space-stations/problem?isFullScreen=true
 
-import { readLn } from 'morfo';
+import { idiv, readLn, sort } from 'morfo';
 
 const [nCities, _] = readLn(Number);
 const lastCity = nCities - 1;
-let stations = readLn(Number).sort((a, b) => a - b);
+const stations = sort(readLn(Number));
 console.log(maxDistanceFromSpaceStation(lastCity, stations));
 
 // n: length of stations
@@ -14,7 +14,7 @@ function maxDistanceFromSpaceStation(lastCity, stations) {
   let maxDist = stations[0];
 
   for (let i = 1; i < stations.length; i++) {
-    const gap = Math.trunc((stations[i] - stations[i - 1]) / 2);
+    const gap = idiv(stations[i] - stations[i - 1], 2);
     maxDist = Math.max(maxDist, gap);
   }
 

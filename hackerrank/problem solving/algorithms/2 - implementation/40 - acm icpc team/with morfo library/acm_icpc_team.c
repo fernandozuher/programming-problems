@@ -11,8 +11,8 @@ int count_subjects_known_by_2_teams(const char *a, const char *b, int n);
 
 int main()
 {
-    int n = morfo_read(int);
-    int m = morfo_read(int);
+    int n, m;
+    morfo_read_many(&n, &m);
     char **binaries = read_binaries(n);
 
     int res[2];

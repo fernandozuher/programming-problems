@@ -11,9 +11,7 @@ int main()
 {
     int n = morfo::read();
     for (int i{}; i < n; ++i) {
-        int prisoners = morfo::read();
-        int sweets = morfo::read();
-        int start_chair = morfo::read();
+        auto [prisoners, sweets, start_chair] = morfo::read<int, int, int>();
         println("{}", save_the_prisoner(prisoners, sweets, start_chair));
     }
 }

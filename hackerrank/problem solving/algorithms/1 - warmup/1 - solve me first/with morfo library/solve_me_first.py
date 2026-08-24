@@ -4,8 +4,7 @@ import morfo
 
 
 def main():
-    n1 = morfo.read(int)
-    n2 = morfo.read(int)
+    n1, n2 = morfo.read(int, 2)
     print(solve_me_first(n1, n2))
 
 

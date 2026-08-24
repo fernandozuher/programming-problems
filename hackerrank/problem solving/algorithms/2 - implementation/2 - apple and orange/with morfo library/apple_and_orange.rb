@@ -15,15 +15,12 @@ def main
 end
 
 def read_input
-  house_start = Morfo.read(&:to_i)
-  house_end = Morfo.read(&:to_i)
+  house_start, house_end = Morfo.read(2, &:to_i)
   house = Struct::House.new(house_start, house_end)
 
-  apple_tree_location = Morfo.read(&:to_i)
-  orange_tree_location = Morfo.read(&:to_i)
+  apple_tree_location, orange_tree_location = Morfo.read(2, &:to_i)
 
-  n_apples = Morfo.read(&:to_i)
-  n_oranges = Morfo.read(&:to_i)
+  n_apples, n_oranges = Morfo.read(2, &:to_i)
   apple_distances = Morfo.read(n_apples, &:to_i)
   orange_distances = Morfo.read(n_oranges, &:to_i)
 

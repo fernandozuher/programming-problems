@@ -1,12 +1,10 @@
 // https://www.hackerrank.com/challenges/append-and-delete/problem?isFullScreen=true
 
-use morfo::read;
+use morfo::read_many;
 use num::Integer;
 
 fn main() {
-    let s1: String = read();
-    let s2: String = read();
-    let n_ops: usize = read();
+    let (s1, s2, n_ops): (String, String, usize) = read_many();
     if append_and_delete(s1.as_str(), s2.as_str(), n_ops) {
         println!("{}", "Yes");
     } else {

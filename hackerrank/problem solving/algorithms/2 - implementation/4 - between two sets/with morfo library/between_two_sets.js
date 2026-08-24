@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/between-two-sets/problem?isFullScreen=true
 
-import { skipInputLn, readLn } from 'morfo';
+import { gcd, lcm, readLn, skipInputLn } from 'morfo';
 
 skipInputLn();
 const a = readLn(Number);
@@ -12,25 +12,12 @@ console.log(betweenTwoSets(a, b));
 // T: O(n1 + n2 + k)
 // S: O(1) extra space
 function betweenTwoSets(a, b) {
-  const lcmOfA = a.reduce(lcm);
-  const gcdOfB = b.reduce(gcd);
+  const lcmOfA = lcm(a);
+  const gcdOfB = gcd(b);
 
   let count = 0;
   for (let i = lcmOfA; i <= gcdOfB; i += lcmOfA) {
     if (gcdOfB % i === 0) count++;
   }
   return count;
-}
-
-function lcm(a, b) {
-  return (a * b) / gcd(a, b);
-}
-
-function gcd(a, b) {
-  while (b !== 0) {
-    const t = b;
-    b = a % b;
-    a = t;
-  }
-  return a;
 }

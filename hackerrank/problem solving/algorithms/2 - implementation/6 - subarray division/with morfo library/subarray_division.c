@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "morfo/io.h"
+#include "morfo/math.h"
 
 int birthday(const int *chocolate_squares, int n, const int *day_month);
 
@@ -34,10 +35,7 @@ int birthday(const int *chocolate_squares, int n, const int *day_month)
     if (month > n)
         return 0;
 
-    int sum = 0;
-    for (int i = 0; i < month; ++i)
-        sum += chocolate_squares[i];
-
+    int sum = (int) morfo_sum(chocolate_squares, (size_t) month);
     int count = sum == day;
 
     for (int i = month; i < n; ++i) {

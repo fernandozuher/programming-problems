@@ -31,11 +31,8 @@ int main()
 
 date read_date()
 {
-    date input_date;
-    input_date.day = morfo::read();
-    input_date.month = morfo::read();
-    input_date.year = morfo::read();
-    return input_date;
+    auto [day, month, year] = morfo::read<int, int, int>();
+    return { .day = day, .month = month, .year = year };
 }
 
 // T: O(1)

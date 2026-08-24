@@ -11,9 +11,7 @@ int reverse_number(int number);
 
 int main()
 {
-    int start_day = morfo::read();
-    int end_day = morfo::read();
-    int divisor = morfo::read();
+    auto [start_day, end_day, divisor] = morfo::read<int, int, int>();
     cout << beautiful_days(start_day, end_day, divisor);
     return 0;
 }

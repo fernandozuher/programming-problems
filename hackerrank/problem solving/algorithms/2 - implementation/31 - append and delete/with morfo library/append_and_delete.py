@@ -4,8 +4,7 @@ import morfo
 
 
 def main():
-    s1 = morfo.read(str)
-    s2 = morfo.read(str)
+    s1, s2 = morfo.read(str, 2)
     n_ops = morfo.read(int)
     print('Yes' if append_and_delete(s1, s2, n_ops) else 'No')
 

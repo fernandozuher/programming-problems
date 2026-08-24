@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "morfo/io.h"
+#include "morfo/math.h"
 
 int min_deletions_to_equalize(const int *arr, int n);
 void counter(const int *arr, int *freq_map, int n);
-int max(const int *arr, int n);
 
 int main()
 {
@@ -28,20 +28,11 @@ int min_deletions_to_equalize(const int *arr, int n)
     constexpr int max_n = 101;
     int freq_map[max_n] = {};
     counter(arr, freq_map, n);
-    return n - max(freq_map, max_n);
+    return n - morfo_max(freq_map, (size_t) max_n);
 }
 
 void counter(const int *arr, int *freq_map, int n)
 {
     for (int i = 0; i < n; ++i)
         ++freq_map[arr[i]];
-}
-
-int max(const int *arr, int n)
-{
-    int max = 0;
-    for (int i = 0; i < n; ++i)
-        if (arr[i] > max)
-            max = arr[i];
-    return max;
 }

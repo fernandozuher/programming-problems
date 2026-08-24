@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
 
-import { readLn } from 'morfo';
+import { readLn, sort } from 'morfo';
 
 const budget = readLn(Number)[0];
 const keyboards = preprocessInput(readLn(Number));
@@ -13,8 +13,7 @@ console.log(calcMoneySpent(keyboards, usbDrives, budget));
 // T: O(n + k log k)
 // S: O(k) extra space
 function preprocessInput(arr) {
-  arr = [...new Set(arr)];
-  return arr.sort((a, b) => a - b);
+  return sort([...new Set(arr)]);
 }
 
 // n1: length of keyboards
@@ -25,7 +24,10 @@ function calcMoneySpent(keyboards, usbDrives, budget) {
   if (keyboards[0] >= budget || usbDrives[0] >= budget) return -1;
 
   let maxSpent = -1;
-  for (let idxK = 0, idxUD = usbDrives.length - 1; idxK < keyboards.length && idxUD >= 0;) {
+  for (
+    let idxK = 0, idxUD = usbDrives.length - 1;
+    idxK < keyboards.length && idxUD >= 0;
+  ) {
     if (keyboards[idxK] >= budget) break;
 
     const currentSum = keyboards[idxK] + usbDrives[idxUD];

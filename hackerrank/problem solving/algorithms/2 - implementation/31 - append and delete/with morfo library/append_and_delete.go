@@ -3,19 +3,17 @@
 package main
 
 import (
-    "fmt"
-    "morfo/morfoio"
+	"fmt"
+	"morfo/morfoio"
 )
 
 func main() {
-    s1 := morfoio.Read[string]()
-    s2 := morfoio.Read[string]()
-    nOps := morfoio.Read[int]()
-    if appendAndDelete(s1, s2, nOps) {
-        fmt.Println("Yes")
-    } else {
-        fmt.Println("No")
-    }
+	s1, s2, nOps := morfoio.Read3[string, string, int]()
+	if appendAndDelete(s1, s2, nOps) {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
 }
 
 // n1: length of s1
@@ -23,25 +21,25 @@ func main() {
 // T: O(min(n1, n2))
 // S: O(1) extra space
 func appendAndDelete(s1, s2 string, nOps int) bool {
-    prefixLen := commonPrefixLength(s1, s2)
-    opsNeeded := (len(s1) - prefixLen) + (len(s2) - prefixLen)
+	prefixLen := commonPrefixLength(s1, s2)
+	opsNeeded := (len(s1) - prefixLen) + (len(s2) - prefixLen)
 
-    if nOps < opsNeeded {
-        return false
-    }
-    if nOps >= len(s1)+len(s2) {
-        return true
-    }
+	if nOps < opsNeeded {
+		return false
+	}
+	if nOps >= len(s1)+len(s2) {
+		return true
+	}
 
-    return (nOps-opsNeeded)%2 == 0
+	return (nOps-opsNeeded)%2 == 0
 }
 
 func commonPrefixLength(s1, s2 string) int {
-    minLen := min(len(s1), len(s2))
-    for i := range minLen {
-        if s1[i] != s2[i] {
-            return i
-        }
-    }
-    return minLen
+	minLen := min(len(s1), len(s2))
+	for i := range minLen {
+		if s1[i] != s2[i] {
+			return i
+		}
+	}
+	return minLen
 }

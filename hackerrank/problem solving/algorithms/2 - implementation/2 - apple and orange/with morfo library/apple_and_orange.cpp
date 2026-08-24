@@ -32,15 +32,11 @@ int main()
 
 tuple<house_t, fruit_tree_t, fruit_tree_t> read_input()
 {
-    house_t house;
-    house.start = morfo::read();
-    house.end = morfo::read();
+    auto [house_start, house_end] = morfo::read<int, int>();
+    house_t house{ house_start, house_end };
 
-    int apple_tree_location = morfo::read();
-    int orange_tree_location = morfo::read();
-
-    int n_apples = morfo::read();
-    int n_oranges = morfo::read();
+    auto [apple_tree_location, orange_tree_location] = morfo::read<int, int>();
+    auto [n_apples, n_oranges] = morfo::read<int, int>();
 
     vector<int> apple_distances = morfo::read(n_apples);
     vector<int> orange_distances = morfo::read(n_oranges);

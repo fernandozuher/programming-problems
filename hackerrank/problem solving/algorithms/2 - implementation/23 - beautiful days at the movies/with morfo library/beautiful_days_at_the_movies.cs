@@ -2,9 +2,7 @@
 
 using Morfo.IO;
 
-int startDay = Reader.Read<int>();
-int endDay = Reader.Read<int>();
-int divisor = Reader.Read<int>();
+var (startDay, endDay, divisor) = Reader.Read<int, int, int>();
 Console.WriteLine(BeautifulDays(startDay, endDay, divisor));
 
 // n: range (endDay - startDay + 1)

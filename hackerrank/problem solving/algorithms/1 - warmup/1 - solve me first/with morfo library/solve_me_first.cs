@@ -2,8 +2,7 @@
 
 using Morfo.IO;
 
-int n1 = Reader.Read<int>();
-int n2 = Reader.Read<int>();
+var (n1, n2) = Reader.Read<int, int>();
 Console.WriteLine(SolveMeFirst(n1, n2));
 
 // T: O(1)

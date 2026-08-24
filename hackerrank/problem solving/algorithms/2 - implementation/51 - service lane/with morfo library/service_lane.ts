@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/service-lane/problem?isFullScreen=true
 
-import { readLn } from 'morfo';
+import { min, readLn } from 'morfo';
 
 const t: number = readLn(Number)[1];
 const widths: number[] = readLn(Number);
@@ -12,7 +12,5 @@ for (let i = 0; i < t; i++)
 // S: O(1) extra space
 function minWidthInSegment(widths: number[], segment: number[]): number {
   const [start, finish]: number[] = segment;
-  let minEl: number = widths[start];
-  for (let i = start; i <= finish; ++i) minEl = Math.min(minEl, widths[i]);
-  return minEl;
+  return min(widths.slice(start, finish! + 1));
 }

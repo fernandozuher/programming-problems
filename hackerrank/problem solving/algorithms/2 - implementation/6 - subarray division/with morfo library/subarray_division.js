@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem?isFullScreen=true
 
-import { skipInputLn, readLn } from 'morfo';
+import { readLn, skipInputLn, sum } from 'morfo';
 
 skipInputLn();
 const chocolateSquares = readLn(Number);
@@ -15,13 +15,12 @@ function birthday(chocolateSquares, dayMonth) {
   const [day, month] = dayMonth;
   if (month > chocolateSquares.length) return 0;
 
-  let sum = 0;
-  for (let i = 0; i < month; i++) sum += chocolateSquares[i];
-  let count = Number(sum === day);
+  let windowSum = sum(chocolateSquares.slice(0, month));
+  let count = Number(windowSum === day);
 
   for (let i = month; i < chocolateSquares.length; i++) {
-    sum += chocolateSquares[i] - chocolateSquares[i - month];
-    if (sum === day) count++;
+    windowSum += chocolateSquares[i] - chocolateSquares[i - month];
+    if (windowSum === day) count++;
   }
 
   return count;

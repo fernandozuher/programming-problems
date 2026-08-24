@@ -2,9 +2,11 @@
 
 import { read } from 'morfo';
 
-const n: number = read(Number);
-const nRotation: number = read(Number);
-const nQueries: number = read(Number);
+const [n, nRotation, nQueries]: [number, number, number] = read(
+  Number,
+  Number,
+  Number,
+);
 const arr: number[] = read(n, Number);
 for (const q of queries(arr, nRotation, nQueries)) console.log(q);
 

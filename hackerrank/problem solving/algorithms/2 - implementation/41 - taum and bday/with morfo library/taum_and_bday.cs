@@ -6,10 +6,12 @@ int n = Reader.Read<int>();
 for (int i = 0; i < n; i++)
     Console.WriteLine(MinCostOfBuyingGifts(ReadTestCase()));
 
-Gifts ReadTestCase() => new Gifts(
-    Reader.Read<long>(), Reader.Read<long>(),
-    Reader.Read<long>(), Reader.Read<long>(),
-    Reader.Read<long>());
+Gifts ReadTestCase()
+{
+    var (nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts) =
+        Reader.Read<long, long, long, long, long>();
+    return new Gifts(nBlackGifts, nWhiteGifts, blackGiftCost, whiteGiftCost, costToConvertBetweenGifts);
+}
 
 // T: O(1)
 // S: O(1) extra space

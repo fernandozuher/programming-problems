@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
 
-import { readLn } from 'morfo';
+import { idiv, readLn } from 'morfo';
 
 const [, k] = readLn(Number);
 const numbers = readLn(Number);
@@ -35,7 +35,7 @@ function pairCount(n) {
 
 function countComplementaryRemainderPairs(freq) {
   let count = 0;
-  for (let i = 1, n = Math.trunc((freq.length + 1) / 2); i < n; i++)
+  for (let i = 1, n = idiv(freq.length + 1, 2); i < n; i++)
     count += freq[i] * freq.at(-i);
   return count;
 }

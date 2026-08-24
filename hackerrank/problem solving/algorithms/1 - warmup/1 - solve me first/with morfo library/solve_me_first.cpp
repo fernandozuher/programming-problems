@@ -9,8 +9,7 @@ int solve_me_first(int n1, int n2);
 
 int main()
 {
-    int n1 = morfo::read();
-    int n2 = morfo::read();
+    auto [n1, n2] = morfo::read<int, int>();
     cout << solve_me_first(n1, n2);
     return 0;
 }

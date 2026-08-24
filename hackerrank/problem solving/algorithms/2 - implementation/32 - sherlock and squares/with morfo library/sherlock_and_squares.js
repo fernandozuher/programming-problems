@@ -4,8 +4,7 @@ import { read } from 'morfo';
 
 const n = read(Number);
 for (let i = 0; i < n; i++) {
-  const a = read(Number);
-  const b = read(Number);
+  const [a, b] = read(Number, Number);
   console.log(squares(a, b));
 }
 

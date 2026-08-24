@@ -19,5 +19,5 @@ int main()
 // S: O(1) extra space
 int sum_stdin()
 {
-    return *ranges::fold_left_first(morfo::readln<int>(), plus{});
+    return morfo::sum(morfo::readln<int>());
 }

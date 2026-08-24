@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/strange-advertising/problem?isFullScreen=true
 
-import { read } from 'morfo';
+import { idiv, read } from 'morfo';
 
 const days = read(Number);
 console.log(viralAdvertising(days));
@@ -11,7 +11,7 @@ console.log(viralAdvertising(days));
 function viralAdvertising(days) {
   let acc = 0;
   for (let shared = 5; days > 0; days--) {
-    const liked = Math.trunc(shared / 2);
+    const liked = idiv(shared, 2);
     shared = liked * 3;
     acc += liked;
   }

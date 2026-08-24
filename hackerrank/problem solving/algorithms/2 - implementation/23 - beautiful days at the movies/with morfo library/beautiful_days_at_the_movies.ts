@@ -2,9 +2,11 @@
 
 import { read } from 'morfo';
 
-const startDay: number = read(Number);
-const endDay: number = read(Number);
-const divisor: number = read(Number);
+const [startDay, endDay, divisor]: [number, number, number] = read(
+  Number,
+  Number,
+  Number,
+);
 console.log(beautifulDays(startDay, endDay, divisor));
 
 // n: range (endDay - startDay + 1)

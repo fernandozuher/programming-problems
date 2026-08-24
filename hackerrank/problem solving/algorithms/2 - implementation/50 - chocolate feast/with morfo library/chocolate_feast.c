@@ -10,9 +10,8 @@ int main()
     int n = morfo_read(int);
 
     for (int i = 0; i < n; ++i) {
-        int money = morfo_read(int);
-        int cost = morfo_read(int);
-        int wrappers_needed = morfo_read(int);
+        int money, cost, wrappers_needed;
+        morfo_read_many(&money, &cost, &wrappers_needed);
         printf("%d\n", how_many_chocolates_can_be_eaten(money, cost, wrappers_needed));
     }
 

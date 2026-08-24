@@ -8,13 +8,11 @@ Console.WriteLine(CountFruitsOnHouse(orangeTree, house));
 
 (House, FruitTree, FruitTree) ReadInput()
 {
-    var house = new House(Reader.Read<int>(), Reader.Read<int>());
+    var (houseStart, houseEnd) = Reader.Read<int, int>();
+    var house = new House(houseStart, houseEnd);
 
-    var appleTreeLocation = Reader.Read<int>();
-    var orangeTreeLocation = Reader.Read<int>();
-
-    var nApples = Reader.Read<int>();
-    var nOranges = Reader.Read<int>();
+    var (appleTreeLocation, orangeTreeLocation) = Reader.Read<int, int>();
+    var (nApples, nOranges) = Reader.Read<int, int>();
 
     var appleTree = new FruitTree(appleTreeLocation, Reader.Read<int>(nApples));
     var orangeTree = new FruitTree(orangeTreeLocation, Reader.Read<int>(nOranges));

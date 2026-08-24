@@ -5,8 +5,7 @@ require 'morfo'
 def main
   n = Morfo.read(&:to_i)
   n.times do
-    a = Morfo.read(&:to_i)
-    b = Morfo.read(&:to_i)
+    a, b = Morfo.read(2, &:to_i)
     puts squares(a, b)
   end
 end

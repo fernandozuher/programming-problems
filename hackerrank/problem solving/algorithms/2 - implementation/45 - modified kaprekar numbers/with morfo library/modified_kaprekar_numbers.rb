@@ -3,8 +3,7 @@
 require 'morfo'
 
 def main
-  lower = Morfo.read(&:to_i)
-  upper = Morfo.read(&:to_i)
+  lower, upper = Morfo.read(2, &:to_i)
   valid_range = false
 
   lower.upto(upper) do

@@ -13,12 +13,7 @@ def main
   n.times { puts min_cost_of_buying_gifts(read_test_case) }
 end
 
-def read_test_case
-  Gifts.new(
-    Morfo.read(&:to_i), Morfo.read(&:to_i),
-    Morfo.read(&:to_i), Morfo.read(&:to_i),
-    Morfo.read(&:to_i))
-end
+def read_test_case = Gifts.new(*Morfo.read(5, &:to_i))
 
 # T: O(1)
 # S: O(1) extra space

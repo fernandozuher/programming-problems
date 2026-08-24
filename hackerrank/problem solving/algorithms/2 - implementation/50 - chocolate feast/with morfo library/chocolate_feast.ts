@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/chocolate-feast/problem?isFullScreen=true
 
-import { read, readLn } from 'morfo';
+import { idiv, read, readLn } from 'morfo';
 
 for (let i = 0, n = read(Number); i < n; i++) {
   const [money, cost, wrappersNeeded] = readLn(Number);
@@ -14,10 +14,10 @@ function howManyChocolatesCanBeEaten(
   cost: number,
   wrappersNeeded: number,
 ): number {
-  let chocolates: number = Math.trunc(money / cost);
+  let chocolates: number = idiv(money, cost);
 
-  for (let wrappers = chocolates; wrappers >= wrappersNeeded; ) {
-    const freeChocolates = Math.trunc(wrappers / wrappersNeeded);
+  for (let wrappers = chocolates; wrappers >= wrappersNeeded;) {
+    const freeChocolates = idiv(wrappers, wrappersNeeded);
     wrappers = (wrappers % wrappersNeeded) + freeChocolates;
     chocolates += freeChocolates;
   }

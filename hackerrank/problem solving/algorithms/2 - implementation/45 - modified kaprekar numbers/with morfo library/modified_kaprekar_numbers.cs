@@ -2,8 +2,7 @@
 
 using Morfo.IO;
 
-int lower = Reader.Read<int>();
-int upper = Reader.Read<int>();
+var (lower, upper) = Reader.Read<int, int>();
 bool validRange = false;
 
 for (int num = lower; num <= upper; num++)

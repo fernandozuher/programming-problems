@@ -5,12 +5,12 @@ import morfo;
 import std;
 using namespace std;
 
-long long a_very_big_sum(const vector<int>& arr);
+long long a_very_big_sum(const vector<long long>& arr);
 
 int main()
 {
     morfo::skip_input_ln();
-    vector<int> arr = morfo::readln();
+    vector<long long> arr = morfo::readln();
     cout << a_very_big_sum(arr);
     return 0;
 }
@@ -18,7 +18,7 @@ int main()
 // n: length of arr
 // T: O(n)
 // S: O(1) extra space
-long long a_very_big_sum(const vector<int>& arr)
+long long a_very_big_sum(const vector<long long>& arr)
 {
-    return *ranges::fold_left_first(arr, plus<long long>{});
+    return morfo::sum(arr);
 }

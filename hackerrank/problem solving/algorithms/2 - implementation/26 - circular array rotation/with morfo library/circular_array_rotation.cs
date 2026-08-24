@@ -2,9 +2,7 @@
 
 using Morfo.IO;
 
-int n = Reader.Read<int>();
-int nRotation = Reader.Read<int>();
-int nQueries = Reader.Read<int>();
+var (n, nRotation, nQueries) = Reader.Read<int, int, int>();
 int[] arr = Reader.Read<int>(n);
 foreach (var q in Queries(arr, nRotation, nQueries))
     Console.WriteLine(q);

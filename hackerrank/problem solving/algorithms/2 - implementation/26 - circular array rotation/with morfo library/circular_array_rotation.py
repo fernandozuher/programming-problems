@@ -4,9 +4,7 @@ import morfo
 
 
 def main():
-    n = morfo.read(int)
-    n_rotation = morfo.read(int)
-    n_queries = morfo.read(int)
+    n, n_rotation, n_queries = morfo.read(int, 3)
     arr = morfo.read(int, n)
     print(*queries(arr, n_rotation, n_queries), sep='\n')
 

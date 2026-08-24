@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "morfo/collections.h"
 #include "morfo/io.h"
 
 bool angry_professor(const int *arrival_times, int n, int threshold);
@@ -23,13 +24,13 @@ int main()
     return 0;
 }
 
+static bool is_on_time(int t) { return t <= 0; }
+
 // k: length of arrival_times
 // T: O(k)
 // S: O(1) extra space
 bool angry_professor(const int *arrival_times, int n, int threshold)
 {
-    int on_time = 0;
-    for (int i = 0; i < n; ++i)
-            on_time += arrival_times[i] <= 0;
+    int on_time = (int) morfo_count_if(arrival_times, (size_t) n, is_on_time);
     return on_time < threshold;
 }

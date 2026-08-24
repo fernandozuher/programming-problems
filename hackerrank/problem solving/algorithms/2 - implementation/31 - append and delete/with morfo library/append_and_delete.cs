@@ -2,9 +2,7 @@
 
 using Morfo.IO;
 
-string s1 = Reader.Read<string>();
-string s2 = Reader.Read<string>();
-int nOps = Reader.Read<int>();
+var (s1, s2, nOps) = Reader.Read<string, string, int>();
 Console.WriteLine(AppendAndDelete(s1, s2, nOps) ? "Yes" : "No");
 
 // n1: length of s1

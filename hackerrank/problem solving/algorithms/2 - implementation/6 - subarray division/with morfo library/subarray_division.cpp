@@ -28,7 +28,7 @@ int birthday(const vector<int>& chocolate_squares, const vector<int>& day_month)
     if (month > chocolate_squares.size())
         return 0;
 
-    int sum{ *ranges::fold_left_first(chocolate_squares.begin(), chocolate_squares.begin() + month, plus{}) };
+    int sum{ morfo::sum(chocolate_squares | views::take(month)) };
     int count{ sum == day };
 
     for (int i{ month }, n = chocolate_squares.size(); i < n; ++i) {

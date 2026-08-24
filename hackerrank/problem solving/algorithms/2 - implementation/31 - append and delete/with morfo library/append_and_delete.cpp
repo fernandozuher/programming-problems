@@ -11,9 +11,7 @@ int common_prefix_length(string_view s1, string_view s2);
 
 int main()
 {
-    string s1 = morfo::read();
-    string s2 = morfo::read();
-    int n_ops = morfo::read();
+    auto [s1, s2, n_ops] = morfo::read<string, string, int>();
     cout << (append_and_delete(s1, s2, n_ops) ? "Yes" : "No");
     return 0;
 }

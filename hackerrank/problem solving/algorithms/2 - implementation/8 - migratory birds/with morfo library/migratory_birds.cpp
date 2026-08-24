@@ -21,12 +21,7 @@ int main()
 unordered_map<int, int> read_input()
 {
     morfo::skip_input_ln();
-    unordered_map<int, int> freq_map;
-
-    for (int x : morfo::readln<int>())
-        ++freq_map[x];
-
-    return freq_map;
+    return morfo::counter<unordered_map<int, int>>(morfo::readln<int>());
 }
 
 // n: length of birds_to_counts

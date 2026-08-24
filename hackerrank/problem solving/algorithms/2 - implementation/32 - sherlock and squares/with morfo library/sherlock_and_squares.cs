@@ -5,8 +5,7 @@ using Morfo.IO;
 int n = Reader.Read<int>();
 for (int i = 0; i < n; i++)
 {
-    int a = Reader.Read<int>();
-    int b = Reader.Read<int>();
+    var (a, b) = Reader.Read<int, int>();
     Console.WriteLine(Squares(a, b));
 }
 

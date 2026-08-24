@@ -4,8 +4,7 @@ import morfo
 
 
 def main():
-    n = morfo.read(int)
-    page = morfo.read(int)
+    n, page = morfo.read(int, 2)
     print(count_page(n, page))
 
 
